@@ -1,0 +1,2359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>COMP3511 Course Website</title>
+  <script src="main.js"></script>
+  <link rel="stylesheet" href="global.css">
+  <link rel="stylesheet" href="main-mobile.css">
+  <link rel="stylesheet" href="main.css" media="screen and (min-width: 1024px)">
+</head>
+
+<body onresize="body_onresize()" onload="body_onload()">
+  <span class="nav-button" onclick="nav_btn_onclick()">[Menu]</span>
+  <div class="grid-container">
+    <nav>
+      <div class="nav-wrap">
+        <article>
+          <h3>Menu</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="?announcements">Announcements</a></li>
+            <li><a href="?course_information">Course Information</a></li>
+            <li><a href="?course_rubrics">Course Rubrics</a></li>
+            <li><a href="?syllabus_and_lecture_notes">Syllabus and Lecture Notes</a></li>
+            <li><a href="?lecture_videos">Lecture Videos</a></li>
+            <li><a href="?chapter_summary">Chapter Summary</a></li>
+            <li><a href="?lab_tutorials">Lab Tutorials</a></li>
+            <li><a href="?homework_and_exams">Homework and Exams</a></li>
+            <li><a href="?past_exams">Past Exams</a></li>
+            <li><a href="?project_assignments">Project Assignments</a></li>
+            <li><a href="?references">References</a></li>
+            <li><a href="?ta_information">TA Information</a></li>
+            <!-- <li><a href="?ta_office_hours">TA Office Hours</a></li> -->
+          </ul>
+        </article>
+        <article>
+          <h3>Links</h3>
+          <ul>
+            <li>
+              <a href="https://canvas.ust.hk/">
+                HKUST Canvas
+              </a>
+            </li>
+          </ul>
+        </article>
+        <article id="instructors">
+          <h3>Instructors</h3>
+
+          <article>
+            <h4>L1 - <a href="https://www.cse.ust.hk/admin/people/faculty/profile/bli">Bo LI</a></h4>
+            <p>
+              Email: <a href="mailto:bli@cse.ust.hk">bli@cse.ust.hk</a><br />
+              Office hour: By appointment <br />
+              Office: Room 2535
+            </p>
+          </article>
+          <article>
+            <h4>L2 - <a href="https://www.cse.ust.hk/admin/people/faculty/profile/kaichen">Kai CHEN</a></h4>
+            <p>
+              Email: <a href="mailto:kaichen@cse.ust.hk">kaichen@cse.ust.hk</a><br />
+              Office hour: By appointment <br />
+              Office: Room 3509
+            </p>
+          </article>
+        </article>
+
+        <article>
+          <small>Page maintained by COMP3511 Teaching Team</small>
+        </article>
+      </div>
+    </nav>
+    <main>
+      <header>
+        <h1>COMP 3511: Operating System (Spring 2022)</h1>
+        <em>HKUST / Department of Computer Science and Engineering</em>
+      </header>
+      <section id="announcements">
+
+
+        <h2>Checking Marks</h2>
+        The marks can be checked via the <a href="3511_marks.html" target="_blank">Marks Release System</a> (not Canvas) <br>
+        Here is the summary of the appeal deadlines: <br><br>
+        <table style="width:90%;">
+          <tr>
+            <th>Item</th>
+            <th>Marks Release Date</th>
+            <th>Appeal Deadline</th>
+            <th>TA in charge</th>
+          </tr>
+          <tr>
+            <td>HW1</td>
+            <td>13-Mar (Sun)</td>
+            <td>27-Mar (Sun)</td>
+            <td>Shuowei (scaiak@cse.ust.hk)</td>
+          </tr>
+          <tr>
+            <td>HW2</td>
+            <td>01-Apr (Fri)</td>
+            <td>15-Apr (Fri)</td>
+            <td>Decang (dsunak@cse.ust.hk)</td>
+          </tr>
+          <tr>
+            <td>PA1</td>
+            <td>05-Apr (Tue)</td>
+            <td>19-Apr (Tue)</td>
+            <td>Kaiqiang (kxuar@cse.ust.hk)</td>
+          </tr>
+          <tr>
+            <td>Midterm</td>
+            <td>10-Apr (Sun)</td>
+            <td>
+              17-Apr (Sun) - for collecting appeals <br>
+              24-Apr (Sun) - for double-checking by the markers and further appeal handling
+            </td>
+            <td>
+              <a href="https://forms.gle/Xrj38QWGAomt5Rst8">Google Form</a>
+              becuase many TAs are involved in the marking</td>
+          </tr>
+          <tr>
+            <td>PA2</td>
+            <td>26-Apr (Tue)</td>
+            <td>
+              10-May (Tue)
+            </td>
+            <td>Kaiqiang (kxuar@cse.ust.hk)</td>
+          </tr>
+        </table>
+
+
+
+        <h2>Announcements</h2>
+
+
+
+        <ul>
+
+          <li>(29-Apr-2022) - Homework 4 (HW4) is released. Please check the <a href="index.html?homework_and_exams">Homework and Exams</a> page</li>
+
+          <li>
+            (19-Apr-2022) - Project Assignment 3 (PA3) is released. Please check the <a href="index.html?project_assignments">Project Assignments</a> page
+
+          </li>
+
+          <li>(08-Apr-2022) - Homework 3 (HW3) is released. Please check the <a href="index.html?homework_and_exams">Homework and Exams</a> page</li>
+
+          <li>(28-Mar-2022) - Please check the email titled "[COMP3511] Midterm Details"
+            <br><br>
+            <ul>
+              <li>Date and time: <strong>01 April 2022 (Friday) 19:00-21:00</strong></li>
+              <li>Coverage: Chapter 1-7</li>
+              <li>Meeting ID and Zoom link:
+                <a target="_blank" href="https://hkust.zoom.us/j/93182243102?pwd=aEY1enBDVkpINkZwSXE0b1Z2M3I4QT09">931 8224 3102</a>
+              </li>
+              <li>Passcode: <tt>351100</tt></li>
+              <li>For details, please check the email content carefully</li>
+            </ul>
+            <br>
+          </li>
+
+          <li>(24-Mar-2022) - The final exam is scheduled on <strong>19-May-2022 (Thursday) 08:30AM - 11:30AM</strong> <br><br>
+            Please mark the date and time on your schedule. <br>
+            The exam venue is Zoom (for all students) <br><br>
+            Reference:
+
+            <a href="https://w5.ab.ust.hk/wex/cgi-bin/2130/subject/COMP">HKUST Final Exam Schedule</a>
+
+
+          </li>
+
+
+          <li>(21-Mar-2022) - Project Assignment 2 (PA2) is released. Please check the <a href="index.html?project_assignments">Project Assignments</a> page </li>
+
+          <li>(11-Mar-2022) - Homework 2 (HW2) is released. Please check the <a href="index.html?homework_and_exams">Homework and Exams</a> page</li>
+
+          <li>(28-Feb-2022) - Project Assignment 1 (PA1) is released. Please check the <a href="index.html?project_assignments">Project Assignments</a> page </li>
+
+          <li>(27-Feb-2022) - HW1 deadline is postponed to 07 Mar 2022 (Monday) because more examples will be covered on 04 Mar (Friday)'s lab/tutorials. </li>
+          <li>(18-Feb-2022) - Homework 1 (HW1) is released. Please check the <a href="index.html?homework_and_exams">Homework and Exams</a> page</li>
+
+          <li>(10-Feb-2022) - The university announced that all classes will continue to be held in purely real-time online mode for the whole term <br>
+            Online exams will be arranged for all students wherever appropriate.
+
+          </li>
+
+          <li>(07-Feb-2022) - The midterm exam is scheduled on <strong>01 April 2022 (Friday) 19:00-21:00</strong> <br><br>
+            Please mark the date and time on your schedule. <br>
+            The exam venue is Zoom (for all students)
+
+            <br>
+            <del><small>LTA (for students in Hong Kong) and Zoom (for students not in Hong Kong), <br>
+             but the venue may be switched to online if there are further announcements from the university.</small></del>
+
+          </li>
+
+          <li>(04-Feb-2022) - All lectures and labs will be on-line at the beginning of the semester. The university may make further announcements and we may switch back to face-to-face teaching later
+          </li>
+
+          <li>(04-Feb-2022) - No labs on 11-Feb-2022, Friday (Week #1)<br>
+            The first lab is scheduled on 18-Feb-2022, Friday (Week #2)
+
+          </li>
+
+          <li>(31-Jan-2022) - Welcome to COMP3511 course website! <br>
+
+            No labs on 04-Feb-2022, Friday<br>
+
+
+
+            <a href="https://registry.hkust.edu.hk/calendar_dates/dates21-22confirmed.pdf#page=2">University Calendar</a>
+
+          </li>
+
+        </ul>
+      </section>
+      <section id="course_information">
+        <h2>Course Information</h2>
+        <article>
+          <h3>Course Descriptions</h3>
+          <p>
+            This is an introductory course on operating systems. The topics will include the basic concepts of operating systems, process and threads,
+            inter-process communications, process synchronization, scheduling, memory allocation, page and segmentation, secondary storage, I/O systems, file systems,
+            security and protection. It contains the key concepts as well as examples drawn from a variety of real systems such as Microsoft Windows and Linux.
+          </p>
+        </article>
+        <article>
+          <h3>Prerequisites</h3>
+          <p>
+            The prerequisite for this course includes COMP 2611 or ELEC 2300, and either one of COMP 2011 or COMP 2012H. Programming is required in the course
+            project.
+          </p>
+        </article>
+        <article>
+          <h3>Course Outcomes</h3>
+          <ul>
+            <li>
+              Describe what is an operating system and the role it plays. Recognize different types of operating systems and know the basic architecture of an
+              operating system.
+            </li>
+            <li>
+              Understand the concepts related to processes and threads, including their creation, communication and scheduling. Identify and address deadlock,
+              and can design algorithmic solutions to synchronization problems.
+            </li>
+            <li>
+              Explain how main memory and virtual memory are managed. Master algorithms involved in memory allocation and page replacement.
+            </li>
+            <li>
+              Know about the concepts and implementations of file systems. Comprehend the technologies like disk operations and RAID in mass-storage systems.
+            </li>
+          </ul>
+        </article>
+        <article>
+          <h3>Textbook</h3>
+          <div class="table-wrap">
+            <table class="small-table">
+              <tr>
+                <td>
+                  <div class="img-wrap"><img src="img/TextBookCover.jpg" alt="Textbook cover image." />
+                  </div>
+                </td>
+                <td>
+                  <p>
+                    <strong>
+                      <a href="https://www.wiley.com/en-sg/Operating+System+Concepts%2C+Enhanced+eText%2C+10th+Edition-p-9781119320913">
+                        Operating System Concepts, 10th Edition
+                      </a>
+                    </strong><br />
+                    Abraham Silberschatz, Peter B. Galvin, Greg Gagne <br />
+                    John Wiley & Sons Ltd, April 2018<br />
+                    ISBN: 978-1-118-09375-7
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </article>
+        <article>
+          <h3>Reference Books</h3>
+          <div class="table-wrap">
+            <table class="small-table">
+              <tr>
+                <td>
+                  <div class="img-wrap"><img src="img/RefBook2Cover.jpg" alt="Reference book cover image." /></div>
+                </td>
+                <td>
+                  <p>
+                    <strong>
+                      <a href="http://pages.cs.wisc.edu/~remzi/OSTEP/#book-chapters">
+                        Operating Systems: Three Easy Pieces
+                      </a>
+                    </strong><br />
+                    Remzi Arpaci-Dusseau & Andrea Arpaci-Dusseau<br />
+                    ISBN: 978-1-985-08659-3
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </article>
+        <article>
+          <h3>Lectures</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Section</th>
+                  <th>Instructor</th>
+                  <th>Time</th>
+                  <th>Venue</th>
+
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr>
+                  <td>L1</td>
+                  <td><a href="https://www.cse.ust.hk/admin/people/faculty/profile/bli">Bo LI</a></td>
+
+                  <td>	TuTh 01:30PM - 02:50PM
+
+
+                  </td>
+                  <td> The class is delivered in a real-time online mode<br> <del>Rm 4620, Lift 31-32</del></td>
+                </tr>
+
+                <tr>
+                  <td>L2</td>
+                  <td><a href="https://www.cse.ust.hk/admin/people/faculty/profile/kaichen">Kai CHEN</a></td>
+
+                  <td>
+                    MoWe 09:00AM - 10:20AM
+
+
+
+                  </td>
+                  <td>
+                    The class is delivered in a real-time online mode<br>
+                    <del>Rm 2502, Lift 25-26</del>
+
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </article>
+        <article>
+          <h3>Lab Tutorials</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Section</th>
+                  <th>Time</th>
+                  <th>Venue</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>LA1</td>
+                  <td>	Fr 11:30AM - 01:20PM</td>
+                  <td>The class is delivered in a real-time online mode</td>
+                </tr>
+                <tr>
+                  <td>LA2</td>
+                  <td>Fr 04:00PM - 05:50PM</td>
+                  <td>The class is delivered in a real-time online mode</td>
+                </tr>
+
+                <tr>
+                  <td>LA3</td>
+                  <td>No scheduled meetings</td>
+                  <td>Note:
+                    Students will be provided with access to video-on-demand recordings of the weekly lab/tutorial material
+                    which they will follow at their own pace</td>
+                </tr>
+
+
+              </tbody>
+            </table>
+          </div>
+        </article>
+        <article>
+          <h3>Academic Integrity</h3>
+          <p>
+            Colleagues may wish to be aware or reminded of a document which lays down a systematic process by which alleged violations of academic integrity are
+            dealt with within the University. Known as <q>A Framework on Academic Integrity</q>, this document is available
+            <a href="http://ugadmin.ust.hk/integrity/student-1.html">here</a>.
+          </p>
+        </article>
+        <article>
+          <h3>Grading Scheme</h3>
+          <div class="table-wrap">
+            <table class="small-table">
+              <tr>
+                <td>Midterm Exam</td>
+                <td>20%</td>
+              </tr>
+              <tr>
+                <td>Final Exam</td>
+                <td>30%</td>
+              </tr>
+              <tr>
+                <td>Homework</td>
+                <td>20%</td>
+              </tr>
+              <tr>
+                <td>Project</td>
+                <td>30%</td>
+              </tr>
+
+            </table>
+          </div>
+        </article>
+      </section>
+      <section id="course_rubrics">
+        <h2>Course Rubrics</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Course Learning Outcome</th>
+                <th>Exemplary (A- to A+)</th>
+                <th>Competent (C to B+)</th>
+                <th>Needs Work (D to C-)</th>
+                <th>Unsatisfied (F)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  Describe what is an operating system and the role it plays. Recognize different types of operating systems and know the basic architecture of
+                  an operating system.
+                </td>
+                <td>
+                  Demonstrates thorough understanding of operating system and its roles. Is able to accurately identify various operating systems. Can design a
+                  simple operating system independently.
+                </td>
+                <td>
+                  Demonstrates sufficient understanding of operating system and its roles. Is able to identify multiple operating systems. Can design a simple
+                  operating system with instructions.
+                </td>
+                <td>
+                  Demonstrates some preliminary understanding of operating system and its roles. Is able to identify only several operating systems. Only can
+                  design a simple operating system partially.
+                </td>
+                <td>
+                  Demonstrates deficient understanding of operating system and its roles. Is not able to distinguish between different operating systems. Not
+                  able to design a simple operating system.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Understand the concepts related to processes and threads, including their creation, communication and scheduling. Identify and address
+                  deadlock, and can design algorithmic solutions to synchronization problems.
+                </td>
+                <td>
+                  Demonstrates thorough understanding of processes and threads. Can accurately identify and address complex deadlock problems, and can design
+                  algorithmic solutions to sophisticated synchronization problems.
+                </td>
+                <td>
+                  Demonstrates sufficient understanding of processes and threads. Can identify and address most deadlock problems, and can design algorithmic
+                  solutions to most synchronization problems.
+                </td>
+                <td>
+                  Demonstrates basic understanding of processes and threads. Can identify and address some deadlock problems, and can design algorithmic
+                  solutions to some synchronization problems.
+                </td>
+                <td>
+                  Demonstrates deficient knowledge of processes and threads. Can not identify and address deadlock problems, and can hardly design algorithmic
+                  solutions to any synchronization problems.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Explain how main memory and virtual memory are managed. Master algorithms involved in memory allocation and page replacement.
+                </td>
+                <td>
+                  Demonstrates ability to fully explain how main memory and virtual memory are managed. Masters all the algorithms involved in memory allocation
+                  and page replacement.
+                </td>
+                <td>
+                  Demonstrates sufficient ability to explain how main memory and virtual memory are managed. Masters most algorithms involved in memory
+                  allocation and page replacement.
+                </td>
+                <td>
+                  Demonstrates preliminary understanding of how main memory and virtual memory are managed. Knows some algorithms involved in memory allocation
+                  and page replacement.
+                </td>
+                <td>
+                  Not understand how main memory and virtual memory are managed. Knows few algorithms involved in memory allocation and page replacement.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Know about the concepts and implementations of file systems. Comprehend the technologies like disk operations and RAID in mass-storage
+                  systems.
+                </td>
+                <td>
+                  Demonstrates strong understanding of the concepts and implementations of file systems. Deeply comprehends the technologies in mass-storage
+                  systems.
+                </td>
+                <td>
+                  Demonstrates sufficient understanding of the concepts and implementations of file systems. Comprehends most of the technologies in
+                  mass-storage systems.
+                </td>
+                <td>
+                  Demonstrates preliminary understanding of the concepts and implementations of file systems. Comprehends part of the technologies in
+                  mass-storage systems.
+                </td>
+                <td>
+                  Has very limited understanding of the influence of the usage of the concepts and implementations of file systems. Knows little about the
+                  technologies in mass-storage systems.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section id="syllabus_and_lecture_notes">
+        <h2>Syllabus and Lecture Notes</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <td colspan="2">
+                  <strong>Zoom Meetings for Lecture</strong>
+
+
+
+
+                    <ul>
+
+                      <li>The following Zoom links will be used until further announcements from the university</li>
+
+                      <li>The Zoom meeting links are published on
+                        <a target="_blank" href="https://canvas.ust.hk/">HKUST Canvas</a> </li>
+                      <li>
+                        After you login, please click the "Zoom Meeting" menu item on the left-hand side</li>
+                      <li>For quick access, the lecture Zoom links are provided as follows:</li>
+                      <br>
+
+
+                      <ul>
+
+
+
+                        <li>
+
+
+                          L1 (Prof. Bo LI) weekly schedule: 	TuTh 01:30PM - 02:50PM <br><br>
+                          Meeting ID and Zoom link: <tt><a href="https://hkust.zoom.us/j/92659035946">926 5903 5946</a></tt>  <br><br>
+                          Passcode: <tt>120517</tt> <br><br>
+
+
+
+                        </li>
+
+
+                        <li>
+
+                          L2 (Prof. Kai CHEN) weekly schedule: MoWe 09:00AM - 10:20AM<br><br>
+
+                          Meeting ID and Zoom link: <tt><a href="https://hkust.zoom.us/j/96770397724?pwd=VW8wQXZSWU9Ybm9sb2hNOUhuTklQQT09">967 7039 7724</a></tt>  <br><br>
+
+                          Passcode: <tt>901069</tt> <br><br>
+
+
+
+                        </li>
+
+                      </ul>
+                    </ul>
+
+
+                </td>
+              </tr>
+
+              <tr>
+                <th colspan="2">Overview</th>
+              </tr>
+            </thead>
+
+            <!-- Region: Lecture notes -->
+
+            <tbody>
+
+              <tr>
+                <td style="width:40%;">Chapter 1: Introduction</td>
+                <td>
+                  <a href="Chapter1.ppt">PPT</a> |
+                  <a href="Chapter1.pdf">PDF</a> |
+                  <a href="Chapter1-1in4.pdf">PDF-1-in-4</a> |
+                  <a href="Chapter1-1in6.pdf">PDF-1-in-6</a>
+
+                </td>
+
+              </tr>
+              <tr>
+                <td>Chapter 2: Operating System Structures</td>
+                <td>
+                  <a href="Chapter2.ppt">PPT</a> |
+                  <a href="Chapter2.pdf">PDF</a> |
+                  <a href="Chapter2-1in4.pdf">PDF-1-in-4</a> |
+                  <a href="Chapter2-1in6.pdf">PDF-1-in-6</a>
+
+                </td>
+              </tr>
+              <thead>
+                <tr>
+                  <th colspan="2">Process and Thread</th>
+                </tr>
+              </thead>
+              <tr>
+                <td>Chapter 3: Processes</td>
+                <td>
+
+                  <a href="Chapter3.ppt">PPT</a> |
+                  <a href="Chapter3.pdf">PDF</a> |
+                  <a href="Chapter3-1in4.pdf">PDF-1-in-4</a> |
+                  <a href="Chapter3-1in6.pdf">PDF-1-in-6</a>
+
+                </td>
+              </tr>
+              <tr>
+                <td>Chapter 4: Threads and Concurrency</td>
+                <td>
+
+                  <a href="Chapter4.ppt">PPT</a> |
+                  <a href="Chapter4.pdf">PDF</a> |
+                  <a href="Chapter4-1in4.pdf">PDF-1-in-4</a> |
+                  <a href="Chapter4-1in6.pdf">PDF-1-in-6</a>
+
+                </td>
+              </tr>
+
+            </tbody>
+
+
+
+            <tbody>
+
+              <tr>
+                <td>Chapter 5: CPU Scheduling</td>
+                <td>
+
+                  <a href="Chapter5.pptx">PPT</a> |
+                  <a href="Chapter5.pdf">PDF</a> |
+                  <a href="Chapter5-1in4.pdf">PDF-1-in-4</a> |
+                  <a href="Chapter5-1in6.pdf">PDF-1-in-6</a>
+
+
+                </td>
+
+              </tr>
+              <tr>
+                <td>Chapter 6: Synchronization tools</td>
+                <td>
+
+                  <a href="Chapter6.ppt">PPT</a> |
+<a href="Chapter6.pdf">PDF</a> |
+<a href="Chapter6-1in4.pdf">PDF-1-in-4</a> |
+<a href="Chapter6-1in6.pdf">PDF-1-in-6</a>
+
+
+
+                </td>
+
+              </tr>
+              <tr>
+                <td>Chapter 7: Synchronization examples</td>
+                <td>
+
+                  <a href="Chapter7.ppt">PPT</a> |
+<a href="Chapter7.pdf">PDF</a> |
+<a href="Chapter7-1in4.pdf">PDF-1-in-4</a> |
+<a href="Chapter7-1in6.pdf">PDF-1-in-6</a>
+
+                </td>
+              </tr>
+
+              <tr>
+                <td>Chapter 8: Deadlocks</td>
+                <td>
+
+                  <a href="Chapter8.pptx">PPT</a> |
+<a href="Chapter8.pdf">PDF</a> |
+<a href="Chapter8-1in4.pdf">PDF-1-in-4</a> |
+<a href="Chapter8-1in6.pdf">PDF-1-in-6</a>
+
+
+
+                </td>
+
+              </tr>
+
+
+              <thead>
+                <tr>
+                  <th colspan="2">Memory and Storage</th>
+                </tr>
+              </thead>
+              <tr>
+                <td>Chapter 9: Memory Management Strategies</td>
+                <td>
+
+                  <a href="Chapter9.pptx">PPT</a> |
+<a href="Chapter9.pdf">PDF</a> |
+<a href="Chapter9-1in4.pdf">PDF-1-in-4</a> |
+<a href="Chapter9-1in6.pdf">PDF-1-in-6</a>
+
+
+                </td>
+              </tr>
+              <tr>
+                <td>Chapter 10: Virtual-Memory Management</td>
+                <td>
+
+                  <a href="Chapter10.ppt">PPT</a> |
+<a href="Chapter10.pdf">PDF</a> |
+<a href="Chapter10-1in4.pdf">PDF-1-in-4</a> |
+<a href="Chapter10-1in6.pdf">PDF-1-in-6</a>
+
+
+
+                </td>
+
+              </tr>
+              <tr>
+                <td>Chapter 11: Mass Storage Systems</td>
+                <td>
+
+                  <a href="Chapter11.ppt">PPT</a> |
+<a href="Chapter11.pdf">PDF</a> |
+<a href="Chapter11-1in4.pdf">PDF-1-in-4</a> |
+<a href="Chapter11-1in6.pdf">PDF-1-in-6</a>
+
+
+
+                </td>
+
+              </tr>
+
+
+              <tr>
+                <td>Chapter 13: File-System Interface</td>
+                <td>
+
+                  <a href="Chapter13.ppt">PPT</a> |
+<a href="Chapter13.pdf">PDF</a> |
+<a href="Chapter13-1in4.pdf">PDF-1-in-4</a> |
+<a href="Chapter13-1in6.pdf">PDF-1-in-6</a>
+
+
+                </td>
+
+              </tr>
+              <tr>
+                <td>Chapter 14: File-System Implementation</td>
+                <td>
+
+                  <a href="Chapter14.ppt">PPT</a> |
+<a href="Chapter14.pdf">PDF</a> |
+<a href="Chapter14-1in4.pdf">PDF-1-in-4</a> |
+<a href="Chapter14-1in6.pdf">PDF-1-in-6</a>
+
+
+                </td>
+              </tr>
+            </tbody>
+            <thead>
+              <tr>
+                <th colspan="2">Security and Protection</th>
+              </tr>
+            </thead>
+            <tbody>
+
+
+              <!--
+              <tr>
+                <td>Chapter 16: Security</td>
+                <td>
+
+
+
+
+                </td>
+
+              </tr>
+            -->
+
+              <tr>
+                <td>Chapter 17: Protection</td>
+                <td>
+
+                  <a href="Chapter17.ppt">PPT</a> |
+<a href="Chapter17.pdf">PDF</a> |
+<a href="Chapter17-1in4.pdf">PDF-1-in-4</a> |
+<a href="Chapter17-1in6.pdf">PDF-1-in-6</a>
+
+
+                </td>
+
+              </tr>
+              <!--
+              <tr>
+                <td>Review </td>
+                <td>
+
+                </td>
+              </tr>
+            -->
+
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section id="lecture_videos">
+
+        <!-- Region: Videos -->
+
+        <h2>Lecture Videos</h2>
+         <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:50%;">Videos for L1 (Prof. Bo LI) </th>
+                <th style="width:50%;">Videos for L2 (Prof. Kai CHEN)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/s2wfy_VYzTEhGQUxr_Lgz6cXnx3peW6qpiplbEfH8Qy9iqwjfhVmwFNTchDTuY11k49-5E0rr-fI8lQv.IKAcJa4NJO7cmWjp">08-Feb-2022 (Tue)</a>
+                  <ul>
+                      <li>Chapter 1: Introduction</li>
+                  </ul>
+
+
+                </td>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/ymZa8r1lrZUzmeJnUlvzASZhSvXneOiYIowPlcN80QjbsdxG7c8y-9eSNCq8FR2xQNaMSqjPnea9VMjr.VLC1koAudXAMWZ8f">07-Feb-2022 (Mon)</a>
+                  <ul>
+                      <li>Chapter 1: Introduction</li>
+                  </ul>
+
+
+                </td>
+              </tr>
+
+              <tr>
+
+                <td>
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/1p4AbIWh51jogbpq4oThofjUUm_bxCRL455R_xxoAXPQ4fC-SY-JpTuM4ZlD0RIvu2_UALvTcYZ3wedN.4zMtBVxDZx3hAc6T">10-Feb-2022 (Thu)</a>
+                  <ul>
+                      <li>Chapter 1: Introduction</li>
+                  </ul>
+
+                </td>
+
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/JDUkzLdyBCf6z9_87UQxNxdk0BX8S7Utvn8TNmWNUNX6HjVD0LsgejPECVLMMQ3nxGqSPQwVCTj-u0o.hSFCudmW7oEpOMde">09-Feb-2022 (Wed)</a>
+                  <ul>
+                      <li>Chapter 1: Introduction</li>
+                  </ul>
+
+
+                </td>
+
+
+
+              </tr>
+
+              <tr>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/Rv1PKdBaKI7AEz6lrz6wNYe74BcZKQL4bgcCKcxrJtJI84RFDpTPVR2vlh7KZxGHhFNHMQOY6Igrc49F.hxNDJNDD3yVngioW?startTime=1644903393000">15-Feb-2022 (Tue)</a>
+<ul>
+    <li>Chapter 1: Introduction</li>
+    <li>Chapter 2: Operating System Structures</li>
+    <li><small>Prof. Wei WANG replaced Prof. Bo LI due to some other issues</small></li>
+    <li><small>This video cannot be published on Canvas due to technical reasons</small></li>
+</ul>
+
+                </td>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/BChDRdNKLqMaLmbgPvA-NMojcrcLLH98S9iXx1fGSE527NF-O7FP2lb954W0VGFAaXUgiBATT4Di5Lvo.NJqKXFSZX89VLV6q">14-Feb-2022 (Mon)</a>
+<ul>
+    <li>Chapter 1: Introduction</li>
+    <li>Chapter 2: Operating System Structures</li>
+</ul>
+
+
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/F057bjeAT6fv4Ty27ApbwzUPL9JB_ZT9zV4D8Pd1WjhD5kjhLTFZ4PShRMZcJTy021yMQlQAkqbQlvRw.rBB4G0Ip5dOOmaVx">17-Feb-2022 (Thu)</a>
+<ul>
+    <li>Chapter 2: Operating System Structures</li>
+    <li>Chapter 3: Processes</li>
+</ul>
+
+
+                </td>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/P8Jykgth6dbL6FNeAn2wCHbYKRmRtlo0uVcZERAQsTcwhDfvVrPfreShZGvHnJfhXicRTDfV6FZ4EGuI.JkPhCrRQ2B4_wjhn">16-Feb-2022 (Wed)</a>
+<ul>
+    <li>Chapter 2: Operating System Structures</li>
+</ul>
+
+
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/6DuDILLoNR3ADYC1rdneX-wvODyv-yDX3EC_STC16zvJxh1gI57vWWD4Vy7LX9wCvNCaOyACqHx8yh7p.TyoAWt8rOcKSTzg1">22-Feb-2022 (Tue)</a>
+<ul>
+    <li>Chapter 3: Processes</li>
+</ul>
+
+                </td>
+
+                <td>
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/cilpHQh_hljGhm5G5HqARr9hhDG5nFsnJDoJwZ0ujh_Lt5ZXNXpVxr_mSOleWhIwGx-Y2r08eQ-GhIAr.f8-l-6syw8xr46ef">21-Feb-2022 (Mon)</a>
+<ul>
+    <li>Chapter 2: Operating System Structures</li>
+    <li>Chapter 3: Processes</li>
+</ul>
+
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/ifWXnVhX-c7We7SRTOQJkq-9kr8VKj4TZzNW0q7T96Ve0nrDe6X1xPxC4139o8-ttP02R7z1LlS21qL0.xWyTEy5WKJgl7nO-">24-Feb-2022 (Thu)</a>
+                  <ul>
+                      <li>Chapter 3: Processes</li>
+                  </ul>
+
+                </td>
+
+                <td>
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/1dg1wAbMqVB3vvn6Wm-F04eCHjzv7Y8gXfvPXOVfT2oZdpt1v1P3uRJHW06Gqi74f7wruP1Be7MMZA.yRk5m6ecHwxoo-ol">23-Feb-2022 (Wed)</a>
+                  <ul>
+                      <li>Chapter 3: Processes</li>
+                  </ul>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/_L6UYzX6wRUo8y4sa8QYZq5SXYfEeqQJKZ4uIQuVfC8lsXqgVJn2qSp2nVEFMCML9nBFJiXyyiul981i.lUZwPV7vKUaQ2DI2">01-Mar-2022 (Tue)</a>
+                  <ul>
+                      <li>Chapter 3: Processes</li>
+                  </ul>
+
+
+                </td>
+
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/si8kOa5UfbEpaJwadlYD9_uE0P5aImB-wWJjKrN4veB-Dj3e0gDWEJRCGIBgY3G0j1hrtWgQfVqK01Jo.2hs-VvhB2YWd-IJE">28-Feb-2022 (Mon)</a>
+                  <ul>
+                      <li>Chapter 3: Processes</li>
+                  </ul>
+
+
+
+                </td>
+
+              </tr>
+
+              <tr>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/npToZRLelknmhlT9SE23Sagcwyaqlnik5lrn1N2-dnYhCRPgYFEJECD7tFRMh8kdOUAi6YL-gfmeYYV7.7P5SDiOBOMbujsI5">03-Mar-2022 (Thu)</a>
+<ul>
+    <li>Chapter 4: Threads and Concurrency</li>
+</ul>
+
+
+                </td>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/qyeCx6q1PaKQNUQWH4wuKGzTP7X0-IW3Njzmbnk6LV4brAzTFta36zIPGcu37wJ-nPwdkQeiV7YcoBYO.mcYz-VfJqDKM39G9">02-Mar-2022 (Wed)</a>
+<ul>
+    <li>Chapter 4: Threads and Concurrency</li>
+</ul>
+
+
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/2jTgxYEcBnB1CCYiCtLaTLwTjVuAwMrn9_o2jdAXHLCCUhAkB3KEqn05WXaMnxII1it4Kq3y6gB8wa2o.-s63uD4e7ujefTA6">08-Mar-2022 (Tue)</a>
+<ul>
+    <li>Chapter 5: CPU Scheduling</li>
+</ul>
+
+
+                </td>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/274dyICwI8THDnqt6UqITt-91wvRNq_nRfYKbgJzYMJ7ux2BFDjMIoC363-klVlih7ok_DLk1GclE6z3.oZoDJ6r9j2OFJmRZ">07-Mar-2022 (Mon)</a>
+<ul>
+    <li>Chapter 4: Threads and Concurrency</li>
+    <li>Chapter 5: CPU Scheduling</li>
+</ul>
+
+
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/Tgaw3Dq-0qHygDK5eo_5JjvTrG4QIURyiB74LxWCTdk4WV04PAzyRqOUuT9nwKxHNaJOKrP9VPeKTKnO.yOpjyl-w7Gug2KxQ">10-Mar-2022 (Thu)</a>
+<ul>
+    <li>Chapter 5: CPU Scheduling</li>
+</ul>
+
+
+                </td>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/4M3vBQ9kHMUq4EyJXgozZQZ5cznYXv3Iz1IaLJtvlAfSCfulvyPsktzN6zo0xlxm_MjjgTnz7ecilzEl.hKAwD-Qj6Kf3FwvH">09-Mar-2022 (Wed)</a>
+<ul>
+    <li>Chapter 5: CPU Scheduling</li>
+</ul>
+
+
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/8YmiOOpeAvQXHdNrgmZKDFENg4ng_cbYQZrPt0jWQTHCHNMZMm1MfyRKHqtJpdcdRH-reZaOvRhGfeTa.-PYinymcWwd09wuG">15-Mar-2022 (Tue)</a>
+<ul>
+    <li>Chapter 5: CPU Scheduling</li>
+</ul>
+
+
+                </td>
+
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/E1OOCmeFKXxRs26kqZZXL34JEz_gZLX6kUWRvTDqGdtm_Bnpewac3_5GoCec-Oum2J0LXHelSzZkLnD7.SjrA1fClE-rrl8rE">14-Mar-2022 (Mon)</a>
+<ul>
+    <li>Chapter 5: CPU Scheduling</li>
+</ul>
+
+
+                </td>
+
+              </tr>
+
+              <tr>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/SSY8n_sy6RGDFXuXZtQjX-aNCgMHCz3hpVck0ggDKR9SvrGfqJyMC9ANLltg9sPhLRLCVP7yLlHRd54V.rfzGDLzbEddlKD7H">17-Mar-2022 (Thu)</a>
+<ul>
+    <li>Chapter 5: CPU Scheduling</li>
+    <li>Chapter 6: Synchronization tools</li>
+</ul>
+
+                </td>
+                <td>
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/MpmD_t1bQs9MJy9XV-aSgA5IR3oxgdGw2DuiiDe-pEg91qlYoy2gThkN32BcN_6YA_eVTk1iYg9xFPmD.qNDd5sVvUFZGBuT-">16-Mar-2022 (Wed)</a>
+<ul>
+    <li>Chapter 5: CPU Scheduling</li>
+    <li>Chapter 6: Synchronization tools</li>
+</ul>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/knSbBguGyzJmwXbqa5UZmH9WbZaDsFjrON4i3h9vadsYPCdqEVDIKnqr2oeUg74D4f7D89uAxjxl5wY.Ng9JnJGB-d8uqqe2">22-Mar-2022 (Tue)</a>
+<ul>
+    <li>Chapter 6: Synchronization tools</li>
+</ul>
+
+
+                </td>
+
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/B3diPR91o8J6nnOShn8HEv7MJKoBLIa1a6SAsTItQ-yYqDi2K1loQbS-n07dbqvcvY6j_s--4VMp2XnA.s4Cm3hXeHJ5sTR7H?startTime=1647824383000">21-Mar-2022 (Mon)</a>
+<ul>
+    <li>Chapter 6: Synchronization tools</li>
+    <li>Chapter 7: Synchronization examples</li>
+    <li><small>This video cannot be published on Canvas due to technical reasons</small></li>
+</ul>
+
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/PlnU9ueNwaWiYk8RJRp5ZLgR2151Tlp4x3DRmsTBh2AluYAo0fsNk9GbyGZtIn_HSvDt21ugPDXZ1aLl.M_7HVq3VHcuC-YSt">24-Mar-2022 (Thu)</a>
+                  <ul>
+                      <li>Chapter 7: Synchronization examples</li>
+                      <li>Chapter 8: Deadlocks</li>
+                  </ul>
+
+
+                </td>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/5AF0a5hSvDKtfYELHUxYUbzzS_jQMhi9W9zPpdsaG0fKNTbWkQn9KffuGKkG1r0DED3eNEBpDSbBTUwq.FekxpWhROltnzhrQ">23-Mar-2022 (Wed)</a>
+<ul>
+    <li>Chapter 7: Synchronization examples</li>
+    <li>Chapter 8: Deadlocks</li>
+</ul>
+
+
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/ofrGlosC3nPcaOwzl6cfni9IOnQPfewKme5wOJl8pXY7ZopRKHLot8g0BjO8uabm59krJ0I124yn7IBc.yC-QLRwyGej9gOHI">29-Mar-2022 (Tue)</a>
+                  <ul>
+                      <li>Chapter 8: Deadlocks</li>
+                  </ul>
+
+
+                </td>
+
+                <td>
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/Ll9Ly4LlykOr62RtHthPB1kItP8-0XLF4TaDKb6CrrwKaaDjCIcMnRr0xA956Gflu-zdzKLjlGi6ecc5.695y8nCLtfrLzHZB">28-Mar-2022 (Mon)</a>
+<ul>
+    <li>Chapter 8: Deadlocks</li>
+</ul>
+
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+
+                  31-Mar-2022 (Thu)
+                  <ul>
+                    <li>Class cancelled</li>
+                  </ul>
+
+
+                </td>
+                <td>
+
+                  30-Mar-2022 (Wed)
+                  <ul>
+                    <li>Class cancelled</li>
+                  </ul>
+
+
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+
+                  05-Apr-2022 (Tue)
+                  <ul>
+                    <li>Public Holiday</li>
+                  </ul>
+
+                </td>
+
+                <td>
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/gt_T-g5tkZLnEP-eXdR6uIS3PnUhhg8UCrbW670DRkA1y_gNm8NXGEgFRTgPVj71W_7R5T4DwsJ5yRJ2.NkM0NqAWL_wxq0HG">04-Apr-2022 (Mon)</a>
+<ul>
+    <li>Chapter 8: Deadlocks</li>
+    <li>Chapter 9: Memory Management Strategies</li>
+</ul>
+
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/9birdcIIiPpKQf__Q6Optz5S5NCX6vp0dIAw2SXWGD-nJL7C2Ya-4T4p3QKDTOdnEco8Z55gpeqIdeFi.foebNwyz8Nx84bg-">07-Apr-2022 (Thu)</a>
+<ul>
+    <li>Chapter 8: Deadlocks</li>
+    <li>Chapter 9: Memory Management Strategies</li>
+</ul>
+
+
+                </td>
+                <td>
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/6rUzzT6RbloFsCa3Fm5soAkqDkKJdiSh8iz0oKLEaoLyqlaUd-CBiWINwscMZ9KU-p4n0mcwjpbM2elk.w94FFi1aiWyi1Bwa">06-Apr-2022 (Tue)</a>
+<ul>
+    <li>Chapter 9: Memory Management Strategies</li>
+</ul>
+                </td>
+              </tr>
+
+
+              <tr>
+
+
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/_4Sy54S16tCJO0AfBcUTGIR-ypRXhrObSUoMobbV_1wm5lk1Gg0iP2eeeNpCjq7BhT1eNF7ZzJQkXuZV.Hsrsfa9nuSyxrtFA">12-Apr-2022 (Tue)</a>
+                  <ul>
+                      <li>Chapter 9: Memory Management Strategies</li>
+                  </ul>
+
+                </td>
+
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/YKsuCiZyB-qHAuHp2M5A3nEYNnatt_hfoFkH9gy9N8XQPtX3BMNrx7WpwynUsZb8I2kpIr7DR9-Vypf1.YE_r4PQHgDU0Ooxx">11-Apr-2022 (Mon)</a>
+<ul>
+    <li>Chapter 9: Memory Management Strategies</li>
+    <li>Chapter 10: Virtual-Memory Management</li>
+</ul>
+
+                </td>
+
+              </tr>
+
+
+              <tr>
+                <td>
+                  14-Apr-2022 (Thu)
+                  <ul>
+                    <li>No class - midterm break</li>
+                  </ul>
+
+                </td>
+                <td>
+                  13-Apr-2022 (Wed)
+                  <ul>
+                    <li>No class - midterm break</li>
+                  </ul>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/MmbGyW9yWkMh3aLn5uQ3q0RyNgAUbh2gtf5U-tvjuQ1Sly4nTeC6LdsNI5_E16shz5S4a0OXziRV6QuU.-p5mqIQ2vyl1Orq5">19-Apr-2022 (Tue)</a>
+<ul>
+    <li>Chapter 9: Memory Management Strategies</li>
+</ul>
+
+
+                </td>
+                <td>
+
+                  18-Apr-2022 (Mon)
+                  <ul>
+                    <li>No class - Easter Monday</li>
+                  </ul>
+
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/ZjDyQgWOmRzO26V_8GhVqfayEEfu3BDjdfzJHfECaN2Lwh9CvigJVsaR9lWA6XadvnAIzoW38hqiCYL7.Cfu7ew_FA-rn19L6">21-Apr-2022 (Thu)</a>
+                  <ul>
+                      <li>Chapter 10: Virtual-Memory Management</li>
+                  </ul>
+
+                </td>
+                <td>
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/fjcoE0jLCmoJ22U88JL9P2wCCbAdWGTDjRIq3c8ttTM-8TZt0gGMYfYl-RSYnbgediw59bKeXvZxBKve.BaX_0bYx9_aj4rmS">20-Apr-2022 (Wed)</a>
+<ul>
+    <li>Chapter 10: Virtual-Memory Management</li>
+</ul>
+
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/7i7NmkjI1YFNMWFRZtLuIqiO1GK2O2vJ57dn6o8q2i9EFT26Fdmtn_mJfywlAd1ayr4LbWvi7CaSC_x6.81Fq4JmOhSjXl5pw">26-Apr-2022 (Tue)</a>
+<ul>
+    <li>Chapter 10: Virtual-Memory Management</li>
+</ul>
+
+
+                </td>
+
+                <td>
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/Tvy6N78bTgoRPUC-q8b6QyRRbFTWOo8yJ7vgdog86OKnMhM9EpIvYGOo2xl0HDcwkezS6tVMaOTxFmey.tQeXE1Dc22aJfuus">25-Apr-2022 (Mon)</a>
+<ul>
+    <li>Chapter 10: Virtual-Memory Management</li>
+    <li>Chapter 11: Mass Storage Systems</li>
+</ul>
+
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/loBA2e5M2zcD5vw6xUGv_tF-6YI7HCdrHCShfSnjVG-0cWrN0jycUsrPKsJFfw-T3r8tGge2n7lpmpvv.q4aBuKtSwP-U3iQB">28-Apr-2022 (Thu)</a>
+<ul>
+    <li>Chapter 10: Virtual-Memory Management</li>
+    <li>Chapter 11: Mass Storage Systems</li>
+</ul>
+
+                </td>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/jwDI3GpkOri740GRPUOdvKm-R47l4PWxp6itcrafrefJJ0Qu_levu8W56MQUDMli9gaGexwNGda34u32.ItVCvVAVRiYT4XFv">27-Apr-2022 (Wed)</a>
+<ul>
+    <li>Chapter 11: Mass Storage Systems</li>
+    <li>Chapter 13: File-System Interface</li>
+</ul>
+
+
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+
+                  <a target="_blank" href="https://hkust.zoom.us/rec/play/SIwo6CRPCFhHILuMOVt4XrRE0EZIy2YG4tEu7lc3TpDtnXHdq86kCibTTobV214Bub_6rVAOxnoSZUm6.8u_42Sf3TpqwV3Uy">03-May-2022 (Tue)</a>
+<ul>
+    <li>Chapter 11: Mass Storage Systems</li>
+    <li>Chapter 13: File-System Interface</li>
+</ul>
+
+
+                </td>
+                <td>
+
+                  02-May-2022 (Mon)
+                  <ul>
+                    <li>No class - The day following the Labor Day</li>
+                  </ul>
+
+
+                </td>
+              </tr>
+
+
+
+
+
+            </tbody>
+
+
+
+          </table>
+        </div>
+      </section>
+
+      <section id="chapter_summary">
+        <h2>Chapter Summary</h2>
+         <div class="table-wrap">
+          <table class="small-table">
+            <tr>
+              <td>Chapter 1: Introduction</td>
+              <td>
+                <a href="Chp1_Summary.pdf">PDF</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Chapter 2: Operating System Structures</td>
+              <td>
+                <a href="Chp2_Summary.pdf">PDF</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Chapter 3: Processes</td>
+              <td>
+                <a href="Chp3_Summary.pdf">PDF</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Chapter 4: Threads and Concurrency</td>
+              <td>
+                <a href="Chp4_Summary.pdf">PDF</a>
+              </td>
+            </tr>
+            <tr>
+              <td>Chapter 5: CPU Scheduling</td>
+              <td>
+                <a href="Chp5_Summary.pdf">PDF</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Chapter 6-7: Process Synchronization</td>
+              <td>
+
+                <a href="Chp6-7_Summary.pdf">PDF</a>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>Chapter 8: Deadlock</td>
+              <td>
+                <a href="Chp8_Summary.pdf">PDF</a>
+
+              </td>
+            </tr>
+            <tr>
+              <td>Chapter 9: Memory Management Strategies</td>
+
+              <td>
+
+                <a href="Chp9_Summary.pdf">PDF</a>
+
+              </td>
+            </tr>
+            <tr>
+              <td>Chapter 10: Virtual-Memory Management</td>
+              <td>
+
+                <a href="Chp10_Summary.pdf">PDF</a>
+
+              </td>
+            </tr>
+            <tr>
+              <td>Chapter 11: Mass Storage Systems</td>
+              <td>
+
+                <a href="Chp11_Summary.pdf">PDF</a>
+
+              </td>
+            </tr>
+
+
+
+            <tr>
+              <td>Chapter 13: File-System Interface<br/>
+                Chapter 14: File-System Implementation
+              </td>
+              <td>
+
+
+
+              </td>
+            </tr>
+
+          <!--
+            <tr>
+              <td>Chapter 16: Security</td>
+              <td>
+
+              </td>
+            </tr>
+          -->
+
+            <tr>
+              <td>Chapter 17: Protection</td>
+              <td>
+
+              </td>
+            </tr>
+          </table>
+        </div>
+      </section>
+      <section id="lab_tutorials">
+        <h2>Lab Tutorials</h2>
+
+
+
+
+        <p>
+          <strong>Zoom Meetings for Labs</strong>
+
+          <ul>
+            <li>The following Zoom links will be used until further announcements from the university</li>
+            <li>The lab Zoom meeting links will not be published in Canvas<br><br> </li>
+            <li>
+
+              LA1 weekly schedule: Fr 11:30AM - 01:20PM<br><br>
+              Meeting ID and Zoom link: <tt><a href="https://hkust.zoom.us/j/98325608474?pwd=SnMxZGxTeUU1NHF2NDBEeTNZbGRldz09">983 2560 8474</a></tt>  <br><br>
+              Passcode: <tt>351100</tt> <br><br>
+
+
+
+            </li>
+            <li>
+
+
+              LA2 weekly schedule : Fr 04:00PM - 05:50PM <br><br>
+              Meeting ID and Zoom link: <tt><a href="https://hkust.zoom.us/j/99046531913?pwd=OFF1QUpuSHdjNXhWRkkzalk4Ri9EZz09">990 4653 1913</a></tt>  <br><br>
+              Passcode: <tt>351100</tt> <br><br>
+
+
+
+            </li>
+          </ul>
+
+
+
+        </p>
+
+        <!-- Region: Labs -->
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Lab #</th>
+                <th>Week #</th>
+                <th>Lab Materials</th>
+                <th>Recorded lab video</th>
+                <th>TA-in-Charge</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="5" style="text-align: center;">
+                    === No labs on 04-Feb-2022, Friday (First day of the semester)) ===
+                </td>
+              </tr>
+              <tr>
+                <td colspan="5" style="text-align: center;">
+                  === No labs on 11-Feb-2022, Friday (Week #1) ===
+                </td>
+              </tr>
+              <!-- Begin of Lab 01 -->
+<tr>
+  <td>Lab 01</td>
+  <td>
+      Week #2<br>
+      18 Feb (Friday)<br>
+      <small></small>
+
+  </td>
+  <td>
+      Lab 1: Introduction of the Linux Environment <br>
+      [
+          <a href="lab01.pptx">PPT</a> |
+          <a href="lab01.pdf">PDF</a>
+      ]
+
+  </td>
+  <td>
+      <a href="https://hkust.zoom.us/rec/play/zh_bPhs1p5_jO0a0cURFsjD-ZIPOukkxWWCtghj5obew2l8cp8BO0nTT0B-A4aUOqmRE76grkQBB0Bet.iTzkF3Mbh444nKPm?continueMode=true" target="_blank">LA1 video</a><br>
+      <a href="https://hkust.zoom.us/rec/play/35T_-vS1CiMQusJeujgOdxG8mG9amya04NMtS4c0VHLFwq-ic289uB0Ptyh3vEwIwzwWxKgV1A2G2iQ5.c4V7FC2NsLUZO38a?continueMode=true" target="_blank">LA2 video</a><br>
+
+  </td>
+  <td>Zhenghang<br> (zrenak@cse.ust.hk)</td>
+</tr>
+<!-- End of Lab 01 -->
+
+<!-- Begin of Lab 02 -->
+<tr>
+  <td>Lab 02</td>
+  <td>
+      Week #3<br>
+      25 Feb (Friday)<br>
+      <small></small>
+
+  </td>
+  <td>
+      Lab 2: C programming and Lecture Review #1 <br>
+      [
+      <a href="lab02.pptx">PPT</a> |
+      <a href="lab02.pdf">PDF</a>
+      ]
+
+  </td>
+  <td>
+
+    <a href="https://hkust.zoom.us/rec/play/n0LDQ924Eadcn-VYdrI9Ns4uUfCk_AKLl7Axa4-m_TltA4vOXpif7myhpV0Aqn7ZiW4hF_wvUBKbrt-1.8oOW3ZQqB02GaLxr?continueMode=true" target="_blank">LA1 video</a><br>
+    <a href="https://hkust.zoom.us/rec/play/Fm3kx5UpiZcrxx9-LDvkz4PjY1C_28Khu52XZQ8l8jpXf7VR2bG--1fGn1pHDPlfkxFQhJ5gsUzp8Yso.bto_zcxj6uPyjYt9?continueMode=true" target="_blank">LA2 video</a><br>
+
+  </td>
+  <td>Zhenghang<br> (zrenak@cse.ust.hk)</td>
+</tr>
+<!-- End of Lab 02 -->
+
+<!-- Begin of Lab 03 -->
+<tr>
+  <td>Lab 03</td>
+  <td>
+      Week #4<br>
+      04 Mar (Friday)<br>
+      <small></small>
+
+  </td>
+  <td>
+      Lab 3: Linux Process and Pipe, PA1 Introduction and Lecture Review #2 <br>
+
+      <ul>
+        <li>
+          Lecture review slides
+          [
+          <a href="lab03_review2.ppt">PPT</a> |
+          <a href="lab03_review2.pdf">PDF</a>
+          ]
+        </li>
+
+        <li>
+          Lab slides
+          [
+          <a href="lab03_lab.pptx">PPT</a> |
+          <a href="lab03_lab.pdf">PDF</a>
+          ]
+        </li>
+
+      </ul>
+
+  </td>
+  <td>
+
+    <a href="https://hkust.zoom.us/rec/share/XtI6N7Hgtvp3uzTs9xtn2x81XAdRLHH0BBfyvitlLVNIX_CDyR6s-6NNxgZ5L8RI.4hGEv3E1wb_Uw6Fh">LA1 video</a> <br>
+    <a href="https://hkust.zoom.us/rec/share/2oXW_l1UCZj8CDRJ3KgSOrHechkdicV1n2Zjp20jFn5LbXHCuUn5WkHqgKnal_MO.FJfLLcXCT6R5gkOs">LA2 video</a>
+
+  </td>
+  <td>Peter<br> (cspeter@cse.ust.hk)</td>
+</tr>
+<!-- End of Lab 03 -->
+
+<!-- Begin of Lab 04 -->
+<tr>
+  <td>Lab 04</td>
+  <td>
+      Week #5<br>
+      11 Mar (Friday)<br>
+      <small></small>
+
+  </td>
+  <td>
+      Lab 4: Pthread and CPU scheduling (Lecture Review #3) <br>
+      [
+          <a href="lab04_review3.pptx">PPT</a> |
+          <a href="lab04_review3.pdf">PDF</a>
+      ]
+
+  </td>
+  <td>
+
+    <a href="https://hkust.zoom.us/rec/play/A4yIZg3_72i-mRN4mhrJ71e7kC_bZx-R8TZQNHnJRWUtK_F-_g5zXcDpKzTkiVWylXz7XKuLVOC9hlmR.g2jbYnN88-F1xWcM?continueMode=true">LA1 video</a> <br>
+    <a href="https://hkust.zoom.us/rec/play/kd54wDFZXV_cotqb3D-BpszCKUzwYfbmFGtL4i2ddCVTMEdDTLAv6O6UXqQhnkTqL8iTRYXR0Rd-sgoA.NQaB4v0Z7vTNNCmC?continueMode=true">LA2 video</a>
+
+
+  </td>
+  <td>Peng<br> (pyeac@cse.ust.hk)</td>
+</tr>
+<!-- End of Lab 04 -->
+
+<!-- Begin of Lab 05 -->
+<tr>
+  <td>Lab 05</td>
+  <td>
+      Week #6<br>
+      18 Mar (Friday)<br>
+      <small></small>
+
+  </td>
+  <td>
+      Lab 5: Scheduling and Synchronization (Lecture Review #4)<br>
+      [
+          <a href="lab05_review4.pptx">PPT</a> |
+          <a href="lab05_review4.pdf">PDF</a>
+      ]
+
+  </td>
+  <td>
+
+    <a href="https://hkust.zoom.us/rec/play/v1-1KG1PR0KY8nQU-PKRVIbYjOzsFeoLDDMAc64yEHfpOmPhVpIWPtXfspncAx7aJ0tNo4CQTk0jpICR.wkiBGzbDJkm1HDJN?startTime=1647573894000">LA1 video</a> <br>
+    <a href="https://hkust.zoom.us/rec/play/Hu2wMIW1qDDzs7nGiXk-_eW8G1Spsd2S2yxKrjsoN5Gngbh_7vGEZKIl5LrowGOEa7OmM6X_-LIP29Oq.WYC0lyU77KrWSZHg?startTime=1647590096000">LA2 video</a>
+
+
+  </td>
+  <td>Peng<br> (pyeac@cse.ust.hk)</td>
+</tr>
+<!-- End of Lab 05 -->
+
+<!-- Begin of Lab 06 -->
+<tr>
+  <td>Lab 06</td>
+  <td>
+      Week #7<br>
+      25 Mar (Friday)<br>
+      <small></small>
+
+  </td>
+  <td>
+      Lab 6: PA2 introduction and Lecture Review #5 <br>
+
+      <ul>
+        <li>
+
+          Lecture Review slides
+          [
+          <a href="lab06_review5.pptx">PPT</a> |
+          <a href="lab06_review5.pdf">PDF</a>
+          ]
+
+        </li>
+        <li>
+
+          Lab slides [
+          <a href="lab06_pa2_cfs.pptx">PPT</a> |
+          <a href="lab06_pa2_cfs.pdf">PDF</a>
+          ]
+
+        </li>
+      </ul>
+
+
+  </td>
+  <td>
+
+    <a href="https://hkust.zoom.us/rec/play/uhlfxV2IC-PZyjEiJufTlWaf7MDHxM7UQEHcME3XvakjxMO5WW-BzQscqfo36aRJiLQAw0Uzyz9du0tb.tcRuudAyLZMVyKND?startTime=1648178715000">LA1 video</a><br>
+    <a href="https://hkust.zoom.us/rec/play/dQcfGu--FBD1mXfurYTOkYAEJrAPhVV7fBmmLD-x1VmN5H3jgaI_aLXQmlAiyRc1xrSpZZR8yUlTKMU7.cRu79bnn1ltK2zl0?startTime=1648194941000">LA2 video</a>
+
+  </td>
+  <td>Peter<br> (cspeter@cse.ust.hk)</td>
+</tr>
+<!-- End of Lab 06 -->
+
+<tr>
+  <td colspan="5" style="text-align: center;">
+      === No labs in Week #8 (01 Apr (Friday)): No labs this week - Midterm Exam on 01-Apr ===
+  </td>
+</tr>
+
+<!-- Begin of Lab 07 -->
+<tr>
+  <td>Lab 07</td>
+  <td>
+      Week #9<br>
+      08 Apr (Friday)<br>
+      <small></small>
+
+  </td>
+  <td>
+      Lab 7: Lecture Review #6 <br>
+      [
+          <a href="lab07.pptx">PPT</a> |
+          <a href="lab07.pdf">PDF</a>
+      ]
+
+  </td>
+  <td>
+
+    <a href="https://hkust.zoom.us/rec/play/BPSItokEK5ux7-p0o41p0VANRSDRm-zk-r-jOqZ1B5UvMVMnusD8MZBsLpiL1Yg977UUOLNGRXPi-8kf.OgFcOXuHFN9NS56M?startTime=1649388029000">LA1 video</a><br>
+    <a href="https://hkust.zoom.us/rec/play/DK67NRLadXBz_sKupEE9jsH7b18ekgvJ032LKUuP32rU1Rw7eWog7STnQiOdqUB1msV2TaEHfpDm6s68.NizeMOH2UnaY3pzn?startTime=1649404228000">LA2 video</a>
+
+
+
+  </td>
+  <td>Chaoliang<br> (czengaf@cse.ust.hk)</td>
+</tr>
+<!-- End of Lab 07 -->
+
+
+<tr>
+  <td colspan="5" style="text-align: center;">
+      === No labs on (15 Apr (Friday)): Midterm Break and Public Holiday ===
+  </td>
+</tr>
+
+<!-- Begin of Lab 08 -->
+<tr>
+  <td>Lab 08</td>
+  <td>
+      Week #10<br>
+      22 Apr (Friday)<br>
+      <small></small>
+
+  </td>
+  <td>
+      Lab 8: PA3 Introduction and Lecture Review #7 <br>
+
+
+
+      Lab slides: [
+          <a href="lab08_malloc_free.pptx">PPT</a> |
+          <a href="lab08_malloc_free.pdf">PDF</a>
+      ] <br>
+
+      Lecture Review slides: [
+       <a href="lab08_review.pptx">PPT</a> |
+       <a href="lab08_review.pdf">PDF</a>
+      ]
+
+  </td>
+  <td>
+
+    <a href="https://hkust.zoom.us/rec/share/1xH9ClgyFVxzwawsW2iTvCbkxOELaiXeUirN9reiLdtVc_lD4lHtol0wW1aXsgvz.ZOAY9W3mEiw_BH-5?startTime=1650597968000">LA1 video</a><br>
+    <a href="https://hkust.zoom.us/rec/share/23Ocs1XU_gQIgleMc5MpgJ3NRKKw8BjrYqmc09MK9z9HiiCBr7UCT-xqLa9iORZf.GeAqWJmwj0O5cEev?startTime=1650614123000">LA2 video</a>
+  </td>
+  <td>Peter<br> (cspeter@cse.ust.hk)</td>
+</tr>
+<!-- End of Lab 08 -->
+
+
+<tr>
+  <td colspan="5" style="text-align: center;">
+      === No labs on (29 Apr (Friday)): Please work on the HW and PA ===
+  </td>
+</tr>
+
+<!-- Begin of Lab 09 -->
+<tr>
+  <td>Lab 09</td>
+  <td>
+      Week #12<br>
+      06 May (Friday)<br>
+      <small></small>
+
+  </td>
+  <td>
+      Lab 9 (The last lab) <br>
+      [
+          <a href="#">Materials will be uploaded later</a>
+      ]
+
+  </td>
+  <td></td>
+  <td>Chaoliang<br> (czengaf@cse.ust.hk)</td>
+</tr>
+<!-- End of Lab 09 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section id="homework_and_exams">
+        <h2>Homework and Exams</h2>
+
+        <!-- Region: Homework -->
+
+        <article>
+          <h3>Homework</h3>
+
+          <p>
+            Late policy: 10% deduction, only 1 day late is allowed (Reference: <a href="Chapter1.pdf">Chapter 1</a>)<br>
+            Submission: <a href="https://canvas.ust.hk">HKUST Canvas</a>
+
+            <ul>
+              <li>The TA-in-charge will be responsible for answering questions related to HW, grading HW, and handling appeals</li>
+              <li>Canvas will be closed after the submission deadlines. For late submissions, please submit via email to the TA-in-charge</li>
+            </ul>
+          </p>
+
+          <div class="table-wrap">
+
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Homework #</th>
+                  <th>Handout Date</th>
+                  <th>Due Date and Time</th>
+                  <th>Materials</th>
+                  <th>TA In Charge</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>HW1</td>
+                  <td>18 Feb 2022 (Friday)</td>
+                  <td>
+                    <del>04 Mar 2022 (Friday) 23:59</del><br>
+                    07 Mar 2022 (Monday) 23:59
+                  </td>
+                  <td>
+                    Problem: [
+                      <a href="comp3511_s2022_hw1.docx">Word</a> |
+                      <a href="comp3511_s2022_hw1.pdf">PDF</a>
+                    ]
+                    <br>
+                    Solution: [
+                      <a href="comp3511_s2022_hw1_sol.pdf">PDF</a>
+                    ]
+                  </td>
+                  <td>
+                    Shuowei (scaiak@cse.ust.hk)
+                  </td>
+                </tr>
+
+          <!-- Start HW2 -->
+<tr>
+  <td>HW2</td>
+  <td>11 Mar 2022 (Friday)</td>
+  <td>25 Mar 2022 (Friday) 23:59</td>
+  <td>
+      Problem: [
+      <a href='hw2/comp3511_s2022_hw2.docx'>Word</a> | <a href='hw2/comp3511_s2022_hw2.pdf'>PDF</a>
+      ]
+      <br>
+
+      <a href="email_20220320.txt">Clarification email (20 Mar 2022)</a>
+      <br>
+      Solution: [
+                      <a href="comp3511_s2022_hw2_solution.pdf">PDF</a>
+                    ]
+  </td>
+  <td>
+      Decang (dsunak@cse.ust.hk)
+  </td>
+</tr>
+<!-- End HW2 -->
+
+<!-- Start HW3 -->
+<tr>
+  <td>HW3</td>
+  <td>08 Apr 2022 (Friday)</td>
+  <td>22 Apr 2022 (Friday) 23:59</td>
+  <td>
+      Problem: [
+      <a href='hw3/comp3511_s2022_hw3.docx'>Word</a> | <a href='hw3/comp3511_s2022_hw3.pdf'>PDF</a>
+      ]
+  </td>
+  <td>
+      Xuhao (hxubl@cse.ust.hk)
+  </td>
+</tr>
+<!-- End HW3 -->
+
+<!-- Start HW4 -->
+<tr>
+  <td>HW4</td>
+  <td>29 Apr 2022 (Friday)</td>
+  <td>13 May 2022 (Friday) 23:59</td>
+  <td>
+      Problem: [
+      <a href='hw4/comp3511_s2022_hw4.docx'>Word</a> | <a href='hw4/comp3511_s2022_hw4.pdf'>PDF</a>
+      ]
+  </td>
+  <td>
+      Xudong
+      (xliaoaf@cse.ust.hk)
+  </td>
+</tr>
+<!-- End HW4 -->
+
+
+
+
+              </tbody>
+            </table>
+
+
+
+          </div>
+        </article>
+        <article>
+          <h3>Exams</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Exam</th>
+                  <th>Date and Time</th>
+                  <th>Venue</th>
+                  <th>Solution</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Midterm</td>
+                  <td>01 April 2022 (Friday)
+                    <br> 19:00-21:00</td>
+                  <td>
+
+                    Zoom (for all students)
+
+                  </td>
+                  <td>
+                    <a href="comp3511_s2022_midterm_solution.pdf">Solution</a>
+                  </td>
+
+                </tr>
+                <tr>
+                  <td>Final</td>
+                  <td>
+                    19-May-2022 (Thursday)
+                    <br>
+                    08:30AM - 11:30AM
+
+                  </td>
+                  <td>
+                    Zoom (for all students)
+                  </td>
+                  <td>
+
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+      <section id="past_exams">
+        <h2>Past Exams</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Semester</th>
+                <th>Exam</th>
+                <th>Material</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Fall 2021</td>
+                <td>Midterm Exam
+                </td>
+                <td>
+                  <a href="comp3511_f2021_midterm_questions.pdf">Question paper</a> <br><br>
+                  <a href="comp3511_f2021_midterm_solution.pdf">Solution paper</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section id="project_assignments">
+
+        <!-- Region: Project -->
+        <h2>Project Assignments</h2>
+
+        <p>
+          Late policy: 10% deduction, only 1 day late is allowed (Reference: <a href="Chapter1.pdf">Chapter 1</a>)<br>
+          Submission: <a href="https://canvas.ust.hk">HKUST Canvas</a>
+
+          <ul>
+
+            <li>Before the submission deadlines, please contact the project TA for clarifications</li>
+            <li>Canvas will be closed after the submission deadlines. For late submissions, please submit via email to the grader TA </li>
+            <li>After the result is released, please contact the grader TA for appeals</li>
+            </ul>
+        </p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Project</th>
+                <th>Handout Date</th>
+                <th>Due Date</th>
+                <th>Materials</th>
+                <th>TA In Charge</th>
+
+              </tr>
+            </thead>
+            <tbody>
+
+               <!-- PA1 -->
+              <tr>
+                <td>
+                  PA1: Simplified Linux Shell (Multi-level Pipe)
+                </td>
+                <td>
+                  28 Feb (Mon)
+                </td>
+                <td>
+                  20 Mar (Sun) 23:59
+                </td>
+                <td>
+
+                  <ul>
+                    <li><a href="s2022_pa1_mpipe.pdf">Problem description (PDF)</a></li>
+                    <li><a href="mpipe_skeleton.c">Starter code (mpipe_skeleton.c)</a></li>
+                    <li><a href="mpipe">Sample Linux executable program</a></li>
+                    <li><a href="run_mpipe_executable.mp4">Video: How to run the sample program in a CS Lab2 machine</a></li>
+                    <li><a href="pa1_input_test_cases.zip">10 input test cases</a></li>
+                  </ul>
+
+                </td>
+                <td rowspan="3">
+
+                  <ul>
+                    <li>Project TA - Peter (cspeter@cse.ust.hk): Handling questions before the deadline</li>
+                    <br>
+                    <li>Grader TA - Kaiqiang (kxuar@cse.ust.hk): Grading and appeal handling after the deadline</li>
+                  </ul>
+
+
+
+                </td>
+              </tr>
+
+              <!-- PA2 -->
+              <tr>
+
+                <td>
+                  PA2: Simplified Linux Completely Fair Scheduler (CFS)
+                </td>
+
+                <td>
+                  21 Mar (Mon)
+                </td>
+
+                <td>
+                  10 April (Sun) 23:59
+                </td>
+
+                <td>
+                  <ul>
+                    <li><a href="s2022_pa2_cfs.pdf">Problem description (PDF)</a>
+
+                      <ul>
+                        <li>25-Mar: Fixed a minor typo on the page 7 step-by-step explanation part (33.00 => 30.00). The released test cases are correct. </li>
+                      </ul>
+                    </li>
+                  <li><a href="cfs_skeleton.c">Starter code (cfs_skeleton.c)</a></li>
+                  <li><a href="cfs">Sample Linux executable program</a></li>
+
+                  <li><a href="s2022_pa2_cfs_sample_input_output.zip">10 input and output test cases</a></li>
+                  </ul>
+                  <br>
+                  <em>Note: PA2 will use auto-grading, so make sure you use Linux diff command to check the output format</em>
+
+
+                </td>
+
+
+
+
+              </tr>
+
+              <!-- PA3 -->
+              <tr>
+                <td>PA3: Simplified malloc() and free()</td>
+                <td>19 Apr (Tue)</td>
+                <td>10 May (Tue) 23:59</td>
+                <td>
+
+                  <ul>
+                    <li><a href="s2022_pa3_malloc_free.pdf">Problem description (PDF)</a>
+                    <li><a href="vmm_skeleton.c">Starter code (vmm_skeleton.c)</a></li>
+                    <li><a href="vmm">Sample Linux executable program</a></li>
+                    <li><a href="s2022_pa3_malloc_free_sample_input_output.zip">10 input and output test cases</a></li>
+                  </ul>
+                  <br>
+                  <em>Note: PA3 will use auto-grading, so make sure you use Linux diff command to check the output format</em>
+
+
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+
+
+        </div>
+      </section>
+      <section id="references">
+        <h2>References</h2>
+        <ul>
+          <li><a href="http://mally.stanford.edu/~sr/computing/basic-unix.html">Information on basic UNIX commands</a>
+          </li>
+          <li><a href="http://www.bsd.org/faq.html">Unix's FAQ List</a></li>
+          <li><a href="http://www.ugu.com/">Unix Guru Universe - Official page for UNIX System Administrators</a>
+          </li>
+          <li><a href="vi-ref.pdf">VI Command Summary</a></li>
+          <li><a href="https://linux.die.net/man/1/gdb">GNU Debugger (GDB)</a></li>
+          <li><a href="http://www.dirac.org/linux/gdb/">Using GNU's GDB Debugger</a></li>
+          <li><a href="http://www.cprogramming.com/tutorial.html">C/C++ Programming Tutorials</a></li>
+          <li><a href="http://www.cplusplus.com/">The C++ Resources Network</a></li>
+          <li><a href="http://www.google.com/googlebooks/chrome/">Google Chrome - Important concepts of OS and what can be learned from OS</a></li>
+          <li><a href="http://linux.vbird.org/linux_basic/">A detailed tutorial about Linux System in Chinese</a>
+          </li>
+          <li><a href="https://www.youtube.com/watch?v=QJncFirhjPg">What is cloud computing</a></li>
+        </ul>
+      </section>
+      <section id="ta_information">
+        <h2>TA Information</h2>
+		<p>If you don't know which TA to approach, you can always send the message to
+		<strong>csta3511@cse.ust.hk</strong>. <br>All teaching team members (professors and TAs) can read your message if you do so.
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nickname</th>
+                <th>Full Name</th>
+                <th>Email <br> </th>
+                <th>Duties</th>
+
+
+
+              </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+                <td>Peter</td>
+                <td>CHUNG Peter</td>
+                <td>cspeter@cse.ust.hk</td>
+                <td>
+                  Website maintenance<br>
+                  PA 1-3 Design and Implementation<br>
+                  Teaching project related labs (Lab3, Lab6, Lab 8)<br>
+
+
+                </td>
+            </tr>
+            <tr>
+              <td>Kaiqiang</td>
+              <td>XU Kaiqiang Andy</td>
+              <td>kxuar@cse.ust.hk</td>
+              <td>PA 1-3 grading and appeal handling
+              </td>
+          </tr>
+
+            <tr>
+              <td>Zhenghang</td>
+              <td>REN Zhenghang</td>
+              <td>zrenak@cse.ust.hk</td>
+              <td>Teaching Lab 1 and 2 (Topics: Linux lab environment + C programming)
+              </td>
+          </tr>
+
+          <tr>
+            <td>Peng</td>
+            <td>YE Peng</td>
+            <td>pyeac@cse.ust.hk</td>
+            <td>Teaching Lab 4 and 5 (Topics: CPU scheduling + Pthread Library)
+            </td>
+        </tr>
+
+        <tr>
+          <td>Chaoliang</td>
+          <td>ZENG Chaoliang</td>
+          <td>czengaf@cse.ust.hk</td>
+          <td>Teaching Lab 7 and 9 (Topics: Memory management + Secondary storage)
+          </td>
+      </tr>
+
+      <tr>
+        <td>Shuowei</td>
+        <td>CAI Shuowei</td>
+        <td>scaiak@cse.ust.hk</td>
+        <td>Homework 1 preparation, grading, appealing
+        </td>
+    </tr>
+
+    <tr>
+      <td>Decang</td>
+      <td>SUN Decang</td>
+      <td>dsunak@cse.ust.hk</td>
+      <td>Homework 2 preparation, grading, appealing
+      </td>
+  </tr>
+
+  <tr>
+    <td>Xuhao</td>
+    <td>XU Hao</td>
+    <td>hxubl@cse.ust.hk</td>
+    <td>Homework 3 preparation, grading, appealing
+    </td>
+</tr>
+
+            <tr>
+                <td>Xudong</td>
+                <td>LIAO Xudong</td>
+                <td>xliaoaf@cse.ust.hk</td>
+                <td>Homework 4 preparation, grading, appealing
+                </td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </tbody>
+          </table>
+
+
+
+        </div>
+      </section>
+
+      <section id="ta_office_hours">
+        <h2>TA office hours</h2>
+
+        <p>The schedule of the TA office hours matches with our homework/project assignment release/due dates.
+          They are suitable for students who prefer to ask questions in a face-to-face manner. Please click the corresponding Zoom meeting links to join the TA office hour meetings:  </p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Date and time</th>
+                <th>Zoom meeting link</th>
+                <th>TA</th>
+                <th>Description</th>
+
+              </tr>
+            </thead>
+            <tbody>
+
+
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+    </main>
+  </div>
+</body>
+
+</html>
