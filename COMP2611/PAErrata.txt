@@ -1,0 +1,18 @@
+Task 5: 
+    Please update the time_player_getting_hurt variable after the life value decreases. Add point 3.f in the hints after point 3.e:
+    3.f) Get time via the procedure get_time and save the current time to time_player_getting_hurt.
+
+Task 6:
+    Jumping from point 2 to point 4 is a typo. There is no missing point 3.
+
+    The syscall 211 random_x_location requires two inputs:
+    6. Generate the x_loc of the new platform: x_loc = Syscall_211 ($a0=x_loc of last platform, $a1=screen width)
+
+    The syscall 202 creates a new platform. 
+    9. Create the new platform object via Syscall_202($a0=id, $a1=x_loc, $a2=y_loc, $a3=type)
+
+Task 8: 
+    To display the "lose" text via syscall 203, please load the address of the 'game_lose' to the register $a3. For more details, you can refer to the code in the game "win" section.
+    2. call syscall 203 to display game lose text. The lose_text id is $a0 = -3; location ($a1 = x_loc = 80, $a2 = y_loc = 280, $a3=game_lose);
+
+
