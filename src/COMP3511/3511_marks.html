@@ -1,0 +1,170 @@
+<html>
+<head>
+<title> COMP3511 Spring 2022 Marks </title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" integrity="sha512-IgmDkwzs96t4SrChW29No3NXBIBv8baW490zk5aXvhCD8vuZM3yUSkbyTBcXohkySecyzIrUwiF/qV0cuPcL3Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+  <section class="hero">
+    <div class="hero-body">
+      <p class="title">
+        COMP3511 - Operating System (Spring 2022)
+      </p>
+      <p class="subtitle">
+        Marks Release System
+      </p>
+    </div>
+  </section>
+
+  <section class="container px-3 box">
+
+    <div class="columns">
+
+      <div class="column">
+
+
+
+
+    <form id="myForm" method="post"
+    onsubmit="return validateForm()"
+    action="https://cgi.cse.ust.hk/~cspeter/cgi-bin/3511_s2022_marks/comp3511_marks.py">
+
+    <div class="field">
+      <label class="label"><i class="fas fa-envelope"></i> ITSC Email</label>
+      <div class="control">
+        <input class="input" type="text" 
+        placeholder="Your ITSC email without @connect.ust.hk"
+        name="email" size="30" value="" maxlength="30">
+      
+      </div>
+      <p class="help">
+        Do not include <em>@connect.ust.hk</em> <br>
+        For example, enter <em>cspeter</em> if your ITSC email is <em>cspeter@connect.ust.hk</em>. <br>
+        For post-graduate students, do not use ITSC email alias. 
+       </p>
+
+    </div>
+
+    <div class="field">
+      <label class="label"><i class="fas fa-id-card"></i> Student ID</label>
+        <div class="control">
+          <input class="input" type="text" 
+          placeholder="Your student ID (e.g. 29876543)"
+          name="student_id" size="8" value="" maxlength="8">
+        </div>
+    
+        <p class="help">
+          Enter your student ID which is a 8-digit number <br>
+          For example, 29876543
+        </p>
+    </div>
+
+    <div class="control">
+      <button class="button is-primary animate__animated animate__zoomin" type="submit"><i class="far fa-check-circle mr-1"></i>Submit</button>
+    </div>
+
+  </div>
+
+  <div class="column">
+    <table class="table">
+      <thead>
+          <tr>
+            <th>Accessment Item</th>
+            <th>Grading TA</th>
+            <th>Email</th>
+         </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Homework 1 (HW1)</td>
+          <td>Shuowei</td>
+          <td>scaiak@cse.ust.hk</td>
+        </tr>
+        <tr>
+          <td>Homework 2 (HW2)</td>
+          <td>Decang</td>
+          <td>dsunak@cse.ust.hk</td>
+
+        </tr>
+        <tr>
+          <td>Homework 3 (HW3)</td>
+          <td>Xuhao</td>
+          <td>hxubl@cse.ust.hk</td>
+
+        </tr>
+        <tr>
+          <td>Homework 4 (HW4)</td>
+          <td>Xudong</td>
+          <td>xliaoaf@cse.ust.hk</td>
+        </tr>
+        <tr>
+          <td>Project 1 (PA1)</td>
+          <td>Kaiqiang</td>
+          <td>kxuar@cse.ust.hk</td>
+        </tr>
+        <tr>
+          <td>Project 2 (PA2)</td>
+          <td>Kaiqiang</td>
+          <td>kxuar@cse.ust.hk</td>
+        </tr>
+        <tr>
+          <td>Project 3 (PA3)</td>
+          <td>Kaiqiang</td>
+          <td>kxuar@cse.ust.hk</td>
+        </tr>
+      </tbody> 
+    
+    </table>
+  </div>
+
+
+  </div>
+
+
+
+
+</form>
+  </section>
+
+
+
+
+  <footer class="footer">
+    <div class="content has-text-centered">
+        Page maintained by TA Peter <br>
+         <i class="fas fa-envelope"></i> cspeter@cse.ust.hk
+    </div>
+  </footer>
+
+<script>
+// In addition to server-side validation, added some client-side validation
+function validateForm() {
+  var email = document.forms["myForm"]["email"].value;
+  email = email.trim();
+  if (email == "") {
+    alert("Email must be filled out");
+    return false;
+  } else if ( email.includes("@") ) {
+    
+    indexOfAt = email.indexOf("@");
+    alert("Do not need to include " + email.substr(indexOfAt) );
+    email = email.substr(0, indexOfAt);
+    document.forms["myForm"]["email"].value = email;
+
+    return false;
+  }
+  var sid = document.forms["myForm"]["student_id"].value;
+  sid = sid.trim();
+  if (sid.length != 8) {
+    alert("Student ID must have 8 digits");
+    return false;
+  }
+  return true;
+}
+</script>
+</body>
+
+</html>
+
