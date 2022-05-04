@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title>COMP2611 Computer Organization 2022 Spring</title>
+      <meta content="text/html; charset=utf-8" http-equiv="content-type">
+      <link href="screen.css" media="screen" rel="stylesheet" type="text/css">
+      <style type="text/css">
+      </style>
+   </head>
+   <body>
+      <script lang="javascript">
+         function switch_col(id) {
+             for (i = 1; i <= 10; i++) {
+                 document.getElementById("col" + i).style.display = "none"
+             }
+             document.getElementById("col" + id).style.display = "block"
+         }
+      </script>
+      <!-- wrap starts here -->
+      <div id="wrap">
+         <!--header -->
+         <div id="header">
+            <h1 id="logo-text"><a href="index.html" title="">COMP2611 Computer Organization 2022 Spring</a></h1>
+            <p id="slogan">HKUST / Department of Computer Science and Engineering</p>
+            <!--header ends-->
+         </div>
+         <!-- content -->
+         <div class="clear" id="content-outer">
+            <div id="content-wrap">
+               <div id="content">
+                  <div id="right">
+                     <div class="entry" id="col1">
+                        <h3><a>Announcements</a></h3>
+                        <ul>
+                           <li>(04/02/2022) Welcome to COMP2611 Computer Organization (2022 Spring)!</li>
+						   <li>(04/02/2022) Sign up our discussion forum on <a href="https://piazza.com/ust.hk/spring2022/comp2611">Piazza</a>.</li>
+						   <li>(04/02/2022) Tutorials and Labs start on Week 3 (Feb 21 - Feb 25).</li>
+						   <li>(04/02/2022) Midterm will be on Mar 28 evening.</li>
+						   <li>(02/03/2022) Homework 1 has been released under Homework section, please make your submission via Canvas, the deadline is on Mar 14 (Monday) 11:55pm HKT.</li>
+						   <li>(16/03/2022) Homework 2 has been released under Homework section, please make your submission via Canvas, the deadline is on Mar 25 (Friday) 11:55pm HKT.</li>
+						   <li>(21/03/2022) The midterm exam will take place on March 28 (Mon) 8:00pm-9:00pm HKT. We will give you more logistics details soon in an email.</li>
+						   <li>(21/03/2022) The midterm exam includes the first set of lecture note to slide 42 of the <a href="https://course.cse.ust.hk/comp2611/COMP2611_MIPS_Spring22.pdf#page=42">MIPS ISA note set</a>. It also includes tutorial1 to tutorial5, and lab1 to lab5 (with the exception on the part that uses the slt/slti instructions). The exam will be an open-book one.</li>
+						   <li>(21/03/2022) There is a Mock midterm exam available at <a href="https://canvas.ust.hk/courses/42315/quizzes/63536">Canvas</a>. Please try to play around with it. The scores there will not account for any percentage in the course grade. It is there just to let you know how the COMP2611 online exam would be like. </li>
+						   <li>(21/03/2022) Two copies of the past exam paper have been released at <a href="mid-term1-solution.pdf">here</a> and <a href="mid-term2-solution.pdf">here</a>. Please notice each COMP2611 offering in different semesters may have different teaching pace. Ignore the questions which look like total stranger to you (i.e. Q5 of the 2012 pastpaper, Q4, Q5, Q6 of the 2013 pastpaper).</li>
+						   <li>(23/03/2022) The suggested solution of homework 1 has been posted under the Homework section, please take a look.</li>
+<!--						   <li>(25/03/2022) The important
+PDF file telling you the important midterm information has been attached in the
+email we sent you on March 22, at 10:45pm HKT. Just in case this helps, the same information
+document is also available <a href="Midterm-InformationToStudents.pdf">here</a> as a
+backup for you.</li>
+						   <li>(25/03/2022) Please be minded that that
+only <b>one device is permitted</b> for answering the midterm question, and you can open only
+the Canvas page of the midterm exam, no additional browser tab nor other program is
+allowed</li>
+
+<li>(25/03/2022) Please <b>print the note sets and other important reference</b> for the
+open-book, open-note exam. You are not allowed to read the
+note from the computer you are using for answering the questions. You are also not
+allowed to have another computer for reading the note (you can only have a second device
+to take video of you).</li>-->
+						   <li>(26/03/2022) The suggested solution of homework 2 has been posted under the Homework section, please take a look.</li>
+<!--						   <li>(27/03/2022) Because we limited the scope of the
+midterm exam to slide 42 of ISA note set, therefore many of the questions in
+the second set of past paper (from Spring 2013) are out of the scope. The only question that is still within the scope of the current midterm exam is Q1, sub-question 1 (i.e.
+the one with array1).</li>-->
+						   <li>(27/03/2022) The link to find your midterm ZOOM session is at <a
+href="https://course.cse.ust.hk/comp2611/remarks.html">https://course.cse.ust.hk/comp2611/remarks.html</a>. You can also find this link in the reminder email we sent on 27/03 at 4:46pm.</li>
+						   <li>(06/04/2022) The suggested solution to the three short midterm questions is posted <a href="https://course.cse.ust.hk/comp2611/COMP2611Midterm_Spring2022Sol.pdf"> here </a>. You can also find this link under the Exams section.</li>
+					           <li>(06/04/2022) Because of the holidays, we will have the
+following arrangement for the labs:<br>
+LA1 (Wed 05:00PM - 05:50PM): <b>no lab on 13/4(midterm break)</b>, Lab8 on 20/4<br>
+LA2 (Wed 10:30AM - 11:20AM): <b>no lab on 13/4(midterm break)</b>, Lab8 on 20/4<br>
+LA3 (Mon 09:30AM - 10:20AM):  Lab8 on 11/4, <b>no lab on 18/4(midterm break)</b><br>
+</li>
+					           <li>(06/04/2022) Because of the holidays, we will have the
+following arrangement for the tutorials:<br>
+T1 (Fri 01:30PM - 02:20PM): Tuto7 on 8/4, <b>no tuto on 15/4(midterm break)</b>, tuto8 on 22/4<br>
+T2 (Mon 03:30PM - 04:20PM): Tuto7 on 4/4, tuto8 on 11/4, <b>no tuto on 18/4(midterm break)</b><br>
+T3 (Tue 06:00PM - 06:50PM): <b>no tuto on 5/4(holiday)</b>, tuto7 on 12/4, tuto8 on 19/4<br>
+</li>
+
+						   <li>(07/04/2022) Homework 3 has been released under Homework section, please make your
+submission via Canvas, the deadline is on April 19 (Tuesday) 11:55pm HKT.</li>
+						   <li>(11/04/2022) To help you doing the tasks of homework 3 correctly, our homework TA, Mr.
+Qiqi Zhou will hold a Q&A session for homework 3 on Thursday April 14, at 3:00pm-4:00pm (i.e. during the mid-semester break). The link of the session is at <a href="https://hkust.zoom.us/j/98792744528?pwd=RXIxT1NkMFRiWmJ3WDBDOHpVeFFOQT09">https://hkust.zoom.us/j/98792744528?pwd=RXIxT1NkMFRiWmJ3WDBDOHpVeFFOQT09</a>. This session is optional and it will be video recorded.</li>
+						   <li>(12/04/2022) The marking scheme of homework 2 has been posted under the Homework section, please take a look.</li>
+						   <li>(13/04/2022) The powerpoint note of Homework 3 Q&A session is at <a href="COMP2611HW3_Spring22_Introduction.pptx">here</a>. The corresponding ZOOM video is at <a href="https://hkust.zoom.us/rec/play/h925apB2SPCkLqwo3E33EPeXWpMttq5638gC3ktK3zpZY_CK9B_82plJzVF1W2Fy8RPdAWylWuSkAamb.Q0Jyk0C20GmOfZ_9">here</a>.</li>
+		                                   <li>(16/04/2022) Project has been announced under the Project section. The deadline for
+project is at <b>11:55pm on 15/05/2022, HKT</b>.</li>
+						   <li>(16/04/2022) To do the project, the <b>original version of MARS will NOT work</b>. You
+will need to use the tailor-made version (download from <a href="Mars_NS-shaft.jar">here</a>).</li>
+						   <li>(16/04/2022) If you submit the project late after the deadline then <b> -1 point out of
+100 points will be deducted for every minute late, until 0 point is reached!</b></li>
+						   <li>(20/04/2022) To help you doing the tasks of PA, our PA TA, Mr. Dashan Gao will hold a Q&A session on Thursday April 21, at 8:00pm. The link of the session is at <a href="https://hkust.zoom.us/j/95185675158?pwd=ajhIcENnb1dRSzFjZGNWVEJSSElhZz09">https://hkust.zoom.us/j/95185675158?pwd=ajhIcENnb1dRSzFjZGNWVEJSSElhZz09</a>. This session is optional and it will be video recorded.</li>
+						   <li>(27/04/2022) A newly tailor-made project MARS that is compatible with Java versions 8 to 18 is available <a
+href="Mars_NS-shaft_java8.jar">here</a>. You do not need to download it if the previous project MARS works on your computer.</li>
+						   <li>(27/04/2022) A list of PA errata has been posted <a href="PAErrata.txt">here</a>. Please take a look. </li>
+						   <li>(28/04/2022) The grading test cases of Homework 3 have been given <a href="COMP2611HW3_Spring22_Sol_Grading.pdf">here</a>, please take a look!</li>
+						   <li>(28/04/2022) Our PA tutor, Mr. Dashan Gao has prepared a video demo for the PA, you can watch it from <a href="https://www.youtube.com/watch?v=FfN6o5lLnIY">here</a>.</li>
+						   <li>(29/04/2022) The Tutorial section T2 and Lab section LA3 will be canceled next week due to the holiday on Monday, 2nd May 2022. <b>All the other tutorial and lab sections, however, will run as usual</b>. Please watch the video recordings of the tutorial if you are affected by the holiday.</li>
+						   <li>(29/04/2022) Homework 4 has been released under Homework section, please make your submission via Canvas, the deadline is on May 11 (Wednesday) 11:55pm HKT.</li>
+
+
+
+                        </ul>
+                     </div>
+                     <div class="entry" id="col2" style="display:none;">
+                        <h3><a>Course Information</a></h3>
+                        <div style="margin-left: 2em">
+                           <br>
+                           <sub>Course Description</sub>
+                           <p>
+                              Inner workings of modern digital computer systems and tradeoffs at the hardware-software interface. Topics include: instructions set design, memory systems, input-output systems, interrupts and exceptions, pipelining, performance and cost analysis, assembly language programming, and a survey of advanced architectures.
+                           </p>
+						   <br/>
+                           <sub>Learning Outcomes</sub>
+                           <p>Upon completion of the course, students are expected to be able to:</p>
+                           <ul>
+                              <li>Understand the basic concepts of digital logic and build the small circuits involved in computer systems</li>
+                              <li>Describe the interaction between software and hardware and instruction set architecture</li>
+                              <li>Write and execute small programs of a few hundred lines in assembly language</li>
+                              <li>Define the basic concepts of modern computer hardware, including datapath, control, memory and input/output</li>
+                              <li>Describe the organizational paradigms that determine the capability and performance of computer systems</li>
+                           </ul>
+						   <br/>
+                           <sub>Rubric</sub>
+                           <p> Details can be found <a href="COMP2611Rubric.pdf">here</a>.</p>
+						   <br/>
+                           <sub>Prerequisite</sub>
+                           <p>Exclusion(s): ELEC 2300 Prerequisite(s): COMP 1004 (prior to 2013-14) OR COMP 2011 OR COMP 2012H</p>
+						   <br/>
+                           <sub>Textbook</sub>
+                           <table border="0" width="100%">
+                              <tbody>
+                                 <tr>
+                                    <td><img height="200px" src="bookcover.jpg"></td>
+                                    <td><a href="https://www.bookdepository.com/Computer-Organization-and-Design-MIPS-Edition-David-A.-Patterson/9780128201091?redirected=true&utm_medium=Google&utm_campaign=Base4&utm_source=HK&utm_content=Computer-Organization-and-Design-MIPS-Edition&selectCurrency=HKD&w=AFF1AU99ZQM21ZA8V9F7&gclid=Cj0KCQjwsZKJBhC0ARIsAJ96n3UQFJSrJBzhrVKpz7qLckNSktrxTfP2fH6T5L7sWDWN566zd5Ms4_oaAhQhEALw_wcB">Computer Organization and Design: The Hardware/Software Interface</a>
+                                       <br> Patterson &amp; Hennessy
+                                       <br> Morgan Kaufmann
+                                       <br> ISBN13: 9780128201091
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+						   <br/>
+                           <sub>Lectures</sub>
+                           <table border="0" width="100%">
+                              <tbody>
+                                 <tr>
+                                    <td><b>Section</b></td>
+                                    <td><b>Instructor</b></td>
+                                    <td><b>Time</b></td>
+                                    <td><b>Venue</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td>L1</td>
+                                    <td><a href="mailto:lixin@cse.ust.hk">Dr. LI Xin Cindy</a></td>
+                                    <td>Tue/Thu 10:30AM - 11:50AM</td>
+                                    <td>Rm 2306 Lift 17/18 ; <a href="https://hkust.zoom.us/j/93199001213?pwd=bXhCWjJyU1hjZ0VyZ2srSXdITzg3dz09">Zoom</a></td>
+                                 </tr>
+                                 <tr>
+                                    <td>L2</td>
+                                    <td><a href="mailto:lamngok@cse.ust.hk">Dr. LAM Ngok Alex</a></td>
+                                    <td>Tue/Thu 12:00PM - 01:20PM</td>
+                                    <td>Rm 4619 Lift 31/32 ; <a href="https://hkust.zoom.us/j/99802496252?pwd=T2dldmwwMnZuTVR2UmN4MFo1U3g0QT09">Zoom</a></td>
+                                 </tr>
+                                 <tr>
+                                    <td>L3</td>
+                                    <td><a href="mailto:lamngok@cse.ust.hk">Dr. LAM Ngok Alex</a></td>
+                                    <td>Tue/Thu 09:00AM - 10:20AM</td>
+                                    <td>Rm 1104 Academic Concourse ; <a href="https://hkust.zoom.us/j/98295415342?pwd=cXdjQXlSQmp6NTQxUlRSWUl4aTlhZz09">Zoom</a></td>
+                                 </tr>
+                              </tbody>
+                           </table>
+						   <br/>
+                           <sub>Tutorials</sub>
+                           <table border="0" width="100%">
+                              <tbody>
+                                 <tr>
+                                    <td><b>Section</b></td>
+                                    <td><b>Time</b></td>
+                                    <td><b>Venue</b></td>
+                                    <td><b>TA</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td>T1</td>
+                                    <td>Fri 01:30PM - 02:20PM</td>
+                                    <td><a href="https://hkust.zoom.us/j/93206895138?pwd=V1dWZWxRdnNnQWEvSHBOM1lMRzRPUT09">Zoom</a></td>
+                                    <td><a href="mailto:bychang@connect.ust.hk">Dr. CHANG Bing Yen</a></td>
+                                 </tr>
+                                 <tr>
+                                    <td>T2</td>
+                                    <td>Mon 03:30PM - 04:20PM</td>
+                                    <td><a href="https://hkust.zoom.us/j/94419422761?pwd=YkhmVDNVVmhOWGJ6SnRnNG01ZFZUZz09">Zoom</a></td>
+                                    <td><a href="mailto:bychang@connect.ust.hk">Dr. CHANG Bing Yen</a></td>
+                                 </tr>
+                                 <tr>
+                                    <td>T3</td>
+                                    <td>Tue 06:00PM - 06:50PM</td>
+                                    <td><a href="https://hkust.zoom.us/j/94323300645?pwd=VUxlZEErdTBtZmdGUDRrNW9oWXRDQT09">Zoom</a></td>
+                                    <td><a href="mailto:lyangbb@connect.ust.hk">YANG Leni</a></td>
+                                 </tr>
+								 <tr>
+                                    <td>T4</td>
+                                    <td>Please watch the pre-recorded video.</td>
+                                    <td></td>
+                                    <td></a></td>
+                                 </tr>
+                              </tbody>
+                           </table>
+						   <br/>
+						   <sub>Labs</sub>
+                           <table border="0" width="100%">
+                              <tbody>
+                                 <tr>
+                                    <td><b>Section</b></td>
+                                    <td><b>Time</b></td>
+                                    <td><b>Venue</b></td>
+                                    <td><b>TA</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td>LA1</td>
+                                    <td>Wed 05:00PM - 05:50PM</td>
+                                    <td><a href="https://hkust.zoom.us/j/92086114825?pwd=UFc2aWEwcWJpeHYvYkxCbUFCMkUyUT09">Zoom</a></td>
+                                    <td><a href="mailto:qzhouam@connect.ust.hk">ZHOU Qiqi</a></td>
+                                 </tr>
+                                 <tr>
+                                    <td>LA2</td>
+                                    <td>Wed 10:30AM - 11:20AM</td>
+                                    <td><a href="https://hkust.zoom.us/j/91816333710?pwd=Y1B3MVIrQ1drWml6NUd2RytaTDZMUT09">Zoom</a></td>
+                                    <td><a href="mailto:byangak@connect.ust.hk">YANG Baichen Marcus</a></td>
+                                 </tr>
+                                 <tr>
+                                    <td>LA3</td>
+                                    <td>Mon 09:30AM - 10:20AM</td>
+                                    <td><a href="https://hkust.zoom.us/j/92576937233?pwd=UWRxaXJ6VzJySXNKakMyL0Y1QU0yZz09">Zoom</a></td>
+                                    <td><a href="mailto:cwuap@connect.ust.hk">WU Chengmin</a></td>
+                                 </tr>
+								 <tr>
+                                    <td>LA4</td>
+                                    <td>Please watch the pre-recorded video.</td>
+                                    <td></td>
+                                    <td></a></td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                           <br/>
+                           <sub>Homework and Project</sub>
+                           <table border="0" width="100%">
+                              <tbody>
+                                 <tr>
+                                    <td><b>Task</b></td>
+                                    <td><b>Responsible TA</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td>HW1</td>
+                                    <td><a href="mailto:xzhangfz@connect.ust.hk">ZHANG Xinyi</a></td>
+                                 </tr>
+                                 <tr>
+                                    <td>HW2</td>
+                                    <td><a href="mailto:xzhangfz@connect.ust.hk">ZHANG Xinyi</a></td>
+                                 </tr>
+                                 <tr>
+                                    <td>HW3</td>
+                                    <td><a href="mailto:hbaiaa@connect.ust.hk">BAI Haoyue</a></td>
+                                 </tr>
+                                 <tr>
+                                    <td>HW4</td>
+                                    <td><a href="mailto:hbaiaa@connect.ust.hk">BAI Haoyue</a></td>
+                                 </tr>
+                                 <tr>
+                                    <td>Programming Project</td>
+                                    <td><a href="mailto:dgaoaa@connect.ust.hk">GAO Dashan David</a><br>
+									</td>
+                                 </tr>
+                              </tbody>
+                           </table>
+						   <br/>
+                           <sub>Grading Scheme</sub>
+                           <table border="0" width="100%">
+                              <tbody>
+                                 <tr>
+                                    <td>4 Homework</td>
+                                    <td>15%</td>
+                                 </tr>
+                                 <tr>
+                                    <td>1 Individual Programming Project
+                                       <br>
+                                       <i>(The deadline is hard deadline)</i>
+                                    </td>
+                                    <td>15%</td>
+                                 </tr>
+                                 <tr>
+                                    <td>Mid-term Exam</td>
+                                    <td>30%</td>
+                                 </tr>
+                                 <tr>
+                                    <td>Final Exam</td>
+                                    <td>40%</td>
+                                 </tr>
+                              </tbody>
+                           </table>
+						   <br/>
+                           <sub>Academic Integrity</sub>
+                           <p>Exams, projects, quizzes, papers and other kinds of assessments are essential to the learning process. Honesty and integrity are central to academic work. See <a href="http://acadreg.ust.hk/generalreg.html">regulations</a> for student conduct and academic integrity.</p>
+                        </div>
+                     </div>
+
+                     <div class="entry" id="col3" style="display:none;">
+                        <h3><a>Teaching Team</a></h3>
+                        <table border="0" width="98%">
+                           <tbody>
+                              <tr>
+                                 <th width="15%"><b>Photo</b></th>
+                                 <th width="25%"><b>Contact</b></th>
+                                 <th width="15%"><b>Office</b></th>
+                                 <th width="45%"><b>Office hours</b></th>
+                              </tr>
+                              <tr>
+                                 <td><img src="https://www.cse.ust.hk/admin/people/faculty/photos/lixin.jpg" width="100px"></td>
+                                 <td><a href="mailto:lixin@cse.ust.hk">Dr. LI Xin Cindy</a><br>Instructor<br>L1</td>
+                                 <td>Rm 3525</td>
+                                 <td>by appointment</td>
+                              </tr>
+                              <tr>
+                                 <td><img src="https://www.cse.ust.hk/admin/people/faculty/photos/lamngok.jpg" width="100px"></td>
+                                 <td><a href="mailto:lamngok@cse.ust.hk">Dr. LAM Ngok Alex</a><br>Instructor<br>L2, L3</td>
+                                 <td>Rm 3548</td>
+                                 <td>by appointment</td>
+                              </tr>
+                              <tr>
+                                 <td><img src="changby.jpg" width="100px"></td>
+                                 <td><a href="mailto:bychang@connect.ust.hk">Dr. CHANG Bing Yen</a><br>IA<br>T1, T2</td>
+                                 <td>Rm 2532</td>
+                                 <td>by appointment</td>
+                              </tr>
+                              <tr>
+                                 <td><img src="lyangbb.png" width="100px"></td>
+                                 <td><a href="mailto:lyangbb@connect.ust.hk">YANG Leni</a><br>PGTA<br>T3</td>
+                                 <td>CYT 3007</td>
+                                 <td>by appointment</td>
+                              </tr>
+                              <tr>
+                                 <td><img src="rpi.jpg" width="100px"></td>
+                                 <td><a href="mailto:rpi@connect.ust.hk">PI Renjie</a><br>PGTA<br>LA1</td>
+                                 <td></td>
+                                 <td>by appointment</td>
+                              </tr>
+                              <tr>
+                                 <td><img src="byangak.jpg" width="100px"></td>
+                                 <td><a href="mailto:byangak@connect.ust.hk">YANG Baichen Marcus</a><br>PGTA<br>LA2</td>
+                                 <td>Rm 4030</td>
+                                 <td>by appointment</td>
+                              </tr>
+                              <tr>
+                                 <td><img src="cwuap.jpg" width="100px"></td>
+                                 <td><a href="mailto:cwuap@connect.ust.hk">WU Chengmin Rebacca</a><br>PGTA<br>LA3</td>
+                                 <td>Rm 3657</td>
+                                 <td>by appointment</td>
+                              </tr>
+                              <tr>
+                                 <td><img src="xzhangfz.png" width="100px"></td>
+                                 <td><a href="mailto:xzhangfz@connect.ust.hk">ZHANG Xinyi</a><br>PGTA<br>HW1, HW2</td>
+                                 <td>Rm 4030</td>
+                                 <td>by appointment</td>
+                              </tr>
+                              <tr>
+                                 <td><img src="qzhouam.jpg" width="100px"></td>
+                                 <td><a href="mailto:qzhouam@connect.ust.hk">ZHOU Qiqi</a><br>PGTA<br>HW3, HW4</td>
+                                 <td>CYT 3007</td>
+                                 <td>by appointment</td>
+                              </tr>
+                              <tr>
+                                 <td><img src="dgaoaa.jpg" width="100px"></td>
+                                 <td><a href="mailto:dgaoaa@connect.ust.hk">GAO Dashan David</a><br>PGTA<br>Programming Project</td>
+                                 <td>Rm 4205</td>
+                                 <td>by appointment</td>
+                              </tr>
+							  <tr>
+                                 <td><img src="lliby.jpg" width="100px"></td>
+                                 <td><a href="mailto:lliby@connect.ust.hk">LI Linrui</a><br>PGTA<br>Grader</td>
+                                 <td>CYT 3007</td>
+                                 <td></td>
+                              </tr>
+                              <tr>
+                                 <td><img src="wniab.jpg" width="100px"></td>
+                                 <td><a href="mailto:wniab@connect.ust.hk">NI Wangze Jack</a><br>PGTA<br>Grader</td>
+                                 <td>Rm 4205</td>
+                                 <td></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+
+                     <div class="entry" id="col4" style="display:none;">
+                        <h3><a>Lectures</a></h3>
+                        <div class="schedule">
+                           <style type="text/css">
+                              tr.d0 td {
+                              background-color: #F0FBFF;
+                              color: black;
+                              }
+                           </style>
+                           <br>
+                           <sub>Lecture Zoom Meeting</sub>
+                           <p>
+                              <a href="https://hkust.zoom.us/j/93199001213?pwd=bXhCWjJyU1hjZ0VyZ2srSXdITzg3dz09">L1 Zoom Meeting</a> (Tue/Thu 10:30AM - 11:50AM)<br/>
+                              <a href="https://hkust.zoom.us/j/99802496252?pwd=T2dldmwwMnZuTVR2UmN4MFo1U3g0QT09">L2 Zoom Meeting</a> (Tue/Thu 12:00PM - 01:20PM)<br/>
+                              <a href="https://hkust.zoom.us/j/98295415342?pwd=cXdjQXlSQmp6NTQxUlRSWUl4aTlhZz09">L3 Zoom Meeting</a> (Tue/Thu 09:00AM - 10:20AM)
+                           </p>
+						   <br/>
+                           <sub>Lecture Video</sub>
+                           <p>
+                              Lecture video will be typically available on <a href="https://canvas.ust.hk">Canvas</a> -> COMP2611 -> Zoom Meeting within an hour after the lecture.
+                           </p>
+						   <br/>
+                           <sub>Lecture Materials</sub>
+                           <br>
+                           <table border="0" style="margin-left" width="98%">
+                              <tbody>
+                                 <tr class="d0">
+                                    <th width="5%"><b>Week</b></th>
+                                    <th width="10%"><b>Date</b></th>
+                                    <th width="45%"><b>Lecture Topic and Note</b></th>
+                                    <th width="25%"><b>Textbook Chapter <br>Reference Reading</b></th>
+                                 </tr>
+                                 <tr class>
+                                    <td>1</td>
+                                    <td>Lecture 1<br>Feb 08</td>
+                                    <td>
+                                       <a href="COMP2611_CourseInfo_Spring22.pdf">Course Information</a>
+                                       <br>
+                                       <a href="COMP2611_Introduction_Spring22.pdf">Introduction</a>
+                                    </td>
+                                    <td>
+                                       Chapter 1.1 - 1.5
+                                       <br>
+                                       <a href="http://www.explainthatstuff.com/historyofcomputers.html">A Brief History of Computers</a>
+                                       <br>
+                                       <a href="http://mason.gmu.edu/~montecin/computer-hist-web.htm">History of Computing</a>
+                                       <br>
+                                    </td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>1</td>
+                                    <td>Lecture 2<br>Feb 10</td>
+                                    <td>
+                                       <a href="COMP2611_DigitalLogic_Spring22.pdf">Introduction to Digital Logic</a>
+                                       <br>
+                                       Logic Gates, Truth Table, Logic Function, Multiplexor
+                                    </td>
+                                    <td>
+                                       Appendix B.2, B.3
+                                       <br>
+                                       <a href="https://www.allaboutcircuits.com/textbook/digital/#chpt-8">Ditigal Circuit Self-Study</a>
+                                    </td>
+                                 </tr>
+
+                                 <tr>
+                                    <td>2</td>
+                                    <td>Lecture 3<br>Feb 15</td>
+                                    <td>Multiplexor, Decoder, Majority Vote</td>
+                                    <td>Appendix B.2, B.3</td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>2</td>
+                                    <td>Lecture 4<br>Feb 17</td>
+                                    <td>Two-Level Logic, PLA</td>
+                                    <td>Appendix B.2, B.3</td>
+                                 </tr>
+
+                                 <tr>
+                                    <td>3</td>
+                                    <td>Lecture 5<br>Feb 22</td>
+                                    <td>Logic Equivalence, Boolean Algebra, K-map</td>
+                                    <td>Appendix B.2, B.3</td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>3</td>
+                                    <td>Lecture 6<br>Feb 24</td>
+                                    <td>Sequential Logic, S-R Latch, D Latch, D Flip-Flop</td>
+                                    <td>Appendix B.7, B.8</td>
+                                 </tr>
+
+                                 <tr>
+                                    <td>4</td>
+                                    <td>Lecture 7<br>Mar 01</td>
+                                    <td><a href="COMP2611_DataRepresentation_Spring22.pdf">Data Representation</a>
+										<br>
+										2's Complement, Max, Min, and Range
+                                    </td>
+                                    <td>Chapter 2.1 - 2.3</td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>4</td>
+                                    <td>Lecture 8<br>Mar 03</td>
+                                    <td>Signed/Unsigned Number, Floating Point, IEEE754 Examples</td>
+                                    <td>Chapter 2.4, Chapter 3.5</td>
+                                 </tr>
+
+                                 <tr>
+                                    <td>5</td>
+                                    <td>Lecture 9<br>Mar 08</td>
+                                    <td>IEEE754 Rational: Implicit 1, Biased Exponent, Range, Precison and Special Cases</td>
+                                    <td>Chapter 3.5</td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>5</td>
+                                    <td>Lecture 10<br>Mar 10</td>
+                                    <td><a href="COMP2611_MIPS_Spring22.pdf">MIPS ISA and Assembly</a>
+									    <br>
+										Basic Instructions, Register, and Memory Operand
+									</td>
+									<td>Chapter 2.1, 2.2, 2.3, 2.6
+									    <br>
+										<a href="https://en.wikipedia.org/wiki/Instruction_set_architecture">Instruction Set Architecture</a>
+									</td>
+                                 </tr>
+
+                                 <tr>
+                                    <td>6</td>
+                                    <td>Lecture 11<br>Mar 15</td>
+                                    <td>First MIPS Program
+										<br/>
+										MIPS Control Flow: Branch and Loop
+									</td>
+									<td>Chapter 2.7
+										<br>
+										<a href="mips_examples.zip">Textbook MIPS example codes</a>
+									</td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>6</td>
+                                    <td>Lecture 12<br>Mar 17</td>
+                                    <td>SLT
+										<br/>
+										Machine Code
+									</td>
+									<td>Chapter 2.5</td>
+                                 </tr>
+
+                                 <tr>
+                                    <td>7</td>
+                                    <td>Lecture 13<br>Mar 22</td>
+                                    <td>Procedure
+										<br/>
+										Nested Procedures with Stack
+									</td>
+									<td>Chapter 2.8, 2.9
+										<br/>
+                                        <a href="https://www.mips.com/products/architectures/mips32/">MIPS32 Architecture</a>
+                                        <br/>
+										<a href="http://thinkingeek.com/arm-assembler-raspberry-pi/">ARM Assembly</a>
+                                        <br/>
+										<a href="https://www.tutorialspoint.com/assembly_programming/index.htm">NASM Assembly</a>
+                                        <br>
+										(For interested students)
+									</td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>7</td>
+                                    <td>Lecture 14<br>Mar 24</td>
+                                    <td>Recursion
+										<br/>
+										32-bit Immediate
+									</td>
+                                    <td>Chapter 2.10
+                                       <br>
+                                    </td>
+                                 </tr>
+
+                                 <tr>
+                                    <td>8</td>
+                                    <td>Lecture 15<br>Mar 29</td>
+                                    <td>Addressing Mode
+										<br>
+										CISC/RISC
+										<br>
+										Pseudo Instruction</td>
+                                    <td>Chapter 2.10</td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>8</td>
+                                    <td>Lecture 16<br>Mar 31</td>
+                                    <td><a href="COMP2611_Arithmetic_Spring22.pdf">Computer Arithmetic</a>
+										<br/>
+										Addition, Subtraction, and Overflow</td>
+                                    <td>Chapter 3.1, 3.2
+										<br/>
+										Appendix B5
+									</td>
+                                 </tr>
+
+                                 <tr>
+                                    <td>9</td>
+                                    <td>Lecture 17<br>Apr 07</td>
+                                    <td>Arithmatic Logic Unit (ALU)</td>
+                                    <td>Chapter 3.1, 3.2
+										<br/>
+										Appendix B5
+									</td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>10</td>
+                                    <td>Lecture 18<br>Apr 12</td>
+                                    <td>Multiplication</td>
+                                    <td>Chapter 3.3</td>
+                                 </tr>
+
+                                 <tr>
+                                    <td>10</td>
+                                    <td>Lecture 19<br>Apr 19</td>
+                                    <td>Divison, Floating Point Arithmatic (Optional)
+                                    </td>
+                                    <td>Chapter 3.4</td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>10</td>
+                                    <td>Lecture 20<br>Apr 21</td>
+                                    <td><a href="COMP2611_Processor_Part1_Spring22.pdf">Processor 1</a>
+										<br>
+										Single-cycle Datapath
+                                    </td>
+                                    <td>Chapter 4.1 - 4.3 </td>
+                                 </tr>
+
+                                 <tr>
+                                    <td>11</td>
+                                    <td>Lecture 21<br>Apr 26</td>
+                                    <td>Single-cycle Control<br></td>
+                                    <td>Chapter 4.4</td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>11</td>
+                                    <td>Lecture 22<br>Apr 28</td>
+                                    <td><a href="COMP2611_Processor_Part2_Spring22.pdf">Processor 2</a>
+										<br>
+										Pipeline Basics
+									</td>
+                                    <td>Chapter 4.5</td>
+                                 </tr>
+
+                                 <tr>
+                                    <td>12</td>
+                                    <td>Lecture 23<br>May 03</td>
+                                    <td>Pipeline Control and Hazards<br></td>
+                                    <td>Chapter 4.6</td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>12</td>
+                                    <td>Lecture 24<br>May 05</td>
+                                    <td><a href="COMP2611_Memory_Spring22.pdf">Memory System</a>
+										<br/>
+										Locality, Hierarchy, and Performance
+									</td>
+                                    <td>Chapter 5.1 - 5.4</td>
+                                 </tr>
+
+                                 <tr>
+                                    <td>13</td>
+                                    <td>Lecture 25<br>May 10</td>
+                                    <td>Direct Mapped Cache: Block Placement and Identification<br/>
+									Associate Cache, Block Replacement, and Write Strategy</td>
+                                    <td>Chapter 5.1 - 5.4</td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>13</td>
+                                    <td>Lecture 25<br>May 10</td>
+                                    <td>Associate Cache, Block Replacement, and Write Strategy</td>
+                                    <td>Chapter 5.1 - 5.4</td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+
+                     <!--Tutorial-->
+                     <div class="entry" id="col5" style="display:none;">
+                        <h3><a>Tutorials</a></h3>
+                        <br>
+                        <div class="schedule">
+                           <style type="text/css">
+                              tr.d0 td {
+                              background-color: #F0FBFF;
+                              color: black;
+                              }
+                           </style>
+                           <sub>Tutorial Zoom Meeting</sub>
+                           <p><a href="https://hkust.zoom.us/j/93206895138?pwd=V1dWZWxRdnNnQWEvSHBOM1lMRzRPUT09">T1 Zoom Meeting</a> (Fri 01:30PM - 02:20PM)<br/>
+							  <a href="https://hkust.zoom.us/j/94419422761?pwd=YkhmVDNVVmhOWGJ6SnRnNG01ZFZUZz09">T2 Zoom Meeting</a> (Mon 03:30PM - 04:20PM)<br/>
+							  <a href="https://hkust.zoom.us/j/94323300645?pwd=VUxlZEErdTBtZmdGUDRrNW9oWXRDQT09">T3 Zoom Meeting</a> (Tue 06:00PM - 06:50PM)
+						   </p>
+						   <br/>
+                           <sub>Tutorial Materials</sub>
+                           <table border="0" style="margin-left" width="90%">
+                              <tbody>
+                                 <tr class="d0">
+                                    <th width="5%"><b>Week</b></th>
+                                    <th width="20%"><b>Date</b></th>
+                                    <th width="45%"><b>Tutorial Note</b></th>
+                                    <th width="14%"><b>Solution</b></th>
+                                    <th width="16%"><b>Self-Study Video</th>
+                                 </tr>
+
+                                 <tr>
+                                    <td>N/A</td>
+                                    <td>Tutorial 0<br>Self-Study</td>
+                                    <td><a href="Tutorial00-2022S.pdf">The Number Systems</a></td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>3</td>
+                                    <td>Tutorial 1<br>Feb 21, 22, 25</td>
+                                    <td><a href="Tutorial01-2022S.pdf">Combinational Logic Circuit</a></td>
+                                    <td><a href="Tutorial01-2022S-solution.pdf">Solution</a><br/><a href="Tutorial01-2022S-Kmap.xlsx">Excel</a></td>
+                                    <td><a href="https://hkust.zoom.us/rec/play/sFdK5PeAzNR3MrVwutri7bHwD7nrGsPUz_PHHDXnpQTOZvqlAtF9UycekUEcc-fjilsm0B2Z8aKfQHWs.UZfpoy5_zjYJe0ey">Zoom Recording</a></td>
+                                 </tr>
+
+                                 <tr>
+                                    <td>4</td>
+                                    <td>Tutorial 2<br>Feb 28, Mar 1, 4</td>
+                                    <td><a href="Tutorial02-2022S.pdf">Sequential Logic Circuit</a></td>
+                                    <td><a href="Tutorial02-2022S-solution.pdf">Solution</a></td>
+                                    <td><a href="https://hkust.zoom.us/rec/play/ismvGBr0EShKa-BIe0QhDePhzO3_qdH67xQsV-AikbR38i591X87IiDbdb9p5Ikt4qeN22esj9q1z5tE.wi1zM2wDxfM9nr85">Zoom Recording</a></td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>5</td>
+                                    <td>Tutorial 3<br>Mar 7, 8, 11</td>
+                                    <td><a href="Tutorial03-2022S.pdf">Base Conversion and Integer Representation</a></td>
+                                    <td><a href="Tutorial03-2022S-solution.pdf">Solution</a></td>
+                                    <td><a href="https://hkust.zoom.us/rec/play/dGeLypDCjsTuZfehBXzaoiHI4-FmwWy6_4Lh1bLippAfitso6J0vXIDKGhb4ZDqrNOk-svIZveEetvYh.0hPESZeN79I-rfua">Zoom Recording</a></td>
+                                 </tr>
+
+                                 <tr>
+                                    <td>6</td>
+                                    <td>Tutorial 4<br>Mar 14, 15, 18</td>
+                                    <td><a href="Tutorial04-2022S.pdf">Floating Point Number Representation and Character</a></td>
+                                    <td><a href="Tutorial04-2022S-solution.pdf">Solution</a></td>
+                                    <td><a href="https://hkust.zoom.us/rec/play/7ZeuRChpBZ8REh_dB6Mgfvpl3VOQuDaGNjyDgnsx2-yq5-Ku_kUUwT3waTML9pxzBoOM3SVpRfJ02GMM.LS5o_fKXibXL4F42">Zoom Recording</a></td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>7</td>
+                                    <td>Tutorial 5<br>Mar 21, 22, 25</td>
+                                    <td><a href="Tutorial05-2022S.pdf">Introduction to MIPS Assembly</a><br/><a href="Tutorial05-code.zip">(Source files)</a></td>
+                                    <td><a href="Tutorial05-2022S-solution.pdf">Solution</a></td>
+                                    <td><a href="https://hkust.zoom.us/rec/play/OZdCvw3VI37UofukWvYjjVOXQh8FwGswMS2OkOR_DWyLmtLHI313EMHN9QQTKpdCY_K41TGIi3ligeGy.dkovMxgpdFAZ8tP7">Zoom Recording</a></td>
+                                 </tr>
+
+                                 <tr>
+                                    <td>8</td>
+                                    <td>Tutorial 6<br>Mar 28, 29, Apr 1</td>
+                                    <td><a href="Tutorial06-2022S.pdf">MIPS Branches and Jump Instructions</a><br/><a href="Tutorial06-code.zip">(Source files)</a></td>
+                                    <td><a href="Tutorial06-2022S-solution.pdf">Solution</a></td>
+                                    <td><a href="https://hkust.zoom.us/rec/play/Jl-GT8CYIRMBLpzG8H9GsSq9CbbGQaJ5cFC0ezKD2HzEBwavSchOw1CqrchWLzVY_tlxFUjtbQu9A38P.EOiY8xnTfsOw0aom">Zoom Recording</a></td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>9</td>
+                                    <td>Tutorial 7<br>Apr 4, 8<br/>Apr 12 (T3 make-up)</td>
+                                    <td><a href="Tutorial07-2022S-revised.pdf">MIPS Machine Code and Procedure (revised)</a><br/><a href="Tutorial07-code-revised.zip">(Source files revised)</a></td>
+                                    <td><a href="Tutorial07-2022S-solution-revised.pdf">Solution (revised)</a></td>
+                                    <td><a href="https://hkust.zoom.us/rec/play/i_dOBu69c3Qi3DNogUEnEoH6NcTDNjKgMWZDBkCkg4m8Ct1QbCZCzlP0XCdoUB4JPWOkGmAieODJCeLD.vBCAGeeg-AcsIQPm">Zoom Recording</a></td>
+                                 </tr>
+
+                                 <tr>
+                                    <td>10</td>
+                                    <td>Tutorial 8<br>Apr 11, 19, 22</td>
+                                    <td><a href="Tutorial08-2022S.pdf">Nested Procedure Call and ALU</a></td>
+                                    <td><a href="Tutorial08-2022S-solution.pdf">Solution</a></td>
+                                    <td><a href="https://hkust.zoom.us/rec/play/jPwsT8EwCmQYVAK6-ivOKTYyrXUZdgpHBtKEAkk9FZYHj3OBz_gt9WqqnAuBSANkRJiAYFaGKPOg4TZX.bUb2kSqPzX5cJtWg">Zoom Recording</a></td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>11</td>
+                                    <td>Tutorial 9<br>Apr 25, 26, 29</td>
+                                    <td><a href="Tutorial09-2022S.pdf">Computer Arithmetic</a></td>
+                                    <td><a href="Tutorial09-2022S-solution.pdf">Solution</a></td>
+                                    <td><a href="https://hkust.zoom.us/rec/play/uOdFtpJAjVjQfo5fJChjVOUTjKFcqrHqUh9no-qZ1nrlNrnbXGHxu_H_tb0rbGs5N9lY4gXqsw170BPW.XSDq-bdEpVpH7CrA">Zoom Recording</a></td>
+                                 </tr>
+
+                                 <tr>
+                                    <td>12</td>
+                                    <td>Tutorial 10<br>May 3, 6</td>
+                                    <td><a href="Tutorial10-2022S.pdf">Single-Cycle Datapath and Control</a></td>
+                                    <td><a href="Tutorial10-2022S-solution.pdf">Solution</a></td>
+                                    <td><a href="https://hkust.zoom.us/rec/share/yTiNyL5Ih0UF6ARpDu73zTl0dEwpD_9gOyDexsgo8Jy3yOQk4ptkoBPa5OGkCRaX.FJrnUI8Hl5WsBgob">Zoom Recording</a></td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>13</td>
+                                    <td>Tutorial 11<br>May 10</td>
+                                    <td><a href="Tutorial11-2022S.pdf">The Pipelined Processor</a></td>
+                                    <td><a href="Tutorial11-2022S-solution.pdf">Solution</a></td>
+                                    <td><a href="tutorial11.mp4">Zoom Recording</a></td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+
+                     <!--Lab-->
+                     <div class="entry" id="col6" style="display:none;">
+                        <h3><a>Labs</a></h3>
+                        <br>
+                        <div class="schedule">
+                           <style type="text/css">
+                              tr.d0 td {
+                              background-color: #F0FBFF;
+                              color: black;
+                              }
+                           </style>
+                           <sub>Lab Zoom Meeting</sub>
+                           <p><a href="https://hkust.zoom.us/j/97828212757?pwd=Q1drUWtDQTlab3hlSnY3MnEzZlJyQT09">LA1 Zoom Meeting</a> (Wed 05:00PM - 05:50PM)<br/>
+							  <a href="https://hkust.zoom.us/j/91816333710?pwd=Y1B3MVIrQ1drWml6NUd2RytaTDZMUT09">LA2 Zoom Meeting</a> (Wed 10:30AM - 11:20AM)<br/>
+							  <a href="https://hkust.zoom.us/j/92576937233?pwd=UWRxaXJ6VzJySXNKakMyL0Y1QU0yZz09">LA3 Zoom Meeting</a> (Mon 09:30AM - 10:20AM)
+						   </p>
+						   <br/>
+                           <sub>Lab Materials</sub>
+                           <table border="0" style="margin-left" width="90%">
+                              <tbody>
+                                 <tr class="d0">
+                                    <th width="5%"><b>Week</b></th>
+                                    <th width="20%"><b>Date</b></th>
+                                    <th width="59%"><b>Lab Note</b></th>
+                                    <th width="16%"><b>Pre-recorded Self-Study Video</th>
+                                 </tr>
+
+                                 <tr>
+                                    <td>3</td>
+                                    <td>Lab 1<br>Feb 21, 23</td>
+                                    <td><a href="lab01-2022S.pdf">Introduction to Logisim and Simple Combinational Circuit</a></td>
+                                    <td><a href="https://hkust.zoom.us/rec/share/yh3ZvkLHh05P2DQsLQiAyEDO6ZkHwLxCkzT8_9pzdRrzb5eXbohN6eka67TPV9H3.nfEEtevLihFTkien?startTime=1644576947000">Zoom Recording</td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>4</td>
+                                    <td>Lab 2<br>Feb 28, Mar 2</td>
+                                    <td><a href="lab02-2022S.pdf">Building Sequential Logics with Logisim</a></td>
+                                    <td><a href="https://hkust.zoom.us/rec/share/bOW8ivtYtteaDNOw7igRcRm01In5qFZ8yabjJ4j4Vet26t64U70PzjW_Cxk4xaH6.m8T13DZYBImG1KvH?startTime=1645084642000">Zoom Recording</td>
+                                 </tr>
+
+                                 <tr>
+                                    <td>5</td>
+                                    <td>Lab 3<br>Mar 7, 9</td>
+                                    <td><a href="lab03-2022S.pdf">Building Registers</a><br/>
+										<a href="logisim_files.zip">(Circuit files of lab1 to lab3)</a>
+									</td>
+                                    <td><a href="https://hkust.zoom.us/rec/share/Smc1ohAxmDYPdt_rO26NWrZO4ZcCo_0uPgNR8iI7EzGl97epI86nqGnnSPVUCDNL.8ZGcqeqteoOwv2jw?startTime=1645697736000">Zoom Recording</td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>6</td>
+                                    <td>Lab 4<br>Mar 14, 16</td>
+                                    <td><a href="lab04-2022S.pdf">Introduction to MARS and MIPS syscall Services</a><br/>
+										<a href="lab04-code-2022S.zip">(Source files)</a>
+									</td>
+                                    <td><a href="https://hkust.zoom.us/rec/share/jRmy-byrX8H0kuJEX94L2BaXQl3p1DmDWuzf83N-OIoobtwI9oQGQ9goChnmxq0.VHGrFNdqZ3hLqPVK">Zoom Recording</td>
+                                 </tr>
+
+                                 <tr>
+                                    <td>7</td>
+                                    <td>Lab 5<br>Mar 21, 23</td>
+                                    <td><a href="lab05-2022S.pdf">MIPS Programming</a><br/>
+										<a href="lab05-code-2022S.zip">(Exercise)</a><br/>
+										<a href="lab05-code-2022S-sol.zip">(Solution)</a>
+									</td>
+                                    <td><a href="https://hkust.zoom.us/rec/share/nOIM43VZfN6wIcHoW9ehUQmBEsYEMOyOUPFM3ehwT1AzY2IttX0Ez3MOw60-qv8.kdZYue7tgHH22KJh?startTime=1646903574000">Zoom Recording</td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>8</td>
+                                    <td>Lab 6<br>Mar 28, 30</td>
+                                    <td><a href="lab06-2022S.pdf">MIPS Procedures</a><br/>
+										<a href="lab06-code-2022S.zip">(Source files)</a> <a href="lab06-code-2022S-extra.zip">(Extra Source files)</a>
+									</td>
+                                    <td><a href="https://hkust.zoom.us/rec/share/NuPTGaZlTIGAPh76fjUu52Xp5bdcNTLCHMWi6j693AETwdYk8gsHvF68_1KGuf2F.IuOqS2lawIJwtEaz?startTime=1647508452000">Zoom Recording</td>
+                                 </tr>
+
+                                 <tr>
+                                    <td>9</td>
+                                    <td>Lab 7<br>Apr 4, 6</td>
+                                    <td><a href="lab07-2022S.pdf">Recursion in MIPS</a><br/>
+										<a href="factorial.s">(Factorial example)</a> <a href="fib_sol.s">(Fibonacci solution)</a>
+									</td>
+                                    <td><a href="https://hkust.zoom.us/rec/share/OBDEKN1pNpJzhHhYuPE1lzJX-XLyuHMb8hphqSZvRjL1jZ8cKQFnixVrTE0T459q.B4zrX4iA8rARGOXS?startTime=1647940896000">Zoom Recording</td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>10</td>
+                                    <td>Lab 8<br>Apr 11, 20</td>
+                                    <td><a href="lab08-2022S.pdf">Debugging on MARS</a><br/>
+										<a href="lab08-code-2022S.zip">(Source files)</a>
+									</td>
+                                    <td><a href="https://hkust.zoom.us/rec/share/HEDRAVuDiTT0Ibw9aPItKQhjgsKU7YcRy-NeZtG-ch-b0JlhCKpVClBAVA9KlJZC.uVETwuBjjp6Vrusn">Zoom Recording</td>
+                                 </tr>
+
+                                 <tr>
+                                    <td>11</td>
+                                    <td>Lab 9<br>Apr 25, 27</td>
+                                    <td><a href="lab09-2022S.pdf">Building a 1-bit ALU and a 4-bit ALU with Logisim</a>
+										<br/><a href="lab09-code-2022S.zip">(Source files)</a>
+									</td>
+                                    <td><a href="https://hkust.zoom.us/rec/play/MdlsFf91mFFb4lgQdqp1i8Ko4zS-4HIpgULcHXl1vSPI6TO581daOfeo6kk4AKirAw2qNrREUfTuzkbH.MU4vGLJ7rKZxepic?autoplay=true&startTime=1649404399000">Zoom Recording</td>
+                                 </tr>
+
+                                 <tr class="d0">
+                                    <td>12</td>
+                                    <td>Lab 10<br>May 4</td>
+                                    <td><a href="lab10-2022S.pdf">Processor in Logisim</a><br/>
+										<a href="lab10-code-2022S.zip">(Source files)</a>
+									</td>
+                                    <td><a href="https://hkust.zoom.us/rec/play/HhZ4To_48OaGM5_R9-xVewTwB5eWG0v3knyTAdo2QYYNQDN5yg7e1SWXDXMliFpEpL2spjYjgpQGcaGI.homl3idRFnyT-v5R?autoplay=true&startTime=1650533964000">Zoom Recording</td>
+                                 </tr>
+
+                                 <tr>
+                                    <td>13</td>
+                                    <td>Q&A<br>May 11</td>
+                                    <td>Q&A Session before Final Exam</td>
+                                    <td>N/A</td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <!-- Homework -->
+                     <!-------------->
+                     <div class="entry" id="col7" style="display:none;">
+                        <h3><a>Homework</a></h3>
+						<h4><a>Homework 1</a></h4>
+						<p><a href="COMP2611HW1_Spring22.pdf">Homework 1</a>, deadline at 11:55pm, on Monday, March 14, 2022, Hong Kong Time, UTC+8.</p>
+						<p>Only electronic submissions are accepted. To submit, go to <a href="https://canvas.ust.hk">Canvas</a>, and find the course COMP2611 and <b>Homework 1 Submission Page</b>. NO LATE SUBMISSION WILL BE ACCEPTED!</p>
+						<p><a href="COMP2611HW1_Spring22_Sol_Grading.pdf">Suggested solution of Homework 1.</a></p>
+                        <br>
+
+						<h4><a>Homework 2</a></h4>
+						<p><a href="COMP2611HW2_Spring22.pdf">Homework 2</a>, deadline at 11:55pm, on Friday, March 25, 2022, Hong Kong Time, UTC+8.</p>
+						<p>Only electronic submissions are accepted. To submit, go to <a href="https://canvas.ust.hk">Canvas</a>, find COMP2611 and <b>Homework 2 Submission Page</b>. NO LATE SUBMISSION WILL BE ACCEPTED!</p>
+						<p><a href="COMP2611HW2_Spring22_Sol.pdf">Suggested solution of Homework 2.</a></p>
+						<p><a href="COMP2611HW2_Spring22_Sol_Grading.pdf">Marking scheme of Homework 2.</a></p>
+                        <br>
+
+						<h4><a>Homework 3</a></h4>
+						<p><a href="COMP2611HW3_Spring22.zip">Homework 3</a>, deadline at 11:55pm, on Tuesday, April 19, 2022, Hong Kong Time, UTC+8.</p>
+						<p>Only electronic submissions are accepted. To submit, go to <a href="https://canvas.ust.hk">Canvas</a>, find COMP2611 and <b>Homework 3 Submission Page</b>. NO LATE SUBMISSION WILL BE ACCEPTED!</p>
+						<p><a href="COMP2611HW3_Spring22_Sol_Grading.pdf">Grading test cases of Homework 3.</a></p>
+                        <br>
+
+						<h4><a>Homework 4</a></h4>
+						<p><a href="COMP2611HW4_Spring22.pdf">Homework 4</a>, deadline at 11:55pm, on Wednesday, May 11, 2022, Hong Kong Time, UTC+8.</p>
+						<p>Only electronic submissions are accepted. To submit, go to <a href="https://canvas.ust.hk">Canvas</a>, find COMP2611 and Homework 4 Submission Page. NO LATE SUBMISSION WILL BE ACCEPTED!</p>
+						<p><a href="COMP2611HW4_Spring22_Sol_Grading.pdf">Marking scheme of Homework 4.</a></p>
+                        <!--<br>-->
+
+                        <!--<sub>Homework Submission</sub>
+                        <p>Homework submission is electronically via <a href="https://canvas.ust.hk">Canvas</a>. Scan your homework to a single PDF file. Or alternatively, if you take multiple photos of your homework, name them 01.jpg, 02.jpg, etc, put all photos in a folder, and zip the folder into a single .zip file. Make sure you upload the homework to <a href="https://canvas.ust.hk">Canvas</a> -> COMP2611 -> Assignments before the deadline.</p>-->
+                     </div>
+
+                     <div class="entry" id="col8" style="display:none;">
+                        <h3><a>Programming Project</a></h3>
+
+						<br/>
+                        <sub>Copyright</sub>
+                        <p>All project related materials (project description, modified MARS, project skeleton) is for personal usage of students of HKUST COMP2611 Spring 2022 offering. Posting it on a website other than the official course web page constitutes a breach of the copyright of COMP2611 teaching team, CSE and HKUST.</p>
+						<ul>
+						<li><b>Project deadline:</b>  at 11:55pm, on Sunday, May 15, 2022, Hong Kong Time, UTC+8.</li>
+
+			                        <li><b>Project Description:</b> <a
+href="COMP2611_22Spring_MIPS_project.pdf">here</a></li>
+						<li><b>Skeletion Code:</b>  <a href="NS_Shaft_Skeleton.s">here</a>  (<a href="PAErrata.txt">errata</a>)</li>
+						<li><b>Modified MARS:</b>  <a href="Mars_NS-shaft.jar">here</a>,
+						(the <b>original version of MARS will NOT work</b>. You will need to use the tailor-made MARS here). <br>
+                                                 <font color="red"><b>A version compatible with older Java is available</b></font> <a href="Mars_NS-shaft_java8.jar">here</a></li>
+						<li><b>Video demo:</b> <a href="https://www.youtube.com/watch?v=FfN6o5lLnIY">here</a></li>
+
+						<li>Only electronic submissions are accepted. To submit, go to <a
+href="https://canvas.ust.hk">Canvas</a>, find COMP2611 and Project Submission Page. <b>If you submit late, -1 point out of 100
+points will be deducted for every minute late, until 0 point is reached!</b></li>
+						</ul>
+                     </div>
+
+                     <div class="entry" id="col9" style="display:none;">
+                        <h3><a>Exam</a></h3>
+						<h4><a>Final Exam</a></h4>
+						<p>Date: To be announced</p>
+						<p>Time: To be announced</p>
+						<p>Venue: To be announced</p>
+						<!--<p>Note: For students who are not in HK (NIHK), zoom meeting will be assigned later.</p>
+						<img src="final.png"></img>-->
+						<br>
+						<h4><a>Midterm exam</a></h4>
+						<p>Date: 28 Mar 2022 (Monday)</p>
+						<p>Time: 8:00pm-9:00pm (ZOOM check-in at ~7:20pm)</p>
+						<p>Venue: Canvas</p>
+						<p>Short question solution: <a href="https://course.cse.ust.hk/comp2611/COMP2611Midterm_Spring2022Sol.pdf">here</a></p>
+						<!--<p>Note: For students who are not in HK (NIHK), zoom meeting will be assigned later.</p>
+						<img src="midterm.png"></img>-->
+                     </div>
+
+                     <!--<div class="entry" id="col9" style="display:none;">
+                        <h3><a>Grade</a></h3>
+                        <p>TBA</p>
+                     </div>
+                     <div class="entry" id="col10" style="display:none;">
+                        <h3><a>Past Exams</a></h3>
+                        <p>TBA</p>
+                     </div>
+                     <div class="entry" id="col11" style="display:none;">
+                        <h3><a>Info</a></h3>
+                        <p>TBA</p>
+                     </div>-->
+
+                     <div class="entry" id="col10" style="display:none;">
+                        <h3><a>Logisim</a></h3>
+                        <ul>
+                           <li><a href="http://www.cburch.com/logisim/">Logisim homepage</a></li>
+                           <li><a href="http://sourceforge.net/projects/circuit/">Logisim download</a></li>
+                           <li>For Mac users, you can use Logisim without installing JAVA 6: Download and unzip the Logisim pkg, right-click icon and click “show package contents”, then follow “contents->resources->java->logisim.jar “, you can use this “logisim.jar” directly (Do not install JAVA 6).</li>
+						   <li>There is a problem with Logisim on MacBook when storing a .circ file and loading it as a library. Some students ask this in the first Lab course. It may be a system problem. This issue can be solved in this way:
+							After you stored the .circ file on the original system folders (e.g. Desktop, Downloads, Pictures), you will not find it on the path of “Logisim Library”. Please store the file in your personal folder, for example, my computer name is “lee", and I have a self-created folder “test”, then I can store this .circ file in the “/Users/lee/test/multiplexer.circ” path and there is no loading problem from this path.</li>
+                           <li><a href="logisim-win-2.7.1.exe">Logisim local download</a></li>
+                           <li><a href="https://www.youtube.com/watch?v=2WUoL8K-oEM">Video of the Logisim and K-map for 7 segment display</a></li>
+                        </ul>
+						   <br/>
+                        <h3><a>MARS/MIPS</a></h3>
+                        <ul>
+                           <li><a href="http://courses.missouristate.edu/kenvollmar/mars/">MARS</a></li>
+                           <li><a href="MARS_4_5.jar">MARS v4.5 local download</a></li>
+                           <li><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">JRE</a></li>
+                        </ul>
+						   <br/>
+                        <h3><a>More Resources</a></h3>
+                        <ul>
+                           <li><a href="MIPS_Green_Sheet.pdf">MIPS green information sheet</a></li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div id="left">
+                     <div class="sidemenu">
+                        <h3>Menu</h3>
+                        <ul>
+                           <li><a href="index.html">Home</a></li>
+                           <li><a href="#" onclick="javascript:switch_col(1);">Announcements</a></li>
+                           <li><a href="#" onclick="javascript:switch_col(2);">Course Information</a></li>
+                           <li><a href="#" onclick="javascript:switch_col(3);">Teaching Team</a></li>
+                           <li><a href="#" onclick="javascript:switch_col(4);">Lectures</a></li>
+                           <li><a href="#" onclick="javascript:switch_col(5);">Tutorials</a></li>
+						   <li><a href="#" onclick="javascript:switch_col(6);">Labs</a></li>
+                           <li><a href="#" onclick="javascript:switch_col(7);">Homework</a></li>
+                           <li><a href="#" onclick="javascript:switch_col(8);">Project</a></li>
+                           <li><a href="#" onclick="javascript:switch_col(9);">Exams</a></li>
+                           <!--<li><a href="#" onclick="javascript:switch_col(8);">Grade</a></li>-->
+                           <li><a href="#" onclick="javascript:switch_col(10);">Reference</a></li>
+                        </ul>
+                     </div>
+                     <div class="sidemenu">
+                        <h3>Instructor</h3>
+                        <ul>
+                           <li><a href="mailto:lixin@cse.ust.hk"><strong>Dr. LI Xin Cindy</strong></a><br/>
+							   <strong>(<a href="http://www.cse.ust.hk/~lixin/" target="_blank">website</a>)</strong><br/>
+							   <strong>Room 3525</strong>
+                           </li>
+                           <li><a href="mailto:lamngok@cse.ust.hk"><strong>Dr. LAM Ngok Alex</strong></a><br/>
+							   <strong>(<a href="http://www.cse.ust.hk/~lamngok/" target="_blank">website</a>)</strong><br/>
+							   <strong>Room 3548</strong>
+                           </li>
+                        </ul>
+                     </div>
+                     <!-- content end -->
+                  </div>
+                  <!-- footer-bottom starts -->
+                  <div id="footer-bottom">
+                     <div class="bottom-left">
+                        <strong>Powered by: <a href="http://www.styleshout.com/">styleshout</a></strong>
+                        <p>
+                     </div>
+                     <!-- footer-bottom ends -->
+                  </div>
+                  <!-- wrap ends here -->
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>
