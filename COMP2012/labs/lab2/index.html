@@ -1,0 +1,539 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- ### Change assignment number ### -->
+  <title>COMP 2012 Lab 2: Class Construction and Destruction</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/blog-home.css" rel="stylesheet">
+
+  <style>
+    pre {
+      background: #f4f4f4 !important;
+      border: 1px solid #ddd !important;
+      border-left: 3px solid #f36d33 !important;
+      color: #666 !important;
+      page-break-inside: avoid !important;
+      font-family: monospace !important;
+      font-size: 14px !important;
+      line-height: 1.6 !important;
+      margin-bottom: 1.6em !important;
+      max-width: 100% !important;
+      overflow: auto !important;
+      padding: 1em 1.5em !important;
+      display: block !important;
+      word-wrap: break-word !important;
+    }
+    #download input[type=checkbox ]{
+    display: none;
+    }
+    #download input[type=checkbox]:checked ~ .remove-check{
+        display: none;
+    }
+    #download input[type=checkbox]:checked ~ #message{
+        display: block;
+    }
+    #message{
+        display: none;
+    }
+    <style scoped>
+    .conflicting-class { ... }
+    </style>
+  </style>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+</head>
+
+<body>
+
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Entries Column -->
+      <div class="col-md-9">
+
+        <h4 class="my-4">
+          <span style="color:darkblue">COMP 2012</span>
+          <small>Object-Oriented Programming and Data Structures</small>
+        </h4>
+
+        <!-- ### Change assignment number and title ### -->
+        <h3 class="my-4">Lab 2
+          <span style="color:#660066">Class Construction and Destruction</span>
+        </h3>
+        <div class="mb-4">
+            <img src="events.jpg" width=100%>
+        </div>
+        <!-- Introduction section -->
+        <!-- ### Complete introduction section for the assignment ### -->
+
+
+        <div class="card mb-4">
+            <div class="card-body" id="introduction">
+                <h3 class="card-title">Design a Event Booking System</h3>
+                <p>
+                  There will be a lot of events coming for the HKUST 30 Anniversary! In
+                  this lab, you are going to design an event booking system for visitors to register some events. To do that, we need to utilize Constructor and Destructor. Key points include:
+                    <ul>
+                        <li> Type conversion constructor </li>
+                        <li> Copy constructor </li>
+                        <li> Other constructors (e.g., Delegating constructor) </li>
+                        <li> Destructor </li>
+                    </ul>
+                </p>
+                <p>
+                  As a prototype, the system should be capable of managing resources (i.e., tickets and events)
+                   and providing a booking service. When a person makes a booking, he will reserve an event as
+                   well as a ticket. As there are only <code>maxNumTicket</code> tickets and
+                    <code>maxNumEvent</code> events, the system would reject invalid bookings
+                    that exceed the maximum capacity.
+                </p>
+
+                <p>Are You Ready?! Download the skeleton <a href="source.zip">source file</a> and get started!!!</p>
+
+                <h4 id="overview">Overview</h4>
+
+                <p>
+                    There are 4 classes: <code>Ticket</code>, <code>Event</code>, <code>Person</code>,
+                    and <code>BookingSystem</code>.
+                    The first three classes, <code>Ticket</code>, <code>Event</code> and <code>Person</code>, are already implemented for you.
+                    Therefore, you only need to implement the <code>BookingSystem</code> class.
+                    Specifically, you should only add code to the <code>TODOs</code> parts in <code>bookingsystem.cpp</code>,
+                    otherwise it may fail the automatic grading.
+                    The following code shows the definition of the 4 classes:
+                </p>
+
+                <ol>
+
+                    <li>
+                        The Ticket class (in <code>event-ticket.h</code>):
+                        <pre>
+class Ticket
+{
+private:
+    int ticketID;
+public:
+    Ticket(int id);               // Conversion constructor
+    Ticket(const Ticket &other);  // Copy constructor
+    ~Ticket();                    // Destructor
+};
+
+</pre>
+                    </li>
+
+                    <li>
+                        The Event class (in <code>event-ticket.h</code>):
+                        <pre>
+class Event
+{
+private:
+    int eventID;
+public:
+    Event(int id);                // Conversion constructor
+    Event(const Event &other);    // Copy constructor
+    ~Event();                     // Destructor
+};
+
+</pre>
+                    </li>
+
+                    <li>
+                        The Person class (in <code>person.h</code>):
+                        <pre>
+class Person
+{
+public:
+    char *name;
+    Event *event;
+    Ticket *ticket;
+
+    Person(const char *name, Event *event, Ticket *ticket);     // General constructor.
+    Person(const Person &other);                                // Copy constructor, deep copy name only.
+    Person(const Person &other, Event *event, Ticket *ticket);  // Delegating constructor
+    ~Person();                                                  // Destructor
+
+    Event* DropEvent();
+    Ticket* DropTicket();
+};
+</pre>
+                    </li>
+
+                    <li>
+                        The BookingSystem class (in <code>bookingsystem.h</code>):
+                                                    <pre>
+const int maxNumEvent = 3;   // Maximum number of Event.
+const int maxNumTicket = 3;  // Maximum number of Ticket.
+const int maxNumPerson = 3;  // Maximum number of Person.
+
+class BookingSystem
+{
+private:
+    Event *events[maxNumEvent];
+    Ticket *tickets[maxNumTicket];
+    Person *persons[maxNumPerson];
+
+    int numEvent;      // Current number of Event.
+    int numTicket;     // Current number of Ticket.
+    int numPerson;     // Current number of Person.
+    int SN;            // Serial number
+
+    int findIndexByName(const char* name);
+
+public:
+    // TODO: General constructor
+    BookingSystem(int id, int nEvent, int nTicket);
+    // TODO: Copy constructor
+    BookingSystem(const BookingSystem &other);
+    // TODO: Delegating constructor
+    BookingSystem(int id, int capacity);
+    // TODO: Delegating constructor
+    BookingSystem(int id, const BookingSystem &other);
+    // TODO: Destructor
+    ~BookingSystem();
+
+    void releaseEvent(const char* name);
+    void releaseTicket(const char* name);
+
+    // TODO: accept person's booking by allocating a Person object.
+    // The person would like to reserve an event with a ticket.
+    void makeBooking(const char* name);
+
+    // print the log
+    void log() const;
+};
+</pre>
+                    </li>
+                </ol>
+
+                We have listed all testing cases in the <code>main.cpp</code> file.
+                The testing operations include:
+                <ol>
+                    <li>Initialize a booking system.</li>
+                    <li>Two people come and reserve tickets for two events.</li>
+                    <li>One person unregisters an event but holds the ticket, and someone else makes a booking again.</li>
+                    <li>One person unregisters an event and returns the ticket.</li>
+                    <li>
+                        Time to back up your system!
+                        Copy the original system, including all tickets, events and persons.
+                    </li>
+                    <li>End of the registration. Destroy the booking system.</li>
+                    <li>Find a ticket left. Create a new booking system for one person with one ticket of one event.</li>
+                    <li>End of all events. Clear all existing data.</li>
+                </ol>
+            </div>
+        </div>
+
+
+
+        <div class="card mb-4">
+            <div class="card-body" id="labtask">
+                <h3 class="card-title">Lab tasks</h3>
+                <p class="card-text">
+
+                    <ol>
+                        <li>
+                            Before you start, we recommend you read the provided codes and understand the overall framework.
+                            The recommended reading order is:
+                            <ul>
+                                <li> <code>event-ticket.h</code> and <code>event-ticket.cpp</code> </li>
+                                <li> <code>person.h</code> and <code>person.cpp</code> </li>
+                                <li> <code>bookingsystem.h</code> and <code>bookingsystem.cpp</code> </li>
+                                <li> <code>main.cpp</code> </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            Finish the TODOs in <code>bookingsystem.cpp</code>.
+                            <ul>
+                                <li> Complete the general constructor of the <code>BookingSystem</code> class. Allocate memory for events, tickets and persons and initalize all member variables</li>
+                                <li> Complete the copy constructor of the <code>BookingSystem</code> class. Deep copy all data members of another booking system. Noted that we need to do more when copying Person class!</li>
+                                <li> Complete the delegating constructor of the <code>BookingSystem</code> class. Note for this part, you should only add one extra line of code. </li>
+                                <li> Complete the delegating constructor for the copy function of the <code>BookingSystem</code> class. Deep copy all data members of another restaurant with a new ID.</li>
+                                <li> Complete the destructor of the <code>BookingSystem</code> class. Note that we need to do more when dealing with Person class.</li>
+                                <li> Complete the <code>BookingSystem::makeBooking</code>. One person will consume one ticket and one event. The booking system will give the ownership of the latest event and ticket objects to the Person.</li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            Run the Makefile by <code>make</code> to build the executable (i.e., <code>lab2.exe</code>).
+                        </li>
+                        <li>Run <code>lab2.exe</code> to check with the expected output below:</li>
+
+                        <pre>
+1. Initialize booking system!
+Event with ID 1 Constructed!
+Event with ID 2 Constructed!
+Event with ID 3 Constructed!
+Ticket with ID 1 Constructed!
+Ticket with ID 2 Constructed!
+Ticket with ID 3 Constructed!
+#0 BookingSystem Constructed!
+----------------------
+| Booking System Log |
+----------------------
+#0 booking system has...
+Event: 3/3
+Ticket: 3/3
+Person: 0/3
+2. Two people come and reserve tickets for two events.
+Record of John Constructed!
+Booking is successful!!!
+Record of Emma Constructed!
+Booking is successful!!!
+----------------------
+| Booking System Log |
+----------------------
+#0 booking system has...
+Event: 1/3
+Ticket: 1/3
+Person: 2/3
+3. One person unregister an event but hold the ticket, and someone else make a booking again.
+Emma dropped an event.
+Record of Peter Constructed!
+Booking is successful!!!
+----------------------
+| Booking System Log |
+----------------------
+#0 booking system has...
+Event: 1/3
+Ticket: 0/3
+Person: 3/3
+4. One person unregister an event and return the ticket.
+Peter dropped an event.
+Peter dropped a ticket.
+----------------------
+| Booking System Log |
+----------------------
+#0 booking system has...
+Event: 2/3
+Ticket: 1/3
+Person: 3/3
+5. It is a good behavior to back up your data.
+Event with ID 1 Copied!
+Event with ID 2 Copied!
+Ticket with ID 1 Copied!
+Event with ID 3 Copied!
+Ticket with ID 3 Copied!
+Record of John Copied!
+Record of John with event and ticket Copied!
+Ticket with ID 2 Copied!
+Record of Emma Copied!
+Record of Emma with event and ticket Copied!
+Record of Peter Copied!
+Record of Peter with event and ticket Copied!
+#0 BookingSystem is Copied as #1 BookingSystem!
+----------------------
+| Booking System Log |
+----------------------
+#1 booking system has...
+Event: 2/3
+Ticket: 1/3
+Person: 3/3
+6. End of the registration. Destroy the booking system.
+Event with ID 1 Destructed!
+Event with ID 2 Destructed!
+Ticket with ID 1 Destructed!
+Event with ID 3 Destructed!
+Ticket with ID 3 Destructed!
+Record of John Destructed.
+Ticket with ID 2 Destructed!
+Record of Emma Destructed.
+Record of Peter Destructed.
+#1 BookingSystem is Destructed.
+Event with ID 1 Destructed!
+Event with ID 2 Destructed!
+Ticket with ID 1 Destructed!
+Event with ID 3 Destructed!
+Ticket with ID 3 Destructed!
+Record of John Destructed.
+Ticket with ID 2 Destructed!
+Record of Emma Destructed.
+Record of Peter Destructed.
+#0 BookingSystem is Destructed.
+7. Find a ticket left. Create a new booking system for one person with one ticket of one event.
+Event with ID 1 Constructed!
+Ticket with ID 1 Constructed!
+#2 BookingSystem Constructed!
+By using the Delegating constructor!
+----------------------
+| Booking System Log |
+----------------------
+#2 booking system has...
+Event: 1/3
+Ticket: 1/3
+Person: 0/3
+Record of Mary Constructed!
+Booking is successful!!!
+----------------------
+| Booking System Log |
+----------------------
+#2 booking system has...
+Event: 0/3
+Ticket: 0/3
+Person: 1/3
+8. End of all events. Clear all existing data.
+Event with ID 1 Destructed!
+Ticket with ID 1 Destructed!
+Record of Mary Destructed.
+#2 BookingSystem is Destructed.
+</pre>
+                    </ol>
+                    <h4 id="hint">Hint</h4>
+                    <ol>
+                        <li>Reading every file in the source folder will help you understand what is going on.</li>
+
+                        <li>
+                            If you cannot get the same output, check if you have properly constructed and destructed the objects. Are there any memory leaks?
+                        </li>
+                    </ol>
+
+                    <h4 id="extra">Extra: Assert</h4>
+                    <ol>
+                        <li>
+                          You might notice that in the bookingsystem.cpp, we have added <code>assert(...)</code>. An assert is used to evaluate some assumptions in the program.
+                          For example, in some point of the program, we think that the number of people should be equal to 2, otherwise there should be some bug in the program.
+                          Then we can add <code>assert(numOfPeople == 2);</code> to that specific position. If it is correct, then nothing happened. However, when it is wrong,
+                          the program will be aborted and output the error on the standart error output. Adding asserts in the code could help us debug the program.
+                        </li>
+
+                        <li>
+                          By default, the assert only receive the condition as the only one parameter, if we want to add some customized
+                          messages (e.g., some assumptions), we can "hack" the assert with some tricks.
+                          To include custom message, we can write <code>assert(numOfPeople == 2 && "There should be two people here!")</code>.
+                          That is, the condition to check && an error message. Why it works? First, the error message,
+                          which is a literal C string, is of the type const char*, meaning that it is pointer which is
+                          always not nullptr. Thus, the second condition is always true.
+                          We can append the condition without affecting the original condition. It is because
+                          <code>true && true</code> is true and <code>false && true</code> is false.
+                          Finally, when the our code is wrong and assert out the condition in the terminal,
+                          we can see our message: numOfPeople == 2 && "There should be two people here!".
+                          This is useful to remind us the assumption we have made.
+                          More details please check the following <a href="https://stackoverflow.com/questions/3692954/add-custom-messages-in-assert">discussion</a>.
+                        </li>
+                    </ol>
+                </p>
+
+            </div>
+        </div>
+
+      <div class="card mb-4">
+          <div class="card-body" id="submission">
+              <h3 class="card-title">Submission Deadline and Guidelines:</h3>
+              <p class="card-text">
+                  The due date and time will be <span style="color:red">10-min after your lab session</span>.
+                  You are supposed to upload the following files in an archive to <a href="http://zinc.cse.ust.hk">ZINC</a>:
+<pre>
+- bookingsystem.cpp
+</pre>
+                  You can submit your codes multiple times by the deadline. Only the last submission will be graded.
+</div>
+      </div>
+
+
+
+        <!-- Description section -->
+        <!-- ### Complete description section for the assignment ### -->
+
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-3">
+        <div class="sticky-top">
+          <!-- Menu Widget -->
+          <div class="card my-12">
+            <h5 class="card-header">Menu</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="mb-0" type="circle" style="padding-left:20px">
+                    <li>
+                      <a href="#introduction">Introduction</a>
+                    </li>
+                    <li>
+                      <a href="#labtask">Lab Tasks</a>
+                    </li>
+                    <li>
+                       <a href="source.zip">Source Files</a>
+                    </li>
+                    <li>
+                      <a href="#submission">Submission</a>
+                    </li>
+                    <li>
+                      <a href="../../notes/h.constructor-destructor.pdf">Lecture notes</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Maintainance widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Page maintained by</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="mailto:wtong@cse.ust.hk">Wai TONG</a>
+                    </li>
+                    <li>Last Modified:
+                      <script type="text/javascript">document.write(document.lastModified);</script>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Homepage widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Homepage</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="http://course.cse.ust.hk/comp2012">Course Homepage</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Maintained by COMP 2012 Teaching Team &copy; 2022 HKUST Computer Science
+        and Engineering</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../../js/jquery.min.js"></script>
+  <script src="../../js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,48 +1,19 @@
 <!doctype html>
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-  background-color: #ffffe0;
-  color: black;
-}
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-th {
-  background-color: #bdb76b;
-  color: white;
-}
-</style>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HKUST Course Backup</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 <html>
-  <head>
-    <title>HKUST Course Backup</title>
-  </head>
   <body>
-    <h2 style="color: brown;">HKUST is not that bad, right? 💩</h2>
-    <h3>Computer Architecture / Operating System</h3>
-    <table>
-      <tr>
-        <th>Course Code</th>
-        <th>Course Title</th>
-        <th>Semester</th>
-        <th>Link</th>
-      </tr>
-      <tr>
-        <td>COMP 2611</td>
-        <td>Computer Organization</td>
-        <td>Spring 2022</td>
-        <td><a href="./COMP2611">link here</a></td>
-      </tr>
-      <tr>
-        <td>COMP 3511</td>
-        <td>Operating System</td>
-        <td>Spring 2022</td>
-        <td><a href="./COMP3511">link here</a></td>
-      </tr>
-    </table>
+    <div class="main">
+      <h2 class="header">HKUST is not that bad, right? 💩</h2>
+    </div>
   </body>
+  <script src="./data.js"></script>
+  <script src="./script.js"></script>
+  <script>
+    document.querySelector('div.main').innerHTML += buildTable(categorizedCourses);
+  </script>
 </html>

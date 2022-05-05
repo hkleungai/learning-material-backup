@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- ### Change assignment number ### -->
+  <title>COMP 2012 Lab 4: Inheritance: Effect of Substitution and Slicing</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/blog-home.css" rel="stylesheet">
+
+  <style>
+    pre {
+      background: #f4f4f4 !important;
+      border: 1px solid #ddd !important;
+      border-left: 3px solid #f36d33 !important;
+      color: #666 !important;
+      page-break-inside: avoid !important;
+      font-family: monospace !important;
+      font-size: 14px !important;
+      line-height: 1.6 !important;
+      margin-bottom: 1.6em !important;
+      max-width: 100% !important;
+      overflow: auto !important;
+      padding: 1em 1.5em !important;
+      display: block !important;
+      word-wrap: break-word !important;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+</head>
+
+<body>
+
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Entries Column -->
+        <div class="col-md-9">
+
+            <h4 class="my-4">
+                <span style="color:darkblue">COMP 2012</span>
+                <small>Object-Oriented Programming and Data Structures</small>
+            </h4>
+
+            <!-- ### Change assignment number and title ### -->
+            <h3 class="my-4">
+                Lab 4
+                <span style="color:#660066">Inheritance: Effect of Substitution and Slicing</span>
+            </h3>
+            <!-- <div class="mb-4">
+                <img src="../../img/front.jfif" width="100%">
+            </div> -->
+
+            <!-- Introduction section -->
+            <!-- ### Complete introduction section for the assignment ### -->
+
+            <div class="card mb-4">
+                <div class="card-body" id="introduction">
+                    <h3 class="card-title">Model events in a parking lot</h3>
+                    <p class="card-text">
+                    <p>
+                        In this lab, you are going to use the concept of inheritance to simulate the events happening in
+                        a parking lot. Specifically, you need to model the relationship between different types of car as
+                        well as the relationship between the cars and the parking lot.
+                        The source files are available <a href="files/source.zip">HERE</a>.
+                        <!--The source files are available <a href="source.zip">HERE</a>.-->
+                    </p>
+
+                    <h4>Description</h4>
+                    <p>
+                        In order to manage the parking lot more clearly by documenting the entering and leaving information,
+                        you are required to construct a parking lot management system.
+                    </p>
+                    <p>
+                        For simplicity, we assume that the parking lot has only 2 parking spots, and each vehicle will only
+                        occupy 1 parking spot. The fee only depends on the types of vehicle and the fee rate of the parking lot.
+                        The parking time is ignored in this lab.
+
+
+
+                        <br>
+                        <h4>Overview</h4>
+
+
+
+                    <p>
+                        There are 5 classes involved: <code>ParkingLot</code>, <code>Vehicle</code>, <code>Bus</code>, <code>Truck</code>,
+                        and <code>PrivateCar</code>.
+                        The relationships between them are shown in the following figures. Detailed descriptions for each class can also be found below.
+                    </p>
+                    <img src="img/link.png">
+                    <p>Note: '+': public; '-': private; '#': protected</p>
+                    <ol>
+                        <li>
+                            ParkingLot<br />
+                            This class contains the parking space to store the vehicles, the total income, the size of the parking space, the fee rate, and the current number of parking vehicles.
+                            The constructor takes in an int (as constant reference) as the size, and it is fixed to 2 in this lab.
+                            The destructor deletes the space allocated for the parking spaces.
+                            The function <code>assign_space</code> checks whether there is still a space for the new vehicle and assign the space for the vehicle.
+                            It will take a pointer of Vehicle as input and return a bool value to indicate the status.
+                            If there is a space, output <code>plate_no enter the parking lot and get a parking spot.</code> and return <code>true</code>, otherwise output <code>Failed to assign space for plate_no.</code> and return <code>false.</code>
+                            The function <code>reclaim_space</code> reclaims spaces, calculates and charges the fee from the vehicles according to their types, and add it to the income of the parking lot. The types are listed in a enumeration, namely, <code>DEFAULT, PRIVATE_CAR, BUS, TRUCK</code>, which are given.
+                            Bus, Truck, and PrivateCar</code> objects will call this function with their corresponding <code>type</code> and the fee they should paid is calculated as <code>type*fee_rate</code>.
+                            If succeed in reclaiming a space, the function output <code>plate_no leave the parking lot and pay fee for the space</code> and return the fee, otherwise it output <code>There is no a vehicle with the plate No. of plate_no.</code> and return -1 to indicate the failure.
+                            The function <code>print</code> shows the information of the parking lot, including the parking vehicles and the total income.
+                        </li>
+                        <li>
+                            Vehicle<br />
+                            This class contains the plate number, the total fee that has been charged, the status of parking, and the accessor function of the plate number.
+                            The constructor takes in a string (as constant reference) as the plate number.
+                            The function <code>enter</code> triggers the <code>assign_space</code> function of the parking lot and changes the status of itself to <code>true</code>.
+                            The function <code>leave</code> triggers the <code>reclaim_space</code> function of the parking lot, calculates the fee, add it to the total fee, and changes the status of itself to <code>false</code>. Remember to check the status of the vehicle before triggering the <code>reclaim_space</code> function.
+                            The function <code>print</code> shows the information of the vehicle, including the plate number and the total fee paid for parking.
+                        </li>
+                        <li>
+                            Bus<br />
+                            This class is derived from the <code>Vehicle</code> class.
+                            This class contains the number of passengers.
+                            The constructor takes in a string and an int as the plate number and the number of passengers respectively.
+                            It has 2 member functions: <code>leave</code> and <code>print</code>.
+                            The <code>leave</code>function triggers the <code>reclaim_space</code> function of the parking lot, calculates the fee, add it to the total fee, and changes the status of the bus to <code>false</code>. Remember to check the status of the vehicle before triggering the <code>reclaim_space</code> function. If the vehicle is not parking, output <code> plate_no is not parking so it cannot leave!</code>.
+                            The <code>print</code> function prints the plate number, the number of passengers, and the total fee paid for parking.
+                        </li>
+                        <li>
+                            Truck<br />
+                            This class is derived from the <code>Vehicle</code> class.
+                            This class contains capacity.
+                            The constructor takes in a string and an int as the plate number and the capacity respectively.
+                            It has 2 member functions: <code>leave</code> and <code>print</code>.
+                            The <code>leave</code> triggers the <code>reclaim_space</code> function of the parking lot, calculates the fee, add it to the total fee, and changes the status of the truck to <code>false</code>. Remember to check the status of the vehicle before triggering the <code>reclaim_space</code> function. If the vehicle is not parking, output <code> plate_no is not parking so it cannot leave!</code>.
+                            The <code>print</code> function prints the plate number, the capacity, and the total fee paid for parking.
+                        </li>
+                        <li>
+                            PrivateCar<br />
+                            This class is derived from the <code>Vehicle</code> class.
+                            This class contains brand.
+                            The constructor takes in 2 strings as the plate number and the brand respectively.
+                            It has 2 member functions: <code>leave</code> and <code>print</code>.
+                            The <code>leave</code> triggers the <code>reclaim_space</code> function of the parking lot, calculates the fee, add it to the total fee, and changes the status of the private car to <code>false</code>. Remember to check the status of the vehicle before triggering the <code>reclaim_space</code> function. If the vehicle is not parking, output <code> plate_no is not parking so it cannot leave!</code>.
+                            The <code>print</code> function prints the plate number, the brand, and the total fee paid for parking.
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+
+
+
+            <br>
+            <div class="card mb-4">
+                <div class="card-body" id="labtask">
+                    <h3 class="card-title">Lab tasks</h3>
+                    <p class="card-text">
+                        <ol>
+                            <li>Finish the TODOs in <code>ParkingLot.h/.cpp</code>, <code>Truck.cpp/.h</code>, <code>Bus.cpp/.h</code>and <code>PrivateCar.cpp/.h</code>
+				<ul>
+					<li>The class definition of <code>ParkingLot</code> is given to you in <code>ParkingLot.h</code> and the constructor, destructor and <code>assign_space</code> member function has already been implemeted in <code>ParkingLot.cpp</code>. You will need to implement the other member functions.</li>
+					<li>The class definition and implementations of <code>Vehicle</code> is given to you in <code>Vehicle.h and Vehicle.cpp</code> for your reference.</li>
+					<li>You need to define and implement the derived classes, <code>PrivateCar, Bus and Truck</code>.</li>
+				</ul>
+                            </li>
+                            <li>Compile the project.</li>
+                            <li>
+                                Run the executable to check with the expected output below:
+                                <pre>
+Currently 0 vehicles in this parking lot, the total income is 0.
+The private car is AS134 with the brand of M-Benz. It has paid totally 0.
+AS134 enter the parking lot and get a parking spot.
+Currently 1 vehicles in this parking lot: AS134, the total income is 0.
+AS134 has been parking so it cannot leave!
+Currently 1 vehicles in this parking lot: AS134, the total income is 0.
+AS134 leave the parking lot and pay 2.4 for the space.
+Currently 0 vehicles in this parking lot, the total income is 2.4.
+The private car is AS134 with the brand of M-Benz. It has paid totally 2.4.
+The truck is XY778 with the capacity of 15. It has paid totally 0.
+The bus is QW907 with 12 passengers. It has paid totally 0.
+XY778 is not parking so it cannot leave!
+XY778 enter the parking lot and get a parking spot.
+QW907 enter the parking lot and get a parking spot.
+Currently 2 vehicles in this parking lot: XY778, QW907, the total income is 2.4.
+Failed to assign space for CY890.
+QW907 leave the parking lot and pay 4.8 for the space.
+XY778 leave the parking lot and pay 7.2 for the space.
+The bus is QW907 with 12 passengers. It has paid totally 4.8.
+The truck is XY778 with the capacity of 15. It has paid totally 7.2.
+Currently 0 vehicles in this parking lot, the total income is 14.4.
+                         </pre>
+                            </li>
+                        </ol>
+                    <br>
+                    <h4 id="hint">Hint</h4>
+                    <ol>
+                        <li>
+                            Remember to initialize data members when their values are NOT provided in constructor parameter list.
+                        </li>
+
+
+
+                        <li>Reading the relationship graph provided <a href="#overview">above</a> will help you implement inheritance across classes and re-use functions when needed.</li>
+
+                        <li>
+                            Remember to use the correct data type to achieve the expected output.
+
+                        </li>
+                    </ol>
+                    <br>
+                    <div id="submission">
+                        <h4>Submission Deadline and Guidelines:</h4>
+                        The lab assignment is due on <span style="color:red">10 minutes after the end of your lab session</span>.<br />
+                        We will use an online grading system <a href="http://zinc.cse.ust.hk">ZINC</a> to grade your lab work.
+                        Therefore, you are supposed to upload the following files in a zip file to <a href="http://zinc.cse.ust.hk">ZINC</a>:
+                        <pre>
+- Bus.h
+- Bus.cpp
+- ParkingLot.h
+- ParkingLot.cpp
+- PrivateCar.h
+- PrivateCar.cpp
+- Truck.h
+- Truck.cpp
+</pre>
+                        You can submit your codes multiple times to <a href="http://zinc.cse.ust.hk">ZINC</a>
+                        before the deadline. Only the last submission will be graded.
+
+                        </p>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <!-- Description section -->
+            <!-- ### Complete description section for the assignment ### -->
+
+        </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-3">
+        <div class="sticky-top">
+          <!-- Menu Widget -->
+          <div class="card my-12">
+            <h5 class="card-header">Menu</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="mb-0" type="circle" style="padding-left:20px">
+                    <li>
+                      <a href="#introduction">Introduction</a>
+                    </li>
+                    <li>
+                      <a href="files/source.zip">Source Files</a>
+                    </li>
+                    <li>
+                      <a href="#labtask">Lab Tasks</a>
+                    </li>
+                    <li>
+                      <a href="../../notes/h.inheritance.pdf">Inheritance Lecture
+                        Notes</a>
+                    </li>
+		    <li>
+		      <a href="#submission">Submission Guidelines</a>
+		    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Maintainance widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Page maintained by</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="mailto:yzhoudo@cse.ust.hk">Yuxuan ZHOU</a>
+                    </li>
+                    <li>Last Modified:
+                      <script type="text/javascript">document.write(document.lastModified);</script>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Homepage widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Homepage</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="http://course.cse.ust.hk/comp2012">Course Homepage</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Maintained by COMP 2012 Teaching Team &copy; 2022 HKUST Computer Science
+        and Engineering</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../../js/jquery.min.js"></script>
+  <script src="../../js/bootstrap.min.js"></script>
+</body>
+
+</html>

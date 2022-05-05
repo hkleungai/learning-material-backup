@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- ### Change assignment number ### -->
+  <title>COMP 2012 Assignment 1: Polynomial</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/blog-home.css" rel="stylesheet">
+
+  <!-- For code highlighting -->
+  <!-- <link href="prism.css" rel="stylesheet" /> -->
+  <link href="vendor/prism/prism.css" rel="stylesheet" />
+  <!-- <link href="https://myCDN.com/prism@v1.x/themes/prism.css" rel="stylesheet" /> -->
+
+  <style>
+    pre {
+      background: #f4f4f4;
+      border: 1px solid #ddd;
+      border-left: 3px solid #f36d33;
+      color: #666;
+      page-break-inside: avoid;
+      font-family: monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 1.6em;
+      max-width: 100%;
+      overflow: auto;
+      padding: 1em 1.5em;
+      display: block;
+      word-wrap: break-word;
+    }
+
+    span.input {
+        color: #00f700;;
+    }
+
+    table {
+      width: 100%;
+      display: inline-block;
+      overflow-x: auto;
+    }
+
+    table caption {
+      font-size: medium;
+    }
+
+    table thead th {
+      background-color: #ddd;
+    }
+
+    table th,
+    table td {
+      text-align: left;
+      padding: 3px 6px;
+      border-width: 1px;
+      border-style: solid;
+      border-color: #aaa #aaa;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #eee;
+    }
+
+    blockquote {
+      border: 1px solid #b3b3b3;
+      border-left: 10px solid #b3b3b3;
+      border-radius: 0px;
+      background: #fafafa;
+      font-size: 18px;
+      font-family: Georgia, serif;
+      margin: 10px;
+      padding: 10px 20px;
+    }
+
+    blockquote p {
+      margin: 0;
+      line-height: 30px;
+      padding-bottom: 20px;
+    }
+
+    blockquote.small {
+      display: block;
+      font-size: 80%;
+      color: brown;
+      text-align: right;
+    }
+  </style>
+</head>
+
+<body>
+  <script src="vendor/prism/prism.js"></script>
+<!--     <script src="https://myCDN.com/prism@v1.x/components/prism-core.min.js"></script>
+    <script src="https://myCDN.com/prism@v1.x/plugins/autoloader/prism-autoloader.min.js"></script> -->
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Entries Column -->
+      <div class="col-md-9">
+
+        <h2 class="my-4">
+          <span style="color:darkblue">COMP 2012</span>
+          <small>Object-Oriented Programming and Data Structures</small>
+        </h2>
+
+        <!-- ### Change assignment number and title ### -->
+        <h3 class="my-4">Assignment 1
+          <span style="color:#660066">Polynomial</span>
+        </h3>
+
+        <!-- Introduction section -->
+        <!-- ### Complete introduction section for the assignment ### -->
+        <div class="card mb-4">
+
+          <!-- ### Add an image representing the assignment content here ### -->
+          <img class="card-img-top" src="images/math.jpg" alt="Card image cap">
+
+          <div class="card-body" id="introduction">
+            <h3 class="card-title">Introduction</h3>
+            <p class="card-text">
+              <p>In this assignment, you will implement the <b>Polynomial</b> class which can store a single-variable polynomial with a linked list. Simple operations such as addition and multiplication will be supported. Through the implementation of it, you will have practices on various C++/OOP fundamentals, e.g., classes, objects, constructors, copy constructors, pointers, linked lists, etc.
+                </p>
+            </p>
+
+            <h3 class="card-title">Polynomial</h3>
+            <p class="card-text">
+              <p>A polynomial is an expression consisting of variables (also called interderminates) and coefficients. If you want to read about its full formal definition, you may read the <a href="https://en.wikipedia.org/wiki/Polynomial">wikipedia</a> but it is not required at all for this assignment.</p>
+              <p>For this assignment, we are only concerned with single-variable polynomials such as this:</p>
+              <img src="images/p1.gif">
+              <br>
+              <br>
+              <p>Throughout the assignment, we will use a very specific string to represent a polynomial. For example, the polynomial above will be represented precisely by <span style="font-family: monospace;">"2*x^3 + 6*x - 7"</span> which have 3 terms separated by exactly 1 space (and there is no extra space at the beginning, the end, or anywhere else)</p>
+
+              <p>For your information, while the "^" symbol is used to denote "to the power of" in our string representation, it actually has a different meaning in C++ code (bitwise XOR operator). There is no "to the power of" operator in C++.</p>
+
+              <p>To learn about the terminology we use, let's look at this example: <span style="font-family: monospace;">"2*x^3 + 6*x - 7"</span>.</p>
+
+            <ul>
+                <li>There are 3 terms in total</li>
+                <li>The coefficient for the first term is 2, and its exponent is 3.</li>
+                <li>The coefficient for the second term is 6, and its exponent is 1. Note that we always write <span style="font-family: monospace;">"x"</span> instead of <span style="font-family: monospace;">"x^1"</span> for exponent 1.</li>
+                <li>The coefficient for the third term is -7, and its exponent is 0. Note that we always omit the variable instead of writing <span style="font-family: monospace;">"x^0"</span> for exponent 0.</li>
+            </ul>
+
+            <p>We will be using a linked list to store the polynomial. The struct we use is defined within the <code>Polynomial</code> class in polynomial.h as follows:</p>
+
+            <pre class="language-cpp"><code class="language-cpp">
+struct Term
+{
+    int coefficient;
+    int exponent;
+    Term* next;
+} * head; //linked list of terms, nodes are always sorted by exponents from the largest exponent to the smallest
+            </code></pre>
+
+            <p>It has the following properties:</p>
+            <ul>
+                <li>A node represents a term in the polynomial. We also always keep the linked list sorted so that terms with larger exponents will appear earlier in the list than the other terms with smaller exponents.</li>
+                <li>Nodes/terms with 0 coefficient will NOT be stored.</li>
+                <li>No two nodes/terms should have the same exponent.</li>
+                <li>The <code>head</code> should point to nullptr when the polynomial is simply zero "0" (instead of having 1 term of exponent 0 and coefficient 0).</li>
+            </ul>
+
+
+            <p>We also assume the following for this assignment:</p>
+            <ul>
+                <li>We deal with single-variable polynomials only, and that variable is always named "x".</li>
+                <li>Exponents are integers in the range [0, 2047], but coefficients can be any positive and negative integer.</li>
+                <li>When the coefficient is/becomes 0, we consider the term non-existent, and we won't store/print that term.
+                    <ul>
+                        <li>For example, if we add <span style="font-family: monospace;">"3*x^2 + 1"</span> to <span style="font-family: monospace;">"-3*x^2 + 7"</span>, the result would be simply <span style="font-family: monospace;">"8"</span> (i.e. 1 node/term in the resulting linked list) instead of <span style="font-family: monospace;">"0*x^2 + 8"</span> (2 nodes/terms).</li>
+                        <li>For simply zero which is represented by an empty linked list (<code>head</code> points to nullptr), we print <span style="font-family: monospace;">"0"</span> even though the linked list has nothing in it.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p>To illustrate, the linked list for the example polynomial <span style="font-family: monospace;">"2*x^3 + 6*x - 7"</span> looks like this:</p>
+
+            <img src="images/ll.png" style="max-width:100%;">
+            <br>
+            <br>
+
+            <p> Furthermore, for printing, coefficient 1 or -1 shouldn't be printed unless the exponent of the term is 0. (e.g. <span style="font-family: monospace;">"-x"</span> instead of <span style="font-family: monospace;">"-1*x"</span>)  Also, if the first term has a negative coefficient, there should be no space between the negative sign and the coefficient (e.g. <span style="font-family: monospace;">"-x"</span> instead of <span style="font-family: monospace;">"- x"</span>) <i>[clarified on March 5th, see FAQ and sample test cases for more examples]</i></p>
+
+            <p>With all the specifications above, there will only be one unique linked list and string representation for any polynomial.</p>
+
+               <p>Read the FAQ page for some common clarifications. You should check that a day before the deadline to make sure you don't miss any clarification, even if you have already submitted your work then.</p>
+
+              <p>If you need further clarifications of the requirements, please feel free to post on the Piazza (via Canvas) with the <u>pa1</u> tag. However, to avoid cluttering the forum with repeated/trivial questions, please do <b>read all the given code, webpage description, sample output, and <a href="#faq">latest FAQ</a> (refresh this page regularly) carefully before posting your questions</b>. Also, please be reminded that we won't debug for any student's assignment for the sake of fairness.</p>
+
+              <p>Submission details are in the <a href="#submission">Submission and Deadline</a> section.</p>
+            </p>
+
+
+
+
+            <!-- 			  <br/>
+			  <h4>Sub-section heading</h4>
+			  <p>
+			    ...
+			  </p>
+			  <br/>
+
+			  <h4>Sub-section heading</h4>
+			  <p>
+			    ...
+			  </p>	 -->
+          </div>
+          <div class="card-footer text-muted">
+            <p>We value academic integrity very highly. Please read the <a href="../../#honorcode">Honor
+                Code</a> section on our course webpage to
+              make sure you understand what is considered as plagiarism and what the penalties are. The following are
+              some of the highlights:</p>
+            <ul>
+              <li>Do NOT try your "luck" - we use sophisticated plagiarism detection software to find cheaters. We also review codes for potential cases manually.</li>
+              <li>The penalty (for <b>BOTH</b> the copier and the copiee) is not just getting a zero in your assignment. Please read the <a href="../../#honorcode">Honor Code</a> thoroughly.</li>
+              <li>Serious offenders will fail the course immediately, and there may be additional disciplinary actions from the department and university, upto and including expulsion.</li>
+            </ul>
+          </div>
+        </div>
+
+
+        <!-- Download section -->
+        <!-- ### Complete download section for the assignment ### -->
+        <div class="card mb-4">
+          <div class="card-body" id="download">
+            <h3 class="card-title">Download</h3>
+            <ul>
+              <li>Skeleton code:
+                <a href="skeleton.zip">skeleton.zip</a></li>
+              </li>
+            </ul>
+
+            <p>Please note that <b>you should only submit the polynomial.cpp</b> file. While you may modify other files to add your own test cases, you should make sure your submitted polynomial.cpp can compile with the original main.cpp and polynomial.h on ZINC.</p>
+
+            <p>
+            If you use VS Code, you may follow the <a href="https://course.cse.ust.hk/comp2011/labs/vscode/#terminal">creating a project and using the terminal for custom compilation command</a> section on our VS Code usage tutorial. That is, create a folder to hold all the extracted files in your file explorer, then open this folder in VS Code. You can then use the terminal command <code>g++ -std=c++11 -o programName *.cpp </code> to compile all sources in the folder to the program. You are also welcome to create a Makefile for it yourself. After the compilation, you can then use the command <code>./programName</code> OR <code>.\programName</code> (depends on the OS/shell you use) to run the program.
+            </p>
+
+
+        </div>
+      </div>
+
+
+
+
+
+
+        <div class="card mb-4">
+          <div class="card-body" id="class">
+            <h3 class="card-title">The Polynomial Class</h3>
+            <p>A Polynomial object represents a single-variable polynomial as specified in the <a href="#introduction">introduction</a> section. It supports various simple operations such as addition and multiplication which are usable via member functions that will be implemented by you. You should also read the main.cpp and sample output for test cases of the member functions to help yourself understand what exactly each of them does.</p>
+            <p>For simplicity, you can assume all input parameters are valid.</p>
+            <p>You may refer to the polynomial.h while you read this section.</p>
+            <b>Data member</b>
+            <p>
+                <pre class="language-cpp"><code class="language-cpp">Term* head</code></pre>
+                <p>It points to the head node of the linked list that stores the polynomial. Please read the <a href="#introduction">introduction</a> section for a detailed description of the linked list.
+                </p>
+                <br>
+
+            <b>Member functions</b>
+            <p>
+                <pre class="language-cpp"><code class="language-cpp">Polynomial()</code></pre>
+                <p>This is the default constructor. Simply set <code>head</code> to nullptr which represents the zero polynomial "0" as described earlier.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">Polynomial(const Polynomial& another)</code></pre>
+                <p>This is the deep copy constructor. Since a deep copy should be performed, it should dynamically allocate space for the new nodes in the new linked list (i.e., do not reuse any existing node from <code>another</code>.)
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">Polynomial(int array[], int arraySize);</code></pre>
+                <p>This is the constructor that constructs the polynomial using the given array of the given size. The array lists all coefficients (including zeros which you should ignore) from the exponent <i>(<code>arraySize</code> - 1)</i> to exponent 0.
+                <p>You can assume the <code>arraySize</code> will not be smaller than 1.</p>
+
+                </p>
+                Examples:
+                <ul>
+                  <li>The given <code>array</code> is {5, -6, 7} with <code>arraySize</code> 3. A polynomial <span style="font-family: monospace;">"5*x^2 - 6*x + 7"</span> will be constructed.</li>
+                  <li>The given <code>array</code> is {11, 0, 7, 2} with <code>arraySize</code> 4. A polynomial <span style="font-family: monospace;">"11*x^3 + 7*x + 2"</span> will be constructed.</li>
+                  <li>The given <code>array</code> is {2} with <code>arraySize</code> 1. A polynomial <span style="font-family: monospace;">"2"</span> will be constructed.</li>
+                </ul>
+                <p>More examples can be found in the given test cases.</p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">Polynomial(int n)</code></pre>
+                <p>This is a constructor that constructs a pre-made polynomial for some of the test cases. It is provided mainly to test the student's code without relying on the correctness of their constructors. Its code is given in the header file and already complete. Read the code to understand what it does.
+                </p>
+                Examples:
+                <ul>
+                  <li>If <code>n</code> is 1, a polynomial <span style="font-family: monospace;">"4*x^3 + x^2 + 5"</span> will be constructed.</li>
+                  <li>If <code>n</code> is 2, a polynomial <span style="font-family: monospace;">"4*x^3 + 2*x^2 + 5"</span> will be constructed.</li>
+                </ul>
+                <br>
+
+
+                <pre class="language-cpp"><code class="language-cpp">~Polynomial()</code></pre>
+                <p>This is the destructor. Remember to deallocate the linked list.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">void print() const</code></pre>
+                <p>It prints the unique string representation of the polynomial according to our description with cout. Please refer to the many examples in the given test cases (read the main.cpp for the test case code, read the polynomial.h for the pre-defined polynomials used, and refer to the sample output that is given <a href="#sample-output">here</a>).<br>
+                    <br>Tip: please spend more time to make sure it works well for all scenarios as we rely on this to grade your other functions.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">Polynomial add(const Polynomial& another) const</code></pre>
+                <p>Add this polynomial with <code>another</code> and return the result. Refer to the given test cases for examples. You may also refer to <a href="https://www.purplemath.com/modules/polyadd.htm">this page</a> for steps needed to add polynomials in case you have forgotten your basic algebra class. The page has several examples for single-variable polynomials if you scroll down a little bit.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">Polynomial subtract(const Polynomial& another) const</code></pre>
+                <p>Subtract <code>another</code> polynomial from this polynomial and return the result. Refer to the given test cases for examples. You may also refer to <a href="https://www.purplemath.com/modules/polyadd2.htm">this page</a> for steps needed to subtract polynomials.
+                </p>
+
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">Polynomial multiply(const Polynomial& another) const</code></pre>
+                <p>Multiply this polynomial with <code>another</code> and return the result. Refer to the given test cases for examples. You may also refer to <a href="https://www.purplemath.com/modules/polymult.htm">this page</a> for steps needed to multiply polynomials.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">int evaluate(int valueOfX) const</code></pre>
+                <p>Calculate the value of the polynomial when the variable "x" has the specified value of x. Refer to the given test cases for examples.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">int compare(const Polynomial& another) const</code></pre>
+                <p>Return 1 if this polynomial is larger than <code>another</code>, or return -1 if this polynomial is smaller, or return 0 if both are the same. The polynomial comparison for two polynomials <i>p1</i> and <i>p2</i> is defined as follows:
+                <ul>
+                  <li>The two polynomials are compared term by term. We always start with the first terms of both, and move to the later terms for both polynomials at the same time.</li>
+
+                  <li>
+                    Then first we should see if the "current terms" exist for both polynomials because they can have differnet numbers of terms.
+                    <ul>
+                      <li>If "current terms" exist for both polynomial, we can compare them as follows.
+                        <ul>
+                          <li>If the exponent of the current term of <i>p1</i> is larger than that of <i>p2</i>, <i>p1</i> is considered as larger. The reverse is also true.</li>
+                          <li>If the exponents are the same, we compare their coefficients instead. That is, if the coefficient of the current term of <i>p1</i> is larger than that of <i>p2</i>, <i>p1</i> is considered as larger. The reverse is also true.</li>
+                          <li>If both their exponents and coefficients are the same, we cannot decide yet, so we proceed to the next terms for both polynomials (i.e. <i>p1</i>'s 2nd term vs <i>p2</i>'s 2nd term, then <i>p1</i>'s 3rd term vs <i>p2</i>'s 3rd term, and so on) until there is no more later term for one of the polynomials.</li>
+                        </ul>
+                      </li>
+                      <li>If there is no more term for one of the polynomials only, then the longer polynomial is considered as larger.</li>
+                      <li>If there is no more term for both polynomials at the same time, that implies the two polynomials have the same number of terms (and they have the very same terms really), then we consider they are the same.</li>
+                    </ul>
+                  </li>
+
+                </ul>
+
+
+
+                </ul>
+                </p>
+                <p>Refer to the given test cases for examples.</p>
+                <br>
+
+                <h4>Optional task to think about</h4>
+                <br>
+                <p>The following constructor is <b>optional and will NOT be graded.</b> It is not even given in the header file. If you want to have extra practices, you can add this constructor yourself after you have finished and submitted your assignment.</p>
+
+                <pre class="language-cpp"><code class="language-cpp">Polynomial(const char s[])</code></pre>
+                <p>This constructs the polynomial according to the given C-string that stores the string representation of the polynomial. Since this task is optional and will NOT be graded, you are free to use anything you want. Please do NOT include this in your solution submitted for assignment 1.
+                </p>
+                <br>
+
+
+            </p>
+        </div>
+      </div>
+
+
+
+
+
+
+        <div class="card mb-4">
+          <div class="card-body" id="sample-output">
+            <p>
+              <h3 class="card-title">Sample Output and Grading Scheme</h3>
+            </p>
+            <!--<br />-->
+
+            <!-- <h1>TO BE UPDATED.</h1> -->
+
+<p>
+  Your finished program should produce the same output as our <a href="expected.zip">sample output</a> for all given test cases. User input, if any, is omitted in the files. Please note that sample output, naturally, does not show all possible cases. It is part of the assessment for you to design your own test cases to test your program. <u>Be reminded to remove any debugging message</u> that you might have added before submitting your code.
+</p>
+<!-- <p>You may want to use some difference checker such as <a href="https://www.diffchecker.com/">this</a> to compare your output with the sample output since the sample output is pretty long.</p>
+<p>
+  Also, after testing, <b>make sure your submitted code can compile with the unmodified main.cpp and header files that are not supposed to be modified</b>. Put in dummy/empty implementation whenever needed.
+</p> -->
+<!-- <p>Your program should terminate without any memory leak.</p> -->
+
+<p>There are 22 given test cases of which the code can be found in the given main function. These 22 test cases are first run without any memory leak checking (they are numbered #1 - #22 on ZINC). Then, the same 22 test cases will be run again, in the same order, with memory leak checking (those will be numbered #23 - #44 on ZINC). For example, test case #30 on ZINC is actually the given test case 8 (in the given main function) run with memory leak checking.</p>
+
+<p>Each of the test cases run without memory leak checking (i.e., #1 - #22 on ZINC) is worth 1 mark. The second run of each test case with memory leak checking (i.e., #23 - #44 on ZINC) is worth 0.25 mark. The maximum score you can get on ZINC, before the deadline, will therefore be 22*(1+0.25) = 27.5.</p>
+
+
+
+      <b>About memory leak and other potential errors</b>
+
+      <p>Memory leak checking is done via the <code>-fsanitize=address,leak,undefined</code> option (<a href="https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html">related documentation here</a>) of a recent g++ compiler on Linux (it won't work on Windows for the versions we have tested). Check the "Errors" tab (next to "Your Output" tab in the test case details popup) for errors such as memory leak. Other errors/bugs such as out-of-bounds, use-after-free bugs, and some undefined-behavior-related bugs may also be detected. You will get 0 mark for the test case if there is any error there. Note that if your program has no errors detected by the sanitizers, then the "Errors" tab may not appear. If you wish to check for memory leak yourself using the same options, you may follow our <a href="leak-checking/">Checking for memory leak yourself</a> guide.</p>
+
+      <b>After the deadline</b>
+      <p>We will have 26 additional test cases which won't be revealed to you before the deadline. Together with the 22 given test cases, there will then be 48 test cases used to give you the final assignment grade. All 48 test cases will be run two times as well: once without memory leak checking and once with memory leak checking. The assignment total will therefore be 48*(1+0.25) = 60. Details will be provided in the marking scheme which will be released after the deadline.</p>
+
+
+<p>Here is a summary of the test cases for your information.</p>
+
+<table>
+  <tr>
+    <th>Main thing to test</th>
+    <th>Number of test cases in main before deadline (given test cases)</th>
+    <th>Number of test cases in main after deadline (given+hidden test cases)</th>
+  </tr>
+  <tr>
+    <td>print</td>
+    <td>3</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>default constructor</td>
+    <td>1</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>deep copy</td>
+    <td>1</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>array constructor</td>
+    <td>3</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>add</td>
+    <td>3</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>subtract</td>
+    <td>3</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>multiply</td>
+    <td>3</td>
+    <td>9</td>
+  </tr>
+  <tr>
+    <td>evaluate</td>
+    <td>2</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>compare</td>
+    <td>3</td>
+    <td>6</td>
+  </tr>
+</table>
+
+          </div>
+        </div>
+
+
+
+
+        <!-- Submission and deadline section -->
+        <!-- ### Complete submission and deadline section for the assignment ### -->
+        <div class="card mb-4">
+          <div class="card-body" id="submission">
+            <h3 class="card-title">Submission and Deadline</h3>
+            <p>
+              <u>Deadline: 23:59:00 on Mar 20, 2022 (Sunday)</u>
+            </p>
+          <!--   <br />
+            <p><b>Notice:</b> ZINC submission for assignment 1 will be open at a later time, as the ZINC team is doing some adjustments. If you want to check your program output, you may do so with our provided <a href="https://course.cse.ust.hk/comp2012/secret/Password_Only/assignments/assignment1/sample.zip">sample output</a> yourself meanwhile.</p> -->
+            <br>
+  <!--           <p>Please zip three cpp files only: <code>thing.cpp</code>, <code>cell.cpp</code> and <code>game.cpp</code>. Zip only these 3 files, NOT a folder containing them. Submit the zip file to <a href="http://zinc.cse.ust.hk">ZINC</a>. ZINC usage instructions can be found <a href="https://zinc.cse.ust.hk/guide">here</a>.</p>
+ -->
+            <p>Please submit one cpp file only: <b>polynomial.cpp</b>. Submit the file to <a href="http://zinc.cse.ust.hk">ZINC</a>. ZINC usage instructions can be found <a href="https://zinc.cse.ust.hk/guide">here</a>.</p>
+
+            <p>Notes:</p>
+            <ul>
+                  <li>You may submit your file multiple times, but only the last submission will be graded. <b>You do NOT get to choose which version we grade.</b> If you submit after the deadline, late penalty will be applied according to the submission time of your last submission.</li>
+                  <li>Submit early to avoid any last-minute problem. Only ZINC submissions will be accepted.</li>
+                  <li>The ZINC server will be very busy on the last day especially in the last few hours, so you should expect you would get the grading result report not-very-quickly. However, as long as your submission is successful, we would grade your latest submission with all test cases after the deadline.</li>
+                  <li>In the grading report, pay attention to various errors reported. For example, <b>under the "make" section, if you see a red cross, click on the STDERR tab to see the compilation errors.</b> You must fix those before you can see any program output for the test cases below.</li>
+                  <li>Make sure you submit the correct file yourself. You can download your own file back from ZINC to verify. Again, <b>we only grade what you uploaded last to ZINC</b>.</li>
+           </ul>
+
+            <!--
+            <p>Note: If you have no idea how to create a zip file, you may see <a href="https://www.laptopmag.com/articles/how-to-zip-files-windows-10">How
+                to create a zip file in Windows 10</a> or <a href="http://osxdaily.com/2012/01/10/how-to-zip-files-in-mac-os-x/">How
+                to create a zip file in Mac OS X</a> . <u>Zip just the 2 files, not a folder containing the 2 files.</u></p> -->
+
+		 <br/>
+                 <h4 id="virtual_barn">Compilation Requirement</h4>
+
+      <p>
+        It is <strong>required</strong> that your submissions can be compiled and run successfully in our online auto-grader ZINC. If we cannot even compile your work, it won't be graded. Therefore, for parts that you cannot finish, just put in dummy implementation so that your whole program can be compiled for ZINC to grade the other parts that you have done. Empty implementations can be like:
+      </p>
+      <pre><code class="language-cpp">int SomeClass::SomeFunctionICannotFinishRightNow()
+{
+    return 0;
+}
+
+void SomeClass::SomeFunctionICannotFinishRightNowButIWantOtherPartsGraded()
+{
+}</code></pre>
+	    <br/>
+            <p>
+              <h4>Late submission policy</h4>
+            </p>
+
+            <p>There will be a penalty of -1 point (out of a maximum 100 points) for
+              every minute you are late. For instance, since the deadline of the assignment is 23:59:00 on Mar 20th,
+              if you submit your solution at 1:00:00 on Mar 21st, there will be a penalty of -61 points for your
+              assignment. However, the lowest grade you may get from
+              an assignment is zero: any negative score after the deduction due to a late penalty (and any other
+              penalties) will be reset to zero.</p>
+
+          </div>
+        </div>
+
+
+        <!-- Description section -->
+        <!-- ### Complete description section for the assignment ### -->
+<!--         <div class="card mb-4">
+          <div class="card-body" id="leak">
+            <h3 class="card-title">Checking for memory leak</h3>
+            <p class="card-text">
+      <p>One of our test cases (test case 10) check for memory leak. You can try it on ZINC.</p>
+
+    </p>
+</div>
+</div> -->
+
+
+        <!-- FAQ section -->
+        <!-- ### Complete FAQ section for the assignment ### -->
+        <div class="card mb-4">
+          <div class="card-body" id="faq">
+            <h3 class="card-title">FAQ</h3>
+            <p>
+              <h4>Frequently Asked Questions</h4>
+            </p>
+	    <br/>
+            <p>Q: My code doesn't work / there is an error, here is the code, can you help me fix it?</p>
+            <p>A: As the assignment is a major course assessment, to be fair, you are supposed to work on it on your own and we should not finish the tasks for you. We might provide some very general hints to you, but we shall not fix the problem or debug for you.</p>
+<br>
+            <p>Q: Can I add extra helper functions?</p>
+            <p>A: You may do so in the files that you are allowed to modify and submit. That implies you cannot add new member functions to any given class.</p>
+<br>
+            <p>Q: Can I include additional libraries?</p>
+            <p>A: No. Everything you need is already included - there is no need for you to add any include statement (under our official environment).</p>
+<br>
+            <p>Q: Can I use global variable or static variable such as "static int x"?</p>
+            <p>A: No.</p>
+<br>
+            <p>Q: Can I use "auto"?</p>
+            <p>A: No.</p>
+<br>
+          <p>
+            Q: Can I use function X or class Y in this assignment?
+          </p>
+          <p>
+            A:  In general if it is not forbidden in the description and the previous FAQs, and you can use it without including any additional library on ZINC, then you can use it. We suggest quickly testing it on ZINC (to see if a basic usage of it compiles there) before committing to using it as library inclusion requirement may differ on different environments.
+          </p>
+<br>
+            <p>Q: My program gives the correct output on my computer, but it gives a different one on ZINC. What may be the cause?</p>
+            <p>A: Usually inconsistent strange result (on different machines/platforms, or even different runs on the same machine) is due to relying on uninitialized hence garbage values, missing return statements, accessing out-of-bound array elements, improper use of dynamic memory, or relying on library functions that might be implemented differently on different platforms (such as pow() in cmath).<br>
+            You may find a list of common causes and tips on debugging in the notes <a href="http://wallacem.people.ust.hk/notes/on-common-c-runtime-errors/">here</a>.<br>
+            In this particular PA, it is probably related to misuse of dynamic memory. Good luck with bug hunting! </p>
+<br>
+          <p>
+            Q: For the print function, should coefficient 1 or -1 be printed? That is, should it be "-1*x" or "-x" for a term with coefficient -1 and exponent 1?
+          </p>
+          <p>
+            A:  No, as you can see in the sample output (test case #3). "-x" should be printed. However, if the exponent is 0, then the term should be printed, e.g. "1", "-1", "x^2 + 1", "x^2 - 1", etc.
+          </p>
+<br>
+          <p>
+            Q: For the print function, if the first term has a negative coefficient, should we be adding a space between the negative sign and the coefficient? That is, should it be "- 90*x^2" or "-90*x^2"? Should it be "- x" or "-x"?
+          </p>
+          <p>
+            A:  No, as you can see in the sample output (test case #3). "-90*x^2" and "-x" should be printed.
+          </p>
+<br>
+          <p>
+            Q: For the first example of the array constructor, should the result be "5*x^2 - 6*x + 7" since the exponent 1 shouldn't be printed?
+          </p>
+          <p>
+            A:  Yes, the result should be "5*x^2 - 6*x + 7". Sorry for the typo, exponent 1 shouldn't be printed indeed. It has been fixed on March 6th 5:34pm.
+          </p>
+<br>
+          <p>
+            Q: Are "x" or "x - 5" larger?
+          </p>
+          <p>
+            A:  <b>"x - 5" is larger</b> according to our description which states that when we reach a term in p1 but not in p2, p1 is considered as larger. Note that polynomial "x" must be represented by a linked list of 1 node/term (0s are never stored), so "x - 5" having the very same first term and an additional second term is considered as larger.
+            <br>
+            <br><i>(Fixed a typo in this FAQ at 9:19am Mar 16, bolded: "x - 5" is definitely larger.)</i></b>
+          </p>
+<br>
+          <p>
+            Q: Will we be asked to print or operator on a polynomial with some nodes/terms that have 0 coefficients?
+          </p>
+          <p>
+            A:  You can assume the polynomials given by us are always valid in all test case, meaning they follow the specifications we stated including “nodes/terms with 0 coefficient will NOT be stored.”.
+          </p>
+<br>
+          <p>
+            Q: Can one of the operands be "0"? What is the result of multiplication with "0"?
+          </p>
+          <p>
+            A:  Yes, in that case, the polynomial will have its head point to nullptr as we described. An empty linked list represents a valid polynomial "0" which can be printed as described. The result of multiplication with "0" (which is represented by a polynomial with an empty linked list) is "0" (which is represented by a polynomial with an empty linked list).
+          </p>
+<br>
+
+            <br>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-3">
+        <div class="sticky-top">
+        <!-- Menu Widget -->
+        <div class="card my-12">
+          <h5 class="card-header">Menu</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <ul class="mb-0" type="circle" style="padding-left:20px">
+                  <li>
+                    <a href="#introduction">Introduction</a>
+                  </li>
+                  <li>
+                    <a href="#download">Download</a>
+                  </li>
+                  <li>
+                    <a href="#class">The Polynomial Class</a>
+                  </li>
+                  <li>
+                    <a href="#sample-output">Sample Output and Grading Scheme</a>
+                  </li>
+
+                  <li>
+                    <a href="#submission">Submission &amp; Deadline</a>
+                  </li>
+           <!--        <li>
+                    <a href="#leak">Checking for memory leak</a>
+                  </li> -->
+                  <li>
+                    <a href="#faq">FAQ</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Maintainance widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Page maintained by</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    Wallace Mak
+                  </li>
+                  <li>
+                    Email:
+                    <a href="mailto:wallacem@cse.ust.hk">wallacem@cse.ust.hk</a>
+                  </li>
+                  <li>Last Modified:
+                    <script type="text/javascript">document.write(document.lastModified);</script>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Homepage widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Homepage</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="../../">Course Homepage</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Maintained by COMP 2012 Teaching Team &copy; 2022 HKUST Computer Science
+        and Engineering</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../../js/jquery.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- ### Change assignment number ### -->
+  <title>COMP 2012 Dr.Memory Tutorial</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/blog-home.css" rel="stylesheet">
+
+  <!-- Prism syntax highlighter -->
+  <link href="prism.css" rel="stylesheet" />
+
+  <style>
+    pre {
+      background: #f4f4f4;
+      border: 1px solid #ddd;
+      border-left: 3px solid #f36d33;
+      color: #666;
+      page-break-inside: avoid;
+      font-family: monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 1.6em;
+      max-width: 100%;
+      overflow: auto;
+      padding: 1em 1.5em;
+      display: block;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+
+<body>
+  <script src="prism.js"></script>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Entries Column -->
+      <div class="col-md-9">
+
+        <h2 class="my-4">
+          <span style="color:darkblue">COMP 2012</span>
+          <small>Object-Oriented Programming and Data Structures</small>
+        </h2>
+
+        <!-- ### Change assignment number and title ### -->
+        <h3 class="my-4">Dr.Memory Tutorial
+        </h3>
+
+        <!-- Introduction section -->
+        <!-- ### Complete introduction section for the assignment ### -->
+        <div class="card mb-4">
+
+          <!-- ### Add an image representing the assignment content here ### -->
+        <!-- Credits section -->
+        <!-- ### Complete Credits section for the assignment ### -->
+        <div class="card mb-4">
+          <!-- <div class="card-body" id="credits">
+            <h3 class="card-title">Solution, Marking Guide and Appeal Procedure</h3>
+            <p>
+    You may want to check your marks of PA2 and the feedback here:
+  <ol>
+  <li><a href="check_mark.html">Mark checking system</a></li>
+  <li><a href="marking_guide.pdf">Marking Guide (PDF)</a></li>
+  <li><a href="testcode_with_solution.zip">Test code and solution</a></li>
+  </ol>
+  Please note that you are required to appeal the PA by 10th of May, 2019 via email to kevinw@cse.ust.hk. Please run the test case before you send the email.
+            </p>
+          </div> -->
+          <!-- <div class="card-footer text-muted"> -->
+
+          <!-- </div> -->
+        </div>
+
+          <div class="card-body" id="tutorial">
+            <h3 class="card-title">Tutorial</h3>
+            <p class="card-text">
+                <p class="card-text">
+                    <a href="https://www.drmemory.org" target="_blank"><code>drmemory</code> (Dr. Memory)</a> is an open-source memory profiler. A feature that is interesting for this course is detection for memory leaks. To enforce a high coding standard, <em>your submissions will be checked for memory leaks</em>.
+                  </p>
+
+                  <h4 class="card-title">Download <code>drmemory</code></h4>
+
+                  <p class="card-text">
+                    <ul>
+                      <li>For Windows users, we recommend you to download the <a href="https://github.com/DynamoRIO/drmemory/releases/download/release_2.3.0/DrMemory-Windows-2.3.0-1.zip" target="_blank">portable version</a>.</li>
+                      <li>For macOS users, click <a href="https://github.com/DynamoRIO/drmemory/releases/download/release_2.3.0/DrMemory-MacOS-2.3.0-1.tar.gz" target="_blank">here</a>. Double-click in Finder to decompress.</li>
+                      <li>For Linux users, click <a href="https://github.com/DynamoRIO/drmemory/releases/download/release_2.3.0/DrMemory-Linux-2.3.0-1.tar.gz">here</a>.</li>
+                    </ul>
+                  </p>
+
+                  <h4 class="card-title">Running <code>drmemory</code></h4>
+
+                  <h5 class="card-title">Notes on Eclipse User</h5>
+
+                  <p class="card-text">
+                    If you are using a managed build project in Eclipse (not a Makefile project), you need to use static linking so that you can run your program outside Eclipse.
+                  </p>
+
+                  <p class="card-text">
+                    Goto "Project" -> "Properties" -> "C/C++ Build" -> "Settings" -> "Tool Settings" tab -> "MinGW C++ Linker" -> "Miscellaneous" -> type "-static" in the "Linker flags" box.
+                  </p>
+
+                  <h5 class="card-title">Running <code>drmemory</code> on Windows</h5>
+
+                  <p class="card-text">
+                    <ol>
+                      <li>Locate your program. If you are using Eclipse, then it is available at <code>"Eclipse_Workspace"\"Project_Name"\Debug\"Project_Name".exe</code>.</li>
+                      <li>Locate <code>drmemory</code>. It is located at <code>bin64</code> folder after extraction.</li>
+                      <li>Simply drag and drop your program to <code>drmemory</code>. <img class="limit" src="./images/drmemory_windows_drag.png" width="100%"></li>
+                      <li>If the following error occurs, click "OK" to dismiss it. <br> <img class="limit" src="./images/drmemory_windows_error.png" width="100%"></li>
+                      <li>After a while, the output is shown in a text document.</li>
+                    </ol>
+                  </p>
+
+                  <h5 class="card-text">Running <code>drmemory</code> on macOS</h5>
+
+                  <p class="card-text">
+                    <ol>
+                      <li>Find the path to your program. You can reveal its path by dragging it from Finder onto a terminal.</li>
+                      <li>Find the path to <code>drmemory</code>.</li>
+                      <li>
+                        Run the following command in a terminal.
+                        <pre><code>path/to/drmemory -- path/to/your/program</code></pre>
+                        For example:
+                        <pre><code>/Users/kelvin/DrMemory-MacOS-2.3.0-1/bin64/drmemory -- /Users/kelvin/pa1/pa1</code></pre>
+                      </li>
+                      <li>If the following alert pops up, dismiss it. <br> <img class="limit" src="./images/drmemory_mac_alert.png" width="100%"></li>
+                      <li>Then go to "System Preferences" > "Security & Privacy" > "General" > Click "Open Anyway". Rerun the command. Repeat this for all alerts.<br> <img class="limit" src="./images/drmemory_mac_security.png" width="100%"></li>
+                    </ol>
+                  </p>
+
+                  <h5 class="card-text">Running <code>drmemory</code> on Linux</h5>
+
+                  <p class="card-text">
+                    See the command for macOS. Make sure you run <code>bin64/drmemory</code> (NOT <code>bin/drmemory</code>!).
+                  </p>
+
+                  <h5 class="card-title">Result</h5>
+
+                  <p class="card-text">
+                    At the end of the output, find the result for <strong>leak(s)</strong> and <strong>possible leak(s)</strong>:
+                    <pre><code>
+                      ~~Dr.M~~       0 unique,     0 total,      0 byte(s) of leak(s)
+                      ~~Dr.M~~       0 unique,     0 total,      0 byte(s) of possible leak(s)
+                    </code></pre>
+                    If the number of bytes for <em>both</em> are 0, then your code is free from memory leaks. If the number of bytes are not zero, then your code is prone to memory leaks. Note: You can ignore the bytes for <em>still-reachable allocation(s)</em>. They are not counted as memory leaks.
+                  </p>
+          </div>
+
+        </div>
+    </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-3">
+        <div class="sticky-top">
+          <!-- Menu Widget -->
+          <div class="card my-12">
+            <h5 class="card-header">Menu</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="mb-0" type="circle" style="padding-left:20px">
+                    <li>
+                      <a href="#tutorial">Tutorial</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Maintenance widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Page maintained by</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      Peng YUN
+                    </li>
+                    <li>
+                      Email:
+                      <a href="mailto:pyun@cse.ust.hk">pyun@cse.ust.hk</a>
+                    </li>
+                    <li>Last Modified:
+                      <script type="text/javascript">document.write(document.lastModified);</script>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Homepage widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Homepage</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="http://course.cse.ust.hk/comp2012">Course Homepage</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Maintained by COMP 2012 Teaching Team &copy; 2020 HKUST Computer Science
+        and Engineering</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../js/jquery.min.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+    }
+    });
+  </script>
+
+  <title>COMP 2012 Assignment 3: Smart Pointers</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/blog-home.css" rel="stylesheet">
+
+  <!-- Prism syntax highlighter -->
+  <link href="vendor/prism/prism.css" rel="stylesheet" />
+
+  <style>
+    pre {
+      background: #f4f4f4;
+      border: 1px solid #ddd;
+      border-left: 3px solid #f36d33;
+      color: #666;
+      page-break-inside: avoid;
+      font-family: monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 1.6em;
+      max-width: 100%;
+      overflow: auto;
+      padding: 1em 1.5em;
+      display: block;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+
+<body>
+  <script src="vendor/prism/prism.js"></script>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Entries Column -->
+      <div class="col-md-9">
+
+        <h2 class="my-4">
+          <span style="color:darkblue">COMP 2012</span>
+          <small>Object-Oriented Programming and Data Structures</small>
+        </h2>
+
+        <h3 class="my-4">Assignment 3
+          <span style="color:#660066">Smart Pointers</span>
+        </h3>
+
+        <!-- Introduction section -->
+        <div class="card mb-4">
+          <img class="card-img-top" src="images/flights.jpg" alt="Card image cap">
+
+          <div class="card-body" id="intro">
+            <h3 class="card-title">Introduction</h3>
+            <p class="card-text">
+              <p>
+                The main source of bugs in C++ is often believed to be the improper use of pointers. While pointers provide a very flexible way of storing and passing around references to objects, the ownership and lifetime of dynamically allocated objects on the heap becomes unclear. An object on the stack has a clearly defined scope, which also unambiguously defines its lifetime. It is obvious that the object should be deallocated once it goes out of scope, so obvious that it is handled by the compiler automatically. Dynamic memory allocation allows the programmer to control the lifetime of the object, but with power comes responsibilities. The programmer must ensure that the object is deallocated when it is no longer used, and that the object is not used after it has been deallocated.
+              </p>
+              <p>
+                When multiple pointers to the same object are held by different parties, it is unclear who should be responsible for deallocating the object. In fact, there is no trivial way to determine whether the object is even safe to deallocate, since there is no way to tell whether another pointer to the same address exists. The worst part is that pointers can also point to addresses on the stack, so there is no way to determine whether an object pointed to by a pointer can even be deallocated by the programmer at all.
+              </p>
+              <p>
+                In an attempt to solve this ownership problem of pointers in C++, we implement the concept of smart pointers, which are wrappers of ordinary pointers, with a few restrictions and some extra utilities. Together with the ordinary pointer, the smart pointer keeps track of the number of smart pointers holding the same address, and automatically deallocates the object when no instances of smart pointers hold the address. To ensure that smart pointers do not accidentally deallocate objects with other references held as ordinary pointers or references, smart pointers can only be initialized or assigned with a newly allocated address or an address held by another instance of smart pointer. The reference counters are always incremented or decremented appropriately by the constructors, destructor, assignment operator and mutators.
+              </p>
+              <p>
+                As an example to demonstrate the ownership problem and the application of the smart pointers we just implemented, the second half of this assignment will be an implementation of a simple representation of graphs and operations on them. Since a node can be the neighbor of, and hence have its reference held by multiple other nodes, smart pointers can be used to keep track of the number of held references of a node, and deallocate a node when no other nodes hold a reference to it.
+              </p>
+            </p>
+          </div>
+
+          <div class="card-footer text-muted">
+            <p>
+              We value academic integrity very highly. Please read the <a href="../../#honorcode">Honor Code</a> section on our course web page to make sure you understand what is considered as plagiarism and what the penalties are. The following are some of the highlights:
+              <ul>
+                <li>
+                  Do NOT try your "luck" - we use some sophisticated plagiarism detection software to find cheaters. It is much better than most students think. It has been proven times and times again tricks didn't work. We also review codes for potential cases manually.
+                </li>
+                <li>
+                  The penalty (for <b>BOTH</b> the copier and the copiee) is not just getting a zero in your assignment - it is much more than that. It is simply not worth to cheat at all. You would hurt your friend and yourself by doing that. It is obvious that a real friend won't ask you to get involved in a plagiarism act in any way due to the consequences. Read the Honor Code again before you even try to think about cheating.
+                </li>
+                <li>
+                  Serious offenders will fail the course immediately and there may be additional disciplinary actions from the department and university.
+                </li>
+              </ul>
+            </p>
+          </div>
+        </div>
+
+        <!-- Download section -->
+        <div class="card mb-4">
+          <div class="card-body" id="download">
+            <h3 class="card-title">Download</h3>
+            <p class="card-text">
+              <p>
+                Skeleton code: <a href="files/pa3-skeleton.zip">pa3-skeleton.zip</a>
+              </p>
+              <p>
+                Please note that <b>you should only submit the required files</b>. While you may modify other files to add your own test cases, you should make sure your submitted files can be compiled with the original <code>main.cpp</code> and header files on ZINC.
+              </p>
+              <p>
+                If you use VS Code, you may follow the <a href="https://course.cse.ust.hk/comp2011/labs/vscode/#terminal">creating a project and using the terminal for custom compilation command</a> section on our VS Code usage tutorial. That is, create a folder to hold all the extracted files in your file explorer, then open this folder in VS Code. You can then use the terminal command <code>g++ -std=c++11 -o programName main.cpp</code> to compile all sources in the folder to the program. You are also welcome to create a Makefile for it yourself. After the compilation, you can then use the command <code>./programName</code> to run the program.
+              </p>
+            </p>
+          </div>
+
+          <div class="card-footer text-muted">
+            End of Download
+          </div>
+        </div>
+
+        <!-- Review section -->
+        <div class="card mb-4">
+          <div class="card-body" id="review">
+            <h3 class="card-title">Review</h3>
+            <p class="card-text">
+              <!-- We first review lambda expressions, which you can (optionally) use to implement some of the functions, followed by graphs, which is used as an example to demonstrate the ownership problem. -->
+              We first review graphs, which is used as an example to demonstrate the ownership problem in this assignment.
+            </p>
+
+            <!-- <h4 id="lambda">Lambda expressions</h4>
+            <p>
+              <a href="https://en.cppreference.com/w/cpp/language/lambda"><i>Lambda expressions</i></a> construct unnamed function objects, optionally capturing variables in scope. They have been covered in <a href="https://course.cse.ust.hk/comp2012/notes/h.review-const-lambda.pdf">the introduction lecture</a>. You are encouraged to review the lecture notes if you are not familiar with them, since they will be used in the last part of this assignment. Here's a quick summary:
+            </p>
+            <pre><code>[ <i>captures</i> ] ( <i>params</i> ) { <i>body</i> }</code></pre>
+            <p>
+              <code><i>captures</i></code> is a comma-separated list of captures, which may begin with a capture default <code>=</code> or <code>&</code>, which implicitly captures the used variables by value or by reference respectively. A capture may be specified with an identifier, or an <code>&</code> followed by an identifier, which captures the variable by value or by reference respectively when a default capture is absent, or specifies a different mode of capture when a default capture is present.
+            </p>
+
+            <h4 id="graph">Graphs</h4> -->
+            <p>
+              A <a href="https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)">graph</a> is a structure consisting of a set of <i>nodes</i> and a set of <i>edges</i>, which are pairs of nodes. In this assignment, we consider undirected graphs only, where an edge from a node <code>n1</code> to another node <code>n2</code> is also an edge from <code>n2</code> to <code>n1</code>. Additionally, self-edges (an edge from a node to itself) and duplicate edges are forbidden.
+            </p>
+            <p>
+              If an edge from <code>n1</code> to <code>n2</code> exists, we say that <code>n2</code> is a <i>neighbor</i> of <code>n1</code>. To represent a graph, we store the adjacency list of each node, which is simply a list of its neighbors. The <i>degree</i> of a node is the number of its neighbors.
+            </p>
+            <p>
+              A node <code>nk</code> is said to be <i>reachable</i> from a node <code>n0</code> if a sequence of edges <code>(n0, n1), (n1, n2), ..., (nk-1, nk)</code> exists. A <i>connected subgraph</i> of a node <code>n</code> is the set of reachable nodes from <code>n</code>.
+            </p>
+            <p>
+              As an example of graphs, think of the flights of an airline. The airports served by the airline are represented as nodes, and flights between two airports are represented as edges. The degree of a node (an airport) would then be the number of other airports connected by a direct flight. An airport is reachable from another airport if a sequence of flights connects them. And the connected subgraph of an airport is the set of airport reachable by an arbitrary number of flights. Natually, the airline would prefer not to waste storage space for airports they no longer serve, so this is a perfect application of our smart pointers, which would deallocate the data of an airport when all flights to it have been discontinued (i.e. all edges of the node have been removed).
+            </p>
+          </div>
+
+          <div class="card-footer text-muted">
+            End of Review
+          </div>
+        </div>
+
+        <!-- Description section -->
+        <div class="card mb-4">
+          <div class="card-body" id="description">
+            <h3 class="card-title">Description</h3>
+            <p class="card-text">
+              This assignment can be divided into three parts, with each depending on the previous one. The first two parts each consists of a class template, and the last part consists of some function templates that operate on the class templates. You should ensure that memory leak does not occur in <b>all</b> of the functions you implement.
+            </p>
+
+            <h4 id="smartptr">Part (A) <code>SmartPtr&lt;T&gt;</code></h4>
+            <p>
+              <p>
+                The class template <code>SmartPtr&lt;T&gt;</code> declared in <code>smartptr.h</code> provides an abstraction for handling memory allocation and deallocation using reference counting. It contains the following data members:
+              </p>
+              <pre><code class="language-cpp">T* ptr;
+unsigned int* count;</code></pre>
+              <p>
+                <code>ptr</code> is a pointer to type <code>T</code>. If the address stored in <code>ptr</code> is <code>nullptr</code>, we say that this <code>SmartPtr</code> is <i>null</i>. If <code>ptr</code> is not <code>nullptr</code>, it should point to a valid, allocated address. Note that a null <code>SmartPtr</code> only conceptually represents a null pointer, and the <code>SmartPtr</code> object itself is still defined. All member functions beside <code>operator*</code> can still be safely called on a null <code>SmartPtr</code>.
+              </p>
+              <p>
+                <code>count</code> is a pointer to type <code>unsigned int</code>, which is used to store the number of <code>SmartPtr</code> instances containing the address <code>ptr</code>. <code>count</code> should be <code>nullptr</code> if and only if <code>ptr</code> is <code>nullptr</code>.
+              </p>
+              <p>
+                Memory management of the object referred to by <code>SmartPtr</code>s are managed by the constructor, destructor, <code>set</code> and <code>unset</code> member functions. The only ways to initialize and assign <code>ptr</code> is by setting it to <code>nullptr</code>, an address allocated by copy-constructing an instance of type <code>T</code>, or the address contained in another instance of <code>SmartPtr</code>.
+              </p>
+              <p>
+                When a <code>SmartPtr</code> is created for or set to a new <code>T</code> object, <code>count</code> should be allocated to store the number 1, meaning, the address of the new <code>T</code> object is stored in only 1 <code>SmarPtr</code>. For example:
+                <pre><code class="language-cpp">SmartPtr<int> sp {42};</code></pre>
+                The number pointed to by <code>count</code> of <code>sp</code> is now 1 and <code>ptr</code> is allocated to store 42.
+                <pre><code class="language-cpp">sp.set(0);</code></pre>
+                Again, the number pointed to by <code>count</code> of <code>sp</code> is set to 1 and <code>ptr</code> is allocated to store 0.
+              </p>
+              <p>
+                When a <code>SmartPtr</code> is copied by the copy constructor or assignment operator, the address stored in <code>ptr</code> is being copied, the number pointed to by <code>count</code> has to be incremented by 1. It means that the <code>T</code> object pointed by to <code>ptr</code> is being pointed to by one more <code>SmartPtr</code> instance.
+              </p>
+              <p>
+                Similarly, when a <code>SmartPtr</code> is destructed or set to refer to another object, the number pointed to by <code>count</code> has to be decremented. When the number becomes zero, it means that this instance of <code>SmartPtr</code> is the last to hold a reference to the object pointed to by <code>ptr</code>. Both <code>ptr</code> and <code>count</code> should be deallocated properly.
+              </p>
+
+              <h5>Member functions</h5>
+              <h5><code>SmartPtr&lt;T&gt;::SmartPtr</code></h5>
+              <pre><code class="language-cpp">SmartPtr();</code></pre>
+              <p>
+                The default constructor initializes a null <code>SmartPtr</code>.
+              </p>
+              <pre><code class="language-cpp">SmartPtr(const T& val);</code></pre>
+              <p>
+                The conversion constructor allocates memory for a value of type <code>T</code> by copy-constructing an instance of <code>T</code> from <code>val</code> and storing its address in <code>ptr</code>. <code>count</code> should be allocated and set to 1.
+              </p>
+              <pre><code class="language-cpp">SmartPtr(const SmartPtr&lt;T&gt;& that);</code></pre>
+              <p>
+                The copy constructor does not allocate additional memory, but instead stores the same address in <code>ptr</code> as <code>that.ptr</code>. As this means one more <code>SmartPtr</code> instance is pointing to the address that <code>that.ptr</code> points to, the number pointed by <code>count</code> needs to be incremented accordingly.
+              </p>
+
+              <h5><code>SmartPtr&lt;T&gt;::~SmartPtr</code></h5>
+              <pre><code class="language-cpp">~SmartPtr();</code></pre>
+              <p>
+                The destructor deallocates the memory pointed to by <code>ptr</code> when no other instances of <code>SmartPtr</code> hold the same address.
+              </p>
+
+              <h5><code>SmartPtr&lt;T&gt;::operator=</code></h5>
+              <pre><code class="language-cpp">SmartPtr&lt;T&gt;& operator=(const SmartPtr&lt;T&gt;& that);</code></pre>
+              <p>
+                The assignment operator stores the same address in <code>ptr</code> as <code>that.ptr</code>. The memory originally pointed to by <code>ptr</code> is deallocated when no other instances of <code>SmartPtr</code> hold the same address. As this means one more <code>SmartPtr</code> instance is pointing to the address that <code>that.ptr</code> points to, the number pointed by <code>count</code> needs to be incremented accordingly. The returning value should allow cascading assignment, in other words, <code>sp1 = sp2 = sp3;</code> should be equivalent to <code>sp2 = sp3; sp1 = sp2;</code>.
+              </p>
+
+              <h5><code>SmartPtr&lt;T&gt;::set</code></h5>
+              <pre><code class="language-cpp">void set(const T& val);</code></pre>
+              <p>
+                Allocates memory for a value of type <code>T</code> by copy-constructing an instance of <code>T</code> from <code>val</code> and storing its address in <code>ptr</code>. The memory originally pointed to by <code>ptr</code> is deallocated when no other instances of <code>SmartPtr</code> hold the same address. This is the first <code>SmartPtr</code> instance pointing to a <code>T</code> instance with value <code>val</code>, the number pointed by <code>count</code> should be 1.
+              </p>
+
+              <h5><code>SmartPtr&lt;T&gt;::unset</code></h5>
+              <pre><code class="language-cpp">void unset();</code></pre>
+              <p>
+                Sets this <code>SmartPtr</code> to null. The memory originally pointed to by <code>ptr</code> is deallocated when no other instances of <code>SmartPtr</code> hold the same address.
+              </p>
+
+              <h5><code>SmartPtr&lt;T&gt;::is_null</code></h5>
+              <pre><code class="language-cpp">bool is_null() const;</code></pre>
+              <p>
+                Returns <code>true</code> if this <code>SmartPtr</code> is null, and <code>false</code> otherwise.
+              </p>
+
+              <h5><code>SmartPtr&lt;T&gt;::operator==
+SmartPtr&lt;T&gt;::operator!=</code></h5>
+              <pre><code class="language-cpp">bool operator==(const SmartPtr&lt;T&gt;& that) const;
+bool operator!=(const SmartPtr&lt;T&gt;& that) const;</code></pre>
+              <p>
+                Compares the pointer member <code>ptr</code> of two instances of <code>SmartPtr</code> using the corresponding operators.
+              </p>
+
+              <h5><code>SmartPtr&lt;T&gt;::operator*</code></h5>
+              <pre><code class="language-cpp">T& operator*() const;</code></pre>
+              <p>
+                Returns by reference the object pointed to by <code>ptr</code>. Whether <code>ptr</code> points to <code>nullptr</code> is not checked.
+              </p>
+
+              <h5><code>SmartPtr&lt;T&gt;::operator-&gt;</code></h5>
+              <pre><code class="language-cpp">T* operator-&gt;() const;</code></pre>
+              <p>
+                Returns the address stored in <code>ptr</code>.
+              </p>
+
+              <h5>Non-member functions</h5>
+              <h5><code>operator&lt;&lt;</code></h5>
+              <pre><code class="language-cpp">template &lt;typename T&gt;
+std::ostream& operator&lt;&lt;(std::ostream& os, const SmartPtr&lt;T&gt;& sp);</code></pre>
+              <p>
+                If <code>sp</code> is not null, outputs to <code>os</code> the string "<code>SmartPtr(</code>", followed by the object pointed to by <code>sp.ptr</code>, then by a "<code>,</code>", then by the number of <code>SmartPtr</code> instances containing the address <code>sp.ptr</code>, finally by "<code>)</code>". The object pointed to by <code>sp.ptr</code> should be output by invoking <code>operator&lt;&lt;</code>. Otherwise, outputs to <code>os</code> the string "<code>SmartPtr()</code>".
+              </p>
+              <p>
+                For example, if <code>sp.ptr</code> points to a string "Hello World", with two instances of <code>SmartPtr</code> holding the same address, <code>os &lt;&lt; sp</code> should output "<code>SmartPtr(Hello World,2)</code>" to <code>os</code>.
+              </p>
+              <p>
+                The return value should follow the convention as the standard library, where chaining multiple invocations of <code>operator&lt;&lt;</code> outputs to the same stream. For example, <code>os &lt;&lt; sp &lt;&lt; "\n"</code> would output a newline character following "<code>SmartPtr(Hello World,2)</code>" to <code>os</code>.
+              </p>
+              <p>
+                <b>Implement this function template in <code>smartptr-output.tpp</code>.</b> No other required implementations should be present in <code>smartptr-output.tpp</code>. For grading, besides the cases explicitly testing <code>operator&lt;&lt;</code>, your implementation in <code>smartptr-output.tpp</code> will be swapped for a standard implementation.
+              </p>
+            </p>
+
+            <h4 id="node">Part (B) <code>Node&lt;T&gt;</code></h4>
+            <p>
+              <p>
+                The class template <code>Node&lt;T&gt;</code> represents a node or vertex in a graph. It contains the following data members:
+              </p>
+              <pre><code class="language-cpp">T val;
+SmartPtr&lt;Node&lt;T&gt;&gt;* out;
+unsigned int capacity;
+unsigned int size_p;</code></pre>
+              <p>
+                <code>val</code> is the data contained in a node, which may be used to identify nodes. (However, note that the equality of nodes are determined by reference equality, not the equality of their <code>val</code> field.) <code>out</code> is a dynamically allocated array of <code>SmartPtr</code>s to the neighbors of a node. <code>capacity</code> is the actual allocated size of the array, while <code>size_p</code> is the number of "used" cells in the array. When a neighbor is removed, the corresponding <code>SmartPtr</code> in the array is simply set to null, without modifying other <code>SmartPtr</code>s or <code>size_p</code>. When a neighbor is added, its <code>SmartPtr</code> is always appended at the end of the "used" cells, not any of the null cells resulted from removing a neighbor.
+              </p>
+
+              <h5>Member functions</h5>
+              <h5><code>Node&lt;T&gt;::Node</code></h5>
+              <pre><code class="language-cpp">Node(const T& val);</code></pre>
+              <p>
+                The conversion constructor initializes a <code>Node</code> with no neighbors by copy-constructing an instance of <code>T</code> from <code>val</code>. Memory should not be allocated for the array of <code>SmartPtr</code> to neighbors.
+              </p>
+              <pre><code class="language-cpp">Node(const Node&lt;T&gt;& that);</code></pre>
+              <p>
+                The copy constructor initializes a <code>Node</code> with no neighbors by copy-constructing an instance of <code>T</code> from <code>that.val</code>. Memory should not be allocated for the array of <code>SmartPtr</code> to neighbors.
+              </p>
+
+              <h5><code>Node&lt;T&gt;::~Node</code></h5>
+              <pre><code class="language-cpp">~Node();</code></pre>
+              <p>
+                The destructor deallocates any memory allocated for a node.
+              </p>
+
+              <h5><code>Node&lt;T&gt;::operator*</code></h5>
+              <pre><code class="language-cpp">T& operator*();
+const T& operator*() const;</code></pre>
+              <p>
+                The indirection operator returns by reference the member <code>val</code>.
+              </p>
+
+              <h5><code>Node&lt;T&gt;::degree</code></h5>
+              <pre><code class="language-cpp">unsigned int degree() const;</code></pre>
+              <p>
+                Returns the number of neighbors of a node.
+              </p>
+
+              <h5><code>Node&lt;T&gt;::size</code></h5>
+              <pre><code class="language-cpp">unsigned int size() const;</code></pre>
+              <p>
+                Returns the number of "used" cells in the array of <code>SmartPtr</code> to neighbors, i.e. <code>size_p</code>.
+              </p>
+
+              <h5><code>Node&lt;T&gt;::operator[]</code></h5>
+              <pre><code class="language-cpp">SmartPtr&lt;Node&lt;T&gt;&gt; operator[](unsigned int i) const;</code></pre>
+              <p>
+                The subscript operator returns the <code>SmartPtr</code> at index <code>i</code> of the array of neighbors. The index includes any null <code>SmartPtr</code>s resulting the removal of neighbors. The array bounds are unchecked.
+              </p>
+
+              <h5><code>Node&lt;T&gt;::add</code></h5>
+              <pre><code class="language-cpp">void add(SmartPtr&lt;Node&lt;T&gt;&gt; n);</code></pre>
+              <p>
+                Adds <code>n</code> to the array of neighbors by appending it to the end of the "used" cells. Does nothing if <code>n</code> is null, or if <code>n</code> is non-null and already a neighbor, or if <code>n</code> points to this node itself. If the array of neighbors is full, expand its capacity to double its current capacity or <code>init_capacity</code>, whichever is larger.
+              </p>
+
+              <h5><code>Node&lt;T&gt;::remove</code></h5>
+              <pre><code class="language-cpp">void remove(SmartPtr&lt;Node&lt;T&gt;&gt; n);</code></pre>
+              <p>
+                Removes <code>n</code> from the array of neighbors. Does nothing if <code>n</code> is null, or if <code>n</code> is not a neighbor. Do not modify any other <code>SmartPtr</code>s or <code>size_p</code>.
+              </p>
+
+              <h5><code>Node&lt;T&gt;::exists</code></h5>
+              <pre><code class="language-cpp">bool exists(SmartPtr&lt;Node&lt;T&gt;&gt; n) const;</code></pre>
+              <p>
+                Returns <code>true</code> if <code>n</code> is non-null and is a neighbor of this node. Returns <code>false</code> otherwise.
+              </p>
+
+              <h5><code>Node&lt;T&gt;::find</code></h5>
+              <pre><code class="language-cpp">SmartPtr&lt;Node&lt;T&gt;&gt; find(T val) const;</code></pre>
+              <p>
+                Returns a <code>SmartPtr</code> to the first neighbor containing a value equal to <code>val</code>. Returns a null <code>SmartPtr</code> if none of the neighbors contain a value equal to <code>val</code>.
+              </p>
+
+              <h5>Non-member functions</h5>
+              <h5><code>operator&lt;&lt;</code></h5>
+              <pre><code class="language-cpp">template &lt;typename T&gt;
+std::ostream& operator&lt;&lt;(std::ostream& os, const Node&lt;T&gt;& n);</code></pre>
+              <p>
+                Outputs to <code>os</code> the string "<code>Node(</code>", followed by the value <code>val</code>, then by a "<code>,{</code>", then by a list of values <code>val</code> its neighbors, separated by commas, finally by "<code>})</code>". The values <code>val</code> should be output by invoking <code>operator&lt;&lt;</code>.
+              </p>
+              <p>
+                For example, if <code>n.val</code> is the integer 0, and <code>n</code> has three neighbors containing 1, 2 and 3 respectively, <code>os &lt;&lt; n</code> should output "<code>Node(0,{1,2,3})</code>" to <code>os</code>.
+              </p>
+              <p>
+                The return value should follow the convention as the standard library, where chaining multiple invocations of <code>operator&lt;&lt;</code> outputs to the same stream.
+              </p>
+              <p>
+                <b>Implement this function template in <code>graph-output.tpp</code>.</b> No other required implementations should be present in <code>graph-output.tpp</code>. For grading, besides the cases explicitly testing <code>operator&lt;&lt;</code>, your implementation in <code>graph-output.tpp</code> will be swapped for a standard implementation.
+              </p>
+
+              <h5>Note: on the array <code>out</code> and related operations</h5>
+              <p>
+                In case you are confused by the above description, here's an example to illustrate the effect of the operations on the array <code>out</code> and the data members. Take <code>init_capacity = 4</code> in this example. <code>x</code> denotes a null <code>SmartPtr</code>.
+              </p>
+              <p>
+                Upon initialization, <code>out</code> should point to <code>nullptr</code>.
+              </p>
+              <pre><code>Node<int> n {0};
+
+       v size_p = capacity = 0
+out[i] |
+    i   0  1  2  3  4  5  6  7</code></pre>
+              <p>
+                As the first node is added as a neighbor, <code>out</code> is expanded to <code>init_capacity</code>. When each node is added, the element at index <code>size_p</code> is assigned the value of the corresponding <code>SmartPtr</code>, then <code>size_p</code> is incremented.
+              </p>
+              <pre><code>n.add(n1);
+n.add(n2);
+n.add(SmartPtr&lt;Node&lt;int&gt;&gt;{});
+n.add(n3);
+
+       size_p = 3  4 = capacity
+                v  v
+out[i] |n1|n2|n3| x|
+     i   0  1  2  3  4  5  6  7</code></pre>
+          <p>
+            When a neighbor is removed, the corresponding element is <code>out</code> is set to a null <code>SmartPtr</code>. The rest of the elements are not moved to fill the gap, and <code>size_p</code> is unchanged.
+          </p>
+          <pre><code>n.remove(n2);
+
+       size_p = 3  4 = capacity
+                v  v
+out[i] |n1| x|n3| x|
+     i   0  1  2  3  4  5  6  7</code></pre>
+          <p>
+            When more neighbors are added after a neighbor has been removed, their entries are still appended to the end of the "used" cells in the array, not used to fill the gaps. When the array is full, expand its capacity to twice is original capacity.
+          </p>
+          <pre><code>n.add(n4);
+n.add(n2);
+
+             size_p = 5        8 = capacity
+                      v        v
+out[i] |n1| x|n3|n4|n2| x| x| x|
+     i   0  1  2  3  4  5  6  7</code></pre>
+            </p>
+
+            <h4 id="graph-op">Part (C) Graph operations</h4>
+            <p>
+              <p>
+                The following are function templates that operate on <code>SmartPtr</code>s to <code>Node</code>s. Graphs should be constructed using the following functions instead of directly calling the member functions of <code>Node</code>.
+              </p>
+
+              <h5><code>new_node</code></h5>
+              <pre><code class="language-cpp">template &lt;typename T&gt;
+SmartPtr&lt;Node&lt;T&gt;&gt; new_node(const T& val);</code></pre>
+              <p>
+                Returns a <code>SmartPtr</code> to a new instance of <code>Node</code>. The <code>val</code> member of <code>Node</code> should be copy-constructed (twice) from <code>val</code>.
+              </p>
+
+              <h5><code>remove_node</code></h5>
+              <pre><code class="language-cpp">template &lt;typename T&gt;
+void remove_node(SmartPtr&lt;Node&lt;T&gt;&gt; n);</code></pre>
+              <p>
+                Removes the node <code>n</code> from a graph by removing all edges between <code>n</code> and each of its neighbors, which would deallocate their memory if no other <code>SmartPtr</code>s hold a reference to them. Does nothing if <code>n</code> is null.
+              </p>
+
+              <h5><code>add_edge</code></h5>
+              <pre><code class="language-cpp">template &lt;typename T&gt;
+void add_edge(SmartPtr&lt;Node&lt;T&gt;&gt; n1, SmartPtr&lt;Node&lt;T&gt;&gt; n2);</code></pre>
+              <p>
+                Adds an edge connecting <code>n1</code> and <code>n2</code> by adding each of the nodes to the neighbor list of the other node. Does nothing if either <code>n1</code> or <code>n2</code> is null, or if an edge between <code>n1</code> and <code>n2</code> already exists, or if <code>n1</code> and <code>n2</code> refers to the same node.
+              </p>
+
+              <h5><code>remove_edge</code></h5>
+              <pre><code class="language-cpp">template &lt;typename T&gt;
+void remove_edge(SmartPtr&lt;Node&lt;T&gt;&gt; n1, SmartPtr&lt;Node&lt;T&gt;&gt; n2);</code></pre>
+              <p>
+                Removes the edge between <code>n1</code> and <code>n2</code> by removing each of the nodes from the neighbor list of the other node, which would deallocate their memory if no other <code>SmartPtr</code>s hold a reference to them. Does nothing if either <code>n1</code> or <code>n2</code> is null, or if an edge between <code>n1</code> and <code>n2</code> does not exist.
+              </p>
+
+              <h5><code>remove_graph</code></h5>
+              <pre><code class="language-cpp">template &lt;typename T&gt;
+void remove_graph(SmartPtr&lt;Node&lt;T&gt;&gt; root);</code></pre>
+              <p>
+                Removes every node from the connected subgraph of <code>root</code> by removing all edges between each pair of nodes, which would deallocate their memory if no other <code>SmartPtr</code>s hold a reference to them. Does nothing if <code>root</code> is null.
+              </p>
+
+              <!-- <h5><code>bfs</code></h5>
+              <pre><code class="language-cpp">template &lt;typename T, typename U&gt;
+SmartPtr&lt;Node&lt;T&gt;&gt; bfs(SmartPtr&lt;Node&lt;T&gt;&gt; root, U pred);</code></pre>
+              <p>
+                Takes a predicate <code>pred</code> as argument, and finds a node satisfying <code>pred</code> by breadth-first search. <code>pred</code> should be a callable (i.e. function pointer, function object or lambda expression) taking a <code>SmartPtr&lt;Node&lt;T&gt;&gt;</code> as its argument and returning a boolean. Returns a null <code>SmartPtr</code> if none of the nodes satisfy <code>pred</code>, or if <code>root</code> is null.
+              </p>
+              <p>
+                In other words, <code>bfs</code> applies <code>pred</code> to <code>SmartPtr</code>s to every node in the connected subgraph of <code>root</code> in breadth-first order, until <code>pred</code> returns true, when the corresponding <code>SmartPtr</code> is returned. If <code>pred</code> returns false for all nodes in the connected subgraph, a null <code>SmartPtr</code> is returned. If <code>pred</code> mutates the node, its neighbors are stored before <code>pred</code> is called.
+              </p>
+              <p>
+                The implementation of this function is given to you. You are not required to understand breadth-first search or the breadth-first order. You can (and should) utilize this function template to implement the other functions.
+              </p> -->
+
+              <h5><code>find</code></h5>
+              <pre><code class="language-cpp">template &lt;typename T&gt;
+SmartPtr&lt;Node&lt;T&gt;&gt; find(SmartPtr&lt;Node&lt;T&gt;&gt; root, T val);</code></pre>
+              <p>
+                Finds a node whose <code>val</code> field is equal to <code>val</code>. Returns a null <code>SmartPtr</code> if none of the nodes have a <code>val</code> field is equal to <code>val</code>, or if <code>root</code> is null.
+              </p>
+              <p>
+                For grading, you can assume that there is at most one node in the graph whose <code>val</code> field is equal to <code>val</code>, but the rest of the nodes may have equal <code>val</code> fields.
+              </p>
+
+              <h5><code>reachable</code></h5>
+              <pre><code class="language-cpp">template &lt;typename T&gt;
+bool reachable(SmartPtr&lt;Node&lt;T&gt;&gt; root, SmartPtr&lt;Node&lt;T&gt;&gt; dest);</code></pre>
+              <p>
+                Returns <code>true</code> if <code>dest</code> is reachable from <code>root</code>, i.e. <code>dest</code> is in the connected subgraph of <code>root</code>, and <code>false</code> otherwise. Returns <code>false</code> if either <code>root</code> or <code>dest</code> is null.
+              </p>
+            </p>
+          </div>
+
+          <div class="card-footer text-muted">
+            End of Description
+          </div>
+        </div>
+
+        <!-- Task section -->
+        <div class="card mb-4">
+          <div class="card-body" id="tasks">
+            <h3 class="card-title">Tasks</h3>
+            <p class="card-text">
+              <p>
+                Your task is to implement the missing member functions of the two classes and function templates in <code>smartptr.tpp</code>, <code>smartptr-output.tpp</code>, <code>graph.tpp</code> and <code>graph-output.tpp</code>.
+              </p>
+            </p>
+          </div>
+
+          <div class="card-footer text-muted">
+            End of Tasks
+          </div>
+        </div>
+
+        <!-- Grading section -->
+        <div class="card mb-4">
+          <div class="card-body" id="grading">
+            <h3 class="card-title">Sample Output and Grading</h3>
+            <p class="card-text">
+              <p>
+                Your finished program should produce the same output as our <a href="files/pa3-expected.zip">sample output</a> for all given test cases. User input, if any, is omitted in the files. Please note that the sample output, naturally, does not show all possible cases. It is part of the assessment for you to design your own test cases to test your program. Be reminded to <u>remove any debugging message</u> that you might have added before submitting your code.
+              </p>
+              <p>
+                There are 27 given test cases of which the code can be found in the given main function. These 27 test cases are first run without any memory leak checking (they are numbered #1 - #27 on ZINC). Then, the same 27 test cases will be run again, in the same order, with memory leak checking (those will be numbered #101 - #127 on ZINC). For example, test case #108 on ZINC is actually the given test case #8 (in the given main function) run with memory leak checking.
+              </p>
+              <p>
+                Each of the test cases run without memory leak checking (i.e., #1 - #27 on ZINC) is worth 1 mark. The second run of each test case with memory leak checking (i.e., #101 - #127 on ZINC) is worth 0.5 mark. The maximum score you can get on ZINC, before the deadline, will therefore be 27*(1+0.5) = 40.5.
+              </p>
+            </p>
+
+            <h4>About memory leak and other potential errors</h4>
+            <p>
+              Memory leak checking is done via the <code>-fsanitize=address,leak,undefined</code> option (<a href="https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html">related documentation here</a>) of a recent g++ compiler on Linux (it won't work on Windows for the versions we have tested). Check the "Errors" tab (next to "Your Output" tab in the test case details popup) for errors such as memory leak. Other errors/bugs such as out-of-bounds, use-after-free bugs, and some undefined-behavior-related bugs may also be detected. You will get 0 mark for the test case if there is any error there. Note that if your program has no errors detected by the sanitizers, then the "Errors" tab may not appear. If you wish to check for memory leak yourself using the same options, you may follow our <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/leak-checking/">Checking for memory leak yourself</a> guide.
+            </p>
+
+            <h4>After the deadline</h4>
+            <p>
+              We will have 21 additional test cases which won't be revealed to you before the deadline. Together with the 27 given test cases, there will then be 48 test cases used to give you the final assignment grade. All 48 test cases will be run two times as well: once without memory leak checking and once with memory leak checking. The assignment total will therefore be 48*(1+0.5) = 72. Details will be provided in the marking scheme which will be released after the deadline.
+            </p>
+          </div>
+
+          <div class="card-footer text-muted">
+            End of Sample Output and Grading
+          </div>
+        </div>
+
+        <!-- Submission and deadline section -->
+        <div class="card mb-4">
+          <div class="card-body" id="submission">
+            <h3 class="card-title">Submission and Deadline</h3>
+            <p class="card-text">
+              <p>
+                <u>Deadline: 23:59:00 on 24 Apr 2022 (Sunday)</u>
+              </p>
+              <p>
+                Submit a single zip file <code>pa3.zip</code> containing the following files only: <code>smartptr.tpp</code>, <code>smartptr-output.tpp</code>, <code>graph.tpp</code> and <code>graph-output.tpp</code>. Submit the file to <a href="https://zinc.cse.ust.hk">ZINC</a>. ZINC usage instructions can be found <a href="https://zinc.cse.ust.hk/guide">here</a>.
+              </p>
+              <p>
+                Notes:
+                <ul>
+                  <li>You may submit your file multiple times, but only the last submission will be graded. <b>You do NOT get to choose which version we grade.</b> If you submit after the deadline, late penalty will be applied according to the submission time of your last submission.</li>
+                  <li>Submit early to avoid any last-minute problem. Only ZINC submissions will be accepted.</li>
+                  <li>The ZINC server will be very busy on the last day especially in the last few hours, so you should expect you would get the grading result report not-very-quickly. However, as long as your submission is successful, we would grade your latest submission with all test cases after the deadline.</li>
+                  <li>In the grading report, pay attention to various errors reported. For example, <b>under the "make" section, if you see a red cross, click on the STDERR tab to see the compilation errors.</b> You must fix those before you can see any program output for the test cases below.</li>
+                  <li>Make sure you submit the correct file yourself. You can download your own file back from ZINC to verify. Again, <b>we only grade what you uploaded last to ZINC</b>.</li>
+                </ul>
+              </p>
+            </p>
+
+            <h4>Compilation Requirement</h4>
+            <p>
+              It is <strong>required</strong> that your submissions can be compiled and run successfully in our online auto-grader ZINC. If we cannot even compile your work, it won't be graded. Therefore, for parts that you cannot finish, just put in dummy implementation so that your whole program can be compiled for ZINC to grade the other parts that you have done. Empty implementations can be like:
+              <pre><code class="language-cpp">int SomeClass::SomeFunctionICannotFinishRightNow()
+{
+    return 0;
+}
+
+void SomeClass::SomeFunctionICannotFinishRightNowButIWantOtherPartsGraded()
+{
+}</code></pre>
+            </p>
+
+            <h4>Late submission policy</h4>
+            <p>
+              There will be a penalty of -1% (out of a maximum 100%) for every minute you are late. For instance, since the deadline of the assignment is 23:59:00 on 24 Apr, if you submit your solution at 1:00:00 on 25 Apr, there will be a penalty of -61% for your assignment. However, the lowest grade you may get from an assignment is zero: any negative score after the deduction due to a late penalty (and any other penalties) will be reset to zero.
+            </p>
+          </div>
+
+          <div class="card-footer text-muted">
+            End of Submission and Deadline
+          </div>
+        </div>
+
+        <!-- FAQ section -->
+        <div class="card mb-4">
+          <div class="card-body" id="faq">
+            <h3 class="card-title">Frequently Asked Questions</h3>
+            <p class="card-text">
+              <h4>General</h4>
+              <p>
+                Q: My code doesn't work / there is an error, here is the code, can you help me fix it?
+              </p>
+              <p>
+                A: As the assignment is a major course assessment, to be fair, you are supposed to work on it on your own and we should not finish the tasks for you. We might provide some very general hints to you, but we shall not fix the problem or debug for you.
+              </p>
+              </br>
+
+              <p>
+                Q: Can I add extra helper functions?
+              </p>
+              <p>
+                A: You may do so in the files that you are allowed to modify and submit. That implies you cannot add new member functions to any given class.
+              </p>
+              </br>
+
+              <p>
+                Q: Can I include additional libraries?
+              </p>
+              <p>
+                A: No. Everything you need is already included - there is no need for you to add any include statement (under our official environment).
+              </p>
+              </br>
+
+              <p>
+                Q: Can I use global variable or static variable such as "static int x"?
+              </p>
+              <p>
+                A: No.
+              </p>
+              </br>
+
+              <p>
+                Q: Can I use "auto"?
+              </p>
+              <p>
+                A: No.
+              </p>
+              </br>
+
+              <p>
+                Q: Can I use function X or class Y in this assignment?
+              </p>
+              <p>
+                A: In general if it is not forbidden in the description and the previous FAQs, and you can use it without including any additional library on ZINC, then you can use it. We suggest quickly testing it on ZINC (to see if a basic usage of it compiles there) before committing to using it as library inclusion requirement may differ on different environments.
+              </p>
+              </br>
+
+              <p>
+                Q: My program gives the correct output on my computer, but it gives a different one on ZINC. What may be the cause?
+              </p>
+              <p>
+                A: Usually inconsistent strange result (on different machines/platforms, or even different runs on the same machine) is due to relying on uninitialized hence garbage values, missing return statements, accessing out-of-bound array elements, improper use of dynamic memory, or relying on library functions that might be implemented differently on different platforms (such as pow() in cmath).</br>
+                You may find a list of common causes and tips on debugging in the notes <a href="https://wallacem.people.ust.hk/notes/on-common-c-runtime-errors/">here</a>.</br>
+                In this particular PA, it is probably related to misuse of dynamic memory. Good luck with bug hunting!
+              </p>
+
+              <h4>Specification clarification</h4>
+              <p>
+                Q: Should I increment the <code>count</code> when I copy construct or copy assign a <code>SmartPtr</code>?
+              </p>
+              <p>
+                A: Since the <code>ptr</code> member of the newly constructed / assigned <code>SmartPtr</code> is <code>nullptr</code>, its <code>count</code> member should also be <code>nullptr</code> according to the description. There is no need to count the number of <code>SmartPtr</code>s containing the address <code>nullptr</code>.
+              </p>
+            </p>
+          </div>
+
+          <div class="card-footer text-muted">
+            End of Frequently Asked Questions
+          </div>
+        </div>
+
+        <!-- Credits section -->
+        <!-- <div class="card mb-4">
+          <div class="card-body" id="credits">
+            <h3 class="card-title">Credits</h3>
+            <p class="card-text">
+            </p>
+          </div>
+
+          <div class="card-footer text-muted">
+            End of Credits
+          </div>
+        </div> -->
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-3">
+        <div class="sticky-top">
+          <!-- Menu Widget -->
+          <div class="card my-12">
+            <h5 class="card-header">Menu</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="mb-0" type="circle" style="padding-left:20px">
+                    <li>
+                      <a href="#intro">Introduction</a>
+                    </li>
+                    <li>
+                      <a href="#download">Download</a>
+                    </li>
+                    <li>
+                      <a href="#review">Review</a>
+                      <!-- <ul type="disc" style="padding-left:20px">
+                        <li>
+                          <a href="#lambda">Lambda expressions</a>
+                        </li>
+                        <li>
+                          <a href="#graph">Graphs</a>
+                        </li>
+                      </ul> -->
+                    </li>
+                    <li>
+                      <a href="#description">Description</a>
+                      <ul type="disc" style="padding-left:20px">
+                        <li>
+                          <a href="#smartptr"><code>SmartPtr</code></a>
+                        </li>
+                        <li>
+                          <a href="#node"><code>Node</code></a>
+                        </li>
+                        <li>
+                          <a href="#graph-op">Graph operations</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#tasks">Tasks</a>
+                    </li>
+                    <li>
+                      <a href="#grading">Sample Output and Grading</a>
+                    </li>
+                    <li>
+                      <a href="#submission">Submission and Deadline</a>
+                    </li>
+                    <li>
+                      <a href="#faq">Frequently Asked Questions</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Maintenance widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Page maintained by</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      Chun Yin CHAU
+                    </li>
+                    <li>
+                      Email:
+                      <a href="mailto:cychauab@cse.ust.hk">cychauab@cse.ust.hk</a>
+                    </li>
+                    <li>Last Modified:
+                      <script type="text/javascript">document.write(document.lastModified);</script>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Homepage widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Homepage</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="../../">Course Homepage</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- /.row -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Maintained by COMP 2012 Teaching Team &copy; 2022 HKUST Computer Science
+        and Engineering</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../../js/jquery.min.js"></script>
+</body>
+
+</html>

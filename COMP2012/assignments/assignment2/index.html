@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+    }
+    });
+   </script>
+
+  <!-- ### Change assignment number ### -->
+  <title>COMP 2012 Assignment 2: Digital Signatures</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/blog-home.css" rel="stylesheet">
+
+  <!-- Prism syntax highlighter -->
+  <link href="vendor/prism/prism.css" rel="stylesheet" />
+
+  <style>
+    pre {
+      background: #f4f4f4;
+      border: 1px solid #ddd;
+      border-left: 3px solid #f36d33;
+      color: #666;
+      page-break-inside: avoid;
+      font-family: monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 1.6em;
+      max-width: 100%;
+      overflow: auto;
+      padding: 1em 1.5em;
+      display: block;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+
+<body>
+  <script src="vendor/prism/prism.js"></script>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Entries Column -->
+      <div class="col-md-9">
+
+        <h2 class="my-4">
+          <span style="color:darkblue">COMP 2012</span>
+          <small>Object-Oriented Programming and Data Structures</small>
+        </h2>
+
+        <!-- ### Change assignment number and title ### -->
+        <h3 class="my-4">Assignment 2
+          <span style="color:#660066">Digital Signatures</span>
+        </h3>
+
+        <!-- Introduction section -->
+        <div class="card mb-4">
+
+
+
+
+          <div class="card-body" id="introduction">
+            <h3 class="card-title">Introduction</h3>
+            <p class="card-text">
+            <p></p>
+            <p></p>
+            <p></p>
+            <img class="card-img-top" src="images/DSA-Intro.jpg">
+            <p></p>
+            In this programming assignment, you are going to familiarize yourself with the concepts of inheritance and
+            polymorphism.
+            You will have the opportunity to implement a toy version of two digital signature algorithms (
+            <a href="https://en.wikipedia.org/wiki/Digital_Signature_Algorithm">DSA</a> and
+            <a href="https://en.wikipedia.org/wiki/Schnorr_signature">Schnorr</a>).
+            If you have taken COMP 2711 (or and Discrete Structures course) before, you should be familiar with the RSA
+            Public Key Encryption scheme.
+            In fact, there is a RSA-based digital signature. In this assignment, we omit RSA signature for simplicity.
+
+            </p>
+            <p>
+              Before you work on this assignment, you can take a look at a short introduction of the digital signature
+              below,
+              and please also make sure you <b>read the description part</b> to get familiar with the relationship
+              between different classes.
+              Besides, you should read <a href="./files/digital-signature-algorithm-v3.pdf">Digital Signatures
+                protocol</a>
+              for the full specification of the functions you are to implement.
+            </p>
+
+            <h3 class="card-title">Digital Signatures</h3>
+            <p class="card-text">
+            <p>
+              Digital Signature Algorithms are being used to verify if a message originates from a certain person. Let's
+              assume that you're Alice, and you're sending your friend Bob a message to tell how much you love him, and
+              you wrote to him the following letter:
+              <center>
+                <quote>"Dear Bob, I love you. Best, Alice"</quote>
+              </center>
+            </p>
+
+            <p>But we also know that there's a third person, Eve, that knows you love Bob, and is also planning to send
+              a message to Bob with the exact same message as a joke. Eve doesn't have to wait until you are sure you
+              love Bob and you're sure you want to send the message. How can you prove to Bob that it's actually you
+              that sent the message?</p>
+
+            <p>For this, there are multiple digital signature algorithms option available, but all of them work in a
+              similar way:<br /><br />
+              Step 0: You have a public key and a private key.<br />
+              Step 1: You "sign" your message using your private key.<br />
+              Step 2: You send your signature and your message to Bob.<br />
+              Step 2.5: You announce to everyone in the class your public key.<br />
+              Step 3: Bob, using your public key, verifies that the message originates from you.<br /><br />
+              Due to the cryptographic primitives, it is impossible for Eve to create a fake signature and imitate you,
+              even if you release your public key to everyone, as long as you keep your private key to yourself.
+            </p>
+
+            <h3 class="card-title">Digital Signature Process</h3>
+            <p>The digram belows explains the digit signature process</p>
+            <p><img src="https://cdn.ttgtmedia.com/rms/onlineimages/security-digital_signature_process-f.png"
+                width="100%"></img></p>
+
+            <p>In our example, the sender, Alice, creates a digital signature using a private key to encrypt the
+              signature.
+              At the same time, hash data is created and encrypted.</p>
+            <p> The recipient, Bob, uses the signer's public key to decrypt the signature to verify that the
+              document's sender is indeed Alice and the message was not alter after it was signed.</p>
+            <p>In summary, the processes include:
+            <ol>
+              <li>Generate keys</li>
+              <li>Sign</li>
+              <li>Verify</li>
+            </ol>
+            </p>
+            <p>Schnorr Algorithm and Digital Signature Algorithm are two algorithms for the digital signature process.
+              You can find the details for the 3 processes of the 2 algorithms in this PDF file:
+              <a href="./files/digital-signature-algorithm-v3.pdf">Digital Signatures protocol</a>.
+              It gives the details of how the keys should be generated, how the signing and verification are done.
+            </p>
+
+          </div>
+
+          <div class="card-footer text-muted">
+            <p>We value academic integrity very highly. Please read the <a
+                href="../../#honorcode">Honor
+                Code</a> section on our course web page to make sure you understand what is considered as plagiarism and
+              what the penalties are. The following are
+              some of the highlights:</p>
+            <ul>
+              <li>Do NOT try your "luck" - we use some sophisticated plagiarism detection software to find cheaters. It
+                is much better than most students think. It has been proven times and times again tricks didn't work.
+                We also review codes for potential cases manually.</li>
+              <li>The penalty (for <b>BOTH</b> the copier and the copiee) is not just getting a zero in your assignment
+                - it
+                is much more than that. It is simply not worth to cheat at all. You would hurt your friend and yourself
+                by doing that. It is obvious that a real friend won't ask you to get involved in a plagiarism act in
+                any way due to the consequences. Read the Honor Code again before you even try to think about cheating.
+              </li>
+              <li>Serious offenders will fail the course immediately and there may be additional disciplinary actions
+                from the department and university.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Description section -->
+        <!-- ### Complete description section for the assignment ### -->
+        <div class="card mb-4">
+          <div class="card-body" id="description">
+            <h3 class="card-title">Description</h3>
+
+            <p></p>
+            <p class="card-text">
+              You must finish this assignment with the provided files. Download them in the
+              <a href="#Download">Download</a> section.
+            </p>
+            <p class="card-text">
+              Your task is to complete all the missing parts in <code>signatures.cpp</code> and
+              <code>signatures.h</code>
+              according to the instructions below.
+            </p>
+            <br />
+            <h4>Important Signature-related Classes</h4>
+
+            <p></p>
+            <center><img src="images/signature-uml.png" width="90%"></center>
+            <br>
+            <center><img src="images/publickey-uml.png" width="90%"></center>
+            <br>
+            <center><img src="images/secretkey-uml.png" width="90%"></center>
+
+            <p>
+              In this assignment, we implement toy versions of DSA digital signature and Schnorr digital signature.
+              <!-- The signed signature of a message is modeled as the abstract base class <code>Signature</code>,
+              which has two derived classes, <code>DSASignature</code> and <code>SchnorrSignature</code>.
+              In order to create a signature on a message, a secret signing key is required.
+              The secret key is modeled by the abstract base class <code>SecretKey</code>, which offers a
+              <code>Sign()</code> function.
+              Class <code>DSASecretKey</code> and class <code>SchnorrSecretKey</code> inherit the base class
+              <code>SecretKey</code>.
+              For each secret key, there is a corresponding public key to verify the signatures.
+              This is modeled by the abstract class <code>PublicKey</code>. Similarly, it has two derived classes,
+              <code>DSAPublicKey</code> and <code>SchnorrPublicKey</code>. They provide a <code>Verify()</code>
+              function. -->
+            </p>
+            <p>
+
+              There are 9 different classes given to you with the skeleton code:
+            </p>
+            <p>
+
+              The signed signature of a message is modelled under the <code>Signature</code> class, which has two
+              derived classes:
+              (in signatures.cpp/.h)
+            <ul>
+              <li>Abstract base class <code>Signature</code></li>
+              <li><code>DSASignature</code></li>
+              <li><code>SchnorrSignature</code></li>
+            </ul>
+
+            </p>
+            <p>
+              These objects hold the actual signature.
+            </p>
+            <p>
+              As discussed before, a user needs a secret signing key and a public key in order to be able to sign and
+              verify messages respectively.
+            <ul>
+              <li> Abstract base class <code>SecretKey</code></li>
+              <li> <code>DSASecretKey</code></li>
+              <li> <code>SchnorrSecretKey</code></li>
+            </ul>
+            </p>
+            <p>
+              <code>SecretKey</code> class provides the <code>Sign()</code> function necessary to create a signature
+              on a message.
+            <ul>
+              <li> Abstract base class <code>PublicKey</code></li>
+              <li> <code>DSAPublicKey</code></li>
+              <li> <code>SchnorrPublicKey</code></li>
+            </ul>
+            <code>PublicKey</code> class provides the <code>Verify()</code> function necessary to verify a signature of
+            a message.
+
+            </p>
+            <p>
+              Note that some functions in the abstract base classes should be virtual.
+            </p>
+
+            <h4> Number Class </h4>
+            <p>
+              In DSA and Schnorr, the public/secret keys and signatures consist of integers of many bits (1024 or 256).
+              They cannot be represented using common integer types such as <code>int64</code> (signed integer type with
+              width of exactly 64 bits).
+              <a href="https://gmplib.org">GMP Library</a> offers arbitrary precision numbers, but is difficult to
+              install on Windows.
+              Therefore we use <code>int64</code> to represent all numbers and cut down the bits of public/secret keys
+              and signatures.
+
+            </p>
+
+            <p>
+              We implement all necessary operations and functions of number in the class <code>Number</code>, in
+              <code>number.h/number.cpp</code>. These functions and parameters of p, q, g are static
+              functions/variables.
+              Please check self-study notes in course website on static functions if you are not familiar with its
+              usage.
+            <ul>
+              <li><code>Number::Add(n1, n2)</code>: integer addition. Return a <code>Number</code> that holds the sum of
+                n1 and n2. </li>
+              <li><code>Number::Sub(n1, n2)</code>: integer subtraction. Return a <code>Number</code> that holds the
+                difference
+                of n1 and n2. </li>
+              <li><code>Number::Neg(n)</code>: integer negation. Return a <code>Number</code> that holds the negation of
+                n. </li>
+              <li><code>Number::Mul(n1, n2)</code>: integer multiplication. Be cautious about integer overflow.
+                Return a <code>Number</code> that holds the product of n1 and n2. </li>
+              <li><code>Number::Mod(n, p)</code>: integer modulo. Returns a <code>Number</code> that holds the integer
+                <span style="font-family:'Georgia'; font-size: large;"><i>n</i> mod <i>p</i></span>. Almost every
+                operation in this assignment is modular operation.
+                Please use this to get correct results and avoid integer overflow. If you don't know what is integer
+                overflow, please check
+                <a href="https://www.acunetix.com/blog/web-security-zone/what-is-integer-overflow/">integer
+                  overflow</a>.
+              </li>
+              <li><code>Number::MulMod(n1, n2, p)</code>: apply modulo operation after multiplication. </li>
+
+              <li><code>Number::Pow(base, exp, mod)</code>: Return a <code>Number</code> that holds the integer (base to
+                the power of exp) modular mod. Notice that the exponent should be a non-negative number. </li>
+              <li><code>Number::Inv(n, mod)</code>: modulo inverse (mod should be a prime number). Return a
+                <code>Number</code>
+                that holds the unique integer <span
+                  style="font-family:'Georgia'; font-size: large;"><i>n</i><sup>-1</sup></span> such that <span
+                  style="font-family:'Georgia'; font-size: large;"><i>n</i> × <i>n</i><sup>-1</sup> = </span> <span
+                  style="font-family:'Cambria'; font-size: large;">1</span><span
+                  style="font-family:'Georgia'; font-size: large;"> mod <i>mod</i></span>.
+              </li>
+              <li><code>Number::Rand(lower, upper)</code>: Return a <code>Number</code> that holds a random value in
+                {lower, lower+1, ..., upper-1}.
+                This used to generate keys and create signatures.
+              </li>
+              <li><code>Number::NSign(n)</code>: If n > 0, return 1. If n=0, return 0. If n < 0, return -1. Use this
+                  function to compare two Numbers. </li>
+              <li><code>Number::Hash()</code>Return the first 16 bits of SHA256 cryptographic hash function applied on
+                the input.
+                The input can be <code>std::string</code>, or <code>Number</code>, or
+                <code>(Number, std::string)</code>. In the last case, <code>Hash(Number, std::string)</code>,
+                the input is the concatenation of the bits of <code>Number</code> and the bits of
+                <code>std::string</code>.
+              </li>
+            </ul>
+            </p>
+
+            <p>
+              In <code>gmp_number.h/gmp_number.cpp</code>, the Number class is implemented based on GMP library, thus
+              providing complete DSA/Schnorr algorithms.
+              You can install GMP yourself and change the codes/filenames to experiment with gmp number, but <b>do not
+                use GMP in your submission</b>.
+            </p>
+
+
+            <h4>Users and Admins</h4>
+            <p>
+              You don't need to read into <code>user.h/user.cpp/admin.h/admin.cpp</code> to complete the assignment.
+              STL is used in class <code>User</code> and <code>Admin</code>, you are not required to write STL
+              operations yourself.
+              Knowing the usage of STL might help you understand the whole program. If might also help you debug.
+              You can check the vector of STL in self-study notes on website. If you want to know more, you can search
+              online for any tutorial or document.
+            </p>
+            <p>
+              Each <code>User</code> has a name, a pair of DSA public/secret keys and a pair of Schnorr public/secret
+              keys.
+              A <code>User</code> can create a signature for a message and send both the message and the signature to
+              another <code>User</code> by calling <code>SendMessage()</code> function.
+              The <code>Admin</code> delivers the message to the other <code>User</code>. The
+              <code>ReceiveMessage()</code> function of the other <code>User</code>
+              is called to verify the signature.
+            </p>
+            <p>
+              The <code>Admin</code> holds the public information of all users: username, pointer to <code>User</code>
+              object, DSA/Schnorr public keys.
+              The admin acts as both communication network and Certificate Authority (CA).
+            </p>
+
+
+
+
+            <div class="card-footer text-muted">
+              End of Description
+            </div>
+          </div>
+        </div>
+
+        <!-- Task section -->
+        <!-- ### Complete Task section for the assignment ### -->
+
+
+        <div class="card mb-4">
+          <div class="card-body" id="tasks">
+            <h3 class="card-title">Tasks</h3>
+            <p>
+              Be sure to read <a href="./files/digital-signature-algorithm-v3.pdf">Digital Signatures protocol</a>
+              for the full specification of the functions you are to implement.
+            </p>
+
+            <h5>1) Complete header file signatures.h</h5>
+            <p>
+              Specifically, you would have to complete the class headers for the following classes:
+            <ul>
+              <li><code>Signatures</code></li>
+              <li><code>SchnorrSignature</code></li>
+              <li><code>DSASignature</code></li>
+              <li><code>PublicKey</code></li>
+              <li><code>DSAPublicKey</code></li>
+              <li><code>SecretKey</code></li>
+              <li><code>SchnorrSecretKey</code></li>
+            </ul>
+            You can refer to the class diagram above in adding the missing member functions.
+            Please note that you will also need to decide if the functions have to be <code>virtual</code> or not.
+            </p>
+
+
+            <h5>2) Define and implement the neccessary constructors and destructors for the following classes in
+              <code>signatures.cpp</code>
+            </h5>
+            <p>
+            <ul>
+              <li><code>Signature</code></li>
+              <li><code>SchnorrSignature</code></li>
+              <li><code>SchnorrSecretKey</code></li>
+              <li><code>SchnorrPublicKey</code></li>
+              <li><code>DSASignature</code></li>
+              <li><code>DSASecretKey</code></li>
+              <li><code>DSAPublicKey</code></li>
+            </ul>
+            </p>
+            <p>
+              For destructors, make sure you release dynamically allocated object properly
+              and produce the correct cout output.
+            </p>
+
+            <h5>3) Complete <code>DSAPublicKey::Verify</code> and <code>SchnorrPublicKey::Verify</code> functions in
+              <code>signatures.cpp</code>
+            </h5>
+            <p></p>
+
+            <h5>4) Complete <code>SchnorrSecretKey::Sign</code> function in <code>signatures.cpp</code></h5>
+            <p></p>
+
+            <h5>5) Complete Schnorr Key Generation under the global <code>GenerateKey</code> function in
+              <code>signatures.cpp</code>
+            </h5>
+            <p></p>
+
+            <div class="card-footer text-muted">
+              End of Tasks
+            </div>
+          </div>
+        </div>
+
+        <!-- Test Cases section -->
+        <!-- ### Complete Test Cases section for the assignment ### -->
+
+
+        <div class="card mb-4">
+          <div class="card-body" id="compilation-debug">
+            <h3 class="card-title">Compilation and Debug</h3>
+
+            <p>
+              After you complete your code, you should be able to run the program using the following commands:
+            <pre>
+> make
+> ./bin/main
+              </pre>
+            </p>
+            <p>
+              The expected output is :
+            <pre>
+  P=669320e7
+  Q=48b9
+  G=414245a8
+
+  User information:
+  Username: Alice
+  DSA Public Key is: 5f2d63e5
+  Schnorr Public Key is: 57835ec
+  Username: Bob
+  DSA Public Key is: 2039f51d
+  Schnorr Public Key is: 48af7ba5
+
+  ===> Alice send message to Bob using DSA
+  Bob: Receive Message from Alice
+  message=hello
+  signature: r=194b, s=14b
+  Verification passed
+
+  ===> Bob send message to Alice using Schnorr
+  Alice: Receive Message from Bob
+  message=hi
+  signature: s=1a6e, e=4024
+  Verification passed
+
+  ===> Alice send malicious message to Bob using DSA
+  Destruct DSASignature...
+  Bob: Receive Message from Alice
+  message=hello
+  signature: r=1b0b, s=16f5
+  Verification failed
+
+  ===> Bob send malicious message to Alice using Schnorr
+  Destruct SchnorrSignature...
+  Alice: Receive Message from Bob
+  message=hi
+  signature: s=3db, e=3760
+  Verification failed
+
+  Destruction===
+  Destruct Admin...
+  Destruct User Alice...
+  Destruct SigPair...
+  Destruct DSAPublicKey...
+  Destruct DSASecretKey...
+  Destruct SigPair...
+  Destruct SchnorrPublicKey...
+  Destruct SchnorrSecretKey...
+  Destruct DSASignature...
+  Destruct DSASignature...
+  Destruct User Bob...
+  Destruct SigPair...
+  Destruct DSAPublicKey...
+  Destruct DSASecretKey...
+  Destruct SigPair...
+  Destruct SchnorrPublicKey...
+  Destruct SchnorrSecretKey...
+  Destruct SchnorrSignature...
+  Destruct SchnorrSignature...
+
+              </pre>
+            </p>
+
+            <p>We use hex (base 16) form of integers. If you don't know hex integers and want more information, you can
+              check
+              <a href="https://en.wikipedia.org/wiki/Hexadecimal"> Hexadecimal</a>.
+            </p>
+            <p>
+              Notice that <code>GenerateKey</code> and <code>Sign</code> functions require random number.
+              If you use <code>Number::Rand</code> function differently, your implementation might generate different
+              keys and signatures.
+              Please make sure that you get the exact same results as the expected output, by using
+              <code>Number::Rand</code> only in <code>Schnorr::Sign</code>
+              and Schnorr GenerateKey, similar to the provided implementation of DSA counterparts.
+            </p>
+            <ul>
+              <li>Please read the honor code and strictly follow it. </li>
+
+              <li>You should start with the given skeleton code. </li>
+              <li>Read the "Specification Clarification" and "Reported Bugs" section for some common clarifications.
+                You should check that a day before the deadline to make sure you don't miss any clarification, even if
+                you have already submitted your work then.</li>
+              <li>We will be grading your code on a Linux machine. Filenames are case sensitive in Linux. </li>
+              <li>You are not allowed to use STL, global variables, static variables, or any additional libraries.
+              </li>
+              <li>You need to clean up your memory properly.</li>
+
+              <li>Remove your cin/cout debug output in your submission. </li>
+
+            </ul>
+          </div>
+          <div class="card-footer text-muted">
+            End of Compile and Debug
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body" id="Download">
+            <h3 class="card-title">Download</h3>
+
+            <p><a href="./files/digital-signature-algorithm-v3.pdf">Digital Signatures protocol</a><br />
+              It gives the details of how the keys should be generated, how the signing and verification are done for
+              the DSA and Schnorr Algorithm.
+            </p>
+
+            <p><a href="./files/pa2-skeleton-mac-linux-v2.1.zip">Skeleton Code for Mac/Linux - v2</a> or
+              <a href="./files/pa2-skeleton-win-v2.1.zip">Skeleton Code for Windows - v2</a><br />
+              The files and folders in the zipped file are:
+            <ul>
+              <li><strong>Makefile</strong> - It is the makefile for compilation.</li>
+              <li><strong>src</strong> - All the source files (.cpp) can be found in this folder.</li>
+              <li><strong>include</strong> - All the header files (.h) can be found in this folder.</li>
+              <li><strong>bin</strong> - The executable will be stored in this folder and the object files will be
+                stored
+                in the sub-folder, <strong>obj</strong>.
+              </li>
+            </ul>
+            </p>
+
+
+            <br />
+            <!-- Note: To launch the mac demo program, you might need to change the permission in the terminal: <pre>
+chmod 755 mac_demo.exe
+./mac_demo.exe
+</pre> -->
+
+          </div>
+          <div class="card-footer text-muted">
+            End of Download
+          </div>
+        </div>
+        <!-- Memory Leak section -->
+        <div class="card mb-4">
+          <div class="card-body" id="memory_leak">
+            <h3 class="card-title">Memory Leak</h3>
+
+
+            <p>Memory leak checking is done via the <code>-fsanitize=address,leak,undefined</code> option
+              (<a href="https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html">related documentation here</a>)
+              of a recent g++ compiler on Linux (it won't work on Windows for the versions we have tested).
+              Check the "Errors" tab (next to "Your Output" tab in the test case details popup) for errors such
+              as memory leak. Other errors/bugs such as out-of-bounds, use-after-free bugs, and
+              some undefined-behavior-related bugs may also be detected.
+              Note that if your program has no errors detected by the sanitizers, then the "Errors" tab may not appear.
+              If you wish to check for memory leak yourself using the same options, you may follow our <a
+                href="../assignment1/leak-checking/">Checking for memory leak yourself</a> guide.
+            </p>
+
+          </div>
+          <div class="card-footer text-muted">
+            End of Memory Leak
+          </div>
+        </div>
+
+        <!-- Grading section -->
+        <div class="card mb-4">
+          <div class="card-body" id="grading">
+            <h3 class="card-title">Grading</h3>
+            <ol>
+              <li>If your program can be compiled, you will receive 10%. This is testcase 1 (given). </li>
+              <li>If you correctly implement Schnorr <code>GenerateKey</code>, you will receive 10%. This is testcase 2
+                (given).</li>
+              <li>If your program can output the destruction messages correctly when there is no message between users,
+                you will receive 10%. There are two test cases, 1 given and 1 hidden, each counting 5%. </li>
+              <li>If your program can output the destruction messages correctly without memory leakage when there is no
+                message between users, you will receive 10%. There are two test cases, 1 given and 1 hidden, each
+                counting 5%.</li>
+              <li>If you correctly implement <code>SchnorrSecretKey::Sign</code>, you will receive 10%.
+                There are five test cases, 2 given and 3 hidden, each counting 2%.</li>
+              <li>If you correctly implement <code>SchnorrPublicKey::Verify</code>, you will receive 10%.
+                This is a hidden test case. It uses GenerateKey and Sign implemented by TA to
+                create a few signatures, and change the some of the signatures. Then your
+                <code>SchnorrPublicKey::Verify</code>
+                is called on these signatures. If your function can return the correct boolean results without runtime
+                error,
+                you will pass the test case.
+                There are five test cases, 2 given and 3 hidden, each counting 2%.
+              </li>
+              <li>If you correctly implement <code>DSAPublicKey::Verify</code>, you will receive 10%.
+                There are five test cases, 2 given and 3 hidden, each counting 2%.
+              </li>
+              <li>If your program can output the expected output shown on webpage, you will receive 10%.
+                There are 2 testcases 80 and 81 (given). Testcase 81 checks memory leakage.
+              </li>
+              <li>If your program can output correct results on hidden test case of multiple messages (similar to the
+                provided case), you
+                will receive 10%.
+                This is testcase 9 (hidden). </li>
+              <li>If your program can output correct results on hidden test case of multiple messages without memory
+                leakage, you will
+                receive 10%. This is testcase 10 (hidden).</li>
+              <!-- <li>Each of the Property class carries 5%, total = 15%</li>
+      <li>Each of the Employee class carries 5%, total = 20%</li>
+      <li>Correct implementation of the class Scene = 25%</li>
+      <li>No crash bonus. If your program does not crash during the grading, you receive 15%. Each crash deducts 5% from this 15%.</li>
+      <li>No leak bonus. If no memory leak is detected in your code, you receive 15%. </li> -->
+            </ol>
+            Currently, the given test cases on Zinc are for {1, 2, 30, 40, 50, 51, 60, 61, 70, 71, 8}. <br />
+            After the deadline, there will be additional test cases for {31, 41, 52, 53, 54, 62, 63, 64, 72, 73, 74, 9,
+            10}.
+            <p>As a hint, you can simulate the hidden test cases by writing test codes your self.
+              For example, you can write codes to create an arbitrarily wrong signature and see whether
+              your Verify can always return the correct results.
+            </p>
+          </div>
+          <div class="card-footer text-muted">
+            End of Grading
+          </div>
+        </div>
+
+        <!-- Submission and deadline section -->
+        <!-- ### Complete submission and deadline section for the assignment ### -->
+        <div class="card mb-4">
+          <div class="card-body" id="submission">
+            <h3 class="card-title">Submission and Deadline</h3>
+            <p>
+              Deadline: 23:59:00 on 3 April 2022 (Sunday)
+            </p>
+            <br />
+            <h4>Canvas Submission</h4>
+            <p>Create a single zip file that contains only the <strong>signature.h and signature.cpp files</strong>
+              with the folder structure and name it <code>pa2.zip</code>.
+            <pre>
+src/signatures.cpp
+include/signatures.h
+              </pre>
+            Submit the <code>pa2.zip</code> to <a href="http://zinc.cse.ust.hk">ZINC</a>.
+            ZINC usage instructions can be found <a href="https://zinc.cse.ust.hk/guide">here</a>.</p>
+
+            </p>
+            <p><strong>The filenames have to be exactly the same</strong>.
+              It must be a zip file, not rar, not 7z, not tar, not gz, etc.
+              Inside the zip file, the cpp files need to have correct names.
+              If your submissions cannot be uncompressed, they will not be graded.
+            </p>
+            <p>Make sure your source files can be successfully compiled.If we cannot even compile your source file,
+              your work will not be
+              graded, and you will get zero mark for your PA2. Therefore,
+              you should at least put in dummy implementations to the parts that you cannot finish so that there will
+              be no compilation error.</p>
+
+            <p>
+              <b>Make sure you actually upload the
+                correct version of your source files - we only grade what you upload</b>. Some students in the past
+              submitted an empty file or a wrong file or an exe file which is worth zero mark. So <b> you must
+                download
+                and double-check the file you have submitted</b>. You may refer to the illustration below.
+
+            </p>
+
+            <p>You may submit your file multiple times, but only the last version will be graded.</p>
+
+            <p>Submit early to avoid any last-minute problem. Only zinc submissions will be accepted.</p>
+
+            <p>Note 1: If you have no idea how to create a zip file, you may see <a
+                href="https://www.laptopmag.com/articles/how-to-zip-files-windows-10">How to create a zip file in
+                Windows 10</a> or <a href="http://osxdaily.com/2012/01/10/how-to-zip-files-in-mac-os-x/">How to create
+                a zip file in Mac OS X</a>.</p>
+
+
+            <br />
+
+          </div>
+          <div class="card-footer text-muted">
+            End of Submission and Deadline
+          </div>
+        </div>
+
+        <!-- FAQ section -->
+        <!-- ### Complete FAQ section for the assignment ### -->
+        <div class="card mb-4">
+          <div class="card-body" id="faq">
+            <h3 class="card-title">FAQ</h3>
+            <p></p>
+            <h4>Frequently Asked Questions</h4>
+
+            <ul>
+              <li>
+                <p>Q: How to create a correct zip file for PA2?</p>
+                <p>A: In an empty folder, create a "src" folder and an "include" folder. Copy the signatures.h to
+                  "include" folder and the signatures.cpp to "src" folder.
+                  Then select these two folders and compress. </p>
+              </li>
+              <li>
+                <p>Q: How to access derived class members via a base class pointer? </p>
+                <p>A: Refer to polymorphism. </p>
+              </li>
+              <li>
+                <p>Q: How to write test cases ourselves to make sure we are correct in hidden test case. </p>
+                <p>A:
+                <ul>
+                  <li>
+                    Try to add more users, and send more messages.
+                    See whether the cout output is expected. Make sure the range of output is correct.
+                    The verification results are correct.
+                  </li>
+                  <li>
+                    Test verify() function. Generate a invalid signature by giving
+                    two arbitrary numbers to signature constructor.
+                    It is very very likely (probability ~ 1-1/q) that Verify() should return false.
+                  </li>
+                </ul>
+                </p>
+              </li>
+              <li>
+                <p>Q: Should I consider xxx for hidden test cases? </p>
+                <p>
+                  A: You don't need to consider
+                  <ul>
+                    <li>The sender or receiver is not valid (not exist, public keys invalid, public keys not registered). </li>
+                    <li>P, Q, G parameters are invalid. </li>
+                    <li></li>
+                  </ul>
+                </p>
+              </li>
+            </ul>
+            <br />
+            <h4 style="color:darkgray;"><b>Specification Clarification</b></h4>
+            <div style="border: 2px solid lightgray; border-radius: 10px;">
+              <div style="padding: 20px;">
+
+                <!-- <p>
+                  <b>Q1: So the logic of the given sample seems to allow the tower to shoot a dead enemy multiple times, but the logic of incrementing money just check if an enemy is DEAD or not after shooting, so an enemy will give money every time it gets shot.</b>
+                </p>
+                <p>
+                  <b>A1: </b>An enemy can be shot by multiple towers in the same round, regardless of its state (yes, we fire on dead enemy too). Meanwhile the logic of increment money given in Tower.cpp simply check an enemy ends up in a DEAD state or not, rather than a transition from non DEAD state to DEAD state. This is a bug and is now patched in the newer skeleton code. <br>
+        To clarify that the number of <code>enemy_kill</code> and <code>money_earned</code> increase by one when an enemy change its state from NORMAL or FROZEN to DEAD after the attack of a tower. When a DEAD enemy is attacked by any type of tower, these two number should not be increased.
+                </p>
+    <p>
+      <b>Q2: What does <code>Arena::getConstObjects</code> do?</b>
+      <br>
+      <b>A2:</b> This function should return the array of const Object pointers. The size of the array should be the same as the number of object in the Arena and the const pointers should be pointing to the Towers and Enemies in the Arena. Please refer the usage in <code>View::renderArena() </code> to get a proper idea of it.
+    </p>
+    <p>
+     <b>Q3: A tower would not be destroyed if it is placed in the left most. Bug? </b>
+    <br>
+    <b>A3:</b>It is undefined that if an enemy appear on a tower can destory a tower. We would not test this case in the grading.
+    </p>
+    <p><b>Q4:My program crash immediately when I run the program. Help please</b>
+    <br>
+    <b>A4:</b>You might want to check <code>Arena::getConstObjects</code> and <code>Arena::getObjectAt</code>. For more information, look at <code>View::renderArena</code> and <code>View::renderRange</code> on how these functions are called.
+     </p> -->
+
+
+              </div>
+            </div>
+            <br /><br />
+            <h4 style="color:darkgray;"><b>Reported Bugs</b></h4>
+            <div style="border: 2px solid lightgray; border-radius: 10px;">
+              <div style="padding: 20px;">
+                <p>
+                <ul>
+                  <li>Number::Mod(): C/C++ modular operator can return negative value. -7 % 3 = -1. This is the reason
+                    why some
+                    implementation of verify() produces different results in case 50 and 51. Fixed in skeleton-v2.
+                    (2022-03-29)</li>
+                  <!-- <li>2019/3/30 Windows Demo program<code>pa2.exe</code> unable to execute (missing pdcurse.dll). <b>Response: the file needs to put inside the project folder to run. A newer skeleton (patch 2019-4-1) has been provided to contain the mac and windows exe. </b> </li>
+                  <li>2019/3/31 <code>Tower.cpp</code> that wrongly handles a DEAD enemy being shot for multiple towers. <b>Response: fixed in patch 2019-4-1</b> </li>
+      <li>2019/4/2 <code>makefile</code> that zips only the cpp and missed the .h files. <b>Response: fixed in patch 2019-4-2. You might also download the <a href="skeleton/makefile">update makefile</a></b></li> -->
+                </ul>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-muted">
+            End of FAQ
+          </div>
+        </div>
+
+        <!-- Credits section -->
+        <!-- ### Complete Credits section for the assignment ### -->
+        <!-- <div class="card mb-4">
+          <div class="card-body" id="credits">
+            <h3 class="card-title">Credits</h3>
+            <p>
+            </p>
+          </div>
+          <div class="card-footer text-muted">
+            End of Credits
+          </div>
+        </div> -->
+
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-3">
+        <div class="sticky-top">
+          <!-- Menu Widget -->
+          <div class="card my-12">
+            <h5 class="card-header">Menu</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="mb-0" type="circle" style="padding-left:20px">
+                    <li>
+                      <a href="#introduction">Introduction</a>
+                    </li>
+                    <li>
+                      <a href="#description">Description</a>
+                    </li>
+                    <li>
+                      <a href="#tasks">Tasks</a>
+                    </li>
+                    <li>
+                      <a href="#compilation-debug">Compilation</a>
+                    </li>
+                    <li>
+                      <a href="#Download">Download</a>
+                    </li>
+                    <li>
+                      <a href="#memory_leak">Memory Leak</a>
+                    </li>
+                    <li>
+                      <a href="#grading">Grading</a>
+                    </li>
+                    <li>
+                      <a href="#submission">Submission and Deadline</a>
+                    </li>
+                    <li>
+                      <a href="#faq">FAQ</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Maintenance widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Page maintained by</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      Zhuo CAI
+                    </li>
+                    <li>
+                      Email:
+                      <a href="mailto:zcaiam@cse.ust.hk">zcaiam@cse.ust.hk</a>
+                    </li>
+                    <li>Last Modified:
+                      <script type="text/javascript">document.write(document.lastModified);</script>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Homepage widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Homepage</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="http://course.cse.ust.hk/comp2012">Course Homepage</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- /.row -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Maintained by COMP 2012 Teaching Team &copy; 2022 HKUST Computer Science
+        and Engineering</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../../js/jquery.min.js"></script>
+</body>
+
+</html>
