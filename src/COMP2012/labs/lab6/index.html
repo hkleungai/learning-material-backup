@@ -1,0 +1,359 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- ### Change assignment number ### -->
+  <title>COMP 2012 Lab 6: Template & Operator Overloading</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/blog-home.css" rel="stylesheet">
+
+  <style>
+    .input {
+      color: #ff0000;
+    }
+    .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+  }
+  </style>
+
+  <style>
+    pre {
+      background: #f4f4f4 !important;
+      border: 1px solid #ddd !important;
+      border-left: 3px solid #f36d33 !important;
+      color: #666 !important;
+      page-break-inside: avoid !important;
+      font-family: monospace !important;
+      font-size: 14px !important;
+      line-height: 1.6 !important;
+      margin-bottom: 1.6em !important;
+      max-width: 100% !important;
+      overflow: auto !important;
+      padding: 1em 1.5em !important;
+      display: block !important;
+      word-wrap: break-word !important;
+    }
+    #download input[type=checkbox ]{
+    display: none;
+    }
+    #download input[type=checkbox]:checked ~ .remove-check{
+        display: none;
+    }
+    #download input[type=checkbox]:checked ~ #message{
+        display: block;
+    }
+    #message{
+        display: none;
+    }
+    <style scoped>
+    .conflicting-class { ... }
+    </style>
+  </style>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+</head>
+
+<body>
+
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Entries Column -->
+      <div class="col-md-9">
+
+        <h4 class="my-4">
+          <span style="color:darkblue">COMP 2012</span>
+          <small>Object-Oriented Programming and Data Structures</small>
+        </h4>
+
+        <!-- ### Change assignment number and title ### -->
+        <h3 class="my-4">Lab 6
+          <span style="color:#660066">Template & Operator Overloading</span>
+        </h3>
+        <!-- Introduction section -->
+        <!-- ### Complete introduction section for the assignment ### -->
+
+
+        <div class="card mb-4">
+            <div class="card-body" id="introduction">
+                <h3 class="card-title">Introduction</h3>
+                <p>
+                  Now Google is hiring! They have many opening positions, where some positions are for new graduates and some are for experienced ones. A lot of resumes have been received. We assume new graduated students can only submit to positions for new graduates and people with working experience can only
+                  submit to positions for experienced ones. The Google HR (Human Resources) department wants to evaluate these resumes, and you are asked to implement a resume container for storing and reviewing resumes submitted to each position.
+
+                <div class="mb-4">
+                    <img src="img/deque.png" class="center">
+                </div>
+
+                <p>
+                  The Google HR department raised the following requirements:
+                  <ol>
+                    <li> The container can store different types of resumes:
+                      <ul>
+                        <li>Experienced resume: we denote it as a string of the applicant's name, such as <code>"Jack"</code>;</li>
+                        <li>New graduate resume: we denote it as a pair of strings: the applicant's name and the university's name, such as <code><"Yang", "HKUST"></code>. We use the <code>std::pair</code> container provided in STL to represent it (a description of <code>std::pair</code> can be found <a href="https://www.cplusplus.com/reference/utility/pair/pair/">here</a>).</li>
+                      </ul>
+                      Note each container will store the same type of resume.
+                    </li>
+
+                    <li>The resumes in a container are stored in an ordered sequence. Normally, new resumes can be added to the end of the sequence. Sometimes, high-priority resumes can also be added to the front of the sequence.</li>
+
+                    <li>The HR managers can review the resumes in a container in order. They can choose to review it from the head to the end or from the end to the head.</li>
+
+                    <li>The HR managers can merge two containers with the same type of resumes, make copy of a container, and compare two containers.</li>
+
+                  </ol>
+
+                  After some investigation, you find <code>deque</code>(double end queue) is the most appropriate data structure to implement the resume container. As shown in the figure, a <code>deque</code>  is a sequence container that allows adding/removing elements from both the front and the back end.
+                  <code>Deque</code> has been implemented in C++ Standrad Template Library (STL), related information can be found in <a href="https://www.cplusplus.com/reference/deque/deque/">std::deque</a>.
+                </p>
+                <p>
+                  In this lab, you will implement your own version of <code>deque</code> using a doubly linked list. The doubly linked list is a data structure that generalizes the linked list, where every node in a doubly linked list has a pointer to the next node and also a pointer to the previous node.
+                We have implement a skeleton of the <code>deque</code> data structure in <a href="source.zip">source files</a>, you have to finish the TODOs left in the code.
+                </p>
+                <h4 id="overview">Overview</h4>
+                <p>
+                    The descriptions of classes and members in classes are as follows:
+                    <ul>
+                      <li> <code>class BiLNode</code>: Class of nodes in the doubly linked list.
+                        <ul>
+                          <li> <code>T data</code>:</li> Data element that stores a resume.
+                          <li> <code>BiLNode *next</code>:</li> Pointer to the next node in the doubly linked list.
+                          <li> <code>BiLNode *prev</code>:</li> Pointer to the previous node in the doubly linked list.
+                          <li> <code>BiLNode(T input)</code>:</li> Constructor: initilize a node with a resume.
+                        </ul>
+
+                      </li>
+                    </ul>
+
+                    <ul>
+                      <li> <code>class Deque</code>:
+                        <ul>
+                          <li> <code>BiLNode<T> *head</code>:</li> Pointer to the first element in the deque.
+                          <li> <code>BiLNode<T> *tail</code>:</li> Pointer to the last element in the deque.
+                          <li> <code>int size</code>:</li> Size of the deque.
+                          <li> <code>void push_back(const T& value) </code>:</li> Add element at the end.
+                          <li> <code>void push_front(const T& value) </code>:</li> Insert element at begining.
+                          <li> <code>T pop_back()</code>:</li> Return and remove the last element.
+                          <li> <code>T pop_front()</code>:</li> Return and remove the first element.
+                          <li> <code>void clear()</code>:</li> Remove all elements.
+                          <!-- <li> <code>string str() const</code>:</li> Return a string of all elements. -->
+                          <li> <code>operator==</code>(TODO):</li> Return true if and only if the size, elements and the order of elements in two deques are the same. Otherwise return false.
+                          <li> <code>operator=</code>(TODO):</li> Copy the contents of the input deque to this one. Deep copy is required.
+                          <li> <code>operator+</code>(TODO):</li> Merge two deques. When computing A+B, return a new deque that has elements from both A and B (A elements in the front and B elements after A elements). Deque A and B should not be changed after this operation. Note this operation is asymmetric.
+                          <!-- <li> <code>Operator~</code>(TODO):</li> Reverse the deque. ~A means reversing the order of all elements in deque A. You should do it in place (without creating new nodes). -->
+                          <li> <code>operator<<</code>(TODO):</li> Print the information of the deque to the stream. You should loop over all elements in the deque and print them in the format "[element1<-->element2<-->...]" (refer to the example outputs). You
+                          can assume <code>operator<<</code> is alreay overloaded for all types of elements.
+                        </ul>
+                      </li>
+                    </ul>
+                </p>
+                Following external links may be useful for you:
+                <ul>
+                  <li>Wikipedia: <a href="https://en.wikipedia.org/wiki/Double-ended_queue"> Double-ended queue </a>;</li>
+                  <li>Wikipedia: <a href="https://en.wikipedia.org/wiki/Doubly_linked_list"> Doubly linked list</a>;</li>
+                  <li>Examples of using <code>std::pair</code>: <a href="https://www.geeksforgeeks.org/pair-in-cpp-stl">here</a>.</li>
+                </ul>
+
+</div>
+        </div>
+
+
+
+        <div class="card mb-4">
+            <div class="card-body" id="labtask">
+                <h3 class="card-title">Lab tasks</h3>
+                <p class="card-text">
+
+                    <ol>
+                        <li>
+                            Finish the TODOs in <code>deque.h</code>:
+                            <ul>
+                                <li><code>operator==</code></li>
+                                <li><code>operator=</code></li>
+                                <li><code>operator+</code></li>
+                                <!-- <li><code>Operator~</code></li> -->
+                                <li><code>operator<<</code></li>
+
+                            </ul>
+                        </li>
+                        <li>Compile the project.</li>
+                        <li>Run <code>main.exe</code>, check with the expected output below:</li>
+
+                                <pre>
+Create resume container for position: C++ developer.
+Applicants of C++ developer:
+[(James, HKUST)<-->(Yang, HKUST)<-->(Amelia, CUHK)<-->(David, HKU)]
+Create resume container for position: C developer.
+Applicants of C developer:
+[(Tony, HKUST)<-->(Oliver, PolyU)<-->(Wang, CUHK)]
+Create resume container for position: AI researcher (experienced)
+Applicants of AI researcher (experienced):
+[Michael<-->Noah<-->Isabella]
+Reviewing resumes for C++ developer.
+Remaining resumes for C++ developer:
+[(Amelia, CUHK)<-->(David, HKU)]
+C++ developer position is closed, add resumes to C developer container.
+Applicants of C developer before adding:
+[(Tony, HKUST)<-->(Oliver, PolyU)<-->(Wang, CUHK)]
+Applicants of C developer after adding:
+[(Tony, HKUST)<-->(Oliver, PolyU)<-->(Wang, CUHK)<-->(Amelia, CUHK)<-->(David, HKU)]
+Make a copy of AI researcher resumes.
+Copy of AI researcher resumes:
+[Michael<-->Noah<-->Isabella]
+Is the copy equivalent to the orign?
+Yes
+Is the copy still equivalent to the orign?
+No </pre>
+                    </ol>
+                </p>
+
+            </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body" id="labtask">
+              <h3 class="card-title">FAQ</h3>
+              <p class="card-text">
+
+                  <ul>
+                    <li><p>Question: Can we return a deque object by value when overloading operator+? </p>
+                      <p> Answer:
+                         <p>Usually, when we return a temporary object created in a function by value, the copy constructor will be called to make a copy of the object, and the original temporary object will be
+                           destroyed when the function is finished. In this case, if the object holds some dynamically allocated memory and the copy constructor only does shallow copy (as the deque class does), it will cause errors.</p>
+
+                        <p>But since C++11, the copy constructor will be omitted in many pass-by-value semantics because of a feature named <a href="https://en.cppreference.com/w/cpp/language/copy_elision">copy elision</a> (Please also see p18 in <a href="../../notes/h.constructor-destructor.pdf">lecture notes of constructor & destructor</a>).
+                        In the case of this lab, we can safely return a deque object by value when overloading operator+ and the copy constructor will not be called.
+                        But since <a href="https://en.cppreference.com/w/cpp/language/copy_elision">copy elision</a> is not a mandatory feature until C++17, we should still implement the copy constructor carefully in normal cases. </p>
+                      </p>
+                    </li>
+                  </ul>
+              </p>
+
+          </div>
+      </div>
+
+      <div class="card mb-4">
+          <div class="card-body" id="submission">
+              <h3 class="card-title">Submission Deadline and Guidelines:</h3>
+              <p class="card-text">
+                  The due date and time will be <span style="color:red">10-min after your lab session</span>.
+                  You are supposed to upload the following files in an archive to <a href="http://zinc.cse.ust.hk">ZINC</a>:
+<pre>
+- deque.h
+</pre>
+                  You can submit your codes multiple times by the deadline. Only the last submission will be graded.
+</div>
+      </div>
+
+
+
+        <!-- Description section -->
+        <!-- ### Complete description section for the assignment ### -->
+
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-3">
+        <div class="sticky-top">
+          <!-- Menu Widget -->
+          <div class="card my-12">
+            <h5 class="card-header">Menu</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="mb-0" type="circle" style="padding-left:20px">
+                    <li>
+                      <a href="#introduction">Introduction</a>
+                    </li>
+                    <li>
+                      <a href="#labtask">Lab Tasks</a>
+                    </li>
+                    <li>
+                       <a href="source.zip">Source Files</a>
+                    </li>
+                    <li>
+                      <a href="#submission">Submission</a>
+                    </li>
+                    <li>
+                      <a href="../../notes/h.generic-programming.pdf">Lecture notes</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Maintainance widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Page maintained by</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="mailto:mzhangbj@ust.hk">Mingyang Zhang</a>
+                    </li>
+                    <li>Last Modified:
+                      <script type="text/javascript">document.write(document.lastModified);</script>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Homepage widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Homepage</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="http://course.cse.ust.hk/comp2012">Course Homepage</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Maintained by COMP 2012 Teaching Team &copy; 2022 HKUST Computer Science
+        and Engineering</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../../js/jquery.min.js"></script>
+  <script src="../../js/bootstrap.min.js"></script>
+</body>
+
+</html>

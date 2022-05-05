@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- ### Change assignment number ### -->
+  <title>COMP 2012 Assignment 4: Magic Shop of a Computer Wizard</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/blog-home.css" rel="stylesheet">
+
+  <!-- For code highlighting -->
+  <!-- <link href="prism.css" rel="stylesheet" /> -->
+  <link href="vendor/prism/prism.css" rel="stylesheet" />
+  <!-- <link href="https://myCDN.com/prism@v1.x/themes/prism.css" rel="stylesheet" /> -->
+
+  <style>
+    pre {
+      background: #f4f4f4;
+      border: 1px solid #ddd;
+      border-left: 3px solid #f36d33;
+      color: #666;
+      page-break-inside: avoid;
+      font-family: monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 1.6em;
+      max-width: 100%;
+      overflow: auto;
+      padding: 1em 1.5em;
+      display: block;
+      word-wrap: break-word;
+    }
+
+    span.input {
+        color: #00f700;;
+    }
+
+    table {
+      width: 100%;
+      display: inline-block;
+      overflow-x: auto;
+    }
+
+    table caption {
+      font-size: medium;
+    }
+
+    table thead th {
+      background-color: #ddd;
+    }
+
+    table th,
+    table td {
+      text-align: left;
+      padding: 3px 6px;
+      border-width: 1px;
+      border-style: solid;
+      border-color: #aaa #aaa;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #eee;
+    }
+
+    blockquote {
+      border: 1px solid #b3b3b3;
+      border-left: 10px solid #b3b3b3;
+      border-radius: 0px;
+      background: #fafafa;
+      font-size: 18px;
+      font-family: Georgia, serif;
+      margin: 10px;
+      padding: 10px 20px;
+    }
+
+    blockquote p {
+      margin: 0;
+      line-height: 30px;
+      padding-bottom: 20px;
+    }
+
+    blockquote.small {
+      display: block;
+      font-size: 80%;
+      color: brown;
+      text-align: right;
+    }
+  </style>
+</head>
+
+<body>
+  <script src="vendor/prism/prism.js"></script>
+<!--     <script src="https://myCDN.com/prism@v1.x/components/prism-core.min.js"></script>
+    <script src="https://myCDN.com/prism@v1.x/plugins/autoloader/prism-autoloader.min.js"></script> -->
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Entries Column -->
+      <div class="col-md-9">
+
+        <h2 class="my-4">
+          <span style="color:darkblue">COMP 2012</span>
+          <small>Object-Oriented Programming and Data Structures</small>
+        </h2>
+
+        <!-- ### Change assignment number and title ### -->
+        <h3 class="my-4">Assignment 4
+          <span style="color:#660066">Magic Shop of a Computer Wizard</span>
+        </h3>
+
+        <!-- Introduction section -->
+        <!-- ### Complete introduction section for the assignment ### -->
+        <div class="card mb-4">
+
+          <!-- ### Add an image representing the assignment content here ### -->
+          <img class="card-img-top" src="images/magic2.png" alt="Card image cap">
+
+          <div class="card-body" id="introduction">
+            <h3 class="card-title">Introduction</h3>
+            <p class="card-text">
+              <h5>The story</h5>
+              <p>You are a <i>wizard</i>. You sell magic scrolls for a living.</p>
+              <p>You are also a <i>computer wizard</i> who are learning C++ programming. To keep an inventory of various magic scrolls you have in your shop, you have decided to build a system to keep track of it. It seems to be a very good use-case for hashing which you happen to have just learned in COMP2012. Nice! Before committing to building the full system, you would like to first test and compare different kinds of hashing and collision handling strategies, with the ultimate goal of making the system as efficient as possible in terms of various performance metrics. This is the assignment. With this, you shall have practices on hashing and various C++/OOP fundamentals.</p>
+
+              <h5>The magic</h5>
+              <p>In the description below, we will refer magic scrolls as simply <i>magic</i>.</p>
+              <p>Magic in this world is simple. They are named with a unique string that is always made up of exactly one prefix string and exactly one suffix string. The suffix string and the prefix string consist of only English alphabets. Their first characters must be a capital letter, while the others must be small letters.</p>
+              <p>
+                The prefix describes the elemental nature of the magic. There are only 3 of them:
+                <ul>
+                  <li>Fire</li>
+                  <li>Ice</li>
+                  <li>Lightning</li>
+                </ul>
+              </p>
+              <p>
+                The suffix string can be a description of an object, an effect, or a phenomenon. There can be many of them. Here are some examples:
+                <ul>
+                  <li>Ball</li>
+                  <li>Storm</li>
+                  <li>Cow</li>
+                  <li>Wind</li>
+                  <li>Rain</li>
+                </ul>
+              </p>
+              <p>
+                Combining them, here are some examples of magic:
+                <ul>
+                  <li>FireBall</li>
+                  <li>IceBall</li>
+                  <li>LightningBall</li>
+                  <li>FireStorm</li>
+                  <li>FireCow</li>
+                  <li>IceWind</li>
+                  <li>LightningWind</li>
+                  <li>FireRain</li>
+                  <li>LightningRain</li>
+                </ul>
+              </p>
+
+              <h5>The magic shop</h5>
+              <p>Your system will basically have two functions. It can stock up
+			  magic (adding some quantity of it to the inventory with a price
+			  tag). It can also sell magic (removing some quantity of it, and
+			  also calculate the profit gained for your shop). The inventory
+			  system will use hashing for quick lookup of the magic. For
+			  simplicity, in this assignment, we only consider the following
+			  three collision handling strategies which are all in the
+			  open-addressing category: linear probing, quadratic probing, and
+			  double hashing. However, our design of the classes is made to be
+			  easily extensible if other collision handling strategies (e.g., separate chaining) are to be added later.</p>
+
+
+              <h5>Read the manuals</h5>
+
+                <p>Respectable computer wizards should be careful with reading the manuals and description. So please do read all the description and examples carefully. :)</p>
+
+               <p>Read the FAQ page for some common clarifications. You should check that a day before the deadline to make sure you don't miss any clarification, even if you have already submitted your work then.</p>
+
+              <p>If you need further clarifications of the requirements, please
+			  feel free to post on the Piazza (via Canvas) with the <u>pa4</u>
+			  tag. However, to avoid cluttering the forum with repeated/trivial
+			  questions, please do <b>read all the given code, webpage
+			  description, sample output, and the <a href="#faq">latest FAQ</a> (refresh this page regularly) carefully before posting your questions</b>. Also, please be reminded that we won't debug any student's assignment for the sake of fairness.</p>
+
+              <p>Submission details are in the <a href="#submission">Submission and Deadline</a> section.</p>
+            </p>
+
+
+
+
+            <!-- 			  <br/>
+			  <h4>Sub-section heading</h4>
+			  <p>
+			    ...
+			  </p>
+			  <br/>
+
+			  <h4>Sub-section heading</h4>
+			  <p>
+			    ...
+			  </p>	 -->
+          </div>
+          <div class="card-footer text-muted">
+            <p>We value academic integrity very highly. Please read the <a href="../..//#honorcode">Honor
+                Code</a> section on our course webpage to
+              make sure you understand what is considered as plagiarism and what the penalties are. The following are
+              some of the highlights:</p>
+            <ul>
+              <li>Do NOT try your "luck" - we use sophisticated plagiarism detection software to find cheaters. We also review codes for potential cases manually.</li>
+              <li>The penalty (for <b>BOTH</b> the copier and the copiee) is not just getting a zero in your assignment. Please read the <a href="../../#honorcode">Honor Code</a> thoroughly.</li>
+              <li>Serious offenders will fail the course immediately, and there may be additional disciplinary actions from the department and university, upto and including expulsion.</li>
+            </ul>
+          </div>
+        </div>
+
+
+        <!-- Download section -->
+        <!-- ### Complete download section for the assignment ### -->
+        <div class="card mb-4">
+          <div class="card-body" id="download">
+            <h3 class="card-title">Download</h3>
+            <ul>
+              <li>Skeleton code:
+                <a href="skeleton.zip">skeleton.zip</a>
+            <!-- <b><span style="color:red">TODO: this file is to be generated from the solution by removing the implementation.</b> -->
+        </li>
+              </li>
+            </ul>
+
+            <p>Please download it now, as we will refer to it from time to time in the description below. Your task is to complete the missing implementation in the given skeleton code for 5 classes:
+
+                <ul>
+                    <li><b>OpenAddressingHashTable</b> to be implemented in openAddressingHashTable.cpp</li>
+                    <li><b>LinearProbingHashTable</b> to be implemented in linearProbingHashTable.cpp</li>
+                    <li><b>QuadraticProbingHashTable</b> to be implemented in quadraticProbingHashTable.cpp</li>
+                    <li><b>DoubleHashingHashTable</b> to be implemented in doubleHashingHashTable.cpp</li>
+                    <li><b>Shop</b> to be implemented in shop.cpp</li>
+                </ul>
+
+             and submit them to ZINC in a zip file.</p>
+
+    <!--         <p>Please note that <b>you should only submit the polynomial.cpp</b> file. While you may modify other files to add your own test cases, you should make sure your submitted polynomial.cpp can compile with the original main.cpp and polynomial.h on ZINC.</p> -->
+
+            <p>
+            If you use VS Code, you may follow the <a href="https://course.cse.ust.hk/comp2011/labs/vscode/#terminal">creating a project and using the terminal for custom compilation command</a> section on our VS Code usage tutorial. That is, create a folder to hold all the extracted files in your file explorer, then open this folder in VS Code. You can then use the terminal command <code>g++ -std=c++11 -o programName *.cpp </code> to compile all sources in the folder to the program. You are also welcome to create a Makefile for it yourself. After the compilation, you can then use the command <code>./programName</code> OR <code>.\programName</code> (depends on the OS/shell you use) to run the program.
+            </p>
+
+
+        </div>
+      </div>
+
+
+
+        <div class="card mb-4">
+          <div class="card-body" id="cd">
+            <h3 class="card-title">Class diagram for the hash table classes</h3>
+
+
+            <!-- <b><span style="color:red">TODO: update image.</span></b> -->
+
+            <p>Here is a simple overview diagram which shows only the names of the hash table classes, data members, and member functions. We will explain in details all data their members and functions in the following sections. </p>
+            <img src="images/cd.png">
+            <p>Note: "#" denotes protected members; "+" denotes public members; "-" denotes private members; HashTable and OpenAddressingHashTable are abstract base classes.</p>
+          </div>
+        </div>
+
+
+
+        <div class="card mb-4">
+          <div class="card-body" id="structs">
+            <h3 class="card-title">Useful structs</h3>
+            <p>Let's look at some useful structs first.</p><br>
+
+            <pre class="language-cpp"><code class="language-cpp">struct Magic
+{
+    string prefix;
+    string suffix;
+    int price; //its price
+    int quantity; //its quantity in the inventory
+};</code></pre>
+            <p>This represents a magic that you can sell in your shop. It is defined in the given magic.h file.</p>
+<br>
+            <pre class="language-cpp"><code class="language-cpp">enum CellStatus
+{
+    EMPTY, //empty cell
+    ACTIVE, //active cell
+    DELETED //deleted cell
+};</code></pre>
+            <p>A hash table has many cells. This struct represents the status of a single cell. It is defined in the given hashTable.h file.</p>
+            <p>Initially, all cells in the table are EMPTY. When an item is put into the table, the cell used to store the item is then marked as ACTIVE. When an item is removed from the table, the cell used to store the item is then marked as DELETED. We use lazy deletion as described in the lecture notes. A DELETED cell may be used to store another magic later. We will talk about how a deletion should be performed later when we describe the <code>remove</code> function.</p>
+
+<br>
+            <pre class="language-cpp"><code class="language-cpp">struct Cell
+{
+    Magic* magic; //pointer to the magic
+    CellStatus status; //status of the cell
+};</code></pre>
+            <p>This struct represents a single cell. It is also defined in the given hashTable.h file.</p>
+          </div>
+        </div>
+
+
+        <div class="card mb-4">
+          <div class="card-body" id="ht">
+            <h3 class="card-title">The Hashtable Class</h3>
+            <p>It is the top-level ABC for hash tables.</p>
+            <p>You may refer to the hashTable.h while you read this section.</p>
+            <p>hashTable.h is already complete. No modification should be made.</p>
+            <p>For this top-level ABC, there are not many concrete things to describe. It would seem to some of you that this class serves no purposes, but it is a useful design to have such a top-level abstract base should we decide to add other kinds of hash tables (e.g. a separate-chaining table) in the future. However, for simplicity, we only deal with the open-addressing ones for this assignment.</p>
+
+
+            <b>Data members</b>
+
+                <pre class="language-cpp"><code class="language-cpp">int m;</code></pre>
+                <p>It is the size of the hash table. Assume it is at least 3 when provided via a constructor. It should be updated whenever the size of the hash table changes due to rehashing.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">int (*hash)(string, int);</code></pre>
+                <p>It is the function pointer pointing to the hash function <i>hash(k, m)</i>. Assume it is always a valid function when provided via a constructor.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">int activeCellCount;</code></pre>
+                <p>It is the count of active cells in the table. It should be 0 initially. It should be updated by you whenever changes are made to the table.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">int comparisonCount;</code></pre>
+                <p>It is the number of accumulated comparisons performed for various operations. It should be updated by you. As to how, more details will be given later. It should be 0 initially.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">bool printSteps;</code></pre>
+                <p>It is the flag to indicate whether to print detailed steps with cout for the add/remove/get operations. It should be false initially. We will give more details on what to print if this is true, when we talk about those 3 operations later. On the other hand, if this flag is false then you should not print anything at all for those 3 operations. You can see that in the given test cases - we have cases for both scenarios.
+                </p>
+                <br>
+
+
+            <b>Member functions</b>
+            <p>
+                <pre class="language-cpp"><code class="language-cpp">HashTable(int m, int (*hash)(string, int)) : m(m), hash(hash), activeCellCount(0), comparisonCount(0), printSteps(false) {}; </code></pre>
+                <p>It is the constructor.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">virtual ~HashTable() = default;</code></pre>
+                <p>It is the destructor.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">void togglePrintSteps() {printSteps = !printSteps;};</code></pre>
+                <p>It is used to toggle the <code>printSteps</code> flag.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">virtual bool add(Magic* magic) = 0;</code></pre>
+
+                <pre class="language-cpp"><code class="language-cpp">virtual bool remove(string key) = 0;</code></pre>
+
+                <pre class="language-cpp"><code class="language-cpp">virtual Magic* get(string key) = 0;</code></pre>
+
+                <pre class="language-cpp"><code class="language-cpp">virtual int getClusterCount() const = 0;</code></pre>
+
+                <pre class="language-cpp"><code class="language-cpp">virtual int getLargestClusterSize() const = 0;</code></pre>
+
+                <pre class="language-cpp"><code class="language-cpp">virtual string getClusterSizeSortedList() const = 0;</code></pre>
+                <p>These are pure virtual functions. We will describe them later when we talk about how we should override them in a derived class.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">int getActiveCellCount() const { return activeCellCount; };</code></pre>
+                <p>It returns the <code>activeCellCount</code>.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">int getAccumulatedComparisonCount() const { return comparisonCount; };</code></pre>
+                <p>It returns the <code>comparisonCount</code>.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">virtual void print() const = 0;</code></pre>
+                <p>It is a pure virtual function. We will describe it later when we talk about how we should override it in a derived class.
+                </p>
+                <br>
+<!--
+                <pre class="language-cpp"><code class="language-cpp">void printStats() const;</code></pre>
+                <p>It prints the various current statistics for this hash table. Its implementation is given. It is your task to read and understand it yourself. We are not going to explain how it works for you.
+                </p>
+                <br> -->
+
+<!--                 <pre class="language-cpp"><code class="language-cpp">string arrayToString(int array[], int size) const</code></pre>
+                <p>It converts an integer array to a string. It is used in printStats. Its implementation is given. It is your task to read and understand it yourself. We are not going to explain how it works for you.
+                </p>
+                <br> -->
+
+
+
+            </p>
+        </div>
+      </div>
+
+
+
+        <div class="card mb-4">
+          <div class="card-body" id="oaht">
+            <h3 class="card-title">The OpenAddressingHashTable Class</h3>
+            <p>It is an ABC for open-addressing hash tables.</p>
+            <p>You may refer to the openAddressingHashTable.h while you read this section.</p>
+            <p>It is still an ABC, but it already overrides many functions of the <code>HashTable</code> that makes sense for all open-addressing hash tables in general.</p>
+
+
+            <b>Data members</b>
+
+                <pre class="language-cpp"><code class="language-cpp">Cell* table;</code></pre>
+                <p>It is the hash table of cells, which is a 1D dynamic array of static <b>Cell</b> objects.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">virtual int hi(string k, int i) const = 0;</code></pre>
+                <p>It is the <img src="images/hi.png"> function as shown in the <a href="../../notes/h.hashing.pdf">notes</a> (see page 20 for an example) that is used for hashing with collision resolving taken into account. Refer to the notes to see what <code>k</code> and <code>i</code> are. As it is different for different collision resolving strategies, it is logically made pure virtual. We will talk about its implementation when we describe the 3 sub-classes later.
+                </p>
+                <br>
+
+            <b>Member functions</b>
+            <p>
+                <pre class="language-cpp"><code class="language-cpp">OpenAddressingHashTable(int m, int (*hash)(string, int));</code></pre>
+                <p>It is the constructor. It should initialize the base class members, and create the hash table properly. Each cell initially should have their <code>magic</code> set to nullptr and <code>status</code> set to EMPTY.
+                </p>
+                <br>
+
+<pre class="language-cpp"><code class="language-cpp">~OpenAddressingHashTable();</code></pre>
+                <p>It is the destructor. You should delete the table, and all the magic stored inside.
+                </p>
+                <br>
+
+
+
+                <pre class="language-cpp"><code class="language-cpp">void print() const override;</code></pre>
+                <p>It prints the hash table. Its implementation is given. It is your task to read and understand it yourself. We are not going to explain what it does for you. Please do it now before you proceed to reading the following description as we will use it to demonstrate various operations - the hash tables you see in the examples are simply generated by this function.
+                </p>
+                <p>Note that we always use the magic suffix string as the key for this assignment. Whenever we say key, we mean the suffix string for the magic.</p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">bool add(Magic* magic) override;</code></pre>
+                <p>Add the <code>magic</code> using its suffix as the key. Deep copy of the given <code>magic</code> should not be performed. That is, simple pointer assignment should be done when you add the <code>magic</code> to the corresponding cell.</p>
+                <p>Perform rehashing first if needed (to be described in the <a href="#example">Hashing Example</a> section) by calling the private function <code>performRehashing</code> which is to be implemented by yourself for this class as well.</p>
+                <p>You should record the number of comparisons needed to locate an available cell, namely C.</p>
+                <p>A comparison is defined as an operation that happens exactly once whenever you visit a cell for whatever. For example, for adding without any collision happening, it takes one comparison to locate an available cell (i.e., an EMPTY or DELETED cell) to add an item to it. Generally, if R collisions happen before an available cell is found, then C is simply R+1 (because one more comparison is needed to confirm/check that the available cell is actually available). Check the <a href="#example">Hashing Example</a> and the given test cases to better understand what a comparison is.</p>
+                <p>If the number of collisions is less than m, the addition is successful (i.e. we can find an EMPTY/DELETED cell to store the data with no more than m comparisons), so do the insertion, add C to <code>comparisonCount</code>, and return true. Otherwise, add m to <code>comparisonCount</code> and return false.</p>
+                <p>Assume all keys (i.e. the suffixes) provided in our test cases are unique.</p>
+
+
+                </p>
+                <br>
+
+<pre class="language-cpp"><code class="language-cpp">bool remove(string key) override;</code></pre>
+                <p>Remove the entry, according to the given <code>key</code>, from the table.</p>
+                <p>We always perform lazy deletions. That is, we just need to set the cell status to DELETED. Also remember to deallocate the magic stored.</p>
+                <p>You should record the number of comparisons needed to locate the cell to remove, namely C.</p>
+                 <p>Similar to <code>add</code>, if the number of collisions is less than m, the removal is successful, so do the removal, add C to <code>comparisonCount</code>, and return true.</p>
+                 <p><b>(If you encounter an EMPTY cell early during your search, you should terminate the search early and return false immediately. In that case you don't need to wait for the number of collisions to reach m, and you should add the number of comparisons needed to reach the EMPTY cell to <code>comparisonCount</code>.)</b></p>
+                 <p>Otherwise, add m to <code>comparisonCount</code> and return false.</p>
+                <p>Please study our examples later.</p>
+                <br>
+
+<pre class="language-cpp"><code class="language-cpp">Magic* get(string key) override;</code></pre>
+                <p>Return the magic with the given <code>key</code>.</p>
+                <p>You should record the number of comparisons needed to locate the cell to retrieve, namely C.</p>
+                 <p>Similar to <code>add</code>, if the number of collisions is less than m, the magic can be found, so add C to <code>comparisonCount</code>, and return the magic found.</p>
+                 <p><b>(If you encounter an EMPTY cell early during your search, you should terminate the search early and return nullptr immediately. In that case you don't need to wait for the number of collisions to reach m, and you should add the number of comparisons needed to reach the EMPTY cell to <code>comparisonCount</code>.)</b></p>
+                 <p>Otherwise, add m to <code>comparisonCount</code> and return nullptr.</p>
+                 <p>Please study our examples later.</p>
+                 <p>P.S. it is not a const member function because it has to update the <code>comparisonCount</code>.</p>
+                <br>
+
+<pre class="language-cpp"><code class="language-cpp">int getClusterCount() const override;</code></pre>
+                <p>Return the number of clusters we have in the hash table.</p>
+                <p>For simplicity of this assignment, we only consider primary clustering which is mostly meaningful for linear-probing insertion.</p>
+                <p>In this assignment, a cluster is always simply defined as a set of consecutive <code>ACTIVE</code> cells in the table. Examples will be given when we describe <code>getClusterSizeSortedList</code> soon.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">int getLargestClusterSize() const override;</code></pre>
+                <p>Return the size of the largest cluster. Just return 0 if there is no cluster at all (i.e. all cells are <code>EMPTY</code> or <code>DELETED</code>). Examples will be given when we describe <code>getClusterSizeSortedList</code> next.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">string getClusterSizeSortedList() const override;</code></pre>
+                <p>Return a comma-delimited list of cluster sizes that are sorted descendingly.
+
+                <p>Example 0:
+                <pre>0: [Empty] | 1: [Empty] | 2: [Empty] | 3: [Empty] | 4: [Empty] | 5: [Empty]</pre>
+                has 0 cluster. Size of the largest cluster is considered as 0. The <code>getClusterSizeSortedList</code> function should return simply "(empty)" which has no extra spaces and no newlines in it.
+                </p>
+
+                <p>Example 1:
+                <pre>0: [Empty] | 1: [Active](key=Ball;hash=1;name=FireBall;price=$100;quantity=1) | 2: [EMPTY] | 3: [Active](key=Storm;hash=3;name=FireStorm;price=$200;quantity=2) | 4: [Active](key=Rain;hash=4;name=FireRain;price=$300;quantity=3) | 5: [Empty]</pre>
+                has 2 clusters. The first cluster spans cell 1 only, so its size is 1. The second cluster spans cells 3 and 4, so its size is 2.  Therefore the largest cluster is the second cluster with a size of 2. The <code>getClusterSizeSortedList</code> function should return "2,1" which has no extra spaces and no newlines in it.</p>
+
+                <p>Friendly reminder: if you are using input methods that have full-width characters (such as some Chinese input methods), you should make sure the comma you output is a simple English comma "," which is different from some Chinese/full-width comma.</p>
+                </p>
+
+                <p>Example 2:
+                <pre>0: [Empty] | 1: [Active](key=Ball;hash=1;name=FireBall;price=$100;quantity=1) | 2: [Active](key=Storm;hash=2;name=FireStorm;price=$200;quantity=2) | 3: [Deleted] | 4: [Active](key=Rain;hash=4;name=FireRain;price=$300;quantity=3) | 5: [Empty]</pre>
+                has 2 clusters. The first cluster spans cells 1 and 2, so its size is 2. The second cluster spans cell 4 only, so its size is 1.  Therefore the largest cluster is the first cluster with a size of 2. The <code>getClusterSizeSortedList</code> function should return "2,1" which has no extra spaces and no newlines in it.
+                </p>
+
+                <p>Example 3:
+                <pre>0: [Active](key=Storm;hash=0;name=FireStorm;price=$200;quantity=2) | 1: [Active](key=Ox;hash=1;name=FireOx;price=$200;quantity=2) | 2: [Active](key=Cow;hash=2;name=FireCow;price=$200;quantity=2) | 3: [Empty] | 4: [Active](key=Rain;hash=4;name=FireRain;price=$300;quantity=3) | 5:  [Active](key=Dog;hash=5;name=FireDog;price=$300;quantity=3)</pre>
+                has only 1 cluster of size 5, spanning cells 4, 5, 0, 1, and 2. Notice for probing purposes, we can "wrap around" the table, hence the last cell is actually connected to the first cell. You can consider the table as a circular array. Therefore, these are NOT two clusters. (4, 5) and (0, 1, 2) are actually connected as one big cluster. The <code>getClusterSizeSortedList</code> function should return "5" which has no extra spaces and no newlines in it.
+                </p>
+
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">void performRehashing(); </code></pre>
+                <p>Perform rehashing. It is just a private function that should be called by yourself when rehashing needs to be performed during <code>add</code>.
+                </p>
+                <br>
+
+
+            </p>
+        </div>
+      </div>
+
+
+
+        <div class="card mb-4">
+          <div class="card-body" id="lpht">
+            <h3 class="card-title">The LinearProbingHashTable Class</h3>
+            <p>It is an open-addressing hash table with linear probing collision handling.</p>
+            <p>You may refer to the linearProbingHashTable.h while you read this section.</p>
+
+            <b>Member functions</b>
+            <p>
+                <pre class="language-cpp"><code class="language-cpp">LinearProbingHashTable(int m, int (*hash)(string, int));</code></pre>
+                <p>It is the constructor. It should initialize the base class members.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">int hi(string k, int i) const override;</code></pre>
+                <p>It is the implementation of the <img src="images/hi.png"> function for linear probing. See page 21 of the <a href="../../notes/h.hashing.pdf">notes</a>.
+                </p>
+                <br>
+            </p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body" id="qpht">
+            <h3 class="card-title">The QuadraticProbingHashTable Class</h3>
+            <p>It is an open-addressing hash table with quadratic probing collision handling.</p>
+            <p>You may refer to the quadraticProbingHashTable.h while you read this section.</p>
+
+            <b>Member functions</b>
+            <p>
+                <pre class="language-cpp"><code class="language-cpp">QuadraticProbingHashTable(int m, int (*hash)(string, int));</code></pre>
+                <p>It is the constructor. It should initialize the base class members.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">int hi(string k, int i) const override;</code></pre>
+                <p>It is the implementation of the <img src="images/hi.png"> function for quadratic probing. See page 24 of the <a href="../../notes/h.hashing.pdf">notes</a>.
+                </p>
+                <br>
+            </p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body" id="dhht">
+            <h3 class="card-title">The DoubleHashingHashTable Class</h3>
+            <p>It is an open-addressing hash table with double hashing collision handling.</p>
+            <p>You may refer to the doubleHashingHashTable.h while you read this section.</p>
+
+
+            <b>Data members</b>
+
+                <pre class="language-cpp"><code class="language-cpp">int (*hash2)(string, int);</code></pre>
+                <p>It is the function pointer pointing to the hash2 function hash2(k, m). See page 27 of the <a href="../../notes/h.hashing.pdf">notes</a>.
+                </p>
+                <p>Note that in some of our test cases, we may not always follow all good practices for the hash/hash2 function design (e.g. page 29 of the <a href="../../notes/h.hashing.pdf">notes</a>) in order to have more collisions/failures to test edge cases easily.</p>
+                <br>
+
+            <b>Member functions</b>
+            <p>
+                <pre class="language-cpp"><code class="language-cpp">DoubleHashingHashTable(int m, int (*hash)(string, int), int (*hash2)(string, int));</code></pre>
+                <p>It is the constructor. It should initialize the base class members. It should also initialize <code>hash2</code>.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">int hi(string k, int i) const override;</code></pre>
+                <p>It is the implementation of the <img src="images/hi.png"> function for double hashing. See page 27 of the <a href="../../notes/h.hashing.pdf">notes</a>.
+                </p>
+                <br>
+            </p>
+          </div>
+        </div>
+
+
+
+        <div class="card mb-4">
+          <div class="card-body" id="example">
+            <h3 class="card-title">Hashing example</h3>
+
+                <p>In the following example, we have set the <code>printSteps</code> flag to true, so that you can see all the details and learn what to print for the 3 operations: <code>add</code>, <code>remove</code>, and <code>get</code>.</p>
+
+                <p>You can also find the exact code used for this example in the first 9 test cases we gave to you. Please read them also.</p>
+
+                <p>Suppose we have a linear-probing hash table with m = 3, and a hash function <code>int (*hash)(string, int) = [](string s, int m) {return (int)s.length() % m; }</code> which basically takes the string length of the input string and does mod m on it. The table will be empty at the beginning.  <code>hashTable->print()</code> will print this table (assume <code>hashTable</code> points to our hash table):</p>
+
+                <pre>0: [Empty] | 1: [Empty] | 2: [Empty]</pre>
+
+                <p>We would also call <code>togglePrintSteps</code> once to enable the printing of the steps. Your program should also print those steps exactly when that option is on (on the other hand, don't print anything yourself during add/remove/get when that option is off).</p>
+
+                <p>We will be using the magic suffix as the key, as mentioned.</p>
+
+                <p>First, we add <code>new Magic{"Fire", "Ball", 100, 10}</code> (key is "Ball" then) to it. Since the hash of the key is 4%3=1, it will be added to the cell 1.</p>
+
+                <p>The add function will print 2 lines (for all printing, there is no extra space at the front or the end of each line; and each line will end with exactly one <code>endl</code>):</p>
+
+                <pre>hash("Ball") = 1
+FireBall added at cell 1</pre>
+
+                <p>It always prints the hash value of the key in the first line in this exact format and spacing. Then it will print all the steps involved. Since there is no collision, there is one step (i.e. one comparison) only and that is simply a successful add at cell 1.</p>
+
+                <p>Our table becomes:</p>
+                <pre>0: [Empty] | 1: [Active](key=Ball;hash=1;name=FireBall;price=$100;quantity=10) | 2: [Empty] </pre>
+
+                <p>When a magic cannot be added successfully, you may print "X cannot be added" where X is the full name (i.e. prefix+suffix) of the magic, please refer to some of our given test cases for examples to see what to print exactly in that situation. It is quite simple, but you should check for yourself.</p>
+
+                <p>Let's also print the various statistics with function calls like this:</p>
+
+                <pre class="language-cpp"><code class="language-cpp">cout << "Active cell count = " << hashTable->getActiveCellCount() << endl;
+cout << "Accumulated comparison count = " << hashTable->getAccumulatedComparisonCount() << endl;
+cout << "Cluster count = " << hashTable->getClusterCount() << endl;
+cout << "Largest cluster size = " << hashTable->getLargestClusterSize() << endl;
+cout << "Cluster size list = " <<  hashTable->getClusterSizeSortedList() << endl;</code></pre>
+
+                 <p>The statistics printed would be:</p>
+
+                <pre>
+Active cell count = 1
+Accumulated comparison count = 1
+Cluster count = 1
+Largest cluster size = 1
+Cluster size list = 1</pre>
+
+                <p>Next we add <code>new Magic{"Fire", "Wind", 200, 20}</code> (key is "Wind" then) to it. Since the hash of the key is 4%3=1, there is actually one collision. The <code>add</code> function should print these 3 lines:</p>
+
+                <pre>hash("Wind") = 1
+FireWind collided at cell 1
+FireWind added at cell 2</pre>
+
+                <p>The table and statistics become:</p>
+                <pre>0: [Empty] | 1: [Active](key=Ball;hash=1;name=FireBall;price=$100;quantity=10) | 2: [Active](key=Wind;hash=1;name=FireWind;price=$200;quantity=20)
+Active cell count = 2
+Accumulated comparison count = 3
+Cluster count = 1
+Largest cluster size = 2
+Cluster size list = 2</pre>
+
+                <p>If we add another magic now, rehashing will happen. Let's see what that is first, then we continue with the example.</p>
+
+                <b>Rehashing</b>
+                <p>For this assignment, rehashing should be performed when the number of active cells is more than half of the hash table size, before adding the new item.</p>
+
+                <p>To perform rehashing, you need to take out all the items, double the size of the hash table (in practice, we should find a nearby prime number instead, but for this assignment we don't worry about that to make your life easier :)), and insert the items back to the expanded table. The cell statuses of the cells in the expanded table will be either ACTIVE or EMPTY.</p>
+                <p>The insertion order of the items to the new table is the same as their appearance order in the old/original <code>table</code> Cell array. So start with adding the old <code>table[0]</code> to the new table, then <code>table[1]</code>, then <code>table[2]</code>, and so on.</p>
+                <p>For simplicity, you may assume the addition of items back to the expanded table will always be successful.</p>
+
+                <p>Now we continue with the example. Let's add <code>new Magic{"Fire", "Storm", 300, 30}</code> (key is "Storm" then) to it. Since, before adding the new item, we currently have 2 items in the table, and that is more than half of the table size. Rehashing has to be preformed. The <code>add</code> output should be exactly these 10 lines:</p>
+
+                <pre>hash("Storm") = 2
+Rehashing is needed!
+hash("Ball") = 4
+FireBall added at cell 4
+hash("Wind") = 4
+FireWind collided at cell 4
+FireWind added at cell 5
+Rehashing is done!
+FireStorm collided at cell 5
+FireStorm added at cell 0</pre>
+
+                <p>Notice when rehashing is needed, it prints "Rehashing is needed!" in the second line then perform the rehashing which prints the next 5 lines (which show 3 steps/comparisons, for adding the 2 old items back to the expanded table). Then "Rehashing is done!" should be printed. Finally, print all the steps needed to add the new item. In this example, actually adding the new item needs 2 more steps/comparisons. There are 5 steps/comparisons needed in total - that should be accumulated to <code>comparisonCount</code> as usual. Let's see the table and statistics:</p>
+
+                <pre>0: [Active](key=Storm;hash=5;name=FireStorm;price=$300;quantity=30) | 1: [Empty] | 2: [Empty] | 3: [Empty] | 4: [Active](key=Ball;hash=4;name=FireBall;price=$100;quantity=10) | 5: [Active](key=Wind;hash=4;name=FireWind;price=$200;quantity=20)
+Active cell count = 3
+Accumulated comparison count = 8
+Cluster count = 1
+Largest cluster size = 3
+Cluster size list = 3</pre>
+
+                <p>Now we add <code>new Magic{"Fire", "Ox", 400, 40}</code>.</p>
+
+                <pre>hash("Ox") = 2
+FireOx added at cell 2</pre>
+
+                <p>The table and statistics become:</p>
+
+                <pre>0: [Active](key=Storm;hash=5;name=FireStorm;price=$300;quantity=30) | 1: [Empty] | 2: [Active](key=Ox;hash=2;name=FireOx;price=$400;quantity=40) | 3: [Empty] | 4: [Active](key=Ball;hash=4;name=FireBall;price=$100;quantity=10) | 5: [Active](key=Wind;hash=4;name=FireWind;price=$200;quantity=20)
+Active cell count = 4
+Accumulated comparison count = 9
+Cluster count = 2
+Largest cluster size = 3
+Cluster size list = 3,1</pre>
+
+                <p>Let's try removing a magic from the table. We will call the <code>remove</code> function with the key "Void" which is not even in the table. The following <b>6</b> lines should be printed exactly like this:
+
+                <pre>hash("Void") = 4
+visited cell 4 but could not find it
+visited cell 5 but could not find it
+visited cell 0 but could not find it
+visited cell 1 but could not find it
+Void cannot be removed</pre>
+                <!-- <i>(note that the example above has been updated at 4:25pm on Apr 28th)</i><br><br> -->
+
+
+                <p>Just like <code>add</code>, we always print the hash value in the first line. Then we will print 1 or more lines to indicate all the steps involved. <b>The removal fails as we encounter an EMPTY cell at cell 1 during our search. We have to terminate our search early before reaching 6 collisions (which is another sufficient stopping criteria, when no EMPTY cell is encountered first). Notice that only 4 collisions have actually happened before we could confirm the failure of the removal as an EMPTY cell has been encountered.</b> We should print "Void cannot be removed" at the end.
+
+                    <!-- The removal fails (key is not found even after 6 collisions, since "Void" is not in the table), we should print "Void cannot be removed" at the end. -->
+
+                    <!-- When a cell is visited but the key is not found there (wrong key or the cell is marked as DELETED), we will print "visited cell X but could not find it" where X is the visited cell index. We also print a message when the magic with the specified key has been removed successfully. --></p>
+
+
+                <p>The table (no change) and statistics become:</p>
+
+                <pre>0: [Active](key=Storm;hash=5;name=FireStorm;price=$300;quantity=30) | 1: [Empty] | 2: [Active](key=Ox;hash=2;name=FireOx;price=$400;quantity=40) | 3: [Empty] | 4: [Active](key=Ball;hash=4;name=FireBall;price=$100;quantity=10) | 5: [Active](key=Wind;hash=4;name=FireWind;price=$200;quantity=20)
+Active cell count = 4
+Accumulated comparison count = 13
+Cluster count = 2
+Largest cluster size = 3
+Cluster size list = 3,1</pre>
+
+                <p>Next, let's call the <code>remove</code> function with the key "Ball" instead. The following 2 lines should be printed exactly like this:
+
+                <pre>hash("Ball") = 4
+FireBall removed at cell 4</pre>
+
+                <p>The table and statistics become:</p>
+
+                <pre>0: [Active](key=Storm;hash=5;name=FireStorm;price=$300;quantity=30) | 1: [Empty] | 2: [Active](key=Ox;hash=2;name=FireOx;price=$400;quantity=40) | 3: [Empty] | 4: [Deleted] | 5: [Active](key=Wind;hash=4;name=FireWind;price=$200;quantity=20)
+Active cell count = 3
+Accumulated comparison count = 14
+Cluster count = 2
+Largest cluster size = 2
+Cluster size list = 2,1</pre>
+
+                <p>Finally, let's try <code>get</code>. We attempt to <code>get</code> with key "Void" which is not even in the table. The following <b>6</b> lines should be printed exactly like this:</p>
+
+<pre>hash("Void") = 4
+visited cell 4 but could not find it
+visited cell 5 but could not find it
+visited cell 0 but could not find it
+visited cell 1 but could not find it
+Void cannot be found</pre>
+
+                <p>The table (no change) and statistics become:</p>
+
+                <pre>0: [Active](key=Storm;hash=5;name=FireStorm;price=$300;quantity=30) | 1: [Empty] | 2: [Active](key=Ox;hash=2;name=FireOx;price=$400;quantity=40) | 3: [Empty] | 4: [Deleted] | 5: [Active](key=Wind;hash=4;name=FireWind;price=$200;quantity=20)
+Active cell count = 3
+Accumulated comparison count = 18
+Cluster count = 2
+Largest cluster size = 2
+Cluster size list = 2,1</pre>
+
+                <p>Then <code>get</code> with key "Wind" instead. The following 3 lines should be printed exactly like this:</p>
+
+                <pre>hash("Wind") = 4
+visited cell 4 but could not find it
+FireWind found at cell 5</pre>
+
+                <p>The table (no change) and statistics become:</p>
+
+                <pre>0: [Active](key=Storm;hash=5;name=FireStorm;price=$300;quantity=30) | 1: [Empty] | 2: [Active](key=Ox;hash=2;name=FireOx;price=$400;quantity=40) | 3: [Empty] | 4: [Deleted] | 5: [Active](key=Wind;hash=4;name=FireWind;price=$200;quantity=20)
+Active cell count = 3
+Accumulated comparison count = 20
+Cluster count = 2
+Largest cluster size = 2
+Cluster size list = 2,1</pre>
+
+
+
+
+
+
+        </div>
+      </div>
+
+        <div class="card mb-4">
+          <div class="card-body" id="s">
+            <h3 class="card-title">The Shop Class</h3>
+            <p>It models a shop that makes use of hashing tables to keep its inventory. It only has two simple functions: to stock up magic, and to sell magic for profit.</p>
+            <p>It has 3 hashing tables - one for each of the 3 elements (fire, ice, lightning). Magic will always be kept in one of the 3 tables according to its element prefix.</p>
+            <p>You may refer to the shop.h while you read this section.</p>
+
+            <b>Data members</b>
+            <p>
+                <pre class="language-cpp"><code class="language-cpp">int profit;</code></pre>
+                <p>It is used to record the accumulated profit for the shop. It should be set to 0 initially. It is only updated whenever a magic is sold.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">HashTable* fireTable;</code></pre>
+                <p>It is the table for storing Fire magic. You do not create it yourself in this class. You let the caller of the Shop constructor to create it and then pass it in, and simply have this pointer point to that (shallow copy).</p>
+                <p>It always uses the suffix of the magic as the key. For example, magic of the name "FireBall" will be stored in this table with key "Ball".</p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">HashTable* iceTable;</code></pre>
+                <p>Same as above, but this one is for ice magic.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">HashTable* lightningTable;</code></pre>
+                <p>Same as above, but this one is for lightning magic.
+                </p>
+                <br>
+            </p>
+
+
+            <b>Member functions</b>
+            <p>
+                <pre class="language-cpp"><code class="language-cpp">Shop(HashTable* fireTable, HashTable* iceTable, HashTable* lightningTable);</code></pre>
+                <p>It is the constructor. See the data members section to learn how to initialize all 4 of them.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">~Shop();</code></pre>
+                <p>It is the destructor. While the 3 tables are created outside, you should delete them here.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">HashTable* getTable(string prefix) const;</code></pre>
+                <p>
+                    It returns one of the 3 hash tables according to the given <code>prefix</code>. It is just a private function that may be called by yourself when you want to get the table according to the prefix. You may want to call it in the <code>stockUp</code> and <code>sell</code> functions.
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">bool stockUp(string name, int quantity, int price) const; </code></pre>
+                <p>Given the magic's <code>name</code> (note that it is the full name, i.e., prefix+suffix like "FireBall"), <code>quantity</code>, and <code>price</code>, add it to our inventory.</p>
+                <p>If the inventory already has this magic (magic with the same suffix in the corresponding table), then simply increase the current quantity of this magic in the table, by the specified <code>quantity</code>. If the provided <code>price</code> is different from the current price, just update the price to this new <code>price</code>.</p>
+                <p>If the inventory doesn't already have this magic, then we need to add it to the corresponding hash table (e.g. fire magic must go to the fire table) using only the suffix as the key (e.g. use "Ball" as the key for "FireBall").</p>
+                <p>The function only fails and returns false, when calling <code>add</code> on the corresponding table returns false. It is successful in all other cases, and returns true. E.g. assume no overflow would happen when you increase the quantity of a current magic.</p>
+                <p>Also assume the given <code>quantity</code> and <code>price</code> are positive.</p>
+  <!--               <p>Please read the given test cases to learn exactly what is needed to be done and/or confirm your understanding. They covers all the scenarios described above.</p> -->
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">bool sell(string name, int quantity);</code></pre>
+                <p>Remove <code>quantity</code> of the magic with <code>name</code> (note that it is the full name, i.e., prefix+suffix like "FireBall") from our inventory.</p>
+                <p>If the magic cannot be found from the inventory (i.e. <code>get</code> on the corresponding table returns false), just return false.</p>
+                <p>There may be some extreme cases where <code>remove</code> returns false but the magic is actually there, you don't have to worry about those - just trust what <code>remove</code> returns.</p>
+                <p>If the inventory has this magic, check if there is enough stock to remove. If there is enough current stock, remove <code>quantity</code> from it, increase data member <code>profit</code> by the removed quantity multiplied by the magic's current price, and return true. If current stock is less than <code>quantity</code>, do nothing and return false.</p>
+                <p>Additionally, make sure that the magic is removed from the hash table when its quantity reaches 0. (by calling <code>remove</code> of the hash table for it)</p>
+                <p>Assume the given <code>quantity</code> is positive.</p>
+    <!--             <p>Please read the given test cases to learn exactly what is needed to be done and/or confirm your understanding. They covers all the scenarios described above.</p> -->
+                <p>To get the same accumulated comparison count as the expected output, you should do the following:
+                  <ul>
+                    <li>If there is enough stock to sell, <code>get</code> of the involved hash table (according to the prefix of the magic) should be called exactly once. </li>
+                    <li>If there is not enough stock to sell, <code>get</code> of the involved hash table should be called exactly once. </li>
+                    <li>If there is just enough stock to sell, both the <code>get</code> and <code>remove</code> of the involved hash table should be called exactly once. </li>
+                  </ul>
+                </p>
+                <br>
+
+                <pre class="language-cpp"><code class="language-cpp">void print() const;</code></pre>
+                <p>It prints the shop profit and the inventory (all 3 tables, one by one). Its implementation is given. It is your task to read and understand it yourself. We are not going to explain what it does for you.
+                </p>
+                <br>
+
+<!--                 <pre class="language-cpp"><code class="language-cpp">void printTable(HashTable* hashTable) const;</code></pre>
+                <p>It is used by the <code>print</code> function to print the details of one hash table. Its implementation is given. It is your task to read and understand it yourself. We are not going to explain what it does for you.
+                </p>
+                <br>
+                    void printTable(HashTable* hashTable) const
+    {
+        hashTable->print();
+        cout << "Active cell count = " << hashTable->getActiveCellCount() << endl;
+        cout << "Accumulated comparison count = " << hashTable->getAccumulatedComparisonCount() << endl;
+        cout << "Cluster count = " << hashTable->getClusterCount() << endl;
+        cout << "Largest cluster size = " << hashTable->getLargestClusterSize() << endl;
+        cout << "Cluster size list = " <<  hashTable->getClusterSizeSortedList() << endl;
+    }
+       -->      </p>
+          </div>
+        </div>
+
+
+
+
+
+        <div class="card mb-4">
+          <div class="card-body" id="sample-output">
+            <p>
+              <h3 class="card-title">Sample Output and Grading Scheme</h3>
+            </p>
+            <!--<br />-->
+
+            <!-- <b><span style="color:red">TODO: this section is to be updated after we have confirmed the test cases.</span></b> -->
+
+<p>
+  Your finished program should produce the same output as our <a href="expected.updated.zip">sample output</a> (<i>updated at 16:25pm on Apr 28th, see FAQ</i>) for all given test cases. User input, if any, is omitted in the files. Please note that sample output, naturally, does not show all possible cases. It is part of the assessment for you to design your own test cases to test your program. <u>Be reminded to remove any debugging message</u> that you might have added before submitting your code.
+</p>
+<!-- <p>You may want to use some difference checker such as <a href="https://www.diffchecker.com/">this</a> to compare your output with the sample output since the sample output is pretty long.</p>
+<p>
+  Also, after testing, <b>make sure your submitted code can compile with the unmodified main.cpp and header files that are not supposed to be modified</b>. Put in dummy/empty implementation whenever needed.
+</p> -->
+<!-- <p>Your program should terminate without any memory leak.</p> -->
+
+<p>There are 67 given test cases of which the code can be found in the given main.cpp file. These 67 test cases are first run without any memory leak checking (they are numbered #1 - #67 on ZINC). Then, the same 67 test cases will be run again, in the same order, with memory leak checking (those will be numbered #68 - #134 on ZINC). For example, test case #70 on ZINC is actually the given test case 2 (in the given main function) run with memory leak checking.</p>
+
+<p>Each of the test cases run without memory leak checking (i.e., #1 - #67 on ZINC) is worth 1 mark. The second run of each test case with memory leak checking (i.e., #68 - #134 on ZINC) is worth 0.25 mark. The maximum score you can get on ZINC, before the deadline, will therefore be 67*(1+0.25) = 83.75.</p>
+
+
+
+      <b>About memory leak and other potential errors</b>
+
+      <p>Memory leak checking is done via the <code>-fsanitize=address,leak,undefined</code> option (<a href="https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html">related documentation here</a>) of a recent g++ compiler on Linux (it won't work on Windows for the versions we have tested). Check the "Errors" tab (next to "Your Output" tab in the test case details popup) for errors such as memory leak. Other errors/bugs such as out-of-bounds, use-after-free bugs, and some undefined-behavior-related bugs may also be detected. You will get 0 mark for the test case if there is any error there. Note that if your program has no errors detected by the sanitizers, then the "Errors" tab may not appear. If you wish to check for memory leak yourself using the same options, you may follow our <a href="leak-checking/">Checking for memory leak yourself</a> guide.</p>
+
+      <b>After the deadline</b>
+      <p>We will have 34 additional test cases which won't be revealed to you before the deadline. Together with the 34 given test cases, there will then be 101 test cases used to give you the final assignment grade. All 101 test cases will be run two times as well: once without memory leak checking and once with memory leak checking. Note that, for this assignment, <u>we will give a higher score weighting to the hidden test cases.</u> The weighting will be determined later but all the hidden cases combined will definitely weight more than all the given ones combined. Additionally, if we found you had hardcoded your solution for the inputs in the given cases, penalty would be applied.<!-- The assignment total will therefore be 48*(1+0.25) = 60. --> Details will be provided in the marking scheme which will be released after the deadline.</p>
+      <!--
+
+<p>Here is a summary of the test cases for your information.</p>
+
+<table>
+  <tr>
+    <th>Main thing to test</th>
+    <th>Number of test cases in main before deadline (given test cases)</th>
+    <th>Number of test cases in main after deadline (given+hidden test cases)</th>
+  </tr>
+  <tr>
+    <td>print</td>
+    <td>3</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>default constructor</td>
+    <td>1</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>deep copy</td>
+    <td>1</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>array constructor</td>
+    <td>3</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>add</td>
+    <td>3</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>subtract</td>
+    <td>3</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>multiply</td>
+    <td>3</td>
+    <td>9</td>
+  </tr>
+  <tr>
+    <td>evaluate</td>
+    <td>2</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>compare</td>
+    <td>3</td>
+    <td>6</td>
+  </tr>
+</table> -->
+
+          </div>
+        </div>
+
+
+
+
+        <!-- Submission and deadline section -->
+        <!-- ### Complete submission and deadline section for the assignment ### -->
+        <div class="card mb-4">
+          <div class="card-body" id="submission">
+            <h3 class="card-title">Submission and Deadline</h3>
+            <p>
+              <u>Deadline: 23:59:00 on May 10th, 2022 (Tuesday)</u>
+            </p>
+          <!--   <br />
+            <p><b>Notice:</b> ZINC submission for assignment 1 will be open at a later time, as the ZINC team is doing some adjustments. If you want to check your program output, you may do so with our provided <a href="https://course.cse.ust.hk/comp2012/secret/Password_Only/assignments/assignment1/sample.zip">sample output</a> yourself meanwhile.</p> -->
+            <br>
+  <!--           <p>Please zip three cpp files only: <code>thing.cpp</code>, <code>cell.cpp</code> and <code>game.cpp</code>. Zip only these 3 files, NOT a folder containing them. Submit the zip file to <a href="http://zinc.cse.ust.hk">ZINC</a>. ZINC usage instructions can be found <a href="https://zinc.cse.ust.hk/guide">here</a>.</p>
+ -->
+            <p>Please zip and submit the following 5 files.
+                <ul>
+                    <li>openAddressingHashTable.cpp</li>
+                    <li>linearProbingHashTable.cpp</li>
+                    <li>quadraticProbingHashTable.cpp</li>
+                    <li>doubleHashingHashTable.cpp</li>
+                    <li>shop.cpp</li>
+                </ul>
+
+                Submit the zip file (no RAR, 7z, etc.) to <a href="http://zinc.cse.ust.hk">ZINC</a>. ZINC usage instructions can be found <a href="https://zinc.cse.ust.hk/guide">here</a>.</p>
+
+            <p>Notes:</p>
+            <ul>
+                  <li>You may submit your file multiple times, but only the last submission will be graded. <b>You do NOT get to choose which version we grade.</b> If you submit after the deadline, late penalty will be applied according to the submission time of your last submission.</li>
+                  <li>Submit early to avoid any last-minute problem. Only ZINC submissions will be accepted.</li>
+                  <li>The ZINC server will be very busy on the last few days especially in the last few hours, so you should expect you would get the grading result report not-very-quickly. However, as long as your submission is successful (i.e. you see "[Your name] submitted on [Some day] at [Some time]" without any error in the log), we would grade your latest submission with all test cases after the deadline.</li>
+                  <li>In the grading report, pay attention to various errors reported. For example, <b>under the "make" section, if you see a red cross, click on the STDERR tab to see the compilation errors.</b> You must fix those before you can see any program output for the test cases below.</li>
+                  <li>Make sure you submit the correct file yourself. You can download your own file back from ZINC to verify. Again, <b>we only grade what you uploaded last to ZINC</b>.</li>
+           </ul>
+
+            <!--
+            <p>Note: If you have no idea how to create a zip file, you may see <a href="https://www.laptopmag.com/articles/how-to-zip-files-windows-10">How
+                to create a zip file in Windows 10</a> or <a href="http://osxdaily.com/2012/01/10/how-to-zip-files-in-mac-os-x/">How
+                to create a zip file in Mac OS X</a> . <u>Zip just the 2 files, not a folder containing the 2 files.</u></p> -->
+
+
+
+            <p>
+              <h4>About any ZINC server / webpage / UI problem</h4>
+            </p>
+<p>
+If you see a blank page or some errors after some action on ZINC, you may try refreshing the page and repeating the action again, and it usually will work the second / third time. If it still doesn't work, try using another browser / private window. Please also email the details about the bug you encountered (potentially with a screenshot if that is helpful) to <u>zinc@cse.ust.hk</u> and they will try to fix the bug as soon as possible.</p>
+<p>
+Again, it is not unusual that reports may not be generated until hours later when deadline approaches. When the ZINC cannot give you the grading report quickly, please test your program on your own computer, and you may compare your output with the sample output we provided on the PA webpage yourself. Please do NOT resubmit the same file again and again, as it will lag the server and won’t make it give you the report faster.</p>
+<p>
+While you may not get the grading report quickly, as long as your submission is successful (the grading part and submission collection part are working separately on ZINC, and the submission collection part is usually responsive and stable), we would grade your latest submission with all test cases after the deadline, so don’t worry too much.</p>
+<p>
+If testing on a Linux machine (on which ZINC is operating) is needed for some reason, you may refer to previous section for instructions on remote-accessing a Linux lab machine. It is not exactly the ZINC server, but it is close in many scenarios, meaning you may be able to reproduce the crash/problems there.
+</p>
+
+
+
+                 <h4 id="virtual_barn">Compilation Requirement</h4>
+
+      <p>
+        It is <strong>required</strong> that your submissions can be compiled and run successfully in our online auto-grader ZINC. If we cannot even compile your work, it won't be graded. Therefore, for parts that you cannot finish, just put in dummy implementation so that your whole program can be compiled for ZINC to grade the other parts that you have done. Empty implementations can be like:
+      </p>
+      <pre><code class="language-cpp">int SomeClass::SomeFunctionICannotFinishRightNow()
+{
+    return 0;
+}
+
+void SomeClass::SomeFunctionICannotFinishRightNowButIWantOtherPartsGraded()
+{
+}</code></pre>
+
+
+
+            <p>
+              <h4>Late submission policy</h4>
+            </p>
+
+            <p>There will be a penalty of -1 point (out of a maximum 100 points) for
+              every minute you are late. For instance, since the deadline of the assignment is 23:59:00 on May 10th,
+              if you submit your solution at 1:00:00 on May 11th, there will be a penalty of -61 points for your
+              assignment. However, the lowest grade you may get from
+              an assignment is zero: any negative score after the deduction due to a late penalty (and any other
+              penalties) will be reset to zero.</p>
+
+          </div>
+        </div>
+
+
+        <!-- Description section -->
+        <!-- ### Complete description section for the assignment ### -->
+<!--         <div class="card mb-4">
+          <div class="card-body" id="leak">
+            <h3 class="card-title">Checking for memory leak</h3>
+            <p class="card-text">
+      <p>One of our test cases (test case 10) check for memory leak. You can try it on ZINC.</p>
+
+    </p>
+</div>
+</div> -->
+
+
+        <!-- FAQ section -->
+        <!-- ### Complete FAQ section for the assignment ### -->
+        <div class="card mb-4">
+          <div class="card-body" id="faq">
+            <h3 class="card-title">FAQ</h3>
+            <p>
+              <h4>Frequently Asked Questions</h4>
+            </p>
+	    <br/>
+            <p>Q: My code doesn't work / there is an error, here is the code, can you help me fix it?</p>
+            <p>A: As the assignment is a major course assessment, to be fair, you are supposed to work on it on your own and we should not finish the tasks for you. We might provide some very general hints to you, but we shall not fix the problem or debug for you.</p>
+<br>
+            <p>Q: Can I add extra helper functions?</p>
+            <p>A: You may do so in the files that you are allowed to modify and submit. That implies you cannot add new member functions to any given class.</p>
+<br>
+            <p>Q: Can I include additional libraries?</p>
+            <p>A: No. Everything you need is already included - there is no need for you to add any include statement (under our official environment).</p>
+<br>
+            <p>Q: Can I use global variable or static variable such as "static int x"?</p>
+            <p>A: No.</p>
+<br>
+            <p>Q: Can I use "auto"?</p>
+            <p>A: No.</p>
+<br>
+            <p>Q: Can I use "goto"?</p>
+            <p>A: No.</p>
+<br>
+          <p>
+            Q: Can I use function X or class Y in this assignment?
+          </p>
+          <p>
+            A:  In general if it is not forbidden in the description and the previous FAQs, and you can use it without including any additional library on ZINC, then you can use it. We suggest quickly testing it on ZINC (to see if a basic usage of it compiles there) before committing to using it as library inclusion requirement may differ on different environments.
+          </p>
+<br>
+            <p>Q: My program gives the correct output on my computer, but it gives a different one on ZINC. What may be the cause?</p>
+            <p>A: Usually inconsistent strange result (on different machines/platforms, or even different runs on the same machine) is due to relying on uninitialized hence garbage values, missing return statements, accessing out-of-bound array elements, improper use of dynamic memory, or relying on library functions that might be implemented differently on different platforms (such as pow() in cmath).<br>
+            You may find a list of common causes and tips on debugging in the notes <a href="http://wallacem.people.ust.hk/notes/on-common-c-runtime-errors/">here</a>.<br>
+            In this particular PA, it is probably related to misuse of dynamic memory. Good luck with bug hunting! </p>
+<br>
+            <p>Q: Can I use a variabe as the size of a static array?</p>
+            <p>A: No. Per the official C++ standard, which our course follows, a static array size must be a constant expression. It is an unofficial feature supported by some compiler extensions. On ZINC, we have added a compilation flag "-Werror=vla" to g++ so that violating this standard will trigger a compilation error. If you need a variable-sized array, please use dynamic arrays.</p>
+<br>
+            <p>Q: Should we stop at the first EMPTY cell we find during <code>get</code> and <code>remove</code> operations? In other words, finding an EMPTY cell should be one of the stopping criteria (early termination), right?</p>
+            <p>A: Yes. There was a mistake in the description and sample output which has been fixed at 16:25pm on Apr 28th, as announced on Canvas. Sorry about that. For details, we have bolded the updated/additional description in the description of the <code>add</code> and <code>remove</code> functions, as well as the <a href="#example">Hashing example</a> section for you to see the update clearly.</p>
+<br>
+            <p>Q: Is there anything to print with cout when the addition fails?</p>
+            <p>A: There is a given test case for that. Please study the given main.cpp file and the corresponding sample output. In general, the detailed examples on this webpage and the given test cases should be sufficient for you to infer what to print in each situation. You should study them to verify / help with your own understanding of the requirements.</p>
+<br>
+            <p>Q: In the case where we encounter an EMPTY cell during the <code>get</code> and <code>remove</code> operations, how many comparisons/steps should we add to the "accumulated comparison count"?</p>
+            <p>A: You just need to add to it the number of comparisons needed to reach the EMPTY cell. You can find an example of it in the <a href="#example">Hashing example</a> section. We just added this clarification to the function description for <code>get</code> and <code>remove</code> to make it clearer at 11:50am on Apr 29th.</p>
+<br>
+            <p>Q: For <code>stockUp</code>, how many <code>get</code> and <code>add</code> function calls should be made to arrive at the same "accumulated comparison count" as the expected output?</p>
+            <p>A: It is basically the minimal number of operations required. You can follow this guideline:<ul>
+                    <li><code>get</code> should always be called exactly once in all scenarios. </li>
+                    <li>Only call <code>add</code> exactly once when the item needs to be added to the table.</li>
+                  </ul>
+
+            </p>
+<br>
+            <p>Q: For <code>add</code>, can I assume magic won't be a nullptr?</p>
+            <p>A: Yes.</p>
+<br>
+            <p>Q: For <code>stockUp</code>, can I assume the given magic name is valid? For example, its prefix must be "Fire", "Ice", and "Lightning", right?</p>
+            <p>A: Yes. In general you can assume all inputs are valid.</p>
+<br>
+            <p>Q: For <code>performRehashing</code>, what should we do to the DELETED cells?</p>
+            <p>A: Since the whole point of rehashing is to "start over" with a bigger table in a sense. You should just ignore the DELETED cells, and only add the ACTIVE cells back to the new table, you won't have any DELETED cell left after the expansion as a result.</p>
+<br>
+            <p>Q: For <code>get</code> and <code>remove</code>, what should we do when we encounter a DELETED cell?</p>
+            <p>A: See this <a href="https://piazza.com/class/kyjolo409tz21x?cid=539">post</a>.</p>
+<br>
+            <p>Q: For <code>add</code>, it seems that it is impossible to return false if we perform rehashing to enlarge the table whenever there is not enough space?</p>
+            <p>A: It is possible if the hash function is “bad” where some cells may be visited more than 1 time. You can refer to one of the given test cases where the addition fails. Again, please do read the example and study the given test cases.</p>
+
+
+            <br>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-3">
+        <div class="sticky-top">
+        <!-- Menu Widget -->
+        <div class="card my-12">
+          <h5 class="card-header">Menu</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <ul class="mb-0" type="circle" style="padding-left:20px">
+                  <li>
+                    <a href="#introduction">Introduction</a>
+                  </li>
+                  <li>
+                    <a href="#download">Download</a>
+                  </li>
+                  <li>
+                    <a href="#cd">Class diagram for the hash table classes</a>
+                  </li>
+                  <li>
+                    <a href="#structs">Useful structs</a>
+                  </li>
+                  <li>
+                    <a href="#ht">HashTable</a>
+                  </li>
+                  <li>
+                    <a href="#oaht">OpenAddressingHashTable</a>
+                  </li>
+                  <li>
+                    <a href="#lpht">LinearProbingHashTable</a>
+                  </li>
+                  <li>
+                    <a href="#qpht">QuadraticProbingHashTable</a>
+                  </li>
+                  <li>
+                    <a href="#dhht">DoubleHashingHashTable</a>
+                  </li>
+                  <li>
+                    <a href="#example">Hashing example</a>
+                  </li>
+                  <li>
+                    <a href="#s">Shop</a>
+                  </li>
+           <!--        <li>
+                    <a href="#misc">The misc.cpp file</a>
+                  </li> -->
+                  <li>
+                    <a href="#sample-output">Sample Output &amp; Grading Scheme</a>
+                  </li>
+
+                  <li>
+                    <a href="#submission">Submission &amp; Deadline</a>
+                  </li>
+           <!--        <li>
+                    <a href="#leak">Checking for memory leak</a>
+                  </li> -->
+                  <li>
+                    <a href="#faq">FAQ</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Maintainance widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Page maintained by</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    Wallace Mak
+                  </li>
+                  <li>
+                    Email:
+                    <a href="mailto:wallacem@cse.ust.hk">wallacem@cse.ust.hk</a>
+                  </li>
+                  <li>Last Modified:
+                    <script type="text/javascript">document.write(document.lastModified);</script>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Homepage widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Homepage</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="../../">Course Homepage</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Maintained by COMP 2012 Teaching Team &copy; 2022 HKUST Computer Science
+        and Engineering</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../../js/jquery.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,447 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- ### Change assignment number ### -->
+  <title>COMP 2012 Lab 3: Namespace</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/blog-home.css" rel="stylesheet">
+
+  <style>
+    .input {
+      color: #ff0000;
+    }
+  </style>
+
+  <style>
+    pre {
+      background: #f4f4f4 !important;
+      border: 1px solid #ddd !important;
+      border-left: 3px solid #f36d33 !important;
+      color: #666 !important;
+      page-break-inside: avoid !important;
+      font-family: monospace !important;
+      font-size: 14px !important;
+      line-height: 1.6 !important;
+      margin-bottom: 1.6em !important;
+      max-width: 100% !important;
+      overflow: auto !important;
+      padding: 1em 1.5em !important;
+      display: block !important;
+      word-wrap: break-word !important;
+    }
+    #download input[type=checkbox ]{
+    display: none;
+    }
+    #download input[type=checkbox]:checked ~ .remove-check{
+        display: none;
+    }
+    #download input[type=checkbox]:checked ~ #message{
+        display: block;
+    }
+    #message{
+        display: none;
+    }
+    <style scoped>
+    .conflicting-class { ... }
+    </style>
+  </style>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+</head>
+
+<body>
+
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Entries Column -->
+      <div class="col-md-9">
+
+        <h4 class="my-4">
+          <span style="color:darkblue">COMP 2012</span>
+          <small>Object-Oriented Programming and Data Structures</small>
+        </h4>
+
+        <!-- ### Change assignment number and title ### -->
+        <h3 class="my-4">Lab 3
+          <span style="color:#660066">Namespace</span>
+        </h3>
+        <div class="mb-4">
+            <img src="../../img/front.jpg" width=100%>
+        </div>
+        <!-- Introduction section -->
+        <!-- ### Complete introduction section for the assignment ### -->
+
+
+        <div class="card mb-4">
+            <div class="card-body" id="introduction">
+                <h3 class="card-title">Introduction</h3>
+                <p>
+                 In this lab, we are going to design an event query system for visitors to check events held by different Schools and Departments for the HKUST 30th Anniversary! To do that, we will use C++ Namespaces. We will define a namespace for each School or Department, which contains some necessary variables and functions. We will implement a function to let the users select interested School or Department, and then call the correct function to list available events according to the user inputs.
+                </p>
+
+                <p>We will finish this task based on a skeleton code provided in <a href="source.zip">source files</a>. Before getting started,
+                   please read the <a href="../../notes/h.namespace.pdf">Namespace Lecture Notes</a>.</p>
+
+                <h4 id="overview">Overview</h4>
+
+                <p>
+                    In this lab, we have six namespaces:
+                    <ul>
+                        <li>Namespace <code>engineering</code> (Denote the School of Engineering).</li>
+                        <ul>
+                            <li>Nested namespace <code>cse</code> (Denote the Department of CSE).</li>
+                            <li>Nested namespace <code>ece</code> (Denote the Department of ECE).</li>
+                        </ul>
+                        <li>Namespace <code>science</code> (Denote the School of Science).</li>
+                        <ul>
+                            <li>Nested namespace <code>math</code> (Denote the School of Mathematics).</li>
+                            <li>Nested namespace <code>physics</code> (Denote the School of Physics).</li>
+                        </ul>
+                    </ul>
+
+                    Each of the above namespaces (a school or department) will contain some events, defined as variables in the namespace, and
+                    a function to print out these events. Therefore, when a user specifies a school of department, the system will be able to print
+                    out the corresponding events. The following code shows the definitions of these namespaces:
+                </p>
+
+                <ol>
+
+                    <li>
+                        The <code>engineering</code> namespace and nested namespaces <code>cse</code>, <code>ece</code> (in <code>school-namespaces.h</code>):
+                        <pre>
+namespace engineering
+{
+    void show_events();
+    namespace cse {
+        extern std::string events[];
+        void show_events();
+    }
+    namespace ece {
+        extern std::string events[];
+        void show_events();
+    }
+}
+</pre>
+Note: the <code>extern</code> keyword used in the above code means we only declare the <code>events</code> variable in this head file, and will define it in other places.
+For more usages, please refer to <a href="https://docs.microsoft.com/en-us/cpp/cpp/extern-cpp?view=msvc-170">extern</a>.
+                    </li>
+
+                    <li>
+                        The <code>science</code> namespace and nested namespaces <code>math</code>, <code>physics</code> (in <code>school-namespaces.h</code>):
+                        <pre>
+namespace science
+{
+    void show_events();
+    extern std::string events[];
+    namespace math {
+        extern std::string events[];
+        void show_events();
+    }
+    namespace physics {
+        extern std::string events[];
+        void show_events();
+    }
+}
+</pre>
+                    </li>
+                </ol>
+                Note that the content of <code>events</code> variables and the body of <code>show_events</code> functions are defined in in <code>school-namespaces.cpp</code>.
+                For example, the events of the Department of CSE and the Department of ECE are respectively defined as follows:
+                <ul>
+                    <li>
+                        The events of the Department of CSE (in <code>school-namespaces.cpp</code>):
+                    <pre>
+string events[] {
+    "9:00 Making Machine Learning Automated and Trustworthy.",
+    "11:00 The Next Frontier in Type Inference.",
+    "14:00 AI-Human Teaming for Decision Making."
+}; </pre>
+                </li>
+                <li>
+                    The events of the Department of ECE (in <code>school-namespaces.cpp</code>):
+                <pre>
+string events[] {
+    "15:00 2D Materials, from Academia to Industry.",
+    "16:00 Bridging Vision and Language for Cross-Modal Understanding and Generation."
+}; </pre>
+            </li>
+            </ul>
+            However, the variable and function names are shared across namespaces (the compiler/linker will complain about multiple definitions of events in the above code). To avoid ambiguities, you will need to fix the above code by specifying the namespace for each variable or function definitions.
+
+<div>
+Finally, we will implement a query function in <code>events-query.cpp</code>, which asks the users to select the interested Department or School, and call the
+correct <code>show_events</code> function as defined in <code>school-namespaces.cpp</code>. We have provided most parts of the code, you need to fill in the gaps
+to speficy namespaces and call the corresponding printing functions:
+<ul>
+    <li>
+        Definition of the query function (in <code>events-query.cpp</code>):
+    <pre>
+#include <iostream>
+#include "school-namespaces.h"
+
+// Note: You are supposed to insert new lines in this file, but not modify/delete existing lines!
+// TODO 1: Specify namespaces to be used in this file.
+
+
+void QueryEvents() {
+    cout << "Select the school: 1. School of Engineering; 2. School of Science:";
+    char choice;
+    while(cin >> choice) {
+        if (choice == '1' || choice == '2')
+            break;
+        else
+            cout << "Select from 1 or 2." << endl;
+    }
+
+    if(choice == '1') {
+        cout << "Select the department: 1. Department of CSE; 2. Department of ECE; 3. All Departments:";
+        // TODO 2: Call the corresponding show_events function according to input.
+
+    }
+    else {
+        cout << "Select the department: 1. Department of Mathematics; 2. Department of Physics; 3. All Departments:";
+        // TODO 3: Call the corresponding show_events function according to input.
+
+    }
+} </pre>
+</li>
+</ul>
+
+</div>
+</div>
+        </div>
+
+
+
+        <div class="card mb-4">
+            <div class="card-body" id="labtask">
+                <h3 class="card-title">Lab tasks</h3>
+                <p class="card-text">
+
+                    <ol>
+                        <li>
+                            Finish the TODOs in <code>school-namespaces.cpp</code>.
+                            <ul>
+                                <li> Fix the definitions of <code>events</code> variables and <code>show_events</code> functions to eliminate ambiguities.</li>
+                                <li> Complete the function body of <code>show_events</code> for the School of Engineering. Note that in this function, you need to print
+                                out events of both the CSE and ECE Departments.</li>
+                                <li> Complete the function body of <code>show_events</code> for the School of Science. Note that the School of Science has events independent
+                                of departments. In this function, you need to print out events of the School and events of both the Mathematics and Physics Departments.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            Finish the TODOs in <code>events-query.cpp</code> (<strong>You should only insert new lines to this file, but not modify/delete existing lines!</strong>).
+                            <ul>
+                                <li>Specify namespaces to be used in this file.</li>
+                                <li>Call the correct show_events function according to user input. When selecting the departments, the option <code>3. ALL</code>
+                                means printing all events of the school. </li>
+                            </ul>
+                        </li>
+                        <li>
+                            Run the Makefile by <code>make</code> to build the executable (i.e., <code>main.exe</code>).
+                        </li>
+                        <li>Run <code>main.exe</code>, check with the input selections and expected output below (inputs are in red):</li>
+                        <ol>
+                            <li>
+                                <pre>
+Welcome to 30th Anniversary of HKUST! Check Events by Department:
+Select the school: 1. School of Engineering; 2. School of Science:<span class="input">1</span>
+Select the department: 1. Department of CSE; 2. Department of ECE; 3. All Departments:<span class="input">1</span>
+Welcome to Department of CSE!
+9:00 Making Machine Learning Automated and Trustworthy.
+11:00 The Next Frontier in Type Inference.
+14:00 AI-Human Teaming for Decision Making.</pre>
+                            </li>
+
+                            <li>
+                                <pre>
+Welcome to 30th Anniversary of HKUST! Check Events by Department:
+Select the school: 1. School of Engineering; 2. School of Science:<span class="input">1</span>
+Select the department: 1. Department of CSE; 2. Department of ECE; 3. All Departments:<span class="input">2</span>
+Welcome to Department of ECE!
+15:00 2D Materials, from Academia to Industry.
+16:00 Bridging Vision and Language for Cross-Modal Understanding and Generation. </pre>
+                            </li>
+
+                            <li>
+                                <pre>
+Welcome to 30th Anniversary of HKUST! Check Events by Department:
+Select the school: 1. School of Engineering; 2. School of Science:<span class="input">1</span>
+Select the department: 1. Department of CSE; 2. Department of ECE; 3. All Departments:<span class="input">3</span>
+Welcome to School of Engineering!
+9:00 Making Machine Learning Automated and Trustworthy.
+11:00 The Next Frontier in Type Inference.
+14:00 AI-Human Teaming for Decision Making.
+15:00 2D Materials, from Academia to Industry.
+16:00 Bridging Vision and Language for Cross-Modal Understanding and Generation.</pre>
+                            </li>
+
+                            <li>
+                                <pre>
+Welcome to 30th Anniversary of HKUST! Check Events by Department:
+Select the school: 1. School of Engineering; 2. School of Science:<span class="input">1</span>
+Select the department: 1. Department of CSE; 2. Department of ECE; 3. All Departments:<span class="input">4</span>
+Invalid input.</pre>
+                            </li>
+
+                            <li>
+                                <pre>
+Welcome to 30th Anniversary of HKUST! Check Events by Department:
+Select the school: 1. School of Engineering; 2. School of Science:<span class="input">2</span>
+Select the department: 1. Department of Mathematics; 2. Department of Physics; 3. All Departments:<span class="input">1</span>
+Welcome to Department of Mathematics!
+16:00 Rate of blow up in the thin obstacle problem.</pre>
+                            </li>
+
+                            <li>
+                                <pre>
+Welcome to 30th Anniversary of HKUST! Check Events by Department:
+Select the school: 1. School of Engineering; 2. School of Science:<span class="input">2</span>
+Select the department: 1. Department of Mathematics; 2. Department of Physics; 3. All Departments:<span class="input">2</span>
+Welcome to Department of Physics!
+11:00 Interfacial Dynamics between a Hydrogel and a Fluid: Modeling and Simulation.
+14:00 Application of Flow Model to Theoretical Physics.</pre>
+                            </li>
+
+                            <li>
+                                <pre>
+Welcome to 30th Anniversary of HKUST! Check Events by Department:
+Select the school: 1. School of Engineering; 2. School of Science:<span class="input">2</span>
+Select the department: 1. Department of Mathematics; 2. Department of Physics; 3. All Departments:<span class="input">3</span>
+Welcome to School of Science!
+10:00 A variational approach to describe the moduli space of minimal immersions in hyperbolic.
+16:00 Rate of blow up in the thin obstacle problem.
+11:00 Interfacial Dynamics between a Hydrogel and a Fluid: Modeling and Simulation.
+14:00 Application of Flow Model to Theoretical Physics.</pre>
+                            </li>
+                    </ol>
+                    </ol>
+                </p>
+
+            </div>
+        </div>
+
+      <div class="card mb-4">
+          <div class="card-body" id="submission">
+              <h3 class="card-title">Submission Deadline and Guidelines:</h3>
+              <p class="card-text">
+                  The due date and time will be <span style="color:red">10-min after your lab session</span>.
+                  You are supposed to upload the following files in an archive to <a href="http://zinc.cse.ust.hk">ZINC</a>:
+<pre>
+- school-namespaces.cpp
+- events-query.cpp
+</pre>
+                  You can submit your codes multiple times by the deadline. Only the last submission will be graded.
+</div>
+      </div>
+
+
+
+        <!-- Description section -->
+        <!-- ### Complete description section for the assignment ### -->
+
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-3">
+        <div class="sticky-top">
+          <!-- Menu Widget -->
+          <div class="card my-12">
+            <h5 class="card-header">Menu</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="mb-0" type="circle" style="padding-left:20px">
+                    <li>
+                      <a href="#introduction">Introduction</a>
+                    </li>
+                    <li>
+                      <a href="#labtask">Lab Tasks</a>
+                    </li>
+                    <li>
+                       <a href="source.zip">Source Files</a>
+                    </li>
+                    <li>
+                      <a href="#submission">Submission</a>
+                    </li>
+                    <li>
+                      <a href="../../notes/h.namespace.pdf">Lecture notes</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Maintainance widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Page maintained by</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="mailto:mzhangbj@ust.hk">Mingyang Zhang</a>
+                    </li>
+                    <li>Last Modified:
+                      <script type="text/javascript">document.write(document.lastModified);</script>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Homepage widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Homepage</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="../../">Course Homepage</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Maintained by COMP 2012 Teaching Team &copy; 2022 HKUST Computer Science
+        and Engineering</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../../js/jquery.min.js"></script>
+  <script src="../../js/bootstrap.min.js"></script>
+</body>
+
+</html>

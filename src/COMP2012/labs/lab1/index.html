@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- ### Change assignment number ### -->
+  <title>COMP 2012 Lab 1: Makefile and Separate Compilation</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/blog-home.css" rel="stylesheet">
+
+  <style>
+    pre {
+      background: #f4f4f4 !important;
+      border: 1px solid #ddd !important;
+      border-left: 3px solid #f36d33 !important;
+      color: #666 !important;
+      page-break-inside: avoid !important;
+      font-family: monospace !important;
+      font-size: 14px !important;
+      line-height: 1.6 !important;
+      margin-bottom: 1.6em !important;
+      max-width: 100% !important;
+      overflow: auto !important;
+      padding: 1em 1.5em !important;
+      display: block !important;
+      word-wrap: break-word !important;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+</head>
+
+<body>
+
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Entries Column -->
+        <div class="col-md-9">
+
+            <h4 class="my-4">
+                <span style="color:darkblue">COMP 2012</span>
+                <small>Object-Oriented Programming and Data Structures</small>
+            </h4>
+
+            <!-- ### Change assignment number and title ### -->
+            <h3 class="my-4">
+                Lab 1
+                <span style="color:#660066">Makefile and Separate Compilation</span>
+            </h3>
+            <div class="mb-4">
+                <img src="../../img/front.jpg" width=100%>
+            </div>
+
+            <!-- Introduction section -->
+            <!-- ### Complete introduction section for the assignment ### -->
+
+            <div class="card mb-4">
+                <div class="card-body" id="introduction">
+                    <h3 class="card-title">Welcome Back</h3>
+                    <p class="card-text">
+                    <p>
+                        In this lab, we are going to practice separate compilation using Makefile.
+                        We are going to design a reception bot for visitors using C++ code.
+                        You are given some source codes
+                        (.h/.cpp), which are almost complete. You will learn
+                        about the basic usage of Makefile, work with the Makefile and add a few lines in some
+                        files. Before implementation, you could read <a href="../../notes/h.makefile.pdf"> the Makefile lecture notes</a>.
+                        The source files are available <a href="source.zip">HERE</a>.
+                    </p>
+
+                    <h4>1. What is Separate Compilation?</h4>
+                    <p>
+                        Suppose you have a program that consists of 3 cpp files: <code>file1.cpp</code>, <code>file2.cpp</code>,
+                        and <code>file3.cpp</code>.
+                    </p>
+                    <p>
+                        With the g++ command, one can compile the program with the following command that produces an executable
+                        named <code>a.out</code>
+                    </p>
+                    <pre>g++ -o a.out file1.cpp file2.cpp file3.cpp</pre>
+                    <p>
+                        Any changes to any 3 files (e.g., just editing a line in <code>file1.cpp</code>) will require the
+                        g++ compiler to recompile all 3 cpp files to generate the updated executable.
+                    </p>
+                    <p>This is inefficient. To alleviate this problem, we can make use of separate compilations.</p>
+                    <p>To perform separate compilations, we use the following commands instead.</p>
+                    <pre>
+g++ -c file1.cpp
+g++ -c file2.cpp
+g++ -c file3.cpp
+g++ -o a.out file1.o file2.o file3.o
+</pre>
+                    <p>
+                        Each of the first 3 commands will individually compile <code>fileN.cpp</code>
+                        into <code>fileN.o</code> - an object file (which is not executable) containing
+                        the compiled code for the corresponding cpp file. The last command then simply
+                        links those object files together to generate the final executable a.out.
+                    </p>
+                    <img src="link.png">
+                    <p>Now, say, if a line is edited in <code>file1.cpp</code>, we just need to execute:</p>
+                    <pre>
+g++ -c file1.cpp
+g++ -o a.out file1.o file2.o file3.o
+</pre>
+                    <p>
+                        And an updated executable would be generated because the existing file2.o and file3.o can simply be
+                        reused.
+                    </p>
+
+
+
+                    <br>
+                    <h4>2. Makefile</h4>
+                    <p>
+                        Makefile allows us to create a set of compilation rules for your programming project. It is very useful
+                        for separate compilation. A Makefile consists of a number of rules. The rules have the following syntax:
+                    </p>
+
+                    <pre>
+[Name of rule (target) #1]: [List of dependent files/targets, separated by a space]
+[Press a tab character here][Command 1 to be executed]
+[Press a tab character here][Command 2 to be executed]
+...
+[Press a tab character here][Command N to be executed]
+[Empty lines....]
+[Name of rule (target) #2]: [List of dependent files/targets, separated by a space]
+[Press a tab character here][Command 1 to be executed]
+[Press a tab character here][Command 2 to be executed]
+...
+[Press a tab character here][Command N to be executed]
+[Empty lines....]
+</pre>
+
+                    <p>
+                        The name of a rule is also called its target. When a rule is executed, all its dependent files/targets will first be generated using the
+                        rules of the same names (e.g., a dependent file "main.exe" can be generated by the rule named
+                        "main.exe") unless the files are already there and up-to-date. Then, after all dependent files are
+                        generated, the commands under the rule will be executed.
+                    </p>
+
+                    <p>
+			The first rule in a Makefile will be executed by default when
+                        you simply run the command <code>make</code> (without mentioning the target/rule name), In the given Makefile, it will be the rule "all".
+                        Note that, however, the first target is generally not necessarily called "all"; it can be anything you
+                        want.
+                    </p>
+
+                    <p>
+                        We usually write a rule to clean up a folder by removing all the temporary files (e.g. executable and
+                        object files). In the given Makefile, to execute that, you will have to run the command <code>
+                            make
+                            clean</code>.
+
+                    <p>You need these three commands in this lab.</p>
+
+
+                    <p>To create an object file (e.g., main.o) from a source file (e.g., main.cpp):</p>
+                    <pre>
+g++ -std=c++11 -o <u>Output filename</u> -c <u>Source file name</u>
+</pre>
+                    <p>To link the object files together to make an executable:</p>
+                    <pre>
+g++ -std=c++11 -o <u>Output filename</u> <u>Object file name 1</u> <u>Object file name 2</u> ... <u>Object file name N</u>
+</pre>
+                    <p>To delete files:</p>
+                    On Windows:
+                    <pre>
+del <u>File name pattern</u>
+</pre>
+                    Or, on Linux/MacOS:
+                    <pre>
+rm -f <u>File name pattern</u>
+</pre>
+                    <p>
+                        Note: it is possible to detect which OS is being used and pick the command automatically in the Makefile,
+                        but it is slightly complicated, so just write the command that works for the OS you are using (please
+                        edit the provided Makefile accordingly yourself).
+                    </p>
+
+                    <h5>2.1 Meta Rule</h5>
+                    You may notice that we have many .cpp files and most of them are doing the same line. To save up the
+                    copy and paste work, we can define a meta-rule instead. The
+following meta rule is used to generate
+                    <i>any_name</i>.o file:
+                    <pre>
+%.o: %.cpp
+	g++ -std=c++11 -c $< -o $@
+</pre>
+                    The <code>%</code> symbol means any name. So the rule simply says any .o file
+                    depends on its corresponding .cpp file. The command to be executed under this rule
+                    uses g++ to compile the .cpp source file to its .o object file.
+                    <ul>
+                        <li>
+                            <code>-c $< </code> : Specify the source file name <code>%.cpp</code> as the first dependent file.
+                        </li>
+                        <li> <code>-o $@ </code> : Specify the output file name <code>%.o</code> as the target.</li>
+                    </ul>
+
+
+
+                    <p>
+                        Note: Due to a convention, we usually write the makefile file
+name "Makefile" with a capital "M". For
+                        details, read <a href="http://stackoverflow.com/questions/12669367/should-i-name-makefile-or-makefile/12686411#12686411">
+                            this
+                            discussion</a>.
+                    </p>
+
+
+
+
+
+
+                    <br>
+                    <h4>3. Add the source code</h4>
+                    <p>
+                        We use VS Code for this semester. You may refer to our <a href="https://course.cse.ust.hk/comp2011/labs/vscode/">VS Code tutorial page</a> for setup and usage
+                        instructions. You may also refer to our <a href="../../add-flag2vscode.txt">
+                            How to
+                            add "-std=c++11" to VS Code
+                        </a> for help with compiling.
+                    </p>
+
+                    <p>
+                        Download the <a href="source.zip">source files</a>.
+Unzip/extract the zip file and open the extracted
+                        folder. See <a href="https://course.cse.ust.hk/comp2011/labs/vscode/#terminal">
+                            Creating a project and
+                            using the terminal for custom compilation command
+                        </a> section of our VS Code tutorial on how to open the
+                        folder (you don't need to create a new folder because the folder is already there after the extraction).
+                        You may also find the instructions there useful in the latter
+part of this lab, where you will need to enter
+                        some commands in the terminal in VS Code.
+                    </p>
+
+                    <br>
+                    <h4>4. Read the .cpp/.h files</h4>
+
+                    <p>
+                        There are many files to read, while most of them contain
+several lines of code only. You are suggested
+                        to begin with the files <strong>main.cpp, openningMessage.cpp, QA.cpp</strong>.
+                    </p>
+
+                    <pre class="prettyprint">
+//main.cpp
+#include "openningMessage.h"
+
+int main() {
+    sayHello();
+    return 0;
+}
+</pre>
+
+                    <pre class="prettyprint">
+//openningMessage.cpp
+#include &lt;iostream&gt;
+
+using namespace std;
+
+int sayHello() {
+    cout << "Hello, visitors!" << endl;
+    cout << "Welcome to HKUST 30th Anniversary!" << endl;
+    return 0;
+}
+</pre>
+
+                    <pre class="prettyprint">
+//QA.cpp
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+int QA() {
+    cout << "What do you want to check (1: Today's event, 2: History of HKUST, 3: Quit)? ";
+    string reply;
+    while (cin >> reply) {
+        if (reply == "1") {
+            cout << "Today's event" << endl;
+        } else if (reply == "2") {
+            cout << "History of HKUST" << endl;
+        } else if (reply == "3") {
+            break;
+        } else {
+            cout << "Please enter the number 1, 2 or 3 (1: Today's event, 2: History of HKUST, 3: Quit)" << endl;
+        }
+
+        // repeat the message
+        cout << "What do you want to check (1: Today's event, 2: History of HKUST, 3: Quit)? ";
+    }
+
+    cout << "Have a nice day in HKUST!!!" << endl;
+
+    return 0;
+}
+</pre>
+
+
+                    <p>
+                        So, for example, <code>main.exe</code> needs
+different functions in openningMessage and QA c++ files. You need to deduce the
+                        dependency and write them in the Makefile.<br />
+                    </p>
+
+
+                    <br>
+                    <h4>5. Open the Makefile in VS Code</h4>
+                    <p>You should see:</p>
+                    <pre>
+CPPFLAGS = -std=c++11
+all: main.exe
+
+main.exe: openningMessage.o main.o
+	g++ -o $@ $(CPPFLAGS) openningMessage.o main.o
+
+
+%.o: %.cpp
+	g++ $(CPPFLAGS) -c $< -o $@
+
+clean:
+  del  *.o *.exe
+# On Windows, use: del *.o *.exe
+# On Linux or MacOS, use: rm -f *.o *.exe
+</pre>
+
+                    <p>
+                        Note: change "del *.o *.exe" to "rm -f *.o *.exe" under the "clean" rule if you are using Linux or MacOS.
+                    </p>
+
+                    <p>Beware that the indentations are all just single tab characters as described in the previous section.</p>
+
+                    <p>Extra: noted that we are only dealing with ".cpp" files here, how about ".h" files? You could read "make depend section" in the <a href="../../notes/h.makefile.pdf"> the Makefile lecture notes</a>! For Windows users, since <code>makedepend</code> is a Unix command, we need to download the <code>makedepend.exe</code> <a href="https://sourceforge.net/projects/unxutils/files/unxutils/current/">here</a>. Unzip the downloaded zip files and you will be able to find the makedepend.exe in UnxUtils\usr\local\wbin. You may now add the rule to the Makefile.</p>
+                    <pre>
+depend:
+	path\to\UnxUtils\usr\local\wbin\makedepend -o.o $(SRCS)
+                      </pre>
+                      <p>Note: by default the win32 version prints .obj, so we need to use the <code>-o.o</code> option. Besides <code>makedepend</code>, you might also try the similar feature built into GCC with the <code>-MM</code> flag (i.e. <code>g++ -MM *.cpp</code>) without downloading anything.
+                        The difference between <code>g++ -MM</code> and <code>makedepend</code> is that <code>makedepend</code> change the Makefile automatically and <code>g++ -MM</code> only print the dependency on screen (we need to copy those dependencies to the <code>Makefile</code> manually).</p>
+                </div>
+            </div>
+
+            <br>
+            <div class="card mb-4">
+                <div class="card-body" id="labtask">
+                    <h3 class="card-title">Lab tasks</h3>
+                    <p class="card-text">
+
+                        <h4>Task 1: Make and run the exe files</h4>
+
+                    <p>
+                        In the terminal (see the tutorial on how to open the terminal
+in VS Code), enter the "make" commands to
+                        compile the project using the Makefile. Afterwards, you can
+enter the command "./main.exe" to run the
+                        generated programs.
+                    </p>
+
+                    <p>The program "main.exe" should show:</p>
+
+                    <pre>
+Hello, visitors!
+Welcome to HKUST 30th Anniversary!
+</pre>
+
+
+                    <br>
+                    <h4>Task 2: Modify the Makefile to include function in QA.cpp</h4>
+                    <p>
+                        Reception bot program should allow visitors to ask some questions. Modify the Makefile to include the Q&A function.
+                        You should update the rule of <code>main.exe</code> in <code>Makefile</code> to include QA object file. Also remember to include the header file of <code>QA</code> in <code>main.cpp</code> and add the function <code>QA()</code> in the <code>main</code> function of the <code>main.cpp</code>.
+                        Visitors can then ask some questions by entering number 1 or 2 and quit the program by entering number 3.
+                        <br/></br>
+                        When you run
+                        <code>main.exe</code>, it shows:
+                    </p>
+                    <pre>
+Hello, visitors!
+Welcome to HKUST 30th Anniversary!
+What do you want to check (1: Today's event, 2: History of HKUST, 3: Quit)?
+</pre>
+
+
+                    <br>
+                    <h4>Task 3: Update the openningMessage.cpp and Make main.exe
+                      Again</h4>
+                    The bot should also introduce itself to the visitors.
+                    Please edit the <code>openningMessage.cpp</code> to enable the bot to introduce itself.
+                    The bot should say "I am your reception bot." at the end of the openning messages.
+
+		    <br/></br>
+        Once editing, you should notice that only <code>g++ -std=c++11 -c openningMessage.cpp -o openningMessage.o</code> is run (<code>g++ -std=c++11 -c main.cpp -o main.o</code> will not be executed) when you execute <code>make</code>.
+      </br></br>
+                    If succeed, you would get the result like
+                    <pre>
+Hello, visitors!
+Welcome to HKUST 30th Anniversary!
+I am your reception bot.
+What do you want to check (1: Today's event, 2: History of HKUST, 3: Quit)?
+</pre>
+
+                    <br>
+                    <br>
+		    <div id="submission">
+                    <h4>Submission Deadline and Guidelines:</h4>
+		    The lab assignment is due on <span style="color:red">10 minutes after the end of your lab session</span>.<br/>
+                    We will use an online grading system <a
+href="http://zinc.cse.ust.hk">ZINC</a> to grade your lab work.
+Therefore, you are supposed to upload the following files in a zip file to <a
+href="http://zinc.cse.ust.hk">ZINC</a>:
+                    <pre>
+- Makefile
+- main.cpp
+- openningMessage.cpp
+</pre>
+                    You can submit your codes multiple times to <a
+href="http://zinc.cse.ust.hk">ZINC</a>
+before the deadline. Only the last submission will be graded.
+
+                    </p>
+                    </p>
+                </div>
+
+		</div>
+            </div>
+
+
+
+            <!-- Description section -->
+            <!-- ### Complete description section for the assignment ### -->
+
+        </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-3">
+        <div class="sticky-top">
+          <!-- Menu Widget -->
+          <div class="card my-12">
+            <h5 class="card-header">Menu</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="mb-0" type="circle" style="padding-left:20px">
+                    <li>
+                      <a href="#introduction">Introduction</a>
+                    </li>
+                    <li>
+                      <a href="source.zip">Source Files</a>
+                    </li>
+                    <li>
+                      <a href="#labtask">Lab Tasks</a>
+                    </li>
+                    <li>
+                      <a href="../../notes/h.makefile.pdf">Makefile Lecture
+                        Notes</a>
+                    </li>
+		    <li>
+		      <a href="#submission">Submission Guidelines</a>
+		    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Maintainance widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Page maintained by</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="mailto:wtong@cse.ust.hk">Wai TONG</a>
+                    </li>
+                    <li>Last Modified:
+                      <script type="text/javascript">document.write(document.lastModified);</script>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Homepage widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Homepage</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="../../">Course Homepage</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Maintained by COMP 2012 Teaching Team &copy; 2022 HKUST Computer Science
+        and Engineering</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../../js/jquery.min.js"></script>
+  <script src="../../js/bootstrap.min.js"></script>
+</body>
+
+</html>

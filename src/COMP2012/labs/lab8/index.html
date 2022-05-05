@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- ### Change assignment number ### -->
+  <title>COMP 2012 Lab 8: BST</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/blog-home.css" rel="stylesheet">
+
+  <style>
+    .input {
+      color: #ff0000;
+    }
+    .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+  }
+  </style>
+
+  <style>
+    pre {
+      background: #f4f4f4 !important;
+      border: 1px solid #ddd !important;
+      border-left: 3px solid #f36d33 !important;
+      color: #666 !important;
+      page-break-inside: avoid !important;
+      font-family: monospace !important;
+      font-size: 14px !important;
+      line-height: 1.6 !important;
+      margin-bottom: 1.6em !important;
+      max-width: 100% !important;
+      overflow: auto !important;
+      padding: 1em 1.5em !important;
+      display: block !important;
+      word-wrap: break-word !important;
+    }
+    #download input[type=checkbox ]{
+    display: none;
+    }
+    #download input[type=checkbox]:checked ~ .remove-check{
+        display: none;
+    }
+    #download input[type=checkbox]:checked ~ #message{
+        display: block;
+    }
+    #message{
+        display: none;
+    }
+    <style scoped>
+    .conflicting-class { ... }
+    </style>
+  </style>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+</head>
+
+<body>
+
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Entries Column -->
+      <div class="col-md-9">
+
+        <h4 class="my-4">
+          <span style="color:darkblue">COMP 2012</span>
+          <small>Object-Oriented Programming and Data Structures</small>
+        </h4>
+
+        <!-- ### Change assignment number and title ### -->
+        <h3 class="my-4">Lab 8
+          <span style="color:#660066">BST</span>
+        </h3>
+        <div class="mb-4" style="text-align: center;">
+          <img src="img/google.png" width="50%" height=="50%">
+        </div>
+        <!-- Introduction section -->
+        <!-- ### Complete introduction section for the assignment ### -->
+
+
+        <div class="card mb-4">
+            <div class="card-body" id="introduction">
+                <h3 class="card-title">Introduction</h3>
+                <p>
+                    Google is still hiring! Last time you implement a deque resume container to help Google HR deal with the
+					large amount of resumes, but HR complains that they are tired of searching resumes one by one.
+                    They want to have a more convenient container to help them. So this time you are going to use BST to
+					implement a more efficient BSTMap container for them.
+                  </p>
+
+                <p>
+                    In this lab, you are going to implement a Map container based on the BST implementation that you have learned
+					in the lecture. For details of BST, please refer to the lecture notes.
+                    The BSTMap you are going to implement is actually a BST in which each node has a key and a value. Keys are
+					sortable data, and values are data tagged with their keys.
+                </p>
+
+                Following external links for similar data structures may be useful to you:
+                <ul>
+                  <li>C++ Reference: <a href="https://www.cplusplus.com/reference/map/map/">C++ Map </a>;</li>
+                  <li>Wikipedia: <a href="https://en.wikipedia.org/wiki/Associative_array"> Associative array</a>;</li>
+                </ul>
+
+                <h4 id="overview">Overview</h4>
+                <p>
+                    The descriptions of classes and members in classes are as follows:
+                    <ul>
+                      <li> <code>Structure Pair</code>: Data stored in a MapItem.
+                        <ul>
+                          <li> <code>K key</code>:</li> Key of MapItem
+                          <li> <code>V value</code>:</li> Value of MapItem
+                        </ul>
+                      </li>
+                    </ul>
+
+                    <ul>
+                      <li> <code>Structure MapItem </code>: Structure defined in Class BSTMap.
+                        <ul>
+                          <li> <code>Pair<K,V> data</code>:</li> Data in MapItem.
+                          <li> <code>BSTMap left</code>:</li> Left sub-tree.
+                          <li> <code>BSTMap right</code>:</li> Right sub-tree.
+                          <li> <code>MapItem(const MapItem&)</code>:</li> Copy constructor of MapItem. Notice that (BSTMap) sub-tree's copy constructor will be invoked.
+                          <li> <code>~MapItem()</code>:</li> Destructor of MapItem. Notice that (BSTMap) sub-tree's destructor will be invoked.
+                          <li> <code>MapItem(const K& k, const V& v)</code>:</li> Constructor.
+                        </ul>
+                      </li>
+                    </ul>
+
+                    <ul>
+                      <li> <code>class BSTMap</code>:
+                        <ul>
+                          <li> <code>MapItem* root</code>:</li> Pointer to the root of BST.
+                          <li> <code>BSTMap() </code>:</li>  Constructor.
+                          <li> <code>~BSTMap() </code>:</li> Destructor: delete root; all sub-trees will be deleted recursively.
+                          <li> <code>BSTMap(const BSTMap& bst)</code>:</li> Copy constructor; all sub-trees will be copied recursively.
+                          <li> <code>const Pair& find_min()</code>:</li> Return the data pair whose key is minimum in BSTMap.
+                          <li> <code>const Pair find_max()</code>:</li> Return the data pair whose key is maximal in BSTMap.
+                          <li> <code>is_empty()</code>:</li> Return true if BSTMap is empty.
+                          <li> <code>contains(const K& key)</code>:</li> Return true if the given key is in the BSTMap.
+                          <li> <code>void remove(const K& key);</code>:</li> Delete item corresponding to the given key.
+                          <li> <code>void insert(const K& key, const V& value)</code>:</li> Insert an item into BSTMap.
+                          <li> <code>V& operator[] (const K& key)</code> <b>(TODO):</b></li> Indexing operator. Return a reference to
+						  the value corresponding to the given key in the BSTMap.
+                          If the provided key does not exist, print an error message "Key is not in BSTMap" to std::cerr, then
+						  terminate the program by <a href=https://www.cplusplus.com/reference/cstdlib/exit/>exit</a>(-1). In practice, one should check if the key is contained in the BSTMap
+						  before calling this indexing operator.
+                          <li> <code>V operator[](const K& key) const</code> <b>(TODO):</b>:</li> const version of the indexing operator. Semantics is identical to the non-const version, the only difference is this method returns a value, not a reference.
+                          <li> <code>BSTMap& operator=(const BSTMap& bst)</code> <b>(TODO):</b></li> Assignment constructor, similar to copy constructor. Before assignment, you need to first check whether this != &bst, if the two pointers are equal then you need to do nothing. You also need to clear the original Map before assignment, we will check memory leak in this lab.
+                          <li> <code>int size()</code> <b>(TODO):</b></li> Return the number of Items in the BSTMap.
+                          <li> <code>operator<<</code> <b>(TODO):</b></li> Print the information of the BSTMap to the stream. You
+						  should use In-Order Traversal to traverse the BST and print them in the format "{key1:value1} ,
+						  {key2:value2}..." (Please refer to the example outputs). You
+                          can assume <code>operator<<</code> is alreay overloaded for all types of keys and values.
+                          <li> <code>void clear()</code> <b>(TODO):</b></li> Delete all the things in BSTMap recursively.
+                        </ul>
+                      </li>
+                    </ul>
+                </p>
+                [Hint]: While doing your own implementation, you can reuse some of the provided functions to ease your work. The
+				implementation uses recursion a lot. You can read and learn from the provided functions.
+
+</div>
+        </div>
+
+
+
+        <div class="card mb-4">
+            <div class="card-body" id="labtask">
+                <h3 class="card-title">Lab tasks</h3>
+                <p class="card-text">
+
+                    <ol>
+                        <li>
+                            Finish the TODOs in <code>bstmap-todo.tpp</code>.
+                        </li>
+                        <li>Compile the project. Notice we add sanitizer in Makefile, if your computer does not support you can delete -fsanitize=address flag to suppress error like <b>cannot find -lasan</b>.</li>
+                        <li>Run <code>lab8</code>, check with the expected output below:</li>
+                        <Li><b>LA5</b> is not graded in this lab, all other sessions will be graded.</Li>
+
+<pre>
+Create resume container for position: C++ developer.
+
+Applicants of C++ developer:
+{Amelia:CUHK} , {David:HKU} , {James:HKUST} , {Yang:HKUST}
+
+Merge with C developers applications.
+Applicants of C & C++ developer:
+{Amelia:CUHK} , {David:HKU} , {James:HKUST} , {Oliver:PolyU} , {Tony:HKUST} , {Wang:CUHK} , {Yang:HKUST}
+We have 7 candidates.
+
+Some candidates fail in the interview
+The remaining C & C++ developer candidates:
+{Amelia:CUHK} , {James:HKUST} , {Oliver:PolyU} , {Tony:HKUST} , {Yang:HKUST}
+We have 5 candidates.
+
+Create a backup of applications.
+Backup applications:
+{Amelia:CUHK} , {James:HKUST} , {Oliver:PolyU} , {Tony:HKUST} , {Yang:HKUST}
+
+HR wants to search candidates' information
+Oliver is graduated from PolyU
+Yang is graduated from HKUST
+Amelia is graduated from CUHK
+
+Oh! HR accidentaly delete all the application forms
+We have 0 candidates.
+
+Don't worry, we have a backup. Let's see whether the information is correct.
+Amelia is still a candidate? [Yes]
+James is still a candidate? [Yes]
+Wang is still a candidate? [No]
+Tony is still a candidate? [Yes]
+David is still a candidate? [No] </pre>
+                    </ol>
+                </p>
+
+            </div>
+        </div>
+
+      <div class="card mb-4">
+          <div class="card-body" id="submission">
+              <h3 class="card-title">Submission Deadline and Guidelines:</h3>
+              <p class="card-text">
+                  The due date and time will be <span style="color:red">10-min after your lab session</span>.
+                  You are supposed to upload the following files in an archive to <a href="http://zinc.cse.ust.hk">ZINC</a>:
+<pre>
+- bstmap-todo.tpp
+</pre>
+                  You can submit your codes multiple times by the deadline. Only the last submission will be graded.
+</div>
+      </div>
+
+
+
+        <!-- Description section -->
+        <!-- ### Complete description section for the assignment ### -->
+
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-3">
+        <div class="sticky-top">
+          <!-- Menu Widget -->
+          <div class="card my-12">
+            <h5 class="card-header">Menu</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="mb-0" type="circle" style="padding-left:20px">
+                    <li>
+                      <a href="#introduction">Introduction</a>
+                    </li>
+                    <li>
+                      <a href="#labtask">Lab Tasks</a>
+                    </li>
+                    <li>
+                       <a href="source.zip">Source Files</a>
+                    </li>
+                    <li>
+                      <a href="#submission">Submission</a>
+                    </li>
+                    <li>
+                      <a href="../../notes/h.bst.pdf">Lecture notes</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Maintainance widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Page maintained by</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="cyeaa@connect.ust.hk">Chengfeng Ye</a>
+                    </li>
+                    <li>Last Modified:
+                      <script type="text/javascript">document.write(document.lastModified);</script>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Homepage widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Homepage</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="http://course.cse.ust.hk/comp2012">Course Homepage</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Maintained by COMP 2012 Teaching Team &copy; 2022 HKUST Computer Science
+        and Engineering</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../../js/jquery.min.js"></script>
+  <script src="../../js/bootstrap.min.js"></script>
+</body>
+
+</html>

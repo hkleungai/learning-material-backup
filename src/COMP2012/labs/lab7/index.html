@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- ### Change assignment number ### -->
+  <title>COMP 2012 Lab 7: Friends, static method/data</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/blog-home.css" rel="stylesheet">
+
+  <style>
+    .input {
+      color: #ff0000;
+    }
+    .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+  }
+  </style>
+
+  <style>
+    pre {
+      background: #f4f4f4 !important;
+      border: 1px solid #ddd !important;
+      border-left: 3px solid #f36d33 !important;
+      color: #666 !important;
+      page-break-inside: avoid !important;
+      font-family: monospace !important;
+      font-size: 14px !important;
+      line-height: 1.6 !important;
+      margin-bottom: 1.6em !important;
+      max-width: 100% !important;
+      overflow: auto !important;
+      padding: 1em 1.5em !important;
+      display: block !important;
+      word-wrap: break-word !important;
+    }
+    #download input[type=checkbox ]{
+    display: none;
+    }
+    #download input[type=checkbox]:checked ~ .remove-check{
+        display: none;
+    }
+    #download input[type=checkbox]:checked ~ #message{
+        display: block;
+    }
+    #message{
+        display: none;
+    }
+    <style scoped>
+    .conflicting-class { ... }
+    </style>
+  </style>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+</head>
+
+<body>
+
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Entries Column -->
+      <div class="col-md-9">
+
+        <h4 class="my-4">
+          <span style="color:darkblue">COMP 2012</span>
+          <small>Object-Oriented Programming and Data Structures</small>
+        </h4>
+
+        <!-- ### Change assignment number and title ### -->
+        <h3 class="my-4">Lab 7
+          <span style="color:#660066">Friends, static method/data</span>
+        </h3>
+        <div class="mb-4">
+          <img src="img/bond.jpg" width="100%">
+        </div>
+        <!-- Introduction section -->
+        <!-- ### Complete introduction section for the assignment ### -->
+
+
+        <div class="card mb-4">
+            <div class="card-body" id="introduction">
+                <h3 class="card-title">Bond Trading System</h3>
+                <p>
+                  In this lab, we are going to use knowledge of static method and friend class to implement a simple bond trading system. The source code is available <a href="source.zip">here</a>.
+                </p>
+                <h4 id="overview">Overview</h4>
+                <p>
+                  There are 3 roles in the bond trading system: Bond Issuer, Bond Holder, and Bond Certificate. From time to time,
+                  Bond Issuer will issue a certain amount of bonds and specify interest rate and period. Bond holders can
+                  purchase a certain amount of bonds with a discount (interest rate), and get a bond certificate. When bond maturity date comes (period arrives), Bond Holder can get back their money plus the interest from bond issuer. In this lab, the unit of time is year (period, maturity date, and residual time are all calculated by years)
+                </p>
+
+                <p>
+                  Some terms you may find helpful.
+
+                  <list>
+                    <li>Face Value: bond value printed on top of certificate.</li>
+                    <li>Interest Rate: rate of interest from purchasing the bond.
+                        (e.g., one buys 100 bonds with 10% interest rate, the face value on certificate will be 110).</li>
+                    <li>Maturity: time when the bond issuer must repay the face value to the bond holder.</li>
+                    <li>Residual time: remaining time before maturity.</li>
+                  </list>
+                </p>
+
+                <p>
+                    <div class="mb-4">
+                      <img src="img/cg.png" class="center">
+                    </div>
+                    The descriptions of classes and members in classes are as follows:
+                    <ul>
+                      <li> <code>class CertificateBase</code>: Base Class for Bond Certificate.
+                        <ul>
+                          <li> <code>int residualTime_;</code>:</li> The time remaining until maturity day comes.
+                          <li> <code>double faceValue_;</code>:</li> The value of bonds.
+                          <li> <code>TestMaturity(int years)</code>:</li> Decrease the residualTime_ by years, and return true if marturity date comes.
+                          <li> <code>double GetFaceValue()</code>:</li> Return the face value
+                          <li> <code>void Maturity()</code>:</li> Pure virtual function
+                        </ul>
+                      </li>
+                    </ul>
+
+                    <ul>
+                        <li> <code>class Certificate</code>: Template Class for Certificate, corresponding to one kind of bond of bondType. Most methods and data are declared as private, only accessed by friend class Issuer (including Constructor/Destructor).
+                          <ul>
+                            <li> <code>static int transactionsNum_;</code>:</li> The number of certificates of bondType.
+                            <li> <code>static double interestRate_;</code>:</li> The interest rate of bondType.
+                            <li> <code>static int period_;</code>:</li> The period of bondType, representing the number of years to wait for marturity.
+                            <li> <code>Issuer* issuer_;</code>:</li> The issuer that issues this certificate.
+                            <li> <code>void Maturity()</code>:</li> Represent bond maturity, invoke settlement method of Issuer class to finish the transaction.
+                            <li> <code>void SetRateAndPeriod(double rate, int year)</code>:</li> <b>[TODO]</b> Modify the interest rate and period of the bond.
+                            <li> <code>Certificate(double value, Issuer<bondType>* issuer)</code>:</li> <b>[TODO]</b> Increase <code>transactionsNum_</code> by one, initialize the <code>issuer</code> and <code>face value</code> of the certificate, set <code>residual time</code> as the <code>period (static)</code> of this bond.
+                            <li> <code>~Certificate()</code>:</li> <b>[TODO]</b> Decrease <code>transactionsNum_</code> by one.
+                          </ul>
+                        </li>
+                    </ul>
+
+                    <ul>
+                        <li> <code>class IssuerBase</code>: Base Class for Bond Issuer
+                          <ul>
+                            <li> <code>int numOfBond_</code>:</li> The number of bond hold by issuer.
+                            <li> <code>std::string name_</code>:</li> The name of issuer.
+                            <li> <code>IssuerBase(std::string name)</code>:</li> Constructor.
+                            <li> <code>void IssueBond(int amount)</code>:</li> Issue a certain amount of bond, initialize numOfBond_.
+                          </ul>
+                        </li>
+                    </ul>
+
+                    <ul>
+                        <li> <code>class Issuer</code>: Template Class for Bond Issuer, corresponding to one kind of bond of bondType, should be friend class of the corresponding Certificate class.
+                          <ul>
+                            <li> <code>Issuer(std::string name)</code>:</li> Constructor.
+                            <li> <code>virtual void Settlement(Certificate<bondType>* Certificate)</code>:</li>  Transaction complete, delete the certificate.
+                            <li> <code>virtual CertificateBase* SellBond(int amount)</code>:</li> <b>[TODO]</b> Sell a certain amount of bonds to customer. The face value of the certificate should be <b>(1 + interest rate) * amount</b>.
+                            <li> <code>void SetRateAndPeriod(double rate, int year)</code>:</li> <b>[TODO]</b> Modify the interest rate and period of bond controlled by the issuer, you can invoke that static method of Certificate class you have implemented
+                          </ul>
+                        </li>
+                    </ul>
+
+                    <ul>
+                        <li> <code>class BondHolder</code>: Template Class for Bond Issuer, corresponding to one kind of bond of bondType.
+                          <ul>
+                            <li> <code>double profit_;</code>:</li> Profit earned from bond transaction.
+                            <li> <code>std::string name_;</code>:</li> Name of bond holder.
+                            <li> <code>void PurchaseBond(IssuerBase* issuer, int amount)</code>:</li> Buying amount of bond from issuer, decrease profit by the expense.
+                            <li> <code>void Elapse(int year)</code>:</li>  Representng time elapses by years, need to test whether certificate's maturity date comes and delete those from certificate list, and increase the profit by the face value of the deleted certificate.
+                            <li> <code>BondHolder(std::string name)</code>:</li> Constructor
+                            <li> <code>~BondHolder()</code>:</li> Destructor, assume all the certificates in the list reach maturity date.
+                          </ul>
+                        </li>
+                    </ul>
+                </p>
+</div>
+        </div>
+
+
+
+        <div class="card mb-4">
+            <div class="card-body" id="labtask">
+                <h3 class="card-title">Lab tasks</h3>
+                <p class="card-text">
+
+                    <ol>
+                        <li>
+                            Finish the TODOs in <code>Issuer.h, Certificate.h</code>. Except for completing blank class method, you also need to <code>declare friend class</code> and <code>initialize static data</code>.
+                        </li>
+                        <li>Compile the project. Notice we add sanitizer in Makefile, if your computer does not support you can delete -fsanitize=address flag to suppress erro like <b>cannot find -lasan</b>.</li>
+                        <li>Run <code>lab7</code>, check with the expected output below:</li>
+
+<pre>
+[Transaction round 1]
+----------------------
+ Issuer: HK Bond
+----------------------
+Num of ongoing transaction: 2
+Num of bond pending sold : 45000
+----------------------
+ Issuer: New York Bond
+----------------------
+Num of ongoing transaction: 2
+Num of bond pending sold : 64000
+----------------------
+ Issuer: London Bond
+----------------------
+Num of ongoing transaction: 2
+Num of bond pending sold : 84000
+
+[1 years later]
+John holds 1 certificates, and the current profit is -9800
+Tom holds 2 certificates, and the current profit is -12000
+Lucy holds 1 certificates, and the current profit is -9600
+
+[Transaction round 2]
+----------------------
+ Issuer: HK Bond
+----------------------
+Num of ongoing transaction: 2
+Num of bond pending sold : 32000
+----------------------
+ Issuer: New York Bond
+----------------------
+Num of ongoing transaction: 4
+Num of bond pending sold : 49000
+----------------------
+ Issuer: London Bond
+----------------------
+Num of ongoing transaction: 4
+Num of bond pending sold : 46000
+
+[2 years later]
+John holds 1 certificates, and the current profit is -18450
+Tom holds 1 certificates, and the current profit is -16240
+Lucy holds 0 certificates, and the current profit is 3000
+
+[Transaction round 3]
+----------------------
+ Issuer: HK Bond
+----------------------
+Num of ongoing transaction: 2
+Num of bond pending sold : 16000
+----------------------
+ Issuer: New York Bond
+----------------------
+Num of ongoing transaction: 2
+Num of bond pending sold : 33000
+----------------------
+ Issuer: London Bond
+----------------------
+Num of ongoing transaction: 4
+Num of bond pending sold : 31000
+
+[3 years later]
+John holds 0 certificates, and the current profit is 5800
+Tom holds 0 certificates, and the current profit is 5420
+Lucy holds 0 certificates, and the current profit is 5600
+----------------------
+ Issuer: HK Bond
+----------------------
+Num of ongoing transaction: 0
+Num of bond pending sold : 16000
+----------------------
+ Issuer: New York Bond
+----------------------
+Num of ongoing transaction: 0
+Num of bond pending sold : 33000
+----------------------
+ Issuer: London Bond
+----------------------
+Num of ongoing transaction: 0
+Num of bond pending sold : 31000</pre>
+                    </ol>
+                </p>
+
+            </div>
+        </div>
+
+      <div class="card mb-4">
+          <div class="card-body" id="submission">
+              <h3 class="card-title">Submission Deadline and Guidelines:</h3>
+              <p class="card-text">
+                  The due date and time will be <span style="color:red">10-min after your lab session</span>.
+                  You are supposed to upload the following files in an archive to <a href="http://zinc.cse.ust.hk">ZINC</a>:
+<pre>
+- Certificate.h  Issuer.h
+</pre>
+                  You can submit your codes multiple times by the deadline. Only the last submission will be graded.
+</div>
+      </div>
+
+
+
+        <!-- Description section -->
+        <!-- ### Complete description section for the assignment ### -->
+
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-3">
+        <div class="sticky-top">
+          <!-- Menu Widget -->
+          <div class="card my-12">
+            <h5 class="card-header">Menu</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="mb-0" type="circle" style="padding-left:20px">
+                    <li>
+                      <a href="#introduction">Introduction</a>
+                    </li>
+                    <li>
+                      <a href="#labtask">Lab Tasks</a>
+                    </li>
+                    <li>
+                       <a href="source.zip">Source Files</a>
+                    </li>
+                    <li>
+                      <a href="#submission">Submission</a>
+                    </li>
+                    <li>
+                      <a href="../../notes/h.static-method-data.pdf">Static Method/Data Lecture notes</a>
+                    </li>
+                    <li>
+                      <a href="../../notes/h.generic-programming.pdf">Friend Class Lecture notes</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Maintainance widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Page maintained by</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="cyeaa@connect.ust.hk">Chengfeng Ye</a>
+                    </li>
+                    <li>Last Modified:
+                      <script type="text/javascript">document.write(document.lastModified);</script>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Homepage widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Homepage</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="http://course.cse.ust.hk/comp2012">Course Homepage</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Maintained by COMP 2012 Teaching Team &copy; 2022 HKUST Computer Science
+        and Engineering</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../../js/jquery.min.js"></script>
+  <script src="../../js/bootstrap.min.js"></script>
+</body>
+
+</html>

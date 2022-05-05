@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- ### Change assignment number ### -->
+  <title>COMP 2012 Lab 5: Polymorphism: Virtual Functions</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/blog-home.css" rel="stylesheet">
+
+  <style>
+    pre {
+      background: #f4f4f4 !important;
+      border: 1px solid #ddd !important;
+      border-left: 3px solid #f36d33 !important;
+      color: #666 !important;
+      page-break-inside: avoid !important;
+      font-family: monospace !important;
+      font-size: 14px !important;
+      line-height: 1.6 !important;
+      margin-bottom: 1.6em !important;
+      max-width: 100% !important;
+      overflow: auto !important;
+      padding: 1em 1.5em !important;
+      display: block !important;
+      word-wrap: break-word !important;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+</head>
+
+<body>
+
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Entries Column -->
+        <div class="col-md-9">
+
+            <h4 class="my-4">
+                <span style="color:darkblue">COMP 2012</span>
+                <small>Object-Oriented Programming and Data Structures</small>
+            </h4>
+
+            <!-- ### Change assignment number and title ### -->
+            <h3 class="my-4">
+                Lab 5
+                <span style="color:#660066">Polymorphism: Virtual Functions</span>
+            </h3>
+            <!-- <div class="mb-4">
+                <img src="img/front.jfif" width="100%">
+            </div> -->
+
+            <!-- Introduction section -->
+            <!-- ### Complete introduction section for the assignment ### -->
+
+            <div class="card mb-4">
+                <div class="card-body" id="introduction">
+                    <h3 class="card-title">Management System of an IT Corporations</h3>
+                    <p class="card-text">
+                    <p>
+                        In this lab, you are going to use the dynamic binding feature in C++ to construct a management system
+                        in an IT Corporation. The source files are available <a href="source.zip">HERE</a>.
+                    </p>
+
+                    <h4>Overview</h4>
+                    <p>
+                        Although the outbreak of Covid-19 has an impact on the whole society, your corporation is
+						thriving well, thanks to the strong technology. In order to manage the employees in the corporation,
+                         the CEO decides to build a management system to manage his employees more efficiently.
+                         Now, this task is assigned to you.
+                    </p>
+                    <p>
+                        Here are some salary guidelines in the corporation:
+                        <list>
+                          <li>A Technician and Technician Leader is paid according to their base salary plus
+						  the number of  projects they work on in a month.</li>
+                          <li>A Manager is paid by her/his base salary and additional salary depending on the
+						  number of employees s/he manages.</li>
+                        </list>
+                        <br>
+                    <h4>Description</h4>
+                    <p>
+                        There are 4 classes involved: <code>Employee</code>, <code>Manager</code>, <code>Technician</code>,
+                        <code>TechnicianLeader</code>.
+                        The relationships between them are shown in the following figures. Detailed descriptions for each class can also be found below.
+                    </p>
+                    <img src="img/UML.png">
+                    <p>Note: '+': public; '-': private; '#': protected</p>
+                    <ol>
+                        <li>Employee</li><br />
+                          <p>
+                            This class is the abstract base class of <code>Manager</code>, <code>Technician</code>,
+                            <code>TechnicianLeader</code>. This class contains the information of an employee including
+                            the id, name, gender, entry date, post and the salary.
+                          </p>
+                          <p>
+                            It has two constructors: <code>Employee()</code> and <code>Employee(int id, const
+							string& name, char gender,
+                              const Date& entry_date, string post, Department dept)</code>. The former does nothing, while the latter will
+                              set all the properties of the employee.
+                          </p>
+                           <p>
+                            The destructor <code>~Employee()</code> should print:
+                            <pre>Resign: Empolyee name</pre>
+                            where name is the employee's name.
+                           </p>
+                          <p>
+                            <code>get_name()</code> will return the name of the employee.
+                          </p>
+                          <p>
+                            <code>print_salary()</code> should print:
+                            <pre>name : $salary</pre>
+                            where name and salary are the properties of the employee.
+                          </p>
+                          <p>
+                            <code>calculate_salary()</code> will calculate and set the
+							<code>salary</code> of the employee based on his duty. This function is a pure virtual function.
+                          </p>
+                          <p>
+                            <code>print_description()</code> should print the information of the employee.
+                            This function is a pure virtual function.
+                          </p>
+
+                        <li>Manager</li><br />
+                        <p>
+                          This class is derived from <code>Employee</code>. It contains two private members.
+                          <code>staffs</code> is an array of employees supervised by this manager.
+                          <code>MAX_STAFF_NUM</code> is defined to limit the maximum number of the staffs.
+                          <code>num_staff</code> is the number of employees in the staffs array.
+                        </p>
+                        <p>
+                          It has two constructors: <code>Manager()</code> and <code>Manager(int id, const string&
+						      name, char gender,
+                             const Date& entry_date, Department dept)</code>. The former does nothing, while  the latter will
+                            set all the properties of the manager, set <code>post</code> to <code>"Manager"</code>, and allocate memory for the <code>staffs</code> based on
+                            <code>MAX_STAFF_NUM</code>.
+                        </p>
+                         <p>
+                          The destructor <code>~Manager()</code> should first delete the <code>staffs</code> array. As we claim that an employee (except the manager itself) must have a manager, remember
+                          to also delete each pointed employee before deleting the array. After that, print:
+                          <pre>Resign: Manager name</pre>
+                          where name is the manager's name.
+                         </p>
+                        <p>
+                          <code>manage(Technician *t)</code> will append the technician to the <code>staff</code> array.
+                          The <code>num_staff</code> should be increased by one. When a staff is appended, it should print:
+                          <pre>name_s is managed by name_m now!</pre>
+                          where name_s is the name of the staff and name_m is the name of the manager. (For simplicity, you do
+                          not need to check whether the <code>staffs</code> is out of bound. We assume that a
+						  manager will always manage at most <code>MAX_STAFF_NUM</code> employees.)
+                        </p>
+                        <p>
+                          <code>calculate_salary()</code> will calculate the salary of the manager by
+                          the formula: <code>20000 + 2000 * num_staff</code>,
+                             and then set the <code>salary</code> of the class.
+                        </p>
+                        <p>
+                          <code>print_description()</code> should print:
+                          <pre>ID: id, Name: name, Gender: gender, Entry date: entry_date, Post: Manager, Group: dept</pre>
+                          where id, name, gender, and dept are properties of the manager, and entry_date should be represented as "yyyy-mm-dd".
+                          Note that to print the string of <code>dept</code>, please use the
+						  <code>enum_to_str(Department dept)</code> in the
+                           <code>Employee.cpp</code>.
+                        </p>
+                        <p>
+                          <code>print_staff()</code> should print:
+                          <pre>name_m is managing num_staff staffs: [name_1, ][name_2, ]...[name_x, ]</pre>
+                          where name_m is the name of the manager, num_staff is the property of the manager, and name_x is the name of the x-th staff.
+                        </p>
+
+                        <li>Technician</li><br />
+                        <p>
+                          This class is derived from <code>Employee</code>. It contains a protected member:
+                          <code>num_projects</code>, which indicates the number of projects he works on this month.
+                        </p>
+                        <p>
+                          It has two constructors: <code>Technician()</code> and <code>Technician(int id, const
+						  string& name, char gender,
+                             const Date& entry_date, int num_projects, Department dept)</code>. The former does nothing,
+							 while the latter will
+                            set all the properties of the technician, and set <code>post</code> to <code>"Technician"</code>.
+                        </p>
+                         <p>
+                          The destructor <code>~Technician()</code> should print:
+                          <pre>Resign: Technician name</pre>
+                          where name is the technician's name.
+                         </p>
+                        <p>
+                          <code>calculate_salary()</code> will calculate and set the <code>salary</code> of the Technician by
+                          the formula: <code>10000 + 1000 * num_projects</code>, where num_projects is the property,
+                             and then set the <code>salary</code> of the class.
+                        </p>
+                        <p>
+                          <code>print_description()</code> should print:
+                          <pre>ID: id, Name: name, Gender: gender, Entry date: entry_date, Post: Technician, Group: dept, Finished num_projects: num_projects</pre>
+                          where id, name, gender, dept and num_projects are properties of the Technician, and entry_date should be represented as "yyyy-mm-dd" based on the property.
+                          Note that to print the string of <code>dept</code>, please use the
+						  <code>enum_to_str(Department dept)</code> in the
+                           <code>Employee.cpp</code>.
+                        </p>
+
+                        <li>TechnicianLeader</li><br />
+                        <p>
+                          This class is derived from <code>Technician</code>.
+                        </p>
+                        <p>
+                          It has two constructors: <code>TechnicianLeader()</code> and <code>TechnicianLeader(int
+						  id, const string& name, char gender,
+                             const Date& entry_date, int num_projects, Department dept)</code>. The former does nothing,
+							 while the latter will
+                            set all the properties of the technicianLeader, and set <code>post</code> to <code>"Technician Leader"</code>.
+                        </p>
+                         <p>
+                          The destructor <code>~TechnicianLeader()</code> should print:
+                          <pre>Resign: TechnicianLeader name</pre>
+                          where name is the TechnicianLeader's name.
+                         </p>
+                        <p>
+                          <code>calculate_salary()</code> will calculate and set the <code>salary</code> of the TechnicianLeader by
+                          the formula: <code>20000 + 1500 * num_projects</code>.
+                        </p>
+                        <p>
+                          <code>print_description()</code> should print:
+                          <pre>ID: id, Name: name, Gender: gender, Entry date: entry_date, Post: Technician Leader, Group: dept, Finished num_projects: num_projects</pre>
+                          where id, name, gender, dept and num_projects are properties of the TechnicianLeader, and entry_date should be represented as "yyyy-mm-dd".
+                          Note that to print the string of <code>dept</code>, please use the
+						  <code>enum_to_str(Department dept)</code> in the
+                           <code>Employee.cpp</code>.
+                        </p>
+                      </ol>
+                </div>
+            </div>
+
+
+
+
+            <br>
+            <div class="card mb-4">
+                <div class="card-body" id="labtask">
+                    <h3 class="card-title">Lab tasks</h3>
+                    <p class="card-text">
+                        <ol>
+                            <li>
+                              All <code>.h</code> files, <code>Employee.cpp</code> and <code>main.cpp</code> are given to you.
+                              Please read the description and these files to understand the relationship. Noted that <code>calculate_salary()</code>
+                              and <code>print_description()</code> are pure virtual functions.
+                            </li>
+                            <li>
+                              Based the information, implements the rest files, including <code>Manager.cpp</code>, <code>Technician.cpp</code>,
+                              and <code>TechnicianLeader.cpp</code>.
+                            </li>
+
+                            </li>
+                            <li>Compile the project.</li>
+                            <li>
+                                Run the executable to check with the expected output below:
+                                <pre>
+ID: 101, Name: Bruce Wayne, Gender: M, Entry date: 2016-5-10, Post: Manager, Group: HumanResource
+ID: 102, Name: Peter Parker, Gender: F, Entry date: 2020-6-10, Post: Technician, Group: Game, Finished num_projects: 4
+Peter Parker is managed by Bruce Wayne now!
+ID: 103, Name: Tony Stark, Gender: M, Entry date: 2018-7-10, Post: Technician Leader, Group: FrontEnd, Finished num_projects: 2
+Tony Stark is managed by Bruce Wayne now!
+ID: 104, Name: Steve Rogers, Gender: F, Entry date: 2021-11-11, Post: Technician, Group: Backend, Finished num_projects: 1
+Steve Rogers is managed by Bruce Wayne now!
+ID: 105, Name: Bruce Banner, Gender: M, Entry date: 2019-12-3, Post: Technician Leader, Group: Operation, Finished num_projects: 3
+Bruce Banner is managed by Bruce Wayne now!
+Bruce Wayne is managing 4 staffs: Peter Parker, Tony Stark, Steve Rogers, Bruce Banner,
+Bruce Wayne : $28000
+Peter Parker : $14000
+Tony Stark : $23000
+Steve Rogers : $11000
+Bruce Banner : $24500
+Resign: Technician Peter Parker
+Resign: Empolyee Peter Parker
+Resign: TechnicianLeader Tony Stark
+Resign: Technician Tony Stark
+Resign: Empolyee Tony Stark
+Resign: Technician Steve Rogers
+Resign: Empolyee Steve Rogers
+Resign: TechnicianLeader Bruce Banner
+Resign: Technician Bruce Banner
+Resign: Empolyee Bruce Banner
+Resign: Manager Bruce Wayne
+Resign: Empolyee Bruce Wayne
+                         </pre>
+                            </li>
+                        </ol>
+                    <br>
+                    <!-- <h4 id="hint">Hint</h4>
+                    <ol>
+                        <li>
+                            Remember to initialize data members when their values are NOT provided in constructor parameter list.
+                        </li>
+
+
+
+                        <li>Reading the relationship graph provided <a href="#overview">above</a> will help you implement inheritance across classes and re-use functions when needed.</li>
+
+                        <li>
+                            Remember to use the correct data type to achieve the expected output.
+
+                        </li>
+                    </ol> -->
+                    <br>
+                    <div id="submission">
+                        <h4>Submission Deadline and Guidelines:</h4>
+                        The lab assignment is due on <span style="color:red">10 minutes after the end of your lab session</span>.<br />
+                        We will use an online grading system <a href="http://zinc.cse.ust.hk">ZINC</a> to grade your lab work.
+                        Therefore, you are supposed to upload the following files in a zip file to <a href="http://zinc.cse.ust.hk">ZINC</a>:
+                        <pre>
+- Manager.cpp
+- Technician.cpp
+- TechnicianLeader.cpp
+</pre>
+                        You can submit your codes multiple times to <a href="http://zinc.cse.ust.hk">ZINC</a>
+                        before the deadline. Only the last submission will be graded.
+
+                        </p>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <!-- Description section -->
+            <!-- ### Complete description section for the assignment ### -->
+
+        </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-3">
+        <div class="sticky-top">
+          <!-- Menu Widget -->
+          <div class="card my-12">
+            <h5 class="card-header">Menu</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="mb-0" type="circle" style="padding-left:20px">
+                    <li>
+                      <a href="#introduction">Introduction</a>
+                    </li>
+                    <li>
+                      <a href="source.zip">Source Files</a>
+                    </li>
+                    <li>
+                      <a href="#labtask">Lab Tasks</a>
+                    </li>
+                    <li>
+                      <a href="../../notes/h.inheritance.pdf">Inheritance Lecture
+                        Notes</a>
+                    </li>
+		    <li>
+		      <a href="#submission">Submission Guidelines</a>
+		    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Maintainance widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Page maintained by</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="mailto:yzhoudo@cse.ust.hk">Yuxuan ZHOU</a>
+                    </li>
+                    <li>Last Modified:
+                      <script type="text/javascript">document.write(document.lastModified);</script>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Homepage widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Homepage</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="http://course.cse.ust.hk/comp2012">Course Homepage</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Maintained by COMP 2012 Teaching Team &copy; 2022 HKUST Computer Science
+        and Engineering</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../../js/jquery.min.js"></script>
+  <script src="../../js/bootstrap.min.js"></script>
+</body>
+
+</html>
