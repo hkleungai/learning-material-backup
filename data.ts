@@ -1,12 +1,4 @@
-const categorizedCourses = {
-  'Object-oriented Programming': [
-    {
-      code: 'COMP 2012',
-      title: 'Object-Oriented Programming and Data Structures',
-      semester: 'Spring 2022',
-      link: './COMP2012',
-    },
-  ],
+const categorizedCourses: CategorizedCourses = {
   'Algorithm Study': [
     {
       code: 'COMP 2711H',
@@ -15,7 +7,15 @@ const categorizedCourses = {
       link: './COMP2711H',
     }
   ],
-  'Computer Architecture / Operating System': [
+  'Artificial Intelligence': [
+    {
+      code: 'COMP 4211',
+      title: 'Machine Learning',
+      semester: 'Spring 2022',
+      link: './COMP4211',
+    }
+  ],
+  'Computer Architecture': [
     {
       code: 'COMP 2611',
       title: 'Computer Organization',
@@ -28,5 +28,13 @@ const categorizedCourses = {
       semester: 'Spring 2022',
       link: './COMP3511',
     }
+  ],
+  'Object-oriented Programming': [
+    {
+      code: 'COMP 2012',
+      title: 'Object-Oriented Programming and Data Structures',
+      semester: 'Spring 2022',
+      link: './COMP2012',
+    },
   ],
 };
