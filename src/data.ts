@@ -7,7 +7,7 @@ const categorizedCourses: CategorizedCourses = {
       link: './COMP2711H',
     }
   ],
-  'Big Data Analysis': [
+  'Big-Data / Database Analysis': [
     {
       code: 'COMP 4331',
       title: 'Introduction to Data Mining',
@@ -27,6 +27,14 @@ const categorizedCourses: CategorizedCourses = {
       title: 'Operating System',
       semester: 'Spring 2022',
       link: './COMP3511',
+    }
+  ],
+  'Internet / Multimedia / Networking': [
+    {
+      code: 'COMP 5622',
+      title: 'Advanced Computer Communications and Networking',
+      semester: 'Spring 2020',
+      link: './COMP5622'
     }
   ],
   'Machine Learning': [
