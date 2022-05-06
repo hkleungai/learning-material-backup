@@ -43,6 +43,12 @@ var categorizedCourses = {
             title: 'Machine Learning',
             semester: 'Spring 2022',
             link: './COMP4211'
+        },
+        {
+            code: 'COMP 5212',
+            title: 'Machine Learning',
+            semester: 'Spring 2022',
+            link: './COMP5212'
         }
     ],
     'Object-oriented Programming': [
