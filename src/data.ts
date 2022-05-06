@@ -3,60 +3,52 @@ const categorizedCourses: CategorizedCourses = {
     {
       code: 'COMP 2711H',
       title: 'Honors Discrete Mathematical Tools for Computer Science',
-      semester: 'Fall 2021',
-      link: './COMP2711H',
+      semesters: ['Fall 2021'],
     }
   ],
   'Big-Data / Database Analysis': [
     {
       code: 'COMP 4331',
       title: 'Introduction to Data Mining',
-      semester: 'Fall 2021',
-      link: './COMP4331'
+      semesters: ['Fall 2021'],
     }
   ],
   'Computer Architecture': [
     {
       code: 'COMP 2611',
       title: 'Computer Organization',
-      semester: 'Spring 2022',
-      link: './COMP2611',
+      semesters: ['Spring 2022'],
     },
     {
       code: 'COMP 3511',
       title: 'Operating System',
-      semester: 'Spring 2022',
-      link: './COMP3511',
+      semesters: ['Spring 2022'],
     }
   ],
   'Internet / Multimedia / Networking': [
     {
       code: 'COMP 5622',
       title: 'Advanced Computer Communications and Networking',
-      semester: 'Spring 2020',
-      link: './COMP5622'
+      semesters: ['Spring 2020'],
     }
   ],
   'Machine Learning': [
     {
       code: 'COMP 4211',
       title: 'Machine Learning',
-      semester: 'Spring 2022',
-      link: './COMP4211',
+      semesters: ['Spring 2022'],
     },
     {
       code: 'COMP 5212',
       title: 'Machine Learning',
-      semester: 'Spring 2022',
-      link: './COMP5212',
+      semesters: ['Spring 2022'],
     }
   ],
   'Object-oriented Programming': [
     {
       code: 'COMP 2012',
       title: 'Object-Oriented Programming and Data Structures',
-      semester: 'Spring 2022',
-      link: './COMP2012',
+      semesters: ['Spring 2022'],
     },
   ],
 };

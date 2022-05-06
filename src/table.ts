@@ -1,12 +1,28 @@
-const buildCourseRow = ({ code, title, semester, link }: Course): string => (
-  /* html */`
-  <tr>
-    <td style="width: 20%">${code}</td>
-    <td>${title}</td>
-    <td style="width: 20%"><a href="${link}">${semester}</a></td>
-  </tr>
-  `
-);
+const buildSemesterCell = (code: string, semester: string) => {
+  const link = `${code} ${semester}`.replace(/\s/g, '-');
+  return (
+    /* html */`
+    <td style="width: 20%">
+      <a href="${link}">${semester}</a>
+    </td>
+    `
+  );
+}
+
+const buildCourseRow = ({ code, title, semesters }: Course): string => {
+  const [firstCell, ...extraCells] = semesters.map(semester => buildSemesterCell(code, semester));
+  const firstRow = (
+    /* html */`
+    <tr>
+      <td style="width: 20%" rowSpan="${semesters.length}">${code}</td>
+      <td rowSpan="${semesters.length}">${title}</td>
+      ${firstCell}
+    </tr>
+    `
+  );
+  const extraRows = extraCells.map(semester => /* html */`<tr>${semester}</tr>`);
+  return `${firstRow}\n${extraRows}`
+};
 
 const buildCategoryTable = (category: string, courses: Course[]): string => (
   /* html */`

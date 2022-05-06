@@ -1,8 +1,7 @@
 interface Course {
   code: string;
   title: string;
-  semester: string;
-  link: string;
+  semesters: string[];
 }
 
 interface CategorizedCourses {
