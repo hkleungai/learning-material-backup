@@ -1,5 +1,5 @@
 var categorizedCourses = {
-    'Algorithm Study': [
+    'Algorithm Analysis': [
         {
             code: 'COMP 2711H',
             title: 'Honors Discrete Mathematical Tools for Computer Science',
@@ -7,12 +7,12 @@ var categorizedCourses = {
             link: './COMP2711H'
         }
     ],
-    'Artificial Intelligence': [
+    'Big Data Analysis': [
         {
-            code: 'COMP 4211',
-            title: 'Machine Learning',
-            semester: 'Spring 2022',
-            link: './COMP4211'
+            code: 'COMP 4331',
+            title: 'Introduction to Data Mining',
+            semester: 'Fall 2021',
+            link: './COMP4331'
         }
     ],
     'Computer Architecture': [
@@ -27,6 +27,14 @@ var categorizedCourses = {
             title: 'Operating System',
             semester: 'Spring 2022',
             link: './COMP3511'
+        }
+    ],
+    'Machine Learning': [
+        {
+            code: 'COMP 4211',
+            title: 'Machine Learning',
+            semester: 'Spring 2022',
+            link: './COMP4211'
         }
     ],
     'Object-oriented Programming': [
