@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel='stylesheet' type='text/css' href='https://course.cse.ust.hk/comp1021/hkust/f2021_python_interactive_system/js/codemirror.css'>
+        <link rel='stylesheet' type='text/css' href='https://course.cse.ust.hk/comp1021/hkust/f2021_python_interactive_system/js/theme/idle.css'>
+        <link rel='stylesheet' type='text/css' href='https://course.cse.ust.hk/comp1021/hkust/f2021_python_interactive_system/style.css'>
+        
+        <script src="https://course.cse.ust.hk/comp1021/hkust/f2021_python_interactive_system/js/jquery-3.5.1.min.js"></script>
+        <script src="https://course.cse.ust.hk/comp1021/hkust/f2021_python_interactive_system/js/jquery-ui-1.10.4.custom.min.js"></script>
+        <script src="https://course.cse.ust.hk/comp1021/hkust/f2021_python_interactive_system/skulpt/skulpt.min.js" type="text/javascript"></script>
+        <script src="https://course.cse.ust.hk/comp1021/hkust/f2021_python_interactive_system/skulpt/skulpt-stdlib.js" type="text/javascript"></script>
+        <script src="https://course.cse.ust.hk/comp1021/hkust/f2021_python_interactive_system/js/codemirror.js" type="text/javascript"></script>
+        <script src="https://course.cse.ust.hk/comp1021/hkust/f2021_python_interactive_system/js/mode/python.js" type="text/javascript"></script>
+        <script src="https://course.cse.ust.hk/comp1021/hkust/f2021_python_interactive_system/js/pyquestion.js" type="text/javascript"></script> 
+
+        <script>
+            /////////////////////////////////////////////////////////////////
+            ///////////////////// Question Type & Python program code
+
+            // This sets the question type
+            // Use the combination of pyQuestion.questionTypeRandomOrder
+            //                        pyQuestion.questionTypeIndentation
+            //                        pyQuestion.questionTypeDeleteLines
+            //                        pyQuestion.questionTypeChangeCode
+            // to set the type
+
+            // For example, if you want the question to have random order and
+            // random indentation, you would add the two together:
+            //     pyQuestion.questionTypeRandomOrder + pyQuestion.questionTypeIndentation
+            var questionType = pyQuestion.questionTypeIndentation + pyQuestion.questionTypeDeleteLines;
+
+            // This is the target code, executed when the page is loaded
+            var pySrc = "RE5BPSJBVFRHVENUR0NBQ0NDVEdHQ0FBR1wKVENDQUFDVEdBQ1RHR0FDQUFDVEdcCkdBQ1RBVEFUR0NDQUdHQUdHVEdBXApUQ0dHQ0NBR0FHVFRUQUNUR0dDR1wKQ0NHQUNBQVRHQUdHVEFUVENBQ0MiCkROQV9zdWJzZXE9WyJBIiwiRyIsIkMiLCJUIiwiR1RBIiwiR1RDIiwiR0FUQyIsIlRUQUMiLCJHR0NHIiwiQUFBQSJdCkROQV9saW5lV2lkdGg9MjAKb3V0cHV0X2xpbmVfbnVtPWludChsZW4oRE5BKS9ETkFfbGluZVdpZHRoKSsxCnByaW50KCJGb3IgdGhlIG9yaWdpbmFsIEROQSBzZXF1ZW5jZSIpCgpmb3IgaSBpbiByYW5nZShvdXRwdXRfbGluZV9udW0pOgogICAgcHJpbnQoRE5BW2kqRE5BX2xpbmVXaWR0aDppKkROQV9saW5lV2lkdGgrRE5BX2xpbmVXaWR0aF0pICNzbGljZSBoZXJlCiAgICAKZm9yIGkgaW4gcmFuZ2UobGVuKEROQV9zdWJzZXEpKToKICAgIHJlc3VsdD1bXQogICAgZm9yIGogaW4gcmFuZ2UobGVuKEROQSktbGVuKEROQV9zdWJzZXFbaV0pKzEpOiAjbm90IHRvIG92ZXJzaG90IGluIHRoZSBETkEgc3RyaW5nCiAgICAgICAgaWYgRE5BW2o6aitsZW4oRE5BX3N1YnNlcVtpXSk6MV09PUROQV9zdWJzZXFbaV06ICNzbGljZSBoZXJlCiAgICAgICAgICAgIHJlc3VsdC5hcHBlbmQoaikKICAgICAgICAgICAgCiAgICBpZiBsZW4ocmVzdWx0KT4wOgogICAgICAgIHByaW50KCJUaGUgc3Vic2VxdWVuY2UgWyIrRE5BX3N1YnNlcVtpXSsiXSBpcyBmb3VuZCIsbGVuKHJlc3VsdCksInRpbWUocyksICIsZW5kPSIiKQogICAgICAgIG91dHB1dF9udW09bGVuKHJlc3VsdCkKICAgICAgICBpZiBsZW4ocmVzdWx0KT41OgogICAgICAgICAgICBwcmludCgib25seSB0aGUgZmlyc3QgNSBpbmRleGVzIHdpbGwgYmUgb3V0cHV0LCAiLGVuZD0iIikKICAgICAgICAgICAgb3V0cHV0X251bT01CiAgICAgICAgcHJpbnQoInRoZSBpbmRleChlcykgaXMvYXJlICIsZW5kPSIiKQogICAgICAgIGZvciBrIGluIHJhbmdlKG91dHB1dF9udW0pOgogICAgICAgICAgICAgIHByaW50KHJlc3VsdFtrXSxlbmQ9IiIpCiAgICAgICAgICAgICAgaWYgaz09b3V0cHV0X251bS0xOgogICAgICAgICAgICAgICAgICBjb250aW51ZQogICAgICAgICAgICAgIHByaW50KCIsICIsIGVuZD0iIikKICAgICAgICBwcmludCgpCiAgICBlbHNlOgogICAgICAgIHByaW50KCJUaGUgc3Vic2VxdWVuY2UgWyIrRE5BX3N1YnNlcVtpXSsiXSBpcyBOb3QgZm91bmQgaW4gdGhlIEROQSBzdHJpbmciKQ==";
+
+
+            // This is the code used as the base for the drag and drop Python code shown to the user
+            // For example, if you have a 'delete code' task, you would take the above code and add extra code to it, then generate this
+            var pyForUser = "RE5BPSJBVFRHVENUR0NBQ0NDVEdHQ0FBR1wKVENDQUFDVEdBQ1RHR0FDQUFDVEdcCkdBQ1RBVEFUR0NDQUdHQUdHVEdBXApUQ0dHQ0NBR0FHVFRUQUNUR0dDR1wKQ0NHQUNBQVRHQUdHVEFUVENBQ0MiCkROQV9zdWJzZXE9WyJBIiwgIkciLCAiQyIsICJUIiwgIkdUQSIsICJHVEMiLCAiR0FUQyIsIFwKICAgICAgICAgICAgIlRUQUMiLCAiR0dDRyIsICJBQUFBIl0KRE5BX2xpbmVXaWR0aD0yMApvdXRwdXRfbGluZV9udW09aW50KGxlbihETkEpL0ROQV9saW5lV2lkdGgpICsgMQpwcmludCgiRm9yIHRoZSBvcmlnaW5hbCBETkEgc2VxdWVuY2UiKQpmb3IgaSBpbiByYW5nZShvdXRwdXRfbGluZV9udW0pOgogICAgcHJpbnQoRE5BW2kqRE5BX2xpbmVXaWR0aDpETkFfbGluZVdpZHRoKQogICAgcHJpbnQoRE5BW2k6RE5BX2xpbmVXaWR0aCkKICAgIHByaW50KEROQVtpKkROQV9saW5lV2lkdGg6aSpETkFfbGluZVdpZHRoICsgRE5BX2xpbmVXaWR0aF0pCiAgICBwcmludChETkEpCmZvciBpIGluIHJhbmdlKGxlbihETkFfc3Vic2VxKSk6CiAgICByZXN1bHQ9W10KICAgIGZvciBqIGluIHJhbmdlKGxlbihETkEpIC0gbGVuKEROQV9zdWJzZXFbaV0pICsgMSk6CiAgICBmb3IgaiBpbiByYW5nZShsZW4oRE5BKSAtIGxlbihETkFfc3Vic2VxW2ldKSk6IAogICAgICAgIGlmIEROQVtqOmogKyBsZW4oRE5BX3N1YnNlcVtpXSk6MV0gPT0gRE5BX3N1YnNlcVtpXToKICAgICAgICBpZiBETkFbaTpsZW4oRE5BX3N1YnNlcVtpXSldID09IEROQV9zdWJzZXFbaV06IAogICAgICAgICAgICByZXN1bHQuYXBwZW5kKGopCiAgICBpZiBsZW4ocmVzdWx0KSA+IDA6CiAgICAgICAgcHJpbnQoIlRoZSBzdWJzZXF1ZW5jZSBbIiArIEROQV9zdWJzZXFbaV0gKyAiXSBpcyBmb3VuZCIsIFwKICAgICAgICAgICAgICBsZW4ocmVzdWx0KSwgInRpbWUocyksICIsIGVuZD0iIikKICAgICAgICBvdXRwdXRfbnVtPWxlbihyZXN1bHQpCiAgICAgICAgaWYgbGVuKHJlc3VsdCkgPiA1OgogICAgICAgICAgICBwcmludCgib25seSB0aGUgZmlyc3QgNSBpbmRleGVzIHdpbGwgYmUgb3V0cHV0LCAiLCBlbmQ9IiIpCiAgICAgICAgICAgIG91dHB1dF9udW0gPSA1CiAgICAgICAgcHJpbnQoInRoZSBpbmRleChlcykgaXMvYXJlICIsIGVuZD0iIikKICAgICAgICBmb3IgayBpbiByYW5nZShvdXRwdXRfbnVtKToKICAgICAgICAgICAgcHJpbnQocmVzdWx0W2tdLCBlbmQ9IiIpCiAgICAgICAgICAgIGlmIGsgPT0gb3V0cHV0X251bSAtIDE6CiAgICAgICAgICAgICAgICBjb250aW51ZQogICAgICAgICAgICBwcmludCgiLCAiLCBlbmQ9IiIpCiAgICAgICAgcHJpbnQoKQogICAgZWxzZToKICAgICAgICBwcmludCgiVGhlIHN1YnNlcXVlbmNlIFsiICsgRE5BX3N1YnNlcVtpXSArIFwKICAgICAgICAgICAgICAiXSBpcyBOb3QgZm91bmQgaW4gdGhlIEROQSBzdHJpbmciKQ==";
+
+            ///////////////////// Question Type & End of Python program code
+            /////////////////////////////////////////////////////////////////
+
+            $(document).ready(function() {
+                options = {
+			targetProgramOutputAreaId: "targetOutputArea",
+			showListLineNumbers: true,
+			deleteLinesNumberOfLines: 5
+		};
+
+                // Initialize the pyQuestion module
+                pyQuestion.init(questionType, pySrc, pyForUser, options);
+
+                // Run the target program at the start
+                pyQuestion.runTargetProgram("targetOutputArea");
+            });
+        </script>
+    </head>
+    <body>
+        <h1>
+            <span class="header">COMP1021 Python Programming Learning Tool 
+            <button type="button" class="aboutButton">?</button></span>
+            <span class="title">Text Processing of DNA Sequences</span>
+        </h1>
+
+<div class="pageContent">
+
+
+<div class="codePane"  style="width:600px">
+
+                <h4>The output of the target program is shown here:</h4>
+                <textarea id="targetOutputArea" rows="22" style="width:600px"></textarea>
+
+                <p><button type="button" class="runTargetProgramButton">Run the target program!</button></p>
+
+                <h4>The output of your program will be shown here:</h4>
+                <textarea id="programOutputArea" rows="22" style="width:600px"></textarea>
+
+                <p><button type="button" class="runUserProgramButton">Run my answer!</button></p>
+
+	</div>
+
+			
+	<div class="codePane">
+                <!-- The question instruction -->
+                <h4>Instructions</h4>
+
+                <ul id="message">
+ 
+ <li>A <a href = "https://en.wikipedia.org/wiki/DNA_sequencing" target="_blank">DNA sequence</a> is a sequence of the four nucleobases, A, C, G and T. It is often useful to be able to compute the number of occurrences of a particular subsequence in a given DNA sequence. The Python program below searches and counts the number of occurrences of 10 subsequences in the long DNA list.</li>
+ 
+                </ul>
+
+                <!-- The Python drag and drop code goes in this -->
+                <ul id="codeList"></ul>
+
+                <p>When you have finished, click here:</p>
+                <p><button type="button" class="runUserProgramButton">Run my answer!</button></p>
+				
+                <h4>Your code will be shown here:</h4>
+                <textarea id="userCodeArea" rows="10"></textarea>				
+				
+                <p>If you want to reset the question and start all over again, click here:</p>
+                <p><button type="button" class="resetButton">Reset</button></p>				
+
+	</div>
+
+        </div>
+
+
+    </body>
+</html>

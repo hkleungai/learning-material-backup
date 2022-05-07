@@ -1,0 +1,41 @@
+import turtle
+
+turtle.up()
+turtle.goto(0, -80)
+turtle.down()
+turtle.color("black")
+turtle.begin_fill()
+turtle.circle(80)
+turtle.end_fill()
+
+turtle.up()
+turtle.goto(0, -60)
+turtle.down()
+turtle.color("lightblue")
+turtle.begin_fill()
+turtle.circle(60)
+turtle.end_fill()
+
+turtle.up()
+turtle.goto(0, -40)
+turtle.down()
+turtle.color("red")
+turtle.begin_fill()
+turtle.circle(40)
+turtle.end_fill()
+
+turtle.up()
+turtle.goto(0, -20)
+turtle.down()
+turtle.color("yellow")
+turtle.begin_fill()
+turtle.circle(20)
+turtle.end_fill()
+
+turtle.up()
+turtle.goto(0, -100)
+turtle.down()
+turtle.color("black")
+turtle.circle(100)
+
+turtle.done()

@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>COMP1021 Lab 4 Marking and Submission</title>
+    <link href="../../../css/lab.css" rel="stylesheet" />
+	<style>
+		ul.image_file_list li { font-size: smaller; }
+	</style>
+</head>
+
+<body>
+    <h1>
+        <span class='lab'>COMP1021 Lab 4</span>
+        <span class='title'>Jigsaw Game - Marking and Submission</span>
+    </h1>
+
+	<div class="content">
+
+	<h2>Quick Access Links</h2>
+	<ol style="list-style-type: upper-alpha;">
+		<li><a href="#overview">Overview</a></li>
+		<li><a href="#restrictions">Don't change things given to you</a></li>
+		<li><a href="#your_solution_image">Your jigsaw solution image </a></li>
+		<li><a href="#preparation">Preparation of jigsaw piece images (10 marks)</a></li>
+		<li><a href="#check_correct">The checkJigsaw() function - checking the correct case (20 marks)</a></li>
+		<li><a href="#check_wrong1">The checkJigsaw() function - checking wrong case 1 (20 marks)</a></li>
+		<li><a href="#check_wrong2">The checkJigsaw() function - checking wrong case 2 (20 marks)</a></li>
+		<li><a href="#check_wrong3">The checkJigsaw() function - checking wrong case 3 (20 marks)</a></li>
+		<li><a href="#enter_student_info">Enter your name and student ID number in the code</a></li>
+		<li><a href="#create_submission">Create lab4.zip for submission (10 marks)</a> - You <strong>MUST</strong> follow these guidelines to prepare your submission</li>
+		<li><a href="#submission">Submission Information</a></li>
+	</ol>
+
+    <h2>Marking Scheme</h2>
+
+
+	<ol style="list-style-type: upper-alpha;">
+
+		<li id="overview">
+			<strong>Overview</strong>
+
+			<ul>
+				<li>This lab will be <strong>automatically marked</strong></li>
+				<li>It is very important that you check this page carefully to make sure your submission can be marked</li>
+
+				<li>There are no partial marks for each test case in the marking scheme</li>
+				<li>Please check your program carefully before you submit it
+					<ul>
+						<li>We cannot grade your program if we cannot run your program!</li>
+					</ul>
+				</li>
+			</ul>
+
+
+
+		</li>
+
+		<br>
+		<li id="restrictions">
+			<strong>Don't change things given to you</strong>
+
+
+			<ul>
+
+				<li>Please <strong>DON'T</strong> rename the following variables / functions because our marking system will use the following variables and functions:
+					<ul>
+						<li><tt>allTurtles</tt></li>
+						<li><tt>checkJigsaw</tt></li>
+					</ul>
+				</li>
+				<li>Please use <tt>import turtle</tt> near the top. For this lab, <strong>DON'T</strong> write code such as
+					<ul>
+						<li><tt>import turtle as</tt></li>
+						<li><tt>from turtle import *</tt></li>
+					</ul>
+					because they may seriously affect the auto-grading process
+				</li>
+
+			</ul>
+		</li>
+
+		<br>
+		<li id="your_solution_image"><strong>Your jigsaw solution image</strong>
+
+			<ul>
+
+				<li>If you want to, you can use the image of Hong Kong used in the main lab page</li>
+				<li>However, it is more fun if you use a different image</li>
+				<li>For example, you can use a photo of yourself, or a photo that you took</li>
+				<li> Use an image which works as a jigsaw </li>
+				<li> For example, using an image of constant grey sky might be too hard and boring</li>
+				<li> Probably, it will help if you convert your photo into the gif format first, before you move ahead with the project  </li>
+
+			</ul>
+
+
+
+		</li>
+
+
+
+
+		<br>
+        <li id="preparation">
+			<strong>Preparation of jigsaw piece images (10 marks)</strong>
+			<ul>
+				<li>
+					You need to submit all the image files your project uses, as well as the Python file
+				</li>
+				<li>
+					We allow the following 4 arrangements of jigsaw pieces:
+					<ul>
+						<li>3x3 jigsaw pieces</li>
+						<li>4x4 jigsaw pieces</li>
+						<li>5x5 jigsaw pieces</li>
+						<li>6x6 jigsaw pieces</li>
+					</ul>
+
+
+
+				</li>
+				<li>No additional marks will be given for 4x4, 5x5 and 6x6 jigsaw pieces</li>
+				<li>In the following screenshots, we use 3x3 for illustration</li>
+				<li>By default, Windows/Mac may hide the file name extensions</li>
+				<li> You should show the file name extensions to help avoid any mistake
+					<ul>
+						<li>In Mac, you can choose Finder > Preferences... </li>
+						<ul>
+							<li>Click the Advanced button on the dialog</li>
+							<li>Tick "Show all filename extensions"</li>
+							<li>Here is a screenshot to illustrate the setup
+								<br>
+									<img src="images/mac_filename_ext.png" style="width:450px;" />
+
+							</li>
+
+						</ul>
+
+					</ul>
+					<ul>
+						<li>In Windows, you can click View </li>
+						<ul>
+							<li>Tick "Filename extensions"</li>
+							<li>Here is a screenshot to illustrate the setup
+								<br>
+									<img src="images/windows_filename_ext.png" style="width:750px;" />
+
+							</li>
+
+						</ul>
+
+					</ul>
+				</li>
+
+				<li>Each filename must be in this format:
+					<ul>
+
+						<li>The text "image" (all lowercase letters), followed by: </li>
+						<li>A hyphen (-), followed by:</li>
+						<li>The row, followed by:</li>
+						<li>A hyphen (-), followed by:</li>
+						<li>The column</li>
+
+
+					</ul>
+
+				</li>
+				<li>Remember your image files must be GIF format, so they will end in '.gif'</li>
+
+
+						<li>Please click the following buttons to check the exact image filenames:
+							<br>
+						<div  >
+							<button id="btn_33">3x3 structure</button>
+							<button id="btn_44">4x4 structure</button>
+							<button id="btn_55">5x5 structure</button>
+							<button id="btn_66">6x6 structure</button>
+						</div>
+
+						</li>
+
+					<li id="images_33">If you are using a <strong>3x3 structure</strong>, your files must have <strong>exactly these filenames</strong>:
+						<ul class="image_file_list">
+							<li>image-0-0.gif</li>
+							<li>image-0-1.gif</li>
+							<li>image-0-2.gif</li>
+							<li>image-1-0.gif</li>
+							<li>image-1-1.gif</li>
+							<li>image-1-2.gif</li>
+							<li>image-2-0.gif</li>
+							<li>image-2-1.gif</li>
+							<li>image-2-2.gif</li>
+						</ul>
+					</li>
+					<li id="images_44">If you are using a <strong>4x4 structure</strong>, your files must have <strong>exactly these filenames</strong>:
+						<ul class="image_file_list">
+							<li>image-0-0.gif</li>
+							<li>image-0-1.gif</li>
+							<li>image-0-2.gif</li>
+							<li>image-0-3.gif</li>
+							<li>image-1-0.gif</li>
+							<li>image-1-1.gif</li>
+							<li>image-1-2.gif</li>
+							<li>image-1-3.gif</li>
+							<li>image-2-0.gif</li>
+							<li>image-2-1.gif</li>
+							<li>image-2-2.gif</li>
+							<li>image-2-3.gif</li>
+							<li>image-3-0.gif</li>
+							<li>image-3-1.gif</li>
+							<li>image-3-2.gif</li>
+							<li>image-3-3.gif</li>
+						</ul>
+					</li>
+					<li id="images_55">If you are using a <strong>5x5 structure</strong>, your files must have <strong>exactly these filenames</strong>:
+						<ul class="image_file_list">
+							<li>image-0-0.gif</li>
+							<li>image-0-1.gif</li>
+							<li>image-0-2.gif</li>
+							<li>image-0-3.gif</li>
+							<li>image-0-4.gif</li>
+							<li>image-1-0.gif</li>
+							<li>image-1-1.gif</li>
+							<li>image-1-2.gif</li>
+							<li>image-1-3.gif</li>
+							<li>image-1-4.gif</li>
+							<li>image-2-0.gif</li>
+							<li>image-2-1.gif</li>
+							<li>image-2-2.gif</li>
+							<li>image-2-3.gif</li>
+							<li>image-2-4.gif</li>
+							<li>image-3-0.gif</li>
+							<li>image-3-1.gif</li>
+							<li>image-3-2.gif</li>
+							<li>image-3-3.gif</li>
+							<li>image-3-4.gif</li>
+							<li>image-4-0.gif</li>
+							<li>image-4-1.gif</li>
+							<li>image-4-2.gif</li>
+							<li>image-4-3.gif</li>
+							<li>image-4-4.gif</li>
+						</ul>
+					</li>
+
+					<li id="images_66">If you are using a <strong>6x6 structure</strong>, your files must have <strong>exactly these filenames</strong>:
+						<ul class="image_file_list">
+							<li>image-0-0.gif</li>
+							<li>image-0-1.gif</li>
+							<li>image-0-2.gif</li>
+							<li>image-0-3.gif</li>
+							<li>image-0-4.gif</li>
+							<li>image-0-5.gif</li>
+							<li>image-1-0.gif</li>
+							<li>image-1-1.gif</li>
+							<li>image-1-2.gif</li>
+							<li>image-1-3.gif</li>
+							<li>image-1-4.gif</li>
+							<li>image-1-5.gif</li>
+							<li>image-2-0.gif</li>
+							<li>image-2-1.gif</li>
+							<li>image-2-2.gif</li>
+							<li>image-2-3.gif</li>
+							<li>image-2-4.gif</li>
+							<li>image-2-5.gif</li>
+							<li>image-3-0.gif</li>
+							<li>image-3-1.gif</li>
+							<li>image-3-2.gif</li>
+							<li>image-3-3.gif</li>
+							<li>image-3-4.gif</li>
+							<li>image-3-5.gif</li>
+							<li>image-4-0.gif</li>
+							<li>image-4-1.gif</li>
+							<li>image-4-2.gif</li>
+							<li>image-4-3.gif</li>
+							<li>image-4-4.gif</li>
+							<li>image-4-5.gif</li>
+							<li>image-5-0.gif</li>
+							<li>image-5-1.gif</li>
+							<li>image-5-2.gif</li>
+							<li>image-5-3.gif</li>
+							<li>image-5-4.gif</li>
+							<li>image-5-5.gif</li>
+						</ul>
+					</li>
+
+
+				</li>
+
+
+			</ul>
+        </li>
+
+		<br>
+		<li id="check_correct">
+			<strong>The checkJigsaw() function - checking the correct case (20 marks)</strong>
+			<ul>
+				<li>In this test, jigsaw pieces are correct in both x and y axes</li>
+				<li>Please click the following buttons to help you understand:
+					<br>
+				<div>
+					<button id="btn_correct_33">3x3 structure</button>
+					<button id="btn_correct_44">4x4 structure</button>
+					<button id="btn_correct_55">5x5 structure</button>
+					<button id="btn_correct_66">6x6 structure</button>
+				</div>
+
+				</li>
+
+				<li id="correct_image_33">For a <strong>3x3 structure</strong>, 9 jigsaw pieces will be moved to the following positions:
+					<p>
+						<img src="images/case_correct_33.png" style="width:450px;" />
+						<br>
+						<span class="footnote">Remember you don't have to use this image</span>
+					</p>
+
+				</li>
+				<li id="correct_image_44">For a <strong>4x4 structure</strong>, 16 jigsaw pieces will be moved to the following positions:
+					<p>
+						<img src="images/case_correct_44.png" style="width:450px;" />
+						<br>
+						<span class="footnote">Remember you don't have to use this image</span>
+					</p>
+				</li>
+				<li id="correct_image_55">For a <strong>5x5 structure</strong>, 25 jigsaw pieces will be moved to the following positions:
+					<p>
+						<img src="images/case_correct_55.png" style="width:450px;" />
+						<br>
+						<span class="footnote">Remember you don't have to use this image</span>
+					</p>
+				</li>
+				<li id="correct_image_66">For a <strong>6x6 structure</strong>, 36 jigsaw pieces will be moved to the following positions:
+					<p>
+						<img src="images/case_correct_66.png" style="width:450px;" />
+						<br>
+						<span class="footnote">Remember you don't have to use this image</span>
+					</p>
+				</li>
+
+
+
+
+
+				<li>
+					The way the player triggers this:
+					<ul>
+
+						<li>He/she presses 'c' to check </li>
+						<li>A message such as "Congratulations! Your jigsaw is correct!" is displayed in the turtle window if the jigsaw pieces are arranged correctly</li>
+
+					</ul>
+				</li>
+				<li><code>turtle.write()</code> must be used to display the message</li>
+
+
+			</ul>
+		</li>
+
+		<br>
+		<li id="check_wrong1">
+			<strong>The checkJigsaw() function - checking wrong case 1 (20 marks)</strong>
+			<ul>
+				<li>In this test, jigsaw pieces are incorrect in only the y axis, the x axis is correct</li>
+				<li>Please click the following buttons to help you understand:
+					<br>
+				<div>
+					<button id="btn_wrong_1_33">3x3 structure</button>
+					<button id="btn_wrong_1_44">4x4 structure</button>
+					<button id="btn_wrong_1_55">5x5 structure</button>
+					<button id="btn_wrong_1_66">6x6 structure</button>
+				</div>
+
+				</li>
+
+				<li id="wrong_1_image_33">For a <strong>3x3 structure</strong>s, 9 jigsaw pieces will be moved to the following positions:
+					<p>
+						<img src="images/case_wrong_1_33.png" style="width:450px;" />
+						<br>
+						<span class="footnote">Remember you don't have to use this image</span>
+					</p>
+				</li>
+				<li id="wrong_1_image_44">For a <strong>4x4 structure</strong>, 16 jigsaw pieces will be moved to the following positions:
+					<p>
+						<img src="images/case_wrong_1_44.png" style="width:450px;" />
+						<br>
+						<span class="footnote">Remember you don't have to use this image</span>
+					</p>
+				</li>
+				<li id="wrong_1_image_55">For a <strong>5x5 structure</strong>, 25 jigsaw pieces will be moved to the following positions:
+					<p>
+						<img src="images/case_wrong_1_55.png" style="width:450px;" />
+						<br>
+						<span class="footnote">Remember you don't have to use this image</span>
+					</p>
+				</li>
+				<li id="wrong_1_image_66">For a <strong>6x6 structure</strong>, 36 jigsaw pieces will be moved to the following positions:
+					<p>
+						<img src="images/case_wrong_1_66.png" style="width:450px;" />
+						<br>
+						<span class="footnote">Remember you don't have to use this image</span>
+					</p>
+				</li>
+
+
+
+				<li>
+					The way the player triggers this:
+					<ul>
+						<li>He/she presses 'c' to check </li>
+						<li>A message such as "Oh no! Your jigsaw is WRONG!" is displayed in the turtle window if the jigsaw pieces are arranged wrongly</li>
+
+					</ul>
+				</li>
+
+				<li><code>turtle.write()</code> must be used to display the message</li>
+
+
+
+			</ul>
+
+		</li>
+
+		<br>
+		<li id="check_wrong2">
+			<strong>The checkJigsaw() function - checking wrong case 2 (20 marks)</strong>
+			<ul>
+				<li>In this test, jigsaw pieces are incorrect in only the x axis, the y axis is correct</li>
+				<li>Please click the following buttons to help you understand:
+					<br>
+				<div>
+					<button id="btn_wrong_2_33">3x3 structure</button>
+					<button id="btn_wrong_2_44">4x4 structure</button>
+					<button id="btn_wrong_2_55">5x5 structure</button>
+					<button id="btn_wrong_2_66">6x6 structure</button>
+				</div>
+
+				</li>
+
+				<li id="wrong_2_image_33">For a <strong>3x3 structure</strong>, 9 jigsaw pieces will be moved to the following positions:
+					<p>
+						<img src="images/case_wrong_2_33.png" style="width:450px;" />
+						<br>
+						<span class="footnote">Remember you don't have to use this image</span>
+					</p>
+				</li>
+				<li id="wrong_2_image_44">For a <strong>4x4 structure</strong>, 16 jigsaw pieces will be moved to the following positions:
+					<p>
+						<img src="images/case_wrong_2_44.png" style="width:450px;" />
+						<br>
+						<span class="footnote">Remember you don't have to use this image</span>
+					</p>
+				</li>
+				<li id="wrong_2_image_55">For a <strong>5x5 structure</strong>, 25 jigsaw pieces will be moved to the following positions:
+					<p>
+						<img src="images/case_wrong_2_55.png" style="width:450px;" />
+						<br>
+						<span class="footnote">Remember you don't have to use this image</span>
+					</p>
+				</li>
+				<li id="wrong_2_image_66">For a <strong>6x6 structure</strong>, 36 jigsaw pieces will be moved to the following positions:
+					<p>
+						<img src="images/case_wrong_2_66.png" style="width:450px;" />
+						<br>
+						<span class="footnote">Remember you don't have to use this image</span>
+					</p>
+				</li>
+
+
+				<li>
+					The way the player triggers this:
+					<ul>
+						<li>He/she presses 'c' to check </li>
+						<li>A message such as "Oh no! Your jigsaw is WRONG!" is displayed in the turtle window if the jigsaw pieces are arranged wrongly</li>
+
+					</ul>
+				</li>
+
+				<li><code>turtle.write()</code> must be used to display the message</li>
+
+
+
+			</ul>
+
+		</li>
+
+		<br>
+		<li id="check_wrong3">
+			<strong>The checkJigsaw() function - checking wrong case 3 (20 marks)</strong>
+			<ul>
+				<li>In this test, jigsaw pieces are incorrect in both x and y axes</li>
+				<li>Please click the following buttons to help you understand:
+					<br>
+				<div>
+					<button id="btn_wrong_3_33">3x3 structure</button>
+					<button id="btn_wrong_3_44">4x4 structure</button>
+					<button id="btn_wrong_3_55">5x5 structure</button>
+					<button id="btn_wrong_3_66">6x6 structure</button>
+				</div>
+
+				</li>
+
+				<li id="wrong_3_image_33">For a <strong>3x3 structure</strong>, 9 jigsaw pieces will be moved to the following positions:
+					<p>
+						<img src="images/case_wrong_3_33.png" style="width:450px;" />
+						<br>
+						<span class="footnote">Remember you don't have to use this image</span>
+					</p>
+				</li>
+				<li id="wrong_3_image_44">For a <strong>4x4 structure</strong>, 16 jigsaw pieces will be moved to the following positions:
+					<p>
+						<img src="images/case_wrong_3_44.png" style="width:450px;" />
+						<br>
+						<span class="footnote">Remember you don't have to use this image</span>
+					</p>
+				</li>
+				<li id="wrong_3_image_55">For a <strong>5x5 structure</strong>s, 25 jigsaw pieces will be moved to the following positions:
+					<p>
+						<img src="images/case_wrong_3_55.png" style="width:450px;" />
+						<br>
+						<span class="footnote">Remember you don't have to use this image</span>
+					</p>
+				</li>
+				<li id="wrong_3_image_66">For a <strong>6x6 structure</strong>, 36 jigsaw pieces will be moved to the following positions:
+					<p>
+						<img src="images/case_wrong_3_66.png" style="width:450px;" />
+						<br>
+						<span class="footnote">Remember you don't have to use this image</span>
+					</p>
+				</li>
+
+				<li>
+					The way the player triggers this:
+					<ul>
+						<li>He/she presses 'c' to check </li>
+						<li>A message such as "Oh no! Your jigsaw is WRONG!" is displayed in the turtle window if the jigsaw pieces are arranged wrongly
+
+						</li>
+
+					</ul>
+				</li>
+
+				<li><code>turtle.write()</code> must be used to display the message</li>
+
+
+			</ul>
+
+		</li>
+
+		<br>
+		<li id="enter_student_info">
+			<strong>Enter your name and student ID number in the code</strong>
+
+			<ul>
+				<li>
+					Enter your name and student ID number at the top of your Python code using a comment
+						<br>
+						e.g. <code style="color:green"># Done by CHAN, Tai Man, 01234567</code>
+
+				</li>
+			</ul>
+		</li>
+
+		<br>
+		<li id="create_submission">
+			<strong>Create lab4.zip for submission (10 marks)</strong>
+
+			<ul>
+				<li>A zip file (lab4.zip) containing <strong>jigsaw.py</strong> is submitted (5 marks)</li>
+				<li>The zip file contains 9 or more images and the images are in the same folder with <strong>jigsaw.py</strong>  (5 marks) </li>
+
+
+				<li>Make sure <strong>jigsaw.py</strong> is in the same folder with the image files
+					<ul>
+						<li>There will be 9 images files if you are using a 3x3 jigsaw structure, or: </li>
+						<li>There will be 16 images files if you are using a 4x4 jigsaw structure, or: </li>
+						<li>There will be 25 images files if you are using a 5x5 jigsaw structure, or: </li>
+						<li>There will be 36 images files if you are using a 6x6 jigsaw structure </li>
+					</ul>
+				</li>
+				<li>The folder storing these files must be named as <strong>lab4</strong> (all lowercase letters, without any empty spaces) -
+					<strong>DON'T</strong> use other folder names
+					<ul>
+						<li><strong>DON'T</strong> create any sub-folder inside the lab4 folder</li>
+						<li>In Mac, you should see the following (3x3 jigsaw pieces are used for illustration):
+							<br>
+								<img src="images/correct_file_in_mac.png" style="width:450px;" />
+
+						</li>
+						<li>In Windows, you should see the following (3x3 jigsaw pieces are used for illustration):
+							<br>
+								<img src="images/correct_file_in_windows.png" style="width:130px;" />
+
+						</li>
+					</ul>
+				</li>
+				<li>Follow the following step to create lab4.zip
+					<ul>
+						<li>In Mac, you can right-click the lab4 folder and choose Compress "lab4"
+							<br>
+								<img src="images/create_zip_in_mac.png" style="width:450px;" />
+
+						</li>
+						<li>In Windows, you can right-click the lab4 folder and choose Send To > Compressed (zipped) folder
+							<br>
+								<img src="images/create_zip_in_windows.png" style="width:750px;" />
+
+						</li>
+					</ul>
+				</li>
+				<li>Now, you have <strong>lab4.zip</strong> and you can submit the file to the Canvas system! The link is shown below.</li>
+
+
+			</ul>
+		</li>
+
+
+
+
+
+
+
+
+    </ol>
+
+
+	<h2 id="submission"><a name="deadline"></a>Submission Information</h2>
+
+	<ol>
+
+		<li><strong>Check your work before you submit it</strong>
+			<ul>
+				<li>Using the marking scheme, you can carefully check your work before you hand it in</li>
+				<li>You should be able to get 100% for your lab work</li>
+			</ul>
+
+		</li>
+		<li>
+			<strong>Submit your work before the deadline</strong>
+			<ul>
+				<li>You won't be able to submit anything after the deadline</li>
+				<li>It is a smart idea to hand in your work days before the deadline!</li>
+			</ul>
+		</li>
+		<li>
+			<strong>Make sure you submit a zip file containing the correct files</strong>
+			<ul>
+				<li>You can download your most recent submission from your Canvas Submission page
+					<ul>
+						<li>Then you can check exactly what you handed in</li>
+					</ul>
+				</li>
+				<li>If you find you have submitted something which is not appropriate, you can submit a corrected zip file
+					<ul>
+						<li>You can only do this before the deadline</li>
+					</ul>
+
+				</li>
+
+			</ul>
+		</li>
+	</ol>
+
+	<ul>
+		<li><strong id="deadline">What is your exact deadline?</strong>
+			<ul>
+				<li>For this lab, you get 9 days after the teaching day of your registered lab to submit your work</li>
+				<li>The dates/times are shown below, using Hong Kong Time</li>
+				<li>
+					Here are the exact deadlines:
+
+					<table border="1" style="font-family:arial, sans-serif; font-size:16px; margin-left:25px;">
+						<tr>
+							<td><strong>The Weekday of your Registered Lab</strong></td>
+							<td><strong>Lab session</strong></td>
+							<td><strong>Deadline Date and Time</strong></td>
+							<td><strong>Link</strong></td>
+						</tr>
+						<tr>
+							<td>Thursday labs</td>
+							<td>LA1</td>
+							<td>16 April 2022 Saturday 23:59</td>
+							<td><a href="https://canvas.ust.hk/courses/42334/assignments/206314">LA1 Submission</a></td>
+						</tr>
+						<tr>
+							<td>Wednesday labs</td>
+							<td>LA2</td>
+							<td>15 April 2022 Friday 23:59</td>
+							<td><a href="https://canvas.ust.hk/courses/42334/assignments/206315">LA2 Submission</a></td>
+						</tr>
+
+
+						</table>
+				</li>
+			</ul>
+
+		</li>
+	</ul>
+
+
+
+
+
+	</div>
+
+	<script src="buttons.js"></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

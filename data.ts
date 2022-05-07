@@ -1,5 +1,5 @@
 const categorizedCourses: CategorizedCourses = {
-  'Algorithm Analysis': [
+  'Algorithmic Study': [
     {
       code: 'COMP 2711H',
       title: 'Honors Discrete Mathematical Tools for Computer Science',
@@ -25,11 +25,25 @@ const categorizedCourses: CategorizedCourses = {
       semesters: ['Spring 2022'],
     }
   ],
+  'Computer Vision / Graphics': [
+    {
+      code: 'COMP 4451',
+      title: 'Game Programming',
+      semesters: ['Spring 2022'],
+    }
+  ],
   'Internet / Multimedia / Networking': [
     {
       code: 'COMP 5622',
       title: 'Advanced Computer Communications and Networking',
       semesters: ['Spring 2020'],
+    }
+  ],
+  'Introduction to Programming': [
+    {
+      code: 'COMP 1021',
+      title: 'Introduction to Computer Science',
+      semesters: ['Spring 2022'],
     }
   ],
   'Machine Learning': [

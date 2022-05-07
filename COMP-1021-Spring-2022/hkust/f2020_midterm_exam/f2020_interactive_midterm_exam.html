@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+    <title>COMP1021 Fall 2020 Interactive Midterm Exam</title>
+    <link rel="stylesheet" href="../../css/lab.css" />
+    
+    <script src="../../scripts/jquery-3.4.1.min.js"></script>
+    <script src="./video_res.js"></script>    
+
+    <style>
+    body { margin-bottom: 15px; }
+    h3 { margin-top: 2em; }
+	p, li { font-size: 0.9rem; }
+    p, pre { margin-left: 15px; margin-right: 15px; }
+    pre > blank {
+        padding: 0 1em;
+        font-family: "Times New Roman", Times, serif;
+        font-weight: bold;
+        border-bottom: 2px solid black;
+    }
+    h2#PartB ~ pre { user-select: none; }
+    h2#PartB ~ pre.selectable { user-select: auto; }
+    @media print { h2#PartB ~ pre { display: none } }
+    select.code, select.code > option { font-family: monospace; }
+    .answer-area { display: none; }
+    .check-result { font-weight: bold; }
+    span.correct { color: green; }
+    span.wrong { color: red; }
+    input.wrong, select.wrong { border: 2px solid red; }
+    </style>
+</head>
+
+<body>
+    <h1>
+        <span class="lab">COMP1021 Fall 2020</span>
+        <span class="title">Interactive Midterm Exam</span>
+    </h1>
+
+    <h2>How to Use This Exam Page</h2>
+
+    <ul>
+    	<li>This exam was an online exam</li>  
+        <li>You are strongly recommended to first try out each question
+            by selecting/entering your answer, and then pressing
+            <button style="pointer-events: none;">Check your answer</button>
+        </li>
+        <li>If your answer is wrong, try to change it, then check it again</li>
+        <li>If you have tried some different answers and can't get the answer
+            correct, that's when you should select
+            <button style="pointer-events: none;">Click here to show the correct answer and video explanation</button>
+        </li>
+        <li>Then you will see the correct answer(s), together with a link to the video explanation</li>
+    <li>For all questions in Part A, students could copy Python code from the exam</li>  
+    <li>For all questions in Part B, students could not copy Python code from the exam</li>  
+    <li>You can copy the code shown in all questions on this web page after you have selected <button style="pointer-events: none;">Click here to show the correct answer and video explanation</button></li>
+        <li>Video explanations are by Prof. David Rossiter</li>  
+    </ul>
+    <div id="videoQualityWidget"></div>
+
+    <h2>The Questions</h2>
+
+    <ul>
+        <li><a href="#PartA">Part A</a>
+            <ul>
+                <li><a href="#PAQ1">Question 1</a></li>
+                <li><a href="#PAQ2">Question 2</a></li>
+                <li><a href="#PAQ3">Question 3</a></li>
+                <li><a href="#PAQ4">Question 4</a></li>
+                <li><a href="#PAQ5">Question 5</a></li>
+                <li><a href="#PAQ6">Question 6</a></li>
+                <li><a href="#PAQ7">Question 7</a></li>
+            </ul>
+        </li>
+        <li><a href="#PartB">Part B</a>
+            <ul>
+                <li><a href="#PBQ1">Question 1</a></li>
+                <li><a href="#PBQ2">Question 2</a></li>
+                <li><a href="#PBQ3">Question 3</a></li>
+                <li><a href="#PBQ4">Question 4</a></li>
+                <li><a href="#PBQ5">Question 5</a></li>
+                <li><a href="#PBQ6">Question 6</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2><a name="PartA"></a>Part A</h2>
+
+    <ul>
+        <li>For this part of the exam:
+            <ul>
+                <li>You can copy the code shown in the questions</li>
+                <li>You can execute the code</li>
+                <li>You can edit the code</li>
+                <li>and so on</li>
+            </ul>
+        </li>
+        <li>You can quickly run any Python code we give you</li>
+        <li>You may or may not find it useful to run the code given
+            in the questions</li>
+    </ul>
+
+    <h3><a name="PAQ1"></a>Question 1 <em>(1 pt)</em></h3>
+
+<p>You have a summer job at Subway Sandwiches. You make a program to help you keep track of the jobs you have to do each day. (You never know how many jobs there will be, but there are always lots of jobs). Below you can see an example of the program being used. The number shown in bold is the input from the user.</p>
+    
+<pre>
+0 clean floor
+1 bake bread
+2 check vegetables
+3 make cookies
+4 clean oven
+5 wipe glass
+Which job have you done?
+Enter one of the numbers: <b>4</b>
+
+0 clean floor
+1 bake bread
+2 check vegetables
+3 make cookies
+4 wipe glass
+Which job have you done?
+Enter one of the numbers: <b>1</b>
+
+0 clean floor
+1 check vegetables
+2 make cookies
+3 wipe glass
+Which job have you done?
+Enter one of the numbers: <b>3</b>
+
+0 clean floor
+1 check vegetables
+2 make cookies
+Which job have you done?
+Enter one of the numbers: <b>0</b>
+
+0 check vegetables
+1 make cookies
+Which job have you done?
+Enter one of the numbers: <b>1</b>
+
+0 check vegetables
+Which job have you done?
+Enter one of the numbers: <b>0</b>
+
+Finished all jobs!
+</pre>
+
+<p>Here is the program.</p>
+
+<pre>
+list_of_jobs =["clean floor", "bake bread", \
+               "check vegetables", "make cookies", \
+               "clean oven", "wipe glass"]
+
+while len(list_of_jobs) <blank>Blank 1</blank> 0:
+    print()
+    for index in range( len(list_of_jobs) ):
+        print(index, list_of_jobs[ index ])
+    print("Which job have you done?")
+    this_job_index=input("Enter one of the numbers: ")
+    <blank>Blank 2</blank>
+    list_of_jobs.remove(list_of_jobs[ this_job_index ])
+print()
+print("Finished all jobs!")
+</pre>
+
+<p>What are the 2 missing pieces of code? (<b>Do not include any spaces</b> in your answers.)</p>
+
+    <div>
+        <p><strong>Your answer:</strong></p>
+        <p>Blank 1 is <input model=">,!="></p>
+        <p>Blank 2 is <input model="this_job_index=int(this_job_index),this_job_index=int(float(this_job_index))"></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Accepted answers for "Blank 1":</strong></p>
+        <p>></p>
+        <p>!=</p>
+
+        <p><strong>Accepted answers for "Blank 2":</strong></p>
+        <p>this_job_index=int(this_job_index)</p>
+        <p>this_job_index=int(float(this_job_index))</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video/_PAQ1.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video/_PAQ1.mp4'>here</a> for the video.
+    </video>
+</ul>
+    
+    </div>
+
+
+<h3><a name="PAQ2"></a>Question 2 <em>(1 pt)</em></h3>
+
+<p>When the following program is executed the user enters two numbers (i.e. <em>m</em> and <em>n</em>). Based on the two values entered, something is drawn.</p> 
+
+<p>Here is the program:</p>
+
+<pre>
+import turtle
+turtle.speed(0)
+turtle.hideturtle()
+m = int(input("Enter an integer m:"))
+n = int(input("Enter an integer n:"))
+for _ in range(m):
+    for _ in range(n):
+        turtle.forward(30)
+        turtle.right(360 / n)
+    turtle.up()
+    turtle.forward(50)
+    turtle.right(360 / m)
+    turtle.down()
+turtle.done()
+</pre>
+
+<p>Which one of the following images <b>cannot</b> be generated by the program?</p>
+
+<table width="200" border="1" align="center" style="margin-left: 15px">
+  <tr>
+    <td>Figure A</td>
+    <td>Figure B</td>
+    <td>Figure C</td>
+  </tr>
+  <tr>
+    <td><img src="images/PAQ2_FigureE.png" alt="PAQ2_FigA" style="height:180px" align="top"></td>
+    <td><img src="images/PAQ2_FigureB.png" alt="PAQ2_FigB" style="height:180px" align="top"></td>
+    <td><img src="images/PAQ2_FigureA.png" alt="PAQ2_FigC" style="height:180px" align="top"></td>
+  </tr>
+  <tr>
+    <td>Figure D</td>
+    <td>Figure E</td>
+    <td>Figure F</td>
+  </tr>
+  <tr>
+    <td><img src="images/PAQ2_FigureC.png" alt="PAQ2_FigD" style="height:180px" align="top"></td>
+    <td><img src="images/PAQ2_FigureD.png" alt="PAQ2_FigE" style="height:180px" align="top"></td>
+    <td><img src="images/PAQ2_FigureF.png" alt="PAQ2_FigF" style="height:180px" align="top"></td>
+  </tr>
+</table>
+
+<div>
+        <p><strong>Your answer:</strong>
+        <select model="Figure A" keepspace>
+            <option>Figure A</option>
+            <option>Figure B</option>
+            <option>Figure C</option>
+            <option>Figure D</option>
+            <option>Figure E</option>
+            <option>Figure F</option>
+        </select>
+        </p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>Figure A</p>
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video/_PAQ2.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video/_PAQ2.mp4'>here</a> for the video.
+    </video>
+</ul>
+        
+</div>
+    
+
+<h3><a name="PAQ3"></a>Question 3 <em>(1 pt)</em></h3>
+
+<p>Fill in the blank so that the number of teachers in the COMP1021 teaching team is correctly counted. Here is a Python program:</p>
+
+<pre>
+teaching_team = [
+    ("Dave", "Teacher"),
+    ("Peter", "TA"),
+    ("Jimmy", "TA"),
+    ("Cecia", "Teacher"),
+    ("Gibson", "Teacher"),
+    ("Kelvin", "TA"),
+    ("Alex", "Teacher"),
+    ("Dimitris", "Teacher")
+]
+
+count_teacher = 0
+for t in teaching_team:
+    if t[ <blank>Blank</blank> ] == "Teacher": 
+        count_teacher = count_teacher + 1
+print("count_teacher:", count_teacher)
+</pre>
+
+<p>When the program is executed this is what you see:</p>
+
+<pre>
+count_teacher: 5
+</pre>
+
+<p>What is in <b><u> Blank </u></b>? <b>Enter one integer.</b></p>
+
+    <div>
+    <p><strong>Your answer: </strong><input model="1"></p>
+    <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>1</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video/_PAQ3.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video/_PAQ3.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+
+
+<h3><a name="PAQ4"></a>Question 4 <em>(1 pt)</em></h3>
+
+<p>Here are some of the colours that can be used in turtle graphics:</p>
+
+<p><img src="images/PAQ4_FigureA.png" alt="PAQ4_FigureA" style="width:600px"></p>
+
+<p>(You previously saw a list of all the possible colours you can use in lab 02, here is the <a href="./ref/color_list.html">link</a>.)</p>
+
+<p>The following program creates this image:</p>
+
+<p>
+<img src="images/PAQ4_FigureB.png" alt="PAQ4_FigureB" style="height:360px">
+</p>
+
+<p>The program code:</p>
+
+<pre>
+import turtle
+turtle.speed(0)
+turtle.bgcolor("white")
+turtle.hideturtle()
+diameter=400
+for value in range(100):
+    turtle.color( <blank>Blank</blank> ) 
+    turtle.dot(diameter)
+    diameter= diameter-4
+turtle.done()
+</pre>
+
+<p>As you can see, there is 1 missing piece of code indicated by <b><u>Blank</u></b>. What is the missing piece of code? </p>
+
+<p>There may be more than one answer. However, the code you write must be the simplest (least typing and least complex) code that works.</p>
+
+<p><b>Write the missing piece of code. Don't write the whole line of code, just write the missing part. Don't write any spaces in your answer.</b></p>
+
+    <div>
+<p><strong>Your answer: </strong>
+<input model="&quot;gray&quot;+str(value),'gray'+str(value),&quot;grey&quot;+str(value),'grey'+str(value)"></p>
+    <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Accepted answers:</strong></p>
+        <p>"gray"+str(value)</p>
+        <p>'gray'+str(value)</p>
+        <p>"grey"+str(value)</p>
+        <p>'grey'+str(value)</p>
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video/_PAQ4.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video/_PAQ4.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+
+
+<h3><a name="PAQ5"></a>Question 5 <em>(1 pt)</em></h3>
+
+<p>A student is practicing Python programming by writing a function. When the function is run <b>it randomly chooses and displays one of the 5 days of the week,</b> Monday to Friday. (Saturday and Sunday are not included). The student creates 5 different versions of the function. The functions are shown in the possible answers below.</p>
+
+<p>You can assume </p>
+
+<pre>import random </pre>
+
+<p>has been executed before these functions are executed.</p>
+
+<p>Four of the functions are suitable/correct. One function is not suitable/correct.</p>
+
+<p><b>Which function is NOT suitable/correct?</b></p>
+
+<ol type = "A">
+
+<li><pre>
+def ChooseDay():
+    days=["Monday","Tuesday","Wednesday","Thursday","Friday"] 
+    number=random.randint(0, 4)
+    print(days[number]) 
+</pre></li>
+
+<li><pre>
+def ChooseDay(): 
+    days=["Monday","Tuesday","Wednesday","Thursday","Friday"]
+    print(random.choice(days))
+</pre></li>
+
+<li><pre>
+def ChooseDay(): 
+     days=["Monday","Tuesday","Wednesday","Thursday","Friday"] 
+     numbers=[0,1,2,3,4]
+     thisnumber=random.choice(numbers)
+     print(days[thisnumber])
+</pre></li>
+
+<li><pre>
+def ChooseDay(): 
+    day = random.randint(1, 5) 
+    if day == 1: 
+         print("Monday") 
+    elif day == 2: 
+         print("Tuesday") 
+    elif day == 3: 
+         print("Wednesday") 
+    elif day == 4: 
+         print("Thursday") 
+    elif day == 5: 
+         print("Friday")
+</pre></li>
+
+<li><pre>
+def ChooseDay(): 
+    if random.randint(1, 5)==1: 
+        print("Monday") 
+    elif random.randint(1, 5)==2:
+        print("Tuesday") 
+    elif random.randint(1, 5)==3:
+        print("Wednesday")
+    elif random.randint(1, 5)==4: 
+        print("Thursday") 
+    elif random.randint(1, 5)==5: 
+        print("Friday")
+</pre></li>
+
+</ol>
+
+<div>
+        <p><strong>Your answer:</strong>
+        <select model="Function E" keepspace>
+            <option>Function A</option>
+            <option>Function B</option>
+            <option>Function C</option>
+            <option>Function D</option>
+            <option>Function E</option>
+        </select>
+        </p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>Function E</p>
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video/_PAQ5.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video/_PAQ5.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+</div>
+
+
+
+<h3><a name="PAQ6"></a>Question 6 <em>(1 pt)</em></h3>
+
+<p>Here is a Python program.</p>
+
+<pre>
+import turtle
+turtle.left(90)
+for d in range(2):
+    for i in range(2700):
+        turtle.forward(0.1)
+        if d:
+            turtle.right(0.1)
+        else:
+            turtle.left(0.1)
+turtle.done()
+</pre>
+
+<p>After the program has finished, what is the <b>letter</b> that you see in the turtle window?</p>
+
+<p>(The program shown above is slow to execute. However, if you are clever you can make it 10 times faster. Or, if you are super clever, you can make it run super fast using a technique you learned in lab 03). </p>
+
+<p>You only need to <b>write one capital letter</b> for your answer.</p>
+
+<p><b>Do not include any " or any ' in your answer.</b></p>
+
+    <div>
+    <p><strong>Your answer: </strong><input model="S"></p>
+    <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>S</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video/_PAQ6.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video/_PAQ6.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+    
+    
+<h3><a name="PAQ7"></a>Question 7 <em>(1 pt)</em></h3>
+<p>A Python program has been written with an infinite loop (a loop that never ends). The code is shown below:</p>
+    
+<pre>
+import turtle
+import random
+turtle.speed(1)
+while True:
+    x = random.randint(0, 500)
+    y = random.randint(0, 500)
+    while x + y > 500:
+        x = random.randint(0, 500)
+        y = random.randint(0, 500)
+    turtle.goto(x - 250, y - 250)
+turtle.done()
+</pre>
+
+<p>If you run the above program for a long time, what is the shape that you will see in the turtle window?</p>
+
+<p>Write <b>one single English word</b> to describe the shape that you can see in the turtle window. <b>Don't use any capital letters or spaces.</b></p>
+
+<p><b>Do not include any " or any ' in your answer.</b></p>
+
+    <div>
+        <p><strong>Your answer:</strong> <input model="triangle"></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>triangle</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video/_PAQ7.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video/_PAQ7.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+
+    
+    
+<h2 id="PartB"><a name="PartB"></a>Part B</h2>
+
+    <ul>
+        <li>For this part of the exam:
+            <ul>
+                <li>You cannot copy the code shown in the questions</li>
+                <li>You cannot execute the code</li>
+                <li>You cannot edit the code</li>
+            </ul>
+        </li>
+        <li>You can still run Python if you want to but
+            you cannot do the above</li>
+<li>You will be allowed to copy the code shown in the question after you have selected <button style="pointer-events: none;">Click here to show the correct answer and video explanation</button></li>
+    </ul>
+
+    <h3><a name="PBQ1"></a>Question 1 <em>(1 pt)</em></h3>
+<p>For this question you can't copy the code.</p>
+<p>After running the following program, the x position of the turtle is 6.</p>
+ 
+<pre>
+import turtle
+turtle.forward(1)
+turtle.forward(5)
+turtle.done()
+</pre>
+
+<p>Here is a different program. After the following program has finished, what is the x position of the turtle?</p>
+
+<pre src= "aW1wb3J0IHR1cnRsZQp0dXJ0bGUuZm9yd2FyZCgxKQp0dXJ0bGUuZm9yd2FyZCgxKQp0dXJ0bGUuZm9yd2FyZCgxKQp0dXJ0bGUuZm9yd2FyZCgxKQp0dXJ0bGUuZm9yd2FyZCgxKQpzdGVwPTYKd2hpbGUgc3RlcCE9MTE6CiAgICBwcmludCgiaW4gb3V0ZXIgbG9vcCIpCiAgICB0dXJ0bGUuZm9yd2FyZCg1KQogICAgdHVydGxlLmZvcndhcmQoNSkKICAgIGNoYW5nZT0xCiAgICB3aGlsZSBjaGFuZ2U+MzoKICAgICAgICBwcmludCgiaW4gaW5uZXIgbG9vcCIpCiAgICAgICAgdHVydGxlLmZvcndhcmQoMTApCiAgICAgICAgY2hhbmdlPWNoYW5nZSsxMAogICAgc3RlcD1zdGVwKzE="></pre>
+
+<p><b>For your answer, write one single integer number.</b></p>
+
+    <div>
+        <p><strong>Your answer:</strong> <input model="55"></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>55</p>      
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video/_PBQ1.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video/_PBQ1.mp4'>here</a> for the video.
+    </video>
+</ul>
+  
+<p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+     
+    </div>
+
+
+<h3><a name="PBQ2"></a>Question 2 <em>(1 pt)</em></h3>
+<p>For this question you can't copy the code.</p>
+<p>Here is the result of the following program.</p>
+
+<pre>
+Week 1 Lecture 1 Lecture 2
+Week 2 Lecture 1 Lecture 2
+Week 3 Lecture 1 Lecture 2
+Week 4 Lecture 1
+Week 5 Lecture 1 Lecture 2
+Week 6 Lecture 1 Lecture 2 Midterm Practice Exam
+Week 7 Lecture 1 Lecture 2 Actual Midterm Exam
+Week 8 Lecture 2
+Week 9 Lecture 1 Lecture 2
+Week 10 Lecture 1 Lecture 2
+Week 11 Lecture 1 Lecture 2
+Week 12 Lecture 1 Lecture 2
+Week 13 Lecture 1 Lecture 2
+Week 14 Exam week (half) - Final Exam date unknown
+Week 15 Exam week - Final Exam date unknown
+Week 16 Exam week (half) - Final Exam date unknown
+</pre>
+
+<p>Nothing else is printed.</p>
+
+<p>The program is shown below. In the appropriate places, select the three missing pieces of code.</p>
+
+<pre src="Zm9yIHdlZWsgaW4gPGJsYW5rPkJsYW5rIDE8L2JsYW5rPiA6IAogICAgcHJpbnQoIldlZWsiLCB3ZWVrLCBlbmQ9IiAiKQogICAgZXZlbnRzPSIiCiAgICBpZiA8Ymxhbms+QmxhbmsgMjwvYmxhbms+OgogICAgICAgIGlmICA8Ymxhbms+QmxhbmsgMzwvYmxhbms+OgogICAgICAgICAgICBldmVudHM9ZXZlbnRzICsgIkV4YW0gd2VlayAoaGFsZikgIgogICAgICAgIGVsc2U6CiAgICAgICAgICAgIGV2ZW50cz1ldmVudHMgKyAiRXhhbSB3ZWVrICIKICAgICAgICBldmVudHM9ZXZlbnRzICsgIi0gRmluYWwgRXhhbSBkYXRlIHVua25vd24gIgogICAgZWxzZToKICAgICAgICBpZiB3ZWVrIT04OgogICAgICAgICAgICBldmVudHM9ZXZlbnRzICsgIkxlY3R1cmUgMSAiCiAgICAgICAgaWYgd2VlayE9NDoKICAgICAgICAgICAgZXZlbnRzPWV2ZW50cyArICJMZWN0dXJlIDIgIiAKICAgICAgICBpZiB3ZWVrPT02OgogICAgICAgICAgICBldmVudHM9ZXZlbnRzICsgIk1pZHRlcm0gUHJhY3RpY2UgRXhhbSAiCiAgICAgICAgaWYgd2Vlaz09NzoKICAgICAgICAgICAgZXZlbnRzPWV2ZW50cyArICJBY3R1YWwgTWlkdGVybSBFeGFtICIKICAgIHByaW50KGV2ZW50cykK"></pre>
+
+    <div>
+        <p><strong>Your answer:</strong></p>
+        
+        <p>Blank 1 is <select class="code" model="range(1&sbquo;17)">
+            <option>range(1&sbquo;18)</option>
+			<option>range(1&sbquo;17)</option>
+			<option>range(1&sbquo;16)</option>
+			<option>range(0&sbquo;17)</option>
+			<option>range(0&sbquo;16)</option>
+			<option>range(0&sbquo;15)</option>
+        </select></p>
+        
+        <p>Blank 2 is <select class="code" model="week>=14">
+            <option>week>=15</option>
+            <option>week>=14</option>
+            <option>week>=13</option>
+            <option>week<=15</option>
+            <option>week<=14</option>
+            <option>week<=13</option>
+        </select></p>
+        
+        <p>Blank 3 is <select class="code" model="week%2==0">
+            <option>week%2==0</option>
+            <option>week%2=0</option>
+            <option>week/2==0</option>
+            <option>week/2=0</option>
+            <option>week%2==1</option>
+            <option>week%2=1</option>
+             <option>week/2=1</option>
+        </select></p>
+        
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer for "Blank 1": </strong>range(1&sbquo;17)</p>
+        <p><strong>Correct answer for "Blank 2": </strong>week>=14</p>
+        <p><strong>Correct answer for "Blank 3": </strong>week%2==0</p>
+              
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video/_PBQ2.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video/_PBQ2.mp4'>here</a> for the video.
+    </video>
+</ul>
+  
+<p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+      
+    </div>
+    
+    
+
+    <h3><a name="PBQ3"></a>Question 3 <em>(1 pt)</em></h3>
+<p>For this question you can't copy the code.</p>
+    <p>Here is a Python program. You can see numbers on the left. Those are not part of the code, they are simply there to make it easy to refer to the lines of code.</p>
+
+    <pre src="MDEJaW1wb3J0IHR1cnRsZQowMglpbXBvcnQgcmFuZG9tCjAzCXR1cnRsZS5zcGVlZCgwKQowNAl0dXJ0bGUuaGlkZXR1cnRsZSgpCjA1CWNvbG91cnMgPSBbICJyZWQiLCAib3JhbmdlIiwgInllbGxvdyIsICJncmVlbiIsICJibHVlIiwgInZpb2xldCIgXQowNgludW1fY29sb3VycyA9IGxlbihjb2xvdXJzKQowNwlmb3IgaSBpbiByYW5nZShudW1fY29sb3VycywgMCwgLTEpOgowOAkJdHVydGxlLmZvcndhcmQoaSozMCkKMDkJCXR1cnRsZS5sZWZ0KDkwKQoxMAkJdHVydGxlLmZpbGxjb2xvcihjb2xvdXJzW251bV9jb2xvdXJzLWldKQoxMQkJdHVydGxlLmJlZ2luX2ZpbGwoKQoxMgkJdHVydGxlLmNpcmNsZShpKjMwLCAxODApCjEzCQl0dXJ0bGUuZW5kX2ZpbGwoKQoxNAkJdHVydGxlLmxlZnQoOTApCjE1CQl0dXJ0bGUuZm9yd2FyZChpKjMwKQoxNgl0dXJ0bGUuZG9uZSgpCgo="></pre>
+
+    <p>The person who made the program wants the program to draw this:</p>
+
+    <p><img src="images/PBQ3_FigureA.png" alt="PBQ3_FigureA" style="width:400px"></p>
+
+<p>(This image is something similar to a rainbow).</p>
+<p>Unfortunately, the program shown above does not draw the image shown above. One line of code needs to be edited so that the program creates the image shown above.</p>
+<p>For this question you don't have to write anything except the line number of the code that needs to be edited.</p>
+<p><b>Which line of code needs to be edited? Please enter an integer.</b></p>
+
+    <div>
+    <p><strong>Your answer: </strong><input model="5,05"></p>
+    <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Accepted answers:</strong></p>
+        <p>5</p>
+        <p>05</p>
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video/_PBQ3.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video/_PBQ3.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+<p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>        
+    </div>
+
+    
+    
+    <h3><a name="PBQ4"></a>Question 4 <em>(1 pt)</em></h3>
+<p>For this question you can't copy the code.</p>
+    <p>When the following program is run, what is printed?</p>
+
+    <pre src="IyAgICAwMTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDUKeCA9ICJpIGF0dGVuZGVkIHB5dGhvbiBjbGFzc2VzIGluIHNjaG9vbCEiCgpwYXJ0MSA9IHhbaW50KGxlbih4KS8zKS0xOmludChsZW4oeCkvMildCgpwYXJ0MiA9IHhbMF0gKyB4Wy03Oi05Oi0xXQoKcGFydDMgPSB4Wy02XSArIHhbLTQ6LTFdCgpyZXN1bHQgPSBwYXJ0MStwYXJ0MitwYXJ0MwpwcmludChyZXN1bHQpCgo="></pre>
+    
+   
+<b>
+<p>Write your answer in the following text box.</p> 
+<p>Do not write any spaces at the start or end of your answer.</p>
+<p>Do not include any " or any ' in your answer.</p>
+</b>
+
+    <div>
+    <p><strong>Your answer: </strong><input model="python is cool" keepspace></p>
+    <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>python is cool</p>
+             
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video/_PBQ4.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video/_PBQ4.mp4'>here</a> for the video.
+    </video>
+</ul>
+ 
+<p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+       
+    </div>
+    
+    
+    
+<h3><a name="PBQ5"></a>Question 5 <em>(1 pt)</em></h3>
+<p>For this question you can't copy the code.</p>
+ <p>Two students form a team to answer a set of questions in a competition. They get points by answering questions.</p> 
+<p>Here is a program which simulates the competition:</p>
+
+<pre src= "bnVtYmVyX29mX3F1ZXN0aW9ucyA9IDMwCnRvdGFsX3BvaW50cyA9IDAKbmV4dF9zdHVkZW50X3RvX2Fuc3dlciA9ICJzdHVkZW50MSIKZm9yIHF1ZXN0aW9uIGluIHJhbmdlKG51bWJlcl9vZl9xdWVzdGlvbnMpOgogICAgaWYgcXVlc3Rpb24gPj0gMTU6CiAgICAgICAgYnJlYWsKICAgIGVsaWYgcXVlc3Rpb24gJSAyOgogICAgICAgIGNvbnRpbnVlCiAgICBlbGlmIHF1ZXN0aW9uID09IDEwOgogICAgICAgIHByaW50KCJCb3RoIHN0dWRlbnRzIGFuc3dlciBxdWVzdGlvbiIsIHF1ZXN0aW9uLCAidG9nZXRoZXIiKQogICAgICAgIHRvdGFsX3BvaW50cyArPSA1MAogICAgZWxpZiBuZXh0X3N0dWRlbnRfdG9fYW5zd2VyID09ICJzdHVkZW50MSI6CiAgICAgICAgcHJpbnQobmV4dF9zdHVkZW50X3RvX2Fuc3dlciwgImFuc3dlcnMgcXVlc3Rpb24iLCBxdWVzdGlvbikKICAgICAgICB0b3RhbF9wb2ludHMgPSB0b3RhbF9wb2ludHMgKyAxMAogICAgICAgIG5leHRfc3R1ZGVudF90b19hbnN3ZXIgPSAic3R1ZGVudDIiIAogICAgZWxpZiBuZXh0X3N0dWRlbnRfdG9fYW5zd2VyID09ICJzdHVkZW50MiI6CiAgICAgICAgcHJpbnQobmV4dF9zdHVkZW50X3RvX2Fuc3dlciwgImFuc3dlcnMgcXVlc3Rpb24iLCBxdWVzdGlvbikKICAgICAgICB0b3RhbF9wb2ludHMgPSB0b3RhbF9wb2ludHMgKyAyMAogICAgICAgIG5leHRfc3R1ZGVudF90b19hbnN3ZXIgPSAic3R1ZGVudDEiIAogICAgcHJpbnQoIlRoZSB0b3RhbCBwb2ludHMgdGhleSBnZXQgaW4gdGhlIGNvbXBldGl0aW9uIGlzIiwgdG90YWxfcG9pbnRzKQ=="></pre>
+
+<p>No error occurs when the program is run.</p> 
+<p>According to the last message shown by the program, <b>what are the total points</b> they get in the competition?</p>
+
+    <div>
+        <p><strong>Enter one integer:</strong> <input model="150"></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>150</p>
+       
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video/_PBQ5.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video/_PBQ5.mp4'>here</a> for the video.
+    </video>
+</ul>
+ 
+<p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+       
+    </div>
+
+
+    <h3><a name="PBQ6"></a>Question 6 <em>(1 pt)</em></h3>
+<p>For this question you can't copy the code.</p>
+<p>A program has been written to count some fruits that you receive from a farm.</p>
+<p>Here is an example input and output sequence of the program. The user input is shown in bold.</p>
+
+<pre>
+Give me apple, coconut, cherry, grape, lychee, orange, peach or pear.
+Enter none when you finish.
+What is the fruit? <b>grape</b>
+What is the fruit? <b>peach</b>
+What is the fruit? <b>apple</b>
+What is the fruit? <b>orange</b>
+What is the fruit? <b>peach</b>
+What is the fruit? <b>orange</b>
+What is the fruit? <b>peach</b>
+What is the fruit? <b>peach</b>
+What is the fruit? <b>pear</b>
+What is the fruit? <b>coconut</b>
+What is the fruit? <b>none</b>
+Thank you!
+
+Here is what I have got:
+apple 1
+coconut 1
+cherry 0
+grape 1
+lychee 0
+orange 2
+peach 4
+pear 1
+</pre>
+
+<p>The program code is shown below.</p>
+
+<pre src="bXlmcnVpdF9uYW1lcyA9IFsiYXBwbGUiLCAiY29jb251dCIsICJjaGVycnkiLCAiZ3JhcGUiLCBcCiAgICAgICAgICAgICAgICAgImx5Y2hlZSIsICJvcmFuZ2UiLCAicGVhY2giLCAicGVhciJdCm15ZnJ1aXRfbnVtYmVycyA9IFtdCmZvciBfIGluIG15ZnJ1aXRfbmFtZXM6CiAgICBteWZydWl0X251bWJlcnMuYXBwZW5kKDApCnByaW50KCJHaXZlIG1lIGFwcGxlLCBjb2NvbnV0LCBjaGVycnksIGdyYXBlLCIsIGVuZD0iICIpCnByaW50KCJseWNoZWUsIG9yYW5nZSwgcGVhY2ggb3IgcGVhci4iKQpwcmludCgiRW50ZXIgbm9uZSB3aGVuIHlvdSBmaW5pc2guIikKcmVjZWl2ZWRfZnJ1aXRzID0gW10KZnJ1aXQgPSAiIgp3aGlsZSBmcnVpdCAhPSAibm9uZSI6CiAgICBmcnVpdCA9IGlucHV0KCJXaGF0IGlzIHRoZSBmcnVpdD8gIikKICAgIHJlY2VpdmVkX2ZydWl0cy5hcHBlbmQoZnJ1aXQpCmZvciBpIGluIHJhbmdlKGxlbihteWZydWl0X25hbWVzKSk6CiAgICA8Ymxhbms+QmxhbmsgMTwvYmxhbms+ID0gcmVjZWl2ZWRfZnJ1aXRzLmNvdW50KCA8Ymxhbms+QmxhbmsgMjwvYmxhbms+ICkKcHJpbnQoIlRoYW5rIHlvdSEiKQpwcmludCgpCnByaW50KCJIZXJlIGlzIHdoYXQgSSBoYXZlIGdvdDoiKQpmb3IgaSBpbiByYW5nZShsZW4obXlmcnVpdF9uYW1lcykpOgogICAgcHJpbnQobXlmcnVpdF9uYW1lc1tpXSwgbXlmcnVpdF9udW1iZXJzW2ldKQoK"></pre>
+
+<p>You need to write the code in the <b><u>Blank 1</u></b> and <b><u>Blank 2</u></b> so that the program works as described above.</p>
+<p><b>Write your answer in the following text boxes.</b></p>
+<p><b>Do not include any space in your answer.</b></p>
+
+    <div>
+        <p><strong>Your answer:</strong></p>
+        <p>Blank 1 is <input model="myfruit_numbers[i]"></p>
+        <p>Blank 2 is <input model="myfruit_names[i]"></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer for "Blank 1": </strong>myfruit_numbers[i]</p>
+        <p><strong>Correct answer for "Blank 2": </strong>myfruit_names[i]</p>    
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video/_PBQ6.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video/_PBQ6.mp4'>here</a> for the video.
+    </video>
+</ul>
+   
+<p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>     
+    </div>
+
+
+    <script src="../../scripts/jquery-3.4.1.slim.min.js"></script>
+    <script>
+    if (typeof jQuery != 'undefined') { 
+        $(".check-button").on("click", (e) => {
+            let allCorrect = true;
+            $(e.target).parents("div").find("input, select").each((i, el) => {
+                let models = $(el).attr("model").split(",");
+                let matched = false;
+                let keepspace = $(el)[0].hasAttribute("keepspace");
+                jQuery.each(models, (i, model) => {
+                    let answer = $(el).val();
+                    answer = answer.trim();
+                    if (!keepspace) answer = answer.replace(/\s/g,'')
+                    if (answer == model) matched = true;
+                });
+                $(el).removeClass("wrong");
+                if (!matched) {
+                    allCorrect = false;
+                    $(el).addClass("wrong");
+                }
+            });
+            let result = $(e.target).next(".check-result");
+            if (allCorrect) {
+                result.html("Correct!");
+                result.addClass("correct");
+                result.removeClass("wrong");
+            }
+            else {
+                result.html("Wrong!");
+                result.addClass("wrong");
+                result.removeClass("correct");
+            }
+        });
+        $(".show-button").on("click", (e) => {
+            if ($(e.target).hasClass("hide-button")) {
+                $(e.target).parent().next(".answer-area").hide();
+                $(e.target).text("Click here to show the correct answer and video explanation");
+				$(e.target).parent().prevAll("pre").removeClass("selectable");
+            }
+            else {
+                $(e.target).parent().next(".answer-area").show();
+                $(e.target).text("Click here to hide the correct answer and video explanation");
+				$(e.target).parent().prevAll("pre").addClass("selectable");
+            }
+            $(e.target).toggleClass("hide-button");
+        });
+        $("pre").each((i, el) => {
+            if ($(el).attr("src")) {
+                $(el).html(atob($(el).attr("src")));
+            }
+        });
+    }
+    </script>
+
+</body></html>
+

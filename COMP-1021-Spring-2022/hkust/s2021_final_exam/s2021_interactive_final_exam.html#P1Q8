@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+    <title>COMP1021 Spring 2021 Interactive Final Exam</title>
+    <link rel="stylesheet" href="../../css/lab.css">
+    
+	<script src="../../scripts/jquery-3.4.1.min.js"></script>
+    <script src="./video_res.js"></script> 
+    
+    <style>
+    body { margin-bottom: 15px; }
+    h3 { margin-top: 2em; }
+    p, li { font-size: 0.9rem; }
+    p, pre { margin-left: 15px; margin-right: 15px; }
+    pre > blank {
+        padding: 0 1em;
+        font-family: "Times New Roman", Times, serif;
+        font-weight: bold;
+        border-bottom: 2px solid black;
+    }
+    /* h2#Part2 ~ pre { user-select: none; } */
+    pre.blocked { user-select: none; }
+    pre.selectable { user-select: auto; }
+    @media print { h2#Part2 ~ pre { display: none } }
+    select.code, select.code > option { font-family: monospace; }
+    .answer-area { display: none; }
+    .check-result { font-weight: bold; }
+    span.correct { color: green; }
+    span.wrong { color: red; }
+    input.wrong, select.wrong { border: 2px solid red; }
+    </style>
+</head>
+
+<body>
+    <h1>
+        <span class="lab">COMP1021 Spring 2021</span>
+        <span class="title">Interactive Final Exam</span>
+</h1>
+
+    <h2>How to Use This Exam Page</h2>
+
+    <ul>
+    	<li>This exam was an online exam</li> 
+        <li>You are strongly recommended to first try out each question
+            by selecting/entering your answer, and then pressing
+            <button style="pointer-events: none;">Check your answer</button>
+        </li>
+        <li>If your answer is wrong, try to change it, then check it again</li>
+        <li>If you have tried some different answers and can't get the answer
+            correct, that's when you should select
+            <button style="pointer-events: none;">Click here to show the correct answer and video explanation</button>
+        </li>
+        <li>Then you will see the correct answer(s)</li>
+        <li>For roughly half the questions, students could not copy the Python code from the exam</li>  
+    	<li>You can copy the code shown in all questions on this web page after you have selected <button style="pointer-events: none;">Click here to show the correct answer and video explanation</button></li>  
+		<li>Video explanations are by</li>        
+		<ul>
+        <li>Prof. David ROSSITER (<a href="#P1Q1">P1Q1</a>, <a href="#P1Q2">P1Q2</a>, <a href="#P1Q3">P1Q3</a>, <a href="#P1Q4">P1Q4</a>, <a href="#P1Q5">P1Q5</a>, <a href="#P1Q6">P1Q6</a>)</li>
+        <li>Prof. Sunghun KIM (<a href="#P1Q7">P1Q7</a>, <a href="#P2Q3">P2Q3</a>)</li>
+        <li>Prof. Wilfred NG (<a href="#P1Q8">P1Q8</a>, <a href="#P2Q6">P2Q6</a>, <a href="#P2Q7">P2Q7</a>)</li>
+		<li>Dr. Alex LAM (<a href="#P2Q1">P2Q1</a>)</li>
+        <li>Prof. Gibson LAM (<a href="#P2Q2">P2Q2</a>, <a href="#P2Q4">P2Q4</a>, <a href="#P2Q5">P2Q5</a>)</li>
+        </ul>    
+    </ul>
+     <div id="videoQualityWidget"></div>
+
+    <h2>The Questions</h2>
+
+    <ul>
+        <li><a href="#Part1">Part 1</a>
+            <ul>
+                <li><a href="#P1Q1">Question 1</a></li>
+                <li><a href="#P1Q2">Question 2</a></li>
+                <li><a href="#P1Q3">Question 3</a></li>
+                <li><a href="#P1Q4">Question 4</a></li>
+                <li><a href="#P1Q5">Question 5</a></li>
+                <li><a href="#P1Q6">Question 6</a></li>
+                <li><a href="#P1Q7">Question 7</a></li>
+                <li><a href="#P1Q8">Question 8</a></li>
+            </ul>
+        </li>
+        <li><a href="#Part2">Part 2</a>
+            <ul>
+                <li><a href="#P2Q1">Question 1</a></li>
+                <li><a href="#P2Q2">Question 2</a></li>
+                <li><a href="#P2Q3">Question 3</a></li>
+                <li><a href="#P2Q4">Question 4</a></li>
+                <li><a href="#P2Q5">Question 5</a></li>
+                <li><a href="#P2Q6">Question 6</a></li>
+                <li><a href="#P2Q7">Question 7</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2><a name="Part1"></a>Part 1</h2>
+
+    <ul>
+	<li>This exam was divided into part 1 and part 2 only to give students a 15 minute break between the two parts</li>
+	<li>There is no particular difference between the questions in the two parts</li>
+    </ul>
+
+
+    <h3><a name="P1Q1"></a>Question 1</h3>
+
+    <p>On the course we discussed the idea of Input and Output:</p>
+    <img src="img/P1Q1.jpg" width = "500"/>
+    <p>(from slide 3 of Beginning to Program Python)</p>
+    <p>5 programs are shown below. 4 of the programs are correctly working examples of Input. One of the programs is not a correctly working example of Input. </p>
+        <p><b>Which one is not a correctly working example of Input?</b> 
+            <!-- For your answer, enter an integer between 1 and 5 inclusive.  -->
+        </p>
+        <p>For example, if you think Program 3 is not a correctly working example of Input then your answer is <b>3</b>.</p>
+        <hr />
+        <p>Program 1:</p>
+        <pre>
+import turtle
+x = turtle.numinput("Please enter your age", "Please enter your age")
+turtle.done()</pre>
+        <hr />
+        <p>Program 2:</p>
+        <pre>import turtle
+def move_spaceship(x, y):
+    global spaceship
+    spaceship.goto(x, y)
+spaceship=turtle.Turtle()
+spaceship.ondrag( move_spaceship )
+turtle.done()</pre>
+        <hr />
+        <p>Program 3:</p>
+        <pre>import turtle
+monster=turtle.Turtle()
+def hide_monster(x, y):
+    global monster
+    monster.hideturtle()
+monster.onclick( hide_monster )
+turtle.done()</pre>
+        <hr />
+        <p>Program 4:</p>
+        <pre>import turtle
+def draw_art(x, y):
+    turtle.dot(100)
+turtle.onscreenclick( draw_art )
+turtle.done()</pre>
+        <hr />
+        <p>Program 5:</p>
+        <pre>input="How many turtles?"
+result=input+"30"
+print(result)
+</pre>
+<hr />
+
+
+<div>
+    <p><strong>Your answer:</strong>
+<select model="5" keepspace>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+    </select>
+    </p>
+    <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+</div>
+
+<p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+<div class="answer-area">
+    <p><strong>Correct answer: </strong>5</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/s2021_final_exam_P1Q1.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/s2021_final_exam_P1Q1.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+</div>
+
+
+
+<h3><a name="P1Q2"></a>Question 2</h3>
+    <p>Here is a program.</p>
+    <pre class="blocked" src="aW1wb3J0IHR1cnRsZQoKdHVydGxlLmhpZGV0dXJ0bGUoKQp0cmlhbmdsZSA9IHR1cnRsZS5UdXJ0bGUoKQoKZm9yIGkgaW4gcmFuZ2UoMjApOgogICAgdHJpYW5nbGUuZm9yd2FyZChpICogMTApCiAgICB0cmlhbmdsZS5yaWdodCggNTAgKyBTRUVfUVVFU1RJT04gKQoKdHVydGxlLmRvbmUoKQ==">
+    </pre>
+    <p>For this question you aren't able to copy the code.   </p>
+    <p>The code produces this image.</p>
+    <img src="img/P1Q2b.png" width = "250" />
+    <p>What is the missing number? <b>Enter an integer number.</b></p> 
+        <p>Don't write a comma or a full stop or anything like that. Don't write a formula or an expression. Your answer must be an integer number which is &gt;=0 and &lt;=360.</p>
+
+    <div>
+        <p><strong>Your answer:</strong> <input model="70" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer:</strong> 70</p>
+        <p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/s2021_final_exam_P1Q2.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/s2021_final_exam_P1Q2.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+
+
+<h3><a name="P1Q3"></a>Question 3</h3>
+
+    <p>6 programs are shown below. <b>For how many of the programs is a square (one square) shown when you run the program?</b></p>
+    <!-- <p>For your answer enter an integer number in the range 1-6 inclusive.</p> -->
+     <!-- For example, if you think program 1 and program 4 show a square (one square) when they are executed, and the other programs do not show a square when they are executed, then your answer will be <b>2</b>.</p> -->
+    <p>For this question you aren't able to copy the code.   </p>
+    <hr />
+    <p>Program 1:</p>
+    <pre class="blocked" src="aW1wb3J0IHR1cnRsZQoKdHVydGxlLnNwZWVkKDApCnR1cnRsZS53aWR0aCgzKQp0dXJ0bGUuaGlkZXR1cnRsZSgpCgpmb3IgdGhpc2lzYXZhcmlhYmxlIGluIHJhbmdlKDQpOgogICAgdHVydGxlLmZvcndhcmQoMTAwKQogICAgdHVydGxlLmxlZnQoOTApCgp0dXJ0bGUuZG9uZSgp">
+</pre>
+    <hr />
+    <p>Program 2:</p>
+    <pre class="blocked" src="aW1wb3J0IHR1cnRsZQoKdHVydGxlLnNwZWVkKDApCnR1cnRsZS53aWR0aCgzKQp0dXJ0bGUuaGlkZXR1cnRsZSgpCgpteW51bWJlciA9IDAKd2hpbGUgbXludW1iZXIgPCA4OgogICAgdHVydGxlLmZvcndhcmQoMTAwKQogICAgdHVydGxlLmxlZnQoOTApCiAgICBteW51bWJlciA9IG15bnVtYmVyICsgMQoKdHVydGxlLmRvbmUoKQ=="></pre>
+    <hr />
+    <p>Program 3:</p>
+    <pre class="blocked" src="aW1wb3J0IHR1cnRsZQoKdHVydGxlLnNwZWVkKDApCnR1cnRsZS53aWR0aCgzKQp0dXJ0bGUuaGlkZXR1cnRsZSgpCgpmb3IgdGhpc2lzYXZhcmlhYmxlIGluIHJhbmdlKDEwMCk6CiAgICB0dXJ0bGUuZm9yd2FyZCgxKQpmb3IgdGhpc2lzYXZhcmlhYmxlIGluIHJhbmdlKDkwKToKICAgIHR1cnRsZS5sZWZ0KDEpCmZvciB0aGlzaXNhdmFyaWFibGUgaW4gcmFuZ2UoMTAwKToKICAgIHR1cnRsZS5mb3J3YXJkKDEpCmZvciB0aGlzaXNhdmFyaWFibGUgaW4gcmFuZ2UoOTApOgogICAgdHVydGxlLmxlZnQoMSkKZm9yIHRoaXNpc2F2YXJpYWJsZSBpbiByYW5nZSgxMDApOgogICAgdHVydGxlLmZvcndhcmQoMSkKZm9yIHRoaXNpc2F2YXJpYWJsZSBpbiByYW5nZSg5MCk6CiAgICB0dXJ0bGUubGVmdCgxKQpmb3IgdGhpc2lzYXZhcmlhYmxlIGluIHJhbmdlKDEwMCk6CiAgICB0dXJ0bGUuZm9yd2FyZCgxKQoKdHVydGxlLmRvbmUoKQ=="></pre>
+    <hr />
+    <p>Program 4:</p>
+    <pre class="blocked" src="aW1wb3J0IHR1cnRsZQoKdHVydGxlLnNwZWVkKDApCnR1cnRsZS53aWR0aCgzKQp0dXJ0bGUuaGlkZXR1cnRsZSgpCgpudW0gPSA0CndoaWxlIG51bSA+IDA6CiAgICB0dXJ0bGUuZm9yd2FyZCgxMDApCiAgICB0dXJ0bGUucmlnaHQoMjcwKQogICAgbnVtID0gbnVtIC0gMQoKdHVydGxlLmRvbmUoKQ=="></pre>
+    <hr />
+    <p>Program 5:</p>
+    <pre class="blocked" src="aW1wb3J0IHR1cnRsZQoKdHVydGxlLnNwZWVkKDApCnR1cnRsZS53aWR0aCgzKQp0dXJ0bGUuaGlkZXR1cnRsZSgpCgp0dXJ0bGUuZm9yd2FyZCgxMCkKdHVydGxlLmZvcndhcmQoOTApCnR1cnRsZS5sZWZ0KDEwKQp0dXJ0bGUubGVmdCg4MCkKdHVydGxlLmZvcndhcmQoMTAwKQp0dXJ0bGUubGVmdCg5KQp0dXJ0bGUubGVmdCg4MSkKdHVydGxlLmZvcndhcmQoNTApCnR1cnRsZS5mb3J3YXJkKDUwKQp0dXJ0bGUubGVmdCg5MCkKdHVydGxlLmZvcndhcmQoMTApCnR1cnRsZS5mb3J3YXJkKDEwKQp0dXJ0bGUuZm9yd2FyZCgxMCkKdHVydGxlLmZvcndhcmQoMTApCnR1cnRsZS5mb3J3YXJkKDEwKQp0dXJ0bGUuZm9yd2FyZCg1MCkKCnR1cnRsZS5kb25lKCk="></pre>
+    <hr />
+    <p>Program 6:</p>
+    <pre class="blocked" src="aW1wb3J0IHR1cnRsZQoKdHVydGxlLnNwZWVkKDApCnR1cnRsZS53aWR0aCgzKQp0dXJ0bGUuaGlkZXR1cnRsZSgpCgp0dXJ0bGUuZm9yd2FyZCgxMDApCnR1cnRsZS5yaWdodCg5MCkKdHVydGxlLmZvcndhcmQoMTAwKQp0dXJ0bGUucmlnaHQoOTApCnR1cnRsZS5mb3J3YXJkKDEwMCkKdHVydGxlLnJpZ2h0KDkwKQp0dXJ0bGUuZm9yd2FyZCgxMDApCnR1cnRsZS5yaWdodCg5MCkKCnR1cnRsZS5kb25lKCk="></pre>
+<hr />
+
+<div>
+        <p><strong>Your answer:</strong>
+<select model="6" keepspace>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+        </select>
+        </p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+</div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+    <div class="answer-area">
+        <p><strong>Correct answer:</strong> 6</p>
+        <p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/s2021_final_exam_P1Q3.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/s2021_final_exam_P1Q3.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+    
+    
+<h3><a name="P1Q4"></a>Question 4</h3>
+    <p>Suppose you are given an integer, 1908. Here are two techniques to compute the square of the integer.</p>
+    <p>Technique 1:</p>
+    <pre>result=1908 * 1908</pre>
+    <p>Technique 2:</p>
+    <pre>result=pow(1908, 2)</pre>
+    <p><strong>Which technique is faster?</strong></p>
+    <p>To investigate which technique is faster, write a program which does this:</p>
+    <ol>
+        <li>Do the first assessment:</li>
+        <ol>
+            <li>Get the start time, using <code>time.time()</code></li>
+            <li>Do this 1000000 times:</li>
+                <pre>result=1908 * 1908</pre>
+            <li>Get the end time, using <code>time.time()</code></li>
+            <li>Do end time - start time to get the total time taken</li>
+        </ol>
+        <li>Now move on to the second assessment:</li>
+        <ol>
+            <li>Get the start time, using <code>time.time()</code></li>
+            <li>Do this 1000000 times:</li>
+                <pre>result=pow(1908, 2)</pre>
+            <li>Get the end time, using <code>time.time()</code></li>
+            <li>Do end time - start time to get the total time taken</li>
+        </ol>
+    </ol>
+    <p>Run the above test a few times so you are sure which answer to select. Then <strong>enter one of the following letters (A, B or C) for your answer.</strong></p>
+         <!-- <strong>Just enter a single letter for your answer (A, B or C), nothing else.</strong></p> -->
+    <ol type="A">
+       <li>Both techniques take the same amount of time (within plus or minus 2% time difference).</li>
+        <li>Technique 1 is faster.</li>
+        <li>Technique 2 is faster.</li> 
+    </ol>
+
+    <div>
+        <p><strong>Your answer:</strong>
+    <select model="B" keepspace>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        </p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+    
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+    
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>B</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/s2021_final_exam_P1Q4.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/s2021_final_exam_P1Q4.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+
+
+
+<h3><a name="P1Q5"></a>Question 5</h3>
+
+    <p>Here is a program.</p>
+    <pre class="blocked" src="aW1wb3J0IHR1cnRsZQoKdHVydGxlLmxlZnQoNDUpCnR1cnRsZS5sZWZ0KDQ1KQp0dXJ0bGUubGVmdCg0NSkKdHVydGxlLmxlZnQoNDUpCnR1cnRsZS5sZWZ0KDQ1KQpzdGVwPTYKd2hpbGUgc3RlcCE9OToKICAgIHByaW50KCJpbiBvdXRlciBsb29wIikKICAgIHR1cnRsZS5sZWZ0KDQ1KQogICAgY2hhbmdlPTEKICAgIHdoaWxlIGNoYW5nZT41OgogICAgICAgIHByaW50KCJpbiBpbm5lciBsb29wIikKICAgICAgICB0dXJ0bGUubGVmdCg0NSkKICAgICAgICBjaGFuZ2U9Y2hhbmdlKzEwCiAgICBzdGVwPXN0ZXArMQoKcHJpbnQoIlRoZSB0dXJ0bGUgYW5nbGUgaXMiKQpwcmludCh0dXJ0bGUuaGVhZGluZygpKQ=="></pre>
+    <p>For this question you aren't able to copy the code.   </p>
+    <p>When the program is executed, a number is printed (by the last line of code). <strong>What number is printed?</strong></p>
+    <p>Make sure you know what <code>turtle.heading()</code> does and how it behaves. You can do that by trying it out in your Python.</p> 
+    <p>For example, you can create a turtle, print the heading of the turtle, change the angle of the turtle, print the heading of the turtle again, and so on.</p>
+
+    <div>
+        <p><strong>Your answer:</strong> <input model="0.0,0" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Accepted answers:</strong></p>
+        <p>0</p>
+        <p>0.0</p>
+        <p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/s2021_final_exam_P1Q5.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/s2021_final_exam_P1Q5.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+
+
+<h3><a name="P1Q6"></a>Question 6</h3>
+    <p>Here is a program, which you can copy, edit and execute as you wish. The program has print messages which you can read to help you understand what is happening.</p>
+    
+<pre>
+def really_clever( a, b ):
+    count=0
+    while ((count+1) * b) &lt;= <strong style="background-color: #dddddd;"><em>your answer goes here</em></strong>:
+        count=count+1
+    print(count)
+
+def so_clever( a, b ):
+    print(a // b)
+    
+def very_clever( a, b ):
+    print(int(a/b))
+
+print("The following code all print the result of 4")
+really_clever(8, 2)
+so_clever(8, 2)
+very_clever(8, 2)
+    
+print("The following code all print the result of 1")
+really_clever(11, 6)
+so_clever(11, 6)
+very_clever(11, 6)
+
+print("The following code all print the result of 2")
+really_clever(8, 3)
+so_clever(8, 3)
+very_clever(8, 3)
+
+print("The following code all print the result of 12")
+really_clever(50, 4)
+so_clever(50, 4)
+very_clever(50, 4)
+</pre>
+<p>
+    What is the code shown in the <strong style="background-color: #dddddd;"><em>your answer goes here</em></strong> area? In the following section, you can see 27 possible answers.
+    <!-- You have to select one of those answers. For your answer, enter an integer between 1 and 27 inclusive. <strong>Don't enter the actual code</strong>, just enter one of the numbers 1-27. -->
+  </p>
+  
+  <div><ol>
+    <li><code>count**b</code></li>
+    <li><code>count**a</code></li>
+    <li><code>count**count</code></li>
+    <li><code>count</code></li>
+    <li><code>count*a*b</code></li>
+    <li><code>count*b</code></li>
+    <li><code>count*a</code></li>
+    <li><code>b**b</code></li>
+    <li><code>a**a</code></li>
+    <li><code>b+a+b</code></li>
+    <li><code>a+b+a</code></li>
+    <li><code>8+b</code></li>
+    <li><code>8+a</code></li>
+    <li><code>b+b+b</code></li>
+    <li><code>a+a+a</code></li>
+    <li><code>b//b</code></li>
+    <li><code>a//a</code></li>
+    <li><code>b%b</code></li>
+    <li><code>a%a</code></li>
+    <li><code>b+b</code></li>
+    <li><code>a+a</code></li>
+    <li><code>a-b</code></li>
+    <li><code>b-a</code></li>
+    <li><code>b</code></li>
+    <li><code>a</code></li>
+    <li><code>b-b</code></li>
+    <li><code>a-a</code></li>
+  </ol></div>
+
+<div>
+        <p><strong>Your answer:</strong>
+<select model="25" keepspace>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            <option>11</option>
+            <option>12</option>
+            <option>13</option>
+            <option>14</option>
+            <option>15</option>
+            <option>16</option>
+            <option>17</option>
+            <option>18</option>
+            <option>19</option>
+            <option>20</option>
+            <option>21</option>
+            <option>22</option>
+            <option>23</option>
+            <option>24</option>
+            <option>25</option>
+            <option>26</option>
+            <option>27</option>
+        </select>
+        </p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+</div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>25</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/s2021_final_exam_P1Q6.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/s2021_final_exam_P1Q6.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+</div>
+
+<h3><a name="P1Q7"></a>Question 7</h3>
+    
+    <p>
+        A Python program has been written to randomly generate a "lucky baby name of the month". The program code is shown below.
+    </p>
+    
+    <pre class="blocked" src="aW1wb3J0IHJhbmRvbQoKcHJpbnQoIlRoZSBsdWNreSBiYWJ5IG5hbWUgb2YgdGhlIG1vbnRoIGlzOiAiKQoKbHVja3lfbGV0dGVyc19vZl90aGVfbW9udGggPSBbJ2cnLCAnbCcsICdwJ10KbHVja3lfdm93ZWxzX29mX3RoZV9tb250aCA9IFsnZScsICdpJ10KCmx1Y2t5X25hbWUgPSAiIgoKbXlfbGV0dGVyID0gcmFuZG9tLmNob2ljZShsdWNreV9sZXR0ZXJzX29mX3RoZV9tb250aCkKbHVja3lfbGV0dGVyc19vZl90aGVfbW9udGgucmVtb3ZlKG15X2xldHRlcikKCmx1Y2t5X25hbWUgPSBsdWNreV9uYW1lICsgbXlfbGV0dGVyCgpmb3IgbGVuZ3RoIGluIHJhbmdlKDIpOgogICAgbXlfdm93ZWwgPSByYW5kb20uY2hvaWNlKGx1Y2t5X3Zvd2Vsc19vZl90aGVfbW9udGgpCiAgICBsdWNreV92b3dlbHNfb2ZfdGhlX21vbnRoLnJlbW92ZShteV92b3dlbCkKCiAgICBsdWNreV9uYW1lID0gbHVja3lfbmFtZSArIG15X3Zvd2VsCgogICAgbXlfbGV0dGVyID0gcmFuZG9tLmNob2ljZShsdWNreV9sZXR0ZXJzX29mX3RoZV9tb250aCkKICAgIGx1Y2t5X2xldHRlcnNfb2ZfdGhlX21vbnRoLnJlbW92ZShteV9sZXR0ZXIpCgogICAgbHVja3lfbmFtZSA9IGx1Y2t5X25hbWUgKyBteV9sZXR0ZXIKCnByaW50KGx1Y2t5X25hbWUp"></pre>
+    <p>For this question you aren't able to copy the code.   </p>
+    <p>
+        One day you execute the program. It prints a name. The name starts with the letter "p" and ends with the letter "l". What is the name?
+      </p>
+      
+      <p>
+        This question may have more than one correct answer. You only need to write <b>one answer</b>, <b>i.e. one name</b>, in the answer box.</p>
+        <p>Don't enter any speech marks, spaces, commas, full stops or anything like that. Just enter one name (one word). Don't use any capital letters anywhere.</p>
+
+      <div>
+        <p><strong>Your answer:</strong> <input model="pegil,pigel" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+    <div class="answer-area">
+        <p><strong>Accepted answers:</strong></p>
+        <p>pegil</p>
+        <p>pigel</p>
+        <p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/s2021_final_exam_P1Q7.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/s2021_final_exam_P1Q7.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+
+<h3><a name="P1Q8"></a>Question 8</h3>
+    
+    <p>
+        In a study of the spreading of a respiratory disease, we know the number of patients who have the disease increases 3% every day.
+        Assuming there are 120 patients initially, the number of patients after 20 days can be simulated by the following code:
+    </p>
+    
+    <pre>patients = 120
+for day in range(1, 21):
+    patients = int(patients * 1.03)
+    print("After day", day, "-", patients, "patients")    </pre>
+    <p>
+        You can copy the code shown above, fix the indentation, and then execute it. The program prints the following.
+      </p>
+      <pre>After day 1 - 123 patients
+After day 2 - 126 patients
+After day 3 - 129 patients
+After day 4 - 132 patients
+After day 5 - 135 patients
+After day 6 - 139 patients
+After day 7 - 143 patients
+After day 8 - 147 patients
+After day 9 - 151 patients
+After day 10 - 155 patients
+After day 11 - 159 patients
+After day 12 - 163 patients
+After day 13 - 167 patients
+After day 14 - 172 patients
+After day 15 - 177 patients
+After day 16 - 182 patients
+After day 17 - 187 patients
+After day 18 - 192 patients
+After day 19 - 197 patients
+After day 20 - 202 patients</pre>
+
+      <p>So that means the number of patients after day 20 is 202.</p>
+      <p>
+        The <code>int()</code> function is used so that the number of patients can remain as an integer.
+        </p>
+        <p>
+        Now the program is changed. If social lockdown is implemented at a particular day, we know the number of patients increased will be <strong>halved</strong> for that particular day. In summary:
+        </p>
+        <ul>
+          <li>typically the number of patients increases 3% in one day</li>
+          <li><strong>but</strong> when social lockdown is implemented it will not increase 3% in one day, instead it will increase 1.5% in one day</li>
+        </ul>
+        <p>You need to work out the number of patients after <strong>day 60</strong> if lockdown is implemented <strong>every 4 days</strong>.
+        That means lockdown is implemented at
+        day 4, day 8, day 12 and so on.
+        Each time lockdown is implemented for exactly 1 day (day 4, day 8, day 12 and so on).
+        </p>
+        
+        <p>
+          You can work out the answer by modifying the above program in your IDLE.
+        </p>
+        
+        <p>You need to clearly write <strong>the number of patients after day 60</strong> in the answer box. You only need to write an integer in the answer box.</p>
+        <p>Don't write a formula, or a mathematical expression, or a decimal place, or a full stop, or anything like that. Don't use any commas. Just write one integer.</p>
+
+      <div>
+        <p><strong>Your answer:</strong> <input model="492" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>492</p>
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/s2021_final_exam_P1Q8.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/s2021_final_exam_P1Q8.mp4'>here</a> for the video.
+    </video>
+</ul>
+    </div>
+
+
+<h2 id="Part2"><a name="Part2"></a>Part 2</h2>
+
+    <ul>
+	<li>This exam was divided into part 1 and part 2 only to give students a 15 minute break between the two parts</li>
+	<li>There is no particular difference between the questions in the two parts</li>
+    </ul>
+
+
+    <h3><a name="P2Q1"></a>Question 1</h3>
+    <p>Here is a function:</p>
+      
+      <pre>def show(x, maxdepth):
+    print("ok")
+    if x < maxdepth:
+        show(x+1, maxdepth)
+        show(x+1, maxdepth)</pre>
+      
+      <p>
+        The function is started using this code:
+      </p>
+      
+      <pre>show(0, <strong><em>see question</em></strong>)</pre>
+      
+      <p>
+        Then the word <em>ok</em> is shown 2047 times. (Note that '<code>0</code>' in the above code means the zero digit, not the letter 'O').
+      </p>
+      
+      <p>
+        If you like, you can copy and run the code.
+      </p>
+      
+      <p>
+        What is the second parameter used when the function is started? For your answer, just write one integer.
+      </p>
+    <div>
+        <p><strong>Your answer:</strong> <input model="10" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer:</strong> 10</p>
+	<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/s2021_final_exam_P2Q1.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/s2021_final_exam_P2Q1.mp4'>here</a> for the video.
+    </video>
+	</ul>
+    </div>
+
+
+<h3><a name="P2Q2"></a>Question 2</h3>
+<p>
+    You made a guessing game in lab 1. In your lab 1 game, the player has to guess a secret number generated by the computer. A Python program shown below has been created so that the roles of the player and the computer have been reversed, i.e. the computer has to guess a secret number given by the player.
+  </p>
+  
+  <pre class="blocked" src="IyBBc2sgZm9yIHRoZSBzZWNyZXQgbnVtYmVyIGZyb20gdGhlIHBsYXllcgp0YXJnZXQgPSBpbnQoaW5wdXQoIkdpdmUgbWUgYSBzZWNyZXQgbnVtYmVyIGJldHdlZW4gMSBhbmQgMjUiKSkKCiMgU2V0IHVwIHNvbWUgdmFyaWFibGVzCmZpbmlzaGVkID0gRmFsc2UKY291bnQgPSAwCmxvd2VyID0gMQp1cHBlciA9IDI1CgojIERvIHRoZSBtYWluIGxvb3AgYW5kIHN0YXJ0IHRoZSBndWVzcwp3aGlsZSBub3QgZmluaXNoZWQ6CiAgICBndWVzc19pbnB1dCA9IGludCgobG93ZXIgKyB1cHBlcikgLyAyKQogICAgY291bnQgPSBjb3VudCArIDEKCiAgICBpZiBndWVzc19pbnB1dCA+IHRhcmdldDoKICAgICAgICB1cHBlciA9IGd1ZXNzX2lucHV0IC0gMQogICAgZWxpZiBndWVzc19pbnB1dCA8IHRhcmdldDoKICAgICAgICBsb3dlciA9IGd1ZXNzX2lucHV0ICsgMQogICAgZWxzZToKICAgICAgICBmaW5pc2hlZCA9IFRydWUKCiMgQXQgdGhpcyBwb2ludCwgdGhlIGNvbXB1dGVyIGhhcyBndWVzc2VkIGNvcnJlY3RseQpwcmludCgiSSBoYXZlIGdvdCBpdCEgWW91ciBudW1iZXIgaXMgIiArIHN0cihndWVzc19pbnB1dCkgKyAiLiIpCnByaW50KCJJdCB0b29rIG1lICIgKyBzdHIoY291bnQpICsgIiBndWVzcyhlcykgdG8gZ2V0IHRoZSBudW1iZXIhIik="></pre>
+  <p>For this question you aren't able to copy the code.   </p>
+  <p>
+    Given any number, the <code>int()</code> function always truncates the number to an integer. For example, <code>int(5.2)</code> returns 5 and <code>int(5.8)</code> also returns 5.
+  </p>
+  
+  <p>
+    If you run the program and enter 6 as the secret number, <strong>how many guesses will the computer take to guess your number correctly</strong>, according to the output of the program? 
+  </p>
+  <p>
+    Enter one integer number. The answer is not zero.
+  </p>
+
+<div>
+        <p><strong>Your answer:</strong> <input model="2"></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+</div>
+
+<p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+<div class="answer-area">
+<p><strong>Correct answer:</strong> 2</p>
+
+<p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/s2021_final_exam_P2Q2.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/s2021_final_exam_P2Q2.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+</div>
+
+
+
+<h3><a name="P2Q3"></a>Question 3</h3>
+
+<p>
+    Here is a program.
+  </p>
+  
+  <pre class="blocked" src="aW1wb3J0IHR1cnRsZQoKdHVydGxlLnNwZWVkKDApCnR1cnRsZS5oaWRldHVydGxlKCkKCmZvciByb3cgaW4gcmFuZ2UoMiwgNywgMSk6CiAgICBmb3IgY29sIGluIHJhbmdlKDIsIDE5LCAxKToKICAgICAgICB0dXJ0bGUudXAoKQogICAgICAgIHR1cnRsZS5nb3RvKDMwICogKGNvbC0xMCksIDMwICogKC0ocm93LTQpKSkKICAgICAgICB0dXJ0bGUuZG93bigpCgogICAgICAgIGlmIChyb3cgPT0gY29sKSBvciAocm93ID09IDggLSBjb2wpIFwKICAgICAgICAgICAgb3IgKHJvdyA9PSAxNCAtIGNvbCkgXAogICAgICAgICAgICBvciAoKHJvdyA9PSBjb2wgLSA2KSBhbmQgKHJvdyA8IDQpKSBcCiAgICAgICAgICAgIG9yIChyb3cgPT0gNCBhbmQgY29sID09IDE1KSBcCiAgICAgICAgICAgIG9yIChjb2wgPT0gMTQpIG9yIChjb2wgPT0gMTYpOgoKICAgICAgICAgICAgdHVydGxlLmZpbGxjb2xvcigiZGFya2JsdWUiKQogICAgICAgIGVsc2U6CiAgICAgICAgICAgIHR1cnRsZS5maWxsY29sb3IoImdyZXk5OCIpCgogICAgICAgIHR1cnRsZS5iZWdpbl9maWxsKCkKICAgICAgICBmb3IgaSBpbiByYW5nZSg0KToKICAgICAgICAgICAgdHVydGxlLmZvcndhcmQoMzApIAogICAgICAgICAgICB0dXJ0bGUucmlnaHQoOTApCiAgICAgICAgdHVydGxlLmVuZF9maWxsKCkKCnR1cnRsZS5kb25lKCk="></pre>
+  <p>For this question you aren't able to copy the code.   </p>
+  <p>
+    After the program has finished 3 letters are shown in the turtle window.
+    What is the letter on the right (in other words, the last letter)?
+  </p>
+  <p>For your answer, <strong>just write one capital letter</strong>. Don't use any spaces, speech marks, commas, colons, or anything like that. Just write one capital letter.</p>
+  
+  <p>
+    (Possibly, it may help you to use a piece of paper to answer this question).
+  </p>
+    
+    
+    <div>
+        <p><strong>Your answer:</strong> <input model="H"></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer:</strong> H</p>
+
+<p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/s2021_final_exam_P2Q3.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/s2021_final_exam_P2Q3.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+   
+
+
+    <h3><a name="P2Q4"></a>Question 4</h3>
+
+    <p>
+        Here is some code.
+      </p>
+      
+      <pre>result = []
+for thisindex in range(-1, -1*len(numbers), -1):
+    if thisindex == -3:
+        result.append(numbers[thisindex])
+    elif thisindex == -6:
+        result.append(numbers[thisindex])
+    elif thisindex == -9:
+        result.append(numbers[thisindex])</pre>
+      
+      <p>
+        As you can see, the code uses a list called <code>numbers</code>. That list is not shown to you. You don't know exactly how long the list is, but it contains at least 50 numbers.
+      </p>
+      
+      <p>
+        With your knowledge of slicing, you know that all of the code shown above can be replaced with a single line of code, like this:
+      </p>
+      
+      <pre>result = numbers[ BLANK_1 : BLANK_2 : BLANK_3 ]</pre>
+      
+      <p>
+        The result must be the same, in the same order.
+      </p>
+      
+      <p>
+        For your answer to this question, fill in the three <code>BLANKS</code> with appropriate integer numbers. After you have finished, your single line of code will do the same thing as the 8 lines of code shown at the start of this question.
+      </p>
+      
+      <p>
+        You have to type one <strong>integer</strong> in each of the three <code>BLANKS</code> for your answer.
+      </p>
+      
+      <ul>
+	<li>Example 1. If you think <code>result = numbers [ -2 : -4 : -1 ]</code> is the correct answer, you should type -2, -4, and -1 in <code>BLANK_1</code>, <code>BLANK_2</code>, and <code>BLANK_3</code>, respectively</li>
+        
+	 <li>Example 2. If you think <code>result = numbers [ -1 : -1 : -1 ]</code> is the correct answer, you should type -1, -1, and -1 in <code>BLANK_1</code>, <code>BLANK_2</code>, and <code>BLANK_3</code>, respectively</li>
+      
+      </ul>
+      
+      <p>
+        <strong>All three <code>BLANKS</code> are negative integers. For each <code>BLANK</code> you cannot write anything except a negative integer. You cannot leave any <code>BLANK</code> empty.</strong>
+      </p>
+ 
+
+    <div>
+	<p><strong>Your answer for <code>BLANK_1</code>: </strong><input model="-3" keepspace> </p>
+	<p><strong>Your answer for <code>BLANK_2</code>: </strong><input model="-10,-11,-12" keepspace> </p>
+	<p><strong>Your answer for <code>BLANK_3</code>: </strong><input model="-3" keepspace> </p>
+        
+	<p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+		<p><strong>Correct answer for <code>BLANK_1</code>:</strong></p>
+        	<p>-3</p>
+        <p><strong>Accepted answers for <code>BLANK_2</code>:</strong></p>
+            <p>-10</p>
+            <p>-11</p>
+            <p>-12</p>
+		<p><strong>Correct answer for <code>BLANK_3</code>:</strong></p>
+        	<p>-3</p>
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/s2021_final_exam_P2Q4.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/s2021_final_exam_P2Q4.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+
+
+    <h3><a name="P2Q5"></a>Question 5</h3>
+
+    <p>
+        Here is a program.
+        </p>
+        <pre class="blocked" src="aW1wb3J0IHR1cnRsZQoKdHVydGxlLndpZHRoKDUpCnR1cnRsZS5zcGVlZCgxMCkKdHVydGxlLmNvbG9yKCJibGFjayIpCnR1cnRsZS5oaWRldHVydGxlKCkKCmV5ZXMgPSB7IFwKICAgICJkZWFkIiA6IFsgIDAsICAwLCAxMDAsIDEwMCwgIDUwLCAgNTAsICAgMCwgMTAwLCAxMDAsICAwXSwgXAogICAgImRvdWJ0IjogWyAgMCwgNTAsIDEwMCwgIDUwLCAgNzUsICAgMCwgIDUwLCAgNTAgICAgICAgICBdLCBcCiAgICAiZmVhciIgOiBbMTAwLCAgMCwgICAwLCAgNTAsIDEwMCwgMTAwLCAgIDAsICA1MCwgMTAwLCA1MF0sIFwKICAgICJoYXBweSI6IFsgIDAsICAwLCAgNTAsICA1MCwgMTAwLCAgIDAgICAgICAgICAgICAgICAgICAgXSwgXAogICAgInNob2NrIjogWyAgMCwgNTAsICA1MCwgMTAwLCAxMDAsICA1MCwgIDUwLCAgIDAsICAgMCwgNTBdLCBcCiAgICAic2xlZXAiOiBbICAwLCA1MCwgIDIwLCAgMTUsICA1MCwgICAwLCAgODAsICAxNSwgMTAwLCA1MF0gIFwKfQoKcHJpbnQoIldlbGNvbWUgdG8gdGhlIEZhY2UgTWFrZXIgUHJvZ3JhbSEiKQoKb3B0aW9uID0gIiIKd2hpbGUgb3B0aW9uICE9ICJxIjoKICAgIHByaW50KCkKICAgIHByaW50KCJQbGVhc2UgY2hvb3NlIG9uZSBvZiB0aGUgZm9sbG93aW5nIG9wdGlvbnM6IikKICAgIHByaW50KCkKICAgIHByaW50KCIxIC0gRHJhdyBhIGZhY2UiKQogICAgcHJpbnQoIjIgLSBEcmF3IGEgbW91dGgiKQogICAgcHJpbnQoIjMgLSBEcmF3IGFuIGV5ZSIpCiAgICBwcmludCgicSAtIFF1aXQgdGhlIHByb2dyYW0iKQogICAgcHJpbnQoKQoKICAgIG9wdGlvbiA9IGlucHV0KCJQbGVhc2UgZW50ZXIgeW91ciBvcHRpb246ICIpCgogICAgaWYgb3B0aW9uID09ICIxIjoKICAgICAgICB0dXJ0bGUudXAoKQogICAgICAgIHR1cnRsZS5nb3RvKDAsIC0yMjApCiAgICAgICAgdHVydGxlLmRvd24oKQogICAgICAgIHR1cnRsZS5iZWdpbl9maWxsKCkKICAgICAgICB0dXJ0bGUuZmlsbGNvbG9yKCJiaXNxdWUiKQogICAgICAgIHR1cnRsZS5jaXJjbGUoMjIwKQogICAgICAgIHR1cnRsZS5lbmRfZmlsbCgpCgogICAgaWYgb3B0aW9uID09ICIyIjoKICAgICAgICB0dXJ0bGUudXAoKQogICAgICAgIHR1cnRsZS5nb3RvKDAsIC0xNTApCiAgICAgICAgdHVydGxlLmRvd24oKQogICAgICAgIHR1cnRsZS5iZWdpbl9maWxsKCkKICAgICAgICB0dXJ0bGUuZmlsbGNvbG9yKCJyZWQiKQogICAgICAgIHR1cnRsZS5jaXJjbGUoNTApCiAgICAgICAgdHVydGxlLmVuZF9maWxsKCkKCiAgICBpZiBvcHRpb24gPT0gIjMiOgogICAgICAgIHByaW50KCkKCiAgICAgICAgeCA9IGludChpbnB1dCgiRW50ZXIgeCBwb3NpdGlvbjogIikpCiAgICAgICAgeSA9IGludChpbnB1dCgiRW50ZXIgeSBwb3NpdGlvbjogIikpCiAgICAgICAgbmFtZSA9IGlucHV0KCJFbnRlciBleWUgbmFtZTogIikKCiAgICAgICAgcG9zID0gZXllc1tuYW1lXQogICAgICAgIAogICAgICAgIHR1cnRsZS51cCgpCiAgICAgICAgdHVydGxlLmdvdG8oeCArIHBvc1swXSwgeSArIHBvc1sxXSkKICAgICAgICB0dXJ0bGUuZG93bigpCiAgICAgICAgZm9yIGluZGV4IGluIHJhbmdlKDIsIGxlbihwb3MpLCAyKToKICAgICAgICAgICAgdHVydGxlLmdvdG8oeCArIHBvc1tpbmRleF0sIHkgKyBwb3NbaW5kZXggKyAxXSkKCnR1cnRsZS5kb25lKCk="></pre>
+        <p>For this question you aren't able to copy the code.   </p>
+        <p>
+        After running the above program and entering the following sequence of commands ('&crarr;' represents the "Enter" or "return" key):
+        <p>
+        <pre>1&crarr;2&crarr;3&crarr;50&crarr;0&crarr;dead&crarr;3&crarr;-150&crarr;0&crarr;fear&crarr;q&crarr;</pre>
+        <p>
+        <strong>what is the image shown in the turtle window?</strong> (Note that '<code>0</code>' in the above sequence means the zero digit, not the letter 'O').
+        </p>
+        <table>
+            <tr>
+                <td style="text-align: center">Image A:<br><img alt="" src="img/P2Q5/answer_a.png" width="250"></td>
+                <td style="text-align: center">Image B:<br><img alt="" src="img/P2Q5/answer_b.png" width="250"></td>
+                <td style="text-align: center">Image C:<br><img alt="" src="img/P2Q5/answer_c.png" width="250"></td>
+            </tr>
+            <tr>
+                <td style="text-align: center">Image D:<br><img alt="" src="img/P2Q5/answer_d.png" width="250"></td>
+                <td style="text-align: center">Image E:<br><img alt="" src="img/P2Q5/answer_e.png" width="250"></td>
+                <td style="text-align: center">Image F:<br><img alt="" src="img/P2Q5/answer_f.png" width="250"></td>
+            </tr>
+        </table>
+
+        <div>
+            <p><strong>Your answer:</strong>
+        <select model="F" keepspace>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+                <option>D</option>
+                <option>E</option>
+                <option>F</option>
+            </select>
+            </p>
+            <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+        </div>
+        
+        <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+        
+        <div class="answer-area">
+            <p><strong>Correct answer: </strong>F</p>
+<p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/s2021_final_exam_P2Q5.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/s2021_final_exam_P2Q5.mp4'>here</a> for the video.
+    </video>
+</ul>
+        </div>
+    
+    
+    <h3><a name="P2Q6"></a>Question 6</h3>
+    
+    <p>
+        For this question, you need to work on the Python file, <code><a href="ref/names.py" download>names.py</a></code> (Click the link to download the file). The file contains a list of Pokemon names and nothing else. (None of the Pokemon names in the file are repeated more than once). You need to add Python code at the bottom of that Python file to help you work out the answer to this question.
+      </p>
+      <p>
+        Here is the question: <strong>how many of the names in the list start with the capital letter S</strong>? 
+      </p>
+      <p>
+        All of the names in the list start with a capital letter. So you need to write Python code which goes through every name in the list and counts how many words start with the letter S.
+      </p>
+      
+      <p>
+        Your answer is an integer. The answer is not zero.
+      </p>
+
+
+      <div>
+        <p><strong>Your answer:</strong> <input model="122" keepspace></p>
+
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer:</strong>122</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/s2021_final_exam_P2Q6.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/s2021_final_exam_P2Q6.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+
+
+
+    <h3><a name="P2Q7"></a>Question 7</h3>
+
+    <p>
+        Here is a program that reads students' marks and calculates the average mark for each student.
+        </p>
+        
+        <pre class="blocked" src="bXlmaWxlID0gb3BlbigibWFya3MudHh0IiwgInIiKQoKZm9yIGxpbmUgaW4gbXlmaWxlOgogICAgc3R1ZGVudCA9IGxpbmUucnN0cmlwKCkKICAgIHN0dWRlbnQgPSBzdHVkZW50LnNwbGl0KCI6IikKICAgIG1hcmtzID0gc3R1ZGVudFsxXS5zcGxpdCgiLCIpCgogICAgdG90YWwgPSAwCiAgICBmb3IgaSBpbiByYW5nZSg1KToKICAgICAgICBtYXJrID0gaW50KG1hcmtzW2ldKQogICAgICAgIGlmIG1hcmsgPj0gMCBhbmQgbWFyayA8PSAxMDoKICAgICAgICAgICAgdG90YWwgKz0gbWFyawogICAgICAgIGVsc2U6CiAgICAgICAgICAgIHByaW50KCJJbnZhbGlkIHZhbHVlISIpCgogICAgcHJpbnQoc3R1ZGVudFswXSwgdG90YWwgLyA1KQoKbXlmaWxlLmNsb3NlKCk="></pre>
+        <p>For this question you aren't able to copy the code.   </p>
+        <p>
+        The students' marks are stored in a text file called <code>marks.txt</code>, which has not been given to you.
+        </p>
+        <p>
+        If you run the program, the following output will be shown.
+        </p>
+        <pre>ABADI 8.4<br>CHAK 8.4</pre>
+        
+        <p>
+          There are 20 versions of the text file, <code>marks.txt</code>, shown below. One version will produce the result shown above. The other 19 versions will not produce the result shown above. </p>
+          <p>For this question you aren't able to copy the possible answers shown below. </p>
+          <p>
+              <strong>Which version will produce the result shown above?</strong>
+          </p>
+           <!-- For your answer, enter an integer from 1 to 20 inclusive. -->
+        
+        <hr>
+        <p>Version 1: <pre class="blocked" src="QUJBREksOCw4LDgsOSw5PGJyPkNIQUssOCw4LDgsOSw5"></pre></p>
+<hr>
+<p>Version 2: <pre class="blocked" src="Q0hBSzo4LjQsOC40LDguNCw4LjQsOC40PGJyPkFCQURJOjguNCw4LjQsOC40LDguNCw4LjQ="></pre></p>
+<hr>
+<p>Version 3: <pre class="blocked" src="Q0hBSyA0MiAwIDAgMCAwPGJyPkFCQURJIDQyIDAgMCAwIDA="></pre></p>
+<hr>
+<p>Version 4: <pre class="blocked" src="QUJBREk6NDIsMCwwLDAsMDxicj5DSEFLOjQyLDAsMCwwLDA="></pre></p>
+<hr>
+<p>Version 5: <pre class="blocked" src="QUJBREksOC40LDguNCw4LjQsOC40LDguNDxicj5DSEFLLDguNCw4LjQsOC40LDguNCw4LjQ="></pre></p>
+<hr>
+<p>Version 6: <pre class="blocked" src="Q0hBSzo0MiwwLDAsMCwwPGJyPkFCQURJOjQyLDAsMCwwLDA="></pre></p>
+<hr>
+<p>Version 7: <pre class="blocked" src="QUJBREkgOC40PGJyPkNIQUsgOC40"></pre></p>
+<hr>
+<p>Version 8: <pre class="blocked" src="QUJBREk6OCw4LDgsOSw5PGJyPkNIQUs6OCw4LDgsOSw5"></pre></p>
+<hr>
+<p>Version 9: <pre class="blocked" src="Q0hBSyA4LjQgOC40IDguNCA4LjQgOC40PGJyPkFCQURJIDguNCA4LjQgOC40IDguNCA4LjQ="></pre></p>
+<hr>
+<p>Version 10: <pre class="blocked" src="Q0hBSyA4IDggOCA5IDk8YnI+QUJBREkgOCA4IDggOSA5"></pre></p>
+<hr>
+<p>Version 11: <pre class="blocked" src="QUJBREkgOCA4IDggOSA5PGJyPkNIQUsgOCA4IDggOSA5"></pre></p>
+<hr>
+<p>Version 12: <pre class="blocked" src="QUJBREk6OC40LDguNCw4LjQsOC40LDguNDxicj5DSEFLOjguNCw4LjQsOC40LDguNCw4LjQ="></pre></p>
+<hr>
+<p>Version 13: <pre class="blocked" src="Q0hBSyw0MiwwLDAsMCwwPGJyPkFCQURJLDQyLDAsMCwwLDA="></pre></p>
+<hr>
+<p>Version 14: <pre class="blocked" src="QUJBREksNDIsMCwwLDAsMDxicj5DSEFLLDQyLDAsMCwwLDA="></pre></p>
+<hr>
+<p>Version 15: <pre class="blocked" src="Q0hBSyw4LDgsOCw5LDk8YnI+QUJBREksOCw4LDgsOSw5"></pre></p>
+<hr>
+<p>Version 16: <pre class="blocked" src="QUJBREkgNDIgMCAwIDAgMDxicj5DSEFLIDQyIDAgMCAwIDA="></pre></p>
+<hr>
+<p>Version 17: <pre class="blocked" src="Q0hBSzo4LDgsOCw5LDk8YnI+QUJBREk6OCw4LDgsOSw5"></pre></p>
+<hr>
+<p>Version 18: <pre class="blocked" src="Q0hBSyA4LjQ8YnI+QUJBREkgOC40"></pre></p>
+<hr>
+<p>Version 19: <pre class="blocked" src="QUJBREkgOC40IDguNCA4LjQgOC40IDguNDxicj5DSEFLIDguNCA4LjQgOC40IDguNCA4LjQ="></pre></p>
+<hr>
+<p>Version 20: <pre class="blocked" src="Q0hBSyw4LjQsOC40LDguNCw4LjQsOC40PGJyPkFCQURJLDguNCw4LjQsOC40LDguNCw4LjQ="></pre></p>
+
+        <div>
+            <p><strong>Your answer:</strong>
+            <select model="8" keepspace>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+                <option>13</option>
+                <option>14</option>
+                <option>15</option>
+                <option>16</option>
+                <option>17</option>
+                <option>18</option>
+                <option>19</option>
+                <option>20</option>
+            </select>
+            </p>
+            <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+        </div>
+
+        <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+        <div class="answer-area">
+            <p><strong>Correct answer: </strong>8</p>
+            <p>For this question students weren't able to copy the code and possible answers for marks.txt. However, now you can copy the code and possible answers from this web page and explore the code.</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/s2021_final_exam_P2Q7.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/s2021_final_exam_P2Q7.mp4'>here</a> for the video.
+    </video>
+</ul>
+        </div>
+  
+
+
+
+    <script src="../../scripts/jquery-3.4.1.slim.min.js"></script>
+    <script>
+    if (typeof jQuery != 'undefined') { 
+        $(".check-button").on("click", (e) => {
+            let allCorrect = true;
+            $(e.target).parents("div").find("input, select").each((i, el) => {
+                let models = $(el).attr("model").split(",");
+                let matched = false;
+                let keepspace = $(el)[0].hasAttribute("keepspace");
+                jQuery.each(models, (i, model) => {
+                    let answer = $(el).val();
+                    answer = answer.trim();
+                    if (!keepspace) answer = answer.replace(/\s/g,'')
+                    if (answer == model) matched = true;
+                });
+                $(el).removeClass("wrong");
+                if (!matched) {
+                    allCorrect = false;
+                    $(el).addClass("wrong");
+                }
+            });
+            let result = $(e.target).next(".check-result");
+            if (allCorrect) {
+                result.html("Correct!");
+                result.addClass("correct");
+                result.removeClass("wrong");
+            }
+            else {
+                result.html("Wrong!");
+                result.addClass("wrong");
+                result.removeClass("correct");
+            }
+        });
+        $(".show-button").on("click", (e) => {
+            if ($(e.target).hasClass("hide-button")) {
+                $(e.target).parent().next(".answer-area").hide();
+                $(e.target).text("Click here to show the correct answer and video explanation");
+                $(e.target).parent().prevAll("pre").removeClass("selectable");
+            }
+            else {
+                $(e.target).parent().next(".answer-area").show();
+                $(e.target).text("Click here to hide the correct answer and video explanation");
+                $(e.target).parent().prevAll("pre").addClass("selectable");
+            }			
+            $(e.target).toggleClass("hide-button");
+        });
+        $("pre").each((i, el) => {
+            if ($(el).attr("src")) {
+                $(el).html(atob($(el).attr("src")));
+            }
+        });
+    }
+    </script>
+
+</body></html>
+

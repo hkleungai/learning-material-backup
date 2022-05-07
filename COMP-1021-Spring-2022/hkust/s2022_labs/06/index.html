@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>COMP1021 Lab 6 - Robot Thinking Game</title>
+    <link href="../css/lab.css" rel="stylesheet" />
+    <!--<link href="../../../scripts/highlight/idle.css" rel="stylesheet">
+    <script src="../../../scripts/highlight/highlight.pack.js"></script>-->
+    <!-- <script src="../../../scripts/jquery-ui-1.10.4.custom/js/jquery-1.10.2.js"></script> -->
+    <script src="scripts/jquery-3.5.1.min.js"></script>
+    <script src="../../../scripts/lab.js"></script>
+    <script src="video_res.js"></script>
+    <!-- <script src="./video_res_for_f2021.js"></script> -->
+    <script src="genmap_kelvin.js"></script>
+    <script>
+var return_set_text = `\
+            <li><code><span style="color: #ff7700">return</span> <span style="color: #00aa00">&quot;NORTH&quot;</span></code> to make the robot move north</li> 
+            <li><code><span style="color: #ff7700">return</span> <span style="color: #00aa00">&quot;SOUTH&quot;</span></code> to make the robot move south</li> 
+            <li><code><span style="color: #ff7700">return</span> <span style="color: #00aa00">&quot;EAST&quot;</span></code> to make the robot move east</li> 
+            <li><code><span style="color: #ff7700">return</span> <span style="color: #00aa00">&quot;WEST&quot;</span></code> to make the robot move west</li> 
+            <li><code><span style="color: #ff7700">return</span> <span style="color: #00aa00">&quot;NONE&quot;</span></code> to make the robot stay in the same place</li> 
+            <li>Remember to use capital letters, as shown above</li>`;
+var footnote_on_photo = '<span class="footnote">Click to show this maze image at normal size</span>';
+var tasks_text = [`The exit is above the robot: simply go north to reach the exit 
+        <ul> 
+            <li>The position of the exit is any point in the first row (row 0)</li> 
+            <li>The starting position of the robot is any point directly below the exit</li> 
+            <li>Here is an example image of the map at the start</li> 
+            <div name="task0_visualize_output"></div> 
+            <input type="button" onclick="generateMapForTask(0)" value="Click to generate another example" />
+            <li>The grey rectangle you see in the web demo is equivalent to the robot you see in the Robot Game Window</li>
+        </ul>`,
+        `The exit is somewhere to the right of the robot: go north and search for the exit on the right
+            <ul>
+                <li>The position of the exit is any point in the first row (row 0)</li>
+                <li>The starting position of the robot is any point below the exit and on the left hand side of the exit</li>
+                <li>Here is an example image of the map at the start</li> 
+                <div name="task1_visualize_output"></div> 
+            <input type="button" onclick="generateMapForTask(1)" value="Click to generate another example" />
+            <li>The grey rectangle you see in the web demo is equivalent to the robot you see in the Robot Game Window</li>
+            </ul>`,
+
+    `The exit is somewhere to the left of, the right of, or above the robot: go north and search for the exit at the top row
+        <ul>
+            <li>The position of the exit is any point in the first row (row 0)</li>
+            <li>The starting position of the robot is any point below the exit; the robot can be at the left hand side of, the right hand side of, or directly below the exit</li>
+            <li>Here is an example image of the map at the start</li> 
+            <div name="task2_visualize_output"></div> 
+            <input type="button" onclick="generateMapForTask(2)" value="Click to generate another example" />
+            <li>The grey rectangle you see in the web demo is equivalent to the robot you see in the Robot Game Window</li>
+        </ul>`,
+    `The exit is somewhere above multiple levels of horizontal walls with holes
+        <ul>
+            <li>The position of the exit is any point in the first row (row 0)</li>
+            <li>The starting position of the robot is in the bottom half of the map (not in a wall)</li>
+            <li>There will be multiple levels of horizontal walls with holes</li>
+            <li>Here is an example image of the map at the start</li> 
+            <div name="task3_visualize_output"></div> 
+            <input type="button" onclick="generateMapForTask(3)" value="Click to generate another example" />
+            <li>The grey rectangle you see in the web demo is equivalent to the robot you see in the Robot Game Window</li>
+        </ul>`,
+    `A complete maze</li>
+        <ul>
+            <li>The position of the exit is any point in the boundary</li>
+            <ul><li>It could be on <ul>
+                <li>the west side (column 0),</li><li>the east side (total number of columns - 1),</li> <li>the north side (row 0)</li> <li>or the south side (total number of rows - 1)</li>
+            </ul>
+            of the map</li></ul>
+            <li>The starting position of the robot is any point in the map</li>
+            <li>There will be multiple levels of horizontal walls with holes</li>
+            <li>There will be multiple levels of vertical walls with holes</li>
+            <li>The corridors&apos; width is always 1 block wide</li>
+            <li>Here is an example image of the map at the start</li> 
+            <div name="task4_visualize_output"></div> 
+            <input type="button" onclick="generateMapForTask(4)" value="Click to generate another example" />
+            <li>The grey rectangle you see in the web demo is equivalent to the robot you see in the Robot Game Window</li>
+        </ul>`
+    ];
+
+    function insertText(){
+        var return_set_element_set = document.getElementsByName("return_sets");
+        for (var i = 0; i < return_set_element_set.length; i++){
+            return_set_element_set[i].innerHTML=return_set_text;
+        }
+        var tasks_set_element_set = document.getElementsByName("tasks");
+        for (var i = 0; i < tasks_set_element_set.length; i++){
+            var task_no = tasks_set_element_set[i].getAttribute("lv");
+            tasks_set_element_set[i].innerHTML+=tasks_text[task_no];
+        }
+    }
+
+    var paths = [];
+    var currStep = [];
+
+    function generateMapForTask(task) {
+        var map = genmapWithArgs(19, 19, task);
+        if (task == 0 || task == 1 || task == 2) {
+            paths[task] = generatePath(map, task);
+            currStep[task] = 0;
+            $('[name="task' + task + '_visualize_step_output"]').html(visualizeMap(map));
+        }
+        $('[name="task' + task + '_visualize_output"]').html(visualizeMap(map));
+    }
+
+    function navigateSolutionForTask(task, direction) {
+        if (direction == 1 && currStep[task] >= paths[task].length -1)
+            return;
+        if (direction == -1 && currStep[task] <= 0)
+            return;
+
+        var step = currStep[task];
+
+        if (direction == 1)
+            step += 1;
+        if (direction == -1)
+            step -= 1;
+
+        $('[name="task' + task + '_visualize_step_output"]').html(visualizeMap(paths[task][step]));
+
+        currStep[task] = step;
+    }
+
+    function generateMapsForAllTasks() {
+        generateMapForTask(0);
+        generateMapForTask(1);
+        generateMapForTask(2);
+        generateMapForTask(3);
+        generateMapForTask(4);
+    }
+
+    function copy(arr) {
+        let result = [];
+        arr.forEach(elem => {
+            if (Array.isArray(elem)) {
+                result.push(copy(elem));
+            } else {
+                result.push(elem);
+            }
+        })
+        return result;
+    }
+
+    function findPlayerFromMap(map) {
+        for (var i = 0; i < map.length; i++) {
+            for (var j = 0; j < map[0].length; j++) {
+                if (map[i][j] == 'P') {
+                    return [i, j];
+                }
+            }
+        }
+
+        return [0, 0];
+    }
+
+    function generatePath(map, task) {
+        if (task == 0) {
+            return generatePathTask0(map);
+        }
+        else if (task == 1) {
+            return generatePathTask1(map);
+        }
+        else if (task == 2) {
+            return generatePathTask2(map);
+        }
+    }
+
+    function generatePathTask0(map) {
+        var [player_i, player_j] = findPlayerFromMap(map);
+        var path = [map];
+        var step = map;
+        while (player_i > 0) {
+            step = copy(step);
+            step[player_i][player_j] = ' ';
+            player_i -= 1;
+            step[player_i][player_j] = 'P';
+            path.push(step);
+        }
+
+        return path;
+    }
+
+    function generatePathTask1(map) {
+        var [player_i, player_j] = findPlayerFromMap(map);
+        var path = [map];
+        var step = map;
+        while (player_i > 0) {
+            step = copy(step);
+            if (step[player_i - 1][player_j] != 'B') {
+                // Go up
+                step[player_i][player_j] = ' ';
+                player_i -= 1;
+                step[player_i][player_j] = 'P';
+            }
+            else {
+                // Go right
+                step[player_i][player_j] = ' ';
+                player_j += 1;
+                step[player_i][player_j] = 'P';
+            }
+            path.push(step);
+        }
+
+        return path;
+    }
+
+    function generatePathTask2(map) {
+        var [player_i, player_j] = findPlayerFromMap(map);
+        var path = [map];
+        var step = map;
+        var right = true;
+        while (player_i > 0) {
+            step = copy(step);
+            if (step[player_i - 1][player_j] != 'B') {
+                // Go up
+                step[player_i][player_j] = ' ';
+                player_i -= 1;
+                step[player_i][player_j] = 'P';
+            }
+            else {
+                if (right) {
+                    if (step[player_i][player_j + 1] == 'B') {
+                        right = false;
+                        continue;
+                    }
+                    // Go right
+                    step[player_i][player_j] = ' ';
+                    player_j += 1;
+                    step[player_i][player_j] = 'P';
+                }
+                else {
+                    // Go left
+                    step[player_i][player_j] = ' ';
+                    player_j -= 1;
+                    step[player_i][player_j] = 'P';
+                }
+            }
+            path.push(step);
+        }
+
+        return path;
+    }
+
+    </script>
+
+    <style>
+    .Row
+    {
+        display: table;
+        height: 15px;
+        table-layout: fixed;
+    }
+    .Column
+    {
+        display: table-cell;
+        width: 15px;
+        height: 15px;
+        font-size: 15px;
+        line-height: 1em;
+    }
+    .image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 120px;
+        height: 120px;
+        margin:-60px 0 0 -60px;
+        -webkit-animation:spin 4s linear infinite;
+        -moz-animation:spin 4s linear infinite;
+        animation:spin 4s linear infinite;
+    }
+    </style>
+</head>
+
+<body onload="insertText();generateMapsForAllTasks();">
+    <h1>
+        <span class='lab'>COMP1021 Lab 6</span>
+        <span class='title'>Robot Thinking Game</span>
+    </h1>
+
+	<div class="content">
+    <div id="videoQualityWidget"></div>
+
+
+    <h2>The Main Focus of this Lab</h2>
+
+
+        <ul>
+            <li>In this lab, you will learn to use your <i>logical thinking skill</i> to solve a series of problems</li>
+            <li>The main focus of the lab is the thinking process, rather than your programming skills</li>
+        </ul>
+    <h2>What you will learn in this lab</h2>
+
+
+        <ul>
+            <li>You will gain experience in the following areas:
+                <table class="simple">
+                    <tr>
+                        <th>Topic</th>
+                        <th>Computer Science/ Programming Concept</th>
+                    </tr>
+                    <tr>
+                        <td>Using state diagrams</td>
+                        <td>Designing Python code based on state diagrams</td>
+                    </tr>
+                    <tr>
+                        <td>Making decisions</td>
+                        <td>Writing If statements (<code>if ... elif ... else ...</code>)</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">Using Functions</td>
+                        <td>Returning values from a function using <code>return</code></td>
+                    </tr>
+                    <tr>
+                        <td>Using global variables inside a function</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">Lists, Tuples and Strings</td>
+                        <td>Using a list to store strings</td>
+                    </tr>
+                    <tr>
+                        <td>Using <code>""" ... """</code> to build strings with multiple lines of content</td>
+                    </tr>
+                </table>
+            </li>
+        </ul>
+
+
+    <h2>Overview</h2>
+    <h3><a name="section0_vid"></a>Video for Overview</h3>
+    <ul>
+    <video width="640" height="360" controls  preload="metadata">
+        <source src="videos/1021_lab6_intro.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='videos/1021_lab6_intro.mp4'>here</a> for the video.
+    </video>
+    </ul>
+    <ul>
+        <li>In this lab you will work on a robot game</li>
+        <li>Your objective of the game is to help the robot find the exit in maps with different layouts</li>
+        <li>You need to use your logical thinking skill to find the solutions for different maps</li>
+        <li>To help you do that, we will teach you to use <i>state diagrams</i></li>
+        <li>A state diagram allows us to think about what happens in a system (or in a program) in a visual way</li>
+        <li>Here is a video showing the game (for Task 4) being played (there is no sound for the video):</li>
+            <video width="320" height="320" controls  preload="metadata" DEMO>
+                <source src="demo_vid/RobotGame_lv4.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='demo_vid/RobotGame_lv4.mp4'>here</a> for the video.
+            </video>
+    </ul>
+
+    <h2><a name="start"></a>Getting Started</h2>
+
+    <ul>
+        <li>Some files are given to you as a starting point</li>
+        <ul>
+            <li>Three Python files:
+                <ul>
+                    <li><a href='./skeleton/robot_game.py'>robot_game.py</a></li>
+                    <li><a href='./skeleton/game_lib.py'>game_lib.py</a> <i>(don't change this file!)</i></li>
+                    <li><a href='./skeleton/game_map.py'>game_map.py</a></li>
+                </ul>
+            </li>
+            <li>Four images:
+                <ul>
+                    <li><a href='./skeleton/robot_north.gif'>robot_north.gif</a></li>
+                    <li><a href='./skeleton/robot_south.gif'>robot_south.gif</a></li>
+                    <li><a href='./skeleton/robot_east.gif'>robot_east.gif</a></li>
+                    <li><a href='./skeleton/robot_west.gif'>robot_west.gif</a></li>
+                </ul>
+            </li>
+        </ul>
+        <li>You can obtain all files by downloading this compressed file <a href="./skeleton/robotlab_start.zip">robotlab_start.zip</a>
+            (right click on the link, select 'Save Target As' or something similar) into your local hard disk</li>
+        <li>All files have to be in the same folder</li>
+        <li>To uncompress this zipped file after it is downloaded:</li>
+        <ul>
+            <li>For Windows
+                <ul>
+                    <li>Don’t double-click the zip file directly in Windows</li>
+                    <li>You MUST uncompress this file by right-clicking the downloaded file, and 'Extract All...'</li>
+                    <li>Then select the folder in which you want to put all related files</li>
+                    <li>The files will be here after they are uncompressed</li>
+                </ul>
+            </li>
+            <li>For Mac, you just need to double-click on the compressed file, and the folder with the same name as the zipped file will appear</li>
+        </ul>
+        <li>You only need to change <code>robot_game.py</code> (for the game logic) and <code>game_map.py</code> (for adding new maps),
+            but <b>don't change</b> anything in <code>game_lib.py</code>!</li>
+
+    </ul>
+
+    <h2>Lab Content</h2>
+    <ul>
+        <li>Here are the steps for building this project:
+        <ol>
+            <li><a href="#section1">Understanding the game</a></li>
+                    <ul class="none">
+                        <li>1.1. <a href="#section1.1">What the robot can do</a></li>
+                        <li>1.2. <a href="#section1.2">How the robot works in the program</a></li>
+                        <li>1.3. <a href="#section1.3">Commands you can use in the making decision functions</a></li>
+                        <li>1.4. <a href="#section1.4">The maps</a></li>
+					</ul>
+
+            <li><a href="#section2">Working on task 0</a></li>
+            <li><a href="#section3">Working on task 1</a></li>
+                    <ul class="none">
+                        <li>3.1. <a href="#section3.1">Using a state diagram</a></li>
+                        <li>3.2. <a href="#section3.2">Writing the code for the state diagram</a></li>
+                        <li>3.3. <a href="#section3.3">Completing the task</a></li>
+					</ul>
+
+            <li><a href="#section4">Working on task 2</a></li>
+            <li><a href="#section5">Working on task 3</a></li>
+            <li><a href="#section6">Working on task 4</a></li>
+                    <ul class="none">
+                        <li>6.1. <a href="#section6.1">Another approach</a></li>
+                        <li>6.2. <a href="#section6.2">The state diagram</a></li>
+					</ul>
+            <li><a href="#section7">Adding new maps to the game</a></li>
+        </ol>
+        </li>
+        <li><a href="#submission">Submission</a></li>
+    </ul>
+
+		<h2>Illustration</h2>
+		<ul>
+			        <li>The following tables describe the usage of the files in the lab:
+                    <table class="simple">
+                        <tr><th>Python Files</th><th>Usage</th></tr>
+                        <tr>
+                            <td><a href='./skeleton/robot_game.py'>robot_game.py</a></td>
+                            <td>
+                                <ul>
+                                    <li>This is the main program of the robot game</li>
+                                    <li>You write code here to help the robot move through a map and get to the exit</li>
+                                    
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><a href='./skeleton/game_lib.py'>game_lib.py</a></td>
+                            <td>
+                                <ul>
+                                    <li>This file provides different functions to make the game work</li>
+                                    <li>It sets up variables and the turtle window for the game</li>
+                                    <li><b>Don't change</b> this file!</li>
+                                </ul>
+                            </td>
+                        <tr>
+                            <td><a href='./skeleton/game_map.py'>game_map.py</a></td>
+                            <td>
+                                <ul>
+                                    <li>This file stores the maps that you can use in the game</li>
+                                    <li>Some predefined maps have been given to you in this file</li>
+                                    <li>You add maps in this file to make sure your robot can work with different maps</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="simple">
+                        <tr><th>Image Files</th><th>Usage</th></tr>
+                        
+                        <tr>
+                            <td><img src='./skeleton/robot_north.gif' style="vertical-align: middle"><a href='./skeleton/robot_north.gif'>robot_north.gif</a></td>
+                            <td>
+                                <ul>
+                                    <li>This image shows when the robot is moving north</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src='./skeleton/robot_south.gif' style="vertical-align: middle"><a href='./skeleton/robot_south.gif'>robot_south.gif</a></td>
+                            <td>
+                                <ul>
+                                    <li>This image shows when the robot is moving south</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src='./skeleton/robot_east.gif' style="vertical-align: middle"><a href='./skeleton/robot_east.gif'>robot_east.gif</a></td>
+                            <td>
+                                <ul>
+                                    <li>This image shows when the robot is moving east</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src='./skeleton/robot_west.gif' style="vertical-align: middle"><a href='./skeleton/robot_west.gif'>robot_west.gif</a></td>
+                            <td>
+                                <ul>
+                                    <li>This image shows when the robot is moving west</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+        <li>The following diagram shows the structure and relationships among the Python programs and their content:</li>
+        <p><a href="images/overview.png"><img src="images/overview.png" width="450" alt="System Structure" /></a><br/>
+	<span class="footnote">Click on the image to see it in its original size</span></p>
+        </li>
+        <li>You don't really need to understand all of this</li>
+        <li>For example, you don't need to understand the code in <code>game_lib.py</code></li>
+        <li>You will work mostly in <code>robot_game.py</code> and then add some maps in <code>game_map.py</code></li>
+        <li><b>Don't change</b> <code>game_lib.py</code>!</li>
+    </ul>
+
+    <h2><a name="section1"></a>1. Understanding the game</h2>
+    <h3><a name="section1_vid"></a>Video for Section 1</h3>
+    <ul>
+        <video width="640" height="360" controls  preload="metadata">
+            <source src="videos/1021_lab6_part1.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='videos/1021_lab6_part1.mp4'>here</a> for the video.
+        </video>
+    </ul>
+    <ul>
+        <li>The objective of the robot game is to guide the robot to get to the exit of a given map</li>
+        <li>You start the game by running the Python program <code>robot_game.py</code></li>
+        <li>After running the program, you will see a map with the robot inside, for example, like this:
+            <p><a href='./images/image002.png'><img height="200" src="./images/image002.png"></a><br>
+            <span class="footnote">Click to show this image at normal size</span>
+            </p>
+        </li>
+        <li>The map is constructed using square blocks
+            <ul>
+                <li>For example, the map shown above has 19 rows and 19 columns of blocks</li>
+            </ul>
+        </li>
+        <li>The game has five types of blocks:
+            <ul>
+                <li><i>The robot block</i>, showing where the robot is using one of the robot images</li>
+                <li><i>Blue block</i>, indicating a wall</li>
+                <li><i>Red block</i>, indicating the exit of the map</li>
+                <li><i>White block</i>, indicating empty space that has not been visited by the robot before</li>
+                <li><i>Block with Arrows</i>, indicating empty space that has already been visited by the robot</li>
+                <ul><li>The arrow in the block indicates how the robot moved when the robot left that space</li></ul>
+            </ul>
+        </li>
+        <li>You will complete the program so that the robot can automatically get to the exit of the map, i.e reach the red block</li>
+    </ul>
+
+
+	<h3><a name="section1.1"></a>1.1. What the robot can do</h3>
+	<ul>
+        <li>You need to help the robot get to the exit by telling it what to do</li>
+        <li>However, the robot is not very clever</li>
+        <li>It can only detect whether a wall is present in the four directions (North/South/East/West) around it
+        <p><img width="150" height="150" src="./images/demo_4dim_sensing.png"></p>
+        </li>
+        <li>That means it cannot 'see' anything further than one block away from those directions</li>
+        <li>To understand what the robot can see, you can press the 'r' key during the game to visualize its visible area
+        <ul>
+            <li>You can press the key again to go back to the map view</li>
+        </ul>
+        </li>
+        <table>
+            <tr><th>Non-Robot View</th><th></th><th>Robot View</th></tr>
+            <tr><td><a href='./images/nonrobot_view.png'><img src='./images/nonrobot_view.png' height='250'></a></td>
+                <td>← Press 'r' →</td>
+                <td><a href='./images/robot_view.png'><img src='./images/robot_view.png' height='250'></a></td></tr>
+            <tr><td colspan='3'><i>Click to enlarge the images</i></td></tr>
+        </table>
+        <li>On the other hand, the robot can only move by one block at any one time in one of the four directions (North/South/East/West)
+        <p><img width="150" height="150" src="./images/demo_4dim_move.png"></p>
+        </li>
+        <li>It cannot move forward a few blocks at a time in the map quickly and it certainly cannot move through walls</li>
+	</ul>
+
+    <h3><a name="section1.2"></a>1.2. How the robot works in the game</h3>
+	<ul>
+        <li>Based on what the robot can see and how it can move, you need to work out some code to guide
+            the robot to get to the exit</li>
+        <li>You will write the code inside <code>robot_game.py</code></li>
+        <li>In this lab, you need to work on a total of 5 tasks, from task 0 to task 4</li>
+        <li>Inside <code>robot_game.py</code>, each task has its own function that you need to work on:
+            <pre># This is the function for task 0
+def makeDecisionForTask0():
+    return "NORTH"
+
+# This is the function for task 1
+def makeDecisionForTask1():
+    global currentStateForTask1
+    
+    # You need to add your code here for task 1
+    
+    return "NORTH" # This gets extended with your logic 
+
+# This is the function for task 2
+def makeDecisionForTask2():
+    global currentStateForTask2
+
+    # You need to add your code here for task 2
+
+    return "NORTH" # This gets extended with your logic
+
+# This is the function for task 3
+def makeDecisionForTask3():
+    global currentStateForTask3
+
+    # You need to add your code here for task 3
+
+    return "NORTH" # This gets extended with your logic
+
+
+# This is the function for task 4
+def makeDecisionForTask4():
+    global currentStateForTask4
+
+    # You need to add your code here for task 4
+
+    return "NORTH" # This gets extended with your logic</pre>
+        </li>
+        <li>For example, the following function, <code>makeDecisionForTask0()</code>, has been given to you for task 0:
+            <pre>def makeDecisionForTask0():
+    return "NORTH"</pre>
+            <ul>
+                <li>It contains one line of code and it always returns <code>"NORTH"</code></li>
+                <li>That means the robot will repeatedly go to the north</li>
+            </ul>
+        </li>
+        <li>These 'making decision' functions are the 'brain' of the robot</li>
+        <li>To get to the exit of the map in each task,
+            the robot keeps on asking the corresponding function to give it a decision on where to move, i.e.:
+            <ul>
+                <li>In task 0, the robot will ask the <code>makeDecisionForTask0()</code> function</li>
+                <li>In task 1, the robot will ask the <code>makeDecisionForTask1()</code> function</li>
+                <li>And so on</li>
+            </ul>
+        </li>
+        <li>Then, the function returns the direction that the robot should move to, or not move at all:
+            <ul>
+                <li>It returns <code><span style="color: #00aa00">&quot;NORTH&quot;</span></code> to tell the robot to move north</li>
+                <li>It returns <code><span style="color: #00aa00">&quot;SOUTH&quot;</span></code> to tell the robot to move south</li>
+                <li>It returns <code><span style="color: #00aa00">&quot;EAST&quot;</span></code> to tell the robot to move east</li>
+                <li>It returns <code><span style="color: #00aa00">&quot;WEST&quot;</span></code> to tell the robot to move west</li>
+                <li>It returns <code><span style="color: #00aa00">&quot;NONE&quot;</span></code> to tell the robot to stay in the same place, i.e. not moving
+                    <br><i>(note that the return value always contains capital letters only)</i></li>
+            </ul>
+        </li>
+        <li>The game asks these functions to help the robot make a decision roughly 10 times a second<br>
+            <i>(the program may run slower than 10 times a second as the turtle takes quite some time to draw the map)</i></li>
+        <li>Therefore, if you change the code of these functions,
+            you will be able to change the way the robot moves inside the maps</li>
+        <li>If you can help the robot successfully reach the exit, the game will be over and a message will be shown like this:
+            <p><a href='./images/image004.png'><img height="288" src="./images/image004.png"></a><br>
+            <span class="footnote">Click to show this image at normal size</span></p>
+        </li>
+	</ul>
+
+	<h3><a name="section1.3"></a>1.3. Commands you can use in the making decision functions</h3>
+	<ul>
+        <li>In this game, you can only use the robot's capabilities to work on the map
+            (see section <a href="#section1.1">1.1. What the robot can do</a>)</li>
+        <li>That means you can only see what the robot can see and ask the robot to move to where it can go:
+            <ul>
+                <li>You can only see if there is a wall one block away in the north, south, east and west directions of the robot, and</li>
+                <li>You can only move the robot one block in one of the north, south, east and west directions at any one time</li>
+            </ul>
+        </li>
+        <li>To see the surroundings, you can use the following given functions inside the making decision functions:</li>
+        <table class="simple">
+            <tr><th>Function</th><th>Usage</th></tr>
+            <tr><td><code>northIsWall()</code></td><td>It returns True if the robot detects that the north side is a wall, or False otherwise</td></tr>
+            <tr><td><code>southIsWall()</code></td><td>It returns True if the robot detects that the south side is a wall, or False otherwise</td></tr>
+            <tr><td><code>eastIsWall()</code></td><td>It returns True if the robot detects that the east side is a wall, or False otherwise</td></tr>
+            <tr><td><code>westIsWall()</code></td><td>It returns True if the robot detects that the west side is a wall, or False otherwise</td></tr>
+        </table>
+        <li>When you work from Task 1 to Task 4, you will write some clever code using the above functions to help the robot get out of different maps</li>
+	</ul>
+
+
+    <h3><a name="section1.4"></a>1.4. The maps</h3>
+	<ul>
+        <li>There are 5 types of maps that the robot (i.e. you) has to deal with</li>
+        <li>You start with a simple map and progressively work on harder maps</li>
+        <li>We divide the types of maps into 5 different tasks</li>
+        <li>Here is a description of the 5 tasks
+            <ul>
+                <li name='tasks' lv='0'><b>Task 0.</b> </li>
+                <li name='tasks' lv='1'><b>Task 1.</b> </li>
+                <li name='tasks' lv='2'><b>Task 2.</b> </li>
+                <li name='tasks' lv='3'><b>Task 3.</b> </li>
+                <li name='tasks' lv='4'><b>Task 4.</b> </li>
+                <!-- <li name='tasks' lv='5'><b>Task 5.</b> </li>
+                <li name='tasks' lv='6'><b>Task 6.</b> </li> -->
+            </ul>
+        </li>
+        <li>You have a lot of maps to work with in the given code
+            <!-- // For non-hand-in lab, comment out the marking
+        <li>Nevertheless, when we mark your work:
+            <ul>
+                <li>we may not use exactly the same maps</li>
+                <li>the width and height of the map may vary</li>
+                <li>the starting point of the robot and the exit may vary</li>
+            </ul>
+        </li>
+    -->
+        <li>In the rest of the lab, you will first work on task 0, and then work your way up to task 4</li>
+	</ul>
+
+    <h2><a name="section2"></a>2. Working on task 0</h2>
+    <h3><a name="section2_vid"></a>Video for Section 2</h3>
+    <ul>
+        <video width="640" height="360" controls  preload="metadata">
+            <source src="videos/1021_lab6_part2.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='videos/1021_lab6_part2.mp4'>here</a> for the video.
+        </video>
+    </ul>
+	<ul>
+        <li>Let's recap what task 0 is about
+            <ul>
+                <li name='tasks' lv='0'></li>
+            </ul>
+        </li>
+    </ul>
+
+    <h4>Make sure you write the code inside the <code>makeDecisionForTask0()</code> function in this task!</h4>
+
+    <ul>
+        <li>This task is quite simple because the code to help the robot in this map has been given to you already!</li>
+        <li>You can use this task to understand how the game works</li>
+        <li>Remember the given <code>makeDecisionForTask0()</code> function looks like this:
+            <pre>def makeDecisionForTask0():
+    return "NORTH"</pre>
+            <ul>
+                <li>The line of code
+                    <pre>return "NORTH"</pre>
+                    returns the string <code>"NORTH"</code> after the function finishes</li>
+                <li>That means the function always tells the robot to go north</li>
+            </ul>
+        </li>
+        <li>Because the exit is right above the robot in this map, the robot can get to the exit by simply going north</li>
+        <li>The given <code>makeDecisionForTask0()</code> function is able to do just that and therefore this task is done</li>
+        <li>You can make some changes to the code and see how the robot is affected
+            <ul>
+                <li>For example, you can change the return value from <code>"NORTH"</code> to <code>"EAST"</code>, i.e.:
+                    <pre>return "EAST"</pre>
+                </li>
+                <li>If you do that, the robot will only move right and hit the wall, without ever finding the exit</li>
+            </ul>
+        </li>
+        <li>Starting from the next task, you will see that you need to return different values, rather than just
+            <code>"NORTH"</code> or <code>"EAST"</code>, to guide the robot to the exit</li>
+        <li>As a reminder, you return different values by doing one of these:</li>
+        <ul name="return_sets">
+        </ul>
+        <li>You can use "NEXT STEP" button below to visualize each step the robot should make:</li>
+        <div name="task0_visualize_step_output"></div>
+        <input type="button" onclick="generateMapForTask(0)" value="Click to generate another example" />
+        <input type="button" onclick="navigateSolutionForTask(0, 1)" value="NEXT STEP" />
+        <li>Please notice that:</li>
+        <ul>
+          <li>The grey rectangle you see in the web demo is equivalent to the robot you see in the Robot Game Window</li>
+          <li>No arrows are shown on the web demo, and no gameover message will be displayed when reaching the exit in the web demo</li>
+        </ul>
+	</ul>
+
+    <h2><a name="section3"></a>3. Working on task 1</h2>
+    <h3><a name="section3_vid"></a>Video for Section 3</h3>
+    <ul>
+        <video width="640" height="360" controls  preload="metadata">
+            <source src="videos/1021_lab6_part3.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='videos/1021_lab6_part3.mp4'>here</a> for the video.
+        </video>
+    </ul>
+	<ul>
+        <li>Let's recap what task 1 is about
+            <ul>
+                <li name='tasks' lv='1'></li>
+            </ul>
+        </li>
+        <li>To use a map in task 1, you need to find the line of code containing <code>chooseGameMap()</code> and then change it like this:
+            <pre>chooseGameMap("task1", 0)</pre>
+            <ul>
+                <li>The above code uses a map for task 1</li>
+                <li>The second input, the number 0, means using the first map of the task</li>
+                <li>For task 1, we give you three maps (0, 1 and 2) that you can use</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h4>Make sure you write the code inside the <code>makeDecisionForTask1()</code> function in this task!</h4>
+
+    <ul>
+        <li>Here is the given <code>makeDecisionForTask1()</code> function:
+            <pre># This is the function for task 1
+def makeDecisionForTask1():
+    global currentStateForTask1
+    # You need to add your code here for task 1
+    return "NORTH" # This gets extended with your logic </pre>
+            <ul>
+                <li>The first line of code
+                    <pre>global currentStateForTask1</pre>
+                    prepares the function to use a global variable <code>currentStateForTask1</code></li>
+                <li>You use this variable to work on a state diagram, as we will explain below</li>
+                <li>The second line of code
+                    <pre>return "NORTH"</pre>
+                    returns the string <code>"NORTH"</code> after the function finishes</li>
+                <li>So the function always tells the robot to go north</li>
+            </ul>
+        </li>
+        <li>For the map shown above, if you use the given code, the robot will move north, hit the wall and not be able to move any further</li>
+        <li>To make the robot more clever, you need to write your own code so that the robot can 'search' for the exit at the top</li>
+        <li>We will use a diagram to explain what you need to do</li>
+    </ul>
+
+    <h3><a name="section3.1"></a>3.1. Using a state diagram</h3>
+
+    <ul>
+        <li>The diagram we use is called a 'state diagram', as shown below:
+            <p><img src="./images/flowchart_task1a.png" width='500'></p>
+        </li>
+        <li>Here is how the diagram works:
+            <ul>
+                <li>The circles in the diagram are called 'states'</li>
+                <li>The robot is always in one of these states</li>
+                <li>The initial state of the robot is shown in bold</li>
+                <li>The arrows are called 'transitions'</li>
+                <li>The robot can switch from state to state, as shown by the arrows
+                    <ul>
+                        <li>An action is typically performed when the transition happens</li>
+                        <li>Optionally, a condition may have to be fulfilled for the transition to work</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>In the above example:
+            <ul>
+                <li>The robot starts at the 'Go north' state, which is shown in bold</li>
+                <li>The robot will switch from the 'Go north' state to the 'Go east' state, if the robot cannot move north</li>
+                <li>Then, depending on which state the robot is in:
+                    <ul>
+                        <li>When the robot is in the 'Go north' state, we always ask the robot to go north</li>
+                        <li>When the robot is in the 'Go east' state, we always ask the robot to go east</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>Based on the above, the diagram means that the robot would go north initially and then, if a wall is met, turn and go east</li>
+        <li>You can write code to represent the above diagram in the <code>makeDecisionForTask1()</code> function</li>
+    </ul>
+
+    <h3><a name="section3.2"></a>3.2. Writing the code for the state diagram</h3>
+
+    <h4>Step 1. Storing the state the robot is currently in</h4>
+
+    <ul>
+        <li>Remember that we have a global variable called <code>currentStateForTask1</code></li>
+        <li>You can make use of this variable to store the state the robot is currently in</li>
+        <li>For example, you can initialize the <code>currentStateForTask1</code> variable like this:
+            <pre>currentStateForTask1 = "Go north"</pre>
+        </li>
+        <li>This indicates the robot is in the 'Go north' state at the start of the program</li>
+    </ul>
+
+    <h4>Step 2. Making the decision based on the state</h4>
+
+    <ul>
+        <li>Once you know the state of the robot, you can ask the robot to move based on the state
+        <li>In the <code>makeDecisionForTask1()</code> function, instead of always returning <code>"NORTH"</code>,
+            you need to return the moving direction based on the current state</li>
+        <li>This can be done by using an if statement, like this:
+            <pre>if currentStateForTask1 == "Go north":
+    return "NORTH"
+
+elif currentStateForTask1 == "Go east":
+    return "EAST"</pre>
+        </li>
+        <li>The above code asks the robot to go north when it is in the 'Go north' state, and go east when it is in the 'Go east' state</li>
+    </ul>
+
+    <h4>Step 3. Switching the state when condition is met</h4>
+
+    <ul>
+        <li>As we have said before, the robot can switch states if a certain condition is met</li>
+        <li>In the example state diagram at the start of <a href="#section3.1">section 3.1</a>,
+            the robot changes from 'Go north' to 'Go east' when there is a wall above (cannot move north)</li>
+        <li>In the code, you can use the <code>northIsWall()</code> function to test whether a wall is to the north of the robot</li>
+        <li>Then, when the robot is in the 'Go north' state, you change the state to 'Go east' if there is a wall there, as shown below:</li>
+            <pre>if northIsWall():
+    currentStateForTask1 = "Go east"
+    return "NONE"
+else:
+    return "NORTH"</pre>
+        </li>
+        <li>You can choose to do nothing, i.e. <code>"NONE"</code>, when you ask the robot to switch the state</li>
+        <li>If you choose to move "EAST", your robot may hit the wall</li>
+    </ul>
+
+    <h4>Step 4. Putting them all together</h4>
+
+    <ul>
+        <li>From the above steps, the code you need to put inside <code>makeDecisionForTask1()</code> is then:
+            <pre># Set the initial state to 'Go north'
+currentStateForTask1 = "Go north"
+
+<span class='todo'>...after some lines of code...</span>
+
+def makeDecisionForTask1():
+    global currentStateForTask1
+
+    # When the robot is in 'Go north' state...
+    if currentStateForTask1 == "Go north":
+        # Switch to 'Go east' if a wall is met
+        if northIsWall():
+            currentStateForTask1 = "Go east"
+            return "NONE"
+
+        # Keep moving north otherwise
+        else:
+            return "NORTH"
+
+    # When the robot is in 'Go east' state...
+    elif currentStateForTask1 == "Go east":
+        # Keep moving east
+        return "EAST"</pre>
+        </li>
+        <li>The above code implements the example state diagram (at the start of <a href="#section3.1">section 3.1</a>) as the logic of the robot</li>
+        <li>However, if you run the program with this code, you will find that the robot still cannot get to the exit</li>
+        <li>If you run the code, it will move north, turn right at the top, go straight to the east side of the map,
+            hit the wall and could not proceed further</li>
+        <li>That means the example state diagram (<a href="#section3.1">section 3.1</a>)  is <b>not</b> clever enough to help the robot to get out of the map for this task</li>
+    </ul>
+
+    <h3><a name="section3.3"></a>3.3. Completing the task</h3>
+
+    <ul>
+        <li>You need to improve the state diagram so that the robot can go north when it is next to the exit</li>
+        <li>The idea is to do this: while the robot is moving east, you ask the robot to go north again if the exit is to the north of the robot (i.e. can move north)</li>
+        <li>This can be done by adding a transition between the states</li>
+        <li>Here is the modified state diagram:
+            <p><img src="./images/flowchart_task1b.png" width='500'></p>
+            <ul>
+                <li>First we start at the 'Go north' state</li>
+                <li>If the robot cannot move north, it will turn and keep moving east</li>
+                <li>While it is moving east, if the robot can move north, it will turn back again and keep moving north</li>
+            </ul>
+        </li>
+        <li>Using similar ideas that you have seen from the previous section,
+            you need to write the code yourself for the modified state diagram</li>
+        <li>After doing this, the robot should be able to reach the exit for the maps of task 1</li>
+        <li>You can use the "NEXT STEP" button below to visualize each step the robot should make:</li>
+        <div name="task1_visualize_step_output"></div>
+        <input type="button" onclick="generateMapForTask(1)" value="Click to generate another example" />
+        <input type="button" onclick="navigateSolutionForTask(1, 1)" value="NEXT STEP" />
+        <li>Please notice that:</li>
+        <ul>
+          <li>The grey rectangle you see in the web demo is equivalent to the robot you see in the Robot Game Window</li>
+          <li>No arrows are shown on the web demo, and no gameover message will be displayed when reaching the exit in the web demo</li>
+        </ul>
+	</ul>
+
+    <h2><a name="section4"></a>4. Working on task 2</h2>
+    <h3><a name="section4_vid"></a>Video for Section 4</h3>
+    <ul>
+        <video width="640" height="360" controls  preload="metadata">
+            <source src="videos/1021_lab6_part4.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='videos/1021_lab6_part4.mp4'>here</a> for the video.
+        </video>
+    </ul>
+	<ul>
+        <li>Let's recap what task 2 is about
+            <ul>
+                <li name='tasks' lv='2'></li>
+            </ul>
+        </li>
+        <li>Similar to task 1, you need to find the line of code containing <code>chooseGameMap()</code> and then change it like this:
+            <pre>chooseGameMap("task2", 0)</pre>
+            <ul>
+                <li>As well as map 0, you can use map number 1 or 2
+            </ul>
+        </li>
+    </ul>
+
+    <h4>Make sure you write the code inside the <code>makeDecisionForTask2()</code> function in this task!</h4>
+
+    <ul>
+        <li>In this task, the exit may be <b>to the left or to the right</b> of the robot</li>
+        <li>In the previous task, the exit can only be on the right so this task is a little more difficult to do than the previous one</li>
+        <li>Previously, the robot searches for the exit by turning to the right only</li>
+        <li>Now, in this task, rather than just the right hand side, you also need to make the robot search the left hand side</li>
+        <li>You can extend the idea from the previous task to something like this:
+            <ul type="none">
+                <li>Step 1. The robot moves north until there is a wall above
+                    <ol type="a">
+                        <li>If the robot sees a wall above, it turns east (go to step 2) and searches for the exit</li>
+                    </ol>
+                </li>
+                <li>Step 2. The robot moves east, searches for the exit until there is a wall on the east
+                    <ol type="a">
+                        <li>If the exit is found (i.e. no wall above), the robot will go north (back to step 1) and move to the exit</li>
+                        <li>If the robot sees a wall on the east, it turns around (go to step 3) and searches for the exit</li>
+                    </ol>
+                </li>
+                <li>Step 3. The robot moves west and searches for the exit
+                    <ol type="a">
+                        <li>If the exit is found (i.e. no wall above), the robot will go north (back to step 1) and move to the exit</li>
+                    </ol>
+                </li>
+            </ul>
+        </li>
+        <li>You need to add one more state which asks the robot to move west, with the appropriate transitions</li>
+        <li>Then, the above logic can be represented by the following state diagram:
+            <p><img src="./images/flowchart_task2.png" width='630'></p>
+        </li>
+        <li>In this task, you need to write the code to put the above diagram in the <code>makeDecisionForTask2()</code> function</li>
+        <li>The state of the diagram is then stored inside the <code>currentStateForTask2</code> variable</li>
+        <li>You can use the "NEXT STEP" button below to visualize each step the robot should make:</li>
+        <div name="task2_visualize_step_output"></div>
+        <input type="button" onclick="generateMapForTask(2)" value="Click to generate another example" />
+        <input type="button" onclick="navigateSolutionForTask(2, 1)" value="NEXT STEP" />
+        <li>Please notice that:</li>
+        <ul>
+          <li>The grey rectangle you see in the web demo is equivalent to the robot you see in the Robot Game Window</li>
+          <li>No arrows are shown on the web demo, and no gameover message will be displayed when reaching the exit in the web demo</li>
+        </ul>
+	</ul>
+
+    <h2><a name="section5"></a>5. Working on task 3</h2>
+    <h3><a name="section5_vid"></a>Video for Section 5</h3>
+    <ul>
+        <video width="640" height="360" controls  preload="metadata">
+            <source src="videos/1021_lab6_part5.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='videos/1021_lab6_part5.mp4'>here</a> for the video.
+        </video>
+    </ul>
+	<ul>
+        <li>Let's recap what task 3 is about
+            <ul>
+                <li name='tasks' lv='3'></li>
+            </ul>
+        </li>
+        <li>The first thing to do is to find the line of code containing <code>chooseGameMap()</code> and then change it like this:
+            <pre>chooseGameMap("task3", 0)</pre>
+            <ul>
+                <li>As well as map 0, you can use map number 1 or 2
+            </ul>
+        </li>
+    </ul>
+
+    <h4>Make sure you write the code inside the <code>makeDecisionForTask3()</code> function in this task!</h4>
+
+    <ul>
+        <li>To work the way out in this task, the robot can go to each level of horizontal walls and then search for the hole in the wall</li>
+        <li>This is very similar to what you have done in task 2, where the robot goes to the top of the map and searches for the exit at the top</li>
+        <li>That means you just need to ask the robot to do the same thing, i.e. go north, search the east and search the west for the hole</li>
+        <li>Once the hole is found, the robot continues to move north to the next horizontal level</li>
+        <li>You can see the logic that you have completed in task 2 can be used again in this task</li>
+        <li>For example, we can use the exact same idea but change the text 'exit' into 'hole', like this:
+            <ul type="none">
+                <li>Step 1. The robot moves north until there is a wall above
+                    <ol type="a">
+                        <li>If the robot sees a wall above, it turns east (go to step 2) and searches for the <b><del><i>exit</i></del> hole</b></li>
+                    </ol>
+                </li>
+                <li>Step 2. The robot moves east, searches for the <b><del><i>exit</i></del> hole</b> until there is a wall on the east
+                    <ol type="a">
+                        <li>If the <b><del><i>exit</i></del> hole</b> is found (i.e. no wall above),
+                            the robot will go north (back to step 1) and move to the <b><del><i>exit</i></del> hole</b></li>
+                        <li>If the robot sees a wall on the east, it turns around (go to step 3) and searches for the <b><del><i>exit</i></del> hole</b></li>
+                    </ol>
+                </li>
+                <li>Step 3. The robot moves west and searches for the <b><del><i>exit</i></del> hole</b>
+                    <ol type="a">
+                        <li>If the <b><del><i>exit</i></del> hole</b> is found (i.e. no wall above),
+                            the robot will go north (back to step 1) and move to the <b><del><i>exit</i></del> hole</b></li>
+                    </ol>
+                </li>
+            </ul>
+        </li>
+        <li>As you can see, the logic is exactly the same, with 'exit' changed to 'hole'</li>
+        <li>As the code does not distinguish between the exit or a hole,
+            you should be able to guide the robot to the exit using the same code that you have got from task 2</li>
+        <li>That means you can copy the code for task 2 into the <code>makeDecisionForTask3()</code> function and
+            then make sure it works for your maps in this task</li>
+            <li>Here is a video demonstrating the movement of the robot when the above logic is implemented</li>
+            <p></p>
+                <video width="320" height="320" controls  preload="metadata" DEMO>
+                    <source src="demo_vid/RobotGame_lv3.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='demo_vid/RobotGame_lv3.mp4'>here</a> for the video
+                </video>
+            </li>
+	</ul>
+
+    <h2><a name="section6"></a>6. Working on task 4</h2>
+    <h3><a name="section6_vid"></a>Video for Section 6</h3>
+    <ul>
+        <video width="640" height="360" controls  preload="metadata">
+            <source src="videos/1021_lab6_part6.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='videos/1021_lab6_part6.mp4'>here</a> for the video.
+        </video>
+    </ul>
+	<ul>
+        <li>Let's recap what task 4 is about
+            <ul>
+                <li name='tasks' lv='4'></li>
+            </ul>
+        </li>
+        <li>The first thing to do is to find the line of code containing <code>chooseGameMap()</code> and then change it like this:
+            <pre>chooseGameMap("task4", 0)</pre>
+            <i>(you are only given two maps in this task, task 4)</i>
+        </li>
+    </ul>
+
+    <h4>Make sure you write the code inside the <code>makeDecisionForTask4()</code> function in this task!</h4>
+
+    <ul>
+        <li>In this task, you work inside the <code>makeDecisionForTask4()</code> function and use the <code>currentStateForTask4</code> variable</li>
+        <li>This task is considerably more difficult than the previous tasks</li>
+        <li>In task 3, we always assume holes are in the horizontal walls above the robot</li>
+        <li>However, there are only one-square width pathway for the robot to move</li>
+        <li>That means we cannot use the 'go north' strategy to solve the full maze</li>
+        <li>Because of the difficulty, we will need to adjust our idea</li>
+    </ul>
+
+    <h3><a name="section6.1"></a>6.1. Another approach</h3>
+
+    <ul>
+        <li>Imagine that you are in a very dark dungeon</li>
+        <li>Your instinct would likely tell you to get hold of something to feel safe</li>
+        <li>One way to do that is to find the nearest wall, touch and walk along the wall, instead of wandering around in open space</li>
+        <li>As it is a one-square pathway, you can use any wall that the robot can touch</li>
+        <li>We will use this approach to make the robot go around the map</li>
+        <li>Let's say the robot has a pair of hands, a left hand and a right hand</li>
+        <li>We can make the robot always touch a wall using its right hand, while walking around the map
+            <ul>
+                <li><i>The same idea can be applied using its left hand but we will use the 'right hand rule' in this lab</i></li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3><a name="section6.2"></a>6.2. The state diagram</h3>
+
+    <ul>
+        <li>In the previous tasks, we have the 'Go north', 'Go east' and 'Go west' states</li>
+        <li>Let's add one more state, 'Go south', to complete the four directions of movement:
+            <p><img src="./images/flowchart_task4aa.png" width='550'></p>
+        </li>
+        <li>The basic transition for each state has been shown in the above diagram</li>
+        <li>Let's now consider how to handle the transitions between the different states</li>
+        <li>The objective now is to ensure that the robot's right hand is touching a wall, no matter what direction the robot is heading in</li>
+        <li>Here are examples of what can happen when the robot is in the 'Go north' state:
+            <ol>
+                <li>A wall is on the right hand side and there is no wall above the robot:
+                    <ul>
+                        <li>The robot can move forward (North)</li>
+                        <ul><li>You can notice that robot's right hand is pointing towards East!</li></ul>
+                    </ul>
+                    <p><a href="./images/right_hand_point1.png"><img height="240" src="./images/right_hand_point1.png"></a><br><span class="footnote">Click to show this image at normal size</span></p>
+                </li>
+                <li>A wall is on the right hand side and there is a wall above the robot:
+                    <ul>
+                        <li>The robot cannot move forward (North)</li>
+                        <li>The robot needs to turn left (not right!) so that its right hand is on the wall</li>
+                        <ul><li>You can notice that robot's right hand is pointing towards North when the robot is in 'Go west' state!</li></ul>
+                        <li>Although the robot may not look different, after this it is now in the 'Go west' state</li>
+                    </ul>
+                    <p><a href="./images/right_hand_point2.png"><img height="240" src="./images/right_hand_point2.png"></a><br><span class="footnote">Click to show this image at normal size</span></p>
+                </li>
+                <li>A wall is not on the right hand side:
+                    <ul>
+                        <li>In order to put its right hand on a wall again, the robot needs to turn right (East) and move one step forward</li>
+                        <ul><li>You can notice that robot's right hand is pointing towards South when the robot is in 'Go east' state!</li></ul>
+                        <li>Note that the robot is in the 'Go east' state after this</li>
+                    </ul>
+                    <p><a href="./images/right_hand_point3.png"><img height="240" src="./images/right_hand_point3.png"></a><br><span class="footnote">Click to show this image at normal size</span></p>
+                </li>
+            </ol>
+        </li>
+        <li>As you can see there are a couple more conditions to consider for the 'Go north' state than what you have done in the previous tasks</li>
+        <li>If you add the transitions to the state diagram, it will then look like this:<br>
+            <i>(we have focussed on the transitions of the 'Go North' state for the following image)</i>
+            <p><img src="./images/flowchart_task4b.png" width='510'></p>
+        </li>
+        <li>You need to complete the state diagram by applying a similar logic to the remaining 3 states: 'Go east', 'Go west' and 'Go south'</li>
+        <li>Once you have done that, you can write the code that represents the state diagram into your <code>makeDecisionForTask4()</code> function</li>
+        <li>If you want to test your robot using a different map, you can use
+            <a href='genmap.html'>this webpage</a> to make a new one for you
+            <ul>
+                <li>You can see how to do that lower down the page in
+                    <a href="#section7">Section 7</a></li>
+            </ul>
+        </li>
+        <li>
+            Here is a video demonstrating the movement of the robot when the above logic is implemented<p />
+            <video width="320" height="320" controls  preload="metadata" DEMO>
+                <source src="demo_vid/RobotGame_lv4.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='demo_vid/RobotGame_lv4.mp4'>here</a> for the video
+            </video>
+        </li>
+    </ul>
+
+    <h2><a name="section7"></a>7. Adding new maps to the game</h2>
+    <h3><a name="section7_vid"></a>Video for Section 7</h3>
+    <ul>
+        <video width="640" height="360" controls  preload="metadata">
+            <source src="videos/1021_lab6_part7.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='videos/1021_lab6_part7.mp4'>here</a> for the video.
+        </video>
+    </ul>
+	<ul>
+		<li>To fully test your program, you should add more maps to see if your logic works on different maps</li>
+        <li>Your program should work with a map having a width between 7 to 39, and a height between 7 to 39</li>
+        <li>To start with, here is a <a href='genmap.html'>map generator</a> to generate different maps for you</li>
+        <li>You can choose the maps for different tasks, and create the map with different widths and different heights</li>
+        <li>In that web page, you can generate a map and see a preview of what it looks like</li>
+        <li>To add a map, edit <code>game_map.py</code>, and add the map to the list of maps</li>
+        <li>In <code>game_map.py</code></li>
+        <ul>
+            <li>Find this:
+            <pre>custom_map_for_task = "task0"
+custom_map = [
+
+#
+# You can add your custom maps here
+#
+
+]</pre>
+            </li>
+            <li>First, specify the task you want to use in the first line
+                <ul>
+                    <li>For example, you will write this if you want to use the task 4 logic in your custom map:
+                        <pre>custom_map_for_task = "task4"</pre>
+                    </li>
+                </ul>
+            </li>
+            <li>Then add the map into the list</li>
+            <li>For example you use the generator to get code, like this:</li>
+            <pre>"""\
+BBBBBBBBBEBBBBBBBBB
+B                 B
+B BBBBBBBBBBBBBBB B
+B     B         B B
+BBBBB B BBBBBBB B B
+B B   B   B   B   B
+B B BBBBB BBB BBBBB
+B   B     B   B   B
+B BBB BBBBB B BBB B
+B B B   B B B     B
+B B BBB B B B BBBBB
+B     B B B B B   B
+BBBBB BPB B BBB B B
+B     B   B     B B
+B BBBBBBBBBBBBBBB B
+B     B     B     B
+BBBBB B BBB B BBB B
+B       B     B   B
+BBBBBBBBBBBBBBBBBBB"""</pre>
+            <li>In the code</li>
+            <ul>
+                <li>B means "Block" in the map (shown as blue square)</li>
+                <li>E means "Exit" in the map (shown as red square)</li>
+                <li>P means "Robot" in the map (shown as the robot icon)</li>
+                <li>Empty means "Space" in the map</li>
+                <li>In Python, <code>"""..."""</code> is a way to store a long string with multiple lines, e.g.:
+                    <pre>song_lyrics = """\
+Baby shark, doo doo doo doo doo doo
+Mommy shark, doo doo doo doo doo doo
+Daddy shark, doo doo doo doo doo doo"""</pre>
+                    <ul>
+                        <li>The <code>\</code> tells Python 'the code continues on the next line' <p></p>
+<!-- <pre style="display: inline-block; background: none; border: none; color: black; padding: 1em; margin: 0; font-size: 1rem; white-space: pre; line-height: 125%"><span></span><span style="color: #770000">&gt;&gt;&gt; </span><span style="color: #900090">print</span>(song_lyrics)
+<span style="color: #0000ff">Baby shark, doo doo doo doo doo doo</span>
+<span style="color: #0000ff">Mommy shark, doo doo doo doo doo doo</span>
+<span style="color: #0000ff">Daddy shark, doo doo doo doo doo doo</span>
+<span style="color: #770000">&gt;&gt;&gt; </span>
+</pre> -->
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <li>Then you add it to the list, like this:</li>
+            <pre>custom_map = ["""\
+BBBBBBBBBEBBBBBBBBB
+B                 B
+B BBBBBBBBBBBBBBB B
+B     B         B B
+BBBBB B BBBBBBB B B
+B B   B   B   B   B
+B B BBBBB BBB BBBBB
+B   B     B   B   B
+B BBB BBBBB B BBB B
+B B B   B B B     B
+B B BBB B B B BBBBB
+B     B B B B B   B
+BBBBB BPB B BBB B B
+B     B   B     B B
+B BBBBBBBBBBBBBBB B
+B     B     B     B
+BBBBB B BBB B BBB B
+B       B     B   B
+BBBBBBBBBBBBBBBBBBB"""]</pre>
+
+        </ul>
+        <li>Then, you can use the map by doing this in your main game program:
+            <pre>chooseGameMap("custom", 0)</pre>
+        </li>
+        <ul><li>where 0 means 'the first one'</li></ul>
+    </ul>
+
+	<h2><a name="submission" id="submission" />Submission</h2>
+
+    <ul>
+		<li>You don't need to submit this work</li>
+		<li>However, it's a good idea to keep a copy of your work for your own reference</li>
+			<ul><li>For example, you can put your file in your USB disk (if you have one) or email a copy to yourself</li></ul>
+	</ul>
+
+
+
+</body>
+</html>

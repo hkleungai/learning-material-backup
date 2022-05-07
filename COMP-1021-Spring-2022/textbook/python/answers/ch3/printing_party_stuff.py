@@ -1,0 +1,5 @@
+print("Party Stuff")
+print("Chips\t\t$8.0")
+print("Coke\t\t$5.0")
+print("Pineapple\t$15.0")
+print("Sausage\t\t$22.0")

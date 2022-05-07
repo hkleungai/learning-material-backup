@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>COMP1021 Lab 0 - Hello World</title>
+    <link href="../../../css/lab.css" rel="stylesheet" />
+    <script src="../../../scripts/jquery-3.4.1.min.js"></script>
+    <script src="../../../scripts/lab.js"></script>
+    <script src="video_res.js"></script>
+
+</head>
+
+<body>
+    <h1>
+        <span class="lab">COMP1021 Lab 0</span>
+        <span class="title">Hello World and Introduction to Turtle Graphics</span>
+    </h1>
+    <div id="videoQualityWidget"></div>
+    <div class="content">
+
+        <h2>The Main Focus of this Lab</h2>
+        <ul>
+            <li>In this lab:
+                <ul>
+
+                    <li>You explore how to use variables and loops to generate random graphical patterns </li>
+
+                </ul>
+            </li>
+        </ul>
+
+        <h2>What You Will Learn in This Lab</h2>
+
+        <ul>
+            <li>In this lab, you will gain experience in the following areas:
+                <table class="simple">
+                    <tr>
+                        <th>Topic</th>
+                        <th>Computer Science/ Programming Concept</th>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">Writing Python programs</td>
+                        <td>Using IDLE to build Python programs</td>
+                    </tr>
+                    <tr>
+                        <td>Writing your first Python program</td>
+                    </tr>
+                    <tr>
+                        <td>Showing text output</td>
+                        <td>Using <code>print()</code></td>
+                    </tr>
+                    <tr>
+                        <td>Storing things</td>
+                        <td>Using variables</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">Using the turtle graphics module</td>
+                        <td>Writing text using <code>turtle.write()</code></td>
+                    </tr>
+                    <tr>
+                        <td>Drawing shapes by moving the turtle, using <code>turtle.forward()</code>, <code>turtle.left()</code>, <code>turtle.right()</code>, <code>turtle.goto()</code>, etc.</td>
+                    </tr>
+                    <tr>
+                        <td>Changing pen width and colour using <code>turtle.width()</code>, <code>turtle.fillcolor()</code>, etc.</td>
+                    </tr>
+                    <tr>
+                        <td>Repeating things using loops</td>
+                        <td>Experiencing while loops (<code>while ...:</code>)</td>
+                    </tr>
+                    <tr>
+                        <td>Random number generation</td>
+                        <td>Getting random values using <code>random.choice()</code></td>
+                    </tr>
+                </table>
+            </li>
+        </ul>
+
+        <h2>Overview</h2>
+
+<a name="section0_0" />
+<p>
+<video width="640" height="360" controls  preload="metadata"> <source src="videos/comp1021_lab0_intro.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+
+        <ul>
+            <li>This lab gives you experience with some of the things we have looked at in the lectures</li>
+            <li>You are not expected to have prior programming experience for this lab</li>
+            <li>We start with a single line of code, then we achieve a similar output in different ways</li>
+            <li>Next, we create a program that has only one line</li>
+            <li>Then we will draw using turtle graphics</li>
+            <li>In the lectures, you have learned about how to draw different shapes using turtle graphics</li>
+            <li>By refining the code, you can create interesting works of art
+            <p><img src="images/random_shapes.png" width="50%" height="50%" alt="Random shapes"/><br />
+            </p></li>
+
+        </ul>
+
+        <h2>Lab Content</h2>
+
+        <ul class="toc">
+            <li>1. <a href="#section1">Getting Started</a></li>
+            <ul>
+                <li>1.1. <a href="#section1_1">Activating your CSD account</a></li>
+                <li>1.2. <a href="#section1_2">Using IDLE</a></li>
+            </ul>
+            <li>2. <a href="#section2">Hello World in the Shell</a></li>
+            <li>3. <a href="#section3">Hello World in a Program</a></li>
+            <li>4. <a href="#section4">Turtle Graphics</a></li>
+            <ul>
+                <li>4.1. <a href="#section4_1">Writing "Hello World" using the turtle</a></li>
+                <li>4.2. <a href="#section4_2">Drawing a rectangle</a></li>
+                <li>4.3. <a href="#section4_3">Drawing with relative position</a></li>
+                <li>4.4. <a href="#section4_4">Setting pen and fill colors</a></li>
+<!--
+                <li>4.5. <a href="#section4_5">Adding more rectangles</a></li>
+-->
+                <li>4.5. <a href="#section4_5">Using other shapes</a></li>
+                <li>4.6. <a href="#section4_6">Using while loops</a></li>
+                <li>4.7. <a href="#section4_7">Indentation and dedentation</a></li>
+                <li>4.8. <a href="#section4_8">Using random color</a></li>
+                <li>4.9. <a href="#section4_9">Some example results of using a loop</a></li>
+            </ul>
+            <li>Video locations</li>
+            <ul>
+              <li><a href="#section0_0">Video for Overview</a></li>
+              <li><a href="#section1_0">Video for Getting Started</a></li>
+              <li><a href="#section_mac">Video for Using IDLE in a Mac</a></li>
+              <li><a href="#section2_0">Video for Hello World in the Shell</a></li>
+              <li><a href="#section3_0">Video for Hello World in a Program</a></li>
+              <li><a href="#section4_0">Video for Turtle Graphics</a></li>
+            </ul>
+        </ul>
+
+
+        <h2>Lab Procedure</h2>
+        <h3><a name="section1"></a>1. Getting Started</h3>
+<a name="section1_0" /><h4>Video for Getting Started</h4>
+<video width="640" height="360" controls  preload="metadata"> <source src="videos/comp1021_lab0_part1.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+<div style="font-size:12px">Note: The video is using Python 3.8. And in this semester, you should use Python 3.9 instead</div>
+<div style="font-size:12px">That means you should find "IDLE (Python 3.9 64-bit)" Instead</div>
+        <h4><a name="section1_1"></a>1.1 Activating your CSD account</h4>
+        <ul>
+            <li>After having a CSD account, you can get access to course webpage when you are outside the Campus</li>
+            <li>If you haven't done so you need to activate the account through the following link:
+            <pre><a href="https://password.cse.ust.hk:8443/pass.html">https://password.cse.ust.hk:8443/pass.html</a></pre>
+            </li>
+            <li>For detailed instructions see the last few slides of the Course Details notes</li>
+
+        </ul>
+
+        <h4><a name="section1_2"></a>1.2 Using IDLE</h4>
+
+        <ul>
+            <li>Here are some ways you can use IDLE</li>
+            <li>Please click the following buttons to see the instructions in other platforms:
+                <br>
+            <div id="idle_instruction_controls" >
+                <button id="btn_win10">Windows 10</button>
+                <button id="btn_win11">Windows 11</button>
+                <button id="btn_macos">Mac OS</button>
+                <button id="btn_vbarn">Virtual Barn</button>
+            </div>
+
+            </li>
+        </ul>
+
+
+
+       <div id="instruction_win10">
+        <h5>Using IDLE in a Windows 10 machine</h5>
+        <ul>
+
+            <li>To use IDLE in a Windows 10 machine, you can go to the start menu, scroll down to see "Python 3.9" folder, like this:
+                <p>
+                <img src="images/start_menu_virtual_barn.png" style="width:310px;height:474px" alt="Virtual Barn Start Menu" />
+                </p>
+            </li>
+            <li>Alternatively, you can type "Python 3.9" on the search bar of the start menu</li>
+
+
+
+            <li>Run IDLE by clicking on the IDLE icon
+            </li>
+            <li>After running IDLE you can see the IDLE Python shell, like this:
+            <p><a href="images/idle_shell_new.png"><img src="images/idle_shell_new.png" style="width:504px;height:207px" alt="IDLE Shell" /></a><br />
+            <span class="footnote">Click to see the image in full size</span></p>
+            </li>
+        </ul>
+       </div>
+
+       <div id="instruction_win11">
+        <h5>Using IDLE in a Windows 11 machine</h5>
+        <ul>
+            <li>To use IDLE in a Windows 11 machine you can click the search button (i.e., the magnifying glass icon) on the menu bar</li>
+            <li>Type "IDLE" on the search bar, like this:
+                <p><a href="images/start_menu_win11.png">
+                    <img src="images/start_menu_win11.png" style="height:350px;" alt="Win11 IDLE" /></a><br />
+                    <span class="footnote">Click to see the image in full size</span></p> </li>
+            <li>Run IDLE by clicking on the IDLE icon</li>
+            <li>After running IDLE you can see the IDLE Python shell, like this:
+                <p><a href="images/idle_shell_new.png"><img src="images/idle_shell_new.png" style="width:504px;height:207px" alt="IDLE Shell" /></a><br />
+                <span class="footnote">Click to see the image in full size</span></p>
+            </li>
+
+        </ul>
+        </div>
+
+        <div id="instruction_macos">
+        <h5>Using IDLE in a Mac machine</h5>
+
+        <ul>
+            <li>
+                <a name="section_mac" />
+                Video for Using IDLE in a Mac machine <br>
+                <video width="640" height="360" controls  preload="metadata" DEMO> <source src="videos/comp1021_lab0_mac.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+
+            </li>
+            <li>To use IDLE in Mac machine you can click on the Launchpad:
+            <p><a href="images/mac_launchpad.png"><img src="images/mac_launchpad.png" style="width:250px;height:118px" alt="Mac Launchpad Icon" /></a><br />
+            <span class="footnote">Click to see the image in full size</span></p>
+
+            </li>
+
+            <li>Find the IDLE button and click on the IDLE icon
+            <ul>
+                <li>Please do not choose the <i>Python Launcher</i></li>
+            </ul>
+            <p><a href="images/mac_launchpad2.png"><img src="images/mac_launchpad2.png" style="width:500px;height:275px" alt="Launchpad List Icon" /></a><br />
+            <span class="footnote">Click to see the image in full size</span></p>
+
+            </li>
+            <li>After running IDLE you can see the IDLE Python shell, like this:
+            <p><a href="images/mac_idle.png"><img src="images/mac_idle.png" style="width:318px;height:122px" alt="Mac IDLE Shell" /></a><br />
+            <span class="footnote">Click to see the image in full size</span></p>
+            </li>
+        </ul>
+        </div>
+
+
+        <div id="instruction_virtual_barn">
+        <h5>Using IDLE in the ITSC Virtual Barn</h5>
+        <ul>
+            <li>Alternatively, you can use Python IDLE in the ITSC Virtual Barn</li>
+		<ul>
+            	<li>The Virtual Barn is available anytime via the Internet</li>
+		<li>You could do this anywhere in campus, and you can access it using your Mac/PC computers, tablets and mobile devices</li>
+		<li>The instructions below are for Windows machine, however, the instructions will be similar in different devices e.g. Mac, tablets and mobile devices</li>
+		</ul>
+            <li>To use the Virtual Barn in a Windows machine, follow these steps:
+            <ol>
+                <li>In the Start Menu, go to <code>VMWare &raquo; VMWare Horizon Client</code>
+                <p><img src="images/start_menu.png" style="width:287px;height:303px" alt="Win10 Start Menu" /></li>
+                <li>In the <i>VMware Horizon Client</i> window, if you cannot see <code>vdi.ust.hk</code> already shown, simply choose <code>Add Server</code>
+                <p><img src="images/vmware_screen.png" style="width:479px;height:362px" alt="VMWare Screen" />
+                <p>Type <code>vdi.ust.hk</code> as the name of the Connection Server</li>
+                <li>Log in using your <strong>ITSC username/password</strong>
+                <p><img src="images/vmware_login.png" style="width:422px;height:248px"lt="VMWare Login" /></li>
+                <li>Please choose your the way to do 2FA (2 Factor Authentication), or enter the passcode in your <i>Duo Security</i> Mobile App</strong>
+                <p><img src="images/vmware_login2.png" style="width:422px;height:332px"lt="VMWare Login" /></li>
+
+
+                <li>Choose the Programming Software
+                <p><img src="images/vmware.png" style="width:628px;height:474px" alt="VMWare Screen" /></li>
+                <li>After waiting for a while, you will see the Windows desktop. Go to the Start Menu and look for folder <code>Python 3.9</code> in Start Menu, then execute <code>IDLE (Python 3.9 64-bit)</code>.
+                <p><img src="images/start_menu_virtual_barn.png" style="width:310px;height:474px" alt="Virtual Barn Start Menu" /></li>
+            </ol>
+            </li>
+            <li>You may install VMWare Horizon Client and access Virtual Barn on your own devices</li>
+            <li>To know more about the ITSC Virtual Barn, you can refer to <a href="../../../hkust/virtual_barn/index.html" target=_"blank">this page</a>
+        </ul>
+        </div>
+
+        <script>
+            const win10 = document.getElementById("instruction_win10");
+            const win11 = document.getElementById("instruction_win11");
+            const macos = document.getElementById("instruction_macos");
+            const vbarn = document.getElementById("instruction_virtual_barn");
+
+            function display(elm, status) {
+                if (status) {
+                    elm.style.display = "block";
+                } else {
+                    elm.style.display = "none";
+                }
+            }
+            function display_win10_only() {
+                display(win10, true);
+                display(win11, false);
+                display(macos, false);
+                display(vbarn, false);
+            }
+            function display_win11_only() {
+                display(win10, false);
+                display(win11, true);
+                display(macos, false);
+                display(vbarn, false);
+            }
+            function display_macos_only() {
+                display(win10, false);
+                display(win11, false);
+                display(macos, true);
+                display(vbarn, false);
+            }
+            function display_vbarn_only() {
+                display(win10, false);
+                display(win11, false);
+                display(macos, false);
+                display(vbarn, true);
+            }
+
+            const btn_win10 = document.getElementById("btn_win10");
+            const btn_win11 = document.getElementById("btn_win11");
+            const btn_macos = document.getElementById("btn_macos");
+            const btn_vbarn = document.getElementById("btn_vbarn");
+
+            btn_win10.addEventListener("click", display_win10_only);
+            btn_win11.addEventListener("click", display_win11_only);
+            btn_macos.addEventListener("click", display_macos_only);
+            btn_vbarn.addEventListener("click", display_vbarn_only);
+
+
+            display_win10_only();
+
+
+        </script>
+
+        <h3><a name="section2"></a>2. Hello World in the Shell</h3>
+<a name="section2_0" /><h4>Video for Hello World in the Shell</h4>
+<video width="640" height="360" controls  preload="metadata"> <source src="videos/comp1021_lab0_part2.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+<div style="font-size:12px">Note: The video shown is using Python 3.8. And in this semester, you will use Python 3.9 instead</div>
+        <ul>
+            <li>Lines of code can be typed one by one into the shell</li>
+            <li>After typing each line, the result will be instantly shown</li>
+            <li>You can see <div style="font-family: 'Courier New', Courier, monospace">&gt;&gt;&gt;</div> in the shell, this is called the <em>prompt</em></li>
+            <li>Inside the shell, you can try out different Python commands interactively by typing the commands at the prompt.</li>
+            <li>For example:</li>
+            <pre class="python">print("Hello World!")</pre>
+            <li>Now that you have an immediate response, you can easily try things to see what Python likes or doesn't like</li>
+            <li>For example, try these to see if there is a difference in output from the following four commands:
+            <pre class="python">print        ("Hello World!")</pre>
+            <pre class="python">PRINT("Hello World!")</pre>
+            <pre class="python">print(    "Hello World!"    )</pre>
+            <pre class="python">print("    Hello World!    ")</pre></li>
+            <li>Now try using variables:
+            <pre class="python">word1 = "Hello"
+word2 = "World"
+exclamation = "!"
+print(word1, word2, exclamation)</pre>
+            </li>
+        </ul>
+
+        <h3><a name="section3"></a>3. Hello World in a Program</h3>
+<a name="section3_0" /><h4>Video for Hello World in a Program</h4>
+<video width="640" height="360" controls  preload="metadata"> <source src="videos/comp1021_lab0_part3.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+
+
+        <ul>
+            <li>Typing lines of code into the shell again and again can be troublesome</li>
+            <li>When you put the lines together in a single file, it is a program</li>
+            <li>The program can be run again and again</li>
+            <li>To learn programming, most computer courses start with the <code>Hello World</code> program</li>
+            <li>This is a very simple program that shows the words "Hello World!" on the screen</li>
+            <li>Let's make our own <code>Hello World</code> program</li>
+            <li>In IDLE, you can create a new Python program by selecting <code>File &raquo; New File</code> from the menu:</li>
+            <p><img src="images/newwindow.png" alt="New Window" style="border:1px solid black;"/></p>
+            <li>Copy or type in the following line into the file:
+            <pre class="python">print("Hello World!")</pre>
+            </li>
+            <li>In IDLE, you can save the file by selecting <code>File &raquo; Save as ... </code> from the menu</li>
+            <li>Save the above code to a file with the name "hello_world.py"</li>
+		<ul>
+		<li>If you forget ".py" IDLE will add it for you</li>
+		</ul>
+            <li>After you finish entering your program code you can run your program</li>
+            <li>Run the program by selecting <code>Run &raquo; Run Module</code>:</li>
+            <p><img src="images/run.png" alt="Run program" style="border:1px solid black"/></p>
+            <!--li>Press the F5 key to run it</li-->
+            <li>The program will be run in the Python shell</li>
+            <li>You will see the words being displayed:</li>
+            <p><a href="images/runshell.png"><img src="images/runshell.png" alt="Shell Output" height='100'/></a><br/>
+            <span class="footnote">Click to see the image in full size</span></p>
+            <!--li>As another example, on the right is what you see in the Python shell if you run the program shown on the left:
+            <p><a href="images/idle_program.png"><img src="images/idle_program_small.png" alt="IDLE Execution" /></a><br />
+            <span class="footnote">Click to see the image in full size</span></p>
+            </li-->
+            <!--li>If you want to edit an existing program you can open it in IDLE by selecting <code>File -&gt; Open</code></li-->
+        </ul>
+
+
+        <h3><a name="section4"></a>4. Turtle Graphics</h3>
+<a name="section4_0" /><h4>Video for Turtle Graphics</h4>
+<video width="640" height="360" controls  preload="metadata"> <source src="videos/comp1021_lab0_part4.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+
+        <h4><a name="section4_1"></a>4.1. Writing "Hello World" using the turtle</h4>
+
+        <ul>
+            <li>You have had an introduction to turtle graphics in the lectures</li>
+            <li>Now create a new file "turtle_graphics.py"</li>
+            <li>Copy the following code into the file:
+            <pre class="python">import turtle
+
+turtle.write("Hello World!")
+
+turtle.done()</pre></li>
+            <li>Run it to see the words being shown in the turtle world</li>
+        </ul>
+
+        <h4><a name="section4_2"></a>4.2. Drawing a rectangle</h4>
+        <ul>
+            <li>In the lectures, you learned about drawing different shapes, such as rectangles and circles, using the turtle</li>
+            <li>We are going to draw a rectangle around the words "Hello World!"</li>
+            <li>To draw the rectangle you need to ask the turtle to "go to" different positions i.e.
+            <pre class="python">turtle.goto( <strong><em>x</em></strong> , <strong><em>y</em></strong> )</pre></li>
+            <li>Remember that <code>(0, 0)</code> is the centre of the turtle window</li>
+            <li>The diagram below shows the coordinates of the rectangle:</li>
+            <p><a href="images/hello_world_turtle.png"><img src="images/hello_world_turtle.png" alt="Coordinates" height='308'/></a><br/>
+            <span class="footnote">click to see the image in full size</span></p>
+            <li>The turtle will draw a line between the points it visits</li>
+            <li>If you do not want to leave a line in certain places, you need to tell the turtle to raise the pen off the page:
+            <pre class="python">turtle.up()</pre>
+            <li>The opposite (tell the turtle to put the pen down on to the page) is <code>turtle.down()</code></li>
+            <li>You can adjust the line thickness by:
+            <pre class="python">turtle.width( <strong><em>pixels</em></strong> )</pre>
+            </li>
+            <li>You can also change the line color by:
+            <pre class="python">turtle.color( <strong><em>color_name</em></strong> )</pre>
+            </li>
+            <li>You should do the sequence of turtle graphics commands after <code>import turtle</code> and before <code>turtle.done()</code>:</li>
+            <pre class="python">import turtle
+
+<span style="color:green"># code for drawing with turtle</span>
+turtle.write("Hello World!") <span style="color:green"># writing with turtle</span>
+turtle.up() <span style="color:green"># raise the pen up</span>
+turtle.goto(-100,50) <span style="color:green"># go to the position (-100, 50)</span>
+turtle.down() <span style="color:green"># put the pen down</span>
+turtle.goto(-100,-50) <span style="color:green"># go to the position (-100, -50)</span>
+<font color="red"><i>...some code...</i></font> <span style="color:green"># go to the next point for 3 more times</span>
+
+turtle.done()</pre>
+        </ul>
+
+        <h4><a name="section4_3"></a>4.3. Drawing with relative position</h4>
+        <ul>
+            <li>If you want to move the above rectangle to a different position,
+                you would need to modify all the x and y values used in the goto() instructions</li>
+            <li>However, if we are clever, we can write our code in a different way</li>
+            <li>Then we won't need to change many lines of code if we make a second rectangle</li>
+            <li>To do this we use <code>turtle.forward()</code> instead of <code>turtle.goto()</code></li>
+            <li>In this way the drawing will be <em>relative</em> to your starting position</li>
+            <li>Using <code>turtle.forward()</code>, we will draw a rectangle of random size, starting at any random place</li>
+            <li>We are going to make a new program, so you need to do <code>File &raquo; New Window</code> again </li>
+            <li>Always remember to type the following lines at the top:
+            <pre class="python">import turtle</pre></li>
+            <li>And this line at the bottom:
+            <pre class="python">turtle.done()</pre></li>
+            <li>Lines of code for drawing the turtle graphics will be added in betwen these two lines:</li>
+            <pre class = "python">import turtle
+
+<font color="red"><i>...some code...</i></font> <span style="color:green"># your code goes here</span>
+
+turtle.done()</pre>
+            <li>We will use <code>random.randint()</code> to get 2 values for x and the y positions of the starting point</li>
+            <li>First, add the following line near the top:
+            <pre class="python">import random</pre></li>
+            <li>Then move the turtle to a random place as the new starting point:
+            <pre class="python">random_x = random.randint( -300 , 300 )
+random_y = random.randint( -300 , 300 )
+turtle.goto(random_x, random_y)</pre></li>
+
+            <li>You can also draw the rectangle at a random angle:
+            <pre class="python"> turtle.left( <strong><em>random_angle</em></strong> )</pre>
+            or
+            <pre class="python"> turtle.right( <strong><em>random_angle</em></strong> )</pre>
+            </li>
+            <li>Now draw the rectangle:
+            <pre class="python">turtle.forward( <strong><em>random_width</em></strong> )
+turtle.left(90)
+turtle.forward( <strong><em>random_height</em></strong> )
+turtle.left(90)
+<font color="red"><i>...some code...</i></font> <span style="color:green"># go forward and turn left 2 more times</span></pre></li>
+            <li><code>random_width</code> and <code>random_height</code> are variables which have to be created by you first</li>
+            <li>We haven't shown the two lines of code which create them</li>
+            <li>See if you can write the two lines of code to create those two variables</li>
+            <li>You will be able to get a rectangle with a different size at a different position, with a different angle each time you run the program
+            <p><a href="images/random_rectangle_nofill.png"><img src="images/random_rectangle_nofill_small.png" alt="Random Rectangle" /></a><br />
+            <span class="footnote">Click to see the image in full size</span></p>
+            </li>
+        </ul>
+
+        <h4><a name="section4_4"></a>4.4. Setting pen and fill colors</h4>
+        <ul>
+            <li>You can set the pen colour and fill colour of the rectangle:
+            <pre class="python">turtle.pencolor( <strong><em>pen_color_name</em></strong> )</pre>
+            <pre class="python">turtle.fillcolor( <strong><em>fill_color_name</em></strong> )</pre>
+            or
+            <pre class="python">turtle.color( <strong><em>pen_color_name</em></strong>, <strong><em>fill_color_name</em></strong> )</pre>
+            </li>
+            <li>Pen colour refers to the colour used to draw the boundary of the shape</li>
+            <li>Fill colour refers to the colour used to fill the interior of the shape</li>
+            <li>A list of colours together with their names you can use is shown here:  <a href="color_list.html">The Names of All Python Turtle Graphics Colours</a></li>
+            <li>Add the following line before drawing the rectangle:
+            <pre class="python">turtle.begin_fill()</pre>
+            </li>
+            <li>Add the following line after drawing the rectangle:
+            <pre class="python">turtle.end_fill()</pre>
+            </li>
+            <li>You will have a rectangle filled with the fill color you specified earlier</li>
+            <li>Here are 3 examples:
+            <p><a href="images/random_rectangle.png"><img src="images/random_rectangle_small.png" alt="Random Rectangle" /></a><br />
+            <span class="footnote">Click to see the image in full size</span></p>
+            </li>
+        </ul>
+
+        <h4><a name="section4_5"></a>4.5. Using other shapes</h4>
+        <ul>
+            <li>You may also think about how you can draw circles instead of rectangles using the following commands:
+            <pre class="python">turtle.circle( <strong><em>radius</em></strong> )</pre>
+            <li>You can also draw an arc (rather than a full circle), if you give the degree of the arc</li>
+            <pre class="python">turtle.circle( <strong><em>radius</em></strong> , <strong><em>degree</em></strong> )</pre>
+		</li>
+
+		<li>Here is an example of a filled circle
+            <p><a href="images/1circle.png"><img src="images/1circle_small.png" alt="Random Circle" /></a><br />
+            <span class="footnote">Click to see the image in full size</span></p>
+            </li>
+        </ul>
+
+        <h4><a name="section4_6"></a>4.6. Using while loops</h4>
+
+        <ul>
+            <li>If you want to draw 20 rectangles or circles, then you need to copy the lines of code 20 times</li>
+            <li>Imagine how long the length of the program will be if you want to have hundreds of rectangles, circles, etc!</li>
+            <li>You can use the <code>while</code> loop, which you will learn later in the lecture</li>
+            <li>In this lab, you will try to use it anyway by following the instructions here</li>
+            <li>Here is the <code>while</code> loop:
+            <pre class="python">while <span style="color:red"><strong><em>... condition ...</em></strong></span>:
+    <span style="color:red"><strong><em>... statement(s) ...</em></strong></span></pre>
+            </li>
+            <li>All the statements (lines of code) that will be done repeatedly inside the while loop
+            have to be indented by the same number of character spaces</li>
+            <li>For example, we can use a while loop to draw the rectangles or circles at random repeatedly for 5 times.</li>
+	    <ul>
+	    <li>Add these lines after the <em>import</em> statements, before the turtle commands:</li>
+            <pre class="python">num_of_loops = 0
+while num_of_loops &lt; 5: <span style="color:green"># Run the loop five times, i.e. 0, 1, 2, 3, 4</span></pre>
+	    <li>And add this line before <em>turtle.done()</em>, which stores the number of times we have done:
+            <pre class="python">num_of_loops = num_of_loops + 1</pre>
+	    </li>
+	    </ul>
+	</ul>
+        <h4><a name="section4_7"></a>4.7. Indentation and Dedentation</h4>
+	<ul>
+	    <li>Here comes the most important step. We need to tell Python what to repeat, using whitespace in front of the lines we want to repeat. This is called <em>indentation</em>.</li>
+	    <li>Select all the lines after the <em>while</em> statement, up to the last line before <em>turtle.done()</em>. Then select <em>Format</em> &raquo; <em>Indent Region</em>.
+            <p><img src="images/indent.png" alt="Indenting a block" /></p>
+	    </li>
+	    <li><em>Format</em> &raquo; <em>Indent Region</em> is good for moving the large block &quot;inward&quot;</li>
+	    <li>A simple alternative is to select the text you want to indent and press the <em><strong>Tab</strong></em> key on your keyboard</li>
+	    <ul><li>To do the opposite, you can use <em>Format</em> &raquo; <em>Dedent Region</em> to move &quot;outward&quot;</li></ul>
+<!--
+	    <li>IDLE is often smart enough to indent or dedent automatically depending on the commands you type in the previous line</li>
+	    <li>For example, if you are typing an 'if' statement, IDLE will indent automatically, but it can't automatically know when you have finished typing the if statement, so it doesn't dedent automatically</li>
+-->
+	    <li>We need to tell Python what to repeat, using whitespace in front of the lines we want to repeat. This is called <em>indentation</em>.</li>
+	    <li>We need to make sure that the content of the while loop is <em>indented</em>.</li>
+	    <li>So finally your program structure should look like this:
+            <pre class="python">import turtle
+import random
+
+num_of_loops = 0
+while num_of_loops &lt; 5: <span style="color:green"># Run the loop five times, i.e. 0, 1, 2, 3, 4</span>
+
+    <span style="color:green"># In each loop, draw a rectangle/circle in the specified color</span>
+    <span style="color:green"># Those lines of code have to be indented by the same number of character spaces</span>
+    <span style="color:green"># because they are inside the while loop</span>
+
+    turtle.color("blue", "yellow") <span style="color:green"># Set the color of the rectangle/circle</span>
+    <font color="red"><i>...some code...</i></font> <span style="color:green"># Add code to draw a rectangle (or perhaps a circle, if you prefer)</span>
+
+    num_of_loops = num_of_loops + 1
+
+turtle.done()</pre>
+            </li>
+	</ul>
+
+        <h4><a name="section4_8"></a>4.8. Using random color</h4>
+	<ul>
+	    <li>Using a single color for so many shapes may be quite boring</li>
+	    <li>Let's introduce a bit of randomness to the color too</li>
+	    <li>To do this, we need to set up a list of colors (variable name <code>colors</code>) for Python to &quot;pick&quot; from:</li>
+		<pre class="python">colors = ["Royal Blue", "Pale Green", "Gold", "Rosy Brown", "Coral", "Orchid"]</pre>
+	    <li>We can then randomly select a color from this list and use it:</li>
+		<pre class="python">random_color = random.choice(colors)
+turtle.color("blue", random_color)</pre>
+            <li><code>random.choice(</code><span style="color:red"><i>a list name</i></span><code>)</code> will select one of the item in the given list randomly</li>
+	    <li>Notice that since we are using the variable <code>random_color</code> instead of the actual color, we do not put the quotes around this name</li>
+	    <li>The above 2 lines of code will randomly set the fill color</li>
+	    <li>Can you think of how to adjust/extend the code so the pen color is also randomly set?</li>
+	</ul>
+
+        <h4><a name="section4_9"></a>4.9. Some example results of using a loop</h4>
+	<ul>
+            <li>By drawing more rectangles/circles in different colors using a while loop, you can create interesting graphics
+            <p><a href="images/random_rectangles.png"><img src="images/random_rectangles_small.png" alt="Random Rectangles" /></a><br />
+            <span class="footnote">Click to see the image in full size</span></p>
+            <p><a href="images/random_circles.png"><img src="images/random_circles_small.png" alt="Random Circles" /></a><br />
+            <span class="footnote">Click to see the image in full size</span></p>
+            </li>
+        </ul>
+
+        <h2>Submission</h2>
+
+        <ul>
+            <li>You don't need to submit this work</li>
+            <li>However, it's a good idea to keep a copy of your work for your own reference</li>
+            <li>For example, save a copy to your USB drive, or send a copy to yourself via email</li>
+        </ul>
+
+    </div>
+</body>
+</html>
