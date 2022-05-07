@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>COMP1021 Lab 5 - Music System</title>
+    <link href="../css/lab.css" rel="stylesheet" />
+    <!-- <link href="../../../scripts/highlight/idle.css" rel="stylesheet">
+    <script src="../../../scripts/highlight/highlight.pack.js"></script> -->
+    <!-- <script src="../../../scripts/jquery-ui-1.10.4.custom/js/jquery-1.10.2.js"></script> -->
+    <script src="../../../scripts/jquery-3.4.1.min.js"></script>
+    <script src="../../../scripts/lab.js"></script>
+    <script src="video_res.js"></script>
+    <style>
+    table.instrument { float: left; font-size: 80%; line-height: 80%; width: 200px; }
+    table.instrument th { text-align: left; }
+    </style>
+</head>
+
+<body>
+    <h1>
+        <span class="lab">COMP1021 Lab 5</span>
+        <span class="title">Music System</span>
+    </h1>
+    <div id="videoQualityWidget"></div>
+    <div class="content">
+        <h2>The Main Focus of this Lab</h2>
+        <ul>
+            <li>In this lab, you focus on:
+            <ul>
+                <li>Constructing a data structure (a multi-dimensional list of lists structure)
+                <li>Accessing data from this data structure
+                <li>Processing and analysing data from this data structure
+            </ul>
+            </li>
+        </ul>
+
+        <h2>What You Will Learn in This Lab</h2>
+        <ul>
+            <li>In this lab, you will gain experience in the following areas:
+                <table class="simple">
+                    <tbody>
+                    <tr>
+                        <th>Topic</th>
+                        <th>Computer Science/ Programming Concept</th>
+                    </tr>
+                    <tr>
+                        <td>Using extra module</td>
+                        <td>Importing extra module by <code>import</code></td>
+                    </tr>
+                    <tr>
+                        <td>Global variables</td>
+                        <td>Using global variables and the <code>global</code> command</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">Using List</td>
+                        <td>Understanding and using a list of lists structure</td>
+                    </tr>
+                    <tr>
+                        <td>Getting items from a list using index <code>list_name[<span style='color:red'><i>index number</i></span>]</code></td>
+                    </tr>
+                    <tr>
+                        <td>Processing and analysing numerical data stored inside a list of lists</td>
+                    </tr>
+                    <tr>
+                    <tr>
+                        <td rowspan="3">Repeating things using loops</td>
+                        <td>Using for loops (<code>for ...</code>)</td>
+                    </tr>
+                    <tr>
+                        <td>Building nested loops, i.e. a loop inside another loop</td>
+                    </tr>
+                    <tr>
+                        <td>Using <code>range()</code> with a for loop</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">Using the turtle graphics module</td>
+                        <td>Getting text input using <code>turtle.textinput()</code></td>
+                    </tr>
+                    <tr>
+                        <td>Getting number input using <code>turtle.numinput()</code></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">Using special characters</td>
+                        <td>Using the tab character (<code>\t</code>) in text files</td>
+                    </tr>
+                    <tr>
+                        <td>Using the newline character (<code>\n</code>) when displaying string content</td>
+                    </tr>
+
+                </tbody></table>
+            </li>
+        </ul>
+
+        <h2>Overview</h2>
+
+        <ul>
+        <video width="640" height="360" controls  preload="metadata"> 
+          <source src="videos/comp1021_lab6_intro.mp4" type="video/mp4">Your browser does not support the video tag.
+        </video>
+        </ul>
+
+        <ul>
+            <li>In this lab, you will work on a music system using a Python program</li>
+            <li>The program mainly does the following two things:
+            <ol>
+                <li>Read a text file containing a list of music notes of a song</li>
+                <li>Produce the digital audio of the song using different musical instruments</li>
+            </ol>
+            </li>
+            <li>For example, the music system can produce songs like these:
+            <ul>
+                <li>Beauty and the Beast (using the musical instrument - trombone)<br />
+                <audio controls>
+                    <source src="examples/beauty_and_the_beast_trombone.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+                </li>
+                <li>Turkish March (using the musical instrument - acoustic grand piano)<br />
+                <audio controls>
+                    <source src="examples/turkish_march_piano.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+                </li>
+            </ul>
+            </li>
+            <li>Here is an example video of running the music system:<br />
+
+            <video height="360" controls DEMO>
+            <source src="video_demo/music_system.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video>
+            </li>
+            <li>It is wise to <b>use earphones/headphones</b> for this lab!</li>
+            <li>The sound from your laptop speaker may not be clear enough</li>
+        </ul>
+
+        <h2>Lab Content</h2>
+
+        <ul>
+            <li>Here are the steps to complete this lab:
+            <ol>
+                <li><a href="#section1">Understanding the program</a>
+                <ul class="none">
+                    <li>1.1. <a href="#section1.1">Getting started</a></li>
+                    <ul class="none">
+                        <li>1.1.1. <a href="#section1.1.1">Downloading the starting program</a></li>
+                        <li>1.1.2. <a href="#section1.1.2">Downloading other files</a></li>
+                        <li>1.1.3. <a href="#section1.1.3">The folder structure</a></li>
+                    </ul>
+                    <li>1.2. <a href="#section1.2">The program interface</a></li>
+                    <li>1.3. <a href="#section1.3">The music files</a></li>
+                    <li>1.4. <a href="#section1.4">The music handling functions</a></li>
+                </ul>
+                </li>
+                <li><a href="#section2">Loading and playing music</a>
+                <ul class="none">
+                    <li>2.1. <a href="#section2.1">Loading a music file</a></li>
+                    <ul class="none">
+                        <li>2.1.1. <a href="#section2.1.1">Introduction</a></li>
+                        <li>2.1.2. <a href="#section2.1.2">The music list</a></li>
+                    </ul>
+                    <li>2.2. <a href="#section2.2">Playing the music</a></li>
+                    <ul class="none">
+                        <li>2.2.1. <a href="#section2.2.1">Introduction</a></li>
+                        <li>2.2.2. <a href="#section2.2.2">Reading the music list using a for loop</a></li>
+                    </ul>
+                </ul>
+                </li>
+                <li><a href="#section3">Changing the musical instrument</a>
+                <ul class="none">
+                    <li>3.1. <a href="#section3.1">Introduction</a></li>
+                    <li>3.2. <a href="#section3.2">Selecting your musical instruments</a></li>
+                    <li>3.3. <a href="#section3.3">The Python code</a>
+                    <ul class="none">
+                        <li>3.3.1. <a href="#section3.3.1">Changing the instrument</a></li>
+                        <li>3.3.2. <a href="#section3.3.2">Showing the instrument list</a></li>
+                        <li>3.3.3. <a href="#section3.3.3">Updating the instrument display</a></li>
+                    </ul>
+                    </li>
+                </ul>
+                </li>
+                <li><a href="#section4">Transposing the music</a>
+                <ul class="none">
+                    <li>4.1. <a href="#section4.1">Introduction</a></li>
+                    <li>4.2. <a href="#section4.2">The Python code</a></li>
+                    <li>4.3. <a href="#section4.3">Keeping the music in playable range</a></li>
+                </ul>
+                </li>
+                <li><a href="#section5">Speeding up/slowing down the music</a>
+                <ul class="none">
+                    <li>5.1. <a href="#section5.1">Introduction</a></li>
+                    <li>5.2. <a href="#section5.2">The Python code</a></li>
+                </ul>
+                </li>
+                <li><a href="#section6">Making some crazy music</a>
+                <ul class="none">
+                    <li>6.1. <a href="#section6.1">Introduction</a></li>
+                    <li>6.2. <a href="#section6.2">The Python code</a></li>
+                </ul>
+                </li>
+                <li><a href="#submission">Submission</a></li>
+            </ol>
+            </li>
+        </ul>
+
+        <h2><a name="section1"></a>1. Understanding the Program</h2>
+        <h3>Video Tutorial for Section 1.1</h3>
+        <video width="640" height="360" controls  preload="metadata"> 
+          <source src="videos/comp1021_lab6_part1.1.mp4" type="video/mp4">Your browser does not support the video tag.
+        </video>
+
+        <h3><a name="section1.1"></a>1.1. Getting started</h3>
+
+        <h4><a name="section1.1.1"></a>1.1.1. Downloading the starting program</h4>
+
+        <ul>
+            <li>A Python file (<code>music_system.py</code>) is given to you as a starting point
+                <a href="music_system.py">here</a>
+                (right click on the link, select 'Save Target As' or something similar)</li>
+            <li>For this lab, it would be better to put all files inside a new folder
+            <ul>
+                <li>For example, you can create an empty folder called <code>lab6</code> in your local hard disk</li>
+                <li>Then, put the starting file into this newly created folder</li>
+            </ul>
+            </li>
+            <li>The program does not work by itself</li>
+            <li>You also need the following files:
+            <ul>
+                <li>A Python module called <code>music</code></li>
+                <li>Some sound font files</li>
+                <li>Some music files</li>
+            </ul>
+            </li>
+        </li>
+        </ul>
+
+        <h4><a name="section1.1.2"></a>1.1.2. Downloading other files</h4>
+
+        <h5>The music module</h5>
+
+        <ul>
+            <li>You can download the music module (<code>music.py</code>) <a href="music.py">here</a>
+                (right click on the link, select 'Save Target As' or something similar)
+            <ul>
+                <li><b>You are not required to understand the code in the music module - it won't be taught</b></li>
+            </ul>
+            </li>
+            <li>You need to place it into the same folder as your starting program</li>
+            <li>The starting program has already imported the module, using this line of code near the top:<br />
+            <pre class="python">import music</pre></li>
+        </ul>
+
+        <h5>The sound font files</h5>
+
+        <ul>
+            <li>The <code>music</code> module uses some files called <i>sound fonts</i> to create the music</li>
+            <li>It can work with 128 different sound font files, which represent the 128 available musical instruments you can use</li>
+            <li>Since the file size of these sound font files is quite big, you can first download the piano sound font
+                (<code>acoustic_grand_piano.zip</code>) to begin with, which is available
+                <a href="soundfont/acoustic_grand_piano.zip">here</a>
+            <ul>
+                <li>Right click on the link, select 'Save Target As' or something similar</li>
+                <li>Note that although it is a zip file, <b>you DO NOT need to extract the content of it</b></li>
+            </ul>
+            </li>
+            <li>By default, the starting program uses this instrument (acoustic grand piano, which is shown below) to produce songs
+            <p><img src="images/acoustic_grand_piano.jpg" alt="Acoustic Grand Piano" /></p>
+            </li>
+            <li>You need to put the sound font file into a folder called <code>soundfont</code></li>
+            <li>This soundfont folder should be created in the same folder as your music module, as shown by the folder structure below:
+            <p><img src="images/folder_structure_soundfont.png" alt="Folder Structure Sound Fonts" style="width: 250px" /></p>
+            </li>
+            <li>You will download more sound fonts for different musical instruments later in the lab</li>
+        </ul>
+
+        <h5><a name="the_music_files"></a>The music files</h5>
+
+        <ul>
+            <li>Finally, to make music, the program needs to read songs from some music files</li>
+            <li>Each music file contains the music notes of a song</li>
+            <li>We have prepared the full versions and the short versions of a few songs, in text format:
+            <ul>
+                <li>Turkish March - <a href="songs/turkish_march.txt">turkish_march.txt</a> (185 seconds long), <a href="songs/turkish_march_intro.txt">turkish_march_intro.txt</a> (3.5 seconds long)</li>
+                <li>Phantom of the Opera - <a href="songs/phantom_of_the_opera.txt">phantom_of_the_opera.txt</a> (255 seconds long), <a href="songs/phantom_of_the_opera_intro.txt">phantom_of_the_opera_intro.txt</a> (14.5 seconds long)</li>
+                <li>Beauty and the Beast - <a href="songs/beauty_and_the_beast.txt">beauty_and_the_beast.txt</a> (157 seconds long), <a href="songs/beauty_and_the_beast_intro.txt">beauty_and_the_beast_intro.txt</a> (13 seconds long)</li>
+                <li>It's a Small World After All - <a href="songs/small_world.txt">small_world.txt</a> (111 seconds long), <a href="songs/small_world_intro.txt">small_world_intro.txt</a> (8 seconds long)</li>
+                <li>Moonlight Sonata - <a href="songs/moonlight_sonata.txt">moonlight_sonata.txt</a> (110 seconds long), <a href="songs/moonlight_sonata_intro.txt">moonlight_sonata_intro.txt</a> (11.5 seconds long)</li>
+                <li>Contrapunctus I from J.S. Bach's The Art of Fugue - <a href="songs/art_of_fugue.txt">art_of_fugue.txt</a> (199 seconds long), <a href="songs/art_of_fugue_intro.txt">art_of_fugue_intro.txt</a> (11.25 seconds long)</li>
+                <li>Let It Go - <a href="songs/let_it_go.txt">let_it_go.txt</a> (219 seconds long), <a href="songs/let_it_go_short.txt">let_it_go_short.txt</a> (7.1 seconds long)</li>
+            </ul>
+            </li>
+            <li>
+                To download a file, you can right click on the file link and select 'Save link as' (or similar text)
+            </li>
+            <li>You should put these music files into a folder called <code>songs</code></li>
+            <li>Similar to before, this folder should be created in the same folder as your music module, as shown below:
+            <p><img src="images/folder_structure_songs.png" alt="Folder Structure Songs" style="width: 250px" /></p>
+            </li>
+        </ul>
+
+        <h4><a name="section1.1.3"></a>1.1.3. The folder structure</h4>
+
+        <ul>
+            <li>After downloading the starting program and its relevant files, the folder structure should look like this:
+            <p><img src="images/folder_structure.png" alt="Folder Structure" style="width: 250px" /></p>
+            </li>
+            <li>There are two Python files, <code>music_system.py</code> and <code>music.py</code></li>
+            <li>The two folders <code>songs</code> and <code>soundfont</code> contains 14 text files and 1 sound font respectively</li>
+        </ul>
+
+
+
+        <h3><a name="section1.2"></a>1.2. The program interface</h3>
+        <h3>Video Tutorial for Section 1.2</h3>
+        <video width="640" height="360" controls  preload="metadata"> 
+          <source src="videos/comp1021_lab6_part1.2.mp4" type="video/mp4">Your browser does not support the video tag.
+        </video>
+
+        <ul>
+            <li>After you download everything, you can run the program (<code>music_system.py</code>) using IDLE</li>
+            <li>After running the code you will see a menu displayed in the turtle window like this:
+            <p><img src="images/program_interface.png" alt="Program Interface" style="width: 500px" /></p>
+            </li>
+            <li>In this menu you select a function by clicking on one of the colour areas, i.e.:
+                <ul>
+                    <li><i>Load Music</i> (blue)</li>
+                    <li><i>Play Music</i> (yellow)</li>
+                    <li><i>Change Instrument</i> (purple)</li>
+                    <li><i>Transpose Music</i> (orange)</li>
+                    <li><i>Adjust Speed</i> (red)</li>
+                    <li><i>Make Crazy Music</i> (green)</li>
+                </ul>
+            </li>
+            <li>The functions for <i>Load Music</i> and <i>Play Music</i> have already been done for you</li>
+            <li>To make the program work for other functions you need to add appropriate code</li>
+        </ul>
+
+        <h3><a name="section1.3"></a>1.3. The music files</h3>
+        <h3>Video Tutorial for Section 1.3</h3>
+        <video width="640" height="360" controls  preload="metadata"> 
+          <source src="videos/comp1021_lab6_part1.3.mp4" type="video/mp4">Your browser does not support the video tag.
+        </video>
+
+        <ul>
+            <li>The music files store music as a series of music notes in text format</li>
+
+            <li>Each line has
+            <ul>
+                <li><tt>Start time</tt> - the start time of the note, in seconds</li>
+                <li><tt>Pitch</tt> - the pitch of the note, an integer in the range 0 to 127
+                <ul class="sub">
+                    <li>The relationship of the pitch number and the key position on a standard piano keyboard is shown below:
+                    <p><img src="images/piano_pitch_relation.png" alt="Pitch and Piano Relationship" /><br />
+                    <span class="footnote">The pitch number goes up in increments of one, including the black keys</span>
+                    </p>
+                    </li>
+                </ul>
+                </li>
+                <li><tt>Duration</tt> - the length of the note, in seconds</li>
+            </ul>
+            </li>
+
+            <li>Here is an example of a music file:
+            <pre>0	60	0.5
+1	62	0.5
+2	64	0.5</pre>
+            <ul>
+                <li>In the file, the start time, pitch and duration values are separated by tab characters (<code>\t</code>)</li>
+            </ul>
+            </li>
+
+            <li>The music stored in the above example can be illustrated by a timeline:
+            <p><img src="images/timeline.png" alt="Example Timeline" /></p>
+            </li>
+            <li>You can download the above music (<code>music_example.txt</code>) from
+                <a href="music_example.txt">here</a>
+            <ul>
+                <li>
+                    To download the file, you can right click on the file link and select 'Save link as' (or similar text)
+                </li>
+                <li>You can put this file in the same folder as your music program</li>
+                <li><b>Don't put this file in the songs folder</b></li>
+            </ul>
+            </li>
+            <li>To play the music file, you can click on the <i>Load Music</i> area after running the program
+            <p><img src="images/load_music_area.png" alt="Load Music Area" style="width: 150px" /></p>
+            </li>
+            <li>If you have put the music files from <a href="#the_music_files">section 1.1.2</a> inside the <code>songs</code> folder,
+                you will see those songs listed in the text input box:
+            <p><img src="images/load_music_input_box.png" alt="Load Music Input Box" style="width: 300px" /></p>
+            </li>
+            <li>Although you can load a song by entering a number (e.g. enter 4 for let_it_go.txt) in the box,
+                we want to play the example music file with three notes</li>
+            <li>Therefore, you load the example music file by typing its file name, i.e. <code>music_example.txt</code>, in the input box</li>
+            <li>After loading the music file, you can play the music by clicking on the <i>Play Music</i> area
+            <p><img src="images/play_music_area.png" alt="Play Music Area" style="width: 150px" /></p>
+            </li>
+            <li>Here is a video of using the music system to play the very simple music stored in <a href="music_example.txt">music_example.txt</a>:
+            <p>
+			<video height="360" controls DEMO>
+            <source src="video_demo/music_example.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video>
+            </p>
+            <p>You can also <a href="video_demo/music_example.mp4">download the video</a></p>
+            </li>
+        </ul>
+
+        <h3><a name="section1.4"></a>1.4. The music handling functions</h3>
+        <h3>Video Tutorial for Section 1.4</h3>
+        <video width="640" height="360" controls  preload="metadata"> 
+          <source src="videos/comp1021_lab6_part1.4.mp4" type="video/mp4">Your browser does not support the video tag.
+        </video>
+
+        <ul>
+            <li>The music program uses a Python module called <code>music</code></li>
+            <li>The music module provides functionalities for playing a sequence of music notes using a variety of musical instruments</li>
+            <li>Here are the functions or values used by the music program:
+            <ul>
+                <li><code>music.getsonglist()</code>
+                <ul>
+                    <li>This function gets the list of music files and their file names currently available in the <code>songs</code> folder</li>
+                    <li>It has been used in the <i>Load Music</i> function to show the list of songs in the input box</li>
+                </ul>
+                </li>
+                <li><code>music.addnote(time, pitch, duration)</code>
+                <ul>
+                    <li>This function adds one note in the music module at a certain time with a certain pitch and duration</li>
+                    <li>It has been used in the <i>Play Music</i> function to add music notes from the current music content</li>
+                </ul>
+                </li>
+                <li><code>music.play()</code>
+                <ul>
+                    <li>This function plays the music content added to the music module</li>
+                    <li>It has been used in the <i>Play Music</i> function to start playing the music</li>
+                </ul>
+                </li>
+                <li><code>music.stop()</code>
+                <ul>
+                    <li>This function stops the music currently being played by the module</li>
+                    <li>It has been used at the end of the program so that any music is stopped before the program finishes</li>
+                </ul>
+                </li>
+                <li><code>music.clear()</code>
+                <ul>
+                    <li>This function clears the music content currently stored in the music module</li>
+                    <li>It has been used in the <i>Play Music</i> function to clear any music in the module before loading a new piece of music</li>
+                </ul>
+                </li>
+                <li><code>music.instrument_list</code>
+                <ul>
+                    <li>This is a list containing the names of the 128 musical instruments</li>
+                    <li>You will use this in the <i>Change Instrument</i> function later</li>
+                </ul>
+                </li>
+                <li><code>music.setinstrument()</code>
+                <ul>
+                    <li>This function changes the musical instrument to be used by any subsequent <code>music.addnote()</code> function call</li>
+                    <li>You will use this in the <i>Change Instrument</i> function later</li>
+                </ul>
+                </li>
+            </ul>
+            </li>
+        </ul>
+
+        <h2><a name="section2"></a>2. Loading and Playing Music</h2>
+
+        <h3><a name="section2.1"></a>2.1. Loading a music file</h3>
+        <h3>Video Tutorial for Section 2.1</h3>
+        <video width="640" height="360" controls  preload="metadata"> 
+          <source src="videos/comp1021_lab6_part2.1.mp4" type="video/mp4">Your browser does not support the video tag.
+        </video>
+
+        <h4><a name="section2.1.1"></a>2.1.1. Introduction</h4>
+
+        <ul>
+            <li>This function has been done for you</li>
+            <li>The code is given in the <code>loadMusic()</code> function:
+            <pre class="python"># This function loads some music into the music list
+def loadMusic():
+    global music_data
+
+    ...</pre></li>
+            <li>The purpose of this function is to:
+            <ol>
+                <li>Ask the user for the music file to be used</li>
+                <li>Load the music file content into a list called <code>music_data</code></li>
+                <li>Show the music summary in the turtle window</li>
+            </ol>
+            </li>
+            <li>The Python code inside this function (load music) is a bit scary but don't worry about it!</li>
+            <li>At this stage of the course, you are not expected to understand how it works</li>
+            <li>You only need to understand that the content of the music file will be read into a list named <code>music_data</code></li>
+        </ul>
+
+        <h4><a name="section2.1.2"></a>2.1.2. The music list</h4>
+
+        <ul>
+            <li>The music list, i.e. <code>music_data</code>, has been created in the starting code like this:
+            <pre class="python"># Initialize the music data
+music_data = []</pre>
+            </li>
+            <li>The format of this list is very similar to the music file</li>
+            <li>The list is a list of lists with:
+            <ul>
+                <li>the outer list as the collection of music notes, and</li>
+                <li>the inner list as the information of one music note</li>
+            </ul>
+            </li>
+            <li>The music list can be visualized like this:
+            <p><img src="images/music_array.png" alt="The Music List" style="width: 600px" /></p>
+            </li>
+            <li>For example, to access the first note of the music you can use this code:
+            <pre class="python">first_note = music_data[0]</pre>
+            <ul>
+                <li><code>music_data[0]</code> returns the first item of the outer list, i.e. the first note of the music</li>
+                <li><code>first_note</code> then stores the information of a single note</li>
+            </ul>
+            </li>
+            <li>For each music note, i.e. the inner list, three pieces of information (time, pitch and duration) are stored</li>
+            <li>For example, the following code extracts these three pieces of information from the first note of the music:
+            <pre class="python">note_time = music_data[0][0]  # same as note_time = first_note[0]
+note_pitch = music_data[0][1] # same as note_pitch = first_note[1]
+note_dur = music_data[0][2]   # same as note_dur = first_note[2]</pre>
+            <ul>
+                <li>Be careful! The indices of the music list are not anything related to X and Y in your high school geometry class</li>
+                <li><code>music_data[0][1]</code> is better understood as row 0 and column 1</li>
+            </ul>
+            </li>
+            <li>Let's use the 3-note music file we have shown in <a href="#section1.3">section 1.3</a> to give you an example music list</li>
+            <li>Remember that the content of the music file is like this:
+            <pre>0	60	0.5
+1	62	0.5
+2	64	0.5</pre>
+            </li>
+            <li>If the above music is put in a music list, it will be stored in a list of lists like this:
+            <pre class="python">[ [0, 60, 0.5],
+  [1, 62, 0.5],
+  [2, 64, 0.5] ]</pre>
+            </li>
+        </ul>
+
+        <h3><a name="section2.2"></a>2.2. Playing the music</h3>
+        
+        <h3>Video Tutorial for Section 2.2</h3>
+        <video width="640" height="360" controls  preload="metadata"> 
+          <source src="videos/comp1021_lab6_part2.2.mp4" type="video/mp4">Your browser does not support the video tag.
+        </video>
+
+        <h4><a name="section2.2.1"></a>2.2.1. Introduction</h4>
+        <ul>
+            <li>This function has been done for you</li>
+            <li>The code is given in the <code>playMusic()</code> function:
+            <pre class="python"># This function plays the music
+def playMusic():
+    global music_data
+
+    ...</pre></li>
+            <li>The purpose of this function is to:
+            <ol>
+                <li>Generate the sound of the notes in the music list</li>
+                <li>Play the music</li>
+            </ol>
+            </li>
+            <li>You can try to understand the code of this function, as it helps you understand how to work with the music list</li>
+        </ul>
+
+        <h4><a name="section2.2.2"></a>2.2.2. Reading the music list using a for loop</h4>
+
+        <ul>
+            <li>As you know, the music list, i.e. <code>music_data</code>, contains all music notes of the song currently
+                loaded in the system by the <i>Load Music</i> function</li>
+            <li>In the <code>playMusic()</code> function, a for loop is used to read and generate the notes
+                in the music module:
+            <pre class="python"># Add the music notes
+for i in range(len(music_data)):
+    ...
+
+    # Add the note
+    note = music_data[i]
+    music.addnote(note[0], note[1], note[2])</pre>
+            <ul>
+                <li>This <tt>for</tt> loop repeats as many times as the number of notes in the music list</li>
+                <li>Each music note is stored in a variable called <code>note</code></li>
+                <li>The sound of each note is then generated in the music module using the <code>music.addnote()</code> function</li>
+            </ul>
+            </li>
+            <li>After generating all notes in the music module, the program can play the music by running <code>music.play()</code></li>
+        </ul>
+
+        <h2><a name="section3"></a>3. Changing the Musical Instrument</h2>
+
+        <h3><a name="section3.1"></a>3.1. Introduction</h3>
+        <h3>Video Tutorial for Section 3.1 - 3.2</h3>
+        <video width="640" height="360" controls  preload="metadata"> 
+          <source src="videos/comp1021_lab6_part3.1-3.2.mp4" type="video/mp4">Your browser does not support the video tag.
+        </video>
+
+        <ul>
+            <li>You can use different musical instruments by clicking on the <i>Change Instrument</i> area
+            <p><img src="images/change_instrument_area.png" alt="Change Instrument Area" style="width: 150px" /></p>
+            </li>
+            <li>Here are some examples:
+            <ul>
+                <li>This is the song Phantom of the Opera (<code>phantom_of_the_opera.txt</code>)
+                    played using the musical instrument church organ:<br />
+                <audio controls>
+                    <source src="examples/instrument_example_1.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+                </li>
+                <li>This is the same song played using the musical instrument violin:<br />
+                <audio controls>
+                    <source src="examples/instrument_example_2.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+                </li>
+            </ul>
+            <li>An instrument is represented by a number in the range 0 to 127</li>
+            <li>Therefore, there are in total 128 instruments for you to choose from
+            <ul>
+                <li>For example, the number 0, the default instrument, is the acoustic grand piano and the number 40 means violin</li>
+            </ul>
+            </li>
+            <li>Here is a list of instruments available and their numbers:<br />
+            <table class="instrument">
+                <tr><th>No.</th><th>Instrument Name</th></tr>
+                <tr><td>0</td><td>Acoustic Grand Piano</td></tr>
+                <tr><td>1</td><td>Bright Acoustic Piano</td></tr>
+                <tr><td>2</td><td>Electric Grand Piano</td></tr>
+                <tr><td>3</td><td>Honky-tonk Piano</td></tr>
+                <tr><td>4</td><td>Electric Piano 1</td></tr>
+                <tr><td>5</td><td>Electric Piano 2</td></tr>
+                <tr><td>6</td><td>Harpsichord</td></tr>
+                <tr><td>7</td><td>Clavinet</td></tr>
+            </table>
+            <table class="instrument">
+                <tr><th>No.</th><th>Instrument Name</th></tr>
+                <tr><td>8</td><td>Celesta</td></tr>
+                <tr><td>9</td><td>Glockenspiel</td></tr>
+                <tr><td>10</td><td>Music Box</td></tr>
+                <tr><td>11</td><td>Vibraphone</td></tr>
+                <tr><td>12</td><td>Marimba</td></tr>
+                <tr><td>13</td><td>Xylophone</td></tr>
+                <tr><td>14</td><td>Tubular Bells</td></tr>
+                <tr><td>15</td><td>Dulcimer</td></tr>
+            </table>
+            <table class="instrument">
+                <tr><th>No.</th><th>Instrument Name</th></tr>
+                <tr><td>16</td><td>Drawbar Organ</td></tr>
+                <tr><td>17</td><td>Percussive Organ</td></tr>
+                <tr><td>18</td><td>Rock Organ</td></tr>
+                <tr><td>19</td><td>Church Organ</td></tr>
+                <tr><td>20</td><td>Reed Organ</td></tr>
+                <tr><td>21</td><td>Accordion</td></tr>
+                <tr><td>22</td><td>Harmonica</td></tr>
+                <tr><td>23</td><td>Tango Accordion</td></tr>
+            </table>
+            <table class="instrument">
+                <tr><th>No.</th><th>Instrument Name</th></tr>
+                <tr><td>24</td><td>Acoustic Guitar (nylon)</td></tr>
+                <tr><td>25</td><td>Acoustic Guitar (steel)</td></tr>
+                <tr><td>26</td><td>Electric Guitar (jazz)</td></tr>
+                <tr><td>27</td><td>Electric Guitar (clean)</td></tr>
+                <tr><td>28</td><td>Electric Guitar (muted)</td></tr>
+                <tr><td>29</td><td>Overdriven Guitar</td></tr>
+                <tr><td>30</td><td>Distortion Guitar</td></tr>
+                <tr><td>31</td><td>Guitar Harmonics</td></tr>
+            </table>
+            <table class="instrument">
+                <tr><th>No.</th><th>Instrument Name</th></tr>
+                <tr><td>32</td><td>Acoustic Bass</td></tr>
+                <tr><td>33</td><td>Electric Bass (finger)</td></tr>
+                <tr><td>34</td><td>Electric Bass (pick)</td></tr>
+                <tr><td>35</td><td>Fretless Bass</td></tr>
+                <tr><td>36</td><td>Slap Bass 1</td></tr>
+                <tr><td>37</td><td>Slap Bass 2</td></tr>
+                <tr><td>38</td><td>Synth Bass 1</td></tr>
+                <tr><td>39</td><td>Synth Bass 2</td></tr>
+            </table>
+            <table class="instrument">
+                <tr><th>No.</th><th>Instrument Name</th></tr>
+                <tr><td>40</td><td>Violin</td></tr>
+                <tr><td>41</td><td>Viola</td></tr>
+                <tr><td>42</td><td>Cello</td></tr>
+                <tr><td>43</td><td>Contrabass</td></tr>
+                <tr><td>44</td><td>Tremolo Strings</td></tr>
+                <tr><td>45</td><td>Pizzicato Strings</td></tr>
+                <tr><td>46</td><td>Orchestral Harp</td></tr>
+                <tr><td>47</td><td>Timpani</td></tr>
+            </table>
+            <table class="instrument">
+                <tr><th>No.</th><th>Instrument Name</th></tr>
+                <tr><td>48</td><td>String Ensemble 1</td></tr>
+                <tr><td>49</td><td>String Ensemble 2</td></tr>
+                <tr><td>50</td><td>Synth Strings 1</td></tr>
+                <tr><td>51</td><td>Synth Strings 2</td></tr>
+                <tr><td>52</td><td>Choir Aahs</td></tr>
+                <tr><td>53</td><td>Voice Oohs</td></tr>
+                <tr><td>54</td><td>Synth Choir</td></tr>
+                <tr><td>55</td><td>Orchestra Hit</td></tr>
+            </table>
+            <table class="instrument">
+                <tr><th>No.</th><th>Instrument Name</th></tr>
+                <tr><td>56</td><td>Trumpet</td></tr>
+                <tr><td>57</td><td>Trombone</td></tr>
+                <tr><td>58</td><td>Tuba</td></tr>
+                <tr><td>59</td><td>Muted Trumpet</td></tr>
+                <tr><td>60</td><td>French Horn</td></tr>
+                <tr><td>61</td><td>Brass Section</td></tr>
+                <tr><td>62</td><td>Synth Brass 1</td></tr>
+                <tr><td>63</td><td>Synth Brass 2</td></tr>
+            </table>
+            <table class="instrument">
+                <tr><th>No.</th><th>Instrument Name</th></tr>
+                <tr><td>64</td><td>Soprano Sax</td></tr>
+                <tr><td>65</td><td>Alto Sax</td></tr>
+                <tr><td>66</td><td>Tenor Sax</td></tr>
+                <tr><td>67</td><td>Baritone Sax</td></tr>
+                <tr><td>68</td><td>Oboe</td></tr>
+                <tr><td>69</td><td>English Horn</td></tr>
+                <tr><td>70</td><td>Bassoon</td></tr>
+                <tr><td>71</td><td>Clarinet</td></tr>
+            </table>
+            <table class="instrument">
+                <tr><th>No.</th><th>Instrument Name</th></tr>
+                <tr><td>72</td><td>Piccolo</td></tr>
+                <tr><td>73</td><td>Flute</td></tr>
+                <tr><td>74</td><td>Recorder</td></tr>
+                <tr><td>75</td><td>Pan Flute</td></tr>
+                <tr><td>76</td><td>Blown Bottle</td></tr>
+                <tr><td>77</td><td>Shakuhachi</td></tr>
+                <tr><td>78</td><td>Whistle</td></tr>
+                <tr><td>79</td><td>Ocarina</td></tr>
+            </table>
+            <table class="instrument">
+                <tr><th>No.</th><th>Instrument Name</th></tr>
+                <tr><td>80</td><td>Lead 1 (square)</td></tr>
+                <tr><td>81</td><td>Lead 2 (sawtooth)</td></tr>
+                <tr><td>82</td><td>Lead 3 (calliope)</td></tr>
+                <tr><td>83</td><td>Lead 4 (chiff)</td></tr>
+                <tr><td>84</td><td>Lead 5 (charang)</td></tr>
+                <tr><td>85</td><td>Lead 6 (voice)</td></tr>
+                <tr><td>86</td><td>Lead 7 (fifths)</td></tr>
+                <tr><td>87</td><td>Lead 8 (bass + lead)</td></tr>
+            </table>
+            <table class="instrument">
+                <tr><th>No.</th><th>Instrument Name</th></tr>
+                <tr><td>88</td><td>Pad 1 (new age)</td></tr>
+                <tr><td>89</td><td>Pad 2 (warm)</td></tr>
+                <tr><td>90</td><td>Pad 3 (polysynth)</td></tr>
+                <tr><td>91</td><td>Pad 4 (choir)</td></tr>
+                <tr><td>92</td><td>Pad 5 (bowed)</td></tr>
+                <tr><td>93</td><td>Pad 6 (metallic)</td></tr>
+                <tr><td>94</td><td>Pad 7 (halo)</td></tr>
+                <tr><td>95</td><td>Pad 8 (sweep)</td></tr>
+            </table>
+            <table class="instrument">
+                <tr><th>No.</th><th>Instrument Name</th></tr>
+                <tr><td>96</td><td>FX 1 (rain)</td></tr>
+                <tr><td>97</td><td>FX 2 (soundtrack)</td></tr>
+                <tr><td>98</td><td>FX 3 (crystal)</td></tr>
+                <tr><td>99</td><td>FX 4 (atmosphere)</td></tr>
+                <tr><td>100</td><td>FX 5 (brightness)</td></tr>
+                <tr><td>101</td><td>FX 6 (goblins)</td></tr>
+                <tr><td>102</td><td>FX 7 (echoes)</td></tr>
+                <tr><td>103</td><td>FX 8 (sci-fi)</td></tr>
+            </table>
+            <table class="instrument">
+                <tr><th>No.</th><th>Instrument Name</th></tr>
+                <tr><td>104</td><td>Sitar</td></tr>
+                <tr><td>105</td><td>Banjo</td></tr>
+                <tr><td>106</td><td>Shamisen</td></tr>
+                <tr><td>107</td><td>Koto</td></tr>
+                <tr><td>108</td><td>Kalimba</td></tr>
+                <tr><td>109</td><td>Bagpipe</td></tr>
+                <tr><td>110</td><td>Fiddle</td></tr>
+                <tr><td>111</td><td>Shanai</td></tr>
+            </table>
+            <table class="instrument">
+                <tr><th>No.</th><th>Instrument Name</th></tr>
+                <tr><td>112</td><td>Tinkle Bell</td></tr>
+                <tr><td>113</td><td>Agogo</td></tr>
+                <tr><td>114</td><td>Steel Drums</td></tr>
+                <tr><td>115</td><td>Woodblock</td></tr>
+                <tr><td>116</td><td>Taiko Drum</td></tr>
+                <tr><td>117</td><td>Melodic Tom</td></tr>
+                <tr><td>118</td><td>Synth Drum</td></tr>
+                <tr><td>119</td><td>Reverse Cymbal</td></tr>
+            </table>
+            <table class="instrument">
+                <tr><th>No.</th><th>Instrument Name</th></tr>
+                <tr><td>120</td><td>Guitar Fret Noise</td></tr>
+                <tr><td>121</td><td>Breath Noise</td></tr>
+                <tr><td>122</td><td>Seashore</td></tr>
+                <tr><td>123</td><td>Bird Tweet</td></tr>
+                <tr><td>124</td><td>Telephone Ring</td></tr>
+                <tr><td>125</td><td>Helicopter</td></tr>
+                <tr><td>126</td><td>Applause</td></tr>
+                <tr><td>127</td><td>Gunshot</td></tr>
+            </table>
+            <div style="clear: both"></div>
+            </li>
+            <li>Here is an example of changing instrument:
+            <p>
+            <video height="360" controls DEMO>
+            <source src="video_demo/change_instrument.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video>
+            </p>
+            <p>You can also <a href="video_demo/change_instrument.mp4">download the video</a></p>
+            </li>
+        </ul>
+
+        <h3><a name="section3.2"></a>3.2. Selecting your musical instruments</h3>
+
+        <ul>
+            <li>There are 128 musical instruments that you can choose from</li>
+            <li>To make each of them work in the music system, you need to put their sound fonts in the soundfont folder</li>
+            <li>At this moment, you should only have the acoustic grand piano sound font available in the system</li>
+            <li>Since the sound font files are quite big, it might be too much to download the sound fonts for all 128 musical instruments</li>
+            <li>Instead, please select and download 10 musical instruments to use with your musical system
+            <ul>
+                <li>For example, you may choose these instruments:
+                <ul>
+                    <li>0 - acoustic grand piano (sound font file - <a href="soundfont/acoustic_grand_piano.zip">acoustic_grand_piano.zip</a>)
+                    <li>10 - music box (sound font file - <a href="soundfont/music_box.zip">music_box.zip</a>)
+                    <li>19 - church organ (sound font file - <a href="soundfont/church_organ.zip">church_organ.zip</a>)
+                    <li>24 - acoustic guitar (nylon) (sound font file - <a href="soundfont/acoustic_guitar_nylon.zip">acoustic_guitar_nylon.zip</a>)
+                    <li>32 - acoustic bass (sound font file - <a href="soundfont/acoustic_bass.zip">acoustic_bass.zip</a>)
+                    <li>40 - violin (sound font file - <a href="soundfont/violin.zip">violin.zip</a>)
+                    <li>56 - trumpet (sound font file - <a href="soundfont/trumpet.zip">trumpet.zip</a>)
+                    <li>64 - soprano sax (sound font file - <a href="soundfont/soprano_sax.zip">soprano_sax.zip</a>)
+                    <li>73 - flute (sound font file - <a href="soundfont/flute.zip">flute.zip</a>)
+                    <li>123 - bird tweet (sound font file - <a href="soundfont/bird_tweet.zip">bird_tweet.zip</a>)
+                </ul>
+                </li>
+           
+                <li>Right click on the link, select 'Save Target As' or something similar</li>
+             
+                <li>Note that although they are zip files, <b>you DO NOT need to extract them</b> before putting them in the soundfont folder</li>
+                <li>If you use the above instruments, the folder structure will look like this:
+                <p><img src="images/folder_structure_selected_instruments.png" alt="Folder Structure Selected Instruments" style="width: 250px" /></p>
+            </ul>
+            </li>
+            <li>You can choose and download your own musical instruments from <a href="soundfont_files.html">here</a></li>
+        </ul>
+
+        <h3><a name="section3.3"></a>3.3. The Python code</h3>
+
+        <ul>
+            <li>You need to add code in the <code>changeInstrument()</code> function:
+            <pre class="python">
+# This function changes the instrument
+def changeInstrument():
+    global instrument
+
+    ...</pre>
+            </li>
+            <li>Here are the things that you need to work on:
+            <ul>
+                <li>Changing the instrument</li>
+                <li>Showing the instrument list in the input box</li>
+                <li>Updating the instrument display</li>
+            </ul>
+            </li>
+            <li>These three things are discussed in the following sections</li>
+        </ul>
+
+        <h4><a name="section3.3.1"></a>3.3.1. Changing the instrument</h4>
+        <h3>Video Tutorial for Section 3.3.1</h3>
+        <video width="640" height="360" controls  preload="metadata"> 
+          <source src="videos/comp1021_lab6_part3.3.1.mp4" type="video/mp4">Your browser does not support the video tag.
+        </video>
+
+        <ul>
+            <li>You need to use the <code>turtle.numinput()</code> function to ask for the instrument number</li>
+            <li>Once you have got the input, you need to convert it to an integer</li>
+            <li>To change the instrument, you need to use the <code>music.setinstrument()</code> function</li>
+            <li>The function accepts one number as input, which is the instrument number</li>
+            <li>For example, <code>music.setinstrument(42)</code> would mean that from now onwards the music will be played using a cello<br />
+            (You must already have downloaded the soundfont for the instrument)
+            </li>
+            <li>After changing the instrument, all songs played from now onwards will use the new instrument</li>
+            <li>You may try to handle the case when</li>
+            <ul>
+                <li>The user click "Cancel". Then the returned value from <code>turtle.numinput()</code> will be <code>None</code></li>
+                <li>The user enters a value less than 0</li>
+                <li>The user enters a value greater than 127</li>
+            </ul>
+        </ul>
+
+        <h4><a name="section3.3.2"></a>3.3.2. Showing the instrument list</h4>
+        <h3>Video Tutorial for Section 3.3.2</h3>
+        <video width="640" height="360" controls  preload="metadata"> 
+          <source src="videos/comp1021_lab6_part3.3.2.mp4" type="video/mp4">Your browser does not support the video tag.
+        </video>
+
+        <ul>
+            <li>You only have a limited amount (i.e. 10) of musical instruments to choose from</li>
+            <li>It will be helpful if you display the available instrument numbers in the input box, for example, like this:
+            <p><img src="images/instrument_list.png" alt="The Instrument List" style="width: 300px" /></p>
+            </li>
+            <li>There are two approaches to do that:
+            <ol>
+                <li>Using a loop to build the list of instruments
+                <ul>
+                    <li>You can use a loop to put the instrument information as part of the input box message
+                    <pre class="python">
+for instrument in [<span class="todo">...the instrument numbers...</span>]:
+    <span class="todo">...put together the instrument number and instrument name in one line...</span>
+    <span class="todo">...add the line to the end of the input box message...</span></pre>
+                    <ul>
+                        <li>For example, you can put each instrument on a separate line using the newline character (<code>\n</code>)</li>
+                        <li>You may refer to the <i>Load Music</i> function to see how you can do this</li>
+                    </ul>
+                    </li>
+                    <li>To get the instrument names from the instrument numbers,
+                        you can use the list <code>music.instrument_list</code> provided by the music module</li>
+                </ul>
+                </li>
+                <li>Using a big multiple lines string
+                <ul>
+                    <li>You can fix the input box message using a big string with <code>"""..."""</code></li>
+                    <li>For example, you can build the message like this:
+                        <pre class="python">
+message = """0: acoustic grand piano
+1: bright acoustic piano
+<span class="todo">...the rest of the instruments...</span>
+
+Please enter the instrument number (0-127):"""</pre>
+                    </li>
+                </ul>
+                </li>
+        </ul>
+
+        <h4><a name="section3.3.3"></a>3.3.3. Updating the instrument display</h4>
+        <h3>Video Tutorial for Section 3.3.3</h3>
+        <video width="640" height="360" controls  preload="metadata"> 
+          <source src="videos/comp1021_lab6_part3.3.3.mp4" type="video/mp4">Your browser does not support the video tag.
+        </video>
+
+        <ul>
+            <li>The music summary is displayed near the top of the turtle window after loading a song, e.g.:
+            <p><img src="images/music_info.png" alt="The Music Information" style="height: 30px" /></p>
+            </li>
+            <li>At the moment, only the number of music notes and the music duration is shown</li>
+            <li>It will be very useful if the current instrument is also shown there so that you know what will be used when you play a song</li>
+            <li>The instrument can be added after the music summary  like this:
+            <p><img src="images/music_info_with_instrument.png" alt="The Music Information with Instrument" style="height: 30px" /></p>
+            </li>
+            <li>To do that, you need to change the <code>updateMusicSummary()</code> function</li>
+            <li>You can add the instrument name, right after the duration display</li>
+            <li>Inside the function, you need to find a way to get the current instrument name</li>
+            <li>However, it is not available in the main part of the program</li>
+            <li>You may use the global variable <code>instrument</code> and the list <code>music.instrument_list</code> to do that</li>
+            <li>Even if you cannot successfully do this, you can carry on and do the following stages</li>
+        </ul>
+
+        <h2><a name="section4"></a>4. Transposing the Music</h2>
+        <h3>Video Tutorial for Section 4</h3>
+        <video width="640" height="360" controls  preload="metadata"> 
+          <source src="videos/comp1021_lab6_part4.mp4" type="video/mp4">Your browser does not support the video tag.
+        </video>
+
+        <h3><a name="section4.1"></a>4.1. Introduction</h3>
+
+        <ul>
+            <li>In the program, you can transpose the music by clicking on the <i>Transpose Music</i> area
+            <p><img src="images/transpose_music_area.png" alt="Transpose Music Area" style="width: 150px" /></p>
+            </li>
+            <li>Transposing a piece of music means shifting all the pitch numbers of the music notes up or down
+            <ul>
+                <li>For example, if you increase all the pitch numbers by twelve,
+                    you will transpose a piece of music up by 12 pitches, like this:
+                <table>
+                    <tr><th>Original Music</th><th>&nbsp;</th><th>Transposed Version</th></tr>
+                    <tr>
+                        <td>
+                            <pre style="width: auto">0	60	0.5
+1	62	0.5
+2	64	0.5</pre>
+                        </td>
+                        <td><img src="images/arrow.gif" alt="" /></td>
+                        <td>
+                            <pre style="width: auto">0	72	0.5
+1	74	0.5
+2	76	0.5</pre>
+                        </td>
+                    </tr>
+                </table>
+                </li>
+            </ul>
+            </li>
+            <li>Here are some examples:
+            <ul>
+                <li>This is the song Let It Go (<code>let_it_go.txt</code>) played without any transposition:<br />
+                <audio controls>
+                    <source src="examples/transpose_example_1.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+                </li>
+                <li>This is the same song played by transposing up 12 pitches:<br />
+                <audio controls>
+                    <source src="examples/transpose_example_2.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+                </li>
+                <li>This is the same song played by transposing down 6 pitches:<br />
+                <audio controls>
+                    <source src="examples/transpose_example_3.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+                </li>
+            </ul>
+            </li>
+        </ul>
+
+        <h3><a name="section4.2"></a>4.2. The Python code</h3>
+
+        <ul>
+            <li>To transpose the music, you need to extend the <code>transposeMusic()</code> function:
+            <pre class="python">
+# This function transposes the music pitch
+def transpose():
+    global music_data
+    
+    ...</pre>
+            </li>
+            <li>Inside, you ask the user for the amount of transposition (a number)</li>
+            <li>A positive number means to transpose up, and a negative number means to transpose downward</li>
+            <ul>
+            <li>You may try to handle the case when</li>
+            <ul>
+                <li>The user click "Cancel" in the prompt. Then the returned value from <code>turtle.numinput()</code> will be <code>None</code></li>
+            </ul>
+            </ul>
+
+            <li>Then you can use a <code>for</code> loop to add the pitch value and the transposition value</li>
+            <li>Then put the result back into the pitch value of each music note</li>
+            <li>The <code>for</code> loop can be constructed like this:
+            <pre class="python">
+for note in music_data:
+    # Change the pitch value
+    ...</pre>
+            <ul>
+                <li>This code is a simple version of the <code>for</code> loop used in <a href="#section2.2.2">section 2.2.2</a></li>
+                <li>It reads the music list from the first item to the last item</li>
+                <li>Each item is stored as a variable called <code>note</code>, for each repetition of the loop</li>
+            </ul>
+            </li>
+            <li>To get the pitch value, remember that the pitch is the second item of the list</li>
+            <li>After you finish the function, you may test it using this sequence:
+            <ol>
+                <li>Load a new piece of music</li>
+                <li>Play the music (this would be the original music)</li>
+                <li>Transpose the music using 12</li>
+                <li>Play the music (you should hear a version with higher pitches compared to the original music)</li>
+                <li>Transpose the music using -24</li>
+                <li>Play the music (you should hear a version with lower pitches compared to the original music)</li>
+                <li>Transpose the music using 12</li>
+                <li>Play the music (you should hear the original music)</li>
+            </ol>
+            </li>
+        </ul>
+
+        <h3><a name="section4.3"></a>4.3. Keeping the music in playable range</h3>
+
+        <ul>
+            <li>Note that if you are transposing the notes too high or too low, they may go out of the playable range!</li>
+            <li>When that happens you will not be able to hear anything</li>
+            <li>One way to prevent that is to keep the pitch numbers between 0 and 127
+            <ul>
+                <li>If the pitch number is bigger than 127, simply use 127</li>
+                <li>If the pitch number is smaller than 0, simply use 0</li>
+                <li>Note that this will change the music permanently, but it is better than crashing the program!</li>
+            </ul>
+            </li>
+        </ul>
+
+        <h2><a name="section5"></a>5. Speeding Up/Slowing Down the Music</h2>
+        <h3>Video Tutorial for Section 5</h3>
+        <video width="640" height="360" controls  preload="metadata"> 
+          <source src="videos/comp1021_lab6_part5.mp4" type="video/mp4">Your browser does not support the video tag.
+        </video>
+
+        <h3><a name="section5.1"></a>5.1. Introduction</h3>
+
+        <ul>
+            <li>The start time and the duration of the music list controls the timing of playing the music notes</li>
+            <li>You can change the timing information so that the music is played faster or slower
+            <ul>
+                <li>For example, to play a piece of music twice as slow, you can multiply the time and duration values of each note by two</li>
+                <li>Below is an example:
+                <table>
+                    <tr><th>Original Music</th><th>&nbsp;</th><th>Slower Version</th></tr>
+                    <tr>
+                        <td>
+                            <pre style="width: auto">0	60	0.5
+1	62	0.5
+2	64	0.5</pre>
+                        </td>
+                        <td><img src="images/arrow.gif" alt="" /></td>
+                        <td>
+                            <pre style="width: auto">0	60	1.0
+2	62	1.0
+4	64	1.0</pre>
+                        </td>
+                    </tr>
+                </table>
+                </li>
+            </ul>
+            </li>
+            <li>You do that in the program by clicking on the <i>Adjust Speed</i> area
+            <p><img src="images/adjust_speed_area.png" alt="Adjust Speed Area" style="width: 150px" /></p>
+            </li>
+            <li>Here are some examples:
+            <ul>
+                <li>This is the song It's a Small World (<code>small_world.txt</code>) played with its original speed:<br />
+                <audio controls>
+                    <source src="examples/speed_example_1.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+                </li>
+                <li>This is the same song played faster (200% of its original speed):<br />
+                <audio controls>
+                    <source src="examples/speed_example_2.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+                </li>
+                <li>This is the same song played slower (75% of its original speed):<br />
+                <audio controls>
+                    <source src="examples/speed_example_3.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+                </li>
+            </ul>
+            </li>
+        </ul>
+
+        <h3><a name="section5.2"></a>5.2. The Python code</h3>
+
+        <ul>
+            <li>The code to adjust the speed of the music is to be added to the <code>adjustSpeed()</code> function:
+            <pre class="python">
+# This function adjusts the speed of the music
+def adjustSpeed():
+    global music_data
+    
+    ...</pre>
+            </li>
+            <li>Inside the function, first you ask the user for the change of the speed of the music</li>
+            <ul>
+            <li>Again, you may try to handle the case when</li>
+            <ul>
+                <li>The user click "Cancel" in the prompt. Then the returned value from <code>turtle.numinput()</code> will be <code>None</code></li>
+            </ul>
+            </ul>
+            <li>This function accepts an input, which is the percentage of speed change
+            <ul>
+                <li>A speed change value of 140% means the music will be 40% faster than before</li>
+                <li>Note that the timing information of a music note and the speed of the music are inversely proportional to each other</li>
+                <li>Multiplying the speed by an amount is equivalent to dividing the time of the music by the same amount</li>
+                <li>Therefore, 140% means that the timing information is divided by 1.4</li>
+            </ul>
+            </li>
+            <li>Then you can use a <code>for</code> loop to adjust the timing information, like this:
+            <pre class="python">
+for note in music:
+    # Change the time and duration value
+    ...</pre>
+            </li>
+            <li>This function changes the overall duration of the music so you need to update the music summary display</li>
+            <li>This can be done by running <code>updateMusicSummary()</code> before the end of the function</li>
+            <li>After you finish the function, you may test it using this sequence:
+            <ol>
+                <li>Load a new piece of music</li>
+                <li>Play the music (this would be the original music)</li>
+                <li>Adjust the speed of the music using 50</li>
+                <li>Play the music (you should hear a slower version compared to the original music)</li>
+                <li>Adjust the speed of the music using 400</li>
+                <li>Play the music (you should hear a faster version compared to the original music)</li>
+                <li>Adjust the speed of the music using 50</li>
+                <li>Play the music (you should hear the original music)</li>
+            </ol>
+            </li>
+        </ul>
+
+        <h2><a name="section6"></a>6. Making Some Crazy Music</h2>
+        <h3>Video Tutorial for Section 6</h3>
+        <video width="640" height="360" controls  preload="metadata"> 
+          <source src="videos/comp1021_lab6_part6.mp4" type="video/mp4">Your browser does not support the video tag.
+        </video>
+
+        <h3><a name="section6.1"></a>6.1. Introduction</h3>
+
+        <ul>
+            <li>In this part of the lab, you will generate some crazy music, for example, like the ones below:
+            <ul>
+                <li><a name="crazy_music_1"></a>Crazy music 1<br />
+                <audio controls>
+                    <source src="examples/crazy_music_1.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+                </li>
+                <li><a name="crazy_music_2"></a>Crazy music 2<br />
+                <audio controls>
+                    <source src="examples/crazy_music_2.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+                </li>
+                <li><a name="crazy_music_3"></a>Crazy music 3<br />
+                <audio controls>
+                    <source src="examples/crazy_music_3.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+                </li>
+            </ul>
+            </li>
+            <li>You can click on the <i>Make Crazy Music</i> area to start building one
+            <p><img src="images/make_crazy_music_area.png" alt="Make Crazy Music Area" style="width: 150px" /></p>
+            </li>
+            <li>The crazy music will replace the current music loaded in the system</li>
+            <li>In this project you make a piece of crazy music by repeating a sound a few times</li>
+            <li>This sound contains many music notes playing from a starting pitch to an ending pitch within a short time</li>
+            <li>Here is the general flow to make a piece of crazy music:
+            <ul>
+                <li>for <code>repetition</code> = 0 to the <i>Number of Repetitions</i> - 1
+                <ul>
+                    <li>for <code>pitch</code> = <i>Starting Pitch</i> to <i>Ending Pitch</i> (including the ending pitch number)
+                    <ul>
+                        <li>play a music note of the current <code>pitch</code> number</li>
+                    </ul>
+                    </li>
+                </ul>
+                </li>
+            </ul>
+            </li>
+            <li>You need the following four parameters to make a piece of crazy music:
+            <ul>
+                <li>Number of repetitions to play the sound</li>
+                <li>Duration of the sound</li>
+                <li>Starting pitch of the sound, and</li>
+                <li>Ending pitch of the sound</li> 
+            </ul>
+            </li>
+            <li>Here are some examples:
+            <ul>
+                <li><a href="#crazy_music_1">crazy music 1</a> has the following parameters:
+                <ul>
+                    <li>Number of repetitions = 1</li>
+                    <li>Duration of the sound = 10s</li> 
+                    <li>Starting pitch of the sound = 24</li> 
+                    <li>Ending pitch of the sound = 107</li> 
+                </ul>
+                which produces a piece of music with the following summary:
+                <p><img src="images/crazy_music_1_summary.png" alt="Crazy Music 1 Music Summary" style="height: 18px" /></p>
+                </li>
+                <li><a href="#crazy_music_2">crazy music 2</a> has the following parameters:
+                <ul>
+                    <li>Number of repetitions = 4</li>
+                    <li>Duration of the sound = 1s</li> 
+                    <li>Starting pitch of the sound = 48</li> 
+                    <li>Ending pitch of the sound = 83</li> 
+                </ul>
+                which produces a piece of music with the following summary:
+                <p><img src="images/crazy_music_2_summary.png" alt="Crazy Music 2 Music Summary" style="height: 18px" /></p>
+                </li>
+                <li><a href="#crazy_music_3">crazy music 3</a> has the following parameters:
+                <ul>
+                    <li>Number of repetitions = 10</li>
+                    <li>Duration of the sound = 0.5s</li> 
+                    <li>Starting pitch of the sound = 100</li> 
+                    <li>Ending pitch of the sound = 30</li> 
+                </ul>
+                which produces a piece of music with the following summary:
+                <p><img src="images/crazy_music_3_summary.png" alt="Crazy Music 3 Music Summary" style="height: 18px" /></p>
+                </li>
+            </ul>
+            </li>
+        </ul>
+
+        <h3><a name="section6.2"></a>6.2. The Python code</h3>
+
+        <ul>
+            <li>You add the code to make some crazy music inside the <code>makeCrazyMusic()</code> function:
+            <pre class="python">
+# This function makes a piece of crazy music in the music list
+def makeCrazyMusic():
+    global music_data
+    
+    ...</pre>
+            </li>
+            <li>First, you need to add the code to ask the user for the four parameters of the crazy music</li>
+            <ul>
+                <li>That means you need to use <code>turtle.numinput()</code> 4 times</li>
+                <li>The number of repetitions, starting pitch and ending pitch are integers</li>
+                <li>The duration of the sound is a real number (a float)</li>
+            <ul>
+            <li>Again, you may try to handle the case when</li>
+            <ul>
+                <li>The user click "Cancel" in the prompt. Then the returned value from <code>turtle.numinput()</code> will be <code>None</code></li>
+            </ul>
+            </ul>
+
+            </ul>
+
+            </li>
+            <li>After that you have to clear the current music list, <code>music_data</code>, by putting a empty list into it, i.e.:
+            <pre class="python">music_data = []</pre>
+            </li>
+            <li>Then, you can start building your crazy music using the parameters you have obtained above</li>
+            <li>This involves using a nested loop to generate a sound repeatedly inside the music list</li>
+            <li>The outer loop runs for the number of repetitions so that the sound can be repeated several times
+            <pre class="python">
+for index in range(<span class="todo">...number of repetitions...</span>):
+    <span class="todo">...create the sound in music_data...</span></pre>
+            </li>
+            <li>The sound is either an increasing sequence or a decreasing sequence of music notes</li>
+            <li>For example,
+            <ul>
+                <li>If duration of the sound is 1s, starting pitch is 60 and ending pitch is 64, then the content of the music list for one sound will be:
+                <pre>
+[ [0.0, 60, 0.2],
+  [0.2, 61, 0.2],
+  [0.4, 62, 0.2],
+  [0.6, 63, 0.2],
+  [0.8, 64, 0.2] ]</pre>
+                <ul>
+                    <li>There are 5 music notes because the pitch number starts from 60 and goes up to 64, i.e. number of notes = 64 - 60 + 1</li>
+                    <li>The duration of each music note is 0.2s, which is just the duration of the sound divided by 5</li>
+                </ul>
+                </li>
+                <li>If duration of the sound is 1.5s, starting pitch is 84 and ending pitch is 73, then the content of the music list for one sound will be:
+                <pre>
+[ [0.0, 84, 0.125],
+  [0.125, 83, 0.125],
+  [0.25, 82, 0.125],
+  [0.375, 81, 0.125],
+  [0.5, 80, 0.125],
+  [0.625, 79, 0.125],
+  [0.75, 78, 0.125],
+  [0.875, 77, 0.125],
+  [1.0, 76, 0.125],
+  [1.125, 75, 0.125],
+  [1.25, 74, 0.125],
+  [1.375, 73, 0.125] ]</pre>
+                <ul>
+                    <li>There are 12 music notes because the pitch number starts from 84 and goes down to 73, i.e. number of notes = 84 - 73 + 1</li>
+                    <li>The duration of each music note is 0.125s, which is just the duration of the sound divided by 12</li>
+                </ul>
+                </li>
+            </ul>
+            </li>
+            <li>In the above examples, the sounds always start from 0s</li>
+            <li>However, if you need to repeat the sound in the music, the other copies of the sound will need to start from different times</li>
+            <li>The inner loop is then something that may look like this:
+            <pre class="python">
+for index in range(<span class="todo">...number of repetitions...</span>):
+    for pitch in <span class="todo">...the range of pitch numbers...</span>:
+        <span class="todo">...append a music note to music_data...</span></pre>
+            </li>
+            <li>You need to be careful that the range of pitch numbers works quite differently for increasing pitch numbers (step = 1) and decreasing pitch numbers (step = -1)</li>
+            <li>You also need to make sure that the range of pitch numbers is inclusive of the starting pitch and the ending pitch values</li>
+            <li>As a new piece of music is generated, you need to update the music summary using <code>updateMusicSummary()</code></li>
+            <li>After you have made your crazy music, you could change it using the transpose and speed functionality, if you want to
+            <ul>
+                <li>Simply click on the appropriate (orange and red) areas in the screen display to do that</li>
+            </ul>
+            </li>
+            <li>You can also use different musical instruments to generate the sound
+            <ul>
+                <li>You can click on the purple area to do that</li>
+            </ul>
+            </li>
+        </ul>
+
+		<h2><a name="submission" id="submission" />Submission</h2>
+
+		<ul>
+		<li>You don't need to submit this work</li>
+		<li>However, it's a good idea to keep a copy of your work for your own reference</li>
+			<ul><li>For example, you can put your file in your USB disk (if you have one) or email a copy to yourself</li></ul>
+		</ul>
+
+    </div>
+
+</body>
+
+</html>
+

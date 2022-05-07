@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>COMP1021 Lab 4 - Jigsaw Game</title>
+    <link href="../css/lab.css" rel="stylesheet" />
+
+	<link href="../../../css/lab.css" rel="stylesheet" />
+    <script src="../../../scripts/jquery-3.4.1.min.js"></script>
+    <script src="../../../scripts/lab.js"></script>
+    <script src="../../../scripts/video_res.js"></script>
+    <script src="video_res.js"></script>
+
+</head>
+
+<body>
+    <h1>
+        <span class='lab'>COMP1021 Lab 4</span>
+        <span class='title'>Jigsaw Game</span>
+    </h1>
+		<div id="videoQualityWidget"></div>
+	<div class="content">
+
+		<h2>The Main Focus of this Lab</h2>
+		<ul>
+			<li>In this lab, you largely focus on:
+				<ul>
+					<li>Using functions</li>
+					<li>Creating and using new turtle objects</li>
+					<li>Repeating things using loops and nested loops</li>
+					<li>Using events <code>ondrag()</code> and <code>onkeypress()</code></li>
+					<li>Logical thinking, for checking positions</li>
+
+
+				</ul>
+			</li>
+		</ul>
+
+
+        <h2>What You Will Learn in This Lab</h2>
+
+        <ul>
+            <li>In this lab, you will gain experience in the following areas:
+                <table class="simple">
+                    <tr>
+                        <th>Topic</th>
+                        <th>Computer Science/ Programming Concept</th>
+                    </tr>
+                    <tr>
+                        <td>Making decisions</td>
+                        <td>Writing If statements (<code>if ... elif ... else ...</code>)</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">Repeating things using loops</td>
+                        <td>Using for loops (<code>for ...</code>)</td>
+                    </tr>
+                    <tr>
+                        <td>Building nested loops, i.e. a loop inside another loop</td>
+                    </tr>
+                    <tr>
+                        <td>Using a list with a for loop</td>
+                    </tr>
+                    <tr>
+                        <td>Random number generation</td>
+                        <td>Getting random values using <code>random.randint()</code></td>
+                    </tr>
+                    <tr>
+                        <td>Data conversion</td>
+                        <td>Converting any value to an integer with <code>int()</code></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="4">Using the turtle graphics module</td>
+                        <td>Working with the turtle window size</td>
+                    </tr>
+                    <tr>
+                        <td>Creating new turtles</td>
+                    </tr>
+                    <tr>
+                        <td>Changing the shape of a turtle to an image</td>
+                    </tr>
+                    <tr>
+                        <td>Using events <code>ondrag()</code> and <code>onkeypress()</code></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">Lists, Tuples and Strings</td>
+                        <td>Using a list to store turtles</td>
+                    </tr>
+                    <tr>
+                        <td>Building strings</td>
+                    </tr>
+                    <tr>
+                        <td>Functions</td>
+                        <td>Defining your own function for the turtle drag event</td>
+                    </tr>
+					<tr>
+						<td>Logical thinking</td>
+						<td>Checking positions</td>
+					</tr>
+
+
+                </table>
+            </li>
+        </ul>
+
+   <div>
+<a name="part0.1_vid"></a>
+<video width="640" height="360" controls  preload="metadata">
+<source src="videos/comp1021_lab4_intro.mp4" type="video/mp4">Your browser does not support the video tag.
+</video>
+
+   </div>
+
+    <h2>Overview</h2>
+
+    <ul>
+        <li>In this lab you will create a Jigsaw game using Python</li>
+        <li>Like a real jigsaw, the objective of the game is to drag all the pieces of the jigsaw into the correct place</li>
+        <li>Here is a video showing the game being played (there is no sound for the video):</li>
+		<video width="600" controls DEMO>
+		<source src="lab4.mp4" type="video/mp4">
+		Your browser does not support the video tag.
+		</video>
+    </ul>
+
+    <h2><a name="start"></a>Getting Started</h2>
+
+    <ul>
+        <li>A Python file (jigsaw.py) is given to you as a starting point
+		<a href="jigsaw.py">here</a> (right click on the link, select 'Save Target As' or something similar)</li>
+
+        <li>Please download the file into your local hard disk</li>
+
+        <li>After you finish your work please remember to store it somewhere safe (e.g. your USB disk)</li>
+
+    </ul>
+
+    <h2>Lab Content</h2>
+<a name="part0.2_vid"></a><h3>Video Lab menu</h3>
+<video width="640" height="360" controls  preload="metadata">
+<source src="videos/comp1021_lab4_lab_menu.mp4" type="video/mp4">Your browser does not support the video tag.
+</video>
+
+    <ul>
+
+        <li>Here are the steps for building this project:
+        <ol>
+            <li><a href="#create">Create the Images for the Jigsaw Pieces</a></li>
+                    <ul class="none">
+                        <li>1.1. <a href="#create1">Find a suitable image</a></li>
+
+                        <li>1.2. <a href="#create2">Split the image into jigsaw pieces</a>
+					</ul>
+
+            <li><a href="#move">Write the Code to Move the Pieces Randomly</a></li>
+                    <ul class="none">
+						<li>2.1. <a href="#move1">Set up the nested loops</a>
+
+                        <li>2.2. <a href="#move2">Contents of the loops</a>
+
+                            <ul class="none">
+                                <li>2.2.1. <a href="#move21">Generate a random position</a></li>
+                                <li>2.2.2. <a href="#move22">Create a turtle at this position</a></li>
+                                <li>2.2.3. <a href="#move23">Prepare the image file name used by this jigsaw piece</a></li>
+                                <li>2.2.4. <a href="#move24">Load the image file</a></li>
+                                <li>2.2.5. <a href="#move25">Set up an <code>ondrag</code> event</a></li>
+<!--                                <li>2.2.5.1 <a href="#move25_1">Avoiding errors when updating turtles too fast</a></li>-->
+
+																<li>2.2.6. <a href="#move26">Maintain a list of all turtles</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+            <li><a href="#check">Check if the Jigsaw is Correct</a></li>
+                    <ul class="none">
+						<li>3.1. <a href="#check1">Overview of checking the jigsaw</a><li>
+
+						<li>3.2. <a href="#check2">Check position violations</a></li>
+
+						<li>3.3. <a href="#check3">Improve the game over messages</a></li>
+					</ul>
+        </ol>
+        </li>
+
+		<!--
+        <li>Video Locations
+        <ul>
+            <li><a href="#part0.1_vid">Introduction</a></li>
+            <li><a href="#part0.2_vid">Lab menu</a></li>
+            <li><a href="#part1_vid">Video for Illustration and Section 1</a></li>
+            <li><a href="#part2_vid">Video for Section 2</a></li>
+            <li><a href="#part3_vid">Video for Section 3</a></li>
+        </ul>
+        </li>
+	-->
+    </ul>
+
+		<h2>Illustration</h2>
+<a name="part1_vid"></a><h3>Video for Illustration and Section 1</h3>
+<video width="640" height="360" controls  preload="metadata">
+<source src="videos/comp1021_lab4_part1.mp4" type="video/mp4">Your browser does not support the video tag.
+</video>
+<ul><li><span style='font-size:12px'>Note: The second link for image cropping is not working, and it is removed from the website.</span></li></ul>
+		<ul>
+			        <li>Here is an overview of the system structure of the lab:
+        <p><a href="images/overview.png"><img src="images/overview.png" width="960" alt="System Structure" /></a><br/>
+	<span class="footnote">Click on the image to see it in its original size</span></p>
+        </li>
+		</ul>
+
+    <h2><a name="create"></a>1. Create The Images for the Jigsaw Pieces</h2>
+
+    <ul>
+	<li>Each jigsaw piece uses an image file</li>
+        <li>We allow the following 4 choices of jigsaw pieces:</li>
+        <ul>
+			<li>If you want to have 9 jigsaw pieces (for a 3&times;3 structure), then you need to prepare 9 images for the program</li>
+        	<li>If you want to have 16 jigsaw pieces (for a 4&times;4 structure), then you need to prepare 16 images for the program</li>
+			<li>If you want to have 25 jigsaw pieces (for a 5&times;5 structure), then you need to prepare 25 images for the program</li>
+			<li>If you want to have 36 jigsaw pieces (for a 6&times;6 structure), then you need to prepare 36 images for the program</li>
+		</ul>
+</ul>
+
+
+	<h3><a name="create1"></a>1.1. Find a suitable image</h3>
+	<ul>
+	<li>You first need to find an appropriate image</li>
+	<li>It must be a GIF file (the file extension is ".gif")</li>
+	<ul><li>If you want to search for one on Google, you may specify <code>filetype:gif</code> to filter out incompatible files</li></ul>
+	<li>You can check the file is a GIF file by using the following steps</li>
+        <ul>
+            <li>For Windows Computer</li>
+            <ol>
+                <li>Click Start, click Windows System, and then File Explorer</li>
+                <li>Click the View tab in File Explorer</li>
+                <li>Click the box next to "File name extensions" to see file extensions</li>
+            </ol>
+            <li>For Mac Computer</li>
+            <ol>
+                <li>In the Finder  on your Mac, choose Finder > Preferences, then click Advanced</li>
+                <li>Select "Show all filename extensions"</li>
+            </ol>
+            <li>For Python file, you should see ".py" at the end of the filename</li>
+            <li>For GIF file, you should see ".gif" at the end of the filename</li>
+        </ul>
+	<li>It should have an appropriate size so that it fits in the screen</li>
+		<ul><li>Around 600 pixels wide</li></ul>
+
+	<li>Here is an image that you can use:<br/>
+	<img src="imagesToPlayWith/HongKong-small.gif" width="300" alt="Hong Kong bird-eye view"/><br/>
+	<span class="footnote"><em>(Right click and save the file to somewhere you can find it later)</em></span></li>
+        <li>You can use any photo you like, as long as it is in GIF format</li>
+	</ul>
+
+	<h3><a name="create2"></a>1.2. Split the image into the jigsaw pieces</h3>
+	<ul>
+	<li>You need to extract parts of the image so that you can have a set of jigsaw pieces</li>
+		<ul><li>Every jigsaw piece will show an image file (part of the original image)</li></ul>
+
+	<li>You can either use software on your computer to split the image, or use an online service</li>
+
+	<li>Here is a online image splitter that may be helpful:</li>
+		<ul>
+		<li><a href="https://www.imgonline.com.ua/eng/cut-photo-into-pieces.php" target="_blank">Cut photo into equal parts online</a></li>
+		</ul>
+
+	<li>After you input the appropriate parameters in the image splitting system, you can obtain a set of, for example, 9 images in a zip file</li>
+		<ul>
+		<li>If you do not understand certain things in the splitting system, you can leave it unchanged</li>
+		<li>It is however important to set the &quot;Output images format&quot; to be &quot;Without changes, same as original image&quot;</li>
+		<li>After downloading the zip file, please extract the file into the same folder as your Python file (<code>jigsaw.py</code>)</li>
+		</ul>
+
+	<li>After extracting, you have a set of images, but you still have to rename them in a particular way so they can be loaded by Python code easily</li>
+		<ul>
+		<li>They may have names like this before renaming:<br/>
+			<img src="images/images_before_rename.png" alt="Images before rename" /></li>
+		<li>You have to rename them so that the file name includes the row and column information, like this:<br/>
+			<img src="images/images_after_rename.png" alt="Images after rename" /></li>
+		<li>You must use hyphens (-) to separate the word "image", the row number, and the column number so that the checking code will work properly</li>
+		</ul>
+
+		<li>If you want to, you can rename your original image into <strong>solution.gif</strong>. You don't need to submit solution.gif</li>
+
+        <li>Python code will load the images, put them inside turtles, and use the turtles for the jigsaw pieces</li>
+		<li>Please use <u style="color:red">gif</u> as the photo format, as Python cannot import photos other than gif files for the Turtle's new shape</li>
+	</ul>
+
+
+
+    <h2><a name="move"></a>2. Write the Code to Move the Pieces Randomly</h2>
+<a name="part2_vid"></a><h3>Video for Section 2</h3>
+<video width="640" height="360" controls  preload="metadata">
+<source src="videos/comp1021_lab4_part2.mp4" type="video/mp4">Your browser does not support the video tag.
+</video>
+
+	<ul>
+	<li>Now you can edit the given file <code>jigsaw.py</code> in IDLE</li>
+	<li>Most of the work will be done in the <code>createJigsaw()</code> function</li>
+	</ul>
+
+	<h3><a name="move1"></a>2.1. Set up the nested loops</h3>
+	<ul>
+	<li>First, you need to set up the number of rows and columns, into two variables <code>totalRows</code> and <code>totalColumns</code></li>
+
+	<li>Here is the nested loop structure:<br/>
+		<pre><span class="todo" style="color:black">For loop going through the rows:
+	For loop going through the columns:
+		Generate a random position for the new turtle
+		Create a new turtle and move it to this position
+		Prepare the name of the image file that goes with this turtle
+		Load the image file into the turtle</span></pre></li>
+
+	<li>You can prepare the framework of the outside <code>for</code> loop first:<br/>
+	<pre class="python">for row in range(totalRows): # Go through the rows one by one
+    <span class="todo">We will prepare the loop contents later</span>
+</pre>
+</li>
+
+	<li>Now, you can prepare the inner loop for the columns by using an appropriate variable name</li>
+
+		<ul>
+			<li>Don't forget the necessary indentation to make the nested loop work!</li>
+		</ul>
+
+	</ul>
+
+	<h3><a name="move2"></a>2.2. Contents of the loops</h3>
+	<h4><a name="move21"></a>2.2.1. Generate a random position</h4>
+	<ul>
+	<li>The jigsaw pieces will be put at random positions on the screen when the game starts</li>
+	<li>The size of the window created by the turtle system depends upon the width and height of the computer display you are using</li>
+	<li>Although you can't be sure what the width and height of the turtle window will be, after it is created you can ask the turtle system what they are</li>
+	<li>You can obtain the turtle screen dimensions using the commands <code>turtle.window_width()</code> and <code>turtle.window_height()</code>
+	<p><img src="images/screensize.png" width="600" alt="Turtle screen dimensions" /></p></li>
+	<li>You can then generate a random <code>x</code> and <code>y</code> position:<br/>
+	<pre class="python">x = random.randint( -int(turtle.window_width()/2) , int(turtle.window_width()/2) )
+y = random.randint( -int(turtle.window_height()/2), int(turtle.window_height()/2) )</pre></li>
+
+
+	<li><code>int()</code> is necessary to avoid errors in <code>random.randint()</code></li>
+
+	<li>To check if these variables are being prepared properly, we can use the <code>print</code> as a debugging tool, for example:<br/>
+		<pre class="python">print( "x = ", x )</pre></li>
+
+	<li>You can now try this by running the code</li>
+
+	<li>After you confirm that the variables <code>row</code>, <code>column</code>, <code>x</code>, and <code>y</code> are working properly, you could remove the <code>print</code> command</li>
+
+		<ul><li>Or you may convert the command into a comment by adding the symbol # in front, so it becomes a comment and is ignored when the program is run</li></ul>
+
+	</ul>
+
+	<h4><a name="move22"></a>2.2.2. Create a turtle at this position</h4>
+	<ul>
+	<li>You can create a new turtle using <code>turtle.Turtle()</code>, like this:<br/>
+
+	<pre>newTurtle = turtle.Turtle()</pre>
+
+
+	<li>After you create the turtle, you need to tell <code>newTurtle</code> how to behave:</li>
+		<ul>
+		<li>In this project, it's useful to tell the new turtle not to draw when moving</li>
+		<li>Then, you should move the new turtle to the random position we prepared in the last section</li>
+		<li>You should also ensure the turtle moves as fast as possible instead of using the default speed</li>
+		</ul>
+		<li>While you are developing your program, you could run the code after each step to see their individual effect</li>
+	</ul>
+
+	<h4><a name="move23"></a>2.2.3. Prepare the image file name used by this jigsaw piece</h4>
+	<ul>
+
+	<li>Then, you can set up the image file name to be loaded, with the <code>row</code> and <code>column</code> variables, according to your actual file names:<br/>
+		<img src="images/images_after_rename.png" alt="Images after rename" /></li>
+
+	<li>The file name can be built like this:<br/>
+		<pre class="python">theFilename = <span class="todo">front part of the file name</span> + <span class="todo">row number</span> + "-" + <span class="todo">column number</span> + ".gif"</pre></li>
+
+		<ul>
+		<li>In our example, the front part is <code>&quot;image-&quot;</code></li>
+			<ul><li>Check that you named your files properly!</li></ul>
+		<li>If you did not change the file type, the image should be a gif file (a common image file format)</li>
+		<li>The <span class="todo">row number</span> is stored in the variable <code>row</code><br/>
+		and <span class="todo">column number</span> is stored in the variable <code>column</code></li>
+		</ul>
+
+	<li>We build our file name using 5 pieces of text here, connected by the <code>+</code> operator</li>
+		<ul>
+		<li>The <code>row</code> and <code>column</code> are the variables we had earlier, for example <code>2</code> and <code>3</code> respectively</li>
+		<li>In our example, the variable <code>theFilename</code> will take the value <code>image-2-3.gif</code>
+		<li>You need to ensure the numbers are converted to string for building the string! (i.e., <code>str()</code> should be used appropriately)</li>
+		</ul>
+
+	<li>Remember you can always use print to check what is in a variable e.g.<br/>
+		<pre class="python">print( theFilename ) # This shows the generated image filename</pre></li>
+
+	</ul>
+
+	<h4><a name="move24"></a>2.2.4. Load the image file</h4>
+	<ul>
+	<li>You can then load the image file into the turtle:
+	<ul>
+			<li>First,  <code>.addshape()</code> command adds an image file into the turtle system for later use<br/>
+	<pre class="python">turtle.addshape(theFilename)</pre></li>
+	<li>Second, the <code>.shape()</code> command applies this image file into the mentioned turtle<br/>
+	<pre class="python">newTurtle.shape(theFilename)</pre></li>
+	</ul>
+
+	</ul>
+
+	<h4><a name="move25"></a>2.2.5. Set up an <code>ondrag</code> event</h4>
+	<ul>
+	<li>Finally, you need to allow the jigsaw piece (<code>newTurtle</code>) to be controlled when the user drags the mouse</li>
+	<li>This can be done by linking its <code>.goto()</code> command with its <code>ondrag</code> event, like this:<br/>
+		<pre class="python">newTurtle.ondrag(newTurtle.goto)</pre></li>
+	<li>This means '<em>when the turtle called newTurtle is dragged, newTurtle (i.e. the same turtle) will be moved to the position where it is being dragged</em>'</li>
+</ul>
+<!--
+    <h3><a name="move25_1"></a>2.2.5.1 Avoiding errors when updating turtles too fast</h3>
+
+    <ul>
+        <li>There is one major issue though</li>
+        <li>The problem is the program may produce an error if you draw too fast
+        <ul>
+            <li>You may not see the error now but it will occur when we add more drawing code later</li>
+            <li>Here is what you might see in a Windows machine:
+            <p><img src="images/draw_error.png" alt="Drawing error" /></p>
+            </li>
+        </ul>
+        </li>
+        <li>The reason for that to happen is that the program has way too many event handler functions to run if you draw too fast</li>
+        <li>The program crashes at the point when it cannot handle that many event handler functions</li>
+        <li>To solve the problem, you just need to make sure that no event handler function will run <strong>while you are already running a copy of it</strong>, i.e.:
+        <ul>
+            <li>Right after you enter the event handler function, you disable the event by using this line of code:
+            <pre class="python">turtle.ondrag(None)</pre>
+            </li>
+            <li>Then before you finish the event handler function, you re-enable the event by using this line of code:
+            <pre class="python">turtle.ondrag(draw)</pre>
+            </li>
+        </ul>
+        </li>
+        <li>If you do this, only one event handler function will run at any one time</li>
+        <li>The structure of your event handler function will then look like this:
+        <pre class="python">def draw(x, y):
+    turtle.ondrag(None) # Disable the event
+
+    <span class="todo">...the content of the event handler function...</span>
+
+    turtle.ondrag(draw) # Enable the event</pre>
+        </li>
+    </ul>
+-->
+<h4><a name="move26"></a>2.2.6. Maintain a list of all turtles</h4>
+<ul>
+	<li>When we make lots of turtles we need to keep track of them, so they can be easily controlled later</li>
+	<li>To do that we put all the turtles in a list</li>
+	<li>In this project the list is called <code>allTurtles</code></li>
+	<li>So after the new turtle is created it is then appended at the end of the list <code>allTurtles</code>, like this:
+<br/>
+		<pre class="python">allTurtles.append(newTurtle)</pre></li>
+	</ul>
+
+	<h3><a name="move3"></a>2.3. Try out your work</h3>
+	<ul>
+	<li>You can restart the program at any time to try your code</li>
+		<ul>
+		<li>When the final version of the program is run, the jigsaw pieces appear in a random position</li>
+
+		<li>These jigsaw pieces can be dragged around using the mouse to different positions on screen</li>
+		</ul>
+	<li>If you see error messages regarding loading files, check if the file names are prepared properly!</li>
+
+	</ul>
+
+    <h2><a name="check"></a>3. Check if the Jigsaw is Correct</h2>
+<a name="part3_vid"></a><h3>Video for Section 3</h3>
+<video width="640" height="360" controls  preload="metadata">
+<source src="videos/comp1021_lab4_part3.mp4" type="video/mp4">Your browser does not support the video tag.
+</video>
+
+
+	<!--
+    <h3>The General Idea</h3>
+    <ul>
+        <li>The code which checks if the jigsaw pieces works by checking the jigsaw pieces</li>
+    </ul>
+	-->
+	<h3><a name="check1"></a>3.1. Overview of checking the jigsaw</h3>
+	<ul>
+	<li>To allow the player to check if the jigsaw pieces are arranged correctly, a function <code>checkJigsaw()</code> is needed</li>
+	<li>You can press "c" (c for <em>check</em>) on the keyboard, the check will be performed</li>
+		<ul>
+			<li>If the jigsaw is roughly correct, a message of congratulations will be shown</li>
+			<li>Otherwise, a message will be shown mentioning that the jigsaw puzzle is wrong</li>
+		</ul>
+<!--	<li>The code understands "roughly" correct by having an allowance of turtle positions</li>-->
+	<li>Although most of the code in this function is already given to you, you should try to read and understand it</li>
+	<li>The basic idea of the function works like this:<br/>
+	<pre><span class="todo" style="color:black">First assume jigsaw is correct
+
+For loop through every turtle
+	Obtain positions of the turtle
+	Obtain row/column data from file name associated with turtle
+
+	For loop through every turtle for comparison
+		Obtain position of the comparing turtle
+		Obtain row/column data from file name associated with the comparing turtle
+
+		If the position of the current turtle violates the row/column data when comparing with another turtle
+			Jigsaw is wrong
+
+Show an appropriate message</span></pre></li>
+	<li>Here you can see how the jigsaw pieces could be aligned in a 2&times;2 jigsaw:<br/>
+	<p><img src="images/violation.png" alt="Positions of a correct jigsaw puzzle" width="600" /></p></li>
+	<li>We need to check, for example, that the jigsaw piece for row 0 column 1 should NOT be below the piece for row 1 column 1, nor should it be on the left of the piece for row 0 column 0:<br/>
+	<p><img src="images/violation2.png" alt="Position violation of jigsaw pieces" width="650" /></p></li>
+
+<li>Since only the position of the turtles (at the centre) is compared, this allows the jigsaw pieces to be slightly away from its expected position</li>
+
+	</ul>
+
+	<h3><a name="check2"></a>3.2. Check position violations</h3>
+	<ul>
+		<li>There are four possible cases when the jigsaw position is wrong:
+			<ol>
+			<li>The piece has a smaller column value but is on the right</li>
+			<li>The piece has a larger column value but is on the left</li>
+			<li>The piece has a smaller row value but is on the bottom</li>
+			<li>The piece has a larger row value but is on the top</li>
+			</ol>
+		<li>Your code needs to check if any of these cases are true, which will mean the jigsaw is wrong</li>
+		<li>Only the first case is given to you in the code, like this:<br/>
+		<pre class="python"># The piece has a smaller column value but is on the right
+if thisCol &lt; compareCol and thisX &gt;= compareX:
+    checkResult = False
+    break</pre>
+		<li>You need to complete the other three cases</li>
+	</ul>
+
+	<h3><a name="check3"></a>3.3. Improve the game over messages</h3>
+	<ul>
+		<li>In the starting code, only a <code>print()</code> statement is used for the game over messages</li>
+		<li>You need to improve the game by putting the game over messages at an appropriate position on the turtle screen</li>
+		<li><code>turtle.write()</code> should be used to replace the <code>print()</code> statement</li>
+		<li>You should use a better font and colour as well</li>
+		<li>To avoid overlapping text messages, you can use <code>turtle.clear()</code> to clear everything the turtle has previously drawn/written</li>
+	</ul>
+
+    <h2><a name="submission" id="submission"></a>Submission</h2>
+
+	<!--
+
+    <ul>
+	<li>You don't need to submit this work</li>
+        <li>However, it's a very good idea to keep a copy of your work for your own reference</li>
+        <li>For example, you can put your file in your USB disk (if you have one) or email a copy to yourself</li>
+    </ul>
+-->
+
+<ul>
+	<li><strong>You have to submit this lab work (as one zip file &quot;lab4.zip&quot;)</strong></li>
+<ul>
+	<li>Enter your name and student ID number in the Python code, so it can be easily seen</li>
+	<li>You need to submit within the 9 days following the taught day of your lab, before midnight</li>
+	<li>The exact times and dates are shown at the end of the <a href="marking_scheme.html#deadline">marking scheme page here</a></li>
+	<li>You must look at the <a href="marking_scheme.html">marking scheme</a> to make sure all the parts are done properly</li>
+	<li><strong>Remember, you must submit lab4.zip containing:</strong></li>
+		<ol>
+		<li>the Python code file</li>
+		<li>the jigsaw image pieces (e.g. 9 images if a 3&times;3 jigsaw has been created)</li>
+		</ol>
+	<ul><li><a href="marking_scheme.html#create_submission">Here are the guidelines to create the submission file</a>
+		- You <strong>MUST</strong> follow these guidelines to prepare your submission</li></ul>
+	<li>Submit your work early, days before the deadline!</li>
+	<li>If you find that you have made a mistake after you have submitted your work, you can submit again, as many times as you like, BEFORE the deadline.
+	<ul>
+	<li>We will mark the most recent submission which is before the deadline.</li>
+	</ul>
+	<li><strong>You won't be able to submit your work after the deadline!</strong></li>
+	<li>Check that you have submitted the correct version of your own file</li>
+</ul>
+<li>It would probably be helpful if you keep a copy for yourself, e.g. for your revision later</li>
+	<li>For example, you can put your file in your USB disk (if you have one) or email a copy to yourself</li>
+</ul>
+
+
+	</div>
+</body>
+</html>

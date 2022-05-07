@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+    <title>COMP1021 Spring 2020 Interactive Final Exam</title>
+    <link rel="stylesheet" href="../../css/lab.css">
+    
+    <script src="../../scripts/jquery-3.4.1.min.js"></script>
+    <script src="./video_res.js"></script>   
+    
+	<style>
+    body { margin-bottom: 15px; }
+    h3 { margin-top: 2em; }
+	p, li { font-size: 0.9rem; }
+    p, pre { margin-left: 15px; margin-right: 15px; }
+    pre > blank {
+        padding: 0 1em;
+        font-family: "Times New Roman", Times, serif;
+        font-weight: bold;
+        border-bottom: 2px solid black;
+    }
+    h2#PartB ~ pre { user-select: none; }
+    h2#PartB ~ pre.selectable { user-select: auto; }
+	h2#PartB ~ pre.selectableQ6 { user-select: auto; }
+    @media print { h2#PartB ~ pre { display: none } }
+    select.code, select.code > option { font-family: monospace; }
+    .answer-area { display: none; }
+    .check-result { font-weight: bold; }
+    span.correct { color: green; }
+    span.wrong { color: red; }
+    input.wrong, select.wrong { border: 2px solid red; }
+    </style>
+</head>
+
+<body>
+    <h1>
+        <span class="lab">COMP1021 Spring 2020</span>
+        <span class="title">Interactive Final Exam</span>
+    </h1>
+
+    <h2>How to Use This Exam Page</h2>
+
+    <ul>
+    
+     	<li>This exam was an online exam</li>  
+        <li>You are strongly recommended to first try out each question
+            by selecting/entering your answer, and then pressing
+            <button style="pointer-events: none;">Check your answer</button>
+        </li>
+        <li>If your answer is wrong, try to change it, then check it again</li>
+        <li>If you have tried some different answers and can't get the answer
+            correct, that's when you should select
+            <button style="pointer-events: none;">Click here to show the correct answer and video explanation</button>
+        </li>
+        <li>Then you will see the correct answer(s), together with a link to the video explanation</li>
+        <li>For all questions in Part A, students could copy Python code from the exam</li>  
+		<li>For all questions in Part B, students could not copy Python code from the exam</li>  
+		<li>You can copy the code shown in all questions on this web page after you have selected <button style="pointer-events: none;">Click here to show the correct answer and video explanation</button></li>
+        <li>Video explanations are by</li> 
+        <ul>
+        <li>Prof. Gibson LAM (for all questions in <a href="#PartA">Part A</a>)</li>
+        <li>Prof. David ROSSITER (for all questions in <a href="#PartB">Part B</a>)</li>
+        </ul> 
+    </ul>
+    <div id="videoQualityWidget"></div>
+
+    <h2>The Questions</h2>
+
+    <ul>
+        <li><a href="#PartA">Part A</a>
+            <ul>
+                <li><a href="#PAQ1">Question 1</a></li>
+                <li><a href="#PAQ2">Question 2</a></li>
+                <li><a href="#PAQ3">Question 3</a></li>
+                <li><a href="#PAQ4">Question 4</a>
+                <i style="color:gray;font-size:smaller">(please ignore, not suitable for this semester)</i>
+                </li>
+                <li><a href="#PAQ5">Question 5</a></li>
+                <li><a href="#PAQ6">Question 6</a></li>
+                <li><a href="#PAQ7">Question 7</a></li>
+                <li><a href="#PAQ8">Question 8</a></li>
+            </ul>
+        </li>
+        <li><a href="#PartB">Part B</a>
+            <ul>
+                <li><a href="#PBQ1">Question 1</a></li>
+                <li><a href="#PBQ2">Question 2</a></li>
+                <li><a href="#PBQ3">Question 3</a></li>
+                <li><a href="#PBQ4">Question 4</a></li>
+                <li><a href="#PBQ5">Question 5</a></li>
+                <li><a href="#PBQ6">Question 6</a></li>
+                <li><a href="#PBQ7">Question 7</a></li>
+                <li><a href="#PBQ8">Question 8</a></li>
+                <li><a href="#PBQ9">Question 9</a>
+                <i style="color:gray;font-size:smaller">(please ignore, not suitable for this semester)</i>
+                </li>
+                <li><a href="#PBQ10">Question 10</a></li>
+                <li><a href="#PBQ11">Question 11</a></li>
+                <li><a href="#PBQ12">Question 12</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2><a name="PartA"></a>Part A</h2>
+
+    <ul>
+        <li>For this part of the exam:
+            <ul>
+                <li>You can copy the code shown in the questions</li>
+                <li>You can execute the code</li>
+                <li>You can edit the code</li>
+                <li>and so on</li>
+            </ul>
+        </li>
+        <li>You can quickly run any Python code we give you</li>
+        <li>You may or may not find it useful to run the code given
+            in the questions</li>
+    </ul>
+
+
+    <h3><a name="PAQ1"></a>Question 1</h3>
+
+    <p>Here is a Python program.</p>
+
+    <pre>import turtle
+
+turtle.setup(600,600)
+turtle.hideturtle()
+
+def draw(x, y):
+    print(x, y)
+    if int(x) % 2:
+        turtle.color("green")
+    elif int(y) % 2:
+        turtle.color("red")
+    turtle.dot(40)
+
+turtle.onscreenclick(draw)
+turtle.done()</pre>
+
+    <p>After running the program and clicking somewhere inside the turtle window, the text</p>
+
+    <pre>259.0 260.0</pre>
+
+    <p>is printed by the program.</p>
+
+    <p>What is the display inside the turtle window?</p>
+    
+    <div>
+        <p><strong>Your answer:</strong>
+        <select model="B">
+            <option value="A">A black solid circle in the middle of the screen</option>
+            <option value="B">A green solid circle in the middle of the screen</option>
+            <option value="C">A red solid circle at approximately the top-right hand corner</option>
+            <option value="D">A green solid circle at approximately the top-right hand corner</option>
+        </select>
+        </p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+    
+    <p><strong>Correct answer: </strong>A green solid circle in the middle of the screen</p>
+              
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/COMP1021_S2020_Final_Exam_Gibson_partA_q1.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/COMP1021_S2020_Final_Exam_Gibson_partA_q1.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+
+
+    <h3><a name="PAQ2"></a>Question 2</h3>
+
+    <p>Someone has made the following Python program.</p>
+
+    <pre>def makePythonProgram(): 
+    filename = input("What filename?")
+    sides = input("How many sides?")
+<i style="color: red">A</i>   myfile = open(filename, "r") 
+<i style="color: red">B</i>   myfile.write("import turtle\n") 
+<i style="color: red">C</i>   myfile.write("for i in while(" + sides + "):\n") 
+<i style="color: red">D</i>   myfile.write("\turtle.forward(60)\n") 
+<i style="color: red">E</i>   myfile.write("\turtle.right(360/" + sides + ")\n") 
+    myfile.write("turtle.done()")
+    myfile.close()
+
+makePythonProgram()</pre>
+
+    <p>You can see A B C D E at the start of some lines. Those letters are not part of the code. They are there just so we can easily refer to those lines of code.</p>
+
+    <p>When the program shown above is correct and is executed, this is what happens:</p>
+
+    <ol>
+        <li>The program asks you for a filename, such as test.py</li>
+        <li>The program asks you to enter a number, such as 4</li>
+        <li>Then the program shown above creates a totally different Python program, which has the filename you entered in (1) above e.g. the program creates a new program called test.py. The new Python program is created in the same folder.</li>
+        <li>You can then run the new Python program test.py in the usual way. When you do that, you see a shape which has the same number of sides that you entered in (2) above. For example, if you entered 4 in (2) above then you will see a square when you run the new program test.py. If you entered 3 in (2) above then you will see a triangle when you run the new program test.py. </li>
+    </ol>
+
+    <p>However, the code shown above needs to be edited. At least one of the lines of code must be edited to make it work correctly as described above.</p>
+
+    <p>You need to select one of the answers shown.</p>
+
+    <div>
+        <p><strong>Your answer:</strong>
+        <select model="D">
+            <option value="A">ONE of lines A/B/C/D/E must be edited</option>
+            <option value="B">TWO of lines A/B/C/D/E must be edited</option>
+            <option value="C">THREE of lines A/B/C/D/E must be edited</option>
+            <option value="D">FOUR of lines A/B/C/D/E must be edited</option>
+            <option value="E">FIVE of lines A/B/C/D/E must be edited</option>
+        </select>
+        </p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+    
+     <p><strong>Correct answer: </strong>FOUR of lines A/B/C/D/E must be edited</p>
+              
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/COMP1021_S2020_Final_Exam_Gibson_partA_q2.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/COMP1021_S2020_Final_Exam_Gibson_partA_q2.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+
+
+    <h3><a name="PAQ3"></a>Question 3</h3>
+
+    <p>Here is a program.</p>
+
+    <pre>def getResponse(sentence):
+    words = sentence.split()  
+        # split() with nothing inside the brackets searches for a space 
+    if len(words) == 0:
+        return "You have to talk to me."
+    if sentence[-1] == '?':
+        return "Why do you want to know?"
+
+    <i style="color: red"># This part is missing</i>
+    <i style="color: red"># This part is missing</i>
+    <i style="color: red"># This part is missing</i>
+    <i style="color: red"># This part is missing</i>
+
+    return "Tell me more."
+
+print("Welcome to AI Care!")
+print("Type 'quit' whenever you want to finish.")
+
+sentence = input("What would you like to talk about? ")
+
+while sentence != "quit":
+    sentence = sentence.lower()
+    response = getResponse(sentence)
+    sentence = input(response + " ")</pre>
+
+    <p>Inside a function, when</p>
+
+    <pre>return</pre>
+
+    <p>is executed, the function finishes immediately. This is true even if something is being returned, e.g.
+
+    <pre>return 20</pre>
+
+    <p>Here is an example of using the program. You can see a sequence of messages.</p>
+
+    <pre>Welcome to AI Care!
+Type 'quit' whenever you want to finish.
+What would you like to talk about? <span style="color: green">I would like to find Jimmy to ask about the final</span>
+Tell me more about your TA. <span style="color: green">He is willing to answer questions on the lectures.</span>
+Tell me more. <span style="color: green">He always shows up on the Prof Rossiter's lecture</span>
+Tell me more. <span style="color: green">Prof Rossiter is an interesting teacher...</span>
+Tell me more about that remarkable man. <span style="color: green">Oh really do you want to know him?</span>
+Why do you want to know? <span style="color: green">As your style of talking is very interesting... Haha</span>
+Tell me more. <span style="color: green">Hope that Prof Rossiter and Jimmy would not make the final too hard</span>
+Tell me more about your TA. <span style="color: green">Why?</span>
+Why do you want to know? <span style="color: green">I am talking about the final, it is about Jimmy and Prof Rossiter</span>
+Tell me more about your TA. <span style="color: green">Why again? lol</span>
+Tell me more. <span style="color: green">Oh... You are quite strange, aren't you?</span>
+Why do you want to know? <i style="color: red">...Enter nothing here (Just press Enter)...</i>
+You have to talk to me. <span style="color: green">quit</span>
+
+<i style="color: red">[Program ends here]</i></pre>
+
+    <p>Based on the sequence shown above, what is the correct code (Code A to Code E) to be entered into the program? Select one of the answers shown.</p>
+
+    <p><strong>Code A</strong></p>
+
+    <pre>    if "jimmy" in words:
+        return "Tell me more about your TA."
+    if "rossiter" in words:
+        return "Tell me more about that remarkable man."</pre>
+
+    <p><strong>Code B</strong></p>
+
+    <pre>    if "Jimmy" in words:
+        return "Tell me more about your TA."
+    if "Rossiter" in words:
+        return "Tell me more about that remarkable man."</pre>
+   
+    <p><strong>Code C</strong></p>
+
+    <pre>    if "rossiter" in words:
+        return "Tell me more about that remarkable man."
+    if "jimmy" in words:
+        return "Tell me more about your TA."</pre>
+   
+    <p><strong>Code D</strong></p>
+
+    <pre>    if "rossiter" in words:
+        return "Tell me more about your TA."
+    if "jimmy" in words:
+        return "Tell me more about that remarkable man."</pre>
+
+    <p><strong>Code E</strong></p>
+
+    <pre>    if "Rossiter" in words:
+        return "Tell me more about that remarkable man."
+    if "Jimmy" in words:
+        return "Tell me more about your TA."</pre>
+
+    <div>
+        <p><strong>Your answer:</strong>
+        <select model="A">
+            <option value="A">Code A</option>
+            <option value="B">Code B</option>
+            <option value="C">Code C</option>
+            <option value="D">Code D</option>
+            <option value="E">Code E</option>
+        </select>
+        </p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>Code A</p>
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/COMP1021_S2020_Final_Exam_Gibson_partA_q3.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/COMP1021_S2020_Final_Exam_Gibson_partA_q3.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+
+
+    <h3><a name="PAQ4"></a>Question 4</h3>
+    
+    <p><em>[Note: ontimer() and stamp() were removed from the course after the Spring 2020 semester, so you haven't learned them and won't be able to answer this question.]</em></p>
+    
+    <p>A student has written the following Python program to try to simulate traffic lights.</p>
+
+    <pre>import turtle
+
+sequence = [
+    (1, 0, 0, 1500),
+    (1, 1, 0, 1500),
+    (0, 0, 1, 5000),
+    (0, 1, 0, 1500)
+]
+index = 0
+
+def drawlights():
+    global index
+    turtle.tracer(False)
+    turtle.clear()
+    turtle.home()
+    turtle.color("black")
+    turtle.shape("square")
+    turtle.shapesize(23, 8)
+    turtle.stamp()
+    
+    color = ["red", "yellow", "green"]
+    for i in range(3):
+        if sequence[index][i]:
+            turtle.goto(0, 150 * (1 - i))
+            turtle.dot(100, color[i])
+    turtle.tracer(True)
+
+turtle.up()
+turtle.hideturtle()
+
+def next():
+    global index
+    drawlights()
+    index = (index + 1) % 4
+    turtle.ontimer(next, sequence[index][3])
+
+next()
+turtle.done()</pre>
+
+    <p>Which one of the following images is shown exactly 10 seconds after the program starts?</p>
+
+    <p><strong>Image A</strong></p>
+
+    <p><img src="images/PAQ7_a.png" alt="PAQ7_a" style="height:200px"></p>
+
+    <p><strong>Image B</strong></p>
+
+    <p><img src="images/PAQ7_b.png" alt="PAQ7_b" style="height:200px"></p>
+
+    <p><strong>Image C</strong></p>
+
+    <p><img src="images/PAQ7_c.png" alt="PAQ7_c" style="height:200px"></p>
+
+    <p><strong>Image D</strong></p>
+
+    <p><img src="images/PAQ7_d.png" alt="PAQ7_d" style="height:200px"></p>
+
+    <p><strong>Image E</strong></p>
+
+    <p><img src="images/PAQ7_e.png" alt="PAQ7_e" style="height:200px"></p>
+
+    <div>
+        <p><strong>Your answer:</strong>
+        <select model="A">
+            <option value="A">Image A</option>
+            <option value="B">Image B</option>
+            <option value="C">Image C</option>
+            <option value="D">Image D</option>
+            <option value="E">Image E</option>
+        </select>
+        </p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>Image A</p>
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/COMP1021_S2020_Final_Exam_Gibson_partA_q4.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/COMP1021_S2020_Final_Exam_Gibson_partA_q4.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+
+
+    <h3><a name="PAQ5"></a>Question 5</h3>
+
+    <p>The following program generates the image shown as follows.</p>
+
+    <p><img src="images/PAQ8.png" alt="PAQ8" style="height:300px"></p>
+
+    <pre>import turtle
+spiral = turtle.Turtle()
+
+for i in range(20):
+    spiral.forward(i * 10)
+    spiral.right( 90 +     <b>SEE QUESTION</b>     )
+
+turtle.done()</pre>
+
+    <p>There is a missing value shown by <code>&nbsp;&nbsp;&nbsp;<b>SEE QUESTION</b>&nbsp;&nbsp;&nbsp;</code> in the code above.</p>
+
+    <p>Type the missing number in the answer box. <strong>Enter an integer number.</strong>
+    Don't write a comma or a full stop or anything like that. Don't write a formula or an expression.
+    Your answer must be an integer number which is &gt;=0 and &lt;=360.</p>
+
+    <div>
+        <p><strong>Your answer: </strong><input model="54" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>54</p>
+        
+ <ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/COMP1021_S2020_Final_Exam_Gibson_partA_q5.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/COMP1021_S2020_Final_Exam_Gibson_partA_q5.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+
+
+    <h3><a name="PAQ6"></a>Question 6</h3>
+
+    <p>On the course we used digital audio to help illustrate slicing.</p>
+
+    <p>You are given a list of numbers, called <i>samples</i>. The list <i>samples</i> contains the audio samples,
+    loaded from a digital audio file. Here a sample simply means a number. Each second of audio in the list uses 44100 samples.</p>
+
+    <p>For example, if the length of the given list is 44100, then the digital audio is 1 second long;
+    if the length of the given list is 88200, then the digital audio is 2 seconds long.</p>
+
+    <p>Here is the question. The digital audio in list <i>samples</i> has a duration of <strong>8.5 seconds</strong>.
+    The following line of Python code has been used to extract parts of the list to form a new audio sequence:</p>
+
+    <pre>new_samples = samples[int(len(samples)*0.5)::] + samples[:44100*2:4]</pre>
+
+    <p><strong>What is the duration of the audio in <code>new_samples</code>?</strong>
+    Your answer is in seconds e.g. an answer of 55 means 55 seconds.</p>
+
+    <p>Enter a number. Do not enter anything other than a number.</p>
+
+    <div>
+        <p><strong>Your answer: </strong><input model="4.75" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>4.75</p>
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/COMP1021_S2020_Final_Exam_Gibson_partA_q6.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/COMP1021_S2020_Final_Exam_Gibson_partA_q6.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+
+
+    <h3><a name="PAQ7"></a>Question 7</h3>
+
+    <p>Here is a Python program.</p>
+
+    <pre>import turtle
+
+def checkV():
+    global stage
+    turtle.clear() # Clear anything on the screen
+    if stage==2:
+        stage=3
+    else:
+        turtle.write("Your password is wrong!", \
+            font=("Arial", 30, "bold"), align="center")
+        stage=0
+
+def checkE():
+    global stage
+    turtle.clear() # Clear anything on the screen
+    if stage==1:
+        stage=2
+    elif stage==3:
+        stage=4
+    else:
+        turtle.write("Your password is wrong!", \
+            font=("Arial", 30, "bold"), align="center")
+        stage=0
+
+def checkN():
+    global stage
+    if stage==4:
+        turtle.write("You got the password!", \
+            font=("Arial", 30, "bold"), align="center")
+    stage=0
+
+def checkS():
+    global stage
+    turtle.clear() # Clear anything on the screen
+    if stage==0:
+        stage=1
+    else: 
+        turtle.write("Your password is wrong!", \
+            font=("Arial", 30, "bold"), align="center")
+        stage=0
+
+#Main part of program
+stage=0
+turtle.onkeypress(checkV, "v")
+turtle.onkeypress(checkE, "e")
+turtle.onkeypress(checkN, "n")
+turtle.onkeypress(checkS, "s")
+turtle.listen()
+turtle.done()</pre>
+
+    <p>Based on the above program, what is the password?</p>
+
+    <p><strong>Enter one word</strong>, with no full stops or anything like that.</p>
+
+    <div>
+        <p><strong>Your answer: </strong><input model="seven" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>seven</p>
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/COMP1021_S2020_Final_Exam_Gibson_partA_q7.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/COMP1021_S2020_Final_Exam_Gibson_partA_q7.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+
+
+    <h3><a name="PAQ8"></a>Question 8</h3>
+
+    <p>Here is a simple drawing program created using turtle graphics.</p>
+
+    <pre>import turtle
+
+turtle.width(5)
+turtle.shape("turtle")
+
+def click(x, y):
+    turtle.tracer(False)
+    turtle.goto(x, y)
+    turtle.tracer(True)
+
+turtle.onscreenclick(click)
+
+turtle.done()</pre>
+
+    <p>Which one of the following images <b>cannot</b> be reproduced using the above program?</p>
+
+    <p><strong>Image A</strong></p>
+
+    <p><img src="images/PAQ12_a.png" alt="PAQ12_a" style="height:200px"></p>
+
+    <p><strong>Image B</strong></p>
+
+    <p><img src="images/PAQ12_b.png" alt="PAQ12_b" style="height:200px"></p>
+
+    <p><strong>Image C</strong></p>
+
+    <p><img src="images/PAQ12_c.png" alt="PAQ12_c" style="height:200px"></p>
+
+    <p><strong>Image D</strong></p>
+
+    <p><img src="images/PAQ12_d.png" alt="PAQ12_d" style="height:200px"></p>
+
+    <p><strong>Image E</strong></p>
+
+    <p><img src="images/PAQ12_e.png" alt="PAQ12_e" style="height:200px"></p>
+
+    <div>
+        <p><strong>Your answer:</strong>
+        <select model="D">
+            <option value="A">Image A</option>
+            <option value="B">Image B</option>
+            <option value="C">Image C</option>
+            <option value="D">Image D</option>
+            <option value="E">Image E</option>
+        </select>
+        </p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>Image D</p>
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/COMP1021_S2020_Final_Exam_Gibson_partA_q8.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/COMP1021_S2020_Final_Exam_Gibson_partA_q8.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+
+
+    <h2 id="PartB"><a name="PartB"></a>Part B</h2>
+
+    <ul>
+        <li>For this part of the exam:
+            <ul>
+                <li>You cannot copy the code shown in the questions</li>
+                <li>You cannot execute the code</li>
+                <li>You cannot edit the code</li>
+            </ul>
+        </li>
+        <li>You can still run Python if you want to but
+            you cannot do the above</li>
+		<li>You will be allowed to copy the code shown in the question after you have selected <button style="pointer-events: none;">Click here to show the correct answer and video explanation</button> 
+        </li>
+    </ul>
+
+
+    <h3><a name="PBQ1"></a>Question 1</h3>
+
+    <p><strong>No code is given to you for this question. You have to make your own code to work out the answer.</strong></p>
+
+    <p><strong>How many numbers are there in the range  100, 101, ... , 498, 499  which are:</strong></p>
+
+    <ul>
+        <li>exactly divisible by 2, and</li>
+        <li>exactly divisible by 5, and</li>
+        <li>exactly divisible by 7, and</li>
+        <li>exactly divisible by 10</li>
+    </ul>
+
+    <p>?</p>
+
+    <p>For example, the number <strong>140</strong> is one of those numbers, because:</p>
+
+    <ul>
+        <li>it is in the range 100, 101, ... , 498, 499</li>
+        <li>it is exactly divisible by 2  (140/2=70), and</li>
+        <li>it is exactly divisible by 5  (140/5=28), and</li>
+        <li>it is exactly divisible by 7  (140/7=20), and</li>
+        <li>it is exactly divisible by 10  (140/10=14)</li>
+    </ul>
+
+    <p>For example, the number <strong>150</strong> is <strong>not</strong> one of those numbers, because:</p>
+
+    <ul>
+        <li>it is in the range 100, 101, ... , 498, 499</li>
+        <li>it is exactly divisible by 2  (150/2=75), and</li>
+        <li>it is exactly divisible by 5  (150/5=30), but</li>
+        <li><strong>it is not exactly divisible by 7  (150/7=21.429) so it is not one of those numbers</strong></li>
+        <li>it is exactly divisible by 10  (150/10=15)</li>
+    </ul>
+
+    <p>In total, <strong>how many numbers</strong> in the range  100, 101, ... , 498, 499 
+    are exactly divisible by 2, 5, 7 and 10 in the way described above?</p>
+
+    <div>
+        <p><strong>Your answer: </strong><input model="6"></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>6</p>
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q1.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q1.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+
+
+    <h3><a name="PBQ2"></a>Question 2</h3>
+    <p>For this question you can't copy the code.</p>
+
+    <p>An infinite loop is a loop that cannot end (unless, for example, you do Ctrl-C or turn off the computer).</p>
+
+    <p>For example, in the following programs if the program contains an infinite loop the word 'finished' will not be printed,
+    because the program will never reach the last line of code.</p>
+
+    <p>For each of the following programs, you need to determine whether the program does or does not have an infinite loop.</p>
+
+    <p><strong>Program A</strong></p>
+
+    <pre src="ZGVmIGFfZnVuY3Rpb24odGhpc3Zhcik6CiAgICB0aGlzdmFyID0gdGhpc3ZhcisxCgp0aGlzdmFyID0gMQp3aGlsZSB0aGlzdmFyID09IDE6CiAgICBudW0gPSBpbnB1dCgiRW50ZXIgYSBudW1iZXI6IikKICAgIG51bSA9IGludChudW0pCiAgICBwcmludCgiWW91IGVudGVyZWQ6ICIsIG51bSkKICAgIGFfZnVuY3Rpb24odGhpc3ZhcikKcHJpbnQoImZpbmlzaGVkIik="></pre>
+
+    <p><strong>Program B</strong></p>
+
+    <pre src="Y291bnRkb3duPTIKd2hpbGUgY291bnRkb3duPDk6CiAgICBjb3VudGRvd249Y291bnRkb3duLTEKICAgIGlmIGNvdW50ZG93bjoKICAgICAgICBicmVhawogICAgcHJpbnQoIllvdSBsb3ZlIG1lISIpCnByaW50KCJmaW5pc2hlZCIp"></pre>
+
+    <p><strong>Program C</strong></p>
+
+    <pre src="ZmluaXNoZWQ9VHJ1ZQp4PTAKd2hpbGUgbm90IGZpbmlzaGVkOgogICAgcHJpbnQoIkkgbG92ZSB5b3UhIikKICAgIGlmIHggPiA1OgogICAgICAgIGZpbmlzaGVkPVRydWUKICAgIGVsc2U6CiAgICAgICAgZmluaXNoZWQ9RmFsc2UKcHJpbnQoImZpbmlzaGVkIik="></pre>
+
+    <p><strong>Program D</strong></p>
+
+    <pre src="YWFhID0gMApiYmIgPSAiMTAyMSIKd2hpbGUgVHJ1ZToKICAgIGJiYiA9IGJiYlsxOl0rYmJiWzoxXQogICAgcHJpbnQoYmJiKQogICAgYWFhID0gYWFhKzAuNQogICAgYWFhID0gaW50KGFhYSkKICAgIGlmIGFhYSA9PSAxOgogICAgICAgIGJyZWFrCnByaW50KCJmaW5pc2hlZCIp"></pre>
+
+    <p><strong>Program E</strong></p>
+
+    <pre src="bXlsaXN0PVsiZG9nIl0Kd2hpbGUgbGVuKG15bGlzdCk+MDoKICAgIGlmIG15bGlzdFstMV0gPT0gImRvZyI6CiAgICAgICAgbXlsaXN0LmFwcGVuZCgiY2F0IikKICAgIGVsaWYgbXlsaXN0WzBdID09ICJkb2ciOgogICAgICAgIG15bGlzdC5yZW1vdmUoImNhdCIpCiAgICBwcmludChteWxpc3QpCnByaW50KCJmaW5pc2hlZCIp"></pre>
+
+    <p>Which of the five programs shown above has an infinite loop?</p>
+
+    <p>For example, if you think the programs shown in A, B and C contain an infinite loop, and the programs shown in D and E do not contain an infinite loop, you should answer as follows:</p>
+
+    <pre>TTTFF</pre>
+
+    <p>Do not include numbers, spaces, speech marks, or anything else like that in your answer. Just write 5 letters. Each of the 5 letters is either a T or an F. T means True, F means False.</p>
+
+    <p>Your answer has to be all correct to get the mark. No partial credits will be given.</p>
+
+    <div>
+        <p><strong>Your answer: </strong><input model="TFFTT" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>TFFTT</p>
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q2.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q2.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+        <p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+    </div>
+
+
+    <h3><a name="PBQ3"></a>Question 3</h3>
+    <p>For this question you can't copy the code.</p>
+
+    <p>Here is a program.</p>
+
+    <pre src="ZGVmIGZ1bmN0aW9uMSgpOgogICAgcHJpbnQoIjEiKQogICAgZnVuY3Rpb24yKCkKICAgIApkZWYgZnVuY3Rpb24yKCk6CiAgICBwcmludCgiMiIpCiAgICBmdW5jdGlvbjMoKQogICAgZnVuY3Rpb24zKCkKICAgIGZ1bmN0aW9uMygpCgpkZWYgZnVuY3Rpb24zKCk6CiAgICBwcmludCgiMyIpCiAgICBmdW5jdGlvbjQoKQogICAgZnVuY3Rpb240KCkKICAgIGZ1bmN0aW9uNCgpCiAgICAKZGVmIGZ1bmN0aW9uNCgpOgogICAgcHJpbnQoIjQiKQoKZGVmIGZ1bmN0aW9uNSgpOgogICAgcHJpbnQoIjUiKQogICAgZnVuY3Rpb242KCkKICAgIGZ1bmN0aW9uNigpCgpkZWYgZnVuY3Rpb242KCk6CiAgICBwcmludCgiNiIpCgpmdW5jdGlvbjEoKQ=="></pre>
+ 
+    <p>When you run the program, <strong>how many times in total is a digit printed?</strong></p>
+
+    <p>Don't enter a comma or anything like that. Simply enter an integer.</p>
+
+    <div>
+        <p><strong>Your answer: </strong><input model="14" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>14</p>
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q3.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q3.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+        <p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+    </div>
+
+
+    <h3><a name="PBQ4"></a>Question 4</h3>
+    <p>For this question you can't copy the code.</p>
+
+    <p>Here is a program.</p>
+
+    <pre src="aW1wb3J0IHR1cnRsZQoKdHVydGxlLmdvdG8oLTEwMC0xMDAsMCkKdHVydGxlLnNwZWVkKDApCnR1cnRsZS5jb2xvcigid2hpdGUiLCJ3aGl0ZSIpCng9MAp3aGlsZSB4PDEwMDoKICAgIHR1cnRsZS5mb3J3YXJkKDEwMCsxMDArMTAwKQogICAgdHVydGxlLmxlZnQoMTAwKzQ0MDAqMTAwLzEwKioyKQogICAgdHVydGxlLmRvdCgxMDApCiAgICB0dXJ0bGUuY29sb3IoIndoaXRlIiwiYmxhY2siKQogICAgdHVydGxlLmRvdCgxMDAtMTAwLzEwKQogICAgdHVydGxlLmNvbG9yKCJibGFjayIsImJsYWNrIikKICAgIHg9eCsxCng9MAp3aGlsZSB4PDEwMDoKICAgIHR1cnRsZS5mb3J3YXJkKDEwMCsxMDArMTAwKQogICAgdHVydGxlLmxlZnQoMTAwKzQ0MDAqMTAwLzEwKioyKQogICAgdHVydGxlLmRvdCgxMDApCiAgICB0dXJ0bGUuY29sb3IoIndoaXRlIiwiYmxhY2siKQogICAgdHVydGxlLmRvdCgxMDAtMTAwLzEwKQogICAgdHVydGxlLmNvbG9yKCJibGFjayIsImJsYWNrIikKICAgIHg9eCsxCgp0dXJ0bGUuZG9uZSgp"></pre>
+ 
+    <p>You can assume that everything which is drawn by the program is visible in the turtle window.</p>
+
+    <p>When the program has totally finished <strong>how many circles</strong> can be seen?</p>
+
+    <p>Your answer must be an integer. The answer is not zero. Don't enter any commas or anything else like that. Simply enter an integer.</p>
+
+    <div>
+        <p><strong>Your answer: </strong><input model="2"></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>2</p>
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q4.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q4.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+        <p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+    </div>
+
+
+    <h3><a name="PBQ5"></a>Question 5</h3>
+    <p>For this question you can't copy the code.</p>
+
+    <p>Here is a program.</p>
+
+    <pre src="aW1wb3J0IHR1cnRsZQoKYT0gU0VFIFFVRVNUSU9OCmI9IFNFRSBRVUVTVElPTgoKdHVydGxlLnNldHdvcmxkY29vcmRpbmF0ZXMoYSoxMDAtNTAsIGIqMTAwLTUwLCBhKjEwMCs1MCwgYioxMDArNTApCnR1cnRsZS5zcGVlZCgwKQp0dXJ0bGUudXAoKQoKdGhpc3RoaW5nPTAKdGhhdHRoaW5nPTAKCmZvciB4IGluIHJhbmdlKDEsIDUpOgogICAgaWYgeD09MToKICAgICAgICB0aGlzdGhpbmc9NAogICAgZWxpZiB4PT0yOgogICAgICAgIHRoaXN0aGluZz0zCiAgICBlbGlmIHg9PTM6CiAgICAgICAgdGhpc3RoaW5nPTEKICAgIGVsaWYgeD09NDoKICAgICAgICB0aGlzdGhpbmc9MgogICAgZWxzZToKICAgICAgICB0aGlzdGhpbmc9MQogICAgZm9yIHkgaW4gcmFuZ2UoMSwgNSk6CiAgICAgICAgaWYgeT09MToKICAgICAgICAgICAgdGhhdHRoaW5nPTEKICAgICAgICBlbGlmIHk9PTI6CiAgICAgICAgICAgIHRoYXR0aGluZz0zCiAgICAgICAgZWxpZiB5PT0zOgogICAgICAgICAgICB0aGF0dGhpbmc9MgogICAgICAgIGVsaWYgeT09NDoKICAgICAgICAgICAgdGhhdHRoaW5nPTQKICAgICAgICBlbHNlOgogICAgICAgICAgICB0aGF0dGhpbmc9OQogICAgICAgIHR1cnRsZS5nb3RvKHgqMTAwLCB5KjEwMCkKICAgICAgICB0dXJ0bGUud3JpdGUodGhpc3RoaW5nKnRoYXR0aGluZywgYWxpZ249ImNlbnRlciIsZm9udD0oIkFyaWFsIiwgNzAsICJub3JtYWwiKSkKICAgICAgICBpZiB0aGlzdGhpbmcqdGhhdHRoaW5nPT05OgogICAgICAgICAgICBwcmludCh4LCB5KQ=="></pre>
+
+    <p>When the program is executed the following window is shown.</p>
+
+    <p><img src="images/PBQ8_setworldcoordinates.png" alt="PBQ8_setworldcoordinates" style="height:400px"></p>
+
+    <p>What is the value of variables <i>a</i> and <i>b</i>? They are both <strong>integers</strong>.</p>
+
+    <div>
+        <p><strong>Your answer (value of variable <i>a</i>): </strong><input model="2" keepspace></p>
+        <p><strong>Your answer (value of variable <i>b</i>): </strong><input model="2" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer (value of variable <i>a</i>): </strong>2</p>
+        <p><strong>Correct answer (value of variable <i>b</i>): </strong>2</p>
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q5.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q5.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+        <p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+    </div>
+
+
+    <h3><a name="PBQ6"></a>Question 6</h3>
+
+    <p>Here is a Python program, which you can copy.</p>
+
+<pre class="selectableQ6">
+words=[]
+
+myfile = open("most_common_words.txt", "r")
+for line in myfile: 
+    line = line.rstrip()
+    words.append(line)
+myfile.close()
+
+for thisword in words:
+    print(thisword, end=" ")
+</pre>
+
+    <p>When you run the program, it will load a list of words from a file called <i>most_common_words.txt</i>.
+    Each word in the file is appended to a list called <i>words</i>. Finally, the program prints all the words in the list.</p>
+
+    <p>Get the text file from this link and put it in the same folder as your Python program:
+    <a href="files/most_common_words.txt">most_common_words.txt</a></p>
+
+    <p>To answer this question, you need to extend the program code so this happens in stages:</p>
+
+    <ol>
+        <li>Use the code shown above to load the words into a list called <i>words</i></li>
+        <li>Then, keep the first 50% of words in the list <i>words</i> (the last 50% is dumped)</li>
+        <li>Reverse the order of the words</li>
+        <li>Keep every second word i.e. the exact pattern is KEEP DUMP KEEP DUMP</li>
+        <li>Keep every fourth word i.e. the exact pattern is KEEP DUMP DUMP DUMP KEEP DUMP DUMP DUMP</li>
+        <li>Keep every sixth word i.e. the exact pattern is KEEP DUMP DUMP DUMP DUMP DUMP KEEP DUMP DUMP DUMP DUMP DUMP</li>
+        <li>Keep every tenth word i.e. the exact pattern is KEEP DUMP DUMP DUMP DUMP DUMP DUMP DUMP DUMP DUMP KEEP DUMP DUMP DUMP DUMP DUMP DUMP DUMP DUMP DUMP</li>
+    </ol>
+
+    <p>After doing the 7 stages described above in the order shown above,
+    there are some words left in the list <i>words</i>. After doing the 7 steps,
+    <strong>what words remain in the list <i>words</i>? There is more than one word, and less than 10 words.</strong></p>
+
+    <p>For your answer,
+    <strong>just write the words remaining in the list <i>words</i>, with a space between the words.</strong>
+    Don't include any speech marks, square brackets, commas, spaces, or anything like that.
+    <strong>Simply write the words, with a space between each word. Don't put a space or a full stop at the end.</strong></p>
+
+    <div>
+        <p><strong>Your answer: </strong><input model="among they" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>among they</p>
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q6.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q6.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+
+
+    <h3><a name="PBQ7"></a>Question 7</h3>
+<p>For this question you can't copy the code.</p>
+    <p>Here is a program.</p>
+
+    <pre src="ZGVmIGNoZWNrKGJveWZyaWVuZHNfd2hvX2tub3dfcHl0aG9uKToKICAgIGlmIGJveWZyaWVuZHNfd2hvX2tub3dfcHl0aG9uPD0yOgogICAgICAgIHByaW50KCJJbnRlcmVzdGluZyEiKQogICAgZWxpZiBib3lmcmllbmRzX3dob19rbm93X3B5dGhvbjw9NDoKICAgICAgICBwcmludCgiUXVpdGUgY3JhenkhIikKICAgIGVsc2U6CiAgICAgICAgcHJpbnQoIllvdSBhcmUgcmVhbGx5IGNyYXp5ISEiKQogICAgICAgIHByaW50KCJCZWNhdXNlIHlvdSBoYXZlIHNvIG1hbnkgYm95ZnJpZW5kcyB3aG8ga25vdyBweXRob24iKQogICAgICAgIHByaW50KCJJIHdpbGwgZG8gc29tZSBtYWdpYyBhbmQgdGFrZSBzb21lIGF3YXkhIikKICAgICAgICBib3lmcmllbmRzX3dob19rbm93X3B5dGhvbiA9IGJveWZyaWVuZHNfd2hvX2tub3dfcHl0aG9uLTMKICAgIApib3lmcmllbmRzX3dob19rbm93X3B5dGhvbiA9IDUKY2hlY2soYm95ZnJpZW5kc193aG9fa25vd19weXRob24pCnByaW50KGJveWZyaWVuZHNfd2hvX2tub3dfcHl0aG9uKQ=="></pre>
+ 
+    <p>What number is printed when the program is run?</p>
+
+    <p>Enter an integer.</p>
+
+    <p>If you think the program crashes then type <strong>ERROR</strong> for your answer.</p>
+
+    <div>
+        <p><strong>Your answer: </strong><input model="5"></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>5</p>
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q7.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q7.mp4'>here</a> for the video.
+    </video>
+</ul>
+        <p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+    </div>
+
+
+    <h3><a name="PBQ8"></a>Question 8</h3>
+<p>For this question you can't copy the code.</p>
+    <p>Here is a program.</p>
+
+    <pre src="c2VudGVuY2UgPSBpbnB1dCgiUGxlYXNlIGdpdmUgbWUgYSBzZW50ZW5jZTogIikKc2VudGVuY2UgPSBzZW50ZW5jZS5zcGxpdCgpIAoKcGFydHMgPSBbXQp3aGlsZSBsZW4oc2VudGVuY2UpID4gMDoKICAgIHBhcnQgPSBzZW50ZW5jZVswXQogICAgc2VudGVuY2UucmVtb3ZlKHNlbnRlbmNlWzBdKQogICAgaWYgcGFydCA9PSAiSSI6CiAgICAgICAgcGFydHMuYXBwZW5kKCJZb3UiKQogICAgICAgIGlmIGxlbihzZW50ZW5jZSkgPiAwIGFuZCBzZW50ZW5jZVswXSA9PSAiYW0iOgogICAgICAgICAgICBzZW50ZW5jZS5yZW1vdmUoc2VudGVuY2VbMF0pCiAgICAgICAgICAgIHBhcnRzLmFwcGVuZCgiYXJlIikKICAgICAgICAgICAgaWYgbGVuKHNlbnRlbmNlKSA+IDAgYW5kIHNlbnRlbmNlWzBdID09ICJub3QiOgogICAgICAgICAgICAgICAgc2VudGVuY2UucmVtb3ZlKHNlbnRlbmNlWzBdKQogICAgICAgICAgICBlbHNlOgogICAgICAgICAgICAgICAgcGFydHMuYXBwZW5kKCJub3QiKQogICAgICAgIGVsc2U6CiAgICAgICAgICAgIHBhcnRzLmFwcGVuZCgiZG9uJ3QiKQogICAgZWxpZiBwYXJ0ID09ICJZb3UiIG9yIHBhcnQgPT0gInlvdSI6CiAgICAgICAgcGFydHMuYXBwZW5kKCJJIikKICAgICAgICBpZiBsZW4oc2VudGVuY2UpID4gMCBhbmQgc2VudGVuY2VbMF0gPT0gImFyZSI6CiAgICAgICAgICAgIHNlbnRlbmNlLnJlbW92ZShzZW50ZW5jZVswXSkKICAgICAgICAgICAgcGFydHMuYXBwZW5kKCJhbSIpCiAgICAgICAgICAgIGlmIGxlbihzZW50ZW5jZSkgPiAwIGFuZCBzZW50ZW5jZVswXSA9PSAibm90IjoKICAgICAgICAgICAgICAgIHNlbnRlbmNlLnJlbW92ZShzZW50ZW5jZVswXSkKICAgICAgICAgICAgZWxzZToKICAgICAgICAgICAgICAgIHBhcnRzLmFwcGVuZCgibm90IikKICAgICAgICBlbHNlOgogICAgICAgICAgICBwYXJ0cy5hcHBlbmQoImRvbid0IikKICAgIGVsc2U6CiAgICAgICAgcGFydHMuYXBwZW5kKHBhcnQpCgpmb3IgaSBpbiByYW5nZShsZW4ocGFydHMpKToKICAgIGlmIGkgPiAwOiBwcmludCgiICIsIGVuZD0iIikKICAgIHByaW50KHBhcnRzW2ldLCBlbmQ9IiIp"></pre>
+
+
+<div>
+<p>If you run the above program, type</p>
+
+    <pre>I am a boy</pre>
+
+<p>and then press Enter, what will be the output of the program? (No error occurs when the program is run.)</p>
+
+<p>Please do not include extra space in your answers.</p>
+    
+<p><strong>Your answer: </strong><input model="You are not a boy,&quot;You are not a boy&quot;,&apos;You are not a boy&apos;" keepspace> (Blank 1)</p>
+
+<p>If you run the above program, type</p>
+
+    <pre>I love you</pre>
+
+    <p>and then press Enter, what will be the output of the program? (No error occurs when the program is run.)</p>
+
+<p>Please do not include extra space in your answers.</p>
+
+<p><strong>Your answer: </strong><input model="You don&apos;t love I don&apos;t,&quot;You don&apos;t love I don&apos;t&quot;,&apos;You don\&apos;t love I don\&apos;t&apos;,&quot;You don\&apos;t love I don\&apos;t&quot;" keepspace> (Blank 2)</p>
+        
+<p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+</div>
+
+<p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+<div class="answer-area">
+        <p><strong>Accepted answers for "Blank 1":</strong></p>
+        <p><code>You are not a boy</code></p>
+        <p><code>&quot;You are not a boy&quot;</code></p>
+        <p><code>&apos;You are not a boy&apos;</code></p>
+        
+        <p><strong>Accepted answers for "Blank 2":</strong></p>
+        <p><code>You don&apos;t love I don&apos;t</code></p>
+        <p><code>&quot;You don&apos;t love I don&apos;t&quot;</code></p>
+        <p><code>&apos;You don\&apos;t love I don\&apos;t&apos;</code></p>
+        <p><code>&quot;You don\&apos;t love I don\&apos;t&quot;</code></p>
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q8.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q8.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+<p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+</div>
+    
+    
+
+    <h3><a name="PBQ9"></a>Question 9</h3>
+    <p>For this question you can't copy the code.</p>
+	<p><em>[Note: ontimer() was removed from the course after the Spring 2020 semester, so you haven't learned it and won't be able to answer this question.]</em></p>
+
+    <p>Here is a program.</p>
+
+    <pre src="aW1wb3J0IHR1cnRsZQoKZGRkID0gRmFsc2UKZWVlID0gRmFsc2UKCmRlZiBhYWEoKToKICAgIGdsb2JhbCBkZGQsIGVlZQogICAgdGltZTMgPSB0aW1lLnRpbWUoKQogICAgcHJpbnQodGltZTMtdGltZTEpCiAgICB0dXJ0bGUuY2xlYXIoKQogICAgdHVydGxlLndyaXRlKCJzdGFnZTMiLCBmb250PSgiQXJpYWwiLDE1KSkKICAgIGlmIGRkZCBhbmQgbm90IGVlZToKICAgICAgICBkZGQgPSBGYWxzZQogICAgICAgIGVlZSA9IEZhbHNlCiAgICAgICAgdHVydGxlLm9udGltZXIoY2NjLCA3MDApCgpkZWYgYmJiKCk6CiAgICBnbG9iYWwgZWVlCiAgICB0dXJ0bGUuY2xlYXIoKQogICAgdHVydGxlLndyaXRlKCJzdGFnZTIiLCBmb250PSgiQXJpYWwiLDE1KSkKICAgIGlmIG5vdCBlZWU6CiAgICAgICAgZWVlID0gVHJ1ZQogICAgICAgIHR1cnRsZS5vbnRpbWVyKGNjYywgNjAwKQogICAgZWxzZToKICAgICAgICBlZWUgPSBGYWxzZQogICAgICAgIHR1cnRsZS5vbnRpbWVyKGFhYSwgNTAwKQoKCmRlZiBjY2MoKToKICAgIGdsb2JhbCBkZGQKICAgIHR1cnRsZS5jbGVhcigpCiAgICB0dXJ0bGUud3JpdGUoInN0YWdlMSIsIGZvbnQ9KCJBcmlhbCIsMTUpKQogICAgaWYgbm90IGRkZDoKICAgICAgICBkZGQgPSBUcnVlCiAgICAgICAgdHVydGxlLm9udGltZXIoYmJiLDMwMDApCiAgICBlbHNlOgogICAgICAgIGRkZCA9IEZhbHNlCiAgICAgICAgdHVydGxlLm9udGltZXIoYWFhLDIwMDApCmltcG9ydCB0aW1lCnRpbWUxID0gdGltZS50aW1lKCkKY2NjKCkKdHVydGxlLmRvbmUoKQ=="></pre>
+ 
+    <p>After exactly how many seconds does the turtle window show "stage3"?</p>
+
+    <p>Enter a number. Do not enter anything other than a number.</p>
+
+    <div>
+        <p><strong>Your answer: </strong><input model="5.6" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong>5.6</p>
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q9.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q9.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+        <p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+    </div>
+
+
+    <h3><a name="PBQ10"></a>Question 10</h3>
+    <p>For this question you can't copy the code.</p>
+
+    <p>On the course you have learnt two ways to reverse the order of things in a list.</p>
+
+    <p>Let's assume you have a list like this:</p>
+
+    <pre>mylist=[23,5,8,909,50,1]</pre>
+
+    <p>One way to reverse the order of the things in <code>mylist</code> is this:</p>
+
+    <pre>mylist.reverse()</pre>
+
+    <p>Another way to reverse the order of the things in <code>mylist</code> is this:</p>
+
+    <pre>mylist=mylist[::-1]</pre>
+
+    <p>Is one method faster than the other method?</p>
+
+    <p>To investigate which method is faster, write a program which does this:</p>
+
+    <ol>
+        <li>Do the first assessment:
+            <ol>
+                <li>Get the start time, using <code>time.time()</code></li>
+                <li>Do this 10000000 times:
+                    <ul>
+                        <li><code>mylist=[23,5,8,909,50,1]</code></li>
+                        <li><code>mylist.reverse()</code></li>
+                    </ul>
+                </li>
+                <li>Get the end time, using <code>time.time()</code></li>
+                <li>Do end time - start time to get the total time taken</li>
+            </ol>
+        </li>
+        <li>Now move on to the second assessment:
+            <ol>
+                <li>Get the start time, using <code>time.time()</code></li>
+                <li>Do this 10000000 times:
+                    <ul>
+                        <li><code>mylist=[23,5,8,909,50,1]</code></li>
+                        <li><code>mylist=mylist[::-1]</code></li>
+                    </ul>
+                </li>
+                <li>Get the end time, using <code>time.time()</code></li>
+                <li>Do end time - start time to get the total time taken</li>
+            </ol>
+        </li>
+    </ol>
+
+    <p>Run the above test a few times so you are sure which answer to select.</p>
+
+    <p>Then you can select an appropriate answer.</p>
+    
+    <div>
+        <p><strong>Your answer:</strong>
+        <select model="B">
+            <option value="A">Both <code>mylist.reverse()</code> and <code>mylist=mylist[::-1]</code> take the same amount of time (within plus or minus 2% time difference)</option>
+            <option value="B"><code>mylist.reverse()</code> is faster than <code>mylist=mylist[::-1]</code></option>
+            <option value="C"><code>mylist=mylist[::-1]</code> is faster than <code>mylist.reverse()</code></option>
+        </select>
+        </p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong><code>mylist.reverse()</code> is faster than <code>mylist=mylist[::-1]</code></p>
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q10.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q10.mp4'>here</a> for the video.
+    </video>
+</ul>
+        <p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+    </div>
+
+
+    <h3><a name="PBQ11"></a>Question 11</h3>
+<p>For this question you can't copy the code.</p>
+    <p>Here is a program.</p>
+
+    <pre src="c2xlZXBfdGltZSAgICAgICAgPSA4Cm51bWJlcl9vZl9leGFtcyAgID0gNApsZXNzb25zX3NraXBwZWQgICA9IDUKcGFydGllc19yZW1haW5pbmcgPSA1Cgp3ZWVrID0gMAoKbWVzc2FnZSA9ICIiCgp3aGlsZSB3ZWVrIDw9MjoKICAgIGlmIHNsZWVwX3RpbWUgPiA0IG9yIChudW1iZXJfb2ZfZXhhbXMgKyBwYXJ0aWVzX3JlbWFpbmluZykgPiAxNToKICAgICAgICBtZXNzYWdlID0gIllvdSBjYW5ub3Qgc2xlZXAgc28gbXVjaCEiCiAgICBlbGlmIHNsZWVwX3RpbWUgPD0gNDoKICAgICAgICBpZiBudW1iZXJfb2ZfZXhhbXMgPiA0IGFuZCBsZXNzb25zX3NraXBwZWQgPiAyMDoKICAgICAgICAgICAgbWVzc2FnZSA9ICJZb3UgcHJvYmFibHkgZGVzZXJ2ZWQgdGhpcy4iCiAgICAgICAgZWxpZiBudW1iZXJfb2ZfZXhhbXMgPiA2IGFuZCBwYXJ0aWVzX3JlbWFpbmluZyA8IDI6CiAgICAgICAgICAgIG1lc3NhZ2UgPSAiRG9uJ3QgdGFrZSBzbyBtYW55IGNvdXJzZXMgbmV4dCB0aW1lISIKICAgICAgICBlbGlmIG51bWJlcl9vZl9leGFtcyA8IDIgb3IgcGFydGllc19yZW1haW5pbmcgPiA0OgogICAgICAgICAgICBtZXNzYWdlID0gIllheSwgZW5qb3kgdGhlIGZ1biEiCiAgICAgICAgZWxzZToKICAgICAgICAgICAgbWVzc2FnZSA9ICJXaGF0IGRvIHlvdSBkbyBpbiB0aGUgZGF5dGltZT8iCiAgICB3ZWVrICs9IDEKICAgIHNsZWVwX3RpbWUgLT0gMgogICAgbGVzc29uc19za2lwcGVkICs9IDYKICAgIGlmIHdlZWsgJTM6CiAgICAgICAgbnVtYmVyX29mX2V4YW1zICs9IDIKICAgIHBhcnRpZXNfcmVtYWluaW5nIC09IDIKCnByaW50KG1lc3NhZ2Up"></pre>
+ 
+    <p>What is the output of the above program?</p>
+    
+    <div>
+        <p><strong>Your answer:</strong>
+        <select class="code" model="C">
+            <option value="A">You cannot sleep so much!</option>
+            <option value="B">You probably deserved this.</option>
+            <option value="C">Don't take so many courses next time!</option>
+            <option value="D">Yay, enjoy the fun!</option>
+            <option value="E">What do you do in the daytime?</option>
+        </select>
+        </p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong><code>Don't take so many courses next time!</code></p>
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q11.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q11.mp4'>here</a> for the video.
+    </video>
+</ul>
+        
+        <p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+    </div>
+  
+
+    <h3><a name="PBQ12"></a>Question 12</h3>
+<p>For this question you can't copy the code.</p>
+<p>In this semester (Spring 2020) students used Python 3.8.</p>
+<p>The UST Campus Service Office has created a Python program to help students find restaurants inside the campus.</p>
+<p>The program is shown below.</p>
+
+    <pre src="cmVzdGF1cmFudHMgPSB7CiAgICAiVW5pUXVlIjogIkNvbmZlcmVuY2UgTG9kZ2UiLAogICAgIkRpbmVyc0BMU0tCQiI6ICJMU0siLAogICAgIlBhY2lmaWMgQ29mZmVlIjogIkxTSyIsCiAgICAiSGFsYWwgRm9vZCBDb3VudGVyIjogIkxTSyIsCiAgICAiU3Vid2F5IjogIkNZVCIsCiAgICAiVUMgQmlzdHJvIjogIlVDIiwKICAgICJVbmktQmFyIjogIlVDIiwKICAgICJDaGluYSBHYXJkZW4gUmVzdGF1cmFudCI6ICJBdHJpdW0iLAogICAgIkxHMSBSZXN0YXVyYW50IjogIkxHMSIsCiAgICAiU3RhcmJ1Y2tzIENvZmZlZSI6ICJBdHJpdW0iLAogICAgIk1jRG9uYWxkJ3MiOiAiTEc1IiwKICAgICJBc2lhIFBhY2lmaWMgQ2F0ZXJpbmciOiAiTEc3IiwKICAgICJHb2xkIFJpY2UgQm93bCBEZWxpY2lvdXMoPykgRm9vZCI6ICJMRzciLAogICAgIlRUIFZlZ2dpZSI6ICJMRzciLAogICAgIlNlYWZyb250IENhZmV0ZXJpYSI6ICJVRyBIYWxsIFZJIgp9Cgpsb2NhdGlvbnMgPSB7fQpmb3IgcmVzdGF1cmFudCwgbG9jYXRpb24gaW4gcmVzdGF1cmFudHMuaXRlbXMoKToKICAgIGxvY2F0aW9uc1tsb2NhdGlvbl0gPSByZXN0YXVyYW50Cgpsb2NhdGlvbiA9IGlucHV0KCJXaGVyZSBhcmUgeW91IG5vdz8gIikKaWYgbG9jYXRpb24gaW4gbG9jYXRpb25zOgogICAgcHJpbnQoIllvdSBjYW4gZ28gdG8gIiArIGxvY2F0aW9uc1tsb2NhdGlvbl0gKyAiISIpCmVsc2U6CiAgICBwcmludCgiVGhlcmUgaXMgbm8gc3VjaCBwbGFjZSBpbiBVU1QuIik="></pre>
+ 
+    <p>In this question, you can assume that the code</p>
+
+    <pre>restaurants.items()</pre>
+
+    <p>returns the items in the same order as when the items are created.</p>
+
+    <p>If you run the program and enter LG7, what is the output of the program?</p>
+    
+    <div>
+        <p><strong>Your answer:</strong>
+        <select class="code" model="D">
+            <option value="A">There is no such place in UST.</option>
+            <option value="B">You can go to Asia Pacific Catering!</option>
+            <option value="C">You can go to Gold Rice Bowl Delicious(?) Food!</option>
+            <option value="D">You can go to TT Veggie!</option>
+            <option value="E">You can go to LG7!</option>
+            <option value="F">You can go to McDonald's!</option>
+            <option value="G">You can go to Seafront Cafeteria!</option>
+            <option value="H">You can go to Halal Food Counter!</option>
+            <option value="I">You can go to Subway!</option>
+            <option value="J">You can go to Uni-Bar!</option>
+        </select>
+        </p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+        <p><strong>Correct answer: </strong><code>You can go to TT Veggie!</code></p>
+        
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q12.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/COMP1021_S2020_Final_Exam_Rossiter_partB_q12.mp4'>here</a> for the video.
+    </video>
+</ul>
+        
+        <p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+    </div>
+   
+
+
+
+    <script src="../../scripts/jquery-3.4.1.slim.min.js"></script>
+    <script>
+    if (typeof jQuery != 'undefined') { 
+        $(".check-button").on("click", (e) => {
+            let allCorrect = true;
+            $(e.target).parents("div").find("input, select").each((i, el) => {
+                let models = $(el).attr("model").split(",");
+                let matched = false;
+				let keepspace = $(el)[0].hasAttribute("keepspace");
+                jQuery.each(models, (i, model) => {
+                    let answer = $(el).val();
+                    answer = answer.trim();
+                    if (!keepspace) answer = answer.replace(/\s/g,'')
+                    if (answer == model) matched = true;
+                });
+                $(el).removeClass("wrong");
+                if (!matched) {
+                    allCorrect = false;
+                    $(el).addClass("wrong");
+                }
+            });
+            let result = $(e.target).next(".check-result");
+            if (allCorrect) {
+                result.html("Correct!");
+                result.addClass("correct");
+                result.removeClass("wrong");
+            }
+            else {
+                result.html("Wrong!");
+                result.addClass("wrong");
+                result.removeClass("correct");
+            }
+        });
+        $(".show-button").on("click", (e) => {
+            if ($(e.target).hasClass("hide-button")) {
+                $(e.target).parent().next(".answer-area").hide();
+                $(e.target).text("Click here to show the correct answer and video explanation");
+				$(e.target).parent().prevAll("pre").removeClass("selectable");
+            }
+            else {
+                $(e.target).parent().next(".answer-area").show();
+                $(e.target).text("Click here to hide the correct answer and video explanation");
+				$(e.target).parent().prevAll("pre").addClass("selectable");
+            }
+            $(e.target).toggleClass("hide-button");
+        });
+        $("pre").each((i, el) => {
+            if ($(el).attr("src")) {
+                $(el).html(atob($(el).attr("src")));
+            }
+        });
+    }
+    </script>
+
+</body></html>
+

@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+   <head>
+        <link rel='stylesheet' type='text/css' href='../../../../hkust/f2021_python_interactive_system/js/codemirror.css' />
+        <link rel='stylesheet' type='text/css' href='../../../../hkust/f2021_python_interactive_system/js/theme/idle.css' />
+        <link rel='stylesheet' type='text/css' href='../../../../hkust/f2021_python_interactive_system/style.css' />
+
+        <script src="../../../../hkust/f2021_python_interactive_system/js/jquery-3.5.1.min.js"></script>
+        <script src="../../../../hkust/f2021_python_interactive_system/js/jquery-ui-1.10.4.custom.min.js"></script>
+        <script src="../../../../hkust/f2021_python_interactive_system/skulpt/skulpt.min.js" type="text/javascript"></script>
+        <script src="../../../../hkust/f2021_python_interactive_system/skulpt/skulpt-stdlib.js" type="text/javascript"></script>
+        <script src="../../../../hkust/f2021_python_interactive_system/js/codemirror.js" type="text/javascript"></script>
+        <script src="../../../../hkust/f2021_python_interactive_system/js/mode/python.js" type="text/javascript"></script>
+        <script src="../../../../hkust/f2021_python_interactive_system/js/pyquestion.js" type="text/javascript"></script>
+        <script>
+            /////////////////////////////////////////////////////////////////
+            ///////////////////// Question Type & Python program code
+
+            // This sets the question type
+            // Use the combination of pyQuestion.questionTypeRandomOrder
+            //                        pyQuestion.questionTypeIndentation
+            //                        pyQuestion.questionTypeDeleteLines
+            //                        pyQuestion.questionTypeChangeCode
+            // to set the type
+
+            // For example, if you want the question to have random order and
+            // random indentation, you would add the two together:
+            //     pyQuestion.questionTypeRandomOrder + pyQuestion.questionTypeIndentation
+            var questionType = pyQuestion.questionTypeChangeCode;
+
+            // This is the target code, executed when the page is loaded
+            var pySrc =
+"IyBTdHVkZW50UmVjb3JkIGNsYXNzCmNsYXNzIFN0dWRlbnRSZWNvcmQ6CiAgICAjIFRoZSBjb25zdHJ1Y3RvciBvZiB0aGUgU3R1ZGVudFJlY29yZCBjbGFzcwogICAgZGVmIF9faW5pdF9fKHNlbGYsIG5hbWUsIHNjb3JlcywgZmluYWxTY29yZSk6CiAgICAgICAgIyBUaGUgY2xhc3MgaGFzIDMgYXR0cmlidXRlczogc2VsZi5uYW1lLCBzZWxmLmxhYlNjb3JlcyBhbmQgc2VsZi5maW5hbEV4YW1TY29yZQogICAgICAgICMgQXNzaWduIHRoZSAzIGlucHV0IHBhcmFtdGVycyB0byB0aGUgMyBhdHRyaWJ1dGVzCiAgICAgICAgc2VsZi5uYW1lID0gbmFtZQogICAgICAgIHNlbGYubGFiU2NvcmVzID0gc2NvcmVzCiAgICAgICAgc2VsZi5maW5hbEV4YW1TY29yZSA9IGZpbmFsU2NvcmUKICAgICMgVGhlIGNhbGN1bGF0ZVRvdGFsU2NvcmUgbWV0aG9kIG9mIHRoZSBTdHVkZW50UmVjb3JkIGNsYXNzCiAgICAjIFRoaXMgbWV0aG9kIGNhbGN1bGF0ZXMgYW5kIHJldHVybnMgdGhlIHdlaWdodGVkIHRvdGFsIHNjb3JlCiAgICBkZWYgY2FsY3VsYXRlVG90YWxTY29yZShzZWxmKToKICAgICAgICB0b3RhbCA9IDAKICAgICAgICAjIFN1bSB0aGUgc2NvcmVzIGluIHRoZSBhdHRyaWJ1dGUsIHNlbGYubGFiU2NvcmVzCiAgICAgICAgZm9yIGVhY2hTY29yZSBpbiBzZWxmLmxhYlNjb3JlczoKICAgICAgICAgICAgdG90YWwgKz0gZWFjaFNjb3JlCiAgICAgICAgIyBDYWxjdWxhdGUgdGhlIHdlaWdodGVkIHRvdGFsIHNjb3JlIChsYWJzIHdvcnRoIDQyJSBhbmQgZmluYWwgZXhhbSB3b3J0aCA1OCUpCiAgICAgICAgdG90YWwgPSB0b3RhbCAvIChsZW4oc2VsZi5sYWJTY29yZXMpICogMTAwKSAqIDQyCiAgICAgICAgdG90YWwgKz0gKHNlbGYuZmluYWxFeGFtU2NvcmUgKiAwLjU4KQogICAgICAgIHJldHVybiB0b3RhbAogICAgIyBUaGUgcHJpbnQgbWV0aG9kIG9mIHRoZSBTdHVkZW50UmVjb3JkIGNsYXNzCiAgICAjIFRoaXMgbWV0aG9kIG91dHB1dHMgYWxsIHRoZSBhdHRyaWJ1dGVzJyB2YWx1ZXMgYW5kIHRoZSB3ZWlnaHRlZCB0b3RhbCBzY29yZQogICAgZGVmIHByaW50KHNlbGYpOgogICAgICAgICMgT3V0cHV0IHRoZSBhdHRyaWJ1dGVzCiAgICAgICAgcHJpbnQoIlNjb3JlcyBvZiAiICsgc2VsZi5uYW1lICsgIjoiKQogICAgICAgIHByaW50KCJMYWIgc2NvcmVzOiIsIHNlbGYubGFiU2NvcmVzKQogICAgICAgIHByaW50KCJFeGFtIHNjb3JlOiIsIHNlbGYuZmluYWxFeGFtU2NvcmUpCiAgICAgICAgIyBPdXRwdXQgdGhlIHJldHVybmVkIHJlc3VsdCBvZiB0aGUgY2FsY3VsYXRlVG90YWxTY29yZSBtZXRob2QKICAgICAgICBwcmludCgiVG90YWwgc2NvcmU6Iiwgc2VsZi5jYWxjdWxhdGVUb3RhbFNjb3JlKCkpCiMgTWFpbiBwYXJ0IG9mIHRoZSBwcm9ncmFtCiMgUmVwbGFjZSBCTEFOSyB0byBjcmVhdGUgYSBTdHVkZW50UmVjb3JkIG9iamVjdApzdHVkZW50QSA9IFN0dWRlbnRSZWNvcmQoIkFteSIsIFsxMDAsIDkwLCAxMDAsIDg1XSwgNzgpCiMgVXNlIHRoZSBwcmludCBtZXRob2Qgb2YgdGhlIHN0dWRlbnRBIG9iamVjdApzdHVkZW50QS5wcmludCgp";
+
+            // This is the code used as the base for the drag and drop Python code shown to the user
+            // For example, if you have a 'delete code' task, you would take the above code and add extra code to it, then generate this
+            var pyForUser =
+"IyBTdHVkZW50UmVjb3JkIGNsYXNzCmNsYXNzIFN0dWRlbnRSZWNvcmQ6CiAgICAjIFRoZSBjb25zdHJ1Y3RvciBvZiB0aGUgU3R1ZGVudFJlY29yZCBjbGFzcwogICAgZGVmIF9faW5pdF9fKHNlbGYsIG5hbWUsIHNjb3JlcywgZmluYWxTY29yZSk6CiAgICAgICAgIyBUaGUgY2xhc3MgaGFzIDMgYXR0cmlidXRlczogc2VsZi5uYW1lLCBzZWxmLmxhYlNjb3JlcyBhbmQgc2VsZi5maW5hbEV4YW1TY29yZQogICAgICAgICMgQXNzaWduIHRoZSAzIGlucHV0IHBhcmFtdGVycyB0byB0aGUgMyBhdHRyaWJ1dGVzCiAgICAgICAgc2VsZi5uYW1lID0gbmFtZQogICAgICAgIHNlbGYubGFiU2NvcmVzID0gc2NvcmVzCiAgICAgICAgc2VsZi5maW5hbEV4YW1TY29yZSA9IGZpbmFsU2NvcmUKICAgICMgVGhlIGNhbGN1bGF0ZVRvdGFsU2NvcmUgbWV0aG9kIG9mIHRoZSBTdHVkZW50UmVjb3JkIGNsYXNzCiAgICAjIFRoaXMgbWV0aG9kIGNhbGN1bGF0ZXMgYW5kIHJldHVybnMgdGhlIHdlaWdodGVkIHRvdGFsIHNjb3JlCiAgICBkZWYgY2FsY3VsYXRlVG90YWxTY29yZShzZWxmKToKICAgICAgICB0b3RhbCA9IDAKICAgICAgICAjIFN1bSB0aGUgc2NvcmVzIGluIHRoZSBhdHRyaWJ1dGUsIHNlbGYubGFiU2NvcmVzCiAgICAgICAgZm9yIGVhY2hTY29yZSBpbiBzZWxmLmxhYlNjb3JlczoKICAgICAgICAgICAgdG90YWwgKz0gZWFjaFNjb3JlCiAgICAgICAgIyBDYWxjdWxhdGUgdGhlIHdlaWdodGVkIHRvdGFsIHNjb3JlIChsYWJzIHdvcnRoIDQyJSBhbmQgZmluYWwgZXhhbSB3b3J0aCA1OCUpCiAgICAgICAgdG90YWwgPSB0b3RhbCAvIChsZW4oc2VsZi5sYWJTY29yZXMpICogMTAwKSAqIDQyCiAgICAgICAgdG90YWwgKz0gKHNlbGYuZmluYWxFeGFtU2NvcmUgKiAwLjU4KQogICAgICAgIHJldHVybiB0b3RhbAogICAgIyBUaGUgcHJpbnQgbWV0aG9kIG9mIHRoZSBTdHVkZW50UmVjb3JkIGNsYXNzCiAgICAjIFRoaXMgbWV0aG9kIG91dHB1dHMgYWxsIHRoZSBhdHRyaWJ1dGVzJyB2YWx1ZXMgYW5kIHRoZSB3ZWlnaHRlZCB0b3RhbCBzY29yZQogICAgZGVmIHByaW50KHNlbGYpOgogICAgICAgICMgT3V0cHV0IHRoZSBhdHRyaWJ1dGVzCiAgICAgICAgcHJpbnQoIlNjb3JlcyBvZiAiICsgc2VsZi5uYW1lICsgIjoiKQogICAgICAgIHByaW50KCJMYWIgc2NvcmVzOiIsIHNlbGYubGFiU2NvcmVzKQogICAgICAgIHByaW50KCJFeGFtIHNjb3JlOiIsIHNlbGYuZmluYWxFeGFtU2NvcmUpCiAgICAgICAgIyBPdXRwdXQgdGhlIHJldHVybmVkIHJlc3VsdCBvZiB0aGUgY2FsY3VsYXRlVG90YWxTY29yZSBtZXRob2QKICAgICAgICBwcmludCgiVG90YWwgc2NvcmU6Iiwgc2VsZi5jYWxjdWxhdGVUb3RhbFNjb3JlKCkpCiMgTWFpbiBwYXJ0IG9mIHRoZSBwcm9ncmFtCiMgUmVwbGFjZSBCTEFOSyB0byBjcmVhdGUgYSBTdHVkZW50UmVjb3JkIG9iamVjdApzdHVkZW50QSA9IEJMQU5LKCJBbXkiLCBbMTAwLCA5MCwgMTAwLCA4NV0sIDc4KQojIFVzZSB0aGUgcHJpbnQgbWV0aG9kIG9mIHRoZSBzdHVkZW50QSBvYmplY3QKc3R1ZGVudEEucHJpbnQoKQ==";
+//"IyBTdHVkZW50UmVjb3JkIGNsYXNzCmNsYXNzIFN0dWRlbnRSZWNvcmQ6CiAgICAjIHRoZSBjb25zdHJ1Y3RvcgogICAgZGVmIF9faW5pdF9fKHNlbGYsIG5hbWUsIHNjb3JlcywgZmluYWxTY29yZSk6CiAgICAgICAgc2VsZi5uYW1lID0gbmFtZQogICAgICAgIHNlbGYubGFiU2NvcmVzID0gc2NvcmVzCiAgICAgICAgc2VsZi5maW5hbEV4YW1TY29yZSA9IGZpbmFsU2NvcmUKICAgICMgdGhlIGNhbGN1bGF0ZVRvdGFsU2NvcmUgbWV0aG9kCiAgICBkZWYgY2FsY3VsYXRlVG90YWxTY29yZShzZWxmKToKICAgICAgICB0b3RhbCA9IDAKICAgICAgICBmb3IgZWFjaFNjb3JlIGluIHNlbGYubGFiU2NvcmVzOgogICAgICAgICAgICB0b3RhbCArPSBlYWNoU2NvcmUKICAgICAgICB0b3RhbCA9IHRvdGFsIC8gKGxlbihzZWxmLmxhYlNjb3JlcykgKiAxMDApICogNDIKICAgICAgICB0b3RhbCArPSAoc2VsZi5maW5hbEV4YW1TY29yZSAqIDAuNTgpCiAgICAgICAgcmV0dXJuIHRvdGFsCiAgICAjIHRoZSBwcmludCBtZXRob2QKICAgIGRlZiBwcmludChzZWxmKToKICAgICAgICBwcmludCgiU2NvcmVzIG9mICIgKyBzZWxmLm5hbWUgKyAiOiIpCiAgICAgICAgcHJpbnQoIkxhYiBzY29yZXM6Iiwgc2VsZi5sYWJTY29yZXMpCiAgICAgICAgcHJpbnQoIkV4YW0gc2NvcmU6Iiwgc2VsZi5maW5hbEV4YW1TY29yZSkKICAgICAgICBwcmludCgiVG90YWwgc2NvcmU6Iiwgc2VsZi5jYWxjdWxhdGVUb3RhbFNjb3JlKCkpCiMgTWFpbiBwYXJ0IG9mIHRoZSBwcm9ncmFtCiMgUmVwbGFjZSBCTEFOSyB0byBjcmVhdGUgYSBTdHVkZW50UmVjb3JkIG9iamVjdApzdHVkZW50QSA9IEJMQU5LKCJDYW5keSIsIFsxMDAsIDkwLCAxMDAsIDg1XSwgNzgpCnN0dWRlbnRBLnByaW50KCk=";
+
+            ///////////////////// Question Type & End of Python program code
+            /////////////////////////////////////////////////////////////////
+
+            $(document).ready(function() {
+                let options = {
+                    showListLineNumbers:true,
+                    changeCodeLineNumber : 32,
+                    targetProgramOutputAreaId: "programOutputAreaForTarget",
+                }
+
+                // Initialize the pyQuestion module
+                pyQuestion.init(questionType, pySrc, pyForUser, options);
+
+                // Run the target program at the start
+                pyQuestion.runTargetProgram("programOutputAreaForTarget", "turtleGraphicsOutputForTarget");
+
+            });
+        </script>
+    </head>
+    <body>
+        <h1>
+            <span class="header">COMP1021 Learning Tool <button type="button" class="aboutButton">?</button></span>
+            <span class="title">Representing the Record of Student as Object</span>
+        </h1>
+
+        <div class="pageContent">
+            <div class="codePane" style="width:500px">
+                <h4>The target output of the program is shown here:</h4>
+                <textarea id="programOutputAreaForTarget" rows="5" style="font-family: Consolas, Monospace, sans-serif; font-size: 15px; line-height: 18px; width: 500px;" ></textarea>
+                <p><button type="button" class="runTargetProgramButton">Run the target output again</button></p>
+
+                <h4>The output of your program will be shown here:</h4>
+                <textarea id="programOutputArea" rows="5" style="width: 500px;"></textarea>
+                <p><button type="button" class="runUserProgramButton">Run my answer!</button></p>
+            </div>
+
+            <div class="codePane">
+                <!-- The question instruction -->
+                <h4>Instructions</h4>
+                <ul id="message"></ul>
+
+                <!-- The Python drag and drop code goes in this -->
+                <ul id="codeList" style="width:900px;"></ul>
+
+                <p>When you have finished, click here:</p>
+                <p><button type="button" class="runUserProgramButton">Run my answer!</button></p>
+
+                <h4>Your code will be shown here:</h4>
+                <textarea id="userCodeArea" rows="2" cols="40"></textarea>
+
+                <p>If you want to reset the question and start all over again, click here:</p>
+                <p><button type="button" class="resetButton">Reset</button></p>
+            </div>
+
+        </div>
+
+    </body>
+</html>

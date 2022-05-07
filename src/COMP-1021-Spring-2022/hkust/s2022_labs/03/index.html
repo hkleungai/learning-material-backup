@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>COMP1021 Lab 3 - Fireworks</title>
+
+    <link href="../../../css/lab.css" rel="stylesheet" />
+    <script src="../../../scripts/jquery-3.4.1.min.js"></script>
+    <script src="../../../scripts/lab.js"></script>
+    <script src="../../../scripts/video_res.js"></script>
+    <script src="video_res.js"></script>
+
+</head>
+
+<body onload="check_site()">
+    <h1>
+        <span class="lab">COMP1021 Lab 3</span>
+        <span class="title">Fireworks</span>
+    </h1>
+    <div id="videoQualityWidget"></div>
+
+    <div class="content">
+
+    <h2>The Main Focus of this Lab</h2>
+    <ul>
+        <li>In this lab, you focus on:
+            <ul>
+                <li>Using random numbers and lists </li>
+                <li>Using loops inside loops </li>
+                <li>Using an extra Python library</li>
+
+            </ul>
+        </li>
+    </ul>
+
+    <h2>What You Will Learn in This Lab</h2>
+    <ul>
+            <li>In this lab, you will gain experience in the following areas:
+                <table class="simple">
+                    <tbody><tr>
+                        <th>Topic</th>
+                        <th>Computer Science/ Programming Concept</th>
+                    </tr>
+                    <tr>
+                        <td>Random number generation</td>
+                        <td>Getting random values using <code>random.randint()</code></td>
+                    </tr>
+                    <tr>
+                        <td>Using List</td>
+                        <td>Getting items from a list using index <code>list_name[<span style='color:red'><i>index number</i></span>]</code></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">Repeating things using loops</td>
+                        <td>Using for loops (<code>for ...</code>)</td>
+                    </tr>
+                    <tr>
+                        <td>Building nested loops, i.e. a loop inside another loop</td>
+                    </tr>
+
+                    <tr>
+                        <td>Using <code>range()</code> with a for loop</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="7">Using the turtle graphics module</td>
+                        <td>Drawing shapes by moving the turtle around</td>
+                    </tr>
+                    <tr>
+                        <td>Using named colours</td>
+                    </tr>
+                    <tr>
+                        <td>Control visibility of the turtle by <code>turtle.showturtle()</code> and <code>turtle.hideturtle()</code></td>
+                    </tr>
+                    <tr>
+                        <td>Moving forward in an arc with a given degree  using <code>turtle.circle()</code></td>
+                    </tr>
+                    <tr>
+                        <td>Drawing solid circles using <code>turtle.dot()</code></td>
+                    </tr>
+                    <tr>
+                        <td>Change the turtle speed using <code>turtle.speed()</code></td>
+                    </tr>
+                    <tr>
+                        <td>Control screen update by <code>turtle.tracer()</code></td>
+                    </tr>
+                    <tr>
+                        <td>Using extra library</td>
+                        <td>Importing extra library by <code>import</code></td>
+                    </tr>
+
+                </tbody></table>
+            </li>
+        </ul>
+    <h2>Overview</h2>
+
+    <!--
+<input type="button" name="toggle_for_res" id="toggle_for_res" value="Click to have a low resolution version of the videos" onclick="change_resolution(this)"><p>
+<input type="button" name="toggle_for_site" id="toggle_for_site" value="Click to change the site"><p>
+-->
+
+<video width="640" height="360" controls  preload="metadata"> <source src="videos/comp1021_lab3_intro.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+
+    <ul>
+
+<!--
+        <li>We will try to cover the lab content in one hour</li>
+-->
+        <li>You will create a simple 'fireworks' animation by writing your own Python turtle graphics code</li>
+        <li>Here is an example video of running the fireworks program:<br/>
+
+		<video height="360" controls>
+		<source src="videos/fireworks.mp4" type="video/mp4">
+		Your browser does not support the video tag.
+		</video>
+        </li>
+	<li>In the later part of this lab we will add some sounds to the program, so it is a good idea to bring your earphones</li>
+    </ul>
+
+    <h2>Lab Content</h2>
+
+    <ul class="toc">
+        <li>1. <a href="#section1">Getting started</a></li>
+        <li>2. <a href="#section2">Running some preparation code</a></li>
+        <li>3. <a href="#section3">Using a loop</a>
+        <ul>
+            <li>3.1. <a href="#section3.1">3.1. Shoot the firework up into the sky</a></li>
+            <ul>
+                <li>3.1.1. <a href="#section3.1.1">Initializing the starting position of a firework</a></li>
+                <li>3.1.2. <a href="#section3.1.2">Determining the destination of a firework</a></li>
+                <li>3.1.3. <a href="#section3.1.3">Move the bomb</a></li>
+            </ul>
+            </li>
+            <li>3.2. <a href="#section3.2">Exploding a firework</a>
+            <ul>
+                <li>3.2.1. <a href="#section3.2.1">How to draw a ring of dots</a></li>
+            </ul>
+            </li>
+        </ul>
+       </li>
+        <li>4. <a href="#section4">More fancy effects</a></li>
+        <ul>
+            <li>4.1. <a href="#section4.1">Creating fast explosions</a></li>
+            <li>4.2. <a href="#section4.2">Hiding the turtle</a></li>
+            <li>4.3. <a href="#section4.3">Adding gravitation effect</a></li>
+            <li>4.4. <a href="#section4.4">Enabling firework sounds</a></li>
+        </ul>
+	<li><a href="#submission">Submission</a>
+        </li>
+
+        <!--
+        <li>Video Locations
+        <ul>
+            <li><a href="#part1_vid">Video for part 1-2</a></li>
+            <li><a href="#part3-1_vid">Video for part 3.1</a></li>
+            <li><a href="#part3-2_vid">Video for part 3.2</a></li>
+            <li><a href="#part4_vid">Video for part 4</a></li>
+        </ul>
+        </li>
+    -->
+
+     </ul>
+
+    <h2>Lab Procedures</h2>
+    <h3><a name="section1"></a>1. Getting started</h3>
+<a name="part1_vid"><h4>Video for Part 1-2</h4></a>
+<video width="640" height="360" controls  preload="metadata"> <source src="videos/comp1021_lab3_part1-2.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+
+    <ul>
+        <li>A template file (<a href="fireworks.py">fireworks.py</a>) is given to you as a starting point</li>
+        <li>You also need <a href="hong_kong.gif">a picture</a> as the background of your program
+        <ul>
+            <li>This file needs to go in the same directory as your program</li>
+        </ul>
+        </li>
+        <li>After downloading the file, you can use IDLE to edit the source code</li>
+	</li>
+    </ul>
+
+    <h3><a name="section2"></a>2. Running some preparation code</h3>
+
+    <ul>
+        <li>In the <a href="fireworks.py">starting code</a> given to you, you can see that there is a 'preparation stage' to perform initialization</li>
+        <li>Some important variables are set up and initialized, before the main part of the program starts</li>
+        <li>This includes setting up the screen size, setting the maximum size of the firework and how many fireworks we will generate each time</li>
+        <li>The turtle module is also initialized</li>
+        <li>This includes setting up the screen in appropriate size with a background image, and setting up the thickness of the lines</li>
+	<li>You may find this line of code interesting in the program:
+            <pre>screen_width, screen_height = 900, 564</pre>
+        </li>
+	<li>The above line of code sets the values of <b>both</b> <tt>screen_width</tt> and <tt>screen_height</tt> in a single line</li>
+	<li>It is equivalent to this:
+            <pre>screen_width = 900
+screen_height = 564</pre>
+        </li>
+    </ul>
+
+    <h3><a name="section3"></a>3. Using a loop</h3>
+<a name="part3-1_vid"><h4>Video for Part 3.1</h4></a>
+<video width="640" height="360" controls  preload="metadata"> <source src="videos/comp1021_lab3_part3.1.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+    <ul>
+        <li>We use a loop to repeatedly send out fireworks, while making some difference for each iteration</li>
+        <li>In each iteration of the loop, a firework is sent into the sky using two steps:
+        <ol>
+            <li>Shoot the firework from the bottom to the sky</li>
+            <li>Explode the firework</li>
+        </ol>
+        <p><img src="images/shoot_firework.png" alt="Shoot firework" /></p>
+        </li>
+    </ul>
+
+    <h3><a name="section3.1"></a>3.1. Shoot the firework up into the sky</h3>
+
+    <ul>
+        <li>Before exploding the firework, we have to get the firework to the position of the explosion</li>
+        <li>A firework is shot from the bottom of the screen to the sky</li>
+        <li>We use the turtle to show the position of a firework bomb when it is shot into the sky by:
+        <ol>
+            <li>positioning the turtle randomly at the bottom of the screen</li>
+            <li>showing the movement of the bomb by moving the turtle to a random position in the upper screen</li>
+        </ol>
+        </li>
+        <li>Before you start, please be reminded that the origin of the coordinate system in our program is at the centre of the screen, which means:
+        <ul>
+            <li>the bottom left hand corner is <code>(-screen_width/2, -screen_height/2)</code>, and</li>
+            <li>the top right hand corner is <code>(screen_width/2, screen_height/2)</code></li>
+        </ul>
+        </li>
+    </ul>
+
+    <h4><a name="section3.1.1"></a>3.1.1. Initializing the starting position of a firework</h4>
+
+    <ul>
+        <li>To shoot a firework, firstly, we initialize a fixed y position, i.e. the bottom of the screen:
+        <pre class="python">starty = -(screen_height/2)</pre>
+        </li>
+        <li>And we initialize a random x position:
+        <pre>
+startx = <tt2>random value between -(screen_width/2) and (screen_width/2)</tt2></pre>
+        </li>
+        <li>To generate a random number you can use <code>random.randint()</code>
+        </li>
+        <ul><li>To use <code>random.randint()</code>, you should provide 2 integers inside the bracket</li>
+            <li>There will be a problem if you directly put <code>-(screen_width/2)</code> and <code>(screen_width/2)</code> to <code>random.randint()</code></li>
+            <ul>
+                <li>When <code>-(screen_width/2)</code> is executed, the result will have a decimal place</li>
+                <li>When <code>(screen_width/2)</code> is executed, the result will have a decimal place</li>
+            </ul>
+            <li>To convert the value into an integer, you can use <code>int()</code>:
+            <pre>int(<span class="todo">value to be converted to integer</span>)</pre></li></ul>
+        <li>Then you put the turtle at the starting position by:</li>
+        <pre class="python">
+turtle.up()
+turtle.goto(startx, starty)
+turtle.down()
+</pre>
+        <ul>
+            <li><code>turtle.up()</code> and <code>turtle.down()</code> are used in the above code as we don't want to see the turtle drawing a line while it moves to the starting position</li>
+        </ul>
+        </li>
+    </ul>
+
+    <h4><a name="section3.1.2"></a>3.1.2. Determining the destination of the firework</h4>
+
+    <ul>
+        <li>After setting the starting position, we randomly assign another position to be the destination of the firework</li>
+        <li>It looks good if the firework explodes in the top part of the screen, so we generate a random position in the upper half
+        <pre>
+destx = <tt2>random value between -(screen_width/2) and (screen_width/2)</tt2>
+desty = <tt2>random value between 0 and (screen_height/2)</tt2></pre>
+        </li>
+    </ul>
+
+    <h4><a name="section3.1.3"></a>3.1.3. Move the bomb</h4>
+    <ul>
+        <li>Finally we move the turtle so that a bomb (a red circle <img src="images/turtle_red_in_black.png" width="25px" height="25px"> represented by the turtle)  is moved from the starting position to the destination position using the following codes:
+        <pre class="python">
+turtle.color(&quot;red&quot;)
+turtle.goto(destx, desty)</pre>
+        </li>
+    </ul>
+
+    <h3><a name="section3.2"></a>3.2. Exploding a firework</h3>
+<a name="part3-2_vid"><h4>Video for Part 3.2</h4></a>
+<video width="640" height="360" controls  preload="metadata"> <source src="videos/comp1021_lab3_part3.2.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+    <ul>
+        <li>The turtle is now in the right position, i.e. the firework has been shot into the sky, so we can start to 'explode' the firework</li>
+        <li>Below is an example of an exploded firework:
+        <p><img src="images/firework.png" alt="A firework example" /></p>
+        </li>
+        <li>The rings of explosion in a firework are represented by rings of dots in the above picture</li>
+        <li>The idea of our program is to use the turtle to draw a picture similar to the above for each firework</li>
+        <li>We explode a firework like this:
+        <ol>
+            <li>Pick the colour, size, and number of explosion directions for the firework
+            <ul>
+                <li>For example, the firework shown above has a blue colour, a radius of 80 pixels in size and 12 explosion directions</li>
+                <li>We can pick a colour randomly from the list of colours initialized at the top of the file:
+                <pre class="python">
+# A list of colours to choose from for a firework
+firework_colours = [&quot;red&quot;, &quot;orange&quot;, &quot;yellow&quot;, &quot;green&quot;, &quot;cyan&quot;, &quot;blue&quot;, &quot;violet&quot;]</pre>
+                </li>
+                <li>If you want to use other colours, you can refer to this <a href="../02/color_list.html">webpage</a> in one of the previous labs, which contains the names of all the colours you can use</li>
+                <li>You can use <code>random.randint()</code> to pick one of the colours from the list of colours by:
+		<ol type="i">
+                <li>Randomly selecting an index from the following range:
+                  <ul>
+                    <li>The index of a list starts from 0</li>
+                    <li>The index of a list ends at (length of the list - 1)</li>
+                  </ul>
+                </li>
+                <li>Accessing the corresponding item in the colours list:</li>
+                <pre>colour = firework_colours[ <tt2>a random index from 0 to (length of firework_colours - 1)</tt2> ]</pre>
+                </li>
+                </ol>
+                </li>
+                <li>For the firework size, you can randomly generate any number in an appropriate range:
+                <ul>
+					<li><code>firework_radius</code> is a variable initialized at the top of the file which determines the maximum size of the fireworks</li>
+                    <li>The size of the current firework can be any value between <code>firework_radius/2</code> and <code>firework_radius</code></li>
+                </ul></li>
+                <li>For the number of explosion directions, it can be any value between 10 and 20</li>
+            </ul>
+            </li>
+            <li>Use a <code>for</code> loop to draw each ring of the explosion
+            <ul>
+	        <li>Starting from the smallest radius, probably 10</li>
+                <li>For each ring of the explosion, draw a dot at each explosion direction</li>
+	        <li>Gradually increase the radius until it is larger than the firework size
+                <p><img src="images/draw_ring.png" alt="Draw ring" /></p>
+                </li>
+                <li>Each increase of radius can be fixed at, for example, 10 pixels</li>
+            </ul>
+            </li>
+        </ol>
+        </li>
+    </ul>
+
+    <h4><a name="section3.2.1"></a>3.2.1. How to draw a ring of dots</h4>
+
+    <ul>
+        <li>In the procedure above, you can see that each ring is drawn using a certain number of dots (number of explosion directions)</li>
+        <li>We use turtle.dot() to produce a dot<ul>
+        <li>Inside <code>turtle.dot()</code>, you put a integer for the size (diameter) of the dot</li></ul></li>
+        <li>To do that, first let's think of drawing rings of solid lines, i.e. <code>turtle.circle()</code>
+        <p><img src="images/draw_circle.png" alt="Draw circle" /></p>
+        </li>
+        <li>Then we proceed to draw rings of dots step by step</li>
+        <li>The following example illustrates one of the ways to draw a ring with 12 dots (i.e. 12 explosion directions):
+        <ul>
+            <li>In these diagrams, <span style="color:grey">lightgray</span> is used to show the turtle after the previous step has finished and black is used to show the turtle after the current step</li>
+        </ul>
+        <table>
+            <tr>
+                <td class="caption" colspan="2">Step 1.</td>
+                <td class="caption" colspan="2">Step 2.</td>
+            </tr>
+            <tr>
+                <td class="single" width="255">Set the turtle to point to the right</td>
+                <td>&nbsp;</td>
+                <td class="single" width="255">Move forward by the radius of the ring</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><img src="images/draw_ring1.png" alt="Step 1" /></td>
+                <td><img src="images/arrow.png" alt="" /></td>
+                <td><img src="images/draw_ring2.png" alt="Step 2" /></td>
+                <td><img src="images/downarrow.png" alt="" /></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td class="caption" colspan="2">Step 3.</td>
+                <td class="caption" colspan="2">Step 4.</td>
+            </tr>
+            <tr>
+                <td class="single" width="255">Turn left at right angle</td>
+                <td>&nbsp;</td>
+                <td class="single" width="255">Draw a dot at the current position</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><img src="images/draw_ring3.png" alt="Step 3" /></td>
+                <td><img src="images/arrow.png" alt="" /></td>
+                <td><img src="images/draw_ring4.png" alt="Step 4" /></td>
+                <td><img src="images/downarrow.png" alt="" /></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td class="caption" colspan="2">Step 5.</td>
+                <td class="caption" colspan="2">Step 6.</td>
+            </tr>
+            <tr>
+                <td class="single" width="255">Move forward in an arc with a twelfth of 360 degrees</td>
+                <td>&nbsp;</td>
+                <td class="single" width="255">Draw a dot at the current position</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><img src="images/draw_ring5.png" alt="Step 5" /></td>
+                <td><img src="images/arrow.png" alt="" /></td>
+                <td><img src="images/draw_ring6.png" alt="Step 6" /></td>
+                <td><img src="images/downarrow.png" alt="" /></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td class="caption" colspan="2">Step 7.</td>
+                <td class="caption" colspan="2">Step 8.</td>
+            </tr>
+            <tr>
+                <td class="single" width="255">Repeat the move step (step 5) and the dot step (step 6) 12 times, until all dots are drawn</td>
+                <td>&nbsp;</td>
+                <td class="single" width="255">Move forward in an arc with a twelfth of 360 degrees for the last time</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><img src="images/draw_ring7.png" alt="Step 7" /></td>
+                <td><img src="images/arrow.png" alt="" /></td>
+                <td><img src="images/draw_ring8.png" alt="Step 8" /></td>
+                <td><img src="images/downarrow.png" alt="" /></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td class="caption" colspan="2">Step 9.</td>
+                <td class="caption" colspan="2">Step 10.</td>
+            </tr>
+            <tr>
+                <td class="single" width="255">Turn left to face the centre</td>
+                <td>&nbsp;</td>
+                <td class="single" width="255">Move back to the starting position</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><img src="images/draw_ring9.png" alt="Step 9" /></td>
+                <td><img src="images/arrow.png" alt="" /></td>
+                <td><img src="images/draw_ring10.png" alt="Step 10" /></td>
+                <td>Done!</td>
+            </tr>
+        </table>
+        </li>
+        <li>Notes:
+        <ul>
+            <li>Some of the steps move the turtle without drawing anything</li>
+            <li>You need to use <code>turtle.up()</code> and <code>turtle.down()</code> at right places so that nothing is drawn</li>
+            <li>From step 5 to step 8, the turtle has to be able to move in an arc</li>
+            <li>You need to use <code>turtle.circle()</code> with an appropriate angle, i.e.:
+            <pre class="python">
+turtle.circle(<span class="todo"> radius of the ring </span>, 360 / <span class="todo">number of explosion directions </span>)</pre>
+            </li>
+        </ul>
+        </li>
+        <ul>
+        <li>To ensure that the turtle is facing the correct directions, we need to have a command that sets the absolute direction of the turtle</li>
+        <li>We can use <code>turtle.setheading()</code> to set the absolute direction of the turtle</li>
+        <li><code>turtle.setheading</code> works like this</li>
+        <ul>
+            <li>When <code>turtle.setheading(0)</code> is used, the turtle points to the right </li>
+            <li>When <code>turtle.setheading(90)</code> is used, the turtle points to the upwards </li>
+            <li>When <code>turtle.setheading(180)</code> is used, the turtle points to the left </li>
+            <li>When <code>turtle.setheading(270)</code> is used, the turtle points to the downwards </li>
+        </ul>
+        <li>Here is an animation on how <code>turtle.setheading()</code> works</li>
+            <img src="images/turtle_setheading.gif" alt="Turtle demo on turtle.setheading()" /></p>
+
+        <li>You can make use of <code>turtle.setheading()</code> to set the absolute direction of the turtle</li>
+        </ul>
+        <li>Here is the pseudocode for explaining the logic:<pre class='python'>for every radius up to the maximum radius:
+    turtle face to the right
+    move forward by radius
+    for every direction:
+        make a dot
+        move forward in an arc (using command turtle.circle() and values (radius, degree) to move)
+    face to the centre
+    move back to the centre</pre></li>
+    </ul>
+
+    <h3><a name="section4"></a>4. More fancy effects</h3>
+<!--
+    <ul>
+    <li>We will not discuss the following, but if you are interested, you can try to work on them to further improve your program</li>
+    <li>Alternatively, feel free to work on your assignment, and ask the TA any questions you might have</li>
+    </ul>
+-->
+<a name="part4_vid"><h4>Video for Part 4</h4></a>
+<video width="640" height="360" controls  preload="metadata"> <source src="videos/comp1021_lab3_part4.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+    <h3><a name="section4.1"></a>4.1. Creating fast explosions</h3>
+    <h3><a name="section4.1.1"></a>4.1.1 Speed up the turtle speed</h3>
+    <ul>
+        <li>Up to this point, the animation of drawing a firework is quite slow</li>
+        <li>The slow speed is useful while we are developing the system so that we can see all the stages, but it looks too slow for a real firework effect</li>
+        <li>To adjust the speed of the turtle animation use <code>turtle.speed()</code></li>
+        <li>So to speed up the process, set up the turtle speed at the beginning of your program:
+        <pre class="python">turtle.speed(6)</pre></li>
+        <li>Here is some explanation on the number value used in <code>turtle.speed()</code><ul><li> 1 is slowest, 6 is normal, 10 is very fast, 0 means nearly no animation i.e. fastest in <code>turtle.speed()</code></li></ul></li>
+    </ul>
+
+    <h3><a name="section4.1.2"></a>4.1.2 Temporarily stop updating the display</h3>
+        <ul>
+        <li>We also don't want to use any animation during drawing of the ring pattern, so that the resulting firework pattern suddenly appears</li>
+        <li>The idea is like this:
+          <ul>
+	    <li>We stop the animation by: <pre class="python">turtle.tracer(False)</pre></li>
+            <li>During that, the turtle is undergoing drawing the pattern of a ring.</li>
+            <li>After drawing the pattern, update the display by: <pre class="python">turtle.tracer(True)</pre></li>
+            <li>To do the next ring pattern, we stop the animation again by <pre class="python">turtle.tracer(False)</pre></li>
+          </ul>
+        <li>We illustrate this idea using the diagram below:<br>
+            <img src="./images/illustration_on_tracer.png"  width="600">
+        <li>If you want to show the movement from the bottom to the sky with animation, you need to enable the turtle animation again:
+        <pre class="python">turtle.tracer(True) # Update the screen and show turtle animation from now onwards</pre></li>
+        <li>Here is the pseudocode for explaining the logic:<pre class='python'>for every ring inside:
+    stop the turtle window update
+    ...draw the ring pattern (mentioned in Part 3.2)...
+    show the result by enabling the turtle window update</pre></li>
+        </ul>
+    </ul>
+
+    <h3><a name="section4.2"></a>4.2. Hiding the turtle <img src="images/turtle_red_in_black.png" style="vertical-align: middle" alt="Turtle" width="20px" /></h3>
+
+    <ul>
+        <li>When the firework is shot or exploded, we can still see the turtle moving around no matter the turtle is drawing things or not
+        <p><img src="images/turtle_cursor.png" alt="Turtle" /></p>
+        </li>
+        <li>To make the program more realistic, we can hide the turtle <img src="images/turtle_red_in_black.png" style="vertical-align: middle" alt="Turtle" width="20px" /> from the screen using the following code:
+        <pre class="python">turtle.hideturtle() # Hide the turtle</pre>
+        </li>
+        <li>For making it more realistic as shooting the firework, you need to show the turtle <img src="images/turtle_red_in_black.png" style="vertical-align: middle" alt="Turtle" width="20px" /> during shooting from the starting position to the destination</li>
+        <li>If you want to show the turtle again for the next shooting, you show the turtle by:
+        <pre class="python">turtle.showturtle() # Show the turtle</pre>
+        </li>
+    </ul>
+
+    <h3><a name="section4.3"></a>4.3. Adding gravitation effect</h3>
+    <ul>
+        <li>We can further improve the fireworks program by adding some gravitation effect</li>
+        <li>Here are the steps to produce gravitation effects</li>
+        <ul>
+            <li>Make the size of the firework dots bigger when they are further away from the centre
+            <ul>
+                <li>This involves an adjustment of the size provided to <code>turtle.dot()</code> when you are drawing the explosion rings</li>
+		<li>You can try to start like this</li>
+		<ul>
+			<li>When the first ring is drawn, the dot size is 1</li>
+			<ul><li>Dot size 1 is hard to see so actually you cannot see the first ring</li></ul>
+			<li>When the second ring is drawn, the dot size is 2</li>
+			<li>When the third ring is drawn, the dot size is 3</li>
+			<li>And so on...</li>
+		</ul>
+		<li>Here is an example on a pattern with the radius 90</li>
+                <p><img src="images/simple_dot_size.png" alt="Firework with simple dot size adjustment" /></p>
+		<li>You can further improve the value given to <code>turtle.dot()</code> to make the effect more dramatic</li>
+		<ul><li>You can calculate the relation between the radius of the current ring and the total firework size</li></ul>
+		<ul><li>Then use that size provided to <code>turtle.dot()</code> when you are drawing the explosion rings</li></ul>
+		<ul><ul><li>For example, the size of the first 2 rings are similar, and the size of the next 3 rings are similar, and so on...</li></ul></ul>
+		<ul><ul><li>Here is a diagram using the above approach</li></ul></ul>
+                <p><img src="images/dot_size.png" alt="Firework with further dot size adjustment" /></p>
+                </li>
+
+            </ul>
+            </li>
+            <li>You could add a gravitation effect to the firework
+            <ul>
+                <li>This involves only a minor adjustment of the ring centre when you draw the rings of explosion
+                <p><img src="images/gravity.png" alt="Using gravity" /></p>
+                </li>
+		<li>This can be done by moving the turtle downwards after drawing each ring</li>
+                <li>The concept is illustrated here: <br><img src="./images/illustration_on_gravity.png" width="700"></li>
+                <li>Here is some pseudocode to help you understand the logic:<pre class='python'>for every ring:
+    do the ring pattern (mentioned in Part 3.2)
+    change turtle's direction to face downward
+    move down a little bit</pre>
+                <ul>
+			<li>Remember when producing the next ring pattern, the turtle is facing in the same direction at the start</li>
+			<li><code>turtle.left()</code> or <code>turtle.right()</code> cannot do that, as  <code>turtle.left()</code> and <code>turtle.right()</code> changes according to the relative direction</li>
+			<li>To ensure that the turtle is facing the correct directions, we need to have a command that sets the absolute direction of the turtle</li>
+			<li>We can use <code>turtle.setheading()</code> to set the absolute direction of the turtle</li>
+			<li><code>turtle.setheading()</code> works like this</li>
+			<ul>
+				<li>When <code>turtle.setheading(0)</code> is used, the turtle points to the right </li>
+				<li>When <code>turtle.setheading(90)</code> is used, the turtle points to the upwards </li>
+				<li>When <code>turtle.setheading(180)</code> is used, the turtle points to the left </li>
+				<li>When <code>turtle.setheading(270)</code> is used, the turtle points to the downwards </li>
+			</ul>
+			<li>Here is an animation on how <code>turtle.setheading()</code> works</li>
+        		<img src="images/turtle_setheading.gif" alt="Turtle demo on turtle.setheading()" /></p>
+
+			<li>You can make use of <code>turtle.setheading()</code> to set the absolute direction of the turtle</li>
+		</ul>
+		</li>
+            </ul>
+            </li>
+<!--            <li>You can remove the shooting line before a firework is exploded
+            <ul>
+                <li>You can make use of <code>turtle.undo()</code> after drawing each line</li>
+				<li>Note that it will return the turtle to its previous position</li>
+				<li>You should quickly move the turtle to the proper position again, without drawing the line this time, then you draw the explosion</li>
+-->            </ul>
+            </li>
+        </ul>
+        </li>
+    </ul>
+
+	<h3><a name="section4.4"></a>4.4. Enabling firework sounds</h3>
+	<ul>
+		<li>A quiet firework program is not realistic</li>
+		<li>We have prepared a special library to play sounds</li>
+		<ul><li>This library works on both Mac and PC machines</li></ul>
+		<li>You can <a href="playsound.py">download the library here</a>, and place it into the same directory as your Python code</li>
+		<li>To import the library into your code, you need to add this line to an appropriate place:<br/>
+		<pre class="python">import playsound</pre></li>
+		<li>Then, you can <a href="explosion.wav">download the firework explosion sound here</a> and also save it into the same directory</li>
+		<li>You can finally add this line of code to where you would like to play the sound:<br/>
+		<pre class="python">playsound.play("explosion.wav")</pre></li>
+		<li>You are not required to understand the code in the <code>playsound</code> library</li>
+
+		<li><b>If you want better timing for your Mac sounds:</b> <i>(optional)</i></li>
+		<ol>
+			<li>Delete your current version of playsound.py</li>
+			<li>Download <a href="playsound_better_for_mac.py">this</a> version</li>
+			<li>Rename the file you just downloaded to playsound.py</li>
+		</ol>
+		</li>
+
+	</ul>
+
+
+
+		<h2><a name="submission" id="submission" />Submission</h2>
+
+        <ul>
+			<li><strong>You have to submit this lab work</strong>
+
+                <ul>
+                    <li>Enter your name and student ID number in the top of your Python code using a comment</li>
+                    <li>You need to submit within the 5 days following the taught day of your registered lab, before midnight</li>
+                    <li>The exact times and dates are shown at the end of the <a href="marking_scheme.html#deadline">marking scheme page</a></li>
+                    <li>You can look at the <a href="marking_scheme.html">marking scheme</a> to make sure all the parts are done properly</li>
+                    <li><a href="https://canvas.ust.hk/">Submit your work to the COMP1021 Canvas site</a> to the lab assignment for your registered lab section
+                    </li>
+                    <li><b>Please submit only ONE Python file (fireworks.py) </b>
+                        <ul>
+                            <li>You do not need to zip all the files</li>
+                            <li>You do not need to zip the folder</li>
+                            <li>You do not need to submit other files such as the background picture, the sound file, and the library file used to play the sound</li>
+                        </ul>
+                    </li>
+                    <li>Submit your work early, days before the deadline!</li>
+                    <li>If you find that you have made a mistake after you have submitted your work, you can submit again, as many times as you like, BEFORE the deadline.
+                    <ul>
+                    <li>We will mark the most recent submission which is before the deadline.</li>
+                    </ul>
+                    <li><strong>You won't be able to submit your work after the deadline!</strong></li>
+                    <li>Check that you have submitted the correct version of your own file</li>
+                </ul>
+
+
+            </li>
+        </ul>
+
+        <!--
+		<ul>
+		<li>You don't need to submit this work</li>
+		<li>However, it's a good idea to keep a copy of your work for your own reference</li>
+			<ul><li>For example, you can put your file in your USB disk (if you have one) or email a copy to yourself</li></ul>
+		</ul>
+    -->
+
+    </div>
+
+</body>
+
+</html>
+

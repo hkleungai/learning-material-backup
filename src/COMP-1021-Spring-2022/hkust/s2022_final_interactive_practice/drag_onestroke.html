@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel='stylesheet' type='text/css' href='../../hkust/f2021_python_interactive_system/js/codemirror.css'>
+        <link rel='stylesheet' type='text/css' href='../../hkust/f2021_python_interactive_system/js/theme/idle.css'>
+        <link rel='stylesheet' type='text/css' href='../../hkust/f2021_python_interactive_system/style.css'>
+
+        <script src="../../hkust/f2021_python_interactive_system/js/jquery-3.5.1.min.js"></script>
+        <script src="../../hkust/f2021_python_interactive_system/js/jquery-ui-1.10.4.custom.min.js"></script>
+        <script src="../../hkust/f2021_python_interactive_system/skulpt/skulpt.min.js" type="text/javascript"></script>
+        <script src="../../hkust/f2021_python_interactive_system/skulpt/skulpt-stdlib.js" type="text/javascript"></script>
+        <script src="../../hkust/f2021_python_interactive_system/js/codemirror.js" type="text/javascript"></script>
+        <script src="../../hkust/f2021_python_interactive_system/js/mode/python.js" type="text/javascript"></script>
+        <script src="../../hkust/f2021_python_interactive_system/js/pyquestion.js" type="text/javascript"></script>
+
+        <script>
+            /////////////////////////////////////////////////////////////////
+            ///////////////////// Question Type & Python program code
+
+            // This sets the question type
+            // Use the combination of pyQuestion.questionTypeRandomOrder
+            //                        pyQuestion.questionTypeIndentation
+            //                        pyQuestion.questionTypeDeleteLines
+            //                        pyQuestion.questionTypeChangeCode
+            // to set the type
+
+            // For example, if you want the question to have random order and
+            // random indentation, you would add the two together:
+            //     pyQuestion.questionTypeRandomOrder + pyQuestion.questionTypeIndentation
+            var questionType = pyQuestion.questionTypeDeleteLines + pyQuestion.questionHasRandomBehaviour;
+
+            // This is the target code, executed when the page is loaded
+            var pySrc = "aW1wb3J0IHR1cnRsZQppbXBvcnQgcmFuZG9tCiMgZGVmIG15ZHJhdzoKIyBkZWYgbXlkcmF3KCk6CmRlZiBteWRyYXcoeCx5KToKICAgIHR1cnRsZS5vbmRyYWcoTm9uZSkgIyBkaXNhYmxlIG9uZHJhZwogICAgdHVydGxlLnBlbnNpemUoNSkKICAgIGNvbG9ycyA9ICgicmVkIiwgImJsdWUiLCAiZ3JlZW4iLCAib3JhbmdlIikKICAgIHR1cnRsZS5jb2xvcihjb2xvcnNbaW50KHgreSklNF0pCiAgICB0dXJ0bGUuZ290byh4LHkpCiAgICB0dXJ0bGUub25kcmFnKG15ZHJhdykgIyByZS1lbmFibGUgb25kcmFnCmRlZiBwcmludF9tZXNzYWdlKCk6CiAgICB0dXJ0bGUucGVudXAoKQogICAgdHVydGxlLmdvdG8oLTEwMCwxODApCiAgICB0dXJ0bGUud3JpdGUoIlNlZSBpZiB5b3UgY291bGQgZHJhZyB0aGUgdHVydGxlIiwgZm9udD0oIkFyaWFsIiwgMTAsICJib2xkIikpCiAgICB0dXJ0bGUuZ290bygtMTAwLDE2MCkKICAgIHR1cnRsZS53cml0ZSgiYW5kIGRyYXcgdGhlIGZpZ3VyZSBpbiBPTkUgc3Ryb2tlISIsIGZvbnQ9KCJBcmlhbCIsIDEwLCAiYm9sZCIpKQogICAgdHVydGxlLnBlbmRvd24oKQpkZWYgZHJhd19maWd1cmUoKToKICAgIHR1cnRsZS5jb2xvcigibGlnaHRncmV5IikKICAgIHR1cnRsZS5wZW5zaXplKDIwKQogICAgdHVydGxlLnBlbnVwKCkKICAgIHR1cnRsZS5nb3RvKDAsLTE2MCkKICAgIHR1cnRsZS5wZW5kb3duKCkKICAgIHR1cnRsZS5nb3RvKDAsMTQwKQogICAgdHVydGxlLmdvdG8oLTE1MCwxNDApCiAgICBzaWRlID0gMAogICAgd2hpbGUgc2lkZSA8IDQ6CiAgICAgICAgdHVydGxlLmZvcndhcmQoMzAwKQogICAgICAgIHR1cnRsZS5yaWdodCg5MCkKICAgICAgICBzaWRlID0gc2lkZSArIDEKICAgIHR1cnRsZS5nb3RvKDAsMTQwKQogICAgdHVydGxlLnJpZ2h0KDQ1KQogICAgc2lkZSA9IDAKICAgIHdoaWxlIHNpZGUgPCA0OgogICAgICAgIHR1cnRsZS5mb3J3YXJkKDIxMCkKICAgICAgICB0dXJ0bGUucmlnaHQoOTApCiAgICAgICAgc2lkZSA9IHNpZGUgKyAxICAgICAgIApwb3NfeCA9IFstMTUwLCAwLCAxNTBdCnBvc195ID0gWy0xNjAsIDAsIDE0MF0KaW5pdF94ID0gcG9zX3hbcmFuZG9tLnJhbmRpbnQoMCwgMildCmluaXRfeSA9IHBvc195W3JhbmRvbS5yYW5kaW50KDAsIDIpXQp0dXJ0bGUuc3BlZWQoMCkgICAKcHJpbnRfbWVzc2FnZSgpCmRyYXdfZmlndXJlKCkKdHVydGxlLnBlbnVwKCkKdHVydGxlLmdvdG8oaW5pdF94LCBpbml0X3kpCnR1cnRsZS5wZW5kb3duKCkKdHVydGxlLnNoYXBlKCJjaXJjbGUiKQp0dXJ0bGUuY29sb3IoInJlZCIpCnR1cnRsZS5vbmRyYWcobXlkcmF3KQp0dXJ0bGUuZG9uZSgp";
+
+            // This is the code used as the base for the drag and drop Python code shown to the user
+            // For example, if you have a 'delete code' task, you would take the above code and add extra code to it, then generate this
+            var pyForUser = "aW1wb3J0IHR1cnRsZQppbXBvcnQgcmFuZG9tCmRlZiBteWRyYXc6CmRlZiBteWRyYXcoKToKZGVmIG15ZHJhdyh4LHkpOgogICAgdHVydGxlLm9uZHJhZyhOb25lKSAjIGRpc2FibGUgb25kcmFnCiAgICB0dXJ0bGUucGVuc2l6ZSg1KQogICAgY29sb3JzID0gKCJyZWQiLCAiYmx1ZSIsICJncmVlbiIsICJvcmFuZ2UiKQogICAgdHVydGxlLmNvbG9yKGNvbG9yc1tpbnQoeCt5KSU0XSkKICAgIHR1cnRsZS5nb3RvKHgseSkKICAgIHR1cnRsZS5vbmRyYWcobXlkcmF3KSAjIHJlLWVuYWJsZSBvbmRyYWcKZGVmIHByaW50X21lc3NhZ2UoKToKICAgIHR1cnRsZS5wZW51cCgpCiAgICB0dXJ0bGUuZ290bygtMTAwLDE4MCkKICAgIHR1cnRsZS53cml0ZSgiU2VlIGlmIHlvdSBjb3VsZCBkcmFnIHRoZSB0dXJ0bGUiLCBmb250PSgiQXJpYWwiLCAxMCwgImJvbGQiKSkKICAgIHR1cnRsZS5nb3RvKC0xMDAsMTYwKQogICAgdHVydGxlLndyaXRlKCJhbmQgZHJhdyB0aGUgZmlndXJlIGluIE9ORSBzdHJva2UhIiwgZm9udD0oIkFyaWFsIiwgMTAsICJib2xkIikpCiAgICB0dXJ0bGUucGVuZG93bigpCmRlZiBkcmF3X2ZpZ3VyZSgpOgogICAgdHVydGxlLmNvbG9yKCJsaWdodGdyZXkiKQogICAgdHVydGxlLnBlbnNpemUoMjApCiAgICB0dXJ0bGUucGVudXAoKQogICAgdHVydGxlLmdvdG8oMCwtMTYwKQogICAgdHVydGxlLnBlbmRvd24oKQogICAgdHVydGxlLmdvdG8oMCwxNDApCiAgICB0dXJ0bGUuZ290bygtMTUwLDE0MCkKICAgIHNpZGUgPSAwCiAgICB3aGlsZSBzaWRlIDwgNDoKICAgICAgICB0dXJ0bGUuZm9yd2FyZCgzMDApCiAgICAgICAgdHVydGxlLnJpZ2h0KDkwKQogICAgICAgIHNpZGUgPSBzaWRlICsgMQogICAgdHVydGxlLmdvdG8oMCwxNDApCiAgICB0dXJ0bGUucmlnaHQoNDUpCiAgICBzaWRlID0gMAogICAgd2hpbGUgc2lkZSA8IDQ6CiAgICAgICAgdHVydGxlLmZvcndhcmQoMjEwKQogICAgICAgIHR1cnRsZS5yaWdodCg5MCkKICAgICAgICBzaWRlID0gc2lkZSArIDEgICAgICAgCnBvc194ID0gWy0xNTAsIDAsIDE1MF0KcG9zX3kgPSBbLTE2MCwgMCwgMTQwXQppbml0X3ggPSBwb3NfeFtyYW5kb20ucmFuZGludCgwLCAyKV0KaW5pdF95ID0gcG9zX3lbcmFuZG9tLnJhbmRpbnQoMCwgMildCnR1cnRsZS5zcGVlZCgwKSAgIApwcmludF9tZXNzYWdlKCkKZHJhd19maWd1cmUoKQp0dXJ0bGUucGVudXAoKQp0dXJ0bGUuZ290byhpbml0X3gsIGluaXRfeSkKdHVydGxlLnBlbmRvd24oKQp0dXJ0bGUuc2hhcGUoImNpcmNsZSIpCnR1cnRsZS5jb2xvcigicmVkIikKdHVydGxlLm9uZHJhZyhteWRyYXcpCnR1cnRsZS5kb25lKCk=";
+
+            ///////////////////// Question Type & End of Python program code
+            /////////////////////////////////////////////////////////////////
+
+            $(document).ready(function() {
+                let options = {
+                    showListLineNumbers: true,
+					deleteLinesNumberOfLines: 2
+                }
+
+                // Initialize the pyQuestion module
+                pyQuestion.init(questionType, pySrc, pyForUser, options);
+
+                // Run the target program at the start
+                pyQuestion.runTargetProgram("programOutputArea", "turtleGraphicsOutputForTarget");
+            });
+        </script>
+    </head>
+    <body>
+        <h1>
+            <span class="header">COMP1021 Learning Tool <button type="button" class="aboutButton">?</button>
+            </span>
+            <span class="title">Dragging the Turtle - Drawing Figure in One Stroke</span>
+        </h1>
+
+        <div class="pageContent">
+
+
+            <div class="targetOutputPane">
+                <p>The target output of the program is shown here:</p>
+                <span class="windowRemark">Turtle window size is 400x400 pixels</span>
+                <div id="turtleGraphicsOutputForTarget"></div>
+                <p><button type="button" class="runTargetProgramButton">Run the target output again</button></p>
+            </div>
+
+            <div class="userOutputPane">
+                <p>The turtle graphics of your program will be shown here:</p>
+
+                <span class="windowRemark">Turtle window size is 400x400 pixels</span>
+                <div id="turtleGraphicsOutputForUser"></div>
+                <p><button type="button" class="runUserProgramButton">Run my answer!</button></p>
+            </div>
+
+            <div class="codePane" style="width:850px">
+                <!-- The question instruction -->
+                <h4>Instructions</h4>
+                <ul id="message"></ul>
+
+                <!-- The Python drag and drop code goes in this -->
+                <ul id="codeList"></ul>
+
+                <p>When you have finished, click here:</p>
+                <p><button type="button" class="runUserProgramButton">Run my answer!</button></p>
+
+                <h4>Any generated text will be shown here:</h4>
+                <textarea id="programOutputArea" rows="2"></textarea>
+
+                <p>If you want to reset the question and start all over again, click here:</p>
+                <p><button type="button" class="resetButton">Reset</button></p>
+            </div>
+
+        </div>
+
+    </body>
+</html>

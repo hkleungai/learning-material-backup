@@ -39,6 +39,13 @@ const categorizedCourses: CategorizedCourses = {
       semesters: ['Spring 2020'],
     }
   ],
+  'Introduction to Programming': [
+    {
+      code: 'COMP 1021',
+      title: 'Introduction to Computer Science',
+      semesters: ['Spring 2022'],
+    }
+  ],
   'Machine Learning': [
     {
       code: 'COMP 4211',

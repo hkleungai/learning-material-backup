@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>COMP1021 Lab 1 - Guessing Game</title>
+    <link href="../../../css/lab.css" rel="stylesheet" />
+    <script src="../../../scripts/jquery-3.4.1.min.js"></script>
+    <script src="../../../scripts/lab.js"></script>
+    <script src="video_res.js"></script>
+</head>
+
+<body>
+    <h1>
+        <span class="lab">COMP1021 Lab 1</span>
+        <span class="title">Guessing Game</span>
+    </h1>
+    <div id="videoQualityWidget"></div>
+    <div class="content">
+
+        <h2>The Main Focus of this Lab</h2>
+        <ul>
+            <li>In this lab, you focus on:
+                <ul>
+                   <li>making a loop to do something again and again, for a guessing game</li>
+                   <li>logical thinking, handling input, using variables, converting from text to integer, and comparisons</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>What You Will Learn in This Lab</h2>
+
+        <ul>
+            <li>In this lab, you will gain experience in the following areas:
+                <table class="simple">
+                    <tr>
+                        <th>Topic</th>
+                        <th>Computer Science/ Programming Concept</th>
+                    </tr>
+                    <tr>
+                        <td>Storing things</td>
+                        <td>Using variables</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">Handling text input and output</td>
+                        <td>Using <code>input()</code> to read text input</td>
+                    </tr>
+                    <tr>
+                        <td>Using <code>print()</code> to show text output</td>
+                    </tr>
+                    <tr>
+                        <td>Random number generation</td>
+                        <td>Getting random integers using <code>random.randint()</code></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">Data conversion</td>
+                        <td>Converting any value to an integer with <code>int()</code></td>
+                    </tr>
+                    <tr>
+                        <td>Converting any value to a string with <code>str()</code></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">Making decisions</td>
+                        <td>Writing If statements (<code>if ... elif ... else ...</code>)</td>
+                    </tr>
+                    <tr>
+                        <td>Building conditions using comparison operators <code>&lt;</code> and <code>&gt;</code>, and logical operator <code>or</code></td>
+                    </tr>
+                    <tr>
+                        <td>Repeating things using loops</td>
+                        <td>Using while loops (<code>while ...</code>)</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">Using the turtle graphics module</td>
+                        <td>Getting text input using <code>turtle.textinput()</code></td>
+                    </tr>
+                    <tr>
+                        <td>Clearing the turtle window using <code>turtle.clear()</code></td>
+                    </tr>
+                    <tr>
+                        <td>Showing text inside a turtle window using <code>turtle.goto()</code> and <code>turtle.write()</code></td>
+                    </tr>
+                </table>
+            </li>
+        </ul>
+
+        <h2>Overview</h2>
+<a name="section0.0" />
+<video width="640" height="360" controls>
+    <source src="videos/comp1021_lab1_intro.mp4" type="video/mp4">
+    Your browser does not support the video tag.</video>
+<ul style="list-style-type: none;">
+    <li style='font-size:12px'>Note: The overview video shows the text version of the guessing game. In this lab, you need to convert the game to the turtle graphics version</li>
+</ul>
+
+        <ul>
+            <li>In this session, you need to create a simple guessing game by writing your own Python code</li>
+            <li>Here is an example display of the game being played:
+            <p><img src="images/gui.png" alt="The GUI" /></p>
+            </li>
+            <li>At the beginning of the game, an integer random number is generated, but is not shown to the player</li>
+            <li>To play this game, the player has to repeatedly type the number he/she guesses and press the 'Enter' key to check if the correct number has been guessed</li>
+            <li>An example will be shown during the lab session</li>
+            <li>Finally, we will convert the game so it uses turtle graphics</li>
+        </ul>
+
+        <h2>Lab Content</h2>
+
+        <ul class="toc">
+            <li>1. <a href="#section1">Getting Started</a>
+            <ul>
+                <li>1.1. <a href="#section1.1">Activating your CSD account</a></li>
+                <li>1.2. <a href="#section1.2">Downloading the template file</a></li>
+                <li>1.3. <a href="#section1.3">Using IDLE</a></li>
+            </ul>
+            </li>
+            <li>2. <a href="#section2">Implementing the Guessing Game</a>
+            <ul>
+                <li>2.1. <a href="#section2.1">Introduction</a></li>
+                <li>2.2. <a href="#section2.2">Creating an integer random number</a></li>
+                <li>2.3. <a href="#section2.3">Checking the player's guess</a>
+                <ul>
+                    <li>2.3.1. <a href="#section2.3.1">Is guess_input &lt; 1 or &gt; 100?</a></li>
+                    <li>2.3.2. <a href="#section2.3.2">Is guess_input &gt; target?</a></li>
+                    <li>2.3.3. <a href="#section2.3.3">Is guess_input &lt; target?</a></li>
+                    <li>2.3.4. <a href="#section2.3.4">Final stage</a></li>
+                </ul>
+                </li>
+                <li>2.4. <a href="#section2.4">Counting the number of guesses</a></li>
+            </ul>
+            </li>
+            <li>3. <a href="#section3">Converting to Turtle Graphics</a>
+            <ul>
+                <li>3.1. <a href="#section3.1">Introduction</a></li>
+                <li>3.2. <a href="#section3.2">Turtle input</a></li>
+                <li>3.3. <a href="#section3.3">Turtle output</a></li>
+                <li>3.4. <a href="#section3.4">Clearing the screen</a></li>
+                <li>3.5. <a href="#section3.5">Changing the font of the text</a></li>
+                <li>3.6. <a href="#section3.6">Moving the text down the page</a></li>
+            </ul>
+            </li>
+            <li>Video locations</li>
+            <ul>
+              <li><a href="#section0.0">Overview</a></li>
+              <li><a href="#section1.0">Getting Started</a></li>
+              <li><a href="#section2.0">Implementing the Guessing Game</a></li>
+              <li><a href="#section3.0">Converting to Turtle Graphics</a></li>
+            </ul>
+
+        </ul>
+
+        <h2>Lab Procedure</h2>
+
+        <h2><a name="section1"></a>1. Getting Started</h2>
+<a name="section1.0" /><h3>Video for Getting Started</h3>
+<video width="640" height="360" controls> <source src="videos/comp1021_lab1_part1.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+<ul style="list-style-type: none;">
+    <li style="font-size:12px;">Note: The video is using Python 3.8. And in this semester, you should use Python 3.9 instead</li>
+    <li style="font-size:12px;">Note: That means you should find "IDLE (Python 3.9 64-bit)" Instead</li>
+</ul>
+
+        <h3><a name="section1.1"></a>1.1 Activating your CSD account</h3>
+        <ul>
+            <li>After having a CSD account, you can get access to course webpage when you are outside the Campus</li>
+            <li>If you haven't done so you need to activate the account through the following link:
+            <pre><a href="https://password.cse.ust.hk:8443/pass.html">https://password.cse.ust.hk:8443/pass.html</a></pre>
+            </li>
+            <li>For detailed instructions see the last few slides of the course details notes</li>
+
+        </ul>
+
+        <h3><a name="section1.2"></a>1.2 Downloading the template file</h3>
+
+        <ul>
+            <li>A template file (guess.py) is given to you as a starting point <a href="guess.py">here</a> (right click on the link, select 'Save Target As')</li>
+            <li>You can use software such as IDLE to edit the source code to do this work</li>
+        </ul>
+
+        <h3><a name="section1.3"></a>1.3 Using IDLE</h3>
+
+        <ul>
+            <li>Here are some ways you can use IDLE</li>
+            <li>The default way is using IDLE in a Windows 10 machine</li>
+            <li>Please click the following buttons to see the instructions in other platforms:
+                <br>
+            <div id="idle_instruction_controls" >
+                <button id="btn_win10">Windows 10</button>
+                <button id="btn_win11">Windows 11</button>
+                <button id="btn_macos">Mac OS</button>
+                <button id="btn_vbarn">Virtual Barn</button>
+            </div>
+
+            </li>
+        </ul>
+
+
+
+       <div id="instruction_win10">
+        <h5>Using IDLE in a Windows 10 machine</h5>
+        <ul>
+            <li>To use IDLE in a Windows 10 machine, you can go to the start menu, scroll down to see "Python 3.9" folder, like this:
+                <p>
+                <img src="images/start_menu_virtual_barn.png" style="width:310px;height:474px" alt="Virtual Barn Start Menu" />
+                </p>
+            </li>
+            <li>Alternatively, you can type "Python 3.9" on the search bar of the start menu</li>
+
+            <li>Run IDLE by clicking on the IDLE icon
+            </li>
+            <li>After running IDLE you can see the IDLE Python shell, like this:
+            <p><a href="images/idle_shell_new.png"><img src="images/idle_shell_new.png" style="width:504px;height:207px" alt="IDLE Shell" /></a><br />
+            <span class="footnote">Click to see the image in full size</span></p>
+            </li>
+        </ul>
+       </div>
+
+       <div id="instruction_win11">
+        <h5>Using IDLE in a Windows 11 machine</h5>
+        <ul>
+            <li>To use IDLE in a Windows 11 machine you can click the search button (i.e., the magnifying glass icon) on the menu bar</li>
+            <li>Type "IDLE" on the search bar, like this:
+                <p><a href="images/start_menu_win11.png">
+                    <img src="images/start_menu_win11.png" style="height:350px;" alt="Win11 IDLE" /></a><br />
+                    <span class="footnote">Click to see the image in full size</span></p> </li>
+            <li>Run IDLE by clicking on the IDLE icon</li>
+            <li>After running IDLE you can see the IDLE Python shell, like this:
+                <p><a href="images/idle_shell_new.png"><img src="images/idle_shell_new.png" style="width:504px;height:207px" alt="IDLE Shell" /></a><br />
+                <span class="footnote">Click to see the image in full size</span></p>
+            </li>
+
+        </ul>
+        </div>
+
+        <div id="instruction_macos">
+        <h5>Using IDLE in a Mac machine</h5>
+
+        <ul>
+            <li>
+                <a name="section_mac" />
+                Video for Using IDLE in a Mac machine <br>
+                <video width="640" height="360" controls  preload="metadata" DEMO> <source src="videos/comp1021_lab1_mac.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+
+            </li>
+            <li>To use IDLE in Mac machine you can click on the Launchpad:
+            <p><a href="images/mac_launchpad.png"><img src="images/mac_launchpad.png" style="width:250px;height:118px" alt="Mac Launchpad Icon" /></a><br />
+            <span class="footnote">Click to see the image in full size</span></p>
+
+            </li>
+
+            <li>Find the IDLE button and click on the IDLE icon
+            <ul>
+                <li>Please do not choose the <i>Python Launcher</i></li>
+            </ul>
+            <p><a href="images/mac_launchpad2.png"><img src="images/mac_launchpad2.png" style="width:500px;height:275px" alt="Launchpad List Icon" /></a><br />
+            <span class="footnote">Click to see the image in full size</span></p>
+
+            </li>
+            <li>After running IDLE you can see the IDLE Python shell, like this:
+            <p><a href="images/mac_idle.png"><img src="images/mac_idle.png" style="width:318px;height:122px" alt="Mac IDLE Shell" /></a><br />
+            <span class="footnote">Click to see the image in full size</span></p>
+            </li>
+        </ul>
+        </div>
+
+
+        <div id="instruction_virtual_barn">
+        <h5>Using IDLE in the ITSC Virtual Barn</h5>
+        <ul>
+            <li>Alternatively, you can use Python IDLE in the ITSC Virtual Barn</li>
+		<ul>
+            	<li>The Virtual Barn is available anytime via the Internet</li>
+		<li>You could do this anywhere in campus, and you can access it using your Mac/PC computers, tablets and mobile devices</li>
+		<li>The instructions below are for Windows machine, however, the instructions will be similar in different devices e.g. Mac, tablets and mobile devices</li>
+		</ul>
+            <li>To use the Virtual Barn in a Windows machine, follow these steps:
+            <ol>
+                <li>In the Start Menu, go to <code>VMWare &raquo; VMWare Horizon Client</code>
+                <p><img src="images/start_menu.png" style="width:287px;height:303px" alt="Win10 Start Menu" /></li>
+                <li>In the <i>VMware Horizon Client</i> window, if you cannot see <code>vdi.ust.hk</code> already shown, simply choose <code>Add Server</code>
+                <p><img src="images/vmware_screen.png" style="width:479px;height:362px" alt="VMWare Screen" />
+                <p>Type <code>vdi.ust.hk</code> as the name of the Connection Server</li>
+                <li>Log in using your <strong>ITSC username/password</strong>
+                <p><img src="images/vmware_login.png" style="width:422px;height:248px"lt="VMWare Login" /></li>
+                <li>Please choose your the way to do 2FA (2 Factor Authentication), or enter the passcode in your <i>Duo Security</i> Mobile App</strong>
+                <p><img src="images/vmware_login2.png" style="width:422px;height:332px"lt="VMWare Login" /></li>
+
+
+                <li>Choose the Programming Software
+                <p><img src="images/vmware.png" style="width:628px;height:474px" alt="VMWare Screen" /></li>
+                <li>After waiting for a while, you will see the Windows desktop. Go to the Start Menu and look for folder <code>Python 3.9</code> in Start Menu, then execute <code>IDLE (Python 3.9 64-bit)</code>.
+                <p><img src="images/start_menu_virtual_barn.png" style="width:310px;height:474px" alt="Virtual Barn Start Menu" /></li>
+            </ol>
+            </li>
+            <li>You may install VMWare Horizon Client and access Virtual Barn on your own devices</li>
+            <li>To know more about the ITSC Virtual Barn, you can refer to <a href="../../../hkust/virtual_barn/index.html" target=_"blank">this page</a>
+        </ul>
+        </div>
+
+        <script>
+            const win10 = document.getElementById("instruction_win10");
+            const win11 = document.getElementById("instruction_win11");
+            const macos = document.getElementById("instruction_macos");
+            const vbarn = document.getElementById("instruction_virtual_barn");
+
+            function display(elm, status) {
+                if (status) {
+                    elm.style.display = "block";
+                } else {
+                    elm.style.display = "none";
+                }
+            }
+            function display_win10_only() {
+                display(win10, true);
+                display(win11, false);
+                display(macos, false);
+                display(vbarn, false);
+            }
+            function display_win11_only() {
+                display(win10, false);
+                display(win11, true);
+                display(macos, false);
+                display(vbarn, false);
+            }
+            function display_macos_only() {
+                display(win10, false);
+                display(win11, false);
+                display(macos, true);
+                display(vbarn, false);
+            }
+            function display_vbarn_only() {
+                display(win10, false);
+                display(win11, false);
+                display(macos, false);
+                display(vbarn, true);
+            }
+
+            const btn_win10 = document.getElementById("btn_win10");
+            const btn_win11 = document.getElementById("btn_win11");
+            const btn_macos = document.getElementById("btn_macos");
+            const btn_vbarn = document.getElementById("btn_vbarn");
+
+            btn_win10.addEventListener("click", display_win10_only);
+            btn_win11.addEventListener("click", display_win11_only);
+            btn_macos.addEventListener("click", display_macos_only);
+            btn_vbarn.addEventListener("click", display_vbarn_only);
+
+
+            display_win10_only();
+
+
+        </script>
+
+        <h2><a name="section2"></a>2. Implementing the Guessing Game</h2>
+<a name="section2.0" /><h3>Video for Implementing the Guessing Game</h3>
+<video width="640" height="360" controls> <source src="videos/comp1021_lab1_part2.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+<ul><li><p style="font-size:12px">Note: There is a typo "Tooo high" in the video. The correct word should be "Too high".</p></li></ul>
+
+        <h3><a name="section2.1"></a>2.1. Introduction</h3>
+        <ul>
+            <li>Here is a flow diagram of the main part of the game:
+            <p><img src="images/guess_number_lab_flowchart_small.png" alt="Flow diagram" /></p>
+            </li>
+            <li>The guessing game program will take the text input from the user and return the text output:
+            <p><img src="images/text_input_output.png" width="500" alt="Text Input Output" /></p>
+            </li>
+            <li>Open the template file (guess.py), which was downloaded in <a href="#section1.2">Section1.2</a>, by selecting <code>File &raquo; Open</code></li>
+            <li>We will edit the template file to do the following steps</li>
+        </ul>
+
+        <h3><a name="section2.2"></a>2.2. Creating an integer random number</h3>
+
+        <ul>
+            <li>When the program starts it needs to create an integer random number which is the number that the player has to guess</li>
+            <li>The code shown in the starting point is not complete</li>
+            <li>You have to write the code to finish it</li>
+            <li>First, you need to use the Python function <code>random.randint(min, max)</code> to generate the random number as follows:
+            <pre class="python">target = random.randint(1, 100)</pre>
+            </li>
+            <li>The code above generates a random integer number in a range of 1 to 100 (including 1 and 100), e.g. 54</li>
+            <li>So now the variable <code>target</code> stores the random number that the player has to guess</li>
+	    <li>Let's also tell the user that this number is ready:
+	    <pre class="python">print("I am thinking of a number. What number am I thinking of?")</pre>
+	    </li>
+            <li>The player needs to guess the number in a loop as follows. It's pseudo-code. Can you write it in Python?
+            <pre><span class="nocode">while not finished :</span>
+
+    guess_input_text = input(<span class="g">"Please enter a number between 1 and 100: "</span>)
+
+    <span class="nocode">check what the user types in, if it is correct, then we have finished</span></pre>
+            </li>
+            <li>The <code>input</code> function shows a message which asks the player to enter his guess
+            <p><img src="images/input.png" alt="The player input" /></p>
+            </li>
+            <li>Then we check if the player has a correct guess</li>
+            <li>The true (correct) or false (incorrect) result is stored in the variable <code>finished</code></li>
+        </ul>
+
+        <h3><a name="section2.3"></a>2.3. Checking the player's guess</h3>
+
+        <ul>
+            <li>You have to write the code to check if the player has a correct guess inside the while loop</li>
+            <li>Check the flow chart in <a href="#section2.1">Section 2.1</a> for the procedure</li>
+            <li>The player's guessed number is stored in the variable <code>guess_input_text</code></li>
+            <li>Because <code>guess_input_text</code> is actually a piece of text, we need to convert it into a number</li>
+            <li>We can do this using <code>int(guess_input_text)</code>, for example:
+            <pre class="python">guess_input = int(guess_input_text)</pre>
+            </li>
+            <li>Now the numerical value of player's guessed number is stored in the variable <code>guess_input</code></li>
+        </ul>
+
+        <h3><a name="section2.3.1"></a>2.3.1. Is guess_input &lt; 1 or &gt; 100?</h3>
+
+        <ul>
+            <li>Before we check if the player has the correct guess, we have to make sure the guessed number is in the range of 1 to 100</li>
+            <li>If the guessed number is lower(smaller) than 1 or higher(greater) than 100, we tell the player to enter a number in the correct range, i.e.
+            <pre class="python">if guess_input &lt; 1 or guess_input &gt; 100:
+    print("Please enter an integer number between 1 and 100.")</pre>
+            </li>
+            <li>Finally, we can compare the guessed number with the random number that was generated at the beginning of the game</li>
+        </ul>
+
+        <h3><a name="section2.3.2"></a>2.3.2. Is guess_input > target?</h3>
+
+        <ul>
+            <li>The guessed number is higher(greater) than the player's random number, e.g.
+            <table class="simple">
+                <tr>
+                    <th>guess_input</th>
+                    <th>target</th>
+                </tr>
+                <tr>
+                    <td style="text-align: center">80</td>
+                    <td style="text-align: center">75</td>
+                </tr>
+            </table>
+            </li>
+            <li>In this situation you need to tell the player to try again with a lower(smaller) number</li>
+        </ul>
+
+        <h3><a name="section2.3.3"></a>2.3.3. Is guess_input &lt; target?</h3>
+
+        <ul>
+            <li>The guessed number is lower(smaller) than the player's random number, e.g.
+            <table class="simple">
+                <tr>
+                    <th>guess_input</th>
+                    <th>target</th>
+                </tr>
+                <tr>
+                    <td style="text-align: center">10</td>
+                    <td style="text-align: center">75</td>
+                </tr>
+            </table>
+            </li>
+            <li>In this situation you need to tell the player to try again with a higher(greater) number</li>
+        </ul>
+
+        <h3><a name="section2.3.4"></a>2.3.4. Final stage</h3>
+
+        <ul>
+            <li>If none of the above conditions is correct, the guessed number will be the computer's random number</li>
+            <li>In this situation you need to tell the player he/ she has a correct guess, e.g.
+            <p><img src="images/correct.png" alt="Correct guess" /></p>
+            </li>
+            <li>Also you need to tell the while loop the game has finished by setting the <code>finished</code> variable to true</li>
+        </ul>
+
+        <h3><a name="section2.4"></a>2.4. Counting the number of guesses</h3>
+
+        <ul>
+            <li>After the above steps you now have a working game</li>
+            <li>In this part, we will add an additional feature to show the number of guesses that were made before the player got the right answer</li>
+            <li>For example, "It took you 8 guesses to get the number!"</li>
+            <li>To do this you would have to
+            <ul>
+                <li>Make a variable at an appropriate place, which will be used to count the guesses, i.e.:
+                <pre class="python">count = 0</pre>
+                </li>
+                <li>Add 1 to the variable every time a guess is made, like this:
+                <pre class="python">count = count + 1</pre>
+                </li>
+                <li>Show the value of the variable when the player gets the right answer</li>
+            </ul>
+            </li>
+        </ul>
+
+        <h2><a name="section3"></a>3. Converting to Turtle Graphics</h2>
+<a name="section3.0" /><h3>Video for Converting to Turtle Graphics</h3>
+<video width="640" height="360" controls>
+    <source src="videos/comp1021_lab1_part3.mp4" type="video/mp4">Your browser does not support the video tag.
+</video>
+<ul style="list-style-type: none;">
+    <li style="font-size:12px">Note: There is a typo "Tooo high" in the video. The correct word should be "Too high".</li>
+    <li style="font-size:12px">Note: You do not need to expand the window size if the messages go out of the window. You can assume the user gets the answer within 10 guesses</li>
+</ul>
+        <h3><a name="section3.1"></a>3.1 Introduction</h3>
+
+        <ul>
+            <li>You will also try to convert the game so that it uses turtle graphics
+            <p><a href="images/turtle_too_low.png"><img src="images/turtle_too_low_small.png" alt="Turtle Guessing Game" /></a><br />
+            <span class="footnote">Click to see the image in full size</span></p>
+            </li>
+            <li>The flow of the game is the same as the above, except that we are now using turtle input and output:
+            <p><img src="images/turtle_input_output.png" width="600" alt="Text Input Output" /></p>
+            </li>
+            <li>First, save your work from <a href="#section2">Section 2</a> to a new file (guess_turtle.py) by selecting <code>File &raquo; Save as ...</code></li>
+            <li>We will edit this new file to convert the game so that it uses turtle graphics</li>
+            <li>Add the following line near the top of your program before you start using any other turtle commands:
+            <pre class="python">import turtle</pre>
+            </li>
+            <li>And add the following line at the end:
+            <pre class="python">turtle.done()</pre>
+            </li>
+        </ul>
+
+        <h3><a name="section3.2"></a>3.2 Turtle input</h3>
+
+        <ul>
+            <li>Replace <code>input()</code> with <code>turtle.textinput()</code>:
+            <pre>turtle.textinput( <strong><em>title</em></strong> , <strong><em>prompt</em></strong> )</pre>
+            </li>
+            <li>where <strong><em>title</em></strong> is the title of the dialog window, and <strong><em>prompt</em></strong> is the message which asks for input</li>
+            <li>For example:
+            <pre class="python">
+guess_input_text = turtle.textinput("Guessing Game",
+                                    "Please enter a number between 1 and 100:")</pre>
+            </li>
+            <li>When you run the program, a dialog window will appear:
+            <p><img src="images/turtle_input_prompt.png" alt="Turtle prompt" /></p>
+            </li>
+        </ul>
+
+        <h3><a name="section3.3"></a>3.3 Turtle output</h3>
+
+        <ul>
+            <li>Replace <code>print()</code> with <code>turtle.write()</code>, for example:
+            <pre class="python">turtle.write("Please enter an integer number between 1 and 100.")</pre>
+            </li>
+            <li>Notice that in order to output the count of guesses as shown in <a href="#section2.4">Section 2.4</a>, the line of code should be:
+            <pre class="python">turtle.write("It took you " + str(count) + " guesses to get the number!")</pre>
+            </li>
+            <li>"It took you " and " guesses to get the number!" are two strings, i.e. sequence of characters</li>
+            <li>But <code>count</code> is a variable storing an integer number</li>
+            <li>In order to concatenate the two strings with the value of <code>count</code>, we need to convert <code>count</code> to a string</li>
+            <li><code>str(count)</code> converts the integer number in the variable <code>count</code> to a string</li>
+        </ul>
+
+        <h3><a name="section3.4"></a>3.4 Clearing the screen</h3>
+
+        <ul>
+            <li>By default, <code>turtle.write()</code> would not move the turtle position</li>
+            <li>That means lines of output will overlap each other:
+            <p><img src="images/turtle_overlap.png" alt="Turtle overlapped output" /></p>
+            </li>
+            <li>You can clear the turtle's drawings from the screen before showing the next message</li>
+            <li>Add <code>turtle.clear()</code> before <code>turtle.write()</code>, for example:
+            <pre class="python">turtle.clear()
+turtle.write("Too low.")</pre>
+            </li>
+            <li>Then, you will be able to run the guessing game program in turtle graphics:
+            <p><a href="images/turtle_too_low_font12.png"><img src="images/turtle_too_low_font12_small.png" alt="Turtle Guessing Game" /></a><br />
+            <span class="footnote">Click to see the image in full size</span></p>
+            </li>
+        </ul>
+
+        <h3><a name="section3.5"></a>3.5 Changing the font of the text</h3>
+
+        <ul>
+            <li>If you add an extra parameter to <code>turtle.write()</code>, you can change the way the text looks, like this:
+            <pre class="python">turtle.write("Too low.", font=("Arial", 40, "bold"))</pre></li>
+            <li>The extra parameter specifies the font to be used in the text, it consists of 3 values:
+            <ol>
+                <li>font name, e.g. "Arial", "Courier", "Times"</li>
+                <li>font size, e.g. 40, 11, 8</li>
+                <li>font style, e.g. "bold", "italic", "normal"</li>
+            </ol>
+            </li>
+            <li>The parameter <code>font=("Arial", 40, "bold")</code> changes the text displayed to Arial typeface, size 40 and bold style</li>
+            <li>The text displayed will be changed to:
+            <p><a href="images/turtle_too_low_font40.png"><img src="images/turtle_too_low_font40_small.png" alt="Turtle Guessing Game" /></a><br />
+            <span class="footnote">Click to see the image in full size</span></p></li>
+            <li><code>turtle.clear()</code> is introduced to demonstrate how to avoid text overlapping problem</li>
+            <li>We will not include <code>turtle.clear()</code> in our final number guessing game when we introduce the next topic "3.6 Moving the text down the page"</li>
+        </ul>
+
+        <h3><a name="section3.6"></a>3.6 Moving the text down the page</h3>
+
+        <ul>
+            <li>It is more preferable to change your program so it always moves new text down the page</li>
+            <li>Here's an example with 8 guesses:
+            <p><a href="images/turtle_input_output_final.png"><img src="images/turtle_input_output_final_small.png" alt="Turtle Guessing Game" /></a><br />
+            <span class="footnote">Click to see the image in full size</span></p>
+            </li>
+            <li>Here's how you would do that
+            <ul>
+                <li>First, remove the <code>turtle.clear()</code> instruction</li>
+                <li>Second, add two new variables which store the x position and the y position of the text i.e.
+<pre class="python">xposition = -100
+yposition = 150</pre></li>
+                <li>Then, every place you have <code>turtle.write()</code>, replace it with these three lines:
+<pre class="python">turtle.goto(xposition, yposition)
+turtle.write(" <strong><em>Put the output text here</em></strong> ")
+yposition = yposition - 40</pre></li>
+            </ul>
+            </li>
+            <li>In this way your text will 'automatically' move down the page</li>
+            <li>It's not really necessary to have a variable for the x position, but we do that to make your understanding of what we are doing easier</li>
+        </ul>
+
+		<h2><a name="submission" id="submission" />Submission</h2>
+
+		<ul>
+			<li><strong>You have to submit this lab work</strong>
+
+                <ul>
+                    <li>Enter your name and student ID number in the top of your Python code using a comment</li>
+                    <li>You need to submit within the 5 days following the taught day of your registered lab, before midnight</li>
+                    <li>The exact times and dates are shown at the end of the <a href="marking_scheme.html#deadline">marking scheme page</a></li>
+                    <li>You can look at the <a href="marking_scheme.html">marking scheme</a> to make sure all the parts are done properly</li>
+                    <li><a href="https://canvas.ust.hk/">Submit your work to the COMP1021 Canvas site</a> to the lab assignment for your registered lab section
+                    </li>
+                    <li><b>Please submit only ONE Python file (guess.py) with Turtle Graphics only</b>
+                        <ul>
+                            <li>The text version of the game is for implementing the final version</li>
+                        </ul>
+                    </li>
+                    <li>Submit your work early, days before the deadline!</li>
+                    <li>If you find that you have made a mistake after you have submitted your work, you can submit again, as many times as you like, BEFORE the deadline.
+                    <ul>
+                    <li>We will mark the most recent submission which is before the deadline.</li>
+                    </ul>
+                    <li><strong>You won't be able to submit your work after the deadline!</strong></li>
+                    <li>Check that you have submitted the correct version of your own file</li>
+                </ul>
+
+
+            </li>
+        </ul>
+
+
+
+<!--
+		<li>You don't need to submit this work</li>
+		<li>However, it's a good idea to keep a copy of your work for your own reference</li>
+			<ul><li>For example, you can put your file in your USB disk (if you have one) or email a copy to yourself</li></ul>
+		</ul>
+    -->
+
+    </div>
+</body>
+</html>

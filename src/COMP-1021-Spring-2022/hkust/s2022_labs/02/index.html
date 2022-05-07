@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>COMP1021 Lab 2 - Graphics Sketchbook</title>
+    <link href="../css/lab.css" rel="stylesheet" />
+    <!-- <link href="../../../scripts/highlight/idle.css" rel="stylesheet">
+    <script src="../../../scripts/highlight/highlight.pack.js"></script> -->
+    <!-- <script src="../../../scripts/jquery-ui-1.10.4.custom/js/jquery-1.10.2.js"></script> -->
+    <link href="../../../css/lab.css" rel="stylesheet" />
+    <script src="../../../scripts/jquery-3.4.1.min.js"></script>
+    <script src="../../../scripts/lab.js"></script>
+    <script src="../../../scripts/video_res.js"></script>
+    <script src="video_res.js"></script>
+
+    <style>
+    .option { font-family: Courier New, sans-serif; color: blue; }
+    </style>
+</head>
+
+<body>
+    <h1>
+        <span class="lab">COMP1021 Lab 2</span>
+        <span class="title">Graphics Sketchbook</span>
+    </h1>
+    <div id="videoQualityWidget"></div>
+
+    <div class="content">
+
+        <h2>The Main Focus of this Lab</h2>
+        <ul>
+            <li>In this lab, you focus on:
+                <ul>
+                    <li>creating a menu system</li>
+                    <li>using loops, loops inside loops</li>
+                    <li>(handling input, using variables, converting types of data, comparisons)</li>
+                </ul>
+            </li>
+        </ul>
+
+
+        <h2>What You Will Learn in This Lab</h2>
+
+        <ul>
+            <li>In this lab, you will gain experience in the following areas:
+                <table class="simple">
+                    <tr>
+                        <th>Topic</th>
+                        <th>Computer Science/ Programming Concept</th>
+                    </tr>
+                    <tr>
+                        <td>Making decisions</td>
+                        <td>Writing If statements (<code>if ... elif ... else ...</code>)</td>
+                    </tr>
+                    <tr>
+                        <td>Getting text input</td>
+                        <td>Using <code>input()</code> to read text input</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">Data conversion</td>
+                        <td>Converting any value to an integer with <code>int()</code></td>
+                    </tr>
+                    <tr>
+                        <td>Converting any value to a string with <code>str()</code></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="4">Repeating things using loops</td>
+                        <td>Using while loops (<code>while ...</code>)</td>
+                    </tr>
+                    <tr>
+                        <td>Building nested loops, i.e. a loop inside another loop</td>
+                    </tr>
+                    <tr>
+                        <td>Using for loops (<code>for ...</code>)</td>
+                    </tr>
+                    <tr>
+                        <td>Using a list with a for loop</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="5">Using the turtle graphics module</td>
+                        <td>Drawing shapes by moving the turtle around</td>
+                    </tr>
+                    <tr>
+                        <td>Using named colours</td>
+                    </tr>
+                    <tr>
+                        <td>Drawing filled shapes using <code>turtle.begin_fill()</code> and <code>turtle.end_fill()</code></td>
+                    </tr>
+                    <tr>
+                        <td>Drawing circles using <code>turtle.circle()</code></td>
+                    </tr>
+                    <tr>
+                        <td>Drawing solid circles using <code>turtle.dot()</code></td>
+                    </tr>
+                    <!--<tr>
+                        <td>Showing text inside a turtle window using <code>turtle.goto()</code> and <code>turtle.write()</code></td>-->
+                    </tr>
+                </table>
+            </li>
+        </ul>
+
+        <h2>Overview</h2>
+<video width="640" height="360" controls  preload="auto"> <source src="videos/comp1021_lab2_intro.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+
+        <ul>
+            <li>In this session, you will create a simple artist sketchbook using Python turtle graphics code</li>
+        </ul>
+
+        <h2>Lab Content</h2>
+
+        <ul class="toc">
+            <li>1. <a href="#section1">Understanding the program interface</a>
+            <ul>
+                <li>1.1. <a href="#section1.1">Getting started</a></li>
+                <li>1.2. <a href="#section1.2">Running the starting code</a></li>
+                <li>1.3. <a href="#section1.3">The program interface</a></li>
+            </ul>
+            </li>
+            <li>2. <a href="#section2">Handling the options</a>
+            <ul>
+                <li>2.1. <a href="#section2.1">Moving the turtle &ndash; m</a></li>
+                <li>2.2. <a href="#section2.2">Rotating the turtle &ndash; t</a></li>
+                <li>2.3. <a href="#section2.3">Drawing a line &ndash; l</a></li>
+                <li>2.4. <a href="#section2.4">Drawing a rectangle &ndash; r</a></li>
+                <li>2.5. <a href="#section2.5">Drawing a circle &ndash; c</a></li>
+                <li>2.6. <a href="#section2.6">Changing the colour</a>
+                <ul>
+                <li>2.6.1 <a href="#section2.6.1">Changing the pen colour &ndash; p</a></li>
+                <li>2.6.2 <a href="#section2.6.2">Changing the fill colour &ndash; f</a></li>
+                </ul></li>
+                <li>2.7. <a href="#section2.7">Using a loop inside a loop</a></li>
+                <li>2.8. <a href="#section2.8">Another example of a loop inside a loop</a></li>
+                <li>2.9. <a href="#section2.9">Drawing the author's information &dash; a</a></li>
+
+                <li>2.10. <a href="#section2.10">Quitting the program &dash; q</a></li>
+                <li>2.11. <a href="#section2.11">Testing the program</a></li>
+            </ul>
+	    <li>3. <a href="#section3">Examples of using the Sketchbook program</a>
+            </li>
+	    <li><a href="#submission">Submission</a>
+            </li>
+            <!--
+            <li>Video Locations
+            <ul>
+                <li><a href="#part1_vid">Video for part 1</a></li>
+                <li><a href="#part2-1_vid">Video for part 2.1</a></li>
+                <li><a href="#part2-2_vid">Video for part 2.2</a></li>
+                <li><a href="#part2-3_vid">Video for part 2.3</a></li>
+                <li><a href="#part2-4_vid">Video for part 2.4</a></li>
+                <li><a href="#part2-5_vid">Video for part 2.5</a></li>
+                <li><a href="#part2-6-1_vid">Video for part 2.6.1</a></li>
+                <li><a href="#part2-6-2_vid">Video for part 2.6.2</a></li>
+                <li><a href="#part2-8_vid">Video for part 2.8</a></li>
+                <li><a href="#part2-10_vid">Video for part 2.10-2.11</a></li>
+            </ul>
+            </li>
+        -->
+
+        </ul>
+
+
+        <h2>Lab Procedures</h2>
+
+        <h3><a name="section1"></a>1. Understanding the program interface</h3>
+<a name="part1_vid"><h4>Video for Part 1</h4></a>
+<video width="640" height="360" controls  preload="auto"> <source src="videos/comp1021_lab2_part1.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+
+        <h3><a name="section1.1"></a>1.1. Getting started</h3>
+
+        <ul>
+            <li>A template file (<a href="sketchbook.py">sketchbook.py</a>) is given to you as a starting point</li>
+            <li>Right click on the link, select <code>Save Target As</code>. Do not open it in the browser and copy</li>
+            <li>We will use IDLE to make this lab</li>
+        </ul>
+
+
+        <h3><a name="section1.2"></a>1.2. Running the starting code</h3>
+
+        <ul>
+            <li>After you download the <a href="sketchbook.py">starting code</a>, you can run it using IDLE</li>
+            <li>You can open the starting code in IDLE by selecting <code>File -&gt; Open</code></li>
+            <li>Then you can run the starting code by selecting <code>Run -&gt; Run Module</code> or by pressing F5</li>
+        </ul>
+
+        <h3><a name="section1.3"></a>1.3. The program interface</h3>
+
+        <ul>
+            <li>After running the code, you shall see an empty turtle graphics window with a turtle in the center, which looks like this:
+            <p><img src="images/empty_turtle_window.png" alt="Empty turtle window" /></p>
+            </li>
+            <li>In addition, you shall see a menu displayed in the Python shell like this:
+            <pre>
+<span class="b">Welcome to the Python Sketchbook!
+
+Please choose one of the following options:
+
+m - Move the turtle
+t - Rotate the turtle
+l - Draw a line
+r - Draw a rectangle
+c - Draw a circle
+p - Change the pen colour of the turtle
+f - Change the fill colour of the turtle
+q - Quit the program
+
+Please enter your option: </span></pre>
+            </li>
+            <li>In this menu, you can enter one of the options (i.e. <span class="option">m</span>/<span class="option">t</span>/<span class="option">l</span>/<span class="option">r</span>/<span class="option">c</span>/<span class="option">p</span>/<span class="option">f</span>/<span class="option">q</span>) and then press the <code>Enter</code> key</li>
+            <li>For example, entering the option <span class="option">q</span> will quit the program</li>
+            <li>In the starting code given to you, you can already use the options <span class="option">m</span> (move), <span class="option">l</span> (line) and <span class="option">q</span> (quit)</li>
+            <li>To make the program work for other options, you need to add appropriate code</li>
+        </ul>
+
+        <h3><a name="section2"></a>2. Handling the options</h3>
+        <h3><a name="section2.1"></a>2.1. Moving the turtle &ndash; m</h3>
+<a name="part2-1_vid"><h4>Video  for Part 2.1</h4></a>
+<video width="640" height="360" controls  preload="auto"> <source src="videos/comp1021_lab2_part2.1.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+
+        <ul>
+            <li>This option has been done for you</li>
+            <li>You can move the turtle without drawing anything by entering the <span class="option">m</span> option and specifying the x and y values</li>
+            <li>An example of the move option is shown below:
+            <ul>
+                <li><strong>Entering the option</strong>
+                <pre>
+<span class="b">Welcome to the Python Sketchbook!
+
+Please choose one of the following options:
+
+m - Move the turtle
+t - Rotate the turtle
+l - Draw a line
+r - Draw a rectangle
+c - Draw a circle
+p - Change the pen colour of the turtle
+f - Change the fill colour of the turtle
+q - Quit the program
+
+Please enter your option: </span> m
+
+<span class="b">Please enter the x value:</span> 30
+<span class="b">Please enter the y value:</span> 60</pre>
+                </li>
+                <li><strong>The turtle window output</strong>
+                <table>
+                <tr>
+                    <td>
+                        <img src="images/before_option.png" alt="Before moving" class="box" /><br />
+                        <span class="footnote">The turtle before moving</span>
+                    </td>
+                    <td><img src="images/arrow.png" alt="" /></td>
+                    <td>
+                        <img src="images/after_moving.png" alt="After moving" class="box" /><br />
+                        <span class="footnote">The turtle is at (30, 60) after moving</span>
+                    </td>
+                </tr>
+                </table>
+                </li>
+            </ul>
+            </li>
+            <li>The Python code for this option has been given to you in the starting code, which looks like this:
+            <pre class="python">
+##### Handle the move option
+if option == "m":
+    print()
+
+    # Ask the user for the x and y value
+    x = input("Please enter the x value: ")
+    x = int(x)
+    y = input("Please enter the y value: ")
+    y = int(y)
+
+    # Move the turtle without drawing anything
+    turtle.up()
+    turtle.goto(x, y)
+    turtle.down()</pre>
+            </li>
+            <li>The content of the <code>if</code> statement is executed when the entered option is <span class="option">m</span>, i.e. the move option</li>
+            <li>Inside the <code>if</code> statement, the code first asks for the x and y values of the destination</li>
+            <li>One important thing you can see is that the <code>int()</code> function is being used</li>
+            <li>Whatever value received from <code>input()</code> is a piece of text, or what we call a <code>string</code></li>
+            <li>However, when you want to move the turtle, you must give the turtle two integer numbers</li>
+            <li>Therefore, the function <code>int()</code> is used twice to convert the string into an integer</li>
+            <li>Once you have got the x and y values, you can use <code>turtle.goto()</code> function to move the turtle to the corresponding position</li>
+            <li><code>turtle.up()</code> is used before calling <code>turtle.goto()</code> to ensure the turtle moves without drawing anything on the way</li>
+            <li>After <code>turtle.goto()</code>, <code>turtle.down()</code> is used to tell the turtle to put the pen down again</li>
+        </ul>
+
+        <h3><a name="section2.2"></a>2.2. Rotating the turtle &ndash; t</h3>
+        <a name="part2-2_vid"><h4>Video  for Part 2.2</h4></a>
+<video width="640" height="360" controls  preload="auto"> <source src="videos/comp1021_lab2_part2.2.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+        <ul>
+            <li>You can rotate the turtle by entering the <span class="option">t</span> option and specifying the angle of rotation</li>
+            <li>This option is incomplete in the starting code, you have to add appropriate lines of code</li>
+            <li>An example of the rotate option is shown below:
+            <ul>
+                <li><strong>Entering the option</strong>
+                <pre>
+<span class="b">Welcome to the Python Sketchbook!
+
+Please choose one of the following options:
+
+m - Move the turtle
+t - Rotate the turtle
+l - Draw a line
+r - Draw a rectangle
+c - Draw a circle
+p - Change the pen colour of the turtle
+f - Change the fill colour of the turtle
+q - Quit the program
+
+Please enter your option: </span> t
+
+<span class="b">Please enter the angle of rotation:</span> 60</pre>
+                </li>
+                <li><strong>The turtle window output</strong>
+                <table>
+                <tr>
+                    <td>
+                        <img src="images/before_option.png" alt="Before rotating" class="box" /><br />
+                        <span class="footnote">The turtle before rotation</span>
+                    </td>
+                    <td><img src="images/arrow.png" alt="" /></td>
+                    <td>
+                        <img src="images/after_rotating.png" alt="After rotating" class="box" /><br />
+                        <span class="footnote">The turtle rotates 60 degrees in an anti-clockwise direction</span>
+                    </td>
+                </tr>
+                </table>
+                </li>
+                </ul>
+            </li>
+            <li>To complete this option you need to look for the <code>if</code> statement for handling the <span class="option">t</span> option, which looks like this:
+            <pre class="python">
+##### Handle the rotate option
+if option == "t":
+    print()
+
+    #
+    # Please put your code here
+    #</pre>
+            </li>
+            <li>Inside the <code>if</code> statement you need to do the following steps:
+            <ol>
+                <li>Ask for the rotation angle using the <code>input()</code> function</li>
+                <li>Convert the string returned by the <code>input()</code> function to an integer</li>
+                    <ul>
+                    <li>Similar to the move (<span class="option">m</span>) option, you can use <code>int()</code> function to convert the string to integer</li>
+                    </ul>
+                <li>Rotate the turtle by the converted integer number using either <code>turtle.left()</code> or <code>turtle.right()</code></li>
+                    <ul>
+                    <li>In the example shown above, the turtle rotates left, and hence <code>turtle.left()</code> will be used to rotate the turtle</li>
+                    </ul>
+            </ol>
+            </li>
+        <li>Unlike option <span class="option">m</span>, you do not need to use <code>turtle.up()</code> or <code>turtle.down()</code></li>
+        </ul>
+
+        <h3><a name="section2.3"></a>2.3. Drawing a line &ndash; l</h3>
+        <a name="part2-3_vid"><h4>Video  for Part 2.3</h4></a>
+<video width="640" height="360" controls  preload="auto"> <source src="videos/comp1021_lab2_part2.3.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+        <ul>
+            <li>You can draw a line by entering the option <span class="option">l</span> and specifying the target position, i.e. x and y coordinates(values).</li>
+            <li>This option has been done for you</li>
+            <li>An example of the line option is shown below:
+            <ul>
+                <li><strong>Entering the option</strong>
+                <pre>
+<span class="b">Welcome to the Python Sketchbook!
+
+Please choose one of the following options:
+
+m - Move the turtle
+t - Rotate the turtle
+l - Draw a line
+r - Draw a rectangle
+c - Draw a circle
+p - Change the pen colour of the turtle
+f - Change the fill colour of the turtle
+q - Quit the program
+
+Please enter your option: </span> l
+
+<span class="b">Please enter the x value:</span> 30
+<span class="b">Please enter the y value:</span> 60</pre>
+                </li>
+                <li><strong>The turtle window output</strong>
+                <table>
+                <tr>
+                    <td>
+                        <img src="images/before_option.png" alt="Before drawing a line" class="box" /><br />
+                        <span class="footnote">The turtle before drawing a line</span>
+                    </td>
+                    <td><img src="images/arrow.png" alt="" /></td>
+                    <td>
+                        <img src="images/after_line.png" alt="After drawing a line" class="box" /><br />
+                        <span class="footnote">The turtle draws a line from the initial position to (30, 60) and stays there</span>
+                    </td>
+                </tr>
+                </table>
+                </li>
+            </ul>
+            </li>
+            <li>The code of the line option has been given in the starting code, which looks like this:
+            <pre class="python">
+##### Handle the line option
+if option == "l":
+    print()
+
+    # Ask the user for the x and y value
+    x = input("Please enter the x value: ")
+    x = int(x)
+    y = input("Please enter the y value: ")
+    y = int(y)
+
+    # Move the turtle and draw a line
+    turtle.goto(x, y)</pre>
+            </li>
+            <li>The above code is very similar to the one for the move(<span class="option">m</span>) option</li>
+            <li>The difference between the two options is that the line option does not need to lift the pen up and then put the pen down</li>
+            <li>Therefore, it does not need to use <code>turtle.up()</code> or <code>turtle.down()</code></li>
+            <li>A line will be drawn when we move the turtle with <code>turtle.goto()</code></li>
+        </ul>
+
+        <h3><a name="section2.4"></a>2.4. Drawing a rectangle &ndash; r</h3>
+        <a name="part2-4_vid"><h4>Video  for Part 2.4</h4></a>
+<video width="640" height="360" controls  preload="auto"> <source src="videos/comp1021_lab2_part2.4.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+        <ul>
+            <li>You can draw a rectangle by entering the option <span class="option">r</span> and specifying the width and the height of the rectangle</li>
+            <li>This option is incomplete in the starting code, you have to add appropriate lines of code to complete it</li>
+            <li>An example of the rectangle option is shown below:
+            <ul>
+                <li><strong>Entering the option</strong>
+                <pre>
+<span class="b">Welcome to the Python Sketchbook!
+
+Please choose one of the following options:
+
+m - Move the turtle
+t - Rotate the turtle
+l - Draw a line
+r - Draw a rectangle
+c - Draw a circle
+p - Change the pen colour of the turtle
+f - Change the fill colour of the turtle
+q - Quit the program
+
+Please enter your option: </span> r
+
+<span class="b">Please enter the width of the rectangle:</span> 80
+<span class="b">Please enter the height of the rectangle:</span> 50</pre>
+                </li>
+                <li><strong>The turtle window output</strong>
+                <table>
+                <tr>
+                    <td>
+                        <img src="images/before_option.png" alt="Before drawing a rectangle" class="box" /><br />
+                        <span class="footnote">The turtle before drawing a rectangle</span>
+                    </td>
+                    <td><img src="images/arrow.png" alt="" /></td>
+                    <td>
+                        <img src="images/after_rect.png" alt="After drawing a rectangle" class="box" /><br />
+                        <span class="footnote">The turtle draws a rectangle with a size of 80 x 50</span>
+                    </td>
+                </tr>
+                </table>
+                </li>
+            </ul>
+            </li>
+            <li>To complete this option you need to look for the <code>if</code> statement for handling the <span class="option">r</span> option, which looks like this:
+            <pre class="python">
+##### Handle the rectangle option
+if option == "r":
+    print()
+
+    #
+    # Please put your code here
+    #</pre>
+            </li>
+            <li>Before drawing, you need to ask for the width and height of the rectangle</li>
+            <li>You can again use the <code>input()</code> function</li>
+            <li>Then you have to convert the width and height from text to integer numbers</li>
+            <li>As shown in the above example image, the rectangle is drawn next to the turtle</li>
+            <li>You need to use the correct combination of <code>turtle.forward()</code> and <code>turtle.left()</code> or <code>turtle.right()</code> to draw the rectangle</li>
+            <li>After drawing the rectangle, your turtle should go back to the same position as before</li>
+        </ul>
+
+        <h3><a name="section2.5"></a>2.5. Drawing a circle &ndash; c</h3>
+        <a name="part2-5_vid"><h4>Video  for Part 2.5</h4></a>
+<video width="640" height="360" controls  preload="auto"> <source src="videos/comp1021_lab2_part2.5.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+        <ul>
+            <li>You can draw a circle by entering the option <span class="option">c</span> and specifying the radius of the circle</li>
+            <li>This option is incomplete in the starting code, you need to add appropriate lines of code</li>
+            <li>An example of the circle option is shown below:
+            <ul>
+                <li><strong>Entering the option</strong>
+                <pre>
+<span class="b">Welcome to the Python Sketchbook!
+
+Please choose one of the following options:
+
+m - Move the turtle
+t - Rotate the turtle
+l - Draw a line
+r - Draw a rectangle
+c - Draw a circle
+p - Change the pen colour of the turtle
+f - Change the fill colour of the turtle
+q - Quit the program
+
+Please enter your option: </span> c
+
+<span class="b">Please enter the radius of the circle:</span> 40</pre>
+                </li>
+                <li><strong>The turtle window output</strong>
+                <table>
+                <tr>
+                    <td>
+                        <img src="images/before_option.png" alt="Before drawing a circle" class="box" /><br />
+                        <span class="footnote">The turtle before drawing a circle</span>
+                    </td>
+                    <td><img src="images/arrow.png" alt="" /></td>
+                    <td>
+                        <img src="images/after_circle.png" alt="After drawing a circle" class="box" /><br />
+                        <span class="footnote">The turtle draws a circle with a radius of 40</span>
+                    </td>
+                </tr>
+                </table>
+                </li>
+            </ul>
+            </li>
+            <li>To complete this option you need to look for the <code>if</code> statement for handling the <span class="option">c</span> option, which looks like this:
+            <pre class="python">
+##### Handle the circle option
+if option == "c":
+    print()
+
+    #
+    # Please put your code here
+    #</pre>
+            </li>
+            <li>Similarly, you need to ask for the radius of the circle before drawing</li>
+            <li>That means you need to use the <code>input()</code> function to get the radius and the <code>int()</code> function to convert it into an integer number</li>
+            <li>As seen in the example image, the circle option asks the turtle to draw a circle above it</li>
+            <li>This can be done using <code>turtle.circle()</code></li>
+            <li>Note that the initial position of the turtle is not the centre of the circle, but a point on the circumference</li>
+            <li>After completing the circle, the turtle will go back to its initial position</li>
+        </ul>
+
+        <h3><a name="section2.6"></a>2.6. Changing the colour</h3>
+
+        <h4><a name="section2.6.1"></a>2.6.1 Changing the pen colour &ndash; p</h4>
+        <a name="part2-6-1_vid"><h4>Video  for Part 2.6.1</h4></a>
+        <video width="640" height="360" controls  preload="auto"> <source src="videos/comp1021_lab2_part2.6.1.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+        <ul>
+            <li>It is always good to draw with colours</li>
+            <li>Using the <span class="option">p</span> option, you can change the pen colour of the turtle</li>
+            <li>An example of the pen colour option is shown below:
+            <ul>
+                <li><strong>Entering the option</strong>
+                <pre>
+<span class="b">Welcome to the Python Sketchbook!
+
+Please choose one of the following options:
+
+m - Move the turtle
+t - Rotate the turtle
+l - Draw a line
+r - Draw a rectangle
+c - Draw a circle
+p - Change the pen colour of the turtle
+f - Change the fill colour of the turtle
+q - Quit the program
+
+Please enter your option: </span> p
+
+<span class="b">Please enter a colour name for the pen colour:</span> red</pre>
+                </li>
+                <li><strong>The turtle window output</strong>
+                <table>
+                <tr>
+                    <td>
+                        <img src="images/before_option.png" alt="Before changing pen colour" class="box" /><br />
+                        <span class="footnote">The turtle before changing pen colour</span>
+                    </td>
+                    <td><img src="images/arrow.png" alt="" /></td>
+                    <td>
+                        <img src="images/after_colour.png" alt="After changing pen colour" class="box" /><br />
+                        <span class="footnote">The turtle changes to an arrow with a red outline (the pen colour)</span>
+                    </td>
+                </tr>
+                </table>
+                </li>
+                <li><strong>Draw a line using the new colour</strong>
+                <table>
+                <tr>
+                    <td>
+                        <img src="images/after_colour.png" alt="After changing pen colour" class="box" /><br />
+                        <span class="footnote">The turtle's pen colour is now red</span>
+                    </td>
+                    <td><img src="images/arrow.png" alt="" /></td>
+                    <td>
+                        <img src="images/after_draw_colour.png" alt="After drawing a line with new pen colour" class="box" /><br />
+                        <span class="footnote">Using the line option the turtle draws a red line from (0, 0) to (80, 80)</span>
+                    </td>
+                </tr>
+                </table>
+                </li>
+            </ul>
+            </li>
+        <li>To complete this code, you need to look for the <code>if</code> statement for handling the <span class="option">p</span> option:
+        <pre class="python">
+##### Handle the pen colour option
+if option == "p":
+    print()
+
+    #
+    # Please put your code here
+    #</pre>
+        </li>
+        <li>In the <code>if</code> statement, you need to ask the user for the name of the pen colour</li>
+        <li>Then you use <code>turtle.pencolor()</code> to set the new pen colour</li>
+        <li>If the user enters a colour which does not exist, Python will display an error like this:
+        <p><img src="images/colour_error.png" alt="Colour name error" /><p>
+        </li>
+	<li>A list of colours you can use is shown here:  <a href="color_list.html">The Names of All Python Turtle Graphics Colours</a></li>
+        </ul>
+        <h4>2.6.2 <a name="section2.6.2"></a>Changing the fill colour &ndash; f</h4>
+        <a name="part2-6-2_vid"><h4>Video  for Part 2.6.2</h4></a>
+        <video width="640" height="360" controls  preload="auto"> <source src="videos/comp1021_lab2_part2.6.2.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+        <ul>
+            <li>Here are two images, one is a hollow circle and another is a filled one:
+            <table>
+            <tr>
+                <th>A Hollow Circle</th>
+                <th>A Filled Circle</th>
+            </tr>
+            <tr>
+                <td><img src="images/hollow_circle.png" alt="A hollow circle" /></td>
+                <td><img src="images/filled_circle.png" alt="A filled circle" /></td>
+            </tr>
+            </table>
+            </li>
+            <li>For both of the above images, the lines were drawn first, then the circle
+              <ul><li>In the left image you can see the lines, because the circle was not drawn with <code>begin_fill() ... end_fill()</code></li>
+              <li>In the right image you can't see the lines, because the circle was drawn with <code>begin_fill() ... end_fill()</code></li></ul>
+            </li>
+            <li>At this moment, the sketchbook can only be used to draw hollow shapes</li>
+            <li>But your image will look more interesting if the shapes are filled</li>
+            <li>We have a variable <code>fillcolor</code> to store the fill colour</li>
+            <ul><li>It is by default set as <code>"black"</code></li></ul>
+            <li>You can change the fill colour by entering the option <span class="option">f</span> and specifying the colour name</li>
+            <li>The option is incomplete, you have to add appropriate lines of code</li>
+            <li>An example of the fill colour option is shown below:
+            <ul>
+                <li><strong>Entering the option</strong>
+                <pre>
+<span class="b">Welcome to the Python Sketchbook!
+
+Please choose one of the following options:
+
+m - Move the turtle
+t - Rotate the turtle
+l - Draw a line
+r - Draw a rectangle
+c - Draw a circle
+p - Change the pen colour of the turtle
+f - Change the fill colour of the turtle
+q - Quit the program
+
+Please enter your option: </span> f
+
+<span class="b">Please enter a colour name for the fill colour:</span> red</pre>
+                </li>
+                <li><strong>The turtle window output</strong>
+                <table>
+                <tr>
+                    <td>
+                        <img src="images/before_option.png" alt="Before changing pen colour" class="box" /><br />
+                        <span class="footnote">The turtle before changing pen colour</span>
+                    </td>
+                    <td><img src="images/arrow.png" alt="" /></td>
+                    <td>
+                        <img src="images/after_fill_colour.png" alt="After changing fill colour" class="box" /><br />
+                        <span class="footnote">The turtle changes to an arrow filled with red colour</span>
+                    </td>
+                </tr>
+                </table>
+                </li>
+                <li><strong>Draw a circle using the new fill colour</strong>
+                <table>
+                <tr>
+                    <td>
+                        <img src="images/after_fill_colour.png" alt="After changing pen colour" class="box" /><br />
+                        <span class="footnote">The turtle will now fill shapes with red colour</span>
+                    </td>
+                    <td><img src="images/arrow.png" alt="" /></td>
+                    <td><img src="images/filled_circle2.png" alt="After drawing a circle with new fill colour" class="box" /><br />
+                        <span class="footnote">Using the circle option to draw a circle with radius of 40</span>
+                    </td>
+                </tr>
+                </table>
+                </li>
+            </ul>
+            </li>
+            <li>To complete this option, you need to do the followings:
+            <ol>
+                <li>Complete the <code>if</code> statement of the fill colour (<span class="option">f</span>) option:
+                <pre class="python">
+##### Handle the fill colour option
+if option == "f":
+    print()
+
+    #
+    # Please put your code here
+    #</pre>
+                <ul>
+                    <li>You need to ask the user for the name of the fill colour and then change it using <code>turtle.fillcolor()</code></li>
+                </ul>
+                </li>
+                <li>Add <code>turtle.begin_fill()</code> and <code>turtle.end_fill()</code> to fill the shapes with colours:
+                <ul>
+                    <li>Recall that to draw a filled circle:
+                    <pre class="python">
+turtle.begin_fill()
+turtle.circle(50)
+turtle.end_fill()</pre>
+                    </li>
+                </ul>
+                </li>
+            </ol>
+            </li>
+            <li>Then after changing the fill colour, every shape you draw will be filled with that new colour</li>
+
+        </ul>
+
+    <h3><a name="section2.7"></a>2.7. Using a loop inside a loop</h3>
+ <p>
+   <ul>
+        <li>This part is not shown in any of the lab videos but <b>this part is one of the requirements for your lab assignment</b></li>
+        <li>You can draw more complex shapes using a nested loop (also called an embedded loop)</li>
+        <li>For example, you can generate a flower pattern like this:<p><img src="images/generated_flower.png" alt="Drawing a generated flower" /><p></li>
+        <li>You will need to add an additional menu entry for this improvement:
+<pre><span class="b">Welcome to the Python Sketchbook!
+
+Please choose one of the following options:
+
+m - Move the turtle
+t - Rotate the turtle
+l - Draw a line
+r - Draw a rectangle
+c - Draw a circle
+p - Change the pen colour of the turtle
+f - Change the fill colour of the turtle
+g - Draw a generated flower     </span><span class="todo">&#x21e6; new option here!</span>
+<span class="b">q - Quit the program
+
+Please enter your option: g
+
+Please enter the size of the flower petal: 70</pre>
+        </li>
+        <li>Then you have to extend the code yourself</li>
+
+        <li>The flower pattern shown above is composed of this basic shape - a triangle:</br>
+        <img src="images/basic_pattern.png" alt="Basic shape - petal flower" /></li>
+        <li>One triangle can be drawn like this:
+<pre><tt2>Repeat 3 times :
+    Draw a side
+    Rotate the turtle left by 120 degrees
+</tt2></pre>
+        </li>
+        <li>Then the flower is created by drawing the triangle shape in a circular pattern 12 times</li>
+        <li>To achieve that, you can embed the above loop in another loop, like this:
+<pre><tt2>Outer loop: repeat 12 times for drawing 12 basic shapes :
+
+    Inner loop: Repeat 3 times :
+       Draw a side
+       Rotate the turtle left by 120 degrees
+
+    Rotate the turtle left by 30 degrees
+</tt2></pre>
+        </li>
+        <li>For the lab assignment, we would like to focus on the flower drawing</li>
+        <ul>
+            <li><strong>DON'T</strong> use any <tt>turtle.begin_fill() </tt> and <tt>turtle.end_fill()</tt> in this part</li>
+        </ul>
+    </ul>
+    <h3><a name="section2.8"></a>2.8. Another example of using a loop inside a loop</h3>
+    <a name="part2-8_vid"><h4>Video  for Part 2.8</h4></a>
+    <video width="640" height="360" controls  preload="auto"> <source src="videos/comp1021_lab2_part2.8.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+    <ul>
+        <li>Let's try to generate an 'explosion' using nested loops <br> <img src="images/generated_explosion.png" alt="Drawing a generated explosion" /></li>
+        <li>You will need to add another additional menu entry for this improvement:
+<pre><span class="b">Welcome to the Python Sketchbook!
+
+Please choose one of the following options:
+
+m - Move the turtle
+t - Rotate the turtle
+l - Draw a line
+r - Draw a rectangle
+c - Draw a circle
+p - Change the pen colour of the turtle
+f - Change the fill colour of the turtle
+g - Draw a generated flower
+e - Draw a generated explosion     </span><span class="todo">&#x21e6; new option here!</span>
+<span class="b">q - Quit the program
+
+Please enter your option: e
+
+Please enter the size of the explosion (>150): 200</span></pre>
+        </li>
+	<li>To draw circles in turtle, you can use <code>turtle.circle()</code></li>
+	<li>Another possible command is <code>turtle.dot()</code></li>
+	<li>There are some difference between the two:
+		<ol><li><code>turtle.dot()</code> takes the diameter as parameter</li>
+		<li><code>turtle.dot()</code> makes a solid circle coloured with the <em>pen color</em></li>
+		<li><code>turtle.dot()</code> draws the circle center at the turtle position</li></ol>
+	<li>Using a <code>for</code> loop, we can easily go through each color in a list, like this:
+<pre class="python">for thiscolor in ["sienna", "brown",  \
+                  "red", "dark orange", "orange","gold2", "gold", "yellow"]:
+    turtle.color(thiscolor)</pre>
+	<ul>
+		<li>\ simply means that the line of code is continued on the following line</li>
+	</ul>
+	<li>Let's generate different dots of decreasing size and different colours:
+<pre class="todo" style="color:black">Ask user for the desired size
+for each colour in list
+    change the pen colour
+    draw a dot
+    decrease the size
+</pre></li>
+	<li>A list of colours you can use is shown here:  <a href="color_list.html">The Names of All Python Turtle Graphics Colours</a></li>
+	<li>Some of the colours have a series of values</li>
+	<ul>
+		<li>For example, there is yellow1, yellow2, yellow3, and yellow4</li>
+		<li>Similarly, there is green1, green2, green3 and green4</li>
+		<li>And there is LightBlue1, LightBlue2, LightBlue3, LightBlue4</li>
+		<li>Quite a lot of the colours have 4 variations like this (<a href="color_list.html">look at the page of colours</a>)</li>
+	</ul>
+	<li>With some clever code you can use these series of values so the effect is more dramatic, like this:
+<pre><tt2>Outer loop: for each colour e.g. ["yellow", "green", "LightBlue"]
+
+    Inner for loop (4 times, generating the numbers 1..4):
+	build some text which is the colour name followed by the number
+	  e.g. "yellow" + str(3)  combines "yellow" and "3" to produce "yellow3"
+	set the turtle colour to the text you have just built
+        draw a dot with an appropriate size
+        decrease the size (e.g. by 10)
+</tt2></pre></li>
+	<ul>
+	<li><code>str()</code> is used to convert a number into text, which is called a 'string'</li>
+	</ul>
+	<li>The following explosion effect uses a series of MediumPurple, OrangeRed, goldenRod and yellow colours</li>
+	<li>In other words, the colours used are: MediumPurple1, MediumPurple2, MediumPurple3, MediumPurple4, OrangeRed1, OrangeRed2, and so on</li>
+
+	<img src="images/explosion_using_nested_loop.png" width="250px">
+
+	<li>If the size is decreased by 10 in every step, to avoid a negative-size dot you need to warn the user that the size should not be smaller than 4 (number of colours) &times; 4 (number of levels) &times; 10 = 160
+
+    <li>Before you generate the explosion, if you want to you could first increase the speed for a smooth animation</li>
+	<li>Note that since we have changed the pen colour in the loops, you can change the pen colour after the drawing is done</li>
+    <ul><li>Otherwise the user may get confused later because subsequent drawing commands will be shown in the same colour as the innermost circle!</li></ul>
+    <ul><li>You can do it by <pre><span class='todo'>...store the old value of the pencolor...</span>
+<span class='todo'>...store the old value of the fillcolor...</span>
+
+<span class='todo'>...code for explosion...</span>
+
+<span class='todo'>...restore the old value of the pencolor...</span>
+<span class='todo'>...restore the old value of the fillcolor...</span>
+</pre></li>
+<li>To get the current pen colour, you can do like this</li>
+<pre><span class='todo'>...a variable storing the pen color...</span> = turtle.pencolor()</pre>
+<li>To get the current fill colour, you can do like this</li>
+<pre><span class='todo'>...a variable storing the fill color...</span> = turtle.fillcolor()</pre>
+<li>Actually, we store the fill colour in the variable called <code>fillcolor</code>, so you can always refer to the variable <code>fillcolor</code> to restore the original fill colour</li>
+<li>It is not required to restore the pen colour and the fill colour after drawing the explosion shape</li>
+</ul>
+<li>The user can still type a number smaller than what the program shows</li>
+<ul><li>You can help to improve the program by writing a while loop to check the range of the size, but it is not required</li></ul>
+</ul>
+        <h3><a name="section2.9"></a>2.9. Drawing the author's information &ndash; a</h3>
+        <ul>
+        <li>This part is not shown in any of the lab videos but <b>this part is one of the requirements for your lab assignment</b></li>
+        <li>You have to extend the program so that your surname (last name) is drawn using turtle graphics when the user enters the "a" option</li>
+        <li>Add another additional menu entry 'a' for this improvement:
+<pre><span class="b">Welcome to the Python Sketchbook!
+
+Please choose one of the following options:
+
+m - Move the turtle
+t - Rotate the turtle
+l - Draw a line
+r - Draw a rectangle
+c - Draw a circle
+p - Change the pen colour of the turtle
+f - Change the fill colour of the turtle
+g - Draw a generated flower
+e - Draw a generated explosion
+a - Draw the author's information     </span><span class="todo">&#x21e6; new option here!</span>
+<span class="b">q - Quit the program
+
+Please enter your option: a</span></pre></li>
+            <li>For example, if your student name is <u><b>CHAN</b></u>, Tai Man, then your program draws <b>CHAN</b> in the turtle window</li>
+            <li>If you find drawing your surname hard, you can choose to draw your last nickname or short version of your name</li>
+            <ul><li>For example, if your name is <u><b>C</b></u>HAN, <b><u>T</b></u>ai <b><u>M</b></u>an, then your program draws <b>CTM</b> in the turtle window</li></ul>
+            <ul><li>For example, if your nickname is <u><b>Elon</b></u>, then your program draws <b>Elon</b> in the turtle window</li></ul>
+            <li>It has to be at least 3 characters</li>
+            <li>You can use any way that can produce the name in the turtle window</li>
+            <li>However, you cannot use <code>turtle.write()</code> or <code>print()</code> to finish the task
+                <ul><li>You have to draw the name using turtle graphics in a creative way</li></ul>
+            <li>Here is a <a href='examples.html'>page</a> showing some example results of drawing your name</li>
+            <li>Your drawing needs to be readable - pretty drawings will not get extra points</li>
+        </ul>
+
+
+        <h3><a name="section2.10"></a>2.10. Quitting the program &ndash; q</h3>
+
+        <ul>
+            <li>You can quit the program by entering the <span class="option">q</span> option</li>
+            <li>You don't need to write any code for this option</li>
+            <li>This operation has been cleverly handled, like this:
+            <pre class="python">
+while option != "q":
+    ...</pre>
+            </li>
+            <li>This means that the main menu, which is written inside the while loop, will be repeatedly displayed as long as the option is not "q"</li>
+            <li>In other words, the main menu will stop being displayed, if the option is "q"</li>
+        </ul>
+
+        <h3><a name="section2.11"></a>2.11. Testing the program</h3>
+        <a name="part2-10_vid"><h4>Video  for Part 2.10 - 2.11</h4></a>
+        <video width="640" height="360" controls  preload="auto"> <source src="videos/comp1021_lab2_part2.10.mp4" type="video/mp4">Your browser does not support the video tag.</video><br>
+        <ul>
+            <span style="font-size:12px">Note: The video does not cover Section 2.7 to 2.9. </span>
+        </ul>
+        <ul>
+            <li>No matter what program you write, you should carefully check that it works correctly</li>
+            <li>To test the program in this lab, you may first make a sketch:
+            <p><img src="images/sketch.png" alt="Sketch of a small Anpanman" /><p></li>
+            <li>Then translate it into special commands that your program needs, which will be like this ('<font color="red">&crarr;</font>' represents the "Enter" or "return" key):
+            <pre>m <font color="red">&crarr;</font> 0 <font color="red">&crarr;</font> -75 <font color="red">&crarr;</font> f <font color="red">&crarr;</font> sandybrown <font color="red">&crarr;</font> c <font color="red">&crarr;</font> 75 <font color="red">&crarr;</font>
+m <font color="red">&crarr;</font> 0 <font color="red">&crarr;</font> -25 <font color="red">&crarr;</font> f <font color="red">&crarr;</font> firebrick1 <font color="red">&crarr;</font> c <font color="red">&crarr;</font> 20 <font color="red">&crarr;</font>
+m <font color="red">&crarr;</font> -2 <font color="red">&crarr;</font> -2 <font color="red">&crarr;</font> p <font color="red">&crarr;</font> white <font color="red">&crarr;</font> f <font color="red">&crarr;</font> white <font color="red">&crarr;</font> t <font color="red">&crarr;</font> 5 <font color="red">&crarr;</font> r <font color="red">&crarr;</font> 9 <font color="red">&crarr;</font> 9 <font color="red">&crarr;</font> t <font color="red">&crarr;</font> -5 <font color="red">&crarr;</font>
+m <font color="red">&crarr;</font> -22 <font color="red">&crarr;</font> 12 <font color="red">&crarr;</font> p <font color="red">&crarr;</font> black <font color="red">&crarr;</font> f <font color="red">&crarr;</font> black <font color="red">&crarr;</font> c <font color="red">&crarr;</font> 9 <font color="red">&crarr;</font> m <font color="red">&crarr;</font> 22 <font color="red">&crarr;</font> 12 <font color="red">&crarr;</font> c <font color="red">&crarr;</font> 9 <font color="red">&crarr;</font>
+m <font color="red">&crarr;</font> -32 <font color="red">&crarr;</font> -22 <font color="red">&crarr;</font> l <font color="red">&crarr;</font> -15 <font color="red">&crarr;</font> -32 <font color="red">&crarr;</font> l <font color="red">&crarr;</font> 15 <font color="red">&crarr;</font> -32 <font color="red">&crarr;</font> l <font color="red">&crarr;</font> 32 <font color="red">&crarr;</font> -22 <font color="red">&crarr;</font></pre></li>
+            <li>Note that each line above is drawing a separate visual component</li>
+            <li>Input these to your program and see if you can achieve a similar drawing to the sketch</li>
+        </ul>
+<h2></h2>
+	<h3><a name="section3"></a>3. Examples of using the Sketchbook program</h3>
+	<ul>
+            <li>Here are some example images created by the program:
+            <ul>
+                <li><strong>Anpanman</strong>
+                <ul>
+                    <li>Here is an example image of Anpanman (see <a href="http://en.wikipedia.org/wiki/Anpanman" target="_blank">Wikipedia</a>):
+                    <br><img src="images/anpanman.png" alt="Anpanman" />
+                    </li>
+		    <li>When you run your program you can copy and paste this <a href="samples/anpanman.txt">text</a>, it will produce this Anpanman</li>
+                    <li>You don't have to type in every single line yourself, just copy and paste all the text and you will see the finished drawing</li>
+		    <li>Here is a step-by-step video showing how the above file creates the drawing this Anpanman</li>
+<video width="640" height="360" controls  preload="auto" DEMO> <source src="video_examples/anpanman.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+                </ul>
+                </li>
+                <li><strong>A flower</strong>
+                <ul>
+                    <li>Here is a flower drawn mainly using circles: <br>
+                    <img src="images/flower.png" alt="A flower" />
+                    </li>
+		    <li>When you run your program you can copy and paste this <a href="samples/flower.txt">text</a>, it will produce this flower</li>
+                    <li>You don't have to type in every single line yourself, just copy and paste all the text and you will see the finished drawing</li>
+		    <li>Here is a step-by-step video showing how the above file creates the drawing this flower (by copying and pasting all the text)</li>
+<video width="640" height="360" controls  preload="auto" DEMO> <source src="video_examples/flower.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+                </ul>
+                </li>
+	</ul>
+	</ul>
+
+	<h2><a name="submission" id="submission" />Submission</h2>
+
+    <ul>
+		<li>You don't need to submit this work</li>
+		<li>However, it's a good idea to keep a copy of your work for your own reference
+
+            <ul>
+                <li>For example, you can put your file in your USB disk (if you have one) or email a copy to yourself</li>
+            </ul>
+
+        </li>
+
+	</ul>
+
+    <!--
+	<ul>
+		<li><strong>You have to submit this lab work</strong></li>
+	<ul>
+		<li>Enter your name and student ID number in the top of your Python code using a comment</li>
+		<li>You need to submit within the 5 days following the scheduled day of your registered lab, before midnight<ul>
+		<li>The exact times and dates are shown at <a href="marking_scheme.html#deadline">the end of the marking scheme page</a></li></ul></li>
+		<li>You can look at the <a href="marking_scheme.html">marking scheme</a> to make sure all the parts are done properly</li>
+		<li>Submit your work to the COMP1021 Canvas site to the lab assignment for your registered lab section
+		<ul><li>The submission links can be found at <a href="marking_scheme.html#deadline">the end of the marking scheme page</a></li></ul></li>
+			<ul>
+				<li><strong>You only need to submit the completed Python code: <code>sketchbook.py</code></strong></li>
+
+			</ul>
+		<li>Submit your work early, days before the deadline!</li>
+                    <li>We will mark your work by trying lots of test cases</li>
+                    <ul><li>There are no partial marks for each test case in the marking scheme</li></ul>
+
+		<li>If you are not using an English version of windows, you are strongly recommended to test your code in the Virtual Barn to make sure that your code works well in an English version of windows</li>
+		<li>We will use an English version of Windows to mark your work</li>
+		<li>If you find that you have made a mistake after you have submitted your work, you can submit again, as many times as you like, BEFORE the deadline.
+		<ul>
+		<li>We will mark the most recent submission which is before the deadline.</li>
+		</ul>
+		<li><strong>You won't be able to submit your work after the deadline!</strong></li>
+		<li>Check that you have submitted the correct version of your own file</li>
+	</ul>
+	<li>It would probably be helpful if you keep a copy for yourself, e.g. for your revision later</li>
+		<li>For example, you can put your file in your USB disk (if you have one) or email a copy to yourself</li>
+	</ul>
+
+-->
+
+    </div>
+
+</body>
+</html>

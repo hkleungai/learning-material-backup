@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+
+    <title>Interactive Python Programming for Beginners</title>
+    <link rel='stylesheet' type='text/css' href='../../css/main.css' />
+    <link rel="stylesheet" href="../js/jquery-ui-1.12.0/jquery-ui.min.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="../js/jquery-ui-1.12.0/jquery-ui.theme.min.css" type="text/css" media="all" />
+    <link rel='stylesheet' type='text/css' href='css/book_new.css' />
+
+    <script src="../js/jquery-3.1.0.min.js"></script>
+    <script src="../js/jquery-ui-1.12.0/jquery-ui.min.js"></script>
+    <script>
+    if (typeof jQuery != 'undefined') {
+        $(document).ready(function()
+        {
+            $("#toc").dialog({
+                autoOpen: false,
+                modal: true,
+                width: 600, height: 600,
+                show: "blind", hide: "blind",
+                buttons: {
+                    Ok: function() {
+                        $( this ).dialog( "close" );
+                    }
+                }
+            });
+            $(".toggle_toc").button();
+            $(".toggle_toc").click(function()
+            {
+                $("#toc").dialog("open");
+            });
+        });
+    }
+    else {
+        window.onload = function() {
+            document.getElementById("toggle_toc").onclick = function() {
+                if (document.getElementById("toc").style.display != "block")
+                    document.getElementById("toc").style.display = "block";
+                else
+                    document.getElementById("toc").style.display = "none";
+            };
+        };
+    }
+    </script>
+</head>
+
+<body>
+    <div class="content">
+
+        <img class="cover" alt="Book Cover" src="images/python_cover.png" />
+
+        <div class="title">Interactive Python Programming<br />for Beginners</div>
+        <div class="authors">By Gibson Lam and David Rossiter</div>
+        <table class="details">
+            <tr><th>ISBN:</th><td>978-9-814-74296-2</td></tr>
+            <tr><th>Publisher:</th><td>McGraw Hill Education</td></tr>
+            <tr><th>Year:</th><td>2016</td></tr>
+            <tr><th>Pages:</th><td>248</td></tr>
+        </table>
+
+        <div class="spacer"></div>
+
+        <div class="nav">
+            <a href="index_new.html">Book Overview</a>
+            &bull;
+            <a href="errata_new.html">Errata</a>
+            &bull;
+            <a href="examples_new.html">Code Examples</a>
+            &bull;
+            <a href="answers_new.html">Exercise Answers</a>
+        </div>
+
+        <h1>Overview of the Book</h1>
+
+        <p>
+        This book is designed to help you understand the Python programming language
+        and learn how to write elementary programs in Python. The content is suitable
+        for anyone who does not have previous programming experience. After you have
+        completed this book, you should have a strong understanding of the fundamentals
+        of the Python programming language so that you will feel confident in exploring
+        more advanced techniques and programming concepts later on.
+        </p>
+        <p>
+        This book contains more than 70 code examples to help explain the concepts and
+        techniques in each chapter. All of these examples can be downloaded from here.
+        There are also over 90 exercises at the end of the chapters.
+        Some of these exercises consolidate your knowledge in each chapter and some of
+        them are bigger programming exercises for you to practise your programming skill.
+        </p>
+
+        <p><button id="toggle_toc" class="toggle_toc">Click here to show the table of contents of the book</button></p>
+
+        <div id="toc" title="Table of Contents of the Book" class="ui-widget-content">
+            <ul class="level1">
+                <li>Chapter 1 Introduction to Python
+                <ul class="level2">
+                    <li>1.1 Getting Started with Python
+                    <ul class="level3">
+                        <li>Welcome to Interactive Python Programming for Beginners!</li>
+                        <li>The Python Programming Language</li>
+                        <li>Python Programs</li>
+                        <li>Using Python</li>
+                    </ul>
+                    </li>
+                    <li>1.2 Using IDLE
+                    <ul class="level3">
+                        <li>Running IDLE</li>
+                        <li>Using the Shell Window</li>
+                        <li>Using the Editor Window</li>
+                    </ul>
+                    </li>
+                </ul>
+                <li>Chapter 2 Basic Turtle Graphics Programming
+                <ul class="level2">
+                    <li>2.1 Introduction to Turtle Graphics
+                    <ul class="level3">
+                        <li>What is Turtle Graphics?</li>
+                        <li>How to Draw Things Using the Turtle</li>
+                    </ul>
+                    </li>
+                    <li>2.2 Getting Started with Turtle Graphics
+                    <ul class="level3">
+                        <li>Using Turtle Graphics in Python</li>
+                        <li>Working with the Turtle Window</li>
+                        <li>Understanding the Turtle</li>
+                    </ul>
+                    </li>
+                    <li>2.3 Moving the Turtle
+                    <ul class="level3">
+                        <li>Moving Forward and Backward</li>
+                        <li>Turning the Turtle</li>
+                        <li>Moving to a Specific Location</li>
+                        <li>Moving Around a Circle</li>
+                        <li>Adjusting the Speed of the Turtle</li>
+                    </ul>
+                    </li>
+                    <li>2.4 Using the Pen
+                    <ul class="level3">
+                        <li>Lifting the Pen Up and Putting the Pen Down</li>
+                        <li>Changing the Thickness and Colour of the Line</li>
+                        <li>Filling Shapes</li>
+                    </ul>
+                    </li>
+                    <li>2.5 Other Useful Commands
+                    <ul class="level3">
+                        <li>Showing and Hiding the Turtle</li>
+                        <li>Drawing Dots</li>
+                        <li>Writing Text</li>
+                        <li>Clearing the Turtle Window</li>
+                    </ul>
+                    </li>
+                    <li>Exercises</li>
+                </ul>
+                <li>Chapter 3 Comments, Variables and Text
+                <ul class="level2">
+                    <li>3.1 Writing Comments in Code
+                    <ul class="level3">
+                        <li>Writing Simple Comments</li>
+                        <li>Writing Multiple Lines of Comments</li>
+                        <li>Hiding Code Temporarily Using Comments</li>
+                    </ul>
+                    </li>
+                    <li>3.2 Variables
+                    <ul class="level3">
+                        <li>Creating and Assessing Variables</li>
+                        <li>Variable Names</li>
+                    </ul>
+                    </li>
+                    <li>3.3 Text Input and Output
+                    <ul class="level3">
+                        <li>Understanding Strings</li>
+                        <li>Showing Text Output</li>
+                        <li>Getting Text Input</li>
+                    </ul>
+                    </li>
+                    <li>Exercises</li>
+                </ul>
+                <li>Chapter 4 Variable Types and Operators
+                <ul class="level2">
+                    <li>4.1 Variable Types
+                    <ul class="level3">
+                        <li>Basic Data Types in Python</li>
+                        <li>Converting Between Data Types</li>
+                    </ul>
+                    </li>
+                    <li>4.2 Basic Operators
+                    <ul class="level3">
+                        <li>Arithmetic Operators</li>
+                        <li>String Operators</li>
+                        <li>Using a Shortcut with the Equals Sign</li>
+                        <li>Operator Precedence</li>
+                    </ul>
+                    </li>
+                    <li>Exercises</li>
+                </ul>
+                <li>Chapter 5 Making Decisions
+                <ul class="level2">
+                    <li>5.1 Making Decisions Using If Statements
+                    <ul class="level3">
+                        <li>The If Statements</li>
+                        <li>Indentation in Python</li>
+                        <li>The Else Statements</li>
+                    </ul>
+                    </li>
+                    <li>5.2 Building Conditions Using Operators
+                    <ul class="level3">
+                        <li>Comparing Things Using Comparison Operators</li>
+                        <li>Working with Boolean Values Using Logical Operators</li>
+                    </ul>
+                    </li>
+                    <li>5.3 Nested If Statements
+                    <ul class="level3">
+                        <li>Building a Program Using Nested If Statements</li>
+                        <li>Using Elif Statements</li>
+                    </ul>
+                    </li>
+                    <li>Exercises</li>
+                </ul>
+                <li>Chapter 6 Looping
+                <ul class="level2">
+                    <li>6.1 Repeating Things by Looping</li>
+                    <li>6.2 While Loops
+                    <ul class="level3">
+                        <li>Loops That Never End</li>
+                        <li>Nested While Loops</li>
+                    </ul>
+                    </li>
+                    <li>6.3 For Loops
+                    <ul class="level3">
+                        <li>The Range Command</li>
+                        <li>Creating a For Loop Using the Range Command</li>
+                        <li>Nested For Loops</li>
+                    </ul>
+                    </li>
+                    <li>6.4 Stopping Loops
+                    <ul class="level3">
+                        <li>The Continue Command</li>
+                        <li>The Break Command</li>
+                    </ul>
+                    </li>
+                    <li>Exercises</li>
+                </ul>
+                <li>Chapter 7 Finding Repeating Patterns
+                <ul class="level2">
+                    <li>7.1 The % Operator
+                    <ul class="level3">
+                        <li>Determining Odd or Even Numbers</li>
+                    </ul>
+                    </li>
+                    <li>7.2 Using the % Operator for Repeating Patterns
+                    <ul class="level3">
+                        <li>Odd and Even Numbers as a Pattern</li>
+                        <li>Getting Patterns with a Different Size</li>
+                        <li>Making a Chess Board</li>
+                    </ul>
+                    </li>
+                    <li>Exercises</li>
+                </ul>
+                <li>Chapter 8 Lists, Tuples and Strings
+                <ul class="level2">
+                    <li>8.1 Managing a Collection of Things
+                    <ul class="level3">
+                        <li>Lists</li>
+                        <li>Tuples</li>
+                        <li>Strings</li>
+                    </ul>
+                    </li>
+                    <li>8.2 Using a Collection with a For Loop
+                    <ul class="level3">
+                        <li>Using a List with a For Loop</li>
+                        <li>Using a String with a For Loop</li>
+                    </ul>
+                    </li>
+                    <li>8.3 Slicing
+                    <ul class="level3">
+                        <li>Default Values for Slicing</li>
+                        <li>Using Negative Item Indices</li>
+                    </ul>
+                    </li>
+                    <li>8.4 Operators for Lists, Tuples and Strings
+                    <ul class="level3">
+                        <li>The Addition and Multiplication Operators</li>
+                        <li>The Membership Operators</li>
+                        <li>Finding the Size of a Collection</li>
+                    </ul>
+                    </li>
+                    <li>8.5 Making a List of Lists</li>
+                    <li>Exercises</li>
+                </ul>
+                <li>Chapter 9 Functions
+                <ul class="level2">
+                    <li>9.1 Repeating Things in Different Places
+                    <ul class="level3">
+                        <li>Using Functions</li>
+                    </ul>
+                    </li>
+                    <li>9.2 Making and Using a Function
+                    <ul class="level3">
+                        <li>Making a Function</li>
+                        <li>Using a Function</li>
+                    </ul>
+                    </li>
+                    <li>9.3 Passing Values into a Function
+                    <ul class="level3">
+                        <li>Making a Function with an Input Variable</li>
+                        <li>Using a Function with an Input Variable</li>
+                        <li>Using Multiple Input Variables</li>
+                    </ul>
+                    </li>
+                    <li>9.4 Returning Values from a Function
+                    <ul class="level3">
+                        <li>Stopping a Function Using the Return Command</li>
+                        <li>Returning Values Using the Return Command</li>
+                    </ul>
+                    </li>
+                    <li>9.5 Local and Global Variables
+                    <ul class="level3">
+                        <li>Local Variables</li>
+                        <li>Global Variables</li>
+                        <li>Changing Local Variables</li>
+                        <li>Changing Global Variables inside a Function</li>
+                    </ul>
+                    </li>
+                    <li>Exercises</li>
+                </ul>
+                <li>Chapter 10 Dictionaries
+                <ul class="level2">
+                    <li>10.1 A Dictionary is a Mapping</li>
+                    <li>10.2 Using Dictionaries
+                    <ul class="level3">
+                        <li>Creating a Dictionary</li>
+                        <li>Getting a Value from a Dictionary</li>
+                        <li>Modifying a Dictionary</li>
+                    </ul>
+                    </li>
+                    <li>10.3 Going Through a Dictionary
+                    <ul class="level3">
+                        <li>Getting the Keys of a Dictionary</li>
+                        <li>Getting the Values of a Dictionary</li>
+                        <li>Going Through the Items</li>
+                    </ul>
+                    </li>
+                    <li>10.4 Using the Membership Operators</li>
+                    <li>Exercises</li>
+                </ul>
+                <li>Chapter 11 More on Turtle
+                <ul class="level2">
+                    <li>11.1 Controlling the Turtle Animation
+                    <ul class="level3">
+                        <li>Changing the Turtle Speed</li>
+                        <li>Turning On or Off the Animation</li>
+                    </ul>
+                    </li>
+                    <li>11.2 Changing the Turtle Shape
+                    <ul class="level3">
+                        <li>Using Other Turtle Shapes</li>
+                        <li>Changing the Size of the Turtle Shape</li>
+                        <li>Changing the Outline of the Turtle Shape</li>
+                    </ul>
+                    </li>
+                    <li>11.3 Getting Information about the Turtle
+                    <ul class="level3">
+                        <li>The Position and Heading of the Turtle</li>
+                        <li>Other Properties of the Turtle</li>
+                    </ul>
+                    </li>
+                    <li>11.4 Making More Turtles</li>
+                    <li>Exercises</li>
+                </ul>
+                <li>Chapter 12 Turtle Window Event Handling
+                <ul class="level2">
+                    <li>12.1 Graphical User Interfaces and Event Handling
+                    <ul class="level3">
+                        <li>The Turtle Window as a Graphical User Interface</li>
+                        <li>Handling GUI Events</li>
+                    </ul>
+                    </li>
+                    <li>12.2 Turtle Window Events
+                    <ul class="level3">
+                        <li>Two Categories of Turtle Window Events</li>
+                    </ul>
+                    </li>
+                    <li>12.3 Handling Turtle Events
+                    <ul class="level3">
+                        <li>Using the Turtle Click Event</li>
+                        <li>Using the Turtle Drag Event</li>
+                        <li>Using Turtle Events for Multiple Turtles</li>
+                    </ul>
+                    </li>
+                    <li>12.4 Handling Turtle Screen Events
+                    <ul class="level3">
+                        <li>The Turtle Screen Click Event</li>
+                        <li>The Turtle Key Press Event</li>
+                        <li>The Turtle Timer Event</li>
+                    </ul>
+                    </li>
+                    <li>Exercises</li>
+                </ul>
+                <li>Chapter 13 File Handling
+                <ul class="level2">
+                    <li>13.1 Using Text Files
+                    <ul class="level3">
+                        <li>Opening a Text File</li>
+                        <li>Closing a Text File</li>
+                        <li>Saving and Loading Data for a Turtle Program</li>
+                    </ul>
+                    </li>
+                    <li>13.2 Saving Data to a Text File
+                    <ul class="level3">
+                        <li>Using the Write Command</li>
+                        <li>Extending the Turtle Program</li>
+                    </ul>
+                    </li>
+                    <li>13.3 Loading Data from a Text File
+                    <ul class="level3">
+                        <li>Reading Content Using a Loop</li>
+                        <li>Extending the Turtle Program</li>
+                    </ul>
+                    </li>
+                    <li>Exercises</li>
+                </ul>
+                <li>Chapter 14 Programming with Objects
+                <ul class="level2">
+                    <li>14.1 Introduction to Objects
+                    <ul class="level3">
+                        <li>Attributes and Behaviours</li>
+                        <li>Object Oriented Programming</li>
+                    </ul>
+                    </li>
+                    <li>14.2 Making a Class
+                    <ul class="level3">
+                        <li>Making the Attributes</li>
+                        <li>Making the Methods</li>
+                    </ul>
+                    </li>
+                    <li>14.3 Using a Class
+                    <ul class="level3">
+                        <li>Creating an Object from the Class</li>
+                        <li>Creating Multiple Objects</li>
+                    </ul>
+                    </li>
+                    <li>Exercises</li>
+                </ul>
+                <li>Chapter 15 Recursion
+                <ul class="level2">
+                    <li>15.1 What is Recursion?
+                    <ul class="level3">
+                        <li>Recursion in Programming</li>
+                    </ul>
+                    </li>
+                    <li>15.2 Writing a Recursive Function
+                    <ul class="level3">
+                        <li>Running the Recursive Function</li>
+                        <li>Setting up the Base Case</li>
+                        <li>The Recursive Depth</li>
+                    </ul>
+                    </li>
+                    <li>15.3 Using Recursion in Computer Graphics
+                    <ul class="level3">
+                        <li>The Sierpinski Triangle</li>
+                        <li>Drawing a Recursive Tree</li>
+                    </ul>
+                    </li>
+                    <li>Exercises</li>
+                </ul>
+            </ul>
+        </div>
+
+        <h2>Where to Find the Book</h2>
+
+        <p>
+        You can find the book in the
+        <a href="">HKUST bookstore</a>.
+        </p>
+
+    </div>
+
+</body>
+
+</html>

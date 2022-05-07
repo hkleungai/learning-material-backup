@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+    <title>COMP1021 Fall 2021 Interactive Final Exam</title>
+    <link rel="stylesheet" href="../../css/lab.css">
+
+	<script src="../../scripts/jquery-3.4.1.min.js"></script>
+    <script src="./video_res.js"></script>
+
+<style type="text/css">
+    body { margin-bottom: 15px; }
+    h3 { margin-top: 2em; }
+    p, li { font-size: 0.9rem; }
+    p, pre { margin-left: 15px; margin-right: 15px; }
+    pre > blank {
+        padding: 0 1em;
+        font-family: "Times New Roman", Times, serif;
+        font-weight: bold;
+        border-bottom: 2px solid black;
+    }
+    /* h2#Part2 ~ pre { user-select: none; } */
+    pre.blocked { user-select: none; }
+    pre.selectable { user-select: auto; }
+    @media print { h2#Part2 ~ pre { display: none } }
+    select.code, select.code > option { font-family: monospace; }
+    .answer-area { display: none; }
+    .check-result { font-weight: bold; }
+    span.correct { color: green; }
+    span.wrong { color: red; }
+    input.wrong, select.wrong { border: 2px solid red; }
+	.lineno {
+      font-style: italic;
+      font-weight: bold;
+    }
+	.special {
+		font-style: italic;
+		font-family: "Times New Roman", "Times", "Nimbus Roman", "serif";
+    }
+	.user-input{
+		font-style: italic;
+      	font-weight: bold;
+	}
+    table, th, td {
+     border: 1px solid black;
+     border-collapse: collapse;
+	 margin-left: 15px;
+	 margin-right: 15px;
+    }
+    th, td {
+      padding-top: 4px;
+      padding-bottom: 2px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+	pre {
+      tab-size: 4
+    }
+</style>
+</head>
+
+<body>
+    <h1>
+        <span class="lab">COMP1021 Fall 2021</span>
+        <span class="title">Interactive Final Exam</span>
+</h1>
+
+    <h2>How to Use This Exam Page</h2>
+
+    <ul>
+    	<li>This exam was an online exam</li>
+        <li>Your final exam questions may not be exactly the same as the questions shown below</li>
+        <li>The correct answers for your final exam questions may be different to the answers shown below</li>
+        <li>You are strongly recommended to first try out each question
+            by selecting/entering your answer, and then pressing
+            <button style="pointer-events: none;">Check your answer</button>
+        </li>
+        <li>If your answer is wrong, try to change it, then check it again</li>
+        <li>If you have tried some different answers and can't get the answer
+            correct, that's when you should select
+            <button style="pointer-events: none;">Click here to show the correct answer and video explanation</button>
+        </li>
+        <li>Then you will see the correct answer(s)</li>
+        <li>For roughly half the questions, students could not copy the Python code from the exam</li>
+    <li>You can copy the code shown in all questions on this web page after you have selected <button style="pointer-events: none;">Click here to show the correct answer and video explanation</button></li>
+
+
+		<li>Video explanations are by</li>
+		<ul>
+        <li>Prof. David ROSSITER (<a href="#P1Q1">Q1</a>, <a href="#P1Q2">Q2</a>, <a href="#P1Q3">Q3</a>, <a href="#P1Q4">Q4</a>, <a href="#P1Q5">Q5</a>, <a href="#P1Q6">Q6</a>, <a href="#P1Q7">Q7</a>, <a href="#P1Q8">Q8</a>, <a href="#P1Q9">Q9</a>, <a href="#P2Q10">Q10</a>, <a href="#P2Q11">Q11</a>, <a href="#P2Q12">Q12</a>, <a href="#P2Q13">Q13</a>)</li>
+        <li>Prof. Wilfred NG (<a href="#P2Q14">Q14</a>, <a href="#P2Q15">Q15</a>, <a href="#P2Q16">Q16</a>, <a href="#P2Q17">Q17</a>, <a href="#P2Q18">Q18</a>)</li>
+        </ul>
+    </ul>
+
+    <p><div id="videoQualityWidget"></div></p>
+
+    <h2>The Questions</h2>
+
+    <ul>
+        <li><a href="#Part1">Part 1</a>
+            <ul>
+                <li><a href="#P1Q1">Question 1</a></li>
+                <li><a href="#P1Q2">Question 2</a></li>
+                <li><a href="#P1Q3">Question 3</a></li>
+                <li><a href="#P1Q4">Question 4</a></li>
+                <li><a href="#P1Q5">Question 5</a></li>
+                <li><a href="#P1Q6">Question 6</a></li>
+                <li><a href="#P1Q7">Question 7</a></li>
+				<li><a href="#P1Q8">Question 8</a></li>
+                <li><a href="#P1Q9">Question 9</a></li>
+            </ul>
+        </li>
+        <li><a href="#Part2">Part 2</a>
+            <ul>
+                <li><a href="#P2Q10">Question 10</a></li>
+                <li><a href="#P2Q11">Question 11</a></li>
+                <li><a href="#P2Q12">Question 12</a></li>
+                <li><a href="#P2Q13">Question 13</a></li>
+                <li><a href="#P2Q14">Question 14</a></li>
+                <li><a href="#P2Q15">Question 15</a></li>
+                <li><a href="#P2Q16">Question 16</a></li>
+                <li><a href="#P2Q17">Question 17</a></li>
+                <li><a href="#P2Q18">Question 18</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2><a name="Part1"></a>Part 1</h2>
+
+    <ul>
+	<li>This exam was divided into part 1 and part 2 only to give students a 15 minute break between the two parts</li>
+	<li>There is no particular difference between the questions in the two parts</li>
+    </ul>
+
+
+<h3><a name="P1Q1"></a>Question 1</h3>
+
+<p>For this question you aren't able to copy the code.</p>
+
+<p>
+  When the following program is executed, what do you have to enter in order to see the response "Correct"?
+</p>
+
+<pre class="blocked" src="cHJpbnQoIlRoaXMgcXVlc3Rpb24gdGVzdHMgeW91ciBhYmlsaXR5IHRvIG11bHRpcGx5IGJ5IDIuIikKcHJpbnQoKQp4ID0gIjIwODAyNTQ1IgpwcmludCgiV2hhdCBpcyIsIHgsICJ0aW1lcyAyPyIpCnJlc3BvbnNlID0gaW5wdXQoIlBsZWFzZSBlbnRlciB5b3VyIGFuc3dlcjogIikKYW5zd2VyID0geCAqIDIKaWYgcmVzcG9uc2UgPT0gYW5zd2VyOgogICAgcHJpbnQoIkNvcnJlY3QiKQplbHNlOgogICAgcHJpbnQoIldyb25nIik=">
+</pre>
+
+<p>
+  Don't use any full stop(s), decimal place(s), formula(s), mathematical expression(s), space(s) or speech mark(s) in your answer.
+</p>
+
+
+    <div>
+        <p><strong>Your answer:</strong> <input model="2080254520802545" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+		<p><strong>Correct answer:</strong></p>
+        <p>2080254520802545</p>
+
+<p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/f2021_final_Q01.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/f2021_final_Q01.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+</div>
+
+
+
+<h3><a name="P1Q2"></a>Question 2</h3>
+<p>For this question you aren't able to copy the code.</p>
+<p>
+  A student goes on exchange to another country. He keeps track of all the ladies he meets using a Python program. The program is shown below.
+</p>
+
+<pre class="blocked" src="ZnJpZW5kcyA9IFsiQWlzaGFuaSIsICJIYWRpeWEiLCAiTm9yYWgiXQpmcmllbmRzLnNvcnQoKQpmcmllbmRzLmFwcGVuZCgiSmFubnkiKQoKZm9yIGNvdW50IGluIHJhbmdlKDQpOgogICAgcGVyc29uID0gZnJpZW5kc1swXSAKICAgIGZvciBwb3NpdGlvbiBpbiByYW5nZSgwLCAzKToKICAgICAgICBmcmllbmRzW3Bvc2l0aW9uXSA9IGZyaWVuZHNbcG9zaXRpb24gKyAxXQogICAgZnJpZW5kc1szXSA9IHBlcnNvbgoKZnJpZW5kcy5yZW1vdmUoIkphbm55IikKcHJpbnQoIk15IGJlc3QgZnJpZW5kIGlzIikKcHJpbnQoZnJpZW5kc1swXSk=">
+</pre>
+
+<p>
+The question is: when the program has finished, who is the best friend? In other words, <strong>what name is printed in the last line of the output</strong>? <strong>You must enter the name exactly as it is printed by the Python program.</strong> Don't enter any speech marks in your answer.
+</p>
+
+     <div>
+        <p><strong>Your answer:</strong> <input model="Aishani" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+		<p><strong>Correct answer:</strong></p>
+        <p>Aishani</p>
+
+<p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/f2021_final_Q02.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/f2021_final_Q02.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+</div>
+
+<h3><a name="P1Q3"></a>Question 3</h3>
+<p>For this question you aren't able to copy the code.</p>
+<p>
+Here is an image.
+</p>
+
+<p>
+<img src="./img/Q3_K.png" class="border" width="600px">
+</p>
+
+<p>
+3 programs are shown below. One of the programs generates the above image. <strong>Which one of the programs generates the above image</strong>? Just enter a capital letter, A or B or C.
+</p>
+
+<p>
+Program A:<br>
+<pre class="blocked" src="aW1wb3J0IHR1cnRsZQp0dXJ0bGUuaGlkZXR1cnRsZSgpCnR1cnRsZS51cCgpCnR1cnRsZS5nb3RvKDEzNiwgODApCnR1cnRsZS5kb3duKCkKdHVydGxlLmRvdCgxMCkKdHVydGxlLmdvdG8oMTIwLCAxMjQpCnR1cnRsZS5kb3QoMTApCnR1cnRsZS5nb3RvKDI4LCAyNCkKdHVydGxlLmRvdCgxMCkKdHVydGxlLmdvdG8oNDgsIC04KQp0dXJ0bGUuZG90KDEwKQp0dXJ0bGUuZ290bygtOTIsIC00MCkKdHVydGxlLmRvdCgxMCkKdHVydGxlLmdvdG8oLTE0MCwgLTE0NCkKdHVydGxlLmRvdCgxMCkKdHVydGxlLmdvdG8oLTM2LCAtMTM2KQp0dXJ0bGUuZG90KDEwKQp0dXJ0bGUuZ290bygxMjAsIC0xNDApCnR1cnRsZS5kb3QoMTApCnR1cnRsZS5nb3RvKDEwNCwgLTQ4KQp0dXJ0bGUuZG90KDEwKQp0dXJ0bGUuZ290byg0OCwgLTgpCnR1cnRsZS5kb3QoMTApCnR1cnRsZS5kb25lKCk=">
+</pre>
+<hr>
+</p>
+<p>
+Program B:<br>
+<pre class="blocked" src="aW1wb3J0IHR1cnRsZQp0dXJ0bGUuaGlkZXR1cnRsZSgpCnR1cnRsZS51cCgpCnR1cnRsZS5nb3RvKDEwNCwgLTE1MikKdHVydGxlLmRvd24oKQp0dXJ0bGUuZG90KDEwKQp0dXJ0bGUuZ290byg4NCwgLTkyKQp0dXJ0bGUuZG90KDEwKQp0dXJ0bGUuZ290bygxNiwgLTI4KQp0dXJ0bGUuZG90KDEwKQp0dXJ0bGUuZ290bygtMzYsIC00KQp0dXJ0bGUuZG90KDEwKQp0dXJ0bGUuZ290bygtODgsIDk2KQp0dXJ0bGUuZG90KDEwKQp0dXJ0bGUudXAoKQp0dXJ0bGUuZ290bygxNiwgLTI4KQp0dXJ0bGUuZG93bigpCnR1cnRsZS5kb3QoMTApCnR1cnRsZS5nb3RvKDQwLCAyMCkKdHVydGxlLmRvdCgxMCkKdHVydGxlLmdvdG8oMCwgMjgpCnR1cnRsZS5kb3QoMTApCnR1cnRsZS5nb3RvKDE2LCA2NCkKdHVydGxlLmRvdCgxMCkKdHVydGxlLmdvdG8oMCwgMTIwKQp0dXJ0bGUuZG90KDEwKQp0dXJ0bGUuZG9uZSgp">
+</pre>
+<hr>
+</p>
+<p>
+Program C:<br>
+<pre class="blocked" src="aW1wb3J0IHR1cnRsZQp0dXJ0bGUuaGlkZXR1cnRsZSgpCnR1cnRsZS51cCgpCnR1cnRsZS5nb3RvKDEwMCwgLTE0MCkKdHVydGxlLmRvd24oKQp0dXJ0bGUuZG90KDEwKQp0dXJ0bGUuZ290byg5NiwgLTk2KQp0dXJ0bGUuZG90KDEwKQp0dXJ0bGUuZ290bygzNiwgLTgwKQp0dXJ0bGUuZG90KDEwKQp0dXJ0bGUuZ290bygtMTYwLCA0KQp0dXJ0bGUuZG90KDEwKQp0dXJ0bGUuZ290bygtODgsIDg0KQp0dXJ0bGUuZG90KDEwKQp0dXJ0bGUuZ290byg0OCwgMTYpCnR1cnRsZS5kb3QoMTApCnR1cnRsZS5nb3RvKDExMiwgLTQpCnR1cnRsZS5kb3QoMTApCnR1cnRsZS5nb3RvKDE3MiwgMjQpCnR1cnRsZS5kb3QoMTApCnR1cnRsZS51cCgpCnR1cnRsZS5nb3RvKDExMiwgLTQpCnR1cnRsZS5kb3duKCkKdHVydGxlLmRvdCgxMCkKdHVydGxlLmdvdG8oOTYsIC05NikKdHVydGxlLmRvdCgxMCkKdHVydGxlLmRvbmUoKQ==">
+</pre>
+<hr>
+</p>
+
+     <div>
+        <p><strong>Your answer:</strong> <input model="A,a" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+		<p><strong>Correct answers:</strong></p>
+        <p>A</p>
+        <p>a</p>
+
+<p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/f2021_final_Q03.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/f2021_final_Q03.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+</div>
+
+
+
+<h3><a name="P1Q4"></a>Question 4</h3>
+
+<p>
+You have an unusual friend. This year, the year 2021, the friend talks to you once every 5 months. Next year, the year 2022, the friend will talk to you twice as often compared to the previous year: once every 2.5 months. The year after that, in the year 2023, your friend will talk to you twice as often compared to the previous year: once every 1.25 months. The pattern continues like that - in each successive year your friend talks to you twice as often as the previous year.
+</p>
+
+<p>
+The question is this: in which year will your friend talk to you at least once a day? To be more precise, the question is: in which year will the interval <em>n</em> between your friend talking to you become less than or equal to 24 hours i.e. in what year is <em>n</em> <= 24? You need to enter the first year when that happens.
+</p>
+
+<p>
+For this question assume every month has exactly 31 days. You don't need to convert from float to integer for this question i.e. don't use <code>int()</code> or <code>round()</code>.
+</p>
+
+<p>
+Your answer is a year. For example, if you think the first year in which your friend will talk to you once every <em>n</em> hours, where <em>n</em> <= 24, is the year 2035, then enter the integer <strong>2035</strong> as your answer.
+</p>
+
+<p>
+You could work this out using a while loop. Here is some example pseudocode.
+</p>
+
+<pre>
+n = <span class="special">something</span>
+year = 2021
+
+while n > <span class="special">something</span>:
+    <span class="special">Change the value of</span> n
+    <span class="special">Increase the value of</span> year
+
+<span class="special">Show the value of</span> year
+</pre>
+
+<p>
+Your answer must be an integer number, which is a year. Don't enter any full stops or anything like that.
+</p>
+
+     <div>
+        <p><strong>Your answer:</strong> <input model="2029" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+		<p><strong>Correct answer:</strong></p>
+        <p>2029</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/f2021_final_Q04.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/f2021_final_Q04.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+</div>
+
+
+<h3><a name="P1Q5"></a>Question 5</h3>
+<p>For this question you aren't able to copy the code.</p>
+<p>
+Here is a program.
+</p>
+
+<pre class="blocked" src="aW1wb3J0IHR1cnRsZQppbXBvcnQgcmFuZG9tCgpjbGFzcyBUaWxlOgogICAgZGVmIF9faW5pdF9fKHNlbGYsIHgsIHksIGxlbmd0aCwgciwgZywgYik6CiAgICAgICAgc2VsZi54ID0geAogICAgICAgIHNlbGYueSA9IHkKICAgICAgICBzZWxmLmxlbmd0aCA9IGxlbmd0aAogICAgICAgIHNlbGYuciA9IHIKICAgICAgICBzZWxmLmcgPSBnCiAgICAgICAgc2VsZi5iID0gYgogICAgZGVmIHNob3coc2VsZik6CiAgICAgICAgdHVydGxlLnVwKCkKICAgICAgICB0dXJ0bGUuZ290byhzZWxmLngsIHNlbGYueSkKICAgICAgICB0dXJ0bGUuZG93bigpCiAgICAgICAgdHVydGxlLmZpbGxjb2xvcihzZWxmLnIsIHNlbGYuZywgc2VsZi5iKQogICAgICAgIHR1cnRsZS5iZWdpbl9maWxsKCkKICAgICAgICBmb3IgXyBpbiByYW5nZSg0KToKICAgICAgICAgICAgdHVydGxlLmZvcndhcmQoc2VsZi5sZW5ndGgpCiAgICAgICAgICAgIHR1cnRsZS5sZWZ0KDkwKQogICAgICAgIHR1cnRsZS5lbmRfZmlsbCgpCiAgICAgICAgCnR1cnRsZS5zZXR1cCg2MDAsIDYwMCkKdHVydGxlLmNvbG9ybW9kZSgyNTUpCnR1cnRsZS53aWR0aCgyKQp0dXJ0bGUuaGlkZXR1cnRsZSgpCnRpbGVzID0gW10KCmZvciByb3cgaW4gcmFuZ2UoMTApOgogICAgZm9yIGNvbHVtbiBpbiByYW5nZSgxMCk6CiAgICAgICAgciA9IDAKICAgICAgICBnID0gMAogICAgICAgIGIgPSAwCiAgICAgICAgd2hpbGUgKHIgKyBnICsgYiA9PSAwIG9yIHIgKyBnICsgYiA9PSA3NjUpOgogICAgICAgICAgICByID0gcmFuZG9tLmNob2ljZShbMCwgMjU1XSkKICAgICAgICAgICAgZyA9IHJhbmRvbS5jaG9pY2UoWzAsIDI1NV0pCiAgICAgICAgICAgIGIgPSByYW5kb20uY2hvaWNlKFswLCAyNTVdKQogICAgICAgIHRpbGUgPSBUaWxlKC0yNTAgKyA1MCAqIHJvdywgLTI1MCArIDUwICogY29sdW1uLCA1MCwgciwgZywgYikKICAgICAgICB0aWxlcy5hcHBlbmQodGlsZSkKICAgICAgICAKZm9yIHRpbGUgaW4gdGlsZXM6CiAgICB0aWxlLnNob3coKQogICAgCnR1cnRsZS5kb25lKCk=">
+</pre>
+
+<p>
+  The RGB values of some colours are shown in the table below.
+</p>
+
+<p>
+<table class="center">
+  <thead>
+    <tr>
+      <td>Colour</td>
+      <td>Red Value</td>
+      <td>Green Value</td>
+      <td>Blue Value</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Black</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Gray</td>
+      <td>128</td>
+      <td>128</td>
+      <td>128</td>
+    </tr>
+    <tr>
+      <td>White</td>
+      <td>255</td>
+      <td>255</td>
+      <td>255</td>
+    </tr>
+    <tr>
+      <td>Red</td>
+      <td>255</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Green</td>
+      <td>0</td>
+      <td>255</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Blue</td>
+      <td>0</td>
+      <td>0</td>
+      <td>255</td>
+    </tr>
+    <tr>
+      <td>Yellow</td>
+      <td>255</td>
+      <td>255</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Cyan</td>
+      <td>0</td>
+      <td>255</td>
+      <td>255</td>
+    </tr>
+    <tr>
+      <td>Magenta</td>
+      <td>255</td>
+      <td>0</td>
+      <td>255</td>
+    </tr>
+  </tbody>
+</table>
+</p>
+
+<p>
+  What do you see in the turtle window after you run the program? For your answer, enter a capital letter, A or B or C or D or E or F or G or H or I. Don't enter any full stops or anything like that.
+</p>
+
+<ol type="A">
+<li>In the turtle window you see one single square which is filled with white and has a black outline.</li>
+<li>In the turtle window you see 100 squares which are filled with either red, green, blue, yellow, cyan or magenta and have a black outline.</li>
+<li>You see nothing in the turtle window, i.e. the window content is just white.</li>
+<li>In the turtle window you see one single square which is filled with black and has a black outline.</li>
+<li>In the turtle window you see one single square which is filled with either red, green, blue, yellow, cyan or magenta and has a black outline.</li>
+<li>In the turtle window you see 100 squares which are filled with white and have a black outline.</li>
+<li>In the turtle window you see 100 squares which are filled with gray and have a black outline.</li>
+<li>In the turtle window you see one single square which is filled with gray and has a black outline.</li>
+<li>In the turtle window you see 100 squares which are filled with black and have a black outline.</li>
+</ol>
+
+
+     <div>
+        <p><strong>Your answer:</strong> <input model="B,b" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+		<p><strong>Correct answers:</strong></p>
+        <p>B</p>
+        <p>b</p>
+
+<p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/f2021_final_Q05.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/f2021_final_Q05.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+</div>
+
+
+<h3><a name="P1Q6"></a>Question 6</h3>
+
+<p>
+'Net worth' means the sum of everything a person owns. For example, if you have HK$3,000 in your bank account, HK$1,000 in cash, a laptop worth HK$5,000 and a phone worth HK$1,000, then your net worth is HK$10,000.
+</p>
+
+<p>
+Using 1 rectangle to represent HK$1,000 you could visualize your net worth like this:
+</p>
+
+<p><img src="./img/Q6_example.png"class="border" width="600px"></p>
+
+<p>
+Several people have developed IT companies and become very wealthy. The net worth of some people is so large it is hard to appreciate. Somebody creates the following program to try to help them understand the net worth of a particular person. It shows a rectangle for each HK$1,000 of the person's net worth. When the program is executed lots of rectangles are shown, then the user presses Enter, then the rectangles are cleared and more rectangles are shown. One rectangle represents HK$1,000. This pattern repeats until all the rectangles are shown. In this way the complete net worth of the person is shown.
+</p>
+
+<pre>
+import turtle
+turtle.color("orange")
+turtle.hideturtle()
+turtle.up()
+
+# This variable represents the net worth in thousands (HK$1,000)
+wealth_in_thousand_hkd = 713700000
+count = 0
+while count < wealth_in_thousand_hkd:
+    from_user = input("You have seen" + str(count) + \
+                      "rectangles - now press Enter")
+    turtle.clear()
+    for y in range(-210, 210, 25):
+        for x in range(-210, 210, 25):
+            if count < wealth_in_thousand_hkd:
+                turtle.goto(x, y)
+                turtle.begin_fill()
+                turtle.forward(15)
+                turtle.left(90)
+                turtle.forward(10)
+                turtle.left(90)
+                turtle.forward(15)
+                turtle.left(90)
+                turtle.forward(10)
+                turtle.left(90)
+                turtle.end_fill()
+                count = count + 1
+print("You have seen" + str(count) + "rectangles")
+turtle.done()
+</pre>
+
+<p>
+If you think it helps you, you are welcome to copy the above code, fix/edit the indentation, and use/edit the code.
+</p>
+
+<p>
+You are using the program to illustrate the net worth of a particular person. That person is Larry Page. His net worth is HK$713,700,000,000.
+</p>
+
+<p>
+The question is: <strong>how many times does the user need to press Enter  in order to see all the net worth of that person?</strong> For your answer, <strong>simply enter an integer</strong>. Don't use any full stop(s), decimal place(s), formula(s), mathematical expression(s), space(s) or speech mark(s) in your answer.
+</p>
+
+<p>
+Note: you can see <code>input()</code> is used. In this question we don't care if the user actually enters some text. We just want them to press Enter (no need to enter any text). If they do enter some text it is ignored.
+</p>
+
+ <div>
+        <p><strong>Your answer:</strong> <input model="2469551" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+		<p><strong>Correct answer:</strong></p>
+        <p>2469551</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/f2021_final_Q06.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/f2021_final_Q06.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+
+<h3><a name="P1Q7"></a>Question 7</h3>
+
+<p>
+A poster is created using a turtle program. This poster teaches people the colour of sauces that they should use with a particular McDonald's breakfast food item. Here is the turtle window containing the poster created by the program.
+</p>
+
+<p><img src="./img/Q7_macdonald_sauce_v3.png" class="border" width="600px"></p>
+
+<p>
+The poster tells you that you are recommended to use the yellow mustard for the sausage, the yellow honey for the pancakes, the red ketchup for the hash browns and the eggs, and the purple jam for the muffins.
+</p>
+
+<p>
+  You need to write the correct list for <code>sauces</code> in the following program so that the program creates the result shown above. If you think it helps you, you are welcome to copy the code from this web page, check/fix the indentation, and use it in your Python editor.
+</p>
+
+<pre>
+import turtle
+turtle.speed(0)
+turtle.hideturtle()
+turtle.width(5)
+turtle.up()
+
+items  = ["Sausages", "Pancakes", "Hash browns", "Muffins", "Eggs"]
+sauces = <strong><em>SEE QUESTION</em></strong>
+
+turtle.goto(0, 180)
+turtle.write("Use the Right Sauce!", \
+             font=("Arial", 30, "bold"), \
+             align="center")
+items.sort()
+
+y = 100
+for item in items:
+    turtle.goto(-150, y)
+    turtle.write(item, font=("Arial", 20, "bold"))
+
+    color = sauces[items.index(item)]
+
+    turtle.goto(100, y - 5)
+    turtle.down()
+    turtle.fillcolor(color)
+    turtle.begin_fill()
+    turtle.circle(20)
+    turtle.end_fill()
+    turtle.up()
+
+    turtle.goto(130, y)
+    turtle.write(color, font=("Arial", 10, "normal"))
+
+    y = y - 70
+
+turtle.done()
+</pre>
+
+<p>
+  What is the list for <code>sauces</code> in the program? For your answer, enter the list that can produce the poster shown at the start of the question. Do not enter any spaces. You must include the square brackets <code>[ ]</code> in your answer. You can only use one type of quotes in your answer. Either use all single quotes (<code>'</code>) or all double quotes (<code>"</code>). Do not mix the two different types of speech marks. Just use one type e.g. an answer of <br><br><code>['red','yellow']</code><br><br> would be OK, and an answer of <br><br> <code>["red","yellow"]</code> <br><br> would be OK, but an answer of <br><br> <code>["red",'yellow']</code> <br><br> would not be OK.
+</p>
+
+ <div>
+        <p><strong>Your answer:</strong> <input model="[&#34;red&#34;,&#34;red&#34;,&#34;purple&#34;,&#34;yellow&#34;,&#34;yellow&#34;]/[&#39;red&#39;,&#39;red&#39;,&#39;purple&#39;,&#39;yellow&#39;,&#39;yellow&#39;]" sep="/" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+		<p><strong>Correct answers:</strong></p>
+        <p>["red","red","purple","yellow","yellow"]</p>
+		<p>['red','red','purple','yellow','yellow']</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/f2021_final_Q07.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/f2021_final_Q07.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+
+<h3><a name="P1Q8"></a>Question 8</h3>
+
+
+<p>
+  You are given the following program. If you think it helps you, you are welcome to copy the code from this web page, check/fix the indentation, and use it in your Python editor.
+</p>
+
+<pre>
+courses = ["CHEM2350", "COMP1021", "MGMT3120"]
+
+credits = [1, 3, 4]
+
+total = 0
+
+for index in range(len(courses)):
+
+    if "COMP" == courses[index][ <strong><em>BLANK</em></strong> ]:
+
+        total = total + credits[index]
+
+print("The total number of credits offered by COMP courses is", total)
+</pre>
+
+<p>
+  The two lists, 'courses' and 'credits' contain the course code of some courses and their corresponding number of credits. The program above shows some example content for the lists which means CHEM2350 is a 1-credit course, COMP1021 is a 3-credit course and MGMT3120 is a 4-credit course. The lists may contain some different courses than the one shown in the above program. For example, they can be like this:
+</p>
+
+<pre>
+courses = ["COMP1991", "ECON2174", "LABU2051", "RMBI1010"]
+
+credits = [0, 4, 2, 3]
+</pre>
+
+<p>
+  For this question, assume that the course code is always a four-letter program code e.g. <code>COMP</code> followed by a four-digit number e.g. <code>1021</code>.
+</p>
+
+<p>
+  The program computes the total number of credits offered by COMP courses, i.e. courses with the COMP program code, in the given lists.
+</p>
+
+<p>
+  You need to fill in the <code><strong><em>BLANK</em></strong></code> in the program so that the program works as described above. Just enter the code for <code><strong><em>BLANK</em></strong></code> only. Don't enter the square brackets <code>[ ]</code>, or anything else. Just enter the missing part of the code. <strong>You can only use one or more non-negative integers (including 0) and one or more colons in your answer.</strong>
+</p>
+
+ <div>
+        <p><strong>Your answer:</strong> <input model=":4,0:4,0:4:,0:4:1,:4:,:4:1" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+		<p><strong>Correct answers:</strong></p>
+        <p>:4</p>
+		<p>0:4</p>
+        <p>0:4:</p>
+		<p>0:4:1</p>
+        <p>:4:</p>
+        <p>:4:1</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/f2021_final_Q08.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/f2021_final_Q08.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+
+
+<h3><a name="P1Q9"></a>Question 9</h3>
+
+<p>
+  Here is a program that changes some text into a 'secret message', which does not resemble its original content. Using the secret message, you can send sensitive information to other people without revealing the actual content when it is transmitted. If you want to, you can copy the code from this web page, fix the indentation, and use it in your Python editor.
+</p>
+
+<pre>
+# This program changes a piece of text into a secret message.
+
+# The text to be changed can only contain the following letters
+letters = "abcdefghijklmnopqrstuvwxyz"
+
+# The text to be changed
+input_text = "crazyworld"
+
+# The secret code that is used in the process
+code = "159145"
+
+# The variable to store the secret message
+result = ""
+
+for i in range(len(input_text)):
+    # Get the current letter
+    letter = input_text[i]
+
+    # Find the location of the letter and the offset to its 'secret' version
+    index = letters.index(letter)
+    offset = int(code[i % len(code)])
+
+    # Add the 'secret' letter to the result
+    result = result + letters[(index + offset) % len(letters)]
+
+# Show the result
+print(result)
+</pre>
+
+<p>
+  In the above example, the text 'crazyworld' is changed using the secret code '159145'. The result is the secret message 'dwjacbpwue'. This secret message can then be sent to other people. They can use a decoding program (which is not given in this question) and the same secret code (159145) to change the secret message back into its original content.
+</p>
+
+<p>
+  Here is a brief description of how the program works.
+</p>
+
+<p>
+  At the start of the program, you have a list, <code>letters</code>, containing the letters that you can use in the input text. You are also given the input text and the secret code in the variables <code>input_text</code> and <code>code</code> respectively.
+</p>
+
+<p>
+  Then, for each letter in the input text, the program changes the letter to a secret version of itself. The secret version is another letter to the right of the original letter inside <code>letters</code>. How far the secret version is to the right of the letter is determined by the secret code and the current location of the letter. This is calculated and stored in the variable <code>offset</code>.
+</p>
+
+<p>
+  When finding the secret version of the letter, it may be located way over the right hand side of <code>letters</code>. In this case, the program looks for the secret version back to the left hand side of <code>letters</code>, as indicated by the use of the code <code>% len(letters)</code>.
+</p>
+
+<p>
+  Now, someone sent you the secret message 'rdssqgavegnn' and the secret code '29135'. Your task is to change the secret message and get back its original content.
+</p>
+
+<p>
+  You can do that by writing a decoding program, based on the given program above. (Hint: Apart from the input text and secret code, you only need to change one line of code inside the loop to change the given program to a decoding program.) What is the original content of the secret message? <strong>Just enter the text content</strong>. Don't enter a full stop or anything like that. Don't use any capital letters. Don't enter any speech marks.
+</p>
+
+ <div>
+        <p><strong>Your answer:</strong> <input model="purplerubble" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+    <div class="answer-area">
+		<p><strong>Correct answer:</strong></p>
+		<p>purplerubble</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/f2021_final_Q09.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/f2021_final_Q09.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+    </div>
+
+
+<h2 id="Part2"><a name="Part2"></a>Part 2</h2>
+
+    <ul>
+	<li>This exam was divided into part 1 and part 2 only to give students a 15 minute break between the two parts</li>
+	<li>There is no particular difference between the questions in the two parts</li>
+    </ul>
+
+
+<h3><a name="P2Q10"></a>Question 10</h3>
+<p>For this question you aren't able to copy the code.</p>
+<p>
+Here is a program.
+</p>
+
+<pre class="blocked" src="PGVtPiAxPC9lbT4gYmlydGhfeWVhciA9IGludChpbnB1dCgiV2hhdCBpcyB0aGUgeWVhciBvZiB5b3VyIGJpcnRoPyAiKSkKPGVtPiAyPC9lbT4gYmlydGhfbW9udGggPSBpbnQoaW5wdXQoIldoYXQgaXMgdGhlIG1vbnRoIG9mIHlvdXIgYmlydGg/ICIpKQo8ZW0+IDM8L2VtPiBiaXJ0aF9kYXkgPSBpbnQoaW5wdXQoIldoYXQgaXMgdGhlIGRheSBvZiB0aGUgbW9udGggb2YgeW91ciBiaXJ0aD8gIikpCjxlbT4gNDwvZW0+IHByaW50KCkKPGVtPiA1PC9lbT4KPGVtPiA2PC9lbT4gbm93X3llYXIgPSBpbnQoaW5wdXQoIldoYXQgaXMgdGhlIHllYXIgdG9kYXk/ICIpKQo8ZW0+IDc8L2VtPiBub3dfbW9udGggPSBpbnQoaW5wdXQoIldoYXQgaXMgdGhlIG1vbnRoIHRvZGF5PyAiKSkKPGVtPiA4PC9lbT4gbm93X2RheSA9IGludChpbnB1dCgiV2hhdCBpcyB0aGUgZGF5IG9mIHRoZSBtb250aCBvZiB0b2RheT8gIikpCjxlbT4gOTwvZW0+IHByaW50KCkKPGVtPjEwPC9lbT4KPGVtPjExPC9lbT4gYWdlX2luX3llYXJzID0gbm93X3llYXIgLSBiaXJ0aF95ZWFyCjxlbT4xMjwvZW0+CjxlbT4xMzwvZW0+IGlmIG5vd19tb250aCA8IGJpcnRoX21vbnRoOgo8ZW0+MTQ8L2VtPiAgICBhZ2VfaW5feWVhcnMgPSBhZ2VfaW5feWVhcnMgLSAxCjxlbT4xNTwvZW0+IGVsaWYgPHN0cm9uZz48ZW0+PGNvZGU+U0VFIFFVRVNUSU9OPC9jb2RlPjwvZW0+PC9zdHJvbmc+IDoKPGVtPjE2PC9lbT4gICAgIGlmIG5vd19kYXkgPCBiaXJ0aF9kYXk6CjxlbT4xNzwvZW0+ICAgICAgICAgYWdlX2luX3llYXJzID0gYWdlX2luX3llYXJzIC0gMQo8ZW0+MTg8L2VtPiAKPGVtPjE5PC9lbT4gcHJpbnQoIllvdSBhcmUiLCBhZ2VfaW5feWVhcnMsICJ5ZWFyKHMpIG9sZCIp">
+</pre>
+
+
+<p>
+  Below are some examples of the (correctly finished) program working. The text in bold and italics (e.g. <strong><em><code>2020</code></em></strong>) is the text entered by the user.
+</p>
+
+<div>
+<p>Example 1</p>
+
+<pre>
+What is the year of your birth? <span class="user-input">2020</span>
+What is the month of your birth? <span class="user-input">2</span>
+What is the day of the month of your birth? <span class="user-input">2</span>
+
+What is the year today? <span class="user-input">2021</span>
+What is the month today? <span class="user-input">2</span>
+What is the day of the month of today? <span class="user-input">3</span>
+
+You are 1 year(s) old
+</pre>
+<hr>
+</div>
+
+<div>
+<p>Example 2</p>
+
+<pre>
+What is the year of your birth? <span class="user-input">2020</span>
+What is the month of your birth? <span class="user-input">2</span>
+What is the day of the month of your birth? <span class="user-input">2</span>
+
+What is the year today? <span class="user-input">2021</span>
+What is the month today? <span class="user-input">2</span>
+What is the day of the month of today? <span class="user-input">2</span>
+
+You are 1 year(s) old
+</pre>
+<hr>
+</div>
+
+<div>
+<p>Example 3</p>
+
+<pre>
+What is the year of your birth? <span class="user-input">2020</span>
+What is the month of your birth? <span class="user-input">2</span>
+What is the day of the month of your birth? <span class="user-input">2</span>
+
+What is the year today? <span class="user-input">2021</span>
+What is the month today? <span class="user-input">2</span>
+What is the day of the month of today? <span class="user-input">1</span>
+
+You are 0 year(s) old
+</pre>
+<hr>
+</div>
+
+<div>
+<p>Example 4</p>
+
+<pre>
+What is the year of your birth? <span class="user-input">2000</span>
+What is the month of your birth? <span class="user-input">10</span>
+What is the day of the month of your birth? <span class="user-input">25</span>
+
+What is the year today? <span class="user-input">2021</span>
+What is the month today? <span class="user-input">12</span>
+What is the day of the month of today? <span class="user-input">8</span>
+
+You are 21 year(s) old
+</pre>
+<hr>
+</div>
+
+<div>
+<p>Example 5</p>
+
+<pre>
+What is the year of your birth? <span class="user-input">2000</span>
+What is the month of your birth? <span class="user-input">12</span>
+What is the day of the month of your birth? <span class="user-input">8</span>
+
+What is the year today? <span class="user-input">2021</span>
+What is the month today? <span class="user-input">12</span>
+What is the day of the month of today? <span class="user-input">8</span>
+
+You are 21 year(s) old
+</pre>
+<hr>
+</div>
+
+<div>
+<p>Example 6</p>
+
+<pre>
+What is the year of your birth? <span class="user-input">2000</span>
+What is the month of your birth? <span class="user-input">12</span>
+What is the day of the month of your birth? <span class="user-input">9</span>
+
+What is the year today? <span class="user-input">2021</span>
+What is the month today? <span class="user-input">12</span>
+What is the day of the month of today? <span class="user-input">8</span>
+
+You are 20 year(s) old
+</pre>
+<hr>
+</div>
+
+<p>
+  Line 15 is incomplete. What is the missing code for <strong><em><code>SEE QUESTION</code></em></strong>? Don't enter the 'elif' at the start of the line. Don't enter the colon at the end of the line. Your answer must be 30 characters or less (ignore the Enter/ Return key). For example, if you thought the answer was
+</p>
+
+<pre>
+now_month==13
+</pre>
+
+<p>
+  you could enter that answer, because it is &lt;= 30 characters (it is 13 characters). However, if you thought the answer was
+</p>
+
+<pre>
+now_month==13 and now_year==2022
+</pre>
+
+<p>
+  you should not enter that answer, because it is &gt; 30 characters (it is 32 characters).
+</p>
+
+<div>
+        <p><strong>Your answer:</strong> <input model="now_month==birth_month,birth_month==now_month,notnow_month!=birth_month,notbirth_month!=now_month"></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+</div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+<div class="answer-area">
+    <p><strong>Correct answers: </strong></p>
+    <p>now_month == birth_month</p>
+    <p>birth_month == now_month</p>
+    <p>not now_month != birth_month</p>
+    <p>not birth_month != now_month</p>
+
+	<p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/f2021_final_Q10.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/f2021_final_Q10.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+</div>
+
+
+<h3><a name="P2Q11"></a>Question 11</h3>
+<p>For this question you aren't able to copy the code.</p>
+<p>
+  What do you see when the following program is executed?
+</p>
+
+<pre class="blocked" src="dGhpbmdzID0gWyAidGhlIiwgImJlIiwgInRvIiwgIm9mIiwgImFuZCIsICJhIiwgImluIiwgInRoYXQiLCAiaGF2ZSIsIFwKICAgICJJIiwgIml0IiwgImZvciIsICJub3QiLCAib24iLCAid2l0aCIsICJoZSIsICJhcyIsICJ5b3UiLCBcCiAgICAiZG8iLCAiYXQiLCAidGhpcyIsICJidXQiLCAiaGlzIiwgImJ5IiwgImZyb20iLCAidGhleSIsICJ3ZSIsICJzYXkiLCBcCiAgICAidGltZSIsICJwZXJzb24iLCAieWVhciIsICJ3YXkiLCAiZGF5IiwgInRoaW5nIiwgIndvcmxkIiwgXAogICAgImxpZmUiLCAiaGFuZCIsICJwYXJ0IiwgImV5ZSIsICJwbGFjZSIsICJ3b3JrIiwgIndlZWsiLCAiY2hhaXIiLCBcCiAgICAiY2FzZSIsICJwb2ludCIsICJjb21wYW55IiwgIm51bWJlciIsICJncm91cCIsICJwcm9ibGVtIiwgImNhciIsIFwKICAgICJnb29kIiwgIm5ldyIsICJmaXJzdCIsICJsYXN0IiwgImxvbmciLCAiZ3JlYXQiLCAibGl0dGxlIiwgIm93biIsIFwKICAgICJvdGhlciIsICJvbGQiLCAicmlnaHQiLCAiYmlnIiwgImhpZ2giLCAiZGlmZmVyZW50IiwgInNtYWxsIiwgImxhcmdlIiwgXAogICAgIm5leHQiLCAiZWFybHkiLCAiaW1wb3J0YW50IiwgImZldyIsICJwdWJsaWMiLCAiYmFkIiwgInNhbWUiLCAiYWJsZSIsIFwKICAgICJ5ZXMiLCAib2giLCAieWVhaCIsICJubyIsICJoZXkiLCAiaGkiLCAiaGVsbG8iLCAiaG1tbSIsICJhaCIsICJ3b3ciIFwKICAgIF0KCnJlc3VsdCA9IHRoaW5nc1sgLTEgOiBpbnQobGVuKHRoaW5ncykqMC4zMykgOiAtMTYgXQpmb3IgdGhpc3RoaW5nIGluIHJlc3VsdDoKICAgIHByaW50KHRoaXN0aGluZywgZW5kPSIgIik="></pre>
+
+<p>
+For your answer, you need to enter exactly what the program prints. However, don't include the final space in your answer (the space at the end). Don't use any speech marks in your answer.
+</p>
+
+<div>
+        <p><strong>Your answer:</strong> <input model="wow early new life" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+    </div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+<div class="answer-area">
+		<p><strong>Correct answer:</strong></p>
+        <p>wow early new life</p>
+
+        <p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/f2021_final_Q11.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/f2021_final_Q11.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+</div>
+
+
+<h3><a name="P2Q12"></a>Question 12</h3>
+
+<p>
+  You are writing a game which uses two turtles. One turtle is used for the player. Another turtle is used for the enemy. If the distance between the enemy and the player is too small, the game is over. Here is the code.
+</p>
+
+<pre>
+import turtle
+import math
+
+def drag_player(x, y):
+    global permitted_distance
+    distance = <strong><em>SEE QUESTION</em></strong>
+    if distance < permitted_distance:
+        print("Oh no! Your turtle is too close to the enemy! You lose!")
+
+permitted_distance = <strong><em>number not shown</em></strong>
+
+player = turtle.Turtle()
+enemy = turtle.Turtle()
+
+enemy.goto( <strong><em>number not shown</em></strong>, <strong><em>number not shown</em></strong> )
+player.ondrag( drag_player )
+
+turtle.done()
+</pre>
+
+<p>
+  At school you were taught about Pythagoras' rule, which can be used to work out the distance between the two turtles:
+</p>
+
+<p><img src="./img/Q12_pythagoras_theorem.png" width="600px"></p>
+
+
+<p>
+  In Python one way to calculate the square is to use <code>pow</code> e.g. <code>pow(3, 2)</code> gives the result of 9. And one way to calculate the square root is to use <code>math.sqrt()</code>.
+</p>
+
+<p>
+You can see the line of code <code>distance = <strong><em>SEE QUESTION</em></strong></code>. This line of code calculates the distance between the two turtles. Three of the following lines of code can be used to correctly calculate the distance. One of the following lines of code CANNOT be used to correctly calculate the distance between the two turtles. Which one of the following <strong>cannot</strong> be used to correctly calculate the distance? For your answer, just enter a capital letter, A or B or C or D. Don't add a full stop or anything like that.
+</p>
+
+<div>
+<ol type="A">
+<li><pre>
+distance = math.sqrt( (enemy.xcor() - player.xcor()) ** 2 + \
+                      (enemy.ycor() - player.ycor()) ** 2 )
+</pre></li>
+<li><pre>
+distance = math.sqrt( enemy.xcor() - player.xcor() ** 2 + \
+                      enemy.ycor() - player.ycor() ** 2 )
+</pre></li>
+<li><pre>
+distance = math.sqrt( (enemy.xcor() - player.xcor()) * \
+                      (enemy.xcor() - player.xcor()) + \
+                      (enemy.ycor() - player.ycor()) * \
+                      (enemy.ycor() - player.ycor()) )
+</pre></li>
+<li><pre>
+distance = math.sqrt( pow(enemy.xcor() - player.xcor(), 2) + \
+                      pow(enemy.ycor() - player.ycor(), 2) )
+</pre></li>
+</ol>
+</div>
+
+<div>
+        <p><strong>Your answer:</strong> <input model="B,b" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+</div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+<div class="answer-area">
+    <p><strong>Correct answers:</strong></p>
+    <p>B</p>
+    <p>b</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/f2021_final_Q12.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/f2021_final_Q12.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+</div>
+
+
+<h3><a name="P2Q13"></a>Question 13</h3>
+<p>For this question you aren't able to copy the code.</p>
+<p>
+A student has made the following state diagram to implement his school life.
+</p>
+
+<img src="./img/Q13_state_diagram.png" width="600px">
+
+<p>
+(The conditions are not shown).
+</p>
+
+<p>
+  He has also written the following program to implement the state diagram shown above. However, he has made a mistake in <strong>one line of code</strong> in the program so that it does not implement the state diagram correctly.
+</p>
+
+<pre class="blocked" src="PGVtPiAxPC9lbT4gY3VycmVudF9zdGF0ZSA9ICJTdHVkeWluZyIKPGVtPiAyPC9lbT4gY3VycmVudF9lbmVyZ3kgPSAzMDAwCjxlbT4gMzwvZW0+CjxlbT4gNDwvZW0+IGRlZiBzY2hvb2xfbGlmZSgpOgo8ZW0+IDU8L2VtPiAgICAgZ2xvYmFsIGN1cnJlbnRfc3RhdGUKPGVtPiA2PC9lbT4gICAgIGdsb2JhbCBjdXJyZW50X3RpbWUKPGVtPiA3PC9lbT4gICAgIGdsb2JhbCBjdXJyZW50X2VuZXJneQo8ZW0+IDg8L2VtPiAgICAgaWYgY3VycmVudF9zdGF0ZSA9PSAiU3R1ZHlpbmciOgo8ZW0+IDk8L2VtPiAgICAgICAgIGN1cnJlbnRfZW5lcmd5IC09IDUwCjxlbT4xMDwvZW0+ICAgICAgICAgaWYgY3VycmVudF90aW1lID09IDEyOgo8ZW0+MTE8L2VtPiAgICAgICAgICAgICBjdXJyZW50X3N0YXRlID0gIlNsZWVwaW5nIgo8ZW0+MTI8L2VtPiAgICAgICAgIGVsaWYgY3VycmVudF9lbmVyZ3kgPCAxMDAwOgo8ZW0+MTM8L2VtPiAgICAgICAgICAgICBjdXJyZW50X3N0YXRlID0gIkVhdGluZyIKPGVtPjE0PC9lbT4gICAgICAgICAgICAKPGVtPjE1PC9lbT4gICAgIGVsaWYgY3VycmVudF9zdGF0ZSA9PSAiRWF0aW5nIjoKPGVtPjE2PC9lbT4gICAgICAgICBjdXJyZW50X2VuZXJneSArPSAyMDAKPGVtPjE3PC9lbT4gICAgICAgICBpZiBjdXJyZW50X2VuZXJneSA+IDIyMDA6CjxlbT4xODwvZW0+ICAgICAgICAgICAgIGN1cnJlbnRfc3RhdGUgPSAiU3R1ZHlpbmciCjxlbT4xOTwvZW0+ICAgICAgICAgCjxlbT4yMDwvZW0+ICAgICBlbGlmIGN1cnJlbnRfc3RhdGUgPT0gIlNsZWVwaW5nIjoKPGVtPjIxPC9lbT4gICAgICAgICBpZiBjdXJyZW50X3RpbWUgPT0gMzY6CjxlbT4yMjwvZW0+ICAgICAgICAgICAgIGN1cnJlbnRfc3RhdGUgPSAiRWF0aW5nIgo8ZW0+MjM8L2VtPiAgCjxlbT4yNDwvZW0+IGZvciBjdXJyZW50X3RpbWUgaW4gcmFuZ2UoMTQ0KToKPGVtPjI1PC9lbT4gICAgIHNjaG9vbF9saWZlKCk="></pre>
+
+<p>
+Which line of code in the program contains the mistake that he has made? The answer is between line 8 to 22 inclusive. You only need to write the line number of the code that contains the mistake in the answer. Just enter an integer. Don't use a full stop or anything like that.
+</p>
+
+
+<div>
+        <p><strong>Your answer:</strong> <input model="22" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+</div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+<div class="answer-area">
+		<p><strong>Correct answer:</strong></p>
+        <p>22</p>
+
+        <p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/f2021_final_Q13.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/f2021_final_Q13.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+</div>
+
+<h3><a name="P2Q14"></a>Question 14</h3>
+<p>For this question you aren't able to copy the code.</p>
+
+<p>
+  When the following program is executed, it shows this:
+</p>
+
+<p>
+<img src="./img/Q14_screenshot.png" width="600px">
+</p>
+
+<p>
+  The program is shown below.
+</p>
+
+<pre class="blocked" src="PGVtPiAxPC9lbT4gaW1wb3J0IHR1cnRsZQo8ZW0+IDI8L2VtPiB0dXJ0bGUuc3BlZWQoMCkKPGVtPiAzPC9lbT4gdHVydGxlLnNldHVwKDUwMCwgNTAwKSAjIEZpeCB0aGUgd2luZG93IHdpZHRoIGFuZCBoZWlnaHQKPGVtPiA0PC9lbT4gU0VFIFFVRVNUSU9OCjxlbT4gNTwvZW0+IGluY29tZV9pbl90aG91c2FuZHMgPSBbMTAsIDExLjUsIDEyLCAxMywgMTQsIDgsIDEyLjUsIDEyLCA5LCAxNCwgMTIsIDEwXQo8ZW0+IDY8L2VtPiBleHBlbnNlc19pbl90aG91c2FuZHMgPSBbNC41LCA0LCA1LjUsIDQuNSwgNiwgNC41LCA2LCA2LjUsIDUsIDcuNSwgNywgNl0KPGVtPiA3PC9lbT4gbW9udGhzID0gWydKYW4nLCAnRmViJywgJ01hcicsICdBcHInLCAnTWF5JywgJ0p1bicsXAo8ZW0+IDg8L2VtPiAgICAgICAgICAgJ0p1bHknLCAnQXVnJywgJ1NlcCcsICdPY3QnLCAnTm92JywgJ0RlYyddCjxlbT4gOTwvZW0+IGluY29tZSA9IHR1cnRsZS5UdXJ0bGUoKQo8ZW0+MTA8L2VtPiBleHBlbnNlcyA9IHR1cnRsZS5UdXJ0bGUoKQo8ZW0+MTE8L2VtPiBwcm9maXQgPSB0dXJ0bGUuVHVydGxlKCkKPGVtPjEyPC9lbT4gbGFiZWwgPSB0dXJ0bGUuVHVydGxlKCkKPGVtPjEzPC9lbT4gdHVydGxlLmhpZGV0dXJ0bGUoKQo8ZW0+MTQ8L2VtPiBpbmNvbWUuaGlkZXR1cnRsZSgpCjxlbT4xNTwvZW0+IGV4cGVuc2VzLmhpZGV0dXJ0bGUoKQo8ZW0+MTY8L2VtPiBwcm9maXQuaGlkZXR1cnRsZSgpCjxlbT4xNzwvZW0+IGxhYmVsLmhpZGV0dXJ0bGUoKQo8ZW0+MTg8L2VtPiBpbmNvbWUuY29sb3IoJ2JsdWUnKQo8ZW0+MTk8L2VtPiBleHBlbnNlcy5jb2xvcigncmVkJykKPGVtPjIwPC9lbT4gcHJvZml0LmNvbG9yKCdncmVlbicpCjxlbT4yMTwvZW0+IGluY29tZS51cCgpCjxlbT4yMjwvZW0+IGV4cGVuc2VzLnVwKCkKPGVtPjIzPC9lbT4gcHJvZml0LnVwKCkKPGVtPjI0PC9lbT4gbGFiZWwudXAoKQo8ZW0+MjU8L2VtPiAKPGVtPjI2PC9lbT4gZm9yIHkgaW4gcmFuZ2UoMCwgMTQpOgo8ZW0+Mjc8L2VtPiAgICAgbGFiZWwuZ290bygwLCB5KQo8ZW0+Mjg8L2VtPiAgICAgbGFiZWwud3JpdGUoeSAqIDEwMDAsIGZvbnQ9KCdBcmlhbCcsIDEyLCAnbm9ybWFsJykpCjxlbT4yOTwvZW0+IAo8ZW0+MzA8L2VtPiBmb3IgeCBpbiByYW5nZShsZW4oaW5jb21lX2luX3Rob3VzYW5kcykpOgo8ZW0+MzE8L2VtPiAgICAgaW5jb21lLmdvdG8oeCArIDEsIGluY29tZV9pbl90aG91c2FuZHNbeF0pCjxlbT4zMjwvZW0+ICAgICBpbmNvbWUuZG90KDUpCjxlbT4zMzwvZW0+ICAgICBleHBlbnNlcy5nb3RvKHggKyAxLCBleHBlbnNlc19pbl90aG91c2FuZHNbeF0pCjxlbT4zNDwvZW0+ICAgICBleHBlbnNlcy5kb3QoNSkKPGVtPjM1PC9lbT4gICAgIHByb2ZpdC5nb3RvKHggKyAxLCBpbmNvbWVfaW5fdGhvdXNhbmRzW3hdIC0gZXhwZW5zZXNfaW5fdGhvdXNhbmRzW3hdKQo8ZW0+MzY8L2VtPiAgICAgcHJvZml0LmRvdCg1KQo8ZW0+Mzc8L2VtPiAgICAgaWYgeCA9PSAwOgo8ZW0+Mzg8L2VtPiAgICAgICAgIGluY29tZS5kb3duKCkKPGVtPjM5PC9lbT4gICAgICAgICBleHBlbnNlcy5kb3duKCkKPGVtPjQwPC9lbT4gICAgICAgICBwcm9maXQuZG93bigpCjxlbT40MTwvZW0+ICAgICAgICAgaW5jb21lLndyaXRlKCdJbmNvbWUnLCBmb250PSgnQXJpYWwnLCAxMiwgJ25vcm1hbCcpKQo8ZW0+NDI8L2VtPiAgICAgICAgIGV4cGVuc2VzLndyaXRlKCdFeHBlbnNlcycsIGZvbnQ9KCdBcmlhbCcsIDEyLCAnbm9ybWFsJykpCjxlbT40MzwvZW0+ICAgICAgICAgcHJvZml0LndyaXRlKCdQcm9maXQnLCBmb250PSgnQXJpYWwnLCAxMiwgJ25vcm1hbCcpKQo8ZW0+NDQ8L2VtPiAgICAgbGFiZWwuZ290byh4ICsgMSwgMCkKPGVtPjQ1PC9lbT4gICAgIGxhYmVsLndyaXRlKG1vbnRoc1t4XSwgZm9udD0oJ0FyaWFsJywgMTIsICdub3JtYWwnKSkKPGVtPjQ2PC9lbT4gCjxlbT40NzwvZW0+IHR1cnRsZS5kb25lKCk="></pre>
+
+<p>
+  The program is incomplete. What is line 4? For your answer, enter a capital letter, A or B or C or D or E or F or G or H. Don't enter a full stop or anything like that.
+</p>
+
+<ol type="A">
+<li>turtle.setworldcoordinates(0, 0, 13000, 14000)</li>
+<li>turtle.setworldcoordinates(0, 0, 13, 14)</li>
+<li>turtle.setworldcoordinates(0, 0, 13, 12)</li>
+<li>turtle.setworldcoordinates(0, 0, 12, 13)</li>
+<li>turtle.setworldcoordinates(0, 0, 14000, 13000)</li>
+<li>turtle.setworldcoordinates(0, 0, 14, 13)</li>
+<li>turtle.setworldcoordinates(0, 0, 13000, 12000)</li>
+<li>turtle.setworldcoordinates(0, 0, 12000, 13000)</li>
+</ol>
+
+
+<div>
+        <p><strong>Your answer:</strong> <input model="B,b"></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+</div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+<div class="answer-area">
+		<p><strong>Correct answers:</strong></p>
+        <p>B</p>
+        <p>b</p>
+
+        <p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/f2021_final_Q14.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/f2021_final_Q14.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+</div>
+
+<h3><a name="P2Q15"></a>Question 15</h3>
+
+<p>
+The following program tells you what kind of day you will have today. If you think it helps you, you are welcome to copy the code from this web page, check/fix the indentation, and use it in your Python editor.
+</p>
+
+<pre>
+import random
+
+eggs = int(input("How many eggs have you eaten this morning? "))
+temperature = float(input("What is the temperature today? "))
+lucky = input("Is today your lucky day? ")
+
+if lucky == "yes":
+    lucky = 2
+else:
+    lucky = 4
+
+result = random.randint(1, eggs * (temperature // lucky))
+if result == 1:
+    print("You will have a good day!")
+elif result < 20:
+    print("You will have a great day!")
+else:
+    print("You will have a fabulous day!")
+</pre>
+
+<p>
+  Here is an example of the output if you type <span class="user-input">4</span>, press Enter, <span class="user-input">21.5</span>, press Enter, <span class="user-input">yes</span> and press Enter:
+</p>
+
+<pre>
+How many eggs you have eaten this morning? <span class="user-input">4</span>
+What is the temperature today? <span class="user-input">21.5</span>
+Is today your lucky day? <span class="user-input">yes</span>
+You will have a great day!
+</pre>
+
+<p>
+  Here is another example of the output if you type <span class="user-input">4</span>, press Enter, <span class="user-input">21.5</span>, press Enter, <span class="user-input">yes</span> and press Enter:
+</p>
+
+<pre>
+How many eggs you have eaten this morning? <span class="user-input">4</span>
+What is the temperature today? <span class="user-input">21.5</span>
+Is today your lucky day? <span class="user-input">yes</span>
+You will have a fabulous day!
+</pre>
+
+<p>
+  If you type <span class="user-input">4</span>, press Enter, <span class="user-input">21.5</span>, press Enter, <span class="user-input">yes</span> and press Enter, what is the probability x that you will have a fabulous day according to the output of the program? For your answer, enter a capital letter, A or B or C or D or E. Don't enter a full stop or anything like that.
+</p>
+
+<ol type="A">
+  <li>x = 0%</li>
+  <li>0% &lt; x &lt;= 1%</li>
+  <li>1% &lt; x &lt;= 50%</li>
+  <li>50% &lt; x &lt; 100%</li>
+  <li>x = 100%</li>
+</ol>
+
+
+<div>
+        <p><strong>Your answer:</strong> <input model="D,d"></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+</div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+<div class="answer-area">
+		<p><strong>Correct answers:</strong></p>
+        <p>D</p>
+        <p>d</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/f2021_final_Q15.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/f2021_final_Q15.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+</div>
+
+
+<h3><a name="P2Q16"></a>Question 16</h3>
+<p>For this question you aren't able to copy the code.</p>
+<p>
+  A Python program has been created to calculate the statistics of an exam (it is not a COMP1021 exam). The program is written in a flexible way so that the answers to the exam questions and the students' answers are read from a couple of text files. The correct answers to the exam questions are read from a file called <code>correct_answers.txt</code>. Here is an example of the file for an exam which has 5 questions:
+</p>
+
+<pre>
+B
+5
+x=x+1
+yes
+G
+</pre>
+
+<p>
+  Each line of the file contains the correct answer of one exam question. That means the number of lines in the file is the same as the number of exam questions, which may not be the same every time.
+</p>
+
+<p>
+  The answers entered by the students are stored in a file called <code>student_answers.txt</code>, in a format shown below. This example is for a class of 6 students.
+</p>
+
+<pre>
+20227892,B,5,x=0,yes,F
+20225048,A,7,x=x+1,yes,G
+20233852,D,5,x=x+1,yes,G
+20239990,B,5,x=x-1,no,B
+20236541,B,5,x=x+1,yes,F
+20225915,B,5,x=x+1,no,G
+</pre>
+
+<p>
+  Each line of the file contains the student id, followed by the answers to all exam questions. They are separated by commas. The file may contain any number of lines which is the same as the number of students taking the exam.
+</p>
+
+<p>
+  The program is shown below. It uses the <code>split()</code> function to change a string into a list. Here is an example using the <code>split()</code> function in the Python shell:
+</p>
+
+<pre>
+>>> example = "one,two,three,four,five"
+>>> result = example.split(",")
+>>> print(result)
+['one', 'two', 'three', 'four', 'five']
+</pre>
+
+
+<pre class="blocked" src="PGVtPiAxPC9lbT4gIyBSZWFkIHN0dWRlbnQgYW5zd2VycyBmcm9tIGEgZmlsZQo8ZW0+IDI8L2VtPiBzdHVkZW50cyA9IHt9CjxlbT4gMzwvZW0+IGRhdGFfZmlsZSA9IG9wZW4oInN0dWRlbnRfYW5zd2Vycy50eHQiLCAiciIpCjxlbT4gNDwvZW0+IGZvciBsaW5lIGluIGRhdGFfZmlsZToKPGVtPiA1PC9lbT4gICAgIGxpbmUgPSBsaW5lLnJzdHJpcCgpCjxlbT4gNjwvZW0+ICAgICBpdGVtcyA9IGxpbmUuc3BsaXQoIiwiKQo8ZW0+IDc8L2VtPiAgCjxlbT4gODwvZW0+ICAgICBTRUUgUVVFU1RJT04KPGVtPiA5PC9lbT4gIAo8ZW0+MTA8L2VtPiBkYXRhX2ZpbGUuY2xvc2UoKQo8ZW0+MTE8L2VtPiAgCjxlbT4xMjwvZW0+ICMgUmVhZCB0aGUgY29ycmVjdCBhbnN3ZXJzIGZyb20gYSBmaWxlCjxlbT4xMzwvZW0+IGNvcnJlY3RfYW5zd2VycyA9IFtdCjxlbT4xNDwvZW0+IGFuc3dlcnNfZmlsZSA9IG9wZW4oImNvcnJlY3RfYW5zd2Vycy50eHQiLCAiciIpCjxlbT4xNTwvZW0+IGZvciBsaW5lIGluIGFuc3dlcnNfZmlsZToKPGVtPjE2PC9lbT4gICAgIGNvcnJlY3RfYW5zd2Vycy5hcHBlbmQobGluZS5yc3RyaXAoKSkKPGVtPjE3PC9lbT4gYW5zd2Vyc19maWxlLmNsb3NlKCkKPGVtPjE4PC9lbT4gIAo8ZW0+MTk8L2VtPiAjIENhbGN1bGF0ZSBhbmQgc2hvdyB0aGUgc3RhdGlzdGljcwo8ZW0+MjA8L2VtPiBzdGF0cyA9IFswXSAqIGxlbihjb3JyZWN0X2Fuc3dlcnMpCjxlbT4yMTwvZW0+IGZvciBxdWVzdGlvbiBpbiByYW5nZShsZW4oY29ycmVjdF9hbnN3ZXJzKSk6CjxlbT4yMjwvZW0+ICAgICBmb3Igc3R1aWQsIGFuc3dlcnMgaW4gc3R1ZGVudHMuaXRlbXMoKToKPGVtPjIzPC9lbT4gICAgICAgICBpZiBhbnN3ZXJzW3F1ZXN0aW9uXSA9PSBjb3JyZWN0X2Fuc3dlcnNbcXVlc3Rpb25dOgo8ZW0+MjQ8L2VtPiAgICAgICAgICAgICBzdGF0c1txdWVzdGlvbl0gKz0gMQo8ZW0+MjU8L2VtPiAgICAgc3RhdHNbcXVlc3Rpb25dID0gc3RhdHNbcXVlc3Rpb25dIC8gbGVuKHN0dWRlbnRzKQo8ZW0+MjY8L2VtPiAgCjxlbT4yNzwvZW0+ICAgICBwZXJjZW50YWdlID0gcm91bmQoc3RhdHNbcXVlc3Rpb25dICogMTAwLCAxKQo8ZW0+Mjg8L2VtPiAgICAgcHJpbnQoIlEiICsgc3RyKHF1ZXN0aW9uICsgMSkgKyAiOiAiICsgc3RyKHBlcmNlbnRhZ2UpICsgIiUiKQ=="></pre>
+
+
+<p>
+  Using the content of the two example text files, the output of the program is then:
+</p>
+
+<pre>
+Q1: 66.7%
+Q2: 83.3%
+Q3: 66.7%
+Q4: 66.7%
+Q5: 50.0%
+</pre>
+
+<p>
+Line 8 is incomplete. You need to complete line 8 in the program, indicated by <strong><code>SEE QUESTION</code></strong>, so that the program can work correctly. Four of the following answers will not work. One of the following answers will work. Which one of the following answers can be used in the line of code? Just enter a capital letter, A or B or C or D or E. Don't enter a full stop or anything like that.
+</p>
+
+<div>
+<ol type="A">
+	<li><code>students[items[0]] = items</code></li>
+	<li><code>students[line] = items</code></li>
+    <li><code>students.append(items)</code></li>
+    <li><code>students[items[0]] = items[1 : ]</code></li>
+    <li><code>students[items[-1]] = items[ : -1]</code></li>
+</ol>
+</div>
+
+
+<div>
+        <p><strong>Your answer:</strong> <input model="D,d" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+</div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+<div class="answer-area">
+		<p><strong>Correct answers:</strong></p>
+        <p>D</p>
+        <p>d</p>
+
+        <p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/f2021_final_Q16.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/f2021_final_Q16.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+</div>
+
+
+<h3><a name="P2Q17"></a>Question 17</h3>
+<p>For this question you aren't able to copy the code.</p>
+<p>
+A Python program has been written to generate a short piece of music. The program is shown below.
+</p>
+
+<pre class="blocked" src="aW1wb3J0IHJhbmRvbQoKIyBGaXggdGhlIG1heGltdW0gZHVyYXRpb24KbWF4X2R1cmF0aW9uID0gcmFuZG9tLnJhbmRpbnQoMTAwLCAxOTkpIC8gMTAwCgojIEFzc2lnbiByYW5kb20gcGl0Y2hlcwpub3RlX3BpdGNoID0gW10KZm9yIHBpdGNoIGluIFs2MCwgNjIsIDY0LCA2NSwgNjcsIDY5LCA3MV06CiAgICBub3RlX3BpdGNoLmluc2VydChyYW5kb20ucmFuZGludCgwLCBsZW4obm90ZV9waXRjaCkpLCBwaXRjaCkKCiMgQXNzaWduIHJhbmRvbSB0aW1pbmcKbm90ZV90aW1pbmcgPSBbMC4wXQpmb3IgaSBpbiByYW5nZShsZW4obm90ZV9waXRjaCkgLSAxKToKICAgIHRpbWUgPSBtYXhfZHVyYXRpb24gLyByYW5kb20uY2hvaWNlKFsxLCAyLCA0XSkgKyBub3RlX3RpbWluZ1tpXQogICAgbm90ZV90aW1pbmcuYXBwZW5kKHJvdW5kKHRpbWUsIDIpKQoKIyBQdXQgdGhlbSB0b2dldGhlcgpzb25nID0gW10KZm9yIGkgaW4gcmFuZ2UobGVuKG5vdGVfcGl0Y2gpKToKICAgIGlmIGkgPCBsZW4obm90ZV9waXRjaCkgLSAxOgogICAgICAgIGR1cmF0aW9uID0gbm90ZV90aW1pbmdbaSArIDFdIC0gbm90ZV90aW1pbmdbaV0KICAgIGVsc2U6CiAgICAgICAgZHVyYXRpb24gPSBtYXhfZHVyYXRpb24KICAgIHNvbmcuYXBwZW5kKFtub3RlX3RpbWluZ1tpXSwgbm90ZV9waXRjaFtpXSwgcm91bmQoZHVyYXRpb24sIDIpXSkKCiMgU2hvdyB0aGUgc29uZyBpbiBzb25nIGZpbGUgZm9ybWF0CmZvciBub3RlIGluIHNvbmc6CiAgICBwcmludChub3RlWzBdLCBlbmQ9Ilx0IikKICAgIHByaW50KG5vdGVbMV0sIGVuZD0iXHQiKQogICAgcHJpbnQobm90ZVsyXSk="></pre>
+
+<p>
+The program prints the resulting music in the same format as the text file that you have used in the music system lab.
+</p>
+
+<p>
+Four different pieces of music are shown below. Only one of the following pieces of music is a possible output of the above program. The other three pieces of music <strong>cannot</strong> be the output of the program. <strong>Which one of the following pieces of music is a possible output of the program?</strong> <strong>Just enter a capital letter, A or B or C or D.</strong> Don't add a full stop or anything like that.
+</p>
+
+
+<!-- Place the answers here -->
+
+<div>
+<p>Music A:</p>
+<pre>
+0.0		67		1.11
+1.11	62		0.56
+1.67	65		1.12
+2.79	60		0.56
+3.35	69		0.56
+3.91	71		1.12
+5.03	64		2.23
+</pre>
+</div>
+
+<div>
+<p>Music B:</p>
+<pre>
+0.0		60		0.32
+0.32	62		0.64
+0.96	64		0.63
+1.59	65		0.64
+2.23	67		0.32
+2.55	69		0.63
+3.18	71		1.27
+</pre>
+</div>
+
+<div>
+<p>Music C:</p>
+<pre>
+0.0		67		1.95
+1.95	71		0.97
+2.92	62		0.49
+3.41	64		1.95
+5.36	60		1.95
+5.85	65		0.97
+6.82	69		1.95
+</pre>
+</div>
+
+<div>
+<p>Music D:</p>
+<pre>
+0.0		62		1.65
+1.65	60		0.41
+2.06	64		0.82
+2.88	71		1.65
+4.53	69		0.41
+4.94	65		1.65
+6.59	60		1.65
+</pre>
+</div>
+
+
+<div>
+        <p><strong>Your answer:</strong> <input model="B,b" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+</div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+<div class="answer-area">
+		<p><strong>Correct answers:</strong></p>
+        <p>B</p>
+        <p>b</p>
+
+        <p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/f2021_final_Q17.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/f2021_final_Q17.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+</div>
+
+
+<h3><a name="P2Q18"></a>Question 18</h3>
+<p>For this question you aren't able to copy the code.</p>
+<p>
+You are given the following program.
+</p>
+
+<pre class="blocked" src="ZW5lcmd5X21hcCA9IFsgXAogICAgWydCJywgJ0InLCAnQicsICdCJywgJ0InLCAnQicsICdCJywgJ0InLCAnQicsICdCJywgJ0InXSwgXAogICAgWydCJywgJyAnLCAnICcsICcgJywgJyAnLCAnICcsICcgJywgJyQnLCAnICcsICcgJywgJ0InXSwgXAogICAgWydCJywgJyAnLCAnICcsICcgJywgJ0UnLCAnICcsICcgJywgJyAnLCAnICcsICdFJywgJ0InXSwgXAogICAgWydCJywgJyAnLCAnICcsICdFJywgJyQnLCAnICcsICcgJywgJ0UnLCAnRScsICcgJywgJ0InXSwgXAogICAgWydCJywgJyAnLCAnICcsICckJywgJ0UnLCAnRScsICdFJywgJyAnLCAnICcsICcgJywgJ0InXSwgXAogICAgWydCJywgJyQnLCAnICcsICcgJywgJ0UnLCAnUCcsICcgJywgJ0UnLCAnICcsICcgJywgJ0InXSwgXAogICAgWydCJywgJyAnLCAnICcsICcgJywgJyAnLCAnICcsICcgJywgJyAnLCAnICcsICdFJywgJ0InXSwgXAogICAgWydCJywgJyAnLCAnICcsICcgJywgJyAnLCAnICcsICcgJywgJ0UnLCAnICcsICcgJywgJ0InXSwgXAogICAgWydCJywgJyAnLCAnICcsICcgJywgJyAnLCAnRScsICcgJywgJyAnLCAnICcsICcgJywgJ0InXSwgXAogICAgWydCJywgJyAnLCAnRScsICcgJywgJyAnLCAnICcsICckJywgJyAnLCAnICcsICcgJywgJ0InXSwgXAogICAgWydCJywgJ0InLCAnQicsICdCJywgJ0InLCAnQicsICdCJywgJ0InLCAnQicsICdCJywgJ0InXSAgXApdCgpyb2JvdF94ID0gNQpyb2JvdF95ID0gNQoKZGVmIGNvbGxlY3RfY2VsbHMoeCwgeSk6CiAgICBnbG9iYWwgbnVtYmVyX29mX2NvbGxlY3RlZF9jZWxscwogICAgCiAgICBpZiBlbmVyZ3lfbWFwW3ldW3hdID09ICJCIjogIyBIaXQgYSB3YWxsCiAgICAgICAgcmV0dXJuCiAgICAKICAgIGlmIGVuZXJneV9tYXBbeV1beF0gPT0gIkUiOiAjIEZvdW5kIGFuIGVuZXJneSBjZWxsCiAgICAgICAgbnVtYmVyX29mX2NvbGxlY3RlZF9jZWxscyArPSAxCiAgICAgICAgZW5lcmd5X21hcFt5XVt4XSA9ICIgIgoKICAgIGNvbGxlY3RfY2VsbHMoeCArIDEsIHkpICMgU2VhcmNoIG9uIHRoZSByaWdodAogICAgY29sbGVjdF9jZWxscyh4LCB5ICsgMSkgIyBTZWFyY2ggZG93bndhcmRzCgojIENvbGxlY3QgdGhlIGVuZXJneSBjZWxscyByZWN1cnNpdmVseQpudW1iZXJfb2ZfY29sbGVjdGVkX2NlbGxzID0gMApjb2xsZWN0X2NlbGxzKHJvYm90X3gsIHJvYm90X3kpCgpwcmludCgiVGhlIHJvYm90IGhhcyBjb2xsZWN0ZWQiLCBcCiAgICAgIG51bWJlcl9vZl9jb2xsZWN0ZWRfY2VsbHMsICJlbmVyZ3kgY2VsbHMuIik="></pre>
+
+<p>
+The program helps a silly robot to collect energy cells from a given map. In the map, the letter 'B' represents a wall, 'P' represents the robot, '$' represents a pile of money and 'E' represents an energy cell.
+</p>
+
+<p>
+Based on the output of the program, how many energy cells does the robot collect from the map? Just enter an integer. Don't enter a full stop or anything like that.
+</p>
+
+
+<div>
+        <p><strong>Your answer:</strong> <input model="4" keepspace></p>
+        <p><button class="check-button">Check your answer</button> <span class="check-result"></span></p>
+</div>
+
+    <p><button class="show-button">Click here to show the correct answer and video explanation</button></p>
+
+<div class="answer-area">
+		<p><strong>Correct answer:</strong></p>
+        <p>4</p>
+
+        <p>For this question students weren't able to copy the code. However, now you can copy the code from this web page and explore the code.</p>
+
+<ul>
+    <video width="640" height="360" controls  preload="metadata">
+    <source src="video_explanations/f2021_final_Q18.mp4" type="video/mp4">Your browser does not support the video tag. Click <a href='video_explanations/f2021_final_Q18.mp4'>here</a> for the video.
+    </video>
+</ul>
+
+</div>
+
+
+    <script src="../../scripts/jquery-3.4.1.slim.min.js"></script>
+    <script>
+    if (typeof jQuery != 'undefined') {
+        $(".check-button").on("click", (e) => {
+            let allCorrect = true;
+            $(e.target).parents("div").find("input, select").each((i, el) => {
+				let sep = $(el).attr("sep");
+                if (!sep) sep = ",";
+                let models = $(el).attr("model").split(sep);
+                let matched = false;
+                let keepspace = $(el)[0].hasAttribute("keepspace");
+                jQuery.each(models, (i, model) => {
+                    let answer = $(el).val();
+                    answer = answer.trim();
+                    if (!keepspace) answer = answer.replace(/\s/g,'')
+                    if (answer == model) matched = true;
+                });
+                $(el).removeClass("wrong");
+                if (!matched) {
+                    allCorrect = false;
+                    $(el).addClass("wrong");
+                }
+            });
+            let result = $(e.target).next(".check-result");
+            if (allCorrect) {
+                result.html("Correct!");
+                result.addClass("correct");
+                result.removeClass("wrong");
+            }
+            else {
+                result.html("Wrong!");
+                result.addClass("wrong");
+                result.removeClass("correct");
+            }
+        });
+        $(".show-button").on("click", (e) => {
+            if ($(e.target).hasClass("hide-button")) {
+                $(e.target).parent().next(".answer-area").hide();
+                $(e.target).text("Click here to show the correct answer and video explanation");
+                $(e.target).parent().prevAll("pre").removeClass("selectable");
+            }
+            else {
+                $(e.target).parent().next(".answer-area").show();
+                $(e.target).text("Click here to hide the correct answer and video explanation");
+                $(e.target).parent().prevAll("pre").addClass("selectable");
+            }
+            $(e.target).toggleClass("hide-button");
+        });
+        $("pre").each((i, el) => {
+            if ($(el).attr("src")) {
+                $(el).html(atob($(el).attr("src")));
+            }
+        });
+    }
+    </script>
+
+</body></html>
+
