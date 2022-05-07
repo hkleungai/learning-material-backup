@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>COMP1022Q Lab 2 - Moving Around Hong Kong</title>
+    <link href="../../../css/lab.css" rel="stylesheet" />
+
+    <style>
+        img {
+            border: 1px solid grey;
+        }
+        pre {width: 65em; }
+    </style>
+</head>
+
+<body>
+    <h1>
+        <span class='lab'>COMP1022Q Lab 2</span>
+        <span class='title'>Moving Around Hong Kong</span>
+    </h1>
+
+    <h2>What You Will Learn in This Lab</h2>
+
+    <ul>
+        <li>In this lab you will gain experience in the following areas:
+        <ul>
+            <li>Using cell formulas
+            <ul>
+                <li>Using <tt>IF</tt> function
+                 and the error checking functions such as <tt>IFNA</tt> or <tt>ISNA</tt> to check whether the inputs are correctly entered</li>
+                <li>Using the <tt>VLOOKUP</tt> function to obtain useful values (e.g. MTR station name, MTR fare, and travelling time) from other Excel worksheets</li>
+                <li>Using the <tt>OR</tt> function to combine the comparisons</li>
+            </ul>
+            </li>
+            <li>Using VBA
+            <ul>
+                <li>Creating a macro to calcuate and show some useful information</li>
+                <li>Assigning a combination of keys to trigger the macro</li>
+                <li>Using <tt>MsgBox</tt> to output the information</li>
+                <li>Using <tt>/</tt> to divide a number</li>
+            </ul>
+            </li>
+        </ul>
+        </li>
+    </ul>
+
+    <h2>Overview</h2>
+
+    <ul>
+        <li>In this lab, you will create a program to calculate the fare and travelling time between two MTR stations using the following three methods:
+        <ul>
+            <li>By MTR
+                <ul>
+                    <li>This part has been given to you</li>
+                </ul>
+            </li>
+            <li>By Taxi
+                <ul>
+                    <li>You have to add formulas to make this part work</li>
+                </ul>
+            </li>
+            <li>On Foot
+                <ul>
+                    <li>You have to add formulas to make this part work</li>
+                </ul>
+            </li>
+        </ul>
+        </li>
+        <li>The calculated fare and duration can be compared among the three methods so that you can see which method is the most cost-effective way to travel between MTR stations</li>
+        <li>Here is an example display of the program:
+            <p><a href="images/program_display.png"><img src="images/program_display.png" width="500" alt="The Program Display" /></a><br />
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+        </li>
+        <li>From this example you can see that it is inappropriate to take a taxi from Hang Hau to Choi Hung instead of taking the MTR</li>
+        <li>This is because taking a taxi is much more expensive (around 7 times per person) but the time saved is just a few minutes</li>
+        <li>In this lab, we do not consider the time to wait for the MTR as well as the time to walk through the MTR stations</li>
+        <li>The program requires the following inputs:
+            <ol>
+                <li>The starting MTR station name</li>
+                <li>The ending MTR station name</li>
+                <li>How many people will take a taxi?</li>
+                <li>How fast will you walk from one station to another?</li>
+            </ol>
+        </li>
+        <li>The inputs are entered at the start of the worksheet called <tt>Fare Checker</tt>, like this:
+            <p><img src="images/program_inputs.png" alt="The Program Inputs" /></p>
+        </li>
+        <li>To complete the program you need to:
+        <ol>
+            <li><a href="#understand">Understand the given Excel file</a></li>
+            <li><a href="#inputs">Check whether the inputs are correctly entered</a>
+            <ul class="none">
+                <li>2.1. <a href="#inputs1">Show an error message if the MTR stations are not correctly entered</a></li>
+                <li>2.2. <a href="#inputs2">Show an error message if the numbers are not correctly entered</a></li>
+            </ul>
+            </li>
+            <li>
+            <a href="#calculate">Look up and calculate the results based on the inputs</a>
+            <ul class="none">
+                <li>3.1. <a href="#calculate1">Look up the MTR fare and travelling time</a></li>
+                <li>3.2. <a href="#calculate2">Look up the taxi travelling distance and time</a></li>
+                <li>3.3. <a href="#calculate3">Look up the travelling distance on foot</a></li>
+            </ul>
+            </li>
+
+            <li>
+            <a href="#macro">Create a macro to calculate and show some useful information</a>
+            <ul class="none">
+                <li>4.1. <a href="#macro1">Show the developer tab</a></li>
+                <li>4.2. <a href="#macro2">Start creating a macro</a></li>
+                <li>4.3. <a href="#macro3">Add code into the macro so it makes a calculation and displays messages in small windows</a></li>
+                <li>4.4. <a href="#macro4">Add the key combination to trigger the macro</a></li>
+                <li>4.5. <a href="#macro5">Try out the macro</a></li>
+            </ul>
+            </li>
+
+            <li>
+            <a href="#savefile">Save the Excel file so that it keeps the VBA code</a>
+            </li>
+            <li>
+            <a href="#submission">Submission</a>
+            </li>
+
+        </ol>
+        </li>
+    </ul>
+
+    <h2 id="pre-recorded-videos">Pre-recorded videos</h2>
+    <ul>
+        <li>The following videos have sound. Please turn on your speaker or use your headphone to watch the videos</li>
+        <li>The following videos provide step-by-step instructions to help students complete the lab
+
+            <ul>
+                <li><a href="https://hkust.zoom.us/rec/share/2_QvM-D7rV1ITNbU03PGRbNiBrn1eaa82ylI-_VbzEq1tm1D57GN0RIE15PHf_Jb?startTime=1582598209000" target="_blank">Part 1 - Understand the Given Excel File</a></li>
+                <li><a href="https://hkust.zoom.us/rec/share/-ZJeKL_d20JJfonczx-EGakxPKe4X6a8hiUc8vBZmEii3mG7mHuARhSoChXahcl8?startTime=1582601329000" target="_blank">Part 2 - Check Whether the Inputs Are Correctly Entered</a></li>
+                <li><a href="https://hkust.zoom.us/rec/share/uJN_IKP22T9LZ4HEq07RSqIhJYm_eaa8gCAbq_EEyR2J6gs6EyAKB7xEWrlsxoOd?startTime=1582604889000" target="_blank">Part 3 - Look up and Calculate the Results Based on the Inputs</a></li>
+                <li><a href="https://hkust.zoom.us/rec/share/9N14dpTe11tJac_1yFrOSJAtO4bBX6a81nAe_vJYnk-i7XbUcIaMLc_ZcDgY026M?startTime=1582606333000" target="_blank">Part 4 - Create a Macro to Calculate and Show Some Useful Information</a></li>
+            </ul>
+
+        </li>
+
+    </ul>
+
+    <h2><a name="understand" id="understand"></a>1. Understand the Given Excel File</h2>
+
+    <ul>
+        <li>You are given an Excel file <a href="mtr_and_taxi_fare.xlsx">here</a> to start with</li>
+        <!--
+		<li>The file contains MTR fares and other information (data retrieved in 2013 because somehow our code failed to steal information from the MTR site anymore! :) )</li>
+		-->
+        <li>There are five worksheets in the file: <tt>Fare Checker</tt>, <tt>MTR Fares</tt>, <tt>MTR Duration</tt>, <tt>Driving Distance and Duration</tt>, and <tt>Walking Distance</tt>, like this:
+            <p><img src="images/worksheet_names.png" alt="Worksheet Names" /></p>
+        </li>
+
+        <li>We will explain what each worksheet is created for:
+            <ol>
+                <li><tt>Fare Checker</tt>
+                    <p><a href="images/fare_checker.png"><img src="images/fare_checker.png" width="600" alt="Fare Checker" /></a><br />
+                    <span class="footnote">Click on the image to see it in its original size</span></p>
+                    <ul>
+                        <li>This worksheet is the main display of the program</li>
+                        <li>It contains the inputs to the program, at the top of the worksheet:
+                            <p><img src="images/program_inputs.png" alt="The Program Inputs" /></p>
+                        </li>
+                        <li>Based on the inputs the results are displayed in three different parts for three types of travelling method:
+                            <ul>
+                                <li>By MTR
+                                    <p><img src="images/by_mtr.png" alt="Travel By MTR" /></p>
+                                </li>
+                                <li>By Taxi
+                                    <p><img src="images/by_taxi.png" alt="Travel By Taxi" /></p>
+                                </li>
+                                <li>On Foot
+                                    <p><img src="images/on_foot.png" alt="Travel On Foot" /></p>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li><tt>MTR Fares</tt>
+                    <p><a href="images/mtr_fares.png"><img src="images/mtr_fares.png" width="650" alt="MTR Fares" /></a><br />
+                    <span class="footnote">Click on the image to see it in its original size</span></p>
+                    <ul>
+                        <li>This worksheet contains the MTR fare table</li>
+                        <li>The table is arranged like this:
+                            <ul>
+                                <li>Each row shows the fares required to travel from one MTR station to another</li>
+                                <li>The <tt>From</tt> station and the <tt>To</tt> station are shown using the MTR station name</li>
+                                <li>The <tt>From-To</tt> column is the concatenation of the <tt>From</tt> station and the <tt>To</tt> station separated by a dash</li>
+                                <li>Three types of fares are shown in each row but you will need to use only two of them</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li><tt>MTR Duration</tt>
+                    <p><a href="images/mtr_duration.png"><img src="images/mtr_duration.png" width="350" alt="MTR Duration" /></a><br />
+                    <span class="footnote">Click on the image to see it in its original size</span></p>
+                    <ul>
+                        <li>This worksheet contains the MTR duration table, i.e. travelling time between two stations</li>
+                        <li>The table is arranged like this:
+                            <ul>
+                                <li>Each row shows the duration to travel between two MTR stations</li>
+                                <li>The <tt>From</tt> station and the <tt>To</tt> station are shown using the MTR station name</li>
+                                <li>The <tt>From-To</tt> column is the concatenation of the <tt>From</tt> station and the <tt>To</tt> station separated by a dash</li>
+                                <li>The duration is shown in a <tt>h:mm:ss</tt> format</li>
+                                <li>The cell value is represented in the unit of day, e.g.
+                                    <ul>
+                                        <li>A value of 1 represents 24 hours</li>
+                                        <li>A value of 0.5 represents 12 hours</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li><tt>Driving Distance and Duration</tt>
+                    <p><a href="images/driving_distance_duration.png"><img src="images/driving_distance_duration.png" width="370" alt="Driving Distance and Duration" /></a><br />
+                    <span class="footnote">Click on the image to see it in its original size</span></p>
+                    <ul>
+                        <li>This worksheet contains the distance and duration to travel between two MTR stations by car</li>
+                        <li>The table is arranged like this:
+                            <ul>
+                                <li>Each row shows the distance and duration to travel from one MTR station to another</li>
+                                <li>The <tt>From</tt> station and the <tt>To</tt> station are shown using the MTR station name</li>
+                                <li>The <tt>From-To</tt> column is the concatenation of the <tt>From</tt> station and the <tt>To</tt> station separated by a dash</li>
+                                <li>If the distance and duration are not a number, i.e. '<tt>-</tt>', that means it is not allowed to drive between those two stations
+                                    <ul>
+                                        <li>For example, it is not allowed to freely drive from anywhere to Lok Ma Chau (because it is at the border)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li><tt>Walking Distance</tt>
+                    <p><a href="images/walking_distance.png"><img src="images/walking_distance.png" width="320" alt="Walking Distance" /></a><br />
+                    <span class="footnote">Click on the image to see it in its original size</span></p>
+                    <ul>
+                        <li>This worksheet contains the walking distance between two MTR stations</li>
+                        <li>The table is arranged like this:
+                            <ul>
+                                <li>Each row shows the duration to walk from one MTR station to another</li>
+                                <li>The <tt>From</tt> station and the <tt>To</tt> station are shown using the MTR station name</li>
+                                <li>The <tt>From-To</tt> column is the concatenation of the <tt>From</tt> station and the <tt>To</tt> station separated by a dash</li>
+                                <li>If the distance is not a number, i.e. '<tt>-</tt>', that means it is not possible to walk between those two stations
+                                    <ul>
+                                        <li>For example, it is not possible to walk from Central to Tsim Sha Tsui (because the harbour is in the middle)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+        </li>
+    </ul>
+
+    <h2><a name="inputs" id="inputs"></a>2. Check Whether the Inputs Are Correctly Entered</h2>
+
+    <ul>
+        <li>There are four inputs to the program:
+            <ol>
+                <li>Starting MTR station name</li>
+                <li>Ending MTR station name</li>
+                <li>Number of people taking a taxi</li>
+                <li>Walking speed</li>
+            </ol>
+        </li>
+        <li>To make sure the user enters correct values for each of the inputs, we will use error checking functions and <tt>IF</tt> to check the inputs:
+
+            <ul>
+                <li>We will use <tt>IF</tt>, <tt>ISNA</tt> and <tt>VLOOKUP</tt> to check the correctness of the MTR station names, i.e. the starting and ending MTR station names</li>
+
+                <li>We will use <tt>IF</tt> to check for the correctness of the number of people in a taxi and the walking speed</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3><a name="inputs1" id="inputs1"></a>2.1. Show an Error Message If the MTR Stations Are Not Correctly Entered</h3>
+
+    <ul>
+        <li>The user is required to enter a starting and an ending MTR station by the station names</li>
+        <li>However, there are 84 stations in total and the user may not be able to remember all the names</li>
+        <li>To help the user we will a formula to show an error message if he/she has entered a wrong station name</li>
+        <li>The idea is to search for the entered station name in the list of MTR stations
+            <ul>
+                <li>If the entered station is found in the list, no error message will be displayed, for example:
+                    <p><img src="images/correct_station.png" alt="A Correct Station Input" /></p>
+                    <p class="footnote">Hang Hau and Choi Hung are both valid MTR station names, so no error message is displayed</p>
+                </li>
+                <li>Otherwise, if the entered station does not exist it will be displayed an error message in red, for example:
+                    <p><img src="images/incorrect_station.png" alt="An Incorrect Station Input" /></p>
+                    <p class="footnote">HKUST and Saikung are not MTR stations, so an error message is displayed for each input</p>
+                </li>
+            </ul>
+        </li>
+        <li>We can do the checking using a cell formula</li>
+        <li>Let's do this for the starting MTR station first</li>
+        <li>You need to enter a formula in the cell where the error message for the starting station should be displayed, i.e. cell <tt>C3</tt>
+            <p><img src="images/select_start.png" alt="Select the Starting Station" /></p>
+        </li>
+        <li>The idea is to look for the MTR station in cell <tt>B3</tt> using <tt>VLOOKUP</tt></li>
+        <li>The formula to look up the MTR station is as follow:
+            <pre>=VLOOKUP(<span class="b">B3</span>, 'MTR Fares'!A:A, 1, FALSE)</pre>
+            <ul>
+                <li><tt>B3</tt> is the cell containing the starting station name</li>
+                <li><tt>'MTR Fares'!A:A</tt> is the first column in the fare table (<tt>A:A</tt> means all cells in the column)</li>
+                <li>You need to use single quotes to quote the worksheet name, i.e. <tt>'MTR Fares'</tt> instead of <tt>MTR Fare</tt> because there is a space in the name</li>
+                <li>The third argument is the column of the value to be returned, which is 1 (column <tt>A</tt>) in this case</li>
+                <li>When the fourth argument is <tt>FALSE</tt> that means the function returns a station name if found, otherwise return <tt>#N/A</tt>
+                <li>For example,
+                    <ul>
+                        <li>if <tt>Central</tt> is entered in <tt>B3</tt> the above <tt>VLOOKUP</tt> returns <tt>Central</tt></li>
+                        <li>if <tt>HKUST</tt> is entered in <tt>B3</tt> the above <tt>VLOOKUP</tt> returns <tt>#N/A</tt></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>If you enter the above formula in cell <tt>C3</tt>, the resulting content of the cell is not exactly what you want</li>
+        <li>That means you need to use some ways to change the display of the cell</li>
+        <li>Obviously, we do not really need to show the station name returned by <tt>VLOOKUP</tt> because the station name is already in cell <tt>B3</tt></li>
+        <li>All we want to know is whether the MTR station exists; in other words, whether <tt>VLOOKUP</tt> returns <tt>#N/A</tt> or not</li>
+        <li>Because of that, you can use <tt>ISNA</tt> to enclose the <tt>VLOOKUP</tt> formula so that:
+            <ul>
+                <li><tt>ISNA</tt> returns <tt>TRUE</tt> if the MTR station does not exist</li>
+                <li><tt>ISNA</tt> returns <tt>FALSE</tt> if the MTR station exists</li>
+            </ul>
+        </li>
+        <li>You then have to make a decision to display an error message when <tt>ISNA</tt> is <tt>TRUE</tt>, or display nothing when <tt>ISNA</tt> is <tt>FALSE</tt></li>
+        <li>You can easily achieve that using an <tt>IF</tt> function</li>
+        <li>If you finish the formula for cell <tt>C3</tt>, you need to do the same checking for cell <tt>C4</tt> for the ending MTR station</li>
+        <li>If you write your formula carefully you can simply copy and paste the formula from <tt>C3</tt> to <tt>C4</tt></li>
+        <li>To test your formulas you can try to enter different station names, some correct and some wrong, to see if the error message is shown appropriately</li>
+        <li>There is also something for you to think about: why don't you use <tt>IFNA</tt> to do this task?</li>
+    </ul>
+
+    <h3><a name="inputs2" id="inputs2"></a>2.2. Show an Error Message If the Numbers Are Not Correctly Entered</h3>
+
+    <ul>
+        <li>In addition to the MTR station names the user also needs to input the number of people in a taxi, as well as his/her walking speed</li>
+        <li>Both of these inputs are bound by their specific ranges like this:
+            <ul>
+                <li>Number of people in a taxi: 1 to 5</li>
+                <li>Walking speed: 4, 5 or 6</li>
+            </ul>
+        </li>
+        <li>We can assume that the user only enters an integer, i.e. he/she won't enter 4.5 in the cells</li>
+        <li>To check the numbers, we can use an <tt>IF</tt> function with the correct condition</li>
+        <li>Here are examples of incorrect input numbers and their error messages:
+            <p><img src="images/incorrect_numbers.png" alt="Incorrect Input Numbers" /></p>
+            <p class="footnote">Note that 'km/h' is automatically added by the cell formatting of the cell; the value of the cell is the number 1</p>
+        </li>
+        <li>To show the error message when the input is not correct, you simply need to come up with the correct condition</li>
+        <li>Let's use the first input as an example</li>
+        <li>You need to enter the formula in cell <tt>C6</tt> where the error message will be shown:
+            <p><img src="images/select_taxi.png" alt="Select the Taxi Cell" /></p>
+        </li>
+        <li>When the number of people in a taxi is not correct, the value in cell <tt>B6</tt> is either smaller than 1 or bigger than 5</li>
+        <li>"the value is either smaller than 1 or bigger than 5" is the condition that you need to build in the formula</li>
+        <li>Since there is an 'or' in the sentence you will need to use the <tt>OR</tt> function to combine the comparisons like this:
+            <pre>=OR(<span class="b">B6</span>&lt;1, <span class="b">B6</span>&gt;5)</pre>
+        </li>
+        <li>If you enter the above formula in cell <tt>C6</tt>,
+            <ul>
+                <li>the cell will show <tt>TRUE</tt> when the number of people in a taxi is out of range or not valid</li>
+                <li>the cell will show <tt>FALSE</tt> when the number of people in a taxi is correctly entered</li>
+            </ul>
+        </li>
+        <li>Based on the result of the condition, you can then use an <tt>IF</tt> formula to display an error message appropriately</li>
+        <li>After you have done the error checking for the number of people in a taxi, you can similarly work out how to do the same thing for the walking speed input</li>
+    </ul>
+
+    <h2><a name="calculate" id="calculate"></a>3. Look up and Calculate the Results Based on the Inputs</h2>
+
+    <ul>
+        <li>To help you understand how it works the MTR fare and duration have been done for you</li>
+        <li>You need to finish the calculation for travelling by taxi and on foot</li>
+    </ul>
+
+    <h3><a name="calculate1" id="calculate1"></a>3.1. Look up the MTR Fare and Travelling Time</h3>
+
+    <ul>
+        <li>The MTR fare and travelling time have been given to you in the Excel file</li>
+        <li>Let's understand how it works before we work on the other two travelling methods</li>
+        <li>The formulas used in the calculation of the MTR fare and travelling time look like these:
+            <p><img src="images/mtr_formula.png" alt="Formulas Used in the MTR Calculation" /></p>
+        </li>
+        <li>We will explain the four cells from A12 to D12 one by one:
+            <ul>
+                <li>Cell <tt>A12</tt>
+                    <p><img src="images/mtr_a12.png" alt="Cell A12" /></p>
+                    <ul>
+                        <li>This is the concatenation of the starting station name and the ending station name separated by a dash</li>
+                        <li>The purpose of this cell is to act as the search key when we look for the fare and duration of travelling from one station to another</li>
+                        <li>The corresponding column to search for in the data tables is the one having the same text, <tt>From-To</tt></li>
+                    </ul>
+                </li>
+
+                <li>Cell <tt>B12</tt>
+                    <p><img src="images/mtr_b12.png" alt="Cell B12" /></p>
+                    <ul>
+                        <li>A <tt>VLOOKUP</tt> is used in this cell</li>
+                        <li>This <tt>VLOOKUP</tt> function means the search for the adult Octopus fare based on the value of the <tt>From-To</tt> column</li>
+                        <li>Here are the parameters of this <tt>VLOOKUP</tt> function:
+                            <p><img src="images/mtr_b12_param1.png" alt="Parameter 1 of VLOOKUP" /></p>
+                            <ul>
+                                <li>This is the search key to look up for</li>
+                                <li>The reference is cell <tt>A12</tt>, i.e. the <tt>From-To</tt> value, such as <tt>Choi Hung-Lam Tin</tt></li>
+                            </ul>
+                            <p><img src="images/mtr_b12_param2.png" alt="Parameter 2 of VLOOKUP" /></p>
+                            <ul>
+                                <li>This is the table from where we want to search for the adult Octopus fare</li>
+                                <li><tt>'MTR Fares'</tt> is the worksheet containing the fare table</li>
+                                <li>The table spans from column <tt>C</tt> to column <tt>F</tt></li>
+                                <li>The <tt>VLOOKUP</tt> function always searches for the key in the first column of a table</li>
+                                <li>In this case, column <tt>C</tt> contains the <tt>From-To</tt> values</li>
+                            </ul>
+                            <p><img src="images/mtr_b12_param3.png" alt="Parameter 3 of VLOOKUP" /></p>
+                            <ul>
+                                <li>This means the <tt>VLOOKUP</tt> function returns the second column from the searched table</li>
+                                <li>Therefore, the value in column <tt>D</tt> (adult Octopus fare) is returned by the function</li>
+                            </ul>
+                            <p><img src="images/mtr_b12_param4.png" alt="Parameter 4 of VLOOKUP" /></p>
+                            <ul>
+                                <li>A value of <tt>FALSE</tt> for the fourth parameter means the search will:
+                                    <ul>
+                                        <li>return the value in the desired column (column <tt>D</tt> in this case) if the search key is found in the table</li>
+                                        <li>return <tt>#N/A</tt> if the search key cannot be found</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>Cell <tt>C12</tt>
+                    <p><img src="images/mtr_c12.png" alt="Cell C12" /></p>
+                    <ul>
+                        <li>Similar to cell <tt>B12</tt> this cell uses a <tt>VLOOKUP</tt> to search for the student Octopus fare</li>
+                        <li>The difference between the <tt>VLOOKUP</tt> function in this cell and cell <tt>B12</tt> is the value to be returned from the function</li>
+                        <li>The formula in cell <tt>B12</tt> returns the value in the 2nd column (i.e. adult fare) whereas the function in this cell returns the value in the 4th column (i.e. student fare)</li>
+                    </ul>
+                </li>
+
+                <li>Cell <tt>D12</tt>
+                    <p><img src="images/mtr_d12.png" alt="Cell D12" /></p>
+                    <ul>
+                        <li>Similar to the <tt>VLOOKUP</tt> used in the other two cells this cell uses a <tt>VLOOKUP</tt> function to return the duration of travelling from one station to another</li>
+                        <li>This is based on a table in the <tt>MTR Duration</tt> worksheet as shown in the parameter <tt>'MTR Duration'!C:D</tt></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>Based on the above examples from the MTR result you should be able to create similar results for travelling by taxi and on foot</li>
+    </ul>
+
+    <h3><a name="calculate2" id="calculate2"></a>3.2. Look up the Taxi Travelling Distance and Time</h3>
+
+    <ul>
+        <li>We have seen how to use <tt>VLOOKUP</tt> in the MTR result</li>
+        <li>We will now use the same technique to look up the taxi travelling distance and time in cell <tt>B16</tt> and cell <tt>D16</tt> respectively</li>
+        <li>Both the distance and time for driving from one station to another are listed in the driving table in the <tt>Driving Distance and Duration</tt> worksheet</li>
+        <li>Looking at the worksheet you will see the table can be referred to by:
+            <pre>'Driving Distance and Duration'!C:E</pre>
+        </li>
+        <li>When you write your <tt>VLOOKUP</tt> function you can select the table using your mouse instead of directly typing the above reference</li>
+        <li>The formulas in cell <tt>B16</tt> and cell <tt>D16</tt> are almost the same because they look up the same table</li>
+        <li>The difference is cell <tt>B16</tt> requires the value in the second column of the table whereas cell <tt>D16</tt> requires the value in the third column</li>
+        <li>Here is an example of the taxi result after looking up the distance and time:
+            <p><img src="images/taxi_distance_time.png" alt="Taxi Results with Distance and Time" /></p>
+        </li>
+        <li>The calculation of the taxi fare is given in the Excel file when the distance has been looked up successfully</li>
+        <li>However, the fare calculation does not take into account additional charges such as tunnel fees and baggage fees</li>
+    </ul>
+
+    <h3><a name="calculate3" id="calculate3"></a>3.3. Look up the Travelling Distance on Foot</h3>
+
+    <ul>
+        <li>After finishing the MTR and taxi results we will finish the lab by looking up the travelling distance between two MTR stations on foot</li>
+        <li>Since we have seen how <tt>VLOOKUP</tt> is used in the previous two results it should be straightforward to apply the same technique here</li>
+        <li>The information of the walking distance is stored in a table in the <tt>Walking Distance</tt> worksheet</li>
+        <li>You can then construct a <tt>VLOOKUP</tt> function in cell <tt>B21</tt> to look up the walking distance</li>
+        <li>Once the walking distance is shown the time to walk between the stations will be automatically calculated, for example, like this:
+            <p><img src="images/walking_distance_result.png" alt="Walking Results with Distance" /></p>
+        </li>
+        <li>The walking time is calculated based on the walking speed of the user entered at the start of the <tt>Fare Checker</tt> worksheet</li>
+    </ul>
+
+    <h2><a name="macro" id="macro"></a>4. Create a Macro to Calculate and Show Some Useful Information</h2>
+
+    <ul>
+        <li>This diagram shows the way in which the macro will be used (after we have finished creating it):</li>
+            <p><a href="images/trigger_macro_figure.png"><img src="images/trigger_macro_figure.png" width="700"  alt="How the Macro is Triggered" /></a><br />
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+	<li>This video shows the general idea (there's no sound):
+        <ul>
+            <li>Please note that the calculation will not work if the walking duration is not defined (as indicated by a "-" in the table)!</li>
+            <li>The number of people is 3 and the walking speed is 5 km/h. These two values remain unchanged for the rest of the video</li>
+            <li>At the beginning of the video, the source MTR station is Hang Hau and the destination MTR station is Choi Hung</li>
+            <li>A macro is triggered to compute the result of D21/D12 (from Hang Hau to Choi Hung)</li>
+            <li>The source MTR station is updated to Diamond Hill</li>
+            <li>The destination MTR station is updated to Hang Hau</li>
+            <li>A macro is triggered, and the updated result of D21/D12 (from Diamond Hill to Hang Hau) is shown</li>
+        </ul>
+
+    </li>
+	<video height="600" controls>
+	  <source src="lab2.mp4" type="video/mp4">
+	Your browser does not support the video tag.
+	</video>
+	<ul>
+	<li>The video can be downloaded <a href="lab2.mp4">here</a></li>
+	</ul>
+    </ul>
+
+
+    <h3><a name="macro1" id="macro1"></a>4.1. Show the Developer Tab</h3>
+
+    <ul>
+        <li>To do any kind of work with VBA you need to select and use the Developer tab:</li>
+
+            <p><a href="images/developerTab1.png"><img src="images/developerTab1.png"  alt="Showing the Developer tab" /></a><br />
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+
+	<li>The Developer tab looks like this:</li>
+
+            <p><a href="images/developerTab2.png"><img src="images/developerTab2.png" width="800" alt="Showing the Developer tab" /></a><br />
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+
+	<li>Can you see it in your Excel? If so, move on to the <a href="#macro2">next stage</a></li>
+	<li>If you can't see it then you need to tell Excel to show it</li>
+	<li>To do that:</li>
+	<ol>
+		<li>Select <i>File</i></li>
+		<li>Select <i>Options</i></li>
+		<li>Select <i>Customise Ribbon</i></li>
+		<li>Make sure that 'Developer' has a tick next to it, on the right side:</li>
+
+            <p><a href="images/developerTab3.png"><img src="images/developerTab3.png" width="600" alt="Showing the Developer tab" /></a><br />
+
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+		<li>Select <i>OK</i></li>
+	</ol>
+    </ul>
+
+
+    <h3><a name="macro2" id="macro2"></a>4.2. Start Creating a Macro</h3>
+
+    <ul>
+        <li>In this stage we will start making a macro (which doesn't do anything yet)</li>
+	<li>Here's one way to start making a macro:</li>
+		<ol>
+			<li>Select <i>Macros</i> in the <i>Developer</i> tab</li>
+
+            <p><a href="images/macro01.png"><img src="images/macro01.png" width="600" alt="the Macro Window" /></a><br />
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+
+			<li>A window like this will be shown:</li>
+
+            <p><a href="images/macro02.png"><img src="images/macro02.png" width="300"  alt="the Macro Window" /></a><br />
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+
+			<li>In the 'Macro Name' box at the top, enter the name of the macro - let's enter 'Macro1'</li>
+
+            <p><a href="images/macro03.png"><img src="images/macro03.png" width="300"  alt="the Macro Window" /></a><br />
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+
+			<li>Now select 'Create'</li>
+
+            <p><a href="images/macro04.png"><img src="images/macro04.png" width="300" alt="the Macro Window" /></a><br />
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+
+			<li>You will see the following display:</li>
+
+            <p><a href="images/macro05.png"><img src="images/macro05.png" width="700" alt="Entering a Name into the Macro Window" /></a><br />
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+
+		</ol>
+
+	<li>The VBA editor is showing you the content of the macro</li>
+	<li>As you can see, your macro has a start (<i>Sub Macro1()</i>) and an end (<i>End Sub</i>)</li>
+	<li>But there's no code between the start and the end - so if we run the macro nothing will happen!</li>
+    </ul>
+
+
+
+
+    <h3><a name="macro3" id="macro3"></a>4.3. Add Code into the Macro So It Makes a Calculation and Displays Messages in Small Windows</h3>
+
+    <ul>
+        <li>For this lab, let's use this code for the macro:</li>
+<pre>
+<span class="res">Sub</span> Macro1()
+
+    <span class="comment">' First show a simple message</span>
+    MsgBox "If you walk that distance it gives you this times more pollution than the MTR:"
+
+    <span class="comment">' Now we divide the time required to walk by the time required to take the MTR,</span>
+    <span class="comment">'     and show it.</span>
+    <span class="comment">' The time required to walk is in cell D21.</span>
+    <span class="comment">' The time required to take the MTR is in cell D12.</span>
+    MsgBox  Range("D21").Value  / Range("D12").Value
+
+<span class="res">End Sub</span>
+</pre>
+	<li>You need to replace your macro code (which doesn't do anything) with the macro shown above (which does something)</li>
+	<li>Here's how to do that:</li>
+		<ol>
+			<li>Look at your current macro code in your Excel file</li>
+				<ul>
+					<li>If it is not already shown, select <i>Macros</i> in the <i>Developer</i> tab, select your macro from the list, then select
+<i>Edit</i></li>
+				</ul>
+
+			<li>Select your macro in your Excel file</li>
+				<ul>
+					<li>select the macro code, including <i>Sub Macro1()</i> and <i>End Sub</i></li>
+				</ul>
+
+			<li>Delete your macro in your Excel file</li>
+				<ul>
+					<li>do <i>right click</i> &raquo; <i>cut</i> (or do Ctrl+x on a PC, &#8984;+x on a Mac)</li>
+				</ul>
+
+			<li>Copy the content of the macro code shown above in this web page</li>
+				<ul>
+					<li>select everything including <i>Sub Macro1()</i> and <i>End Sub</i>, copy it </li>
+				</ul>
+			<li>Paste the content of the macro code into the macro</li>
+				<ul>
+					<li>Select <i>right click</i> &raquo; <i>paste</i> (or do Ctrl+v on a PC, &#8984;+v on a Mac)</li>
+				</ul>
+		</ol>
+
+		<li>At this stage we have a macro which does something useful</li>
+		<li>If you want to quickly test what the macro does, click anywhere inside the macro, and then select the green triangle shown below:</li>
+
+            <p><a href="images/macro06.png"><img src="images/macro06.png" width="800" alt="Entering a Name into the Macro Window" /></a><br />
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+
+		<li>However, the calculation <strong>will not work</strong> if the walking duration is not defined (as indicated by a &quot;-&quot; in the table)!</li>
+		<li>Pressing the triangle is just a 'quick test' way to run the macro</li>
+		<li>The common way to run a macro inside a spreadsheet is to press a combination of keys on the keyboard</li>
+		<li>Let's set that up in the next stage</li>
+    </ul>
+
+
+
+    <h3><a name="macro4" id="macro4"></a>4.4. Add the Key Combination To Trigger the Macro</h3>
+
+    <ul>
+	<li>Close the VBA editor and return to the usual Excel worksheet display</li>
+	<ul>
+		<li>Select <i>File</i> &raquo; <i>Close and Return to Microsoft Excel</i></li>
+
+            <p><a href="images/macro07.png"><img src="images/macro07.png" width="800" alt="Entering a Name into the Macro Window" /></a><br />
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+
+		<li>or: Kill the window</li>
+		<li>or: press <i>Alt+q</i> on the keyboard</li>
+
+		<li>or: pressing <i>Alt+Tab</i> repeatedly will switch between the two windows</i>
+	</ul>
+
+	<li>Now let's add the keyboard shortcut to trigger the macro</li>
+	<ol>
+	<li>Select <i>Macros</i> on the <i>Developer</i> tab, a window like this will be shown:</li>
+
+            <p><a href="images/macro08.png"><img src="images/macro08.png" alt="Entering a Name into the Macro Window" /></a><br />
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+
+	<li>Select the macro you just created, then select <i>Options</i> </li>
+
+            <p><a href="images/macro09.png"><img src="images/macro09.png" alt="Entering a Name into the Macro Window" /></a><br />
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+
+	<li>You will see a window like this:</li>
+
+            <p><a href="images/macro10.png"><img src="images/macro10.png" alt="Entering a Name into the Macro Window" /></a><br />
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+
+	<li>Select the small 'Shortcut key:' box and press the key combination that you want to use to trigger the macro</li>
+		<ul>
+			<li>E.g. if you want <i>Ctrl+Shift+A</i> to trigger the macro then you would enter <i>Shift+A</i> in the box (because using <i>Ctrl</i> is compulsory)</li>
+			<li>On a Mac computer, you would use <i>Option+Cmd+Shift+A</i> instead</li>
+
+            <p><a href="images/macro11.png"><img src="images/macro11.png" alt="Entering a Name into the Macro Window" /></a><br />
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+
+			<li>The letter 'A' is chosen here simply because it is the first letter of '<b>a</b>ir pollution'</li>
+		</ul>
+	<li>Then select 'OK', then select 'Cancel'</li>
+	</ol>
+	<li>You have now added the keyboard combination to trigger the macro</li>
+    </ul>
+
+
+
+    <h3><a name="macro5" id="macro5"></a>4.5. Try out the Macro</h3>
+
+    <ul>
+        <li>Now you can try out your macro by doing that key combination to trigger the macro</li>
+		<ul>
+			<li>If you followed what we described above then the key combination is <i>Ctrl+Shift+A</i> on a PC or <i>Option+&#8984;+Shift+A</i> on a Mac</li>
+		</ul>
+
+	<li>To really test the macro, change the start/end journey destinations in the main Excel worksheet, then trigger the macro again</li>
+
+		<ul>
+			<li>You should see that the number shown in the small window changes</li>
+		</ul>
+
+    </ul>
+
+
+    <h2><a name="savefile" id="savefile"></a>5. Save the Excel File So That It Keeps the VBA Code</h2>
+    <ul>
+	<li>Be careful when you save your Excel file!</li>
+	<li>There are many different options when you save an Excel file</li>
+	<li>If you are not careful, your work will be saved <i>without</i> the VBA code</li>
+	<ul>
+		<li>If you do that then your VBA code is <b>gone forever</b>!</li>
+		<li>That would be a disaster when you do assignments which use VBA</li>
+	</ul>
+	<li>Here's how you save the file in an Excel format which keeps the VBA code</li>
+	<ol>
+		<li>Select <i>File</i></li>
+		<li>Select <i>Save As</i></li>
+		<li>Select the directory where you want to save the file</li>
+		<li>In the 'File name' area enter the name that you want to use for the file e.g. <i>lab2</i></li>
+		<li>In the 'Save as type' area select 'Excel Macro-Enabled Workbook'</i></li>
+
+            <p><a href="images/macro12.png"><img src="images/macro12.png" width="700" alt="Entering a Name into the Macro Window" /></a><br />
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+
+		<li>Press <i>Save</i></li>
+	</ol>
+	<li>This will make a file called lab2.xlsm</li>
+	<li>Files which end in .xlsm are Excel files which can include VBA code</li>
+    </ul>
+
+    <h2><a name="submission" id="submission" />Submission</h2>
+
+    <ul>
+        <li>You don't need to submit this work, but you may keep a copy of your own work for your reference</li>
+
+        <li>Anything you save on the lab computer will probably be automatically wiped when you leave the computer!</li>
+
+        <li>So make sure you save a copy away from the lab computer</li>
+
+        <li>For example, you can put your work in your USB disk (if you have one) or email a copy to yourself</li>
+    </ul>
+
+
+</body>
+</html>

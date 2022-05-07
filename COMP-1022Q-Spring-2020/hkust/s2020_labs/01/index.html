@@ -1,0 +1,1203 @@
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>COMP1022Q Lab 1 - Stock Market Buying and Selling</title>
+    <link href="../../../css/lab.css" rel="stylesheet" />
+    <style>
+        /* Fix the problem of unclear images */
+        img {
+            border: 1px solid grey;
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        <span class='lab'>COMP1022Q Lab 1</span>
+        <span class='title'>Stock Market Buying and Selling</span>
+    </h1>
+
+    <h2>What You Will Learn in This Lab</h2>
+    <ul>
+        <li>In this lab you will gain experience in the following areas:
+            <ul>
+                <li>Importing Data into Excel</li>
+                <li>Organizing data efficiently in Excel
+                    <ul>
+                        <li>Deleting Data Rows With Missing Value</li>
+                        <li>Adding Columns for the Trading Simulation</li>
+                    </ul>
+                </li>
+                <li>
+                    Formatting Data
+                    <ul>
+                        <li>Adjusting Column Width</li>
+                        <li>Aligning the Data</li>
+                        <li>Formatting Columns (e.g. Percentage is used to format HSI Growth and Capital Growth) </li>
+                    </ul>
+                </li>
+                <li>Developing Formulas
+
+                    <ul>
+                        <li>Using the Excel functions <tt>AVERAGE</tt>, <tt>IF</tt> and <tt>FLOOR</tt></li>
+                    </ul>
+                </li>
+
+                <li>Creating a Chart
+
+                    <ul>
+                        <li>Creating a line chart to visualize results</li>
+                    </ul>
+                </li>
+                <li>
+                    There is no VBA programming in this lab
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>Before We Start</h2>
+    <h3>Using the CSD Computers</h3>
+
+    <ul>
+        <li>You need to activate your CSD account before you can log on the CS lab machines</li>
+        <li>If you haven't done so you need to do it through the following URL before we start the lab:
+            <p><a href="https://password.cse.ust.hk:8443/pass.html">https://password.cse.ust.hk:8443/pass.html</a></p>
+        </li>
+        <li>For detailed instructions see the last few slides of the course details notes
+            <!-- Remember to update the hyperlink of the lecture note -->
+            <a href="../../f2019_notes/01_course_details/01_1022q_course_details_f2019.pdf#page=31">here</a>
+        </li>
+        <li>Your CSD account needs to be enabled before the lab begins</li>
+    </ul>
+
+    <h2>Overview</h2>
+
+    <ul>
+        <li>We will look at a buying and selling strategy</li>
+        <li>To verify whether the strategy works (makes a profit), we first need to implement it</li>
+        <li>
+                After the work is finished we can compare the performance of the trading strategy (in orange) with the Hong Kong market (the HSI, in blue) across a period of time
+            <p>
+                <img src="images/goal_chart.png" alt="Comparison between HSI Growth with the Growth of our strategy" />
+                <br />
+
+			</p>
+        </li>
+
+        <li>In this lab we will look at the following things:
+
+            <ol>
+                <li><a href="#s1">The Buying and Selling Strategy</a></li>
+                <li><a href='#s2'>Getting Historical Data of the Stock Market from the Internet</a></li>
+
+                <li>
+                    <a href='#s3'>Importing the Data into Excel</a>
+
+                    <ul class="none">
+                        <li>3.1. <a href='#s3_1'>Importing the Data</a></li>
+                        <li>3.2. <a href='#s3_2'>Deleting Data Rows With Missing Value</a></li>
+                        <li>3.3. <a href='#s3_3'>Saving Your Work</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href='#s4'>Using the Data</a>
+
+                    <ul class="none">
+
+                        <li>4.1. <a href='#s4_1'>Adding More Columns</a></li>
+
+                        <li>4.2. <a href='#s4_2'>Adjusting Column Width</a></li>
+
+                        <li>4.3. <a href='#s4_3'>Inserting Formulas for Calculating a 50-day Average Closing Price</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href='#s5'>Building the Formulas to Perform the Trading Strategy</a>
+
+                    <ul class="none">
+                        <li>5.1. <a href='#s5_1'>Inserting Formulas for Making the Decision</a></li>
+
+                        <li>5.2. <a href='#s5_2'>Aligning the Data</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href='#s6'>Testing the Trading Strategy</a>
+
+                    <ul class="none">
+                        <li>6.1. <a href='#s6_1'>Adding a Column for the Trading Simulation</a></li>
+
+                        <li>6.2. <a href='#s6_2'>Adding a Column for the Simulation of Stock Held</a></li>
+
+                        <li>6.3. <a href='#s6_3'>Adding a Column for the Total Capital</a></li>
+
+                        <li>6.4. <a href='#s6_4'>Inserting Formulas for Simulation</a></li>
+
+                        <li>6.5. <a href='#s6_5'>Showing the Capital Growth is Larger Than the HSI Growth</a></li>
+
+                        <li>6.6. <a href='#s6_6'>Plotting a Graph to Contrast the Capital Growth Against the HSI Growth</a></li>
+                    </ul>
+                </li>
+            </ol>
+        </li>
+    </ul>
+
+    <h2 id="pre-recorded-videos">Pre-recorded videos</h2>
+    <ul>
+        <li>The following videos have sound. Please turn on your speaker or use your headphone to watch the videos</li>
+        <li>The following videos provide step-by-step instructions to help students complete the lab
+
+            <ul>
+                <li><a href="https://hkust.zoom.us/rec/share/4egpELHy72hLb43U9xmYWZwHGIDgaaa803Ac_aYMyEdo_YPwHJSMZrfwNYmW0Edh?startTime=1581403885000" target="_blank">Part 1 - Buying and Selling Strategy</a></li>
+                <li><a href="https://hkust.zoom.us/rec/share/2OJvEIzMymxLRdbOsHzaY4MHB9nCT6a8gyIcqfUMyEa4GZ_oUmOqmhjIXpUnUxSp?startTime=1581405919000" target="_blank">Part 2 - Getting Historical Data of the Stock Market from the Internet</a></li>
+                <li><a href="https://hkust.zoom.us/rec/share/pshnDO231lpJf6P_uVDuQbwtFdriX6a8gHQaqfYJz00mbkauvd4z5YkoZT1EVsyj" target="_blank">Part 3 - Importing the Data into Excel</a></li>
+                <li><a href="https://hkust.zoom.us/rec/share/6cstCIOu2FpLR6_Hxx6CU74nNKO1eaa8hyZN-vYOnRxI6EMGZ4LK6vCSFq7OrGcA?startTime=1581481274000" target="_blank">Part 4 - Using the Data</a></li>
+                <li><a href="https://hkust.zoom.us/rec/share/18dTFJWo8T9JR7fIt271dakGFarqX6a80Skd-fJby0q9eH6EoDWTL4mOVLIvwAmc?startTime=1581482308000" target="_blank">Part 5 - Building the Formulas to Perform the Trading </a></li>
+                <li><a href="https://hkust.zoom.us/rec/share/xO9cKJup_HNLR4HjzWqPc4U5NNrGeaa8gyEYq6Ffn0jceJKlBEBn7pJyMmDnwjBP?startTime=1581483992000" target="_blank">Part 6.1-6.4 - Testing the Trading Strategy (1/2)</a></li>
+                <li><a href="https://hkust.zoom.us/rec/share/35x-Ko_R50lOQavG-HiYS7cqOtX9T6a82nUcrvYOxUeEJf_QqXYICxbYheQAUtCc?startTime=1581485683000" target="_blank">Part 6.5-6.6 - Testing the Trading Strategy (2/2)</a></li>
+
+            </ul>
+
+        </li>
+
+    </ul>
+
+    <h2 id="videos">Videos showing the key steps</h2>
+
+
+    <ul>
+        <li>The following videos do not have sound</li>
+        <li>The following videos show the key steps to complete the lab, which may be useful for students who skip the lab classes:
+
+            <ol>
+                <li><a href="#video_01">Getting Historical Data of the Stock Market from the Internet</a>
+                </li>
+
+                <li><a href="#video_02">Importing the Data into Excel</a>
+                    <br>
+                    <span style="font-style:italic;">(Before proceeding to the next video, please delete the data rows with missing value, see section 3.2. <a href='#s3_2'>Deleting Data Rows With Missing Value</a>)</span>
+                </li>
+
+                <li><a href="#video_03">Using the Data</a>
+
+
+                </li>
+
+                <li><a href="#video_04">Building the Formulas to Perform the Trading Strategy</a>
+                </li>
+
+                <li><a href="#video_05">Testing the Trading Strategy (Section 6.1-6.3: Adding columns for the testing)</a>
+                </li>
+
+                <li><a href="#video_06">Testing the Trading Strategy (Section 6.4: Inserting Formulas for Simulation)</a>
+                </li>
+
+                <li><a href="#video_07">Testing the Trading Strategy (Section 6.5: Showing the Capital Growth is Larger Than the HSI Growth)</a>
+                </li>
+
+                <li><a href="#video_08">Testing the Trading Strategy (Section 6.6: Plotting a Graph to Contrast the Capital Growth Against the HSI Growth)</a>
+
+
+
+                </li>
+
+
+            </ol>
+
+        </li>
+    </ul>
+
+    <h2 id='s1'>1. The Buying and Selling Strategy</h2>
+
+    <ul>
+
+        <li>Let's look at the idea of our trading strategy</li>
+
+        <li>You can use the idea for buying and selling lots of things, such as stocks, gold, silver, and so on</li>
+
+        <li>Be careful, the approach we will use does not always give you a profit!</li>
+
+        <li>To make a profit, the basic idea is to buy something when the price looks like it is going to rise</li>
+
+        <li>Then you sell it when the price looks like it is going to fall</li>
+
+        <p>
+            <a href='images/explanation1.png'><img src='images/explanation1.png' height='300' alt="" /></a>
+            <br />
+            <span class="footnote">Click on the image to see its original size</span>
+		</p>
+
+        <li>How can we handle 'looks like it is going to rise' and 'looks like it is going to fall' in Excel?</li>
+
+        <li>One way is to first calculate the average price for the previous 50 days</li>
+
+        <li>The 50-day average 'smooths' the price data</li>
+
+        <li>It removes some of the small jumps and drops and gives us a good representation of the general price movement, like this:</li>
+
+        <p>
+            <a href='images/explanation2.png'><img src='images/explanation2.png' height='300' alt="" /></a>
+            <br />
+            <span class="footnote">Click on the image to see its original size</span></p>
+
+        <li>Now we can test for situations that tell us the price is rising/falling:</li>
+
+        <ul>
+            <li>If the price moves above the 50-day average, we say that the price is rising, so we buy</li>
+
+            <li>If the price moves below the 50-day average, we say that the price is falling, so we sell</li>
+        </ul>
+
+        <p>
+            <a href='images/explanation3.png'><img src='images/explanation3.png' height='300' alt="" /></a>
+            <br />
+            <span class="footnote">Click on the image to see its original size</span></p>
+
+        <li>Let's use Excel to see how well this idea works for some financial data</li>
+
+        <li>We will use the HSI (Hang Seng Index) data, which represents Hong Kong stock prices</li>
+
+        <li>In summary, the strategy works like this:
+
+            <ol>
+                <li>Calculate the average of the closing prices of 50 days</li>
+
+                <li>Compare today's closing price with the average closing price</li>
+
+                <li>Give suggestions on buying, selling or doing nothing with the stock based on the results of the comparison, as follows
+
+                    <ul>
+                        <li>If today's closing price is higher than the recent 50-day average, we suggest 'Buy'</li>
+
+                        <li>Otherwise, we suggest 'Sell'</li>
+
+                    </ul>
+
+                </li>
+
+            </ol>
+
+        </li>
+        <li>(If you actually wanted to buy something which follows the HSI you would buy the Tracker Fund)</li>
+
+    </ul>
+
+    <h2 id='s2'>2. Getting Historical Data of the Stock Market from the Internet</h2>
+
+    <ul>
+
+        <li id="video_01" >This video shows the steps to get historical data of the stock market
+            <br>
+            <video height="600" controls>
+                        <source src="videos/01_download_data.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                      </video>
+            <br>
+            The video can be downloaded <a href="videos/01_download_data.mp4">here</a>
+        </li>
+
+        <li>In this lab, we get the historical data of Hang Seng Index (HSI) from <tt>Yahoo! Finance</tt></li>
+
+        <li>The following steps show you how to get the HSI data from <tt>Yahoo! Finance</tt>
+
+			<p style="font-style:italic">Note that Yahoo! Finance may change its layout so that the following screen captures may look different from the ones you see:
+			</p>
+
+            <ol>
+
+                <li>Go to <a href='http://finance.yahoo.com'>Yahoo! Finance</a>
+
+                    <p>
+                        <a href='images/01_go_to_finance_yahoo_com.png'><img  src='images/01_go_to_finance_yahoo_com.png' height='200' alt="" /></a>
+                        <br />
+                        <span class="footnote">Click on the image to see its original size</span></p>
+                </li>
+
+                <li>Search for Hang Seng Index by entering <tt>HSI</tt> in the box and then select the item <strong>^HSI HANG SENG INDEX</strong>, like this:
+
+                    <p><img src='images/02_search_for_hsi.png'  alt="" /></p>
+
+                    <p>You will see a result similar to this:</p>
+
+                    <p>
+                        <a href='images/03_search_result.png'><img src='images/03_search_result.png'  height='200' alt="" /></a>
+                        <br />
+                        <span class="footnote">Click on the image to see its original size</span></p>
+                </li>
+
+                <li>Click on the link <tt>Historical Data</tt>
+
+                    <p><img src='images/04_historical_prices_link.png'  alt="" /></p>
+
+                    <p>You will see a result similar to this:</p>
+
+                    <p>
+                        <a href='images/05_historical_prices_page.png'><img src='images/05_historical_prices_page.png'  height='200' alt="" /></a>
+                        <br />
+                        <span class="footnote">Click on the image to see its original size</span>
+					</p>
+                </li>
+
+                <li>Click on Time Period and set the <tt>Start Date</tt> and <tt>End Date</tt> in the boxes provided and then click the <tt>Done</tt> button, and then the <tt>Apply</tt> button
+
+                    <ul>
+                        <li>For example, in this lab we get the HSI historical data from <tt>1<sup>st</sup> January 2005</tt> to <tt>31<sup>st</sup> August 2019</tt>
+
+                            <p><img src='images/06_set_date_range.png'  alt="" /></p>
+                        </li>
+
+                        <li>After the page is refreshed an updated results page is shown</li>
+                    </ul>
+                </li>
+
+                <li>On the right hand side you can see a link <tt>Download Data</tt>
+
+                    <ul>
+                        <li>Before clicking <tt>Download Data</tt>, ensure that the <tt>Done</tt> button and the <tt>Apply</tt> button are clicked in the previous step</li>
+                    </ul>
+
+                    <p><img src='images/07_download_to_spreadsheet.png' alt="" /></p>
+                </li>
+
+                <li>By clicking on the link, you will download a file named <tt>^HSI.csv</tt> from <tt>Yahoo! Finance</tt> which has stored all the HSI historical data within the selected range, i.e. 1<sup>st</sup> January 2005 to 31<sup>st</sup> August 2019 in this lab example
+
+                    <ul>
+                        <li>CSV file is a common format for storing data</li>
+                    </ul>
+                </li>
+
+                <li>Save the file on your local hard disk, for example,
+
+                    the default <tt>Download</tt> folder of the web browser, or
+
+                    on your <tt>Desktop</tt>. </li>
+            </ol>
+        </li>
+
+        <li>At this stage, you have saved the HSI historical data from 1<sup>st</sup> January 2005 to 31<sup>st</sup> August 2019 in a CSV file on your harddisk</li>
+
+        <li>Next, we import the data into Excel</li>
+    </ul>
+
+    <h2 id='s3'>3. Importing the Data into Excel</h2>
+
+    <ul>
+        <li>After downloading the data you need to import it into Excel</li>
+
+        <li>Then we can use the data to give suggestions on buying or selling the stock</li>
+    </ul>
+
+    <h3 id="s3_1">3.1. Importing the Data</h3>
+
+    <ul>
+
+        <li id="video_02">This video shows the steps to import the data
+                <br>
+            <video  height="600" controls>
+                        <source src="videos/02_import_data.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                        </video>
+            <br>
+            The video can be downloaded <a href="videos/02_import_data.mp4">here</a>
+        </li>
+
+        <li>The following steps guide you in how to import the recently acquired Internet data into Excel:
+            <ol>
+                <li>Start Microsoft Excel</li>
+
+                <li>On the ribbon, select the <tt>Data</tt> tab
+
+                    <p><img src='images/08_excel_ribbon_data_tab.png' alt="" /></p>
+                </li>
+
+                <li>Click the <tt>From Text/CSV</tt> button in the <tt>Get &amp; Transform Data</tt> group
+
+					<p style="font-style:italic">
+                    Note: If you are using an older version of Excel (e.g. Excel 2016), you may not be able to find <tt>From Text/CSV</tt> button.
+                    You can use a similar button, <tt>From Text</tt> button, to import the data. However, the steps of using an older version of Excel to import the data won't be covered in this lab
+
+					</p>
+
+                <p><img src='images/09_excel_from_text_button.png'  alt="" /></p>
+        </li>
+
+        <li>After the <tt>Import Text File</tt> dialog pops up, select the file <tt>^HSI.csv</tt> you have downloaded before and then click on <tt>Open</tt></li>
+
+        <li>A dialog is shown for your to preview the dataset. Click <tt>Edit</tt> button to continue. A new window is shown for us edit the dataset
+
+
+			<p>
+			<a href='images/10_import_dialog.png'><img src='images/10_import_dialog.png'   height='200' alt="" /></a>
+                        <br />
+                        <span class="footnote">Click on the image to see its original size</span>
+			</p>
+        </li>
+
+        <li>
+            Select the first column (Date). Excel should identify <tt>Date</tt> as the data type. No action is required to format the Date column
+
+			<p>
+			<a href='images/10_1_select_first_column.png'><img src='images/10_1_select_first_column.png'   height='200' alt="" /></a>
+                        <br />
+                        <span class="footnote">Click on the image to see its original size</span>
+			</p>
+
+        </li>
+
+        <li>
+            Select the second column (Open). Choose <tt>Remove Columns</tt> from <tt>Manage Columns</tt> group to remove the column
+            <p><img src='images/10_2_remove_unused_columns.png'   alt="" /></p>
+        </li>
+
+        <li>
+            Keep removing the unused columns. Only 2 columns should remain: <tt>Date</tt> and <tt>Close</tt>. After that, click the <tt>Close &amp; Load</tt> button
+            <p><img src='images/10_3_columns_removed.png'   alt="" /></p>
+        </li>
+
+        <li> Remove the Excel table
+            <ul>
+				<li>An Excel table is automatically created when we import the dataset</li>
+                <li>In this lab, we need to remove the Excel table </li>
+                <li>Select any cell in the table (e.g. <tt>A1</tt>) </li>
+                <li>Go to <tt>Table Tools</tt> on the <tt>Design</tt> tab</li>
+                <li>Click <tt>Convert to Range</tt> button</li>
+            </ul>
+
+            <p><img src='images/11_convert_table_to_range.png'   /></p>
+        </li>
+
+        <li> Remove the table format
+
+            <ul>
+                <li>
+                    Select <tt>Date</tt> and <tt>Close</tt> columns.
+				</li>
+				<li>To select 2 columns, one way is to press the <tt>Shift</tt> key and then click the column letter A and B
+                </li>
+
+                <li>Choose the <tt>Home</tt> tab</li>
+
+                <li>
+                    Set the border style as <tt>No Border</tt>
+                    <p><img src='images/11_02_format_border.png'   /></p>
+                </li>
+
+                <li>
+                    Set the fill colour as <tt>No Fill</tt>
+                    <p><img src='images/11_03_format_no_fill.png'   /></p>
+                </li>
+
+                <li>
+                    Set the text colour as black
+                    <p><img src='images/11_01_format_black_text.png'   /></p>
+
+                    <p style="font-style:italic;">
+                        Note: Setting the text colour is necessary because the text colour of the first row is white. Without this step, the labels on the first row will become invisible.
+                    </p>
+                </li>
+
+            </ul>
+
+        </li>
+
+        <li>Fix the Date format
+                <ul>
+                    <li>In this lab, the date format is <tt>MM/DD/YYYY</tt></li>
+                    <li>Excel may be too smart to change the date format to match with the language setting of the operating system</li>
+                    <li>Select the Date column</li>
+                    <li>Right-click and choose <tt>Format Cells...</tt></li>
+                    <li>Fix the date format as follows:
+
+                        <p><img src='images/fix_date_format.png'   /></p>
+                    </li>
+
+                </ul>
+
+        </li>
+
+        <li> Two columns of the data are now imported and you can see the result similar to this:
+			<p>
+			<a href='images/11_04_format_removed_final.png'><img src='images/11_04_format_removed_final.png'  height='200' alt="" /></a>
+            <br />
+            <span class="footnote">Click on the image to see its original size</span>
+			</p>
+        </li>
+
+
+
+        </ol>
+        </li>
+    </ul>
+
+    <h3 id="s3_2">3.2. Deleting Data Rows With Missing Value</h3>
+
+    <ul>
+        <li>There are <strong>14</strong> rows with missing value in the Yahoo! Finance HSI dataset from <tt>1<sup>st</sup> January 2005</tt> to <tt>31<sup>st</sup> August 2019</tt>.
+            Please note that the date format below is <tt>MM/DD/YYYY</tt>:
+
+            <ol>
+                <li>8/6/2008</li>
+                <li>12/24/2009</li>
+                <li>12/31/2009</li>
+                <li>12/24/2010</li>
+                <li>12/31/2010</li>
+                <li>2/2/2011</li>
+                <li>12/24/2011</li>
+                <li>12/31/2011</li>
+                <li>12/24/2012</li>
+                <li>12/31/2012</li>
+                <li>8/14/2013</li>
+                <li>8/2/2016</li>
+                <li>10/21/2016</li>
+                <li>8/23/2017</li>
+            </ol>
+        </li>
+        <li>Because the data set is already sorted by <tt>Date</tt>, we can scroll down the worksheet to locate the data rows with missing value</li>
+        <li>
+            For each row with missing value, right click the row number on the Excel worksheet. Choose <tt>Delete</tt> from the pop-up menu:
+            <p><img src='images/12_delete_pop_up_option.png' /> </p>
+        </li>
+
+    </ul>
+
+    <h3 id="s3_3">3.3. Saving Your Work</h3>
+
+    <ul>
+        <li>At this stage the HSI historical data from <tt>Yahoo! Finance</tt> is imported into Excel, which is ready for use</li>
+
+        <li>Sometimes Excel closes unexpectedly so it is a very good practise to save your work frequently</li>
+
+        <li>You can save your work to the local harddisk as, for example, <tt>stock_strategy_lab.xlsx</tt>, before you proceed to the next stage</li>
+
+    </ul>
+
+    <h2 id='s4'>4. Using the Data</h2>
+
+    <ul>
+
+        <li id="video_03">This video shows the steps to use the data
+                <br>
+            <video  height="600" controls>
+                        <source src="videos/03_using_data.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                        </video>
+            <br>
+            The video can be downloaded <a href="videos/03_using_data.mp4">here</a>
+        </li>
+
+        <li>At this stage a set of data is ready for use</li>
+
+        <li>The buying and selling strategy is now ready to be implemented in Excel</li>
+    </ul>
+
+    <h3 id="s4_1">4.1. Adding More Columns</h3>
+
+    <ul>
+        <li>In the cell C1 type <tt>50-day Average</tt></li>
+
+        <li>Add another column <tt>Suggestion</tt> by typing <tt>Suggestion</tt> in the cell D1
+
+    </ul>
+
+    <h3 id="s4_2">4.2. Adjusting Column Width</h3>
+
+    <ul>
+        <li>You may notice the text in the newly added column headers are not completely shown</li>
+
+        <li>You can adjust the column width by clicking and dragging the vertical line between the column letters</li>
+
+        <li>For example, we can increase the width of the <tt>50-day Average</tt> column by clicking and dragging the vertical line between column C and D to the right like this:
+
+            <p><img src='images/27_between_cells.png' alt="" /></p>
+        </li>
+
+        <li>You can also let Excel help you adjust the column width by double clicking on the vertical line</li>
+
+        <li>Excel will automatically adjust the column width so that the content in every cell in that column is shown completely</li>
+
+        <li>If you double click the vertical line between column D and E Excel will automatically adjust the column width of the <tt>Suggestion</tt> column for you</li>
+
+        <li>After increasing the width of both the <tt>50-day Average</tt> and <tt>Suggestion</tt> column you will see a result similar to this:
+
+            <p>
+                <a href='images/28_adjusted_width.png'><img src='images/28_adjusted_width.png' height='200' alt="" /></a>
+                <br />
+                <span class="footnote">Click on the image to see its original size</span></p>
+        </li>
+    </ul>
+
+    <h3 id="s4_3">4.3. Inserting Formulas for Calculating a 50-day Average Closing Price</h3>
+
+    <ul>
+        <li>We now calculate the average of 50 days closing prices starting from 16<sup>th</sup> March 2005</li>
+
+        <li>In cell C51, enter the following formula:
+            <pre>
+=AVERAGE(B2:B51)
+</pre>
+
+            <p><img src='images/29_entering_average_formula.png' alt="" /></p>
+        </li>
+
+        <li>The correct average closing price is shown in cell C51</li>
+
+        <li>Fill all the cells below C4 by selecting cell C51 and then double-click on the small square located at the bottom right corner:
+
+            <p><img src='images/30_dragging_square.png' alt="" /></p>
+        </li>
+
+        <li>You will see a result similar to this:
+
+            <p>
+                <a href='images/31_average_formula_result.png'><img src='images/31_average_formula_result.png' height='200' alt="" /></a>
+                <br />
+                <span class="footnote">Click on the image to see its original size</span></p>
+        </li>
+
+        <li>Select all cells in the column <tt>50-day Average</tt> starting from C51</li>
+
+        <li>Right click on the selected cells and select <tt>Format Cells...</tt></li>
+
+        <li>The <tt>Format Cells</tt> dialog pops up like this:
+
+            <p>
+                <a href='images/32_format_cells_dialog.png'><img src='images/32_format_cells_dialog.png' height='200' alt="" /></a>
+                <br />
+                <span class="footnote">Click on the image to see its original size</span></p>
+        </li>
+
+        <li>In order to round the values to 2 decimal place select <tt>Number</tt> in the <tt>Category</tt> and set the <tt>Decimal Places</tt> to 2, like this:
+
+            <p>
+                <a href='images/33_set_number.png'><img src='images/33_set_number.png' height='200' alt="" /></a>
+                <br />
+                <span class="footnote">Click on the image to see its original size</span></p>
+        </li>
+
+        <li>Click the <tt>OK</tt> button to apply the settings</li>
+
+        <li>The result will look similar to this:
+
+            <p>
+                <a href='images/34_formatted_50_day_average_column.png'><img src='images/34_formatted_50_day_average_column.png' height='200' alt="" /></a>
+                <br />
+                <span class="footnote">Click on the image to see its original size</span></p>
+        </li>
+    </ul>
+
+    <h2 id='s5'>5. Building the Formulas to Perform the Trading Strategy</h2>
+
+    <h3 id="s5_1">5.1. Inserting Formulas for Making the Decision</h3>
+
+    <ul>
+        <li id="video_04" >This video shows the steps to build the formulas to perform the trading strategy
+                <br>
+            <video height="600" controls>
+                        <source src="videos/04_building_data.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                        </video>
+            <br>
+            The video can be downloaded <a href="videos/04_building_data.mp4">here</a>
+        </li>
+
+        <li>Using the Excel file we have made we can now add the trading strategy formula</li>
+
+        <li>The logic of the trading strategy formula is:
+
+            <ul>
+                <li>If the closing price of today is higher than the 50-day average, we suggest 'Buy'</li>
+
+                <li>Otherwise, we suggest 'Sell'</li>
+            </ul>
+        </li>
+
+        <li>The following steps show you how to build the formula in Excel
+
+            <ol>
+                <li>In cell D51, type the following:
+                    <pre>
+=IF(
+</pre>without pressing Enter at this stage, like this:
+
+                    <p><img src='images/35_build_formula_1.png' alt="" /></p>
+                </li>
+
+                <li>If you click on cell B51, you can see the formula is changed to
+                    <pre>
+=IF(<span class='b'>B51</span>
+</pre>
+                    <p><img src='images/36_build_formula_2.png' alt="" /></p>
+                </li>
+
+                <li>Type <tt>&gt;</tt> (the greater than sign) and then click on cell C51, you can see the formula is now:
+                    <pre>
+=IF(<span class='b'>B51</span>&gt;<span class='r'>C51</span>
+</pre>
+
+                    <p><img src='images/37_build_formula_3.png' alt="" /></p>
+                </li>
+
+                <li>Type <tt>&nbsp;&nbsp;, "Buy", </tt> so that the formula becomes
+                    <pre>
+=IF(<span class='b'>B51</span>&gt;<span class='r'>C51</span>, "Buy"
+</pre>
+
+                    <p><img src='images/38_build_formula_4.png' alt="" /></p>
+                </li>
+
+                <li>Type <tt>&nbsp;&nbsp;, "Sell")&nbsp;&nbsp;</tt> to complete the formula and press enter
+
+                    <p><img src='images/41_build_formula_7.png' alt="" /></p>
+
+                    <ul>
+                        <li>The complete formula is:
+                            <pre style='width:750px'>
+=IF(<span class='b'>B51</span>&gt;<span class='r'>C51</span>, "Buy", "Sell")
+</pre>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>After typing in the formula in cell D51, the rest of the column should be filled with the same formula by double-clicking on the small square in bottom right. Please leave the cells in the first 49 rows empty, like this:
+
+                    <p>
+                        <a href='images/43_prediction_formula_completed.png'><img src='images/43_prediction_formula_completed.png' height='200' alt="" /></a>
+                        <br />
+                        <span class="footnote">Click on the image to see its original size</span></p>
+                </li>
+            </ol>
+        </li>
+    </ul>
+
+    <h3 id="s5_2">5.2. Aligning the Data</h3>
+
+    <ul>
+        <li>You can center the alignment of the data in the <tt>Suggestion</tt> column to make it look better</li>
+
+        <li>Select all the cells in column D</li>
+
+        <li>Select the <tt>Home</tt> tab in the ribbon area</li>
+
+        <li>Click on the <tt>Center</tt> button under the group <tt>Alignment</tt> to center-align the cells, like this:
+
+            <p>
+                <a href='images/44_centering.png'><img src='images/44_centering.png' height='200' alt="" /></a>
+                <br />
+                <span class="footnote">Click on the image to see its original size</span></p>
+        </li>
+
+        <li>You will see a result similar to this:
+
+            <p>
+                <a href='images/45_centered_result.png'><img src='images/45_centered_result.png' height='200' alt="" /></a>
+                <br />
+                <span class="footnote">Click on the image to see its original size</span></p>
+        </li>
+    </ul>
+
+    <h3 id="s5_3">5.3. Saving Your Work</h3>
+
+    <ul>
+        <li>At this stage, you have completed the trading strategy implementation using Excel</li>
+
+        <li>Remember to save your work</li>
+    </ul>
+
+    <h2 id="s6">6. Testing the Trading Strategy</h2>
+
+    <ul>
+        <li>You have completed the trading strategy</li>
+
+        <li>We can now test if using the strategy outperforms the HSI during the time period you are assessing</li>
+
+        <li>We will simulate the capital flow by following the suggestions of the strategy</li>
+    </ul>
+
+    <h3 id="s6_1">6.1. Adding a Column for the Trading Simulation</h3>
+
+    <ul>
+
+        <li id="video_05" >This video shows the steps to add columns for the trading simulation (section 6.1-6.3)
+                <br>
+            <video height="600" controls>
+                        <source src="videos/05_testing_part1.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                        </video>
+            <br>
+            The video can be downloaded <a href="videos/05_testing_part1.mp4">here</a>
+        </li>
+
+        <li>First of all, we need to add a new column to store any cash we have</li>
+
+        <li>Add a new column <tt>Cash</tt> by typing <tt>Cash</tt> in cell E1</li>
+
+        <li>Put 100000 into cell E2 to E50 which simulates your starting capital</li>
+
+        <li>Select all the cells below E1 of the column <tt>Cash</tt></li>
+
+        <li>Right click on the selected cells and select <tt>Format Cells...</tt></li>
+
+        <li>The <tt>Format Cells</tt> dialog pops up</li>
+
+        <ul>
+            <li>There are many useful categories on the left</li>
+            <li>By using these cell formats, we can easily ensure consistency of how the data would look (even on different computers)</li>
+            <li><tt>Currency</tt> and <tt>Percentage</tt> are two examples of commonly used formats</li>
+        </ul>
+
+        <li>Select <tt>Currency</tt> in the <tt>Category</tt> and then set the <tt>Decimal Places</tt> to 0, like this:
+
+            <p>
+                <a href='images/46_currency_settings.png'><img src='images/46_currency_settings.png' height='200' alt="" /></a>
+                <br />
+                <span class="footnote">Click on the image to see its original size</span></p>
+        </li>
+
+        <li>Click on the <tt>OK</tt> button to apply the changes</li>
+
+        <li>Note that sometimes your computer may have a different default currency format to what we have shown above</li>
+
+        <li>If you like, you can choose to display another one from the <tt>Symbol</tt> box</li>
+    </ul>
+
+    <h3 id="s6_2">6.2. Adding a Column for the Simulation of Stock Held</h3>
+
+    <ul>
+        <li>Next, we need to add another column to store any stock you are currently holding</li>
+
+        <li>Add the new column by typing <tt>Stock Held</tt> in cell F1</li>
+
+        <li>Center align all the cells in this column</li>
+
+        <li>At the very beginning put 0 into cell F2 to F50 which simulates that you are not holding any stock</li>
+
+    </ul>
+
+    <h3 id="s6_3">6.3. Adding a Column for the Total Capital</h3>
+
+    <ul>
+        <li>In order to trace the total capital we have, we add a new column <tt>Capital</tt></li>
+
+        <li>Type <tt>Capital</tt> in cell G1 to add the new column</li>
+
+        <li>Format the cells in the column <tt>Capital</tt> into <tt>Currency</tt> and set the <tt>Decimal Places</tt> to 0 in the same way you handled the cells in the <tt>Cash</tt> column</li>
+    </ul>
+
+    <h3 id="s6_4">6.4. Inserting Formulas for Simulation</h3>
+
+    <ul>
+
+        <li id="video_06" >This video shows the steps to insert formulas for simulation
+                <br>
+            <video height="600" controls>
+                        <source src="videos/05_testing_part2.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                        </video>
+            <br>
+            The video can be downloaded <a href="videos/05_testing_part2.mp4">here</a>
+        </li>
+
+        <li>The formulas for simulating the amount of stock held according to the trading strategy suggestions work this way:
+
+            <ul>
+                <li>If the suggestion is 'Buy' we calculate the amount of stock we bought</li>
+
+                <li>Otherwise, the number of stock held becomes 0 since we sold all our stock</li>
+            </ul>
+        </li>
+
+        <li>Here is a flowchart which explains the if statement:
+            <p>
+                <a href='images/49_flowchart_for_stock_held.png'><img src='images/49_flowchart_for_stock_held.png' alt="" /></a>
+                <br />
+                <span class="footnote">Click on the image to see its original size</span></p>
+        </li>
+
+        <li>The formula looks like this:
+            <pre>
+=IF(<span class='b'>D51</span>="Buy", <span class='r'>F50</span>+FLOOR<span class='r'>(</span><span style="color:purple">E50</span>/<span class='g'>B51</span>,1<span class='r'>)</span>, 0)
+</pre>
+        </li>
+
+        <li>The above formula is put into cell F51 and fills all the cells below F51 by selecting cell F51 and then double-clicking the square, like this:
+
+            <p>
+                <a href='images/50_formula_for_stock_held.png'><img src='images/50_formula_for_stock_held.png' height='200' alt="" /></a>
+                <br />
+                <span class="footnote">Click on the image to see its original size</span></p>
+        </li>
+
+        <li>The <tt>FLOOR</tt> function in the above formula is used to calculate the amount of stock we can buy, rounding down to the nearest integer
+            <ul>
+                <li>For example:
+                    <ul>
+                        <li><tt>FLOOR(3.2, 1)</tt> gives you 3</li>
+                        <li><tt>FLOOR(2, 1)</tt> gives you 2</li>
+                        <li><tt>FLOOR(10.8, 1)</tt> gives you 10</li>
+                    </ul>
+                </li>
+                <li>The second value <tt>1</tt> given to the <tt>FLOOR</tt> function means rounding down the fraction to the units place of the number</li>
+            </ul>
+        </li>
+
+        <li>Similar to the amount of stock held simulation formula, we have the following formula for simulating the cash flow:
+            <pre style='width:900px'>
+=IF(<span class='b'>D51</span>="Buy", <span class='r'>E50</span>-FLOOR<span class='r'>(E50</span>/<span style="color:purple">B51</span>,1<span class='r'>)</span>*<span style="color:purple">B51</span>, E50</span>+<span class='g'>F50</span>*<span style="color:purple">B51</span>)
+</pre>
+        </li>
+
+        <li>The formula means:
+            <ul>
+                <li>If the suggestion is 'Buy', we use all our money to buy as much stock as we can</li>
+
+                <li>Otherwise, we sell all the stock we have</li>
+
+            </ul>
+        </li>
+
+        <li>Here is a flowchart which explains the if statement:
+            <p>
+                <a href='images/47_flowchart_for_cash.png'><img src='images/47_flowchart_for_cash.png' alt="" /></a>
+                <br />
+                <span class="footnote">Click on the image to see its original size</span></p>
+        </li>
+
+        <li>Put the above formula into cell E51 and fill all the cells below E51 by selecting cell E51 and then double-clicking the square, like this:
+
+            <p>
+                <a href='images/48_formula_for_cash.png'><img src='images/48_formula_for_cash.png' height='200' alt="" /></a>
+                <br />
+                <span class="footnote">Click on the image to see its original size</span></p>
+        </li>
+
+        <li>Finally, we want to know how our capital changes over time</li>
+
+        <li><tt>Capital</tt> basically means how much you own</li>
+
+        <li>So our capital is the total cash we have plus the value of the stock we hold</li>
+
+        <li>Put the following formula into cell G2:
+            <pre>
+=<span class='b'>E2</span>+<span class='r'>F2</span>*<span style="color:purple">B2</span>
+</pre>
+        </li>
+
+        <li>Double-click on the little square to fill all the cells in the column <tt>Capital</tt>, like this:
+
+            <p>
+                <a href='images/51_formula_for_capital.png'><img src='images/51_formula_for_capital.png' height='200' alt="" /></a>
+                <br />
+                <span class="footnote">Click on the image to see its original size</span></p>
+        </li>
+        <li>Note that a cell will display <code>########</code> if it is not wide enough to display its content
+
+            <ul>
+                    <li>You can fix this by simply making the column wider</li>
+            </ul>
+
+        </li>
+
+    </ul>
+
+    <h3 id="s6_5">6.5. Showing the Capital Growth is Larger Than the HSI Growth</h3>
+
+    <ul>
+
+        <li id="video_07" >This video shows the steps to compare the capital growth with the HSI growth
+                <br>
+            <video height="600" controls>
+                        <source src="videos/05_testing_part3.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                        </video>
+            <br>
+            The video can be downloaded <a href="videos/05_testing_part3.mp4">here</a>
+        </li>
+
+        <li>If you look at the lowest cell in the <tt>Capital</tt> column and compare it with cell G2, you can see there is more than 100% growth</li>
+
+        <li>At the same time, the closing price of HSI is at about 50% growth</li>
+
+        <li>We can add two new columns, <tt>HSI Growth</tt> and <tt>Capital Growth</tt> to enable a more precise calculation
+            <ul>
+                <li>Sometimes Excel will help you 'auto-correct' the text from 'HSI' to 'HIS', which is a bit annoying</li>
+                <li>To actually type 'HSI' in the column header, you can type 'HIS' first (Excel will help you change the text to this anyway), press Enter to finish typing, then edit the content of the cell again and change 'HIS' back to 'HSI'</li>
+            </ul>
+        </li>
+
+        <li>Center align the cells of the two columns</li>
+
+        <li>Format the cells in the <tt>Percentage</tt> format with the <tt>Decimal Places</tt> set to 0, like this:
+
+            <p>
+                <a href='images/52_set_percentage.png'><img src='images/52_set_percentage.png' height='200' alt="" /></a>
+                <br />
+                <span class="footnote">Click on the image to see its original size</span></p>
+        </li>
+
+        <li>Put this formula into cell H2 and copy it to all the cells below H2 to calculate the percentage of HSI growth:
+            <pre>
+=(<span class='b'>B2</span>-<span class='b'>$B$2</span>)/<span class='b'>$B$2</span>
+</pre>
+        </li>
+
+        <li>Similarly, put this formula into cell I2 and copy it to all the cells below I2 to calculate the percentage of capital growth:
+            <pre>
+=(<span class='b'>G2</span>-<span class='b'>$G$2</span>)/<span class='b'>$G$2</span>
+</pre>
+        </li>
+
+        <li>You will see a result similar to this:
+
+            <p>
+                <a href='images/53_hsi_and_capital_growth.png'><img src='images/53_hsi_and_capital_growth.png' height='200' alt="" /></a>
+                <br />
+                <span class="footnote">Click on the image to see its original size</span></p>
+        </li>
+
+
+
+        <li>Our strategy is far better than the HSI!</li>
+
+
+
+        <li>We can conclude that the strategy works and outperforms the HSI during the period 1<sup>st</sup> January 2005 to 31<sup>st</sup> August 2019!</li>
+    </ul>
+
+    <h3 id="s6_6">6.6. Plotting a Graph to Contrast the Capital Growth Against the HSI Growth</h3>
+
+    <ul>
+
+        <li id="video_08" >This video shows the steps to plot a graph to contrast the capital growth aganist the HSI growth
+                <br>
+            <video height="600" controls>
+                        <source src="videos/06_chart.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                        </video>
+            <br>
+            The video can be downloaded <a href="videos/06_chart.mp4">here</a>
+        </li>
+        <li>We can plot a graph to compare the capital growth and the growth of the HSI using the following steps:
+
+            <ol>
+                <li>Scroll back to the top of the worksheet</li>
+
+                <li>Select the columns <tt>Date</tt>, <tt>HSI Growth</tt> and <tt>Capital Growth</tt> by first clicking on column A, and then holding the <tt>Ctrl</tt> key and clicking on the columns H and I</li>
+
+                <li>On the ribbon select the <tt>Insert</tt> tab</li>
+
+                <li>Click the <tt>Line</tt> button under the <tt>Charts</tt> group</li>
+
+                <li>Under the group <tt>2-D Line</tt>, select <tt>Line</tt>:
+
+                    <p>
+                        <a href='images/54_insert_line_chart_button.png'><img src='images/54_insert_line_chart_button.png' height='200' alt="" /></a>
+                        <br />
+                        <span class="footnote">Click on the image to see its original size</span></p>
+
+                    <p>You can see a chart has been added to the worksheet, like this:</p>
+
+                    <p>
+                        <a href='images/55_chart_inserted.png'><img src='images/55_chart_inserted.png' height='200' alt="" /></a>
+                        <br />
+                        <span class="footnote">Click on the image to see its original size</span></p>
+                </li>
+
+                <li>The labels for the x-axis are not clearly shown. In order to fix it, right click any of the labels on the x-axis and select <tt>Format Axis...</tt>
+
+                    <ul>
+                        <li>
+                            <p>The <tt>Format Axis</tt> options box will be shown on the right of the worksheet, like this:</p>
+
+                            <p>
+                                <a href='images/56_format_axis_dialog.png'><img src='images/56_format_axis_dialog.png' height='200' alt="" /></a>
+                                <br />
+                                <span class="footnote">Click on the image to see its original size</span></p>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>Expand the <tt>Labels</tt> settings and change the <tt>Label Position</tt> from <tt>Next to Axis</tt> to <tt>Low</tt> so that he labels are put at the bottom rather than near the x-axis:
+
+                    <p><img src='images/57_set_axis_labels.png' alt="" /></p>
+                </li>
+
+                <li>The chart is updated with the labels for the x-axis put outside the plot area</li>
+
+                <li>Finally, you can remove the chart title by clicking on it and pressing <em>Delete</em> on your keyboard, like this:
+
+                    <p>
+                        <a href='images/58_better_chart.png'><img src='images/58_better_chart.png' height='200' alt="" /></a>
+                        <br />
+                        <span class="footnote">Click on the image to see its original size</span></p>
+                </li>
+            </ol>
+        </li>
+
+        <li>You can now use the chart to see how the capital changes according to the trading strategy, applied to the HSI</li>
+
+        <li>Remember to save your work</li>
+    </ul>
+
+    <h2 id="the_result">The Result</h2>
+
+    <ul>
+
+        <li>
+            Check the first 55 data rows:
+            <p>
+                <a href='images/the_result_first_55rows.png'><img src='images/the_result_first_55rows.png' height='200' alt="" /></a>
+                <br />
+                <span class="footnote">Click on the image to see its original size</span></p>
+        </li>
+        <li>Move the chart near the top of the Excel worksheet</li>
+        <li>Resize the chart appropriately so that the comparison between the trading strategy and the Hong Kong market is clearly shown on the chart</li>
+
+        <li>Here is the suggested result:
+
+                <p>
+                        <a href='images/the_result.png'><img src='images/the_result.png' height='200' alt="" /></a>
+                        <br />
+                        <span class="footnote">Click on the image to see its original size</span></p>
+
+
+        </li>
+    </ul>
+
+    <h2 id="submission">Submission</h2>
+    <ul>
+        <li>You don't need to submit this work, but you may keep a copy of your own work for your reference</li>
+
+        <li>Anything you save on the lab computer will probably be automatically wiped when you leave the computer!</li>
+
+        <li>So make sure you save a copy away from the lab computer</li>
+
+        <li>For example, you can put your work in your USB disk (if you have one) or email a copy to yourself</li>
+    </ul>
+
+    <h2 id="further_work">Possible Further Work</h2>
+
+    <ul>
+        <li>You have finished the trading strategy simulation and verified the strategy works for the time period used in this lab</li>
+
+        <li>However, the strategy may fail during certain times
+        </li>
+
+        <li>If you want to, you can grab data from that time period and test if the strategy works</li>
+
+        <li>You could also try to change the number of days used to calculate the average to see if you can improve the strategy performance</li>
+
+        <li>Also, in a rare yet possible situation, the average price may be equal to the stock price, but this is not handled by our strategy</li>
+
+        <ul>
+            <li>You could think about extending it by using another IF() inside the original IF() formula, like this:
+                <pre>
+=IF(<span class='b'>B51</span>&gt;<span class='r'>C51</span>, "Buy", IF<span class='r'>(</span><span class='b'>B51</span>&lt;<span class='r'>C51</span>, "Sell", "Hold"<span class='r'>)</span>)
+</pre>
+            </li>
+
+            <li>Of course, you still need to go further to adjust the formulas in the simulation part!</li>
+        </ul>
+    </ul>
+</body>
+
+</html>

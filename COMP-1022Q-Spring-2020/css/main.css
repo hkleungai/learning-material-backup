@@ -1,0 +1,112 @@
+body { font-size: 14px; font-family: Arial, sans-serif; color: #404040; background: aliceblue; padding: 0; margin: 0; }
+
+h1 { font-size: 32px; text-shadow: 2px 2px 2px lightgray; margin: 0; margin-right: 120px; padding: 10px 15px; display: block; }
+    h1 .course { color: #007fff; font-weight: normal !important; display: block; }
+    h1 .semester { color: #404040; font-weight: normal !important; font-size: 26px; padding-top: 5px; display: block; }
+    h1 .title { color: #404040; font-weight: normal !important; padding-top: 5px; display: block; }
+h2 { font-size: 26px; color: #007fff; padding-bottom: 5px; }
+/*
+h2 { font-size: 24px; color: RoyalBlue; border-bottom: 1px dotted RoyalBlue; text-align: center; }
+*/
+h3 { font-size: 20px; color: DarkSlateBlue; text-align: center; }
+h4 { font-size: 18px; color: black; text-align: center; }
+h5 { font-size: 16px; color: black; text-decoration: underline; }
+
+code { font-family: Consola, Courier New, Monospace; }
+
+#shortcuts { position: fixed; top: 5px; right: 10px; font-size: 11px; margin: 0; padding: 10px; background: white; border-radius: 10px; box-shadow: 2px 2px 2px #808080; z-index: 999; }
+    #shortcuts > div { margin-bottom: 5px; }
+    #shortcuts > div:last-child { margin-bottom: 0; }
+
+div.content { margin: 10px 15px; }
+
+div.table { }
+    div.table div.col-header,
+    div.table div.col-data { background: white; padding: 5px; }
+    div.table div.col-header { font-weight: bold; text-align: center; background: #e4e0dc; }
+    div.table div.col-data { border-left: 1px solid #e4e0dc; border-top: 1px solid #e0e0e0; }
+    div.table div.col-data:last-child { border-right: 1px solid #e4e0dc; }
+    div.table div.row:last-child div.col-data { border-bottom: 1px solid #e0e0e0; }
+
+div.main-table { }
+    div.main-table div.row-break div.col { background: none; }
+@media (max-width: 767.98px) {
+    div.main-table div.col-sub { background: none; text-decoration: underline; }
+    div.main-table div.col-data { border-top: none; border-right: 1px solid #e4e0dc; }
+    div.main-table div.col-data:last-child { border-bottom: 1px solid #e4e0dc !important; }
+    div.main-table div.row:last-child div.col-data { border-bottom: none; }
+}
+
+div.week { padding: 5px 0; width: 100%; text-align: center; font-weight: bold; }
+
+table.calendar { border-top: 1px solid gray; border-bottom: 1px solid gray; border-spacing: 0; border-collapse: collapse; width: 100%; margin-bottom: 10px; }
+    table.calendar th, table.calendar td { width: 14.28%; text-align: center; border: none; padding: 2px 0; font-size: 11px; background: white; font-weight: bold; }
+    table.calendar th.month { color: blue; padding: 2px 5px; }
+    table.calendar td.dim { color: #c0c0c0; background: #f0f0f0; }
+    table.calendar th.sunday, table.calendar td.sunday { color: red; }
+    table.calendar th.holiday, table.calendar td.holiday { color: red; background: #f0c000; }
+
+table.schedule { border-spacing: 0; border-collapse: collapse; margin: auto; width: auto; background: white; }
+    table.schedule th, table.schedule td { border: none; font-size: 9px; background: white; text-align: left; padding: 0; padding-bottom: 1px; }
+    table.schedule tr:last-child th, table.schedule tr:last-child td { padding-bottom: 10px; }
+    table.schedule td { padding-left: 4px; }
+
+ul.main, ul.sub { padding: 0; margin: 0; margin-left: 30px; list-style: none; line-height: 18px; }
+    ul.sub { padding-top: 0; margin-left: 20px; color: #444; }
+    ul.main li:before, ul.sub li:before { content: ""; background: url(silk_icons.png) no-repeat -145px -937px; display: block; top: 16px; height: 16px; width: 16px; margin-top: -15px; margin-left: -22px; position: relative; }
+    ul.main li { margin: 10px 0; }
+    ul.sub li { font-size: 13px; margin: 0; }
+    li.pdf:before { background-position: -985px -1176px !important; }
+    li.info:before { background-position: -845px -105px !important; }
+    li.book:before { background-position: -144px -207px !important; }
+    li.archive:before { background-position: -985px -700px !important; }
+    li.folder:before { background-position: -705px -376px !important; }
+    li.lab:before { background-position: -425px -241px !important; }
+    li.schedule:before { background-position: -286px -20px !important; }
+    li.film:before { background-position: -705px -88px !important; }
+    li.game:before { background-position: -425px -480px !important; }
+    li.list:before { background-position: -5px -614px !important; }
+    li.important:before { background-position: -565px -1227px !important; }
+    li.exam:before { background-position: -145px -377px !important; }
+    li.excel:before { background: url(excel_icon.png) no-repeat 0 0 !important; }
+    li.html:before { background-position: -985px -802px !important; }
+
+li.book { color: darkgreen; font-size: 12px !important; }
+
+div.examples { border: 1px solid #e4e0dc; background: white; }
+li.example ul.sub { padding-top: 5px; }
+
+div.information { overflow-y: auto; height: 7.5em; }
+div.information ul.main li { margin: 5px 0; }
+div.information span.date { display: inline-block; color: darkcyan; width: 5em; font-size: 12px; line-height: 14px; text-align: center; font-weight: bold; }
+
+span.title { font-weight: bold; }
+span.pdfs, span.link { font-size: 11px; font-weight: normal; white-space: nowrap; }
+li.lab span.link { font-size: 11px; }
+
+a.timetable { background: url(silk_icons.png) no-repeat -286px -21px; display: inline-block; margin-bottom: -4px; height: 15px; width: 15px; }
+
+.L1 { color: red; }
+.L2 { color: magenta; }
+.L3 { color: blue; }
+.L4 { color: lime; }
+.L5 { color: orange; }
+.LA1 { color: orange; }
+.LA2 { color: cyan; }
+.LA3 { color: maroon; }
+.LA4 { color: green; }
+.LA5 { color: blue; }
+.LA6 { color: magenta; }
+
+a img { border: none; }
+
+/* The following is added for the example pages on 20140207 */
+h2.title { margin: 10px; }
+
+/* The following is added by Wallace */
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:visited { color:#0000C7; }
+
+.center { text-align: center; }
+.box { border: 1px solid black; background: white; }

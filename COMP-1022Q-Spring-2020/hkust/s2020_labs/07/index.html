@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <title>COMP1022Q Lab 7 - Music System</title>
+   <link href="../../../css/lab.css" rel="stylesheet" />
+   <style>
+      img {
+         border: 1px solid grey;
+      }
+
+      pre {
+         width: 65em;
+      }
+
+      pre .comment {
+         color: rgb(0, 128, 0);
+      }
+   </style>
+</head>
+
+<body>
+   <h1>
+      <span class='lab'>COMP1022Q Lab 7</span>
+      <span class='title'>Music System</span>
+   </h1>
+
+   <h2>Using Headphones</h2>
+
+         <ul>
+             <!--<li>Lab computers <strong>DON’T</strong> have speakers</li>-->
+             <li>In this lab, you will make music using a keyboard</li>
+            <li>Laptop speakers are poor at generating low pitch sounds, please <strong>use headphones</strong> to hear
+               everything better</li>
+         </ul>
+
+   <h2>What You Will Learn in This Lab</h2>
+   <ul>
+
+      <li>
+         In this lab you will gain experience in the following areas:
+         <ul>
+            <li>
+               VBA programming
+               <ul>
+                  <li>Using <tt>For</tt> loops to create shapes for the piano keys and play the music</li>
+                  <li>Using a <tt>Function</tt> to check whether a given pitch value should be corresponding to a black key</li>
+                  <li>Using modulus (<tt>Mod</tt>) in the function of checking a black key </li>
+                  <li>Using Shapes
+                     <ul>
+                        <li>Creating shapes</li>
+                        <li>Setting the fill colour and line colour</li>
+                        <li>Assigning an event handler</li>
+                     </ul>
+                  </li>
+               </ul>
+            </li>
+            <li>
+               Excel formulas
+               <ul>
+                  <li>Using named cells to control the speed and the pitch offset of the music </li>
+               </ul>
+            </li>
+         </ul>
+      </li>
+   </ul>
+   <h2>About This Lab</h2>
+   <ul>
+      <li>In this lab you will create a playable music system inside Microsoft Excel</li>
+      <!--<li><strong>You must bring a pair of headphones to the lab to hear the sounds in this lab!</strong></li>-->
+      <li>Laptop speakers are poor at generating low pitch sounds, please <strong>use headphones</strong> to hear
+         everything better</li>
+      <li>
+            This first video illustrates just the first part of the lab, the music keyboard with 2 instruments: piano and guitar
+         <br>
+         <video width="500px;" controls>
+            <source src="keyboard-instruments.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+         </video>
+         <br>
+         <span class="footnote">This video has sound</span>
+         <ul>
+            <li>A direct link to the video is <a href="keyboard-instruments.mp4">here</a></li>
+
+            <li>In this video, we only focus on the demonstration of the keyboard region</li>
+            <li> The lower part of the worksheet is illustrated in the second and the third video in <a href="#play4">section 3.4</a></li>
+         </ul>
+
+      </li>
+
+
+
+      <li>This lab will work on a Mac as well as a PC (but on a Mac you need to be careful of a couple of things,
+         discussed later)</li>
+   </ul>
+   <h2><a name="start"></a>Getting Started</h2>
+   <ul>
+      <li>A zip file (keyboard.zip) is given to you as a starting point
+         <a href="keyboard.zip">here</a> (right click on the link, select 'Save Target As' or something similar)
+      </li>
+      <li>It is a compressed file containing the Excel file (keyboard.xlsm) and sound files inside the sounds folder
+      </li>
+      <li>Please download the file into your local hard disk, and extract (decompress) everything:<br />
+         <img src="images/extract_all.png" alt="Extract all" />
+      </li>
+      <li><strong>WARNING: If you do not extract the files properly, you will not be able to hear sound and you cannot
+            finish the lab</strong></li>
+      <li><b>If you are using a PC</b>, you can put the files (the Excel file and the soundfiles) almost anywhere</li>
+      <li><b>If you are using a Mac</b>:</li>
+      <ul>
+         <li>Recently, programs on a Mac which read files will only be able to do that if they are in a folder where it
+            is OK to do that</li>
+         <li>Our program will use lots of sound files</li>
+         <li>So if you are using a Mac you need to put the Excel file (and the sound files) in a folder where programs
+            can read files</li>
+         <li>Here is an example:
+            <ul>
+               <li>In Mac Finder, select Go > Go to Folder... <br>
+                  <img src="images/mac_finder_go.png" alt="Mac Finder Dialog" />
+
+               </li>
+               <li>Copy and paste the following path: <i>/Users/<b>your username</b>/Library/Group
+                     Containers/UBF8T346G9.Office </i> </li>
+               <li>Please note that you need to replace <i>your username</i> with your own username </li>
+               <li>On a Mac, you must put both your Excel file and the sound files in a folder (e.g., <i>keyboard</i>)
+                  here inside this folder</li>
+            </ul>
+         </li>
+
+
+      </ul>
+      <li>After you finish your work please remember to store it somewhere safe (e.g. your USB disk)</li>
+   </ul>
+   <h2>Overview</h2>
+   <ul>
+      <li>
+         Here is an overview of the system structure of the lab:
+         <p><a href="images/overview.png"><img src="images/overview.png" width="800" alt="System Structure" /></a><br />
+            <span class="footnote">Click on the image to see it in its original size</span>
+         </p>
+      </li>
+      <li>
+         Here are the steps for building this project:
+         <ol>
+            <li><a href="#generate">Write the VBA Code to Generate the Piano Keys</a></li>
+            <ul class="none">
+               <li>1.1. <a href="#generate1">The piano keyboard</a></li>
+               <li>1.2. <a href="#generate2">Use modulus</a></li>
+               <li>1.3. <a href="#generate3">Create the white keys</a></li>
+               <li>1.4. <a href="#generate4">Create the black keys</a></li>
+               <li>1.5. <a href="#generate5">Try out the keyboard</a></li>
+            </ul>
+            <li><a href="#assign">Assign Sounds to the Keys</a></li>
+            <ul class="none">
+               <li>2.1. <a href="#assign1">Receive calls from shapes</a></li>
+               <li>2.2. <a href="#assign2">Set action to shapes</a></li>
+               <li>2.3. <a href="#assign3">Try out the keyboard</a></li>
+               <li>2.4. <a href="#assign4">Change the musical instrument</a></li>
+            </ul>
+      </li>
+      <li><a href="#play">Playback of Recorded Music Notes</a></li>
+      <ul class="none">
+         <li>3.1. <a href="#play1">Add a play button</a></li>
+         <li>3.2. <a href="#play2">Use named cells</a></li>
+         <li>3.3. <a href="#play3">Play the music</a></li>
+         <li>3.4. <a href="#play4">Play the music using different speed and pitch offset</a></li>
+      </ul>
+      <li><a href="#future_work">Possible Further Work</a></li>
+      </ol>
+      </li>
+   </ul>
+
+	<h2 id="pre-recorded-videos">Pre-recorded videos</h2>
+    <ul>
+        <li>The following videos have sound. Please turn on your speaker or use your headphone to watch the videos</li>
+        <li>The following videos provide step-by-step instructions to help students complete the lab
+
+            <ul>
+               <li><a href="https://hkust.zoom.us/rec/play/7517JLuo_Do3E9TG5gSDA6VxW47ve_is1SZM-6UMxE2zVnJRNAGmZrFENLGtnp9uByzqVKu0kyjIcjcJ?autoplay=true&startTime=1584406813000" target="_blank">Supplementary: Getting started for multimedia Excel labs in Mac (for Mac users only)</a></li>
+
+               <li><a href="https://hkust.zoom.us/rec/share/z8VxAuyzxm5JGNLR4mf_XbQzOp66T6a8gXAX-PVYyU8LdWb0UQlQ7afCui1LYE6C?startTime=1584935250000" target="_blank">Part 1 - Learning Outcomes and Demonstration of the Lab Result</a></li>
+               <li><a href="https://hkust.zoom.us/rec/share/ufN1P63i12VLRInDsRr4Sq05WdX3X6a80ygYqacMmJQ46NfVxJH_0evmLcoOVco?startTime=1584939135000" target="_blank">Part 2 - Generate the Piano Keys</a></li>
+               <li><a href="https://hkust.zoom.us/rec/share/_JZ6BpXs1mBOXdLK8U2He4UjN7voaaa80HJNqPdbz0jYA4ycP5dH1TS8EDSQgNem?startTime=1584940960000" target="_blank">Part 3 - Assign sounds to the keys</a></li>
+               <li><a href="https://hkust.zoom.us/rec/share/-O92NJrA2TtLEq_N6Gj7ar5mG6vOX6a80SlMrvRfzEeR771FJbbIiGfgU-pSwJYA?startTime=1584941913000" target="_blank">Part 4 - Playback of Recorded Music Notes</a></li>
+               <li><a href="https://hkust.zoom.us/rec/share/78gsMJbu0GpOadKV7HvSfqIMR4G7X6a8gSMc86ZfyR1YbTGTE52XHXWymUbyu4HO?startTime=1585889069000" target="_blank">Part 5 -  Music Demonstration (Animal Crossing: New Horizons) </a></li>
+
+            </ul>
+
+        </li>
+        <li><em>For the recorded videos , I tried to record the human voices loudly to help students follow the instructions. The
+           sound volume of the piano notes may not be very clear.
+
+           <br> But if you follow the instructions carefully, you should be able to hear the piano notes on your computer.
+        </em></li>
+
+    </ul>
+
+
+
+   <h2><a name="generate"></a>1. Write the VBA Code to Generate the Piano Keys</h2>
+   <h3><a name="generate1"></a>1.1. The piano keyboard</h3>
+   <ul>
+      <li>There are 88 keys on a standard piano keyboard (shown in the next image)</li>
+      <li>The black and white keys form a repeating pattern</li>
+      <li>You can use Excel shapes to represent the piano keys</li>
+      <li>This shapes can be generated efficiently using a loop</li>
+      <li>We use a number to represent the pitch
+
+         <ul>
+            <li>The range of the number is from 0 to 127</li>
+            <li>A small number means low pitch and a large number means high pitch</li>
+            <li>
+               The relationship of the pitch number and the key position in a standard piano keyboard is shown below:
+               <p><img src="images/piano_pitch_relation.png" alt="Pitch and Piano Relationship" /><br />
+                  <span class="footnote">The pitch numbers are shown on the keys</span>
+               </p>
+            </li>
+         </ul>
+      </li>
+      <li>
+         In the module <tt>Module1</tt>, <tt>PianoGenerator()</tt>, feel free to choose values which make keys at the
+         size you like,
+         here are some suggested values:
+         <ul>
+            <li>Width of each key could be <i>20</i></li>
+            <li>Height of each key could be <i>100</i></li>
+         </ul>
+      </li>
+      <li>
+         The basic idea of this subroutine is:<br />
+         <pre><span class="todo" style="color:black">Set Width of each key to an appropriate value (e.g. 20)
+Set Height of each key to an appropriate value (e.g. 100)
+
+<span class="comment">' Now we generate the white keys. Please refer to Part 1.2 and Part 1.3: White keys</span>
+For Pitch from 21 to 108
+	If this pitch is not a black key
+		Draw the white key
+		Move to the next position
+	End If
+Next Pitch
+
+<span class="comment">' Now we generate the black keys. Please refer to Part 1.4: Black keys</span>
+For Pitch from 21 to 108
+	If this pitch is a black key
+		Draw the black key
+	Else
+		Move to the next position
+	End If
+Next Pitch
+Set action to all shapes</span></pre>
+      </li>
+   </ul>
+   <h3><a name="generate2"></a>1.2. Use modulus</h3>
+   <ul>
+      <li>As you know, Modulus (Mod) is a useful tool to help generate a pattern</li>
+      <li>The piano keyboard repeats the same pattern for every 12 pitches</li>
+      <li>If you observe carefully, you will notice that for the black keys, the result of <em>Pitch Mod 12</em> is
+         always: 1, 3, 6, 8, or 10<br />
+         <img src="images/keyboard-mod.png" alt="Modulus on keyboard pitches" width="500" />
+      </li>
+      <li>
+         You can build a function to make this decision independent to the main subroutine, like this:<br />
+         <pre><span class="res">Function</span> IsBlackKey(ThisPitch)
+<span class="todo">. . . ' If the result of ThisPitch mod 12 is 1, 3, 6, 8, or 10
+. . . ' the function should output True
+. . . ' otherwise output False</span>
+<span class="res">End Function</span></pre>
+      </li>
+      <ul>
+         <li>Remember in VBA a Function always returns an answer</li>
+         <li>
+            In VBA, if you want to compare if <tt>x</tt> is equal to <tt>a</tt> or <tt>b</tt>, you CANNOT write it like this:<br />
+            <pre>x = a <span class="res">Or</span> b <span class="comment">' This is only an example. You CANNOT do this!</span></pre>
+         </li>
+         <li>
+            You have to write it like this:<br />
+            <pre>x = a <span class="res">Or</span> x = b <span class="comment">' This is the same example written correctly</span></pre>
+         </li>
+         <li>Note that the function needs to be created outside any subroutines i.e. outside <tt>PianoGenerator()</tt>
+         </li>
+      </ul>
+      <li>A VBA function is the same as a subroutine, except that it returns an answer</li>
+      <ul>
+         <li>In this function <tt>IsBlackKey()</tt>, a boolean value True or False is returned</li>
+      </ul>
+      <li>Then you can continue your work in <tt>PianoGenerator()</tt></li>
+      <li>
+         Before you move on, you could test your function by (for example):<br />
+         <pre>MsgBox IsBlackKey(60) <span class="comment">' And then try other pitch numbers</span></pre>
+      </li>
+      <ul>
+         <li>As you can see from the image above, 60 is a white key, and so the function should return False</li>
+      </ul>
+      <li>If it works fine, you can now write the <tt>If</tt> statement to see if a pitch number should be a white key
+         or not</li>
+      <li>
+         You need to draw the white keys first, so we need to find out keys which are NOT black keys, like this:<br />
+         <pre><span class="res">If Not</span> IsBlackKey(Pitch) <span class="res">Then</span>
+<span class="todo">. . . You may use a MsgBox to see how the function is behaving</span>
+<span class="res">End If</span></pre>
+      </li>
+   </ul>
+   <h3><a name="generate3"></a>1.3. Create the white keys</h3>
+   <ul>
+      <li>Your work continues in the subroutine <tt>PianoGenerator()</tt></li>
+      <li>
+         Inside the <tt>For</tt> loop and <tt>If</tt> statement we created above, you need to create the white keys as
+         shapes like in the following:<br />
+         <pre><span class="todo" style="color:black">For Pitch from 21 to 108
+	If the pitch is not a black key
+		Create a shape
+		Set fill color to be white and line color to be black
+		Set shape name appropriately
+		Move to the next position
+	End If
+Next Pitch</span></pre>
+      </li>
+      <li>
+         You can start creating the white keys using <tt>AddShape()</tt>, like this:<br />
+         <pre><span class="res">Set</span> Key = ActiveSheet.Shapes.AddShape( <span class="todo">type</span>, <span class="todo">left</span>, <span class="todo">top</span>, <span class="todo">width</span>, <span class="todo">height</span> )</pre>
+      </li>
+      <ul>
+         <li><em style="color:red">type</em>: The type of shape we use should be <tt>msoShapeRectangle</tt> since the
+            keys are rectangular</li>
+         <li><em style="color:red">left</em>: The left position will be different for each key in the keyboard, and it
+            is stored in the <tt>LeftPos</tt> variable</li>
+         <li><em style="color:red">top</em>: The top position for all shapes are the same, as stored in the given
+            variable <tt>TopPos</tt> variable</li>
+         <li><em style="color:red">width</em> / <em style="color:red">height</em>: Given in the variables with the same
+            name</li>
+      </ul>
+      <li>
+         Then, you can set up the color of the key to be white with a black outline:<br />
+         <pre>Key.Fill.ForeColor.RGB = vbWhite <span class="comment">' Set the color of the shape to white</span>
+Key.Line.ForeColor.RGB = vbBlack <span class="comment">' Set the border line color to be black</span></pre>
+      </li>
+      <li>Finally you can set the shape name to be the word &quot;Pitch&quot; together with the pitch number, e.g. the
+         shape for pitch 60 should have a name of <tt>Pitch60</tt></li>
+      <ul>
+         <li>Set the shape name using the <tt>.Name</tt> property of the shape <tt>key</tt></li>
+         <li><em>Hint:</em> You can directly use the string concatenation operator <tt>&</tt> even if the number is an
+            integer</li>
+         <li>This shape name will be used later in <a href="#assign1">Part 2.1</a> </li>
+      </ul>
+      <li>After drawing one shape, you need to increase the value of the <tt>LeftPos</tt> variable by the width of a key
+      </li>
+      <li>You do that so the next shape will be drawn on the right of the current one</li>
+      <p>
+         <li>You may now run the subroutine and you should see that the white keys are created neatly, like this:<br />
+            <img src="images/keyboard-white.png" alt="The keyboard with white keys only" />
+         </li>
+   </ul>
+   <h3><a name="generate4"></a>1.4. Create the black keys</h3>
+   <ul>
+      <li>Your work continues in the subroutine <tt>PianoGenerator()</tt></li>
+      <li>When you create a new shape, it is drawn on top of all the existing shapes</li>
+      <li>That is why you have to draw the black keys only after drawing the white keys</li>
+      <li>After you draw the white keys using a loop, you will draw the black keys in a new loop</li>
+      <li>Before that, you have to reset <tt>LeftPos</tt> to be the same as the value it was before running the white
+         key loop!</li>
+      <li>
+         Create a new <tt>For</tt> loop which also loops through Pitch being 21 to 108, like in the following:<br />
+         <pre><span class="todo" style="color:black">Reset LeftPos to be the starting position
+For Pitch from 21 to 108
+	If the pitch is a black key
+		Create a shape
+		Set fill color and line color to be black
+		Set shape name appropriately
+	Else
+		Move to the next position
+	End If
+Next Pitch</span></pre>
+         <ul>
+            <li>The <tt>If</tt> statement checks if the pitch should be a black key</li>
+            <li>This can be done by calling the function <tt>IsBlackKey()</tt> again</li>
+            <li>Note that we change the <tt>LeftPos</tt> variable using the <tt>Else</tt> case, since the black key
+               positions depend heavily on the white key positions</li>
+         </ul>
+      <li>The black keys on an actual piano are smaller than the white keys</li>
+      <li>Here are suggested values for the shape:</li>
+      <ul>
+         <li><em style="color:red">left</em>: <tt>LeftPos - Width * 0.385</tt></li>
+         <li><em style="color:red">top</em>: Same as all the other shapes</li>
+         <li><em style="color:red">width</em>: <tt>Width * 0.77</tt></li>
+         <li><em style="color:red">height</em>: <tt>Height * 0.65</tt></li>
+         <li>These numbers come from measurements on an actual piano keyboard and give you a nice result</li>
+      </ul>
+   </ul>
+   <h3><a name="generate5"></a>1.5. Try out the keyboard</h3>
+   <ul>
+      <li>The subroutine <tt>PianoGenerator()</tt> is triggered by <strong>Ctrl-Shift-L</strong></li>
+      <li>When you run the <tt>PianoGenerator()</tt> subroutine, you should see that the piano keyboard is created</li>
+      <li>Your piano should look like this:<br />
+         <img src="images/keyboard-complete.png" alt="The keyboard" />
+      </li>
+      <ul>
+         <li>If your black keys are aligned wrongly, check and make sure that the <tt>LeftPos</tt> variable is changed
+            in the Else case (white keys) in the black key loop</li>
+      </ul>
+
+      <li>At this stage when you click on the keys nothing happens yet, and no sound can be heard</li>
+      <li>We will link these keys to the sound files in the next section</li>
+      <li>You can delete all the piano key shapes
+         <ul>
+            <li>select one of the shapes</li>
+            <li>press Ctrl-A to select all the shapes</li>
+            <li>press Delete to delete the selected shapes</li>
+         </ul>
+      </li>
+   </ul>
+
+   <h2><a name="assign"></a>2. Assign sounds to the keys</h2>
+   <h3><a name="assign1"></a>2.1. Receive calls from shapes</h3>
+   <ul>
+      <li>Inside <tt>Module1</tt>, there is an incomplete subroutine <tt>PlayKey()</tt> for you to finish</li>
+      <li>Every time a shape is clicked on, the subroutine <tt>PlayKey()</tt> will be triggered</li>
+      <li>This subroutine will receive calls from the shapes, build the sound file name to be played by another
+         subroutine</li>
+      <ul>
+         <li>A &quot;call&quot; is made when a shape triggers a VBA subroutine</li>
+      </ul>
+      <li>
+         First, you can obtain the shape name using this command:<br />
+
+         <pre>ShapeName = Application.Caller</pre>
+      </li>
+      <li><tt>Application.Caller</tt> tells you which shape was clicked, like this:<br />
+         <img src="images/caller.png" alt="Caller command" />
+      <li>You need the pitch number to play the appropriate sound file</li>
+      <li>
+         You will then extract only the pitch number (e.g. 60 from <tt>Pitch60</tt>) from <tt>ShapeName</tt> using the
+         <tt>Mid()</tt> function, into the <tt>Pitch</tt> variable, like this:<br />
+         <pre>
+            Pitch = Mid( <span class="todo">. . .</span> )
+         </li>
+         <li><tt>Mid()</tt> refers to <strong>middle</strong> and is useful to extract text from the middle of another</li>
+         <li>
+            A basic usage of <tt>Mid()</tt> is:
+            <pre>Mid(<span class="todo">text</span>, <span class="todo">start</span>, <span class="todo">length (optional)</span>)</pre>
+      </li>
+      <ul>
+         <li>The command takes the <em style="color:red">length</em> from <em style="color:red">text</em> starting from
+            <em style="color:red">start</em>, e.g.</li>
+         <ul>
+            <li><tt>Mid("Hong Kong", 6, 1)</tt> returns <tt>"K"</tt></li>
+            <li><tt>Mid("Pitch10", 6, 2)</tt> returns <tt>"10"</tt></li>
+            <li><tt>Mid("Pitch100", 6, 2)</tt> returns <tt>"10"</tt> (but that's not something that you want!)</li>
+            <li><tt>Mid("Pitch100", 6, 3)</tt> returns <tt>"100"</tt></li>
+         </ul>
+         <li>If <tt>length</tt> is not specified, Mid() will take the string from <tt>start</tt> all the way to the end
+         </li>
+         <ul>
+            <li><tt>Mid("Pitch100", 6)</tt> returns <tt>"100"</tt></li>
+         </ul>
+      </ul>
+      <li>The sound files we give you are named <tt>piano000.wav</tt>, <tt>piano001.wav</tt>, ..., <tt>piano127.wav</tt>
+         with 3 digits denoting the pitch number</li>
+      <li>
+         So, after you obtain the pitch number from the shape name, you need to put <tt>"00"</tt> in the front if it is
+         smaller than 10, or <tt>"0"</tt> in front if it is smaller than 100, using this code:<br />
+         <pre><span class="res">If</span> Len(Pitch) = 1 <span class="res">Then</span> <span class="comment">' To handle the pitches 0, 1, ..., 9</span>
+	Pitch = "00" & Pitch
+<span class="res">ElseIf</span> Len(Pitch) = 2 <span class="res">Then</span> <span class="comment">' To handle the pitches 10, 11, ..., 99</span>
+	Pitch = "0" & Pitch
+<span class="res">End If</span> <span class="comment">' If the length is 3 (for pitches 100-127), nothing needs to be done</span></pre>
+      </li>
+
+      <li>This <tt>Pitch</tt> variable will be used to build the path to the sound file to be played</li>
+      <li>If you directly &quot;Run&quot; this subroutine, you will see an error</li>
+      <li>This is because you have to trigger <tt>PlayKey()</tt> from a shape, so that <tt>Application.Caller</tt> can
+         match a proper shape name with the pitch number</li>
+      <li>This <tt>PlayKey()</tt> can only be tested after the next part is finished</li>
+      <li>Then you will be able to test it by clicking on the shapes so that the shapes will call <tt>PlayKey()</tt>
+      </li>
+   </ul>
+   <h3><a name="assign2"></a>2.2. Set action to shapes</h3>
+   <ul>
+      <li>Now you can set up the linkage between the shapes and the receiving subroutine <tt>PlayKey()</tt></li>
+      <li>As will be explained in the lecture slides <strong>Using a Shape as a Button</strong>, you can assign a macro
+         to a shape</li>
+      <li>This can be done using VBA code as well</li>
+      <li>Let's continue to work at the end of the <tt>PianoGenerator()</tt> subroutine</li>
+      <li>
+         For example, for pitch 60 you can do this using the <tt>.OnAction</tt> property:<br />
+         <pre>Sheets("Keyboard").Shapes("Pitch60").OnAction = "'PlayKey'"</pre>
+      </li>
+      <ul>
+         <li>This is the same as right clicking on the shape and assigning the macro <tt>PlayKey()</tt></li>
+         <li>The quotation marks " and ' around <tt>PlayKey</tt> are intended and necessary, even though they look weird
+         </li>
+      </ul>
+      <li>If you run this command, clicking on the shape called <tt>Pitch60</tt> will now play a sound</li>
+      <ul>
+         <li>If you <strong>hear no sound</strong>, check these:</li>
+         <ol>
+            <li>Have you got your earphones plugged in?</li>
+            <li>Is the plug firmly inserted into the correct (headphone) socket?</li>
+            <li>Is the volume too low?</li>
+         </ol>
+         <li>If you <strong>hear unexpected sounds</strong>, check these:</li>
+         <ol>
+            <li>Did you extract the Excel file together with the sound files in the first place?</li>
+            <li>Did you put the Excel file (keyboard.xlsm) into the same folder together with the &quot;sounds&quot;
+               folder?</li>
+         </ol>
+      </ul>
+      <li>It is however impractical to set the action one by one for all the 88 keys of a piano!</li>
+      <li>Therefore you need to set up a loop to repeat this statement, with a changing pitch number</li>
+      <li>You need to design this loop yourself, with the help of the <tt>&</tt> operator</li>
+      <p>
+   </ul>
+   <h3><a name="assign3"></a>2.3. Try out the keyboard</h3>
+   <ul>
+      <li>At this stage, you have a working piano keyboard</li>
+      <li>You can run the <tt>PianoGenerator()</tt> subroutine and try to play the piano using your mouse</li>
+      <ul>
+         <li>Notice you should run <tt>PianoGenerator()</tt> but not <tt>PlayKey()</tt>, since <tt>PlayKey()</tt>
+            expects only shapes to trigger it</li>
+      </ul>
+      <li>If you have a touch-screen, you can even play the keyboard with your fingers!</li>
+   </ul>
+   <h3><a name="assign4"></a>2.4. Change the musical instrument</h3>
+   <ul>
+
+      <li>We have provided some more sounds you can choose from</li>
+      <li>
+         At the moment the variable <tt>FilePath</tt> is built using:<br />
+         <pre>Instrument = Range("B1")
+FilePath = ThisWorkbook.Path &amp; "/sounds/" &amp; Instrument &amp; "/" &amp; Instrument &amp; Pitch &amp; ".wav"</pre>
+      </li>
+
+
+      <li>The starting file (keyboard.zip) we gave you includes sound files for both piano and guitar sounds
+
+      </li>
+      <li>If you replace the word <strong>piano</strong> to <strong>guitar</strong> in the cell B1,
+         you should hear guitar sounds when playing on the keyboard</li>
+   </ul>
+   <h4><a name="assign41"></a>2.4.1. More instruments to choose from</h4>
+   <ul>
+      <li>At this moment you can only use the <strong>piano</strong> and <strong>guitar</strong> sound files, because
+         they were included in the starting code</li>
+      <li>If you want to enhance your sound library, you have to carefully download the following files (according to
+         your interest), and extract the folder carefully into the <tt>sounds</tt> folder</li>
+      <ul>
+         <li><a href="sounds/bass.zip">bass</a></li>
+         <li><a href="sounds/cello.zip">cello</a></li>
+         <li><a href="sounds/clarinet.zip">clarinet</a></li>
+         <li><a href="sounds/flute.zip">flute</a></li>
+         <li><a href="sounds/harpsichord.zip">harpsichord</a></li>
+         <li><a href="sounds/saxophone.zip">saxophone</a></li>
+         <li><a href="sounds/trumpet.zip">trumpet</a></li>
+         <li><a href="sounds/xylophone.zip">xylophone</a></li>
+      </ul>
+      <li>The new instrument folders MUST go into the same location as the <tt>piano</tt> and <tt>guitar</tt> folders
+      </li>
+      <li>After this, you can enter the instrument name into the cell B1 (e.g. <strong>saxophone</strong>) and play the
+         keyboard again to hear it</li>
+   </ul>
+
+   <h3><a name="play"></a>3. Playback of Recorded Music Notes</h3>
+
+   <h4><a name="play1"></a>3.1 Add a Play Button </h4>
+
+   <ul>
+      <li>You can either use a Shape as a button, or the button described in GUI Controls
+
+         <ul>
+            <li>If you decide to use a Shape to run the play music Subroutine, you need to right-click the shape, and
+               then choose <tt>Assign Macro...</tt> from the drop-down menu</li>
+            <li>If you decide to use a Shape to run the play music Subroutine, be careful! The shape will be deleted
+               when the piano keys are re-generated
+               <ul>
+                  <li>That's because the shapes are deleted when the piano keys are re-generated in the
+                     <tt>PianoGenerator()</tt> subroutine (to remove any previously created music keyboard)</li>
+               </ul>
+            </li>
+
+            <li>If you want to use a Shape to run the play music Subroutine, give the shape a name such as
+               <tt>PlayButton</tt>
+               <ul>
+                  <li>This will ensure the Shape is not deleted when the piano keys are re-generated</li>
+               </ul>
+            </li>
+
+            <li>If you use a button GUI control to run the play music Subroutine, you won't have the problems mentioned
+               above for using a shape
+
+               <ul>
+                  <li>That's because a button GUI control isn't a shape, so it won't get deleted when shapes are deleted
+                  </li>
+               </ul>
+
+
+            </li>
+
+
+         </ul>
+
+      </li>
+
+   </ul>
+
+   <h4><a name="play2"></a>3.2 Use named cells </h4>
+   <ul>
+      <li>For the first named cell, the following discussion assumes it is named <tt>Speed</tt>, please use that name
+         for the cell
+
+         <ul>
+            <li>You can set the default value to <tt>1</tt> (i.e. no speed change)</li>
+         </ul>
+
+      </li>
+
+      <li>For the second named cell, the following discussion assumes it is names <tt>PitchOffset</tt>, please use that
+         name for the cell
+
+         <ul>
+            <li>You can set the default value to <tt>0</tt> (i.e. no pitch offset is applied)</li>
+         </ul>
+      </li>
+
+      <li>You can place the play button and the named cells anywhere as you like</li>
+      <li>Here is the sample look-and-feel of the play button and the named cells. You can use your own style
+         <br>
+         <img src="images/sample_button_named_cells.png" alt="Sample Play Button and the Named Cells" />
+      </li>
+      <li>For example, in the demonstration videos in <a href="#play4">section 3.4</a>, the named cells are placed in <tt>C15</tt> and <tt>C16</tt>,
+         and the play button is placed just below the named cells </li>
+
+   </ul>
+
+   <h4><a name="play3"></a> 3.3 Play the Music</h4>
+   <ul>
+      <li>Any area in the worksheet can be used to store music data </li>
+      <ul>
+         <li>Two columns are used:</li>
+         <ul>
+            <li>The first column contains the time when the music note occurs</li>
+            <li>The second column contains the pitch number of the music note (a number from 0 to 127 inclusive)</li>
+         </ul>
+      </ul>
+      <li>The following list gives you a few songs using our 2 column format:
+         <ul>
+            <li><a href="songs/sample_song.txt">A sample song</a> - this is used in the second and the third demo video,
+               below</li>
+            <li><a href="songs/happy_birthday.txt">Happy Birthday</a> - <i>Clarinet</i> is perhaps the best instrument
+               to use when you play this music</li>
+            <li><a href="songs/twinkle_twinkle_little_star.txt">Twinkle Twinkle Little Star</a> - <i>Piano</i> is
+               perhaps the best instrument to use when you play this music</li>
+            <li><a href="songs/let_it_go_frozen.txt">Let It Go (Frozen, Disney) </a> - <i>Piano</i> is perhaps the best
+               instrument to use when you play this music</li>
+         </ul>
+      </li>
+
+      <li>In the following example, you can copy and paste the sample song to the region <tt>F13:G28</tt>
+
+      <li><b>You have to do a special type of paste to put the music data into 2 columns of Excel cells:</b></li>
+      <ul>
+         <li>First click on the text file link above and look at the text file in the browser</li>
+         <li>Then select everything in the text file e.g. do <i>Ctrl-A</i> if you are using a PC</li>
+         <li>Now switch to Excel</li>
+         <li>Right-click on the top left cell where you want to paste (e.g. <tt>F13</tt>, in this example)</li>
+         <li> Choose <tt>Paste Special...</tt> from the drop down menu
+
+            <ul>
+               <li>In Windows, choose <tt>Paste Special...</tt> from the drop down menu</li>
+               <li>In Mac, choose <tt>Paste Special</tt>, and then choose <tt>Paste Special...</tt> from the drop down menu</li>
+            </ul>
+
+         </li>
+         <li>In the dialog box, select <tt>Text</tt> and click <tt>Ok</tt></li>
+         <li>The music data should now be in <b>2 Excel columns</b> (not 1 column)</li>
+      </ul>
+      </li>
+
+      <li>Now let's discuss how to play the music data</li>
+      <li>First, select the top left cell of the music you want to play on the worksheet</li>
+      <li>For example, to play the music, you can select <tt>F13</tt> (i.e. the top left cell of the music data):
+
+
+
+         <br>
+
+         <img src="images/selected_music.png" alt="Selected Music" />
+
+
+      </li>
+      <li> The first column is the start time in term of second</li>
+      <li>The second column is the pitch value</li>
+      <li>In the example above, the following sequence of notes are played:
+         <br>
+         <tt>70, 71, 70, 69, 68, 67, 66, 65, 64, 63, 62, 61, 60, 59, 58, 57</tt>
+
+      </li>
+
+
+
+      <li>After you have selected the top left corner of the music you want to play, you can then
+         execute a Subroutine to play the music</li>
+
+      <li>We adopt a naming scheme for the sound files (in .wav format). For example, the sound files of the piano are as follows:
+         <br>
+         <img style="border:0px;" src="images/filenames.png">
+
+      </li>
+
+      <li>The flowchart of the <tt>PlayMusic</tt> subroutine:
+         <br>
+         <a href="images/flowchart_playmusic.png">
+         <img src="images/flowchart_playmusic.png">
+         </a>
+         <br>
+         <span class="footnote">Click on the image to see it in its original size</span>
+
+      </li>
+      <li>The Subroutine to play the music is given to you:
+         <pre><span class="res">Sub</span> PlayMusic()
+    <span class="res">Dim</span> Row <span class="res">As Integer</span>, Column <span class="res">As Integer</span>
+    <span class="res">Dim</span> FirstRow <span class="res">As Integer</span>, LastRow <span class="res">As Integer</span>
+    <span class="res">Dim</span> ThisNoteTime <span class="res">As Double</span>, CurrentTime <span class="res">As Double</span>
+
+    <span class="comment">' Get the current time</span>
+    StartTime = Timer  <span class="comment">' Timer is a VBA Function that tells you the time right now</span>
+
+    <span class="comment">' Store the size and location of the selected music</span>
+    Row = ActiveCell.Row  <span class="comment">' .Row tells you the row of that cell (a number)</span>
+    Column = ActiveCell.Column <span class="comment">' .Column tells you the column of that cell (a number)</span>
+
+    <span class="comment">' Now let's get ready to play the music</span>
+    <span class="comment">' Before running this code, the user selected the top left corner of the music data</span>
+    FirstRow = Row <span class="comment">' We will start playing the music from the row of the top left corner</span>
+
+    <span class="comment">' Play the music notes until we encounter an empty cell (meaning no more music data)</span>
+    <span class="res">While</span>  Cells(Row, Column).Value &lt;&gt; ""   <span class="comment">' While there is something in the cell</span>
+
+        <span class="comment">' This while loop repeatedly executes again and again,</span>
+        <span class="comment">' until the appropriate duration (the length of the time between 2 notes) </span>
+        <span class="comment">' has passed. Only then will it move on to the next row of music data.</span>
+
+        <span class="comment">' Work out how long we have to wait</span>
+        <span class="comment">' We do that by subtracting the time of this note from the time of the first note</span>
+        ThisNoteTime = Cells(Row, Column).Value - Cells(FirstRow, Column).Value
+
+        <span class="comment">' Work out how long we have actually waited</span>
+        <span class="comment">' We do that by subtracting the time of this note from the current time</span>
+        CurrentTime = Timer - StartTime  <span class="comment">' Timer is a function that tells you the time now</span>
+
+        <span class="comment">' We repeatedly check the time we have waited, until we have waited enough time</span>
+        <span class="comment">' After we have waited enough time, then we can play the note</span>
+        <span class="res">If</span> ThisNoteTime < CurrentTime <span class="res">Then</span>
+
+            <span class="comment">' Here we select the current row of music which is being played.</span>
+            <span class="comment">' This is not really necessary for playing the music, but it</span>
+            <span class="comment">' is helpful to see exactly which line of music data is being played.</span>
+            Cells(Row, Column).Select
+
+            <span class="comment">' If the pitch is a single digit number e.g. 6 then we need to convert it</span>
+            <span class="comment">'   to "006", because "006" is used in the sound filename containing the sound </span>
+            <span class="comment">' If the pitch is a double digit number e.g. 72 then we need to convert it</span>
+            <span class="comment">'   to "072", because "072" is used in the sound filename containing the sound </span>
+            Pitch = Cells(Row, Column + 1).Value
+            <span class="res">If</span> Len(Pitch) = 2 <span class="res">Then</span>
+                Pitch = "0" & Pitch <span class="comment">' Add a single zero at the front</span>
+            <span class="res">ElseIf</span> Len(Pitch) = 1 <span class="res">Then</span>
+                Pitch = "00" & Pitch <span class="comment">' Add two zeros at the front</span>
+            <span class="res">End If</span>
+
+            <span class="comment">' Get the instrument name from the worksheet e.g. piano</span>
+            Instrument = Range("B1").Value
+
+            <span class="comment">' Now we need to build the complete path, including the filename</span>
+            FilePath = ThisWorkbook.Path & "/sounds/" & Instrument & _
+                "/" & Instrument & Pitch & ".wav"
+
+            <span class="comment">' If you want to check what FilePath looks like, do  MsgBox FilePath</span>
+
+            <span class="comment">' Now we execute the PlayFile subroutine, it will play the sound file</span>
+            PlayFile FilePath
+
+            <span class="comment">' Move to the next row of music data</span>
+            Row = Row + 1
+        <span class="res">End If</span>
+
+        <span class="comment">' DoEvents helps to make sure Excel updates the display, and other things</span>
+        <span class="comment">' Possibly, you may not need to do it for this project, to be safe we will include it</span>
+        DoEvents
+    <span class="res">Wend</span>
+
+  <span class="comment">' Now we select the cell in the top left corner</span>
+  <span class="comment">' This helps when you play the music more than once</span>
+  Cells(FirstRow, Column).Select <span class="comment">' .Select is the same as if you clicked on the cell</span>
+
+<span class="res">End Sub</span>
+</pre>
+      </li>
+
+      <li>Try to understand the code</li>
+      <li>Some useful illustrations:
+         <pre>MsgBox Range("B3").Row</pre> will show the number 3, which is the row of the cell</pre>
+         <pre>MsgBox Range("B3").Column</pre> will show the number 2, which is the column of the cell</pre>
+         <pre>Range("B3").Select</pre> means cell B3 is selected (as if you clicked on it)</pre>
+      </li>
+
+
+   </ul>
+
+   <h4><a name="play4"></a> 3.4 Play the Music Using Different Speed and Pitch Offset</h4>
+
+
+   <ul>
+
+      <li>
+         This second video illustrates the playback of music using different speed.
+         <br>
+         <video width="1024" height="576" controls>
+            <source src="keyboard-speed.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+         </video>
+         <br>
+         <span class="footnote">This video has sound</span>
+         <ul>
+            <li>A direct link to the video is <a href="keyboard-speed.mp4">here</a></li>
+            <li>Small circles are shown in the video when clicks occur. They are added for illustration purposes, you
+               won't see the circles in your Excel project</li>
+         </ul>
+
+      </li>
+
+      <li>
+         This third video illustrates the playback of music using different pitch offset
+         <br>
+         <video width="1024" height="576" controls>
+            <source src="keyboard-pitch-offset.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+         </video>
+         <br>
+         <span class="footnote">This video has sound</span>
+         <ul>
+            <li>A direct link to the video is <a href="keyboard-pitch-offset.mp4">here</a></li>
+            <li>Small circles are shown in the video when clicks occur. They are added for illustration purposes, you
+               won't see the circles in your Excel project</li>
+            <li>Laptop speakers are poor at generating low pitch sounds, please <strong>use headphones</strong> to hear
+               everything better</li>
+         </ul>
+
+      </li>
+
+
+
+      <li>In cell <tt>I13</tt>, add the following formula (Speed is a named cell):
+
+         <pre>=F13 * Speed</pre>
+
+
+         where <tt>F13</tt> is the top left corner of the music data
+      </li>
+
+
+
+      <li>
+         In cell <tt>J13</tt>, add the following formula (PitchOffset is a named cell):
+
+         <pre>=G13 + PitchOffset</pre>
+
+         where <tt>G13</tt> is the cell on the right of the top left corner of the music data
+
+      </li>
+
+      <li>Copy these 2 formulas and paste them underneath</li>
+      <ul>
+         <li> For example, if the original music is from rows 13 to 28, these 2 formulas
+            could also be copied from row 13 to row 28</li>
+      </ul>
+
+
+      <li>Here is an example result, with <tt>Speed</tt> equal to 2 and <tt>PitchOffset</tt> equal to 12:
+         <br>
+         <img src="images/after.png" alt="After the speed and pitch offset are changed" />
+      </li>
+
+      <li>To play the new version of the music:</li>
+      <ul>
+         <li>Select the top left corner of the new music area i.e. cell <tt>I13</tt> </li>
+         <li>Press <tt>Ctrl-Shift-P</tt>, or click the play button</li>
+      </ul>
+   </ul>
+
+
+   <h2 id="future_work">4. Possible Further Work</h2>
+   <ul>
+      <li>In this lab, we used Excel formulas to change the speed and the pitch offset of music data </li>
+      <ul>
+         <li>Two named cells were used to control the speed and the pitch offset</li>
+      </ul>
+      <li>From the <strong>GUI Controls</strong> lecture
+         [
+         <a
+            href="../../../hkust/s2020_notes/29_basic_gui_controls/29_1022q_basic_gui_controls_s2020_bw.pdf#page=22">B&W</a>,
+         <a
+            href="../../../hkust/s2020_notes/29_basic_gui_controls/29_1022q_basic_gui_controls_s2020.pdf#page=22">colour</a>
+         ] and [ <a
+            href="../../../hkust/s2020_notes/29_basic_gui_controls/examples/index.html">examples
+            used in the notes</a> ],
+
+            you know that sliders can be used to control the value of the two cells used for changing speed and changing pitch values 
+      </li>
+      <li>Adding sliders would make this program more user-friendly. For example,
+         <br>
+         <img src="images/sliders.png">
+      </li>
+   </ul>
+
+    <h2><a name="submission" id="submission" />Submission</h2>
+
+    <ul>
+        <li><strong>You have to submit this lab work</strong></li>
+        <li>You only need to submit your Excel file, probably called <strong>keyboard.xlsm</strong>
+            <ul>
+                <li>The xlsm file format must be used in order to keep the VBA code, and we discussed the correct method to save the Excel file in <a href="../02/#savefile">lab2</a></li>
+            </ul>
+        </li>
+		<li>Enter your name and student ID number in cell D1, so it can be easily seen</li>
+        <li>The marking scheme of the lab is <a href="marking_scheme.html">here</a></li>
+		<li><strong>You only have to submit the Excel file (keyboard.xlsm) this time</strong></li>
+		<li><strong>Don't submit any sound files or zip files</strong></li>
+        <li>You need to submit your work <strong>before 15 May 11:59pm</strong>
+            to the COMP1022Q Canvas site here:
+        <p>
+            <a target="blank" href="https://canvas.ust.hk/courses/29889/assignments/109874">https://canvas.ust.hk/courses/29889/assignments/109874</a>
+        </p>
+        </li>
+        <li><b>Submit your work early</b>, days before the deadline!</li>
+        <li>If you find that you have made a mistake after you have submitted your work, you can submit again, as many times as you like, BEFORE the deadline
+            <ul>
+                <li>We will mark the most recent submission which is before the deadline</li>
+            </ul>
+	    </li>
+	</ul>
+
+
+</body>
+
+</html>
