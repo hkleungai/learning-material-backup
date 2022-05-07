@@ -44,6 +44,11 @@ const categorizedCourses: CategorizedCourses = {
       code: 'COMP 1021',
       title: 'Introduction to Computer Science',
       semesters: ['Spring 2022'],
+    },
+    {
+      code: 'COMP 1022Q',
+      title: 'Introduction to Computing with Excel VBA',
+      semesters: ['Spring 2020'],
     }
   ],
   'Machine Learning': [
@@ -59,6 +64,11 @@ const categorizedCourses: CategorizedCourses = {
     }
   ],
   'Object-oriented Programming': [
+    {
+      code: 'COMP 2011',
+      title: 'Programming with C++',
+      semesters: ['Fall 2021'],
+    },
     {
       code: 'COMP 2012',
       title: 'Object-Oriented Programming and Data Structures',

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>COMP2011 Lab 3</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+
+  <!-- For code highlighting -->
+  <script src='../sh/shCore.js' type='text/javascript'></script>
+  <!--script src='./sh/shAutoloader.js' type='text/javascript'></script-->
+  <script src='../sh/shBrushCpp.js' type='text/javascript'></script>
+  <script src='../sh/loadcode.js' type='text/javascript'></script>
+  <link href='../sh/shCore.css' rel='stylesheet' type='text/css'>
+  <link href='../sh/shThemeDefault.css' rel='stylesheet' type='text/css'>
+
+  <style>
+    .input {
+      color: #00ff00;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">COMP2011 Lab 3</div>
+      <div class="list-group list-group-flush">
+        <a href="#Intro" class="list-group-item list-group-item-action bg-light">Introduction</a>
+        <a href="#Task" class="list-group-item list-group-item-action bg-light">Tasks</a>
+        <a href="#Output" class="list-group-item list-group-item-action bg-light">Expected Output</a>
+        <a href="#Help" class="list-group-item list-group-item-action bg-light">Help</a>
+        <a href="#Grade" class="list-group-item list-group-item-action bg-light">Grading Scheme</a>
+        <span class="list-group-item list-group-item-action bg-light">Prepared by: <a href="mailto:hwubl@cse.ust.hk">Huimin Wu</a></span>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+      	<div class="col-sm-9">
+        <span class="navbar-toggler-icon" id="menu-toggle"></span>
+		</div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/">Course Webpage</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/forum.html">Online Forum</a>
+            </li>
+            <!--li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li-->
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid border-bottom my-5" id="Intro">
+      	<div class="col-sm-12 col-lg-12 container">
+      	<h1>COMP2011 Lab 3</h1><br/>
+      	<figure class="figure mx-auto d-block">
+<img src="stable-filtering.png" class="figure-img mx-auto d-block" width=
+60% alt="Responsive image" style="max-width:800px;"> <figcaption class="figure-caption text-right
+">https://www.comodo.com/business-security/email-security/antispam-gateway.php</figcaption>
+      	</figure>
+        </div>
+
+        <h2 class="mt-4">Introduction</h2>
+		<p>In this lab, you will practice function definition and calling by implementing filtering of a given list numbers. Please take <a href="./skeleton.cpp">skeleton code</a> as your starting point and complete all the function definitions in lab3.cpp.</p>
+
+
+      <div class="container-fluid border-bottom my-5" id="Task">
+      	<h2 class="mt-4">Tasks</h2>
+	  <p>
+The main goal of this lab is to implement several number analysis functions including digit occurrence counting, index finding and filtering.<br />
+Let's explain the functions with is an example. <br />
+Given a number, such as <strong>12343456</strong>, 
+<ol>
+	<li>
+	The digit <b> occurrence counting</b> function is able to count how many times a digit, such as <strong>3</strong>, appears in that number, which, in this case, should be <strong>2</strong> in the sense that dight 3 occurs twice.
+	</li>
+	<li>
+	The <b>index finding</b> function is to return the position (index, starts with 0) of a digit at its n-th occurrence where n is specified by the user. For example, <strong>the first occurrence of the digit 1 is at index 0</strong> and the <strong>second occurrence of the digit 4 is at index 5</strong>.
+	</li>
+	<li>
+	The <b>filtering function</b> is to find out all digits that satisfy some criteria. Here we only consider occurrence criteria by printing all digits in a number that occur more than t times where t is specified by the user. For example, digits that occurs more than once are: 34. Also, the digits should be listed in an ascending order.
+	</li>
+</ol>
+</p>
+<p>
+An interactive interface will be shown waiting for a user's instruction to proceed, which is able to support functions listed as below:
+<ul>
+  <li>occurrence counting: calculating how many times a user-specified digit occurs in a user-specified number;</li>
+  <li>index finding: finding the index of the n-th occurrence (specified by the user as "order") of a user-specified digit in a user-specified number;</li>
+  <li>filtering by occurrence: printing all the digits in a user-specified number that occur more than a user-specified number of times.</li>
+  <li>quiting.</li>
+
+</ul>
+</p>
+      </div>
+      
+
+
+      <div class="container-fluid border-bottom my-5" id="Output">
+	      <h2 class="mt-4">Expected Output</h2>
+	    
+        <p>The following are some sample output.</p>
+
+<pre class="shadow p-3 mb-5 bg-white rounded">
+===========================================
+Choose what to do next:
+1: Occurrence counting
+2: Index finding
+3: Filtering by occurrence
+4: Quit
+1
+Please enter a number (0 to 4294967295):12343456
+Please enter the digit-of-interest:4
+Digit 4 occurs 2 times.
+===========================================
+Choose what to do next:
+1: Occurrence counting
+2: Index finding
+3: Filtering by occurrence
+4: Quit
+2
+Please enter a number (0 to 4294967295):12343456
+Please enter the digit-of-interest:4
+Please enter the order of that digit:2
+The 2nd occurrence of digit 4 is at 5.
+===========================================
+Choose what to do next:
+1: Occurrence counting
+2: Index finding
+3: Filtering by occurrence
+4: Quit
+2
+Please enter a number (0 to 4294967295):12343456
+Please enter the digit-of-interest:2
+Please enter the order of that digit:2
+The 2nd occurrence of digit 2 is at -1.
+===========================================
+Choose what to do next:
+1: Occurrence counting
+2: Index finding
+3: Filtering by occurrence
+4: Quit
+3
+Please enter a number (0 to 4294967295):12343456
+Please enter the occurrence threshold:1
+Digits occurs more than 1 times are: 3 4
+===========================================
+Choose what to do next:
+1: Occurrence counting
+2: Index finding
+3: Filtering by occurrence
+4: Quit
+4
+</pre>
+
+
+	  </div>
+
+
+
+
+
+    
+          <div class="container-fluid border-bottom my-5" id="Grade">
+            <h2 class="mt-4">Grading Scheme</h2>
+            <p>Each lab carries 3 points in total. 
+			<UL>
+			<LI>
+			By attending a lab, a student gets 1 point for attendnace (but only if it is clear that the student does put in some effort). 
+			</LI>
+			<LI>
+			By completing the lab exercise correctly and answering TAs' question (if there is a
+			question) correctly, the student gets the remaining 2 more points. 
+			</LI>
+			</UL>
+			If a student is unable to finish the lab and demonstrate to the TA by the end of the lab, they can only get the attendance point. 
+			
+			<BR>
+			</p>
+          </div>
+
+
+    <div class="mx-auto d-flex justify-content-center"> This lab page is maintained by Huimin Wu (hwubl@cse.ust.hk)</div>
+  </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+
+  </script>
+
+</body>
+
+</html>

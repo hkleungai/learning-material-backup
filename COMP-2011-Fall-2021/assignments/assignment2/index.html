@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>COMP2011 Assignment 2. Auto-Cleaning Machine</title>
+  <!-- Bootstrap core CSS -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="../css/simple-sidebar.css" rel="stylesheet">
+  <!-- For code highlighting -->
+  <script src="./js/prism.js" type="text/javascript"></script>
+  <link href="./css/prism.css" rel="stylesheet" />
+  <style>
+    table {
+      width: 100%;
+      display: inline-block;
+      overflow-x: auto;
+    }
+
+    table caption {
+      font-size: medium;
+    }
+
+    table thead th {
+      background-color: #ddd;
+    }
+
+    table th,
+    table td {
+      text-align: left;
+      padding: 3px 6px;
+      border-width: 1px;
+      border-style: solid;
+      border-color: #aaa #aaa;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #eee;
+    }
+
+    blockquote {
+      border: 1px solid #b3b3b3;
+      border-left: 10px solid #b3b3b3;
+      border-radius: 0px;
+      background: #fafafa;
+      font-size: 18px;
+      font-family: Georgia, serif;
+      margin: 10px;
+      padding: 10px 20px;
+    }
+
+    blockquote p {
+      margin: 0;
+      line-height: 30px;
+      padding-bottom: 20px;
+    }
+
+    blockquote.small {
+      display: block;
+      font-size: 80%;
+      color: brown;
+      text-align: right;
+    }
+
+    img.limit {
+      max-width: 100%
+    }
+
+    span.input {
+      color: #99cc99;
+    }
+
+    span.highlight {
+      color: #279ed9;
+    }
+
+    pre {
+      background: #f5f2f0;
+      padding: 15px;
+    }
+  </style>
+</head>
+
+<!--
+# How to auto indent HTML in vim
+:filetype indent on
+:set filetype=html           # abbrev -  :set ft=html
+:set smartindent             # abbrev -  :set si
+gg=G
+  -->
+
+<body class="language-none">
+  <div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sticky-top">
+        <div class="sidebar-heading">Assignment 2</div>
+        <div class="list-group list-group-flush">
+          <a href="#intro" class="list-group-item list-group-item-action bg-light">1. Introduction</a>
+          <a href="#important" class="list-group-item list-group-item-action bg-light">2. Important requirements</a>
+          <a href="#download" class="list-group-item list-group-item-action bg-light">3. Downloads</a>
+          <a href="#overview" class="list-group-item list-group-item-action bg-light">4. Overview</a>
+          <a href="#given" class="list-group-item list-group-item-action bg-light">5. Given Functions</a>
+          <a href="#tasks" class="list-group-item list-group-item-action bg-light">6. Functions to Implement</a>
+          <a href="#sample" class="list-group-item list-group-item-action bg-light">7. Sample output</a>
+          <a href="#submission" class="list-group-item list-group-item-action bg-light">8. Submission</a>
+          <a href="#faq" class="list-group-item list-group-item-action bg-light">9. FAQ</a>
+          <a href="#expectedOutput" class="list-group-item list-group-item-action bg-light">10. Expected output shown in Zinc</a> <span style='color:red'>(Updated: Oct 29 8:00pm)</span>
+          <a href="#updatelog" class="list-group-item list-group-item-action bg-light">11. Update Log</a>
+          <span class="list-group-item list-group-item-action bg-light">Prepared by: <a
+              href="mailto:jimw@cse.ust.hk">Jimmy Wong</a></span>
+        </div>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="col-sm-9">
+          <span class="navbar-toggler-icon" id="menu-toggle"></span>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/">Course Webpage</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/forum.html">Online Forum</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+
+      <div class="container-fluid border-bottom my-5">
+        <div class="col-sm-12 col-lg-12 container">
+          <h1>COMP2011 Assignment 2. Auto-Cleaning Machine</h1>
+        </div>
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="intro">
+        <h2 class="mt-4">1. Introduction</h2>
+
+        <p>
+          In this programming assignment, you will practice recursion. It is challenging, so you are <b>highly
+            recommended to start early</b>. If you need clarification of the requirements, please feel free to post on
+          the Piazza with the <u>pa2</u> tag. However, to avoid cluttering the forum with repeated/trivial questions,
+          please do <b>read all the given code, webpage description, sample output, and <a href="#faq">latest FAQ</a>
+            (refresh this page regularly) carefully before you post your questions</b>. Also please be reminded that we
+          won't debug for any student's assignment for fairness.
+        </p>
+        <p>
+          You are going to write the internal brain (functions) for an auto cleaning robot. You will need to think about
+          how
+          the robot interprets a given map, considers the constraints from the actual environment and designs an optimal
+          path and solutions. Have fun! :)
+        </p>
+
+
+        <img src="img/auto_cleaning_machine.jpg" height="600px">
+        <!-- 
+        <br>
+        <br>
+      <h4>Story</h4>
+      <p></p> -->
+
+        <h4>About academic integrity</h4>
+        <p>We value academic integrity very highly. Please read the <a
+            href="https://course.cse.ust.hk/comp2011/web/code.html">Honor Code</a> section on our course webpage to make
+          sure you understand what is considered as plagiarism and what the penalties are. The following are some of the
+          highlights:</p>
+
+        <ul>
+          <li>Do NOT try your "luck" - we use sophisticated plagiarism detection software to find cheaters. We also
+            review codes for potential cases manually.</li>
+          <li>The penalty (for <b>BOTH</b> the copier and the copiee) is not just getting a zero in your assignment.
+            Please read the Honor Code thoroughly.</li>
+          <li>Serious offenders will fail the course immediately, and there may be additional disciplinary actions from
+            the department and university, upto and including expulsion.</li>
+        </ul>
+
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="important">
+        <h2 class="mt-4">2. Important requirements</h2>
+        <p>To make the assignment a good practice of writing proper recursions, you will get zero mark if you do not
+          follow any of the following rules. <b>Please check your code before you submit it.</b></p>
+        <ul>
+          <li>You are NOT allowed to use any kind of loops in any part of your submitted code, except for the given
+            function.</li>
+          <li>You are NOT allowed to change our given functions.</li>
+          <ul><li>To be precise: All given functions are in given_function.cpp; your pa2.cpp should NOT have any loops. <span
+            style='color:red'>(Updated: Oct 31 5:50pm)</span></li></ul>
+          <li>You are NOT allowed to use <code>goto</code>.</li>
+          <li>You are NOT allowed to use any global variable, or static variable like <code>static int x</code>.</li>
+          <li>You are NOT allowed to include any additional libraries yourself. Everything you need is already included.
+            Especially, you can only use <code>cstring</code> library, and you cannot use <code>C++ string</code>
+            library.</li>
+          <li>You are NOT allowed to modify any of the given function prototypes including the return types, function
+            names, default values, and parameter lists.</li>
+      </div>
+
+
+
+      <div class="container-fluid border-bottom my-5" id="download">
+        <h2 class="mt-4">3. Download</h2>
+
+        <p>
+          <!-- <br>
+        <b>Starting code</b>
+        <br> -->
+        <p>Download the starting skeleton code package <a href="pa2_skeleton/pa2_skeleton.zip">HERE</a> <span
+            style='color:red'>(Updated: Oct 24 12:50pm)</span>. Please download
+          and open it now, as we will
+          refer to it in the description below. <br />
+          The skeleton code package consists of 4 c++ files, namely, cleaning_robot.h, pa2.cpp, given_functions.cpp, and
+          main.cpp.
+          There is also a text file, map.txt, which contains the map information. More details will be described in the
+          following sections.<br />
+          Your task is to complete 4 functions in pa2.cpp only, and submit it to ZINC.</p>
+        <p>Here are the links for the demo executable:</p>
+        <ul>
+          <li><a href="./demo_program/pa2.exe">Win</a> <span style='color:red'>(Updated: Nov 4 9:02pm)</span></li>
+          <li><a href="#"></a><del>Mac</del> Due to technical problem, we cannnot provide Mac standalone executable
+            without extra files at the moment. Please use <a
+              href="https://itsc.hkust.edu.hk/services/academic-teaching-support/facilities/virtual-barn">Virtual
+              Barn</a> and use the Windows executable for the demo <span style='color:red'>(Updated: Oct 25
+              2:30pm)</span> </li>
+        </ul>
+
+        </p>
+      </div>
+
+
+      <div class="container-fluid border-bottom my-5" id="overview">
+        <h2 class="mt-4">4. Overview</h2>
+        <h3>4.1 Map</h3>
+        <p>We use a text file <code>map.txt</code> to store the initial map we use in the program. We will change this
+          and
+          test with different maps (may also be in different sizes) when we grade your assignment.</p>
+        <p>
+          Here is a map given in the file, <code>map.txt</code>:
+        </p>
+        <pre>
+BBBBBBBBBBB 
+BBBBBBBBB   
+BBB BBB B B 
+B         BB
+B B  B   BB 
+B           
+  C      BB 
+B      C  B 
+BBBB BBBBBB 
+B   C  BB   
+BBBBB     B 
+      BBBBBB</pre>
+        <p>The symbol <code>B</code> means a blocked area, the symbol <code>C</code> means the charger and the empty
+          space (<code>' '</code>) means
+          the
+          available space that the robot can move.</p>
+        <p>
+          We will load the map from <code>map.txt</code> to our program by the given function <code>loadMap</code>:
+        <pre class="language-cpp"><code class="language-cpp">bool loadMap(filename, map)</code></pre>
+
+        </p>
+        <p>Then this map is stored in and can be retrieved by this 2D char array: </p>
+        <pre class="language-cpp"><code class="language-cpp">char map[MAP_HEIGHT][MAP_WIDTH];</code></pre>
+
+        <p>This map is copied to another 2D char array, <code>result_map</code>. It will be passed and may be modified
+          by one of the <code>TODO</code> function:
+        <pre class="language-cpp"><code class="language-cpp">char result_map[MAP_HEIGHT][MAP_WIDTH];</code></pre>
+        </p>
+        <p>
+          In our assignment, the world is in 2D. After setting the position of the robot (symbol <code>R</code>, if we
+          print the
+          above 2D arrays using the given function <code>printMap</code> (which will be
+          discussed in <a href="#given">Given Functions</a>), the output will be shown as follows:
+        </p>
+        <!--code>Output</code>:-->
+        <pre>
+  012345678901
+ --------------
+0|BBBBBBBBBBB |
+1|BBBBBBBBB   |
+2|BBB BBB B B |
+3|B         BB|
+4|B B  B   BB |
+5|B           |
+6|  C      BB |
+7|B      C  B |
+8|BBBB BBBBBB |
+9|B   C  BB   |
+0|BBBBB     B |
+1|      BBBBBB|
+ --------------</pre>
+
+        <p>The world above is with size 12 by 12 (i.e. 12 rows and 12 columns). The type of a particular position can be
+          accessed by <code>map[y][x]</code>, where y is the row index and x is the column index.
+          For example, <code>map[6][2]</code> corresponds to the position (2, 6) and is the symbol 'C'.
+        </p>
+
+        <p>It is important to note that, in C++ programs, it is common for programmers to use the first dimension of a
+          2D
+          array as the row index while the second dimension is used as the column index, due to how the 2D array is
+          actually stored in the memory. Therefore, if the world above is stored in a 2D array map, then the position at
+          (x, y) is actually represented by <code>map[y][x]</code>.</p>
+        <p>Every position in the <code>map</code> will be in one of the following types:</p>
+        <ul>
+          <li>
+            The available area is denoted by <code>' '</code>(empty). It is the place that the robot can move to.
+          </li>
+          <li>
+            The blocked area is denoted by <code>'B'</code>. It is the place that the robot cannot move to.
+          </li>
+          <li>
+            The robot is denoted by <code>'R'</code>.
+          </li>
+          <li>
+            The charger is denoted by <code>'C'</code>. This will be further explained below when
+            we talk about the cleaning robot itself.
+            <!-- When the robot reaches the position of the charger, the robot gets fully charged. -->
+          </li>
+          <li>
+            The visited area is denoted by <code>'V'</code>. It is the place that the robot can visit under
+            certain constraints.
+          </li>
+        </ul>
+        <p>In short, they can be represented by the following constant variables in our program:</p>
+        <pre class="language-cpp"><code class="language-cpp">const char AVAILABLE = ' ';
+const char BLOCKED = 'B';
+const char ROBOT = 'R';
+const char CHARGER = 'C';
+const char VISITED = 'V';</code></pre>
+        <p>The constant variables <code>MAP_HEIGHT</code> and <code>MAP_WIDTH</code> , as defined at the top of the
+          header file,
+          are constants with values of 12. These variables will be changed when we use different maps to grade your
+          program. </p>
+        <pre class="language-cpp"><code class="language-cpp">const int MAP_WIDTH = 12;
+const int MAP_HEIGHT = 12;</code></pre>
+        <p>We have also provided extra temperary 2D char array which is EMPTY that you can use when you implement your
+          functions, and
+          we will
+          not check
+          the content of this variable:
+        <pre class="language-cpp"><code class="language-cpp">char temp_map[MAP_HEIGHT][MAP_WIDTH];</code></pre>
+        </p>
+
+        <p>You can also define extra temporary arrays inside your recursive functions, if you need to. However, you
+          need to pay extra attention on the depths of the recursive functions, as if there are a lot of memory copies
+          of the maps,
+          the program will easily break down due to a lot of memory has been reserved, then cause stack overflow error.
+        </p>
+
+        <h3>4.2 Cleaning Robot</h3>
+        <p>The robot (represented by the symbol <code>R</code>) has the following features:</p>
+        <ul>
+          <li>
+            The robot can only move in four directions: Left, Right, Up, Down; To be specified, it cannot move in the
+            diagonal directions, e.g. Up-Left, Up-Right, Down-Left, Down-Right.
+          </li>
+          <li>The robot can only move to an immediate adjacent cell (i.e. not 2 cells away from the current location).
+          </li>
+          <li>The robot will have a battery that stores a certain amount of energy unit.</li>
+          <li>If the battery energy is less than 0, the robot can no longer move.</li>
+          <li>When the robot reaches a charger, the robot get fully charged at once. To be precise, the robot's
+            battery will be charged to its full capacity.</li>
+          <li>The robot knows the details of the whole map, including the blocks and the chargers.</li>
+          <li>
+            It knows its status, for example, where the robot is, and how much is the energy stored in the robot. That
+            is useful when the robot needs to decide if it continues to the next un-visited place, or find a charger if
+            needed.
+          </li>
+        </ul>
+        <p>The corresponding status can be found by the following variables in the <code>main</code> function:</p>
+        <ul>
+          <li>
+            <pre class="language-cpp"><code class="language-cpp">int robot_x;</code></pre>
+          </li>
+          <li>
+            <pre class="language-cpp"><code class="language-cpp">int robot_y;</code></pre>
+          </li>
+          <li>
+            <pre class="language-cpp"><code class="language-cpp">int robot_energy;</code></pre>
+          </li>
+          <li>
+            <pre class="language-cpp"><code class="language-cpp">int robot_full_energy;</code></pre>
+          </li>
+        </ul>
+        <p>They are the local variables in the <code>main</code> function and will be passed to the recursive functions.
+        </p>
+
+        <h3>4.3 Menu</h3>
+        <p>We will use a menu in the <code>main</code> function to call the functions. When an instruction is executed,
+          the menu shows again and you can use to do another actions.</p>
+        <code>Output</code>:
+        <pre>
+Welcome to the cleaning program
+Please select from the following options:
+0: Load map
+-1. Exit program
+Please enter your choice: <span style="color:blue">0</span>
+Please type the file you want to use: <span style="color:blue">map.txt</span>
+  012345678901
+ --------------
+0|BBBBBBBBBBB |
+1|BBBBBBBBB   |
+2|BBB BBB B B |
+3|B         BB|
+4|B B  B   BB |
+5|B           |
+6|  C      BB |
+7|B      C  B |
+8|BBBB BBBBBB |
+9|B   C  BB   |
+0|BBBBB     B |
+1|      BBBBBB|
+ --------------
+Please give the x and the y of the robot, with space to separate: <span style="color:blue">5 5</span>
+Please give battery capacity of the robot: <span style="color:blue">5</span>
+  012345678901
+ --------------
+0|BBBBBBBBBBB |
+1|BBBBBBBBB   |
+2|BBB BBB B B |
+3|B         BB|
+4|B B  B   BB |
+5|B    R      |
+6|  C      BB |
+7|B      C  B |
+8|BBBB BBBBBB |
+9|B   C  BB   |
+0|BBBBB     B |
+1|      BBBBBB|
+ --------------
+
+Please select from the following options:
+0: Load map
+1. Print original map
+2. Print robot details
+3. Display the maximum range for the robot in the current place:
+4. Find the shortest distance from current position to a designated position
+5. Find the shortest distance and the shortest path from current position to a designated position
+6. Find the position of the farthest charger and the shortest distance from that charger
+-1. Exit program
+Please enter your choice: <span style="color:red"><i>... The user types the choice and the program triggers the corresponding functions...</i></span></pre>
+        <br>
+        <br>
+
+      </div>
+      <div class="container-fluid border-bottom my-5" id="given">
+        <h2>5. Given Functions</h2>
+        <p>We have the following given functions, which are mainly used in the <code>main</code> function:</p>
+        <ul>
+          <li>
+            <p>
+            <pre
+              class="language-cpp"><code class="language-cpp">void unifyMapLine(char target_map_line[MAP_WIDTH], const char map_line[MAP_WIDTH + 1])</code></pre>
+            </p>
+            <p>This helps to load the map data from the text file in a better manner. Extra characters in the line will
+              be excluded. And this will also pad with <code>' '</code> if the line is less than <code>MAP_WIDTH</code>.
+            </p>
+          </li>
+          <li>
+            <p>
+            <pre
+              class="language-cpp"><code class="language-cpp">bool loadMap(const char filename[MAX_STRING_SIZE], char map_to_load[MAP_HEIGHT][MAP_WIDTH])</code></pre>
+            </p>
+            <p>This loads the map data from a text file <code>filename</code>. When the file is not present, the
+              function returns
+              <code>false</code>; else the file is loaded to the program and it returns <code>true</code>.
+            </p>
+          </li>
+          <li>
+            <p>
+            <pre
+              class="language-cpp"><code class="language-cpp">void copyMap(char target_map[MAP_HEIGHT][MAP_WIDTH], const char original_map[MAP_HEIGHT][MAP_WIDTH])</code></pre>
+            </p>
+            <p>This copies <code>original_map</code> to <code>target_map</code>.</p>
+          </li>
+          <li>
+            <p>
+            <pre
+              class="language-cpp"><code class="language-cpp">void printMap(char map[MAP_HEIGHT][MAP_WIDTH])</code></pre>
+            </p>
+            <p>This prints the content in <code>map</code>.</p>
+            <pre>
+  012345678901
+ --------------
+0|BBBBBBBBBBB |
+1|BBBBBBBBB   |
+2|BBB BBB B B |
+3|B         BB|
+4|B B  B   BB |
+5|B    R      |
+6|  C      BB |
+7|B      C  B |
+8|BBBB BBBBBB |
+9|B   C  BB   |
+0|BBBBB     B |
+1|      BBBBBB|
+ --------------
+            </pre>
+          </li>
+          <li>
+            <p>
+            <pre
+              class="language-cpp"><code class="language-cpp">void setRobot(int &robot_init_x, int &robot_init_y, int &robot_full_energy, char map[MAP_HEIGHT][MAP_WIDTH])</code></pre>
+            </p>
+            <p>This sets the position and the battery capacity of the robot.</p>
+            <pre>
+Please give the x and the y of the robot, with space to separate: <span style="color:blue">5 5</span>
+Please give battery capacity of the robot: <span style="color:blue">4</span>
+</pre>
+          </li>
+        </ul>
+
+        <br>
+        <br>
+
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="tasks">
+        <h2 class="mt-4">6. Functions to Implement</h2>
+        <h3>6.1 Principle on Searching Directions</h3>
+        <p>In this assignment, the robot can only search for the surronding blocks clockwisely by the following order:
+          starting in upward direction, then rightward direction, then downward direction, finally leftward direction.
+          That means the order <strong>must</strong> be:</p>
+        <ol>
+          <li>Up</li>
+          <li>Right</li>
+          <li>Down</li>
+          <li>Left</li>
+        </ol>
+        <p>Remember that in this assignment, the robot cannot go in diagonal directions.</p>
+        <br>
+        <h3>6.2 TODO Functions</h3>
+        <p>Here are the 4 functions that you need to implement for this assignment. They are useful when the robot
+          needs to determine what the next target is and how to go to the next target in an effective way.</p>
+
+        <h5>1. <code
+            class="language-cpp"><br><p><h5><code class="language-cpp">int findMaximumPlace(int robot_x, int robot_y, int robot_energy, int robot_full_energy, char result_map[MAP_HEIGHT][MAP_WIDTH], char temp_map[MAP_HEIGHT][MAP_WIDTH])</code>
+        </h5></code></h5>
+        <p>This recursive function finds the maximum area that the robot may visit with its battery fully used, and
+          mark the area in the <code>result_map</code>. Also, it returns the number of positions that can be VISITED
+          by the robot.</p>
+        <p>This function will see if the robot can reach a particular position. If yes, the function should change the
+          character at this position to 'V'
+          to indicate that it can be VISITED. Then, the function will try to further determine if the robot can move
+          (visit) from here, via recursive calls of the same
+          function, to the neighboring positions in the 4 directions: up, right, down, left. </p>
+        <p>Every move of the robot will consume 1 unit of energy from <code>robot_energy</code>, but if the robot
+          reaches to a charger, the <code>robot_enery</code> should be resumed to <code>robot_full_energy</code>.
+        <p>We keep doing that until the robot can no longer move based on the energy stored in the robot.</p>
+        <p>For example:</p>
+        <ul>
+          <li>If the robot (5, 5) has 3 energy units remaining when this function is first called, the
+            <code>result_map</code>
+            will be this (To make it more clear, the <code>'V'</code> in the illustration has been highlighted with
+            red):
+          </li>
+          <pre class="language-cpp">
+  012345678901
+ --------------
+0|BBBBBBBBBBB |
+1|BBBBBBBBB   |
+2|BBB BBB B B |
+3|B   <span style="color:red">V</span> <span style="color:red">V</span>   BB|
+4|B B<span style="color:red">V</span><span style="color:red">V</span>B<span style="color:red">V</span><span style="color:red">V</span> BB |
+5|B <span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span>   |
+6|  C<span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span> BB |
+7|B   <span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span>C  B |
+8|BBBB BBBBBB |
+9|B   C  BB   |
+0|BBBBB     B |
+1|      BBBBBB|
+ --------------
+          </pre>
+          <ul>
+            <li>And the function returns 21, which means these 21 positions may be reached by the robot.</li>
+          </ul>
+          <li>If the robot (5, 5) has 4 energy units remaining when this function is first called, the
+            <code>result_map</code>
+            will be this:
+          </li>
+          <pre class="language-cpp">
+  012345678901
+ --------------
+0|BBBBBBBBBBB |
+1|BBBBBBBBB   |
+2|BBB BBB B B |
+3|B<span style="color:red">V</span> <span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span>  BB|
+4|B<span style="color:red">V</span>B<span style="color:red">V</span><span style="color:red">V</span>B<span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span>BB |
+5|B<span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span>  |
+6|<span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span>BB |
+7|B<span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span>B |
+8|BBBB<span style="color:red">V</span>BBBBBB |
+9|B   C  BB   |
+0|BBBBB     B |
+1|      BBBBBB|
+ --------------</pre>
+          <ul>
+            <li>And it returns 40.</li>
+          </ul>
+          <li>If the robot (5, 5) has 5 energy units remaining when this function is first called, the
+            <code>result_map</code>
+            will be this:
+          </li>
+          <pre class="language-cpp">
+  012345678901
+ --------------
+0|BBBBBBBBBBB |
+1|BBBBBBBBB   |
+2|BBB<span style="color:red">V</span>BBB<span style="color:red">V</span>B B |
+3|B<span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span> BB|
+4|B<span style="color:red">V</span>B<span style="color:red">V</span><span style="color:red">V</span>B<span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span>BB |
+5|B<span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span> |
+6|<span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span>BB |
+7|B<span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span>B |
+8|BBBB<span style="color:red">V</span>BBBBBB |
+9|B<span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span>BB   |
+0|BBBBB<span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span> B |
+1|   <span style="color:red">V</span><span style="color:red">V</span><span style="color:red">V</span>BBBBBB|
+ --------------</pre>
+          <ul>
+            <li>And it return 58</li>
+          </ul>
+        </ul>
+        <p>You can see that when the robot reaches a charger, the robot gets charged up, and thus, more positions can be
+          visited by the robot.</p>
+
+        <h5>2. <code
+            class="language-cpp"><br><p><h5><code class="language-cpp">int findShortestDistance(int robot_x, int robot_y,
+          int target_x, int target_y,
+          int robot_energy, int robot_full_energy, const char map[MAP_HEIGHT][MAP_WIDTH], char temp_map[MAP_HEIGHT][MAP_WIDTH])</code>
+        </h5></code></h5>
+        <p>This recursive function finds the shortest distance from the current robot position (<code>robot_x</code>,
+          <code>robot_y</code>) to the target position (<code>target_x</code>, <code>target_y</code>), based on the
+          constraints of energy, chargers and blocked areas. If the robot cannot go there within the
+          <code>robot_energy</code>, it returns the constant <del>MAX_PATH</del> <code>PA2_MAX_PATH</code> <span
+            style='color:red'>(Updated: Oct 24 12:50pm)</span>
+          and that indicates that the specified position is unreachable.
+          But note that the robot will get fully charged again when it reaches a charger (i.e. <code>robot_energy</code>
+          will be resumed to the value of <code>robot_full_energy</code>).
+        </p>
+        <p>For Task 2, we will do a max battery cap as 5. (robot_full_energy will not greater than 5 for Task 2, Task 3 and Task 4) <span
+            style='color:red'>(Updated: Nov 4 12:50pm)</span>
+</p>
+        <p>For example: If the robot has 5 units of energy, and using the map, </p>
+        <pre>
+  012345678901
+ --------------
+0|BBBBBBBBBBB |
+1|BBBBBBBBB   |
+2|BBB BBB B B |
+3|B         BB|
+4|B B  B   BB |
+5|B    R      |
+6|  C      BB |
+7|B      C  B |
+8|BBBB BBBBBB |
+9|B   C  BB   |
+0|BBBBB     B |
+1|      BBBBBB|
+ --------------
+</pre>
+        <ul>
+          <li>If the target is (5, 5) (that means the same with the robot), the return value is 1.</li>
+          <li>If the target is (5, 6), the return value is 2.</li>
+          <li>If the target is (6, 6), the return value is 3.</li>
+          <li>If the target is (6, 7), the return value is 4.</li>
+          <li>If the target is (7, 5), the return value is 3.</li>
+          <li>If the target is (3, 3), the return value is 5.</li>
+          <li>If the target is (5, 3), the return value is 5.</li>
+          <li>If the target is (2, 4), the return value is <del>MAX_PATH</del> PA2_MAX_PATH <span
+              style='color:red'>(Updated: Oct 24 12:50pm)</span>, that means it is unreachable (as it is BLOCKED).
+          </li>
+          <li>If the target is (5, 9), the return value is 7, as to go there, the robot has to use the charger in (4,
+            9).</li>
+          <li>If the target is (3, 11), the return value is 11, as to go there, the robot has to use the charger in (4,
+            9).</li>
+        </ul>
+        <p>For example: If the robot has 5 units of energy, and using the map, </p>
+        <pre>
+  012345678901
+ --------------
+0|BBBBBBBBBBB |
+1|BBBBBBBBB   |
+2|BBB BBB B B |
+3|B         BB|
+4|B B  B   BB |
+5|B           |
+6|  C  R   BB |
+7|B      C  B |
+8|BBBB BBBBBB |
+9|B   C  BB   |
+0|BBBBB     B |
+1|      BBBBBB|
+ --------------
+</pre>
+        <ul>
+          <li>If the target is (5, 5), the return value is 2.</li>
+          <li>If the target is (5, 6) (that means the same with the robot), the return value is 1.</li>
+          <li>If the target is (6, 6), the return value is 2.</li>
+          <li>If the target is (6, 7), the return value is 3.</li>
+          <li>If the target is (3, 3), the return value is 6.</li>
+          <li>If the target is (5, 3), the return value is 6.</li>
+          <li>If the target is (2, 4), the return value is <del>MAX_PATH</del> PA2_MAX_PATH <span
+              style='color:red'>(Updated: Oct 24 12:50pm)</span>, that means it is unreachable (as it is BLOCKED).
+          </li>
+          <li>If the target is (5, 9), the return value is 6, as to go there, the robot has to use the charger in (4,
+            9).</li>
+          <li>If the target is (3, 11), the return value is 10, as to go there, the robot has to use the charger in (4,
+            9).</li>
+        </ul>
+
+        <h5>3. <code
+            class="language-cpp"><br><p><h5><code class="language-cpp">int findPathSequence(int robot_x, int robot_y, int target_x, int target_y, int robot_energy, int robot_full_energy, char result_sequence[], const char map[MAP_HEIGHT][MAP_WIDTH], char temp_map[MAP_HEIGHT][MAP_WIDTH])</code>
+        </h5></code></h5>
+        <p>This recursive function finds the sequence of moves which gives the shortest distance from the current robot
+          position
+          (<code>robot_x</code>, <code>robot_y</code>) to the target position (<code>target_x</code>,
+          <code>target_y</code>), based on the constraints of energy, chargers and blocked areas.
+          <code>target_y</code>), based on the constraints of energy, chargers and blocked areas. If the robot cannot go
+          there within the <code>robot_energy</code>, it returns the constant <del>MAX_PATH</del>
+          <code>PA2_MAX_PATH</code> <span style='color:red'>(Updated: Oct 24 12:50pm)</span>
+          and that indicates that that position is unreachable.
+          But note that the robot will get fully charged again when it reaches a charger (i.e. <code>robot_energy</code>
+          will be resumed to the value of <code>robot_full_energy</code>).
+        </p>
+        <p>Remember that <code>result_sequence</code> has to be C-String. That means it should be null-terminated.</p>
+        <p>For Task 3, we will do a max battery cap as 5. (robot_full_energy will not greater than 5 for Task 2, Task 3 and Task 4) <span
+            style='color:red'>(Updated: Nov 4 12:50pm)</span>
+
+        <p>For example: If the robot has 5 unit of energy, and using the map, </p>
+        <pre>
+  012345678901
+ --------------
+0|BBBBBBBBBBB |
+1|BBBBBBBBB   |
+2|BBB BBB B B |
+3|B         BB|
+4|B B  B   BB |
+5|B    R      |
+6|  C      BB |
+7|B      C  B |
+8|BBBB BBBBBB |
+9|B   C  BB   |
+0|BBBBB     B |
+1|      BBBBBB|
+ --------------
+</pre>
+        <ul>
+          <li>If the target is (5, 5) (that means the same with the robot), the return value is 1, and the variable
+            <code>result_sequence</code> is <code>T</code>.
+          </li>
+          <li>If the target is (5, 6), the return value is 2, and the variable <code>result_sequence</code> is
+            <code>DT</code>.
+          </li>
+          <li>If the target is (6, 6), the return value is 3, and the variable <code>result_sequence</code> is
+            <code>RDT</code>.
+          </li>
+          <li>If the target is (6, 7), the return value is 4, and the variable <code>result_sequence</code> is
+            <code>RDDT</code>.
+          </li>
+          <li>If the target is (3, 3), the return value is 5, and the variable <code>result_sequence</code> is
+            <code>LUULT</code>.
+          </li>
+          <li>If the target is (5, 3), the return value is 5, and the variable <code>result_sequence</code> is
+            <code>RUULT</code>.
+          </li>
+          <li>If the target is (2, 4), the return value is <del>MAX_PATH</del> PA2_MAX_PATH <span
+              style='color:red'>(Updated: Oct 24 12:50pm)</span>, that means it is unreachable (as it is BLOCKED).
+          </li>
+          <li>If the target is (5, 9), the return value is 7, and the variable <code>result_sequence</code> is
+            <code>DDLDDRT</code>.
+          </li>
+          <li>If the target is (3, 11), the return value is 11, and the variable <code>result_sequence</code> is
+            <code>DDLDDRDDLLT</code>.
+          </li>
+        </ul>
+        <p>For example: If the robot has 5 unit of energy, and using the map, </p>
+        <pre>
+  012345678901
+ --------------
+0|BBBBBBBBBBB |
+1|BBBBBBBBB   |
+2|BBB BBB B B |
+3|B         BB|
+4|B B  B   BB |
+5|B           |
+6|  C  R   BB |
+7|B      C  B |
+8|BBBB BBBBBB |
+9|B   C  BB   |
+0|BBBBB     B |
+1|      BBBBBB|
+ --------------
+</pre>
+        <ul>
+          <li>If the target is (5, 5) , the return value is 2, and the variable
+            <code>result_sequence</code> is <code>UT</code>.
+          </li>
+          <li>If the target is (5, 6) (that means the same with the robot), the return value is 1, and the variable
+            <code>result_sequence</code> is
+            <code>T</code>.
+          </li>
+          <li>If the target is (6, 6), the return value is 2, and the variable <code>result_sequence</code> is
+            <code>RT</code>.
+          </li>
+          <li>If the target is (6, 7), the return value is 3, and the variable <code>result_sequence</code> is
+            <code>RDT</code>.
+          </li>
+          <li>If the target is (3, 3), the return value is 6, and the variable <code>result_sequence</code> is
+            <code>ULUULT</code>.
+          </li>
+          <li>If the target is (5, 3), the return value is 6, and the variable <code>result_sequence</code> is
+            <code>URUULT</code>.
+          </li>
+          <li>If the target is (2, 4), the return value is <del>MAX_PATH</del> PA2_MAX_PATH <span
+              style='color:red'>(Updated: Oct 24 12:50pm)</span>, that means it is unreachable (as it is BLOCKED).
+          </li>
+          <li>If the target is (5, 9), the return value is 6, and the variable <code>result_sequence</code> is
+            <code>DLDDRT</code>.
+          </li>
+          <li>If the target is (3, 11), the return value is 10, and the variable <code>result_sequence</code> is
+            <code>DLDDRDDLLT</code>.
+          </li>
+        </ul>
+
+        <h5>4. <code class="language-cpp"><br><p><h5><code class="language-cpp">int findFarthestPossibleCharger(int robot_x, int robot_y,
+          int robot_original_x, int robot_original_y, 
+          int &target_x, int &target_y,
+          int robot_energy, int robot_full_energy, const char map[MAP_HEIGHT][MAP_WIDTH],
+          char temp_map[MAP_HEIGHT][MAP_WIDTH])
+</code>
+        </h5></code></h5>
+
+        <p>The function will scan through the walkable area and then determine whether there is any position that
+          matches
+          with a charger.</p>
+        <p>If there is at least one charger, then the farthest position will be returned by the reference
+          variables <code>target_x</code> and <code>target_y</code>, together with returning the shortest distance
+          between the robot's original position to that position.</p>
+        <p>When a charger is not found or none of the chargers can be reached by the robot under the energy constraint,
+          the function returns -1 and we do not care about the value of
+          <code>target_x</code> and <code>target_y</code>.
+        </p>
+        <p><del>Again note that the robot will get fully charged again when it reaches a charger (i.e.
+          <code>robot_energy</code> will be resumed to the value of <code>robot_full_energy</code>)</del> <span style="color:red">(Updated: Oct 28 10:50am)</span>.
+        </p>
+        <p>If there are different results for considering the 're-charge' case and 'non-recharge' case, both of them will be treated as correct. If there is a discrepency among 'recharge' case and 'non-recharge' case occurs on that test-case and you can produce one of the 2 outputs, then you will get the score on that test case. <span style="color:red">(Updated: Nov 4 12:50pm)</span>
+        </p>
+        <p>For Task 4, we will do a max battery cap as 5. (robot_full_energy will not greater than 5 for Task 2, Task 3 and Task 4) <span
+            style='color:red'>(Updated: Nov 4 12:50pm)</span>
+
+        <p>For example: If the robot has 5 units of energy, and using the map, </p>
+        <pre>
+  012345678901
+ --------------
+0|BBBBBBBBBBB |
+1|BBBBBBBBB   |
+2|BBB BBB B B |
+3|B         BB|
+4|B B  B   BB |
+5|B   ZX      |
+6|  C  Y  BB  |
+7|B      C  B |
+8|BBBB BBBBBB |
+9|B   C  BB   |
+0|BBBBB     B |
+1|      BBBBBB|
+ --------------
+</pre>
+        <ul>
+          <li>The farthest charger from Point X (5, 5) is Charger (4, 9) and the distance is 6 <span style="color:red">(Updated: Oct 28 10:50am)</span></li>
+          <li>The farthest charger from Point Y (5, 6) is Charger (4, 9) and the distance is 5 <span style="color:red">(Updated: Oct 28 10:50am)</span></li>
+          <li>The farthest charger from Point Z (4, 5) is Charger (7, 7) and the distance is 6 <span style="color:red">(Updated: Oct 28 10:50am)</span></li>
+          <ul>
+            <li>It is not Charger (4, 9) as distance between Point Z (4, 5) to Charger (7,7) and that between Point Z
+              (4, 5) to Charger (4, 9) are the same. But in this function, the first point found will be returned.</li>
+          </ul>
+        </ul>
+        <p>Remember that you can make good use of your previous implemented functions to finish this task.</p>
+
+
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="sample">
+        <h2 class="mt-4">7. Sample output</h2>
+        <p> Your finished program should produce the same output as the sample program. You upload to Zinc and run some
+          testcases on the ZINC platform anytime. Please note that sample output shown above and the output shown in
+          Zinc are no means complete.
+          It is part of the assessment for you to design your own test
+          cases to test your program. <b>Be reminded to remove any debugging message</b> that you might have added
+          before submitting your final submission.</p>
+      </div>
+
+
+
+
+
+      <div class="container-fluid border-bottom my-5" id="submission">
+
+        <h2 class="mt-4">8. Submission</h2>
+
+        <h4>8.1 Deadline</h4>
+
+        <p>
+          <font style="color:red"> 23.59:00, Nov 8 (Mon), 2021 </font>
+        </p>
+
+
+        <p>Please zip the <b>pa2.cpp</b> only, NOT a folder containing it. Submit the zip file to <a
+            href="http://zinc.cse.ust.hk">ZINC</a>. ZINC usage instructions can be found <a
+            href="https://zinc.cse.ust.hk/guide">here</a>. Friendly reminder: before you submit your code, <b>make sure
+            it complies with all the rules in <a href="#important">important requirements</a></b>.</p>
+
+        <p>Notes:</p>
+        <ul>
+          <li>You may submit your file multiple times, but only the latest version will be graded.</li>
+          <li>Submit early to avoid any last-minute problem. Only ZINC submissions will be accepted.</li>
+          <li>The ZINC server will be very busy in the last day especially in the last few hours, so you should expect
+            you would get the grading result report not-very-quickly. However, as long as your submission is successful,
+            we would grade your latest submission with all test cases after the deadline.</li>
+          <li>In the grading report, pay attention to various errors reported. For example, under the "make" section, if
+            you see a red cross, click on the STDERR tab to see the compilation errors as shown in the example below.
+            You must fix those before you can see any program output for the test cases below.</li>
+          <img src="img/zinc-make.png">
+        </ul>
+
+        <h4>8.2 Compilation Requirement</h4>
+
+        <p>
+          It is <strong>required</strong> that your submissions can be compiled and run successfully in our online
+          autograder ZINC. If we cannot even compile your work, it won't be graded. Therefore, for parts that you cannot
+          finish, just put in dummy/empty implementation so that your whole program can be compiled for ZINC to grade
+          the other parts that you have done. <u>You should wait for and check the grading report after each submission
+            to ZINC.</u></p>
+
+        <p>
+          Your implementation will be graded by running multiple test cases, with different maps. A test case should
+          finish within 30 seconds. Failing to do so would result in 0 marks for that test case. <span
+            style="color:red">(Updated: Oct 25 1:00pm)</span>
+        </p>
+
+        <p>
+        <h4>8.3 Late submission policy</h4>
+        </p>
+
+        <p>There will be a penalty of -1 point (out of a maximum 100 points) for
+          every minute you are late. For instance, since the deadline of the assignment is 23.59:00 on Nov 8th, if you
+          submit your solution at 1.00:00 on Nov 9th, there will be a penalty of -61 points for your assignment.
+          However, the lowest grade you may get from an assignment is zero: any negative score after the deduction due
+          to late penalty (and any other penalties) will be reset to zero.</p>
+
+
+
+      </div>
+
+
+
+
+      <div class="container-fluid border-bottom my-5" id="faq">
+        <h2 class="mt-4">9. FAQ</h2>
+
+        <p>
+        <ul>
+          <li>
+            Q: My code doesn't work / there is an error, here is the code, can you help me to fix it?
+          </li>
+          <li>
+            A: As the assignment is a major course assessment, to be fair, you are supposed to work on it on your own
+            and we should not finish the tasks for you. We might provide some very general hints to you, but we shall
+            not fix the problem or debug for you.
+          </li>
+          <br>
+          <li>
+            Q: Can I use library functions or data structures?
+          </li>
+          <li>
+            A: You can use any functions or data structures as long as you do not include additional library yourself.
+            You also need to make sure your program compiles and works well on ZINC.
+          </li>
+          <br>
+          <li>
+            Q: Can I use arrays?
+          </li>
+          <li>
+            A: Yes.
+          </li>
+          <br>
+          <li>
+            Q: Can I modify the main function?
+          </li>
+          <li>
+            A: You may modify it to add your own test cases, but note that we will replace your main function with
+            something else on ZINC. (with this said, you should make sure your program can compile with the original
+            version of the main function) You are basically only allowed to finish the 4 incomplete functions without
+            changing anything else, according to the rules we listed.
+          </li>
+          <br>
+          <li>
+            Q: Can I assume the given map width and height are always valid, when we make the initial calls in all test
+            cases?
+          </li>
+          <li>
+            A: Yes.
+          </li>
+          <br>
+          <br>
+          <li>
+            Q: Can I use if-else statements, switch statements, local variables defined inside the functions, etc.?
+          </li>
+          <li>
+            A: Sure, as they are not forbidden in our PA2 rules.
+          </li>
+          <br>
+          <li>
+            Q: My code gives perfect results in my own computer, but it gives a different result on ZINC, why?
+          </li>
+          <li>
+            A: Usually inconsistent strange result (on different machines/platforms, or even different runs on the same
+            machine) is due to relying on uninitialized hence garbage values, missing return statements, accessing
+            out-of-bound array elements, etc.. You may see the explanations and debugging tips in the <a
+              href="http://wallacem.people.ust.hk/notes/on-common-c-runtime-errors/">notes here</a>.
+          </li>
+
+          <br>
+          <li>Q: How should I start my programming in separate compilation?</li>
+          <li>A: To start with, you can try to compile the .cpp files to .o first.
+            <p></p>
+            <pre>g++ -c pa2.cpp</pre>
+            <p></p>
+            <pre>g++ -c main.cpp</pre>
+            <p></p>
+            <pre>g++ -c given_function.cpp</pre>
+            Then, if there is no error, you can try to combine the .o files to an executable by:
+            <pre>g++ -o pa2_out pa2.o main.o given_function.o</pre>
+            <p></p>
+            Later, to remove those .o files after compilation, you can do like this:
+            <ul>
+              <li>
+                For Windows, you can do <pre>del *.o</pre>
+              </li>
+              <li>
+                For Mac and Linux, you can do <pre>rm *.o</pre>
+              </li>
+            </ul>
+          </li>
+<br>
+          <li>Q: Does anyone know why test case 11 and test case111 give different outputs with the same input?</li>
+          <li>A: We have removed the requirement of considering the "recharge" case when the robot needs to find the farthest charger in the recent update.
+<br>
+Yet, we will also accept if the students consider the "recharge" case (if the "recharge" case and "not-recharge" case gives a different result.)</li>
+<br>
+          <li>Q: Is there a limit to how many times a specific charger can be used?</li>
+          <li>A: No. But if you need to care about the shortest path, I think that the answer of this will be quite prominent.
+<br>
+(You can think that the robot only considers the single point, and will not actually move. It just does the "planning" on the current positions, e.g. when the robot needs to go to a particular position Point B from current position Point A, what is the shortest path and what is the sequence from position A to B; When the robot is in the current position A, what is the "range" of the robot can moves considering the energies remained in the battery and the location(s) of the chargers.)</li>
+<br>
+          <li>Q: For Task 3 in pa 2 - my program said the shortest way to get to (3, 11) is DLDRRDDDRDDLLT, and the actual answer ZINC said is DLDRRDDDRDDLLT.
+<br>
+However, DLDRRDDDRDDLLT is also a correct answer. If then, should I re build my code or it is just okay?</li>
+          <li>A: Order matters. If you follow the order as mentioned, you should get the same sequence as the solution.</li>
+
+          <!--
+          <li>Q: </li>
+          <li>A: </li>
+          -->
+        </ul>
+        </p>
+        <br><br>
+
+      </div>
+      <div class="container-fluid border-bottom my-5" id="expectedOutput">
+        <h2 class="mt-4">10. Expected output shown in Zinc 
+          <span style='color:red'>(Updated: Oct 29 8:00pm)</span></h2>
+      <pre>
+  testCases:
+      id: 0
+      expected: |-
+        Welcome to the cleaning program
+          012345678901  
+         --------------
+        0|BBBBBBBBBBB |
+        1|BBBBBBBBB   |
+        2|BBB BBB B B |
+        3|B         BB|
+        4|B B  B   BB |
+        5|B    R      |
+        6|  C      BB |
+        7|B      C  B |
+        8|BBBB BBBBBB |
+        9|B   C  BB   |
+        0|BBBBB     B |
+        1|      BBBBBB|
+         --------------
+        Robot position: (5,5)
+        Robot energy: 5/5
+        58
+        The result map will be:
+          012345678901  
+         --------------
+        0|BBBBBBBBBBB |
+        1|BBBBBBBBB   |
+        2|BBBVBBBVB B |
+        3|BVVVVVVVV BB|
+        4|BVBVVBVVVBB |
+        5|BVVVVVVVVVV |
+        6|VVVVVVVVVBB |
+        7|BVVVVVVVVVB |
+        8|BBBBVBBBBBB |
+        9|BVVVVVVBB   |
+        0|BBBBBVVVV B |
+        1|   VVVBBBBBB|
+         --------------
+        Program ends.
+
+      id: 1
+      expected: |-
+        Welcome to the cleaning program
+          012345678901  
+         --------------
+        0|BBBBBBBBBBB |
+        1|BBBBBBBBB   |
+        2|BBB BBB B B |
+        3|B         BB|
+        4|B BR B   BB |
+        5|B           |
+        6|  C      BB |
+        7|B      C  B |
+        8|BBBB BBBBBB |
+        9|B   C  BB   |
+        0|BBBBB     B |
+        1|      BBBBBB|
+         --------------
+        Robot position: (3,4)
+        Robot energy: 5/5
+        58
+        The result map will be:
+          012345678901  
+         --------------
+        0|BBBBBBBBBBB |
+        1|BBBBBBBBB   |
+        2|BBBVBBBVB B |
+        3|BVVVVVVVV BB|
+        4|BVBVVBVVVBB |
+        5|BVVVVVVVVVV |
+        6|VVVVVVVVVBB |
+        7|BVVVVVVVVVB |
+        8|BBBBVBBBBBB |
+        9|BVVVVVVBB   |
+        0|BBBBBVVVV B |
+        1|   VVVBBBBBB|
+         --------------
+        Program ends.
+
+      id: 2
+      expected: |-
+        Welcome to the cleaning program
+          012345678901  
+         --------------
+        0|BBBBBBBBBBB |
+        1|BBBBBBBBB   |
+        2|BBB BBB B B |
+        3|B         BB|
+        4|B B  B   BB |
+        5|B    R      |
+        6|  C      BB |
+        7|B      C  B |
+        8|BBBB BBBBBB |
+        9|B   C  BB   |
+        0|BBBBB     B |
+        1|      BBBBBB|
+         --------------
+        Robot position: (5,5)
+        Robot energy: 5/5
+        dest_x: 2
+        dest_y: 2
+        The destination is unreachable.
+        Program ends.
+
+      id: 3
+      expected: |-
+        Welcome to the cleaning program
+          012345678901  
+         --------------
+        0|BBBBBBBBBBB |
+        1|BBBBBBBBB   |
+        2|BBB BBB B B |
+        3|B         BB|
+        4|B B  B   BB |
+        5|B    R      |
+        6|  C      BB |
+        7|B      C  B |
+        8|BBBB BBBBBB |
+        9|B   C  BB   |
+        0|BBBBB     B |
+        1|      BBBBBB|
+         --------------
+        Robot position: (5,5)
+        Robot energy: 5/5
+        dest_x: 7
+        dest_y: 6
+        4
+        Program ends.
+
+      id: 4
+      expected: |-
+        Welcome to the cleaning program
+          012345678901  
+         --------------
+        0|BBBBBBBBBBB |
+        1|BBBBBBBBB   |
+        2|BBB BBB B B |
+        3|B         BB|
+        4|B BR B   BB |
+        5|B           |
+        6|  C      BB |
+        7|B      C  B |
+        8|BBBB BBBBBB |
+        9|B   C  BB   |
+        0|BBBBB     B |
+        1|      BBBBBB|
+         --------------
+        Robot position: (3,4)
+        Robot energy: 5/5
+        dest_x: 5
+        dest_y: 5
+        4
+        Program ends.
+
+      id: 5
+      expected: |-
+        Welcome to the cleaning program
+          012345678901  
+         --------------
+        0|BBBBBBBBBBB |
+        1|BBBBBBBBB   |
+        2|BBB BBB B B |
+        3|B         BB|
+        4|B BR B   BB |
+        5|B           |
+        6|  C      BB |
+        7|B      C  B |
+        8|BBBB BBBBBB |
+        9|B   C  BB   |
+        0|BBBBB     B |
+        1|      BBBBBB|
+         --------------
+        Robot position: (3,4)
+        Robot energy: 5/5
+        dest_x: 3
+        dest_y: 11
+        14
+        Program ends.
+
+      id: 6
+      expected: |-
+        Welcome to the cleaning program
+          012345678901  
+         --------------
+        0|BBBBBBBBBBB |
+        1|BBBBBBBBB   |
+        2|BBB BBB B B |
+        3|B         BB|
+        4|B B  B   BB |
+        5|B    R      |
+        6|  C      BB |
+        7|B      C  B |
+        8|BBBB BBBBBB |
+        9|B   C  BB   |
+        0|BBBBB     B |
+        1|      BBBBBB|
+         --------------
+        Robot position: (5,5)
+        Robot energy: 5/5
+        dest_x: 2
+        dest_y: 2
+        The destination is unreachable.
+        Program ends.
+
+      id: 7
+      expected: |-
+        Welcome to the cleaning program
+          012345678901  
+         --------------
+        0|BBBBBBBBBBB |
+        1|BBBBBBBBB   |
+        2|BBB BBB B B |
+        3|B         BB|
+        4|B B  B   BB |
+        5|B    R      |
+        6|  C      BB |
+        7|B      C  B |
+        8|BBBB BBBBBB |
+        9|B   C  BB   |
+        0|BBBBB     B |
+        1|      BBBBBB|
+         --------------
+        Robot position: (5,5)
+        Robot energy: 5/5
+        dest_x: 7
+        dest_y: 6
+        4:RRDT
+        Program ends.
+
+      id: 8
+      expected: |-
+        Welcome to the cleaning program
+          012345678901  
+         --------------
+        0|BBBBBBBBBBB |
+        1|BBBBBBBBB   |
+        2|BBB BBB B B |
+        3|B         BB|
+        4|B BR B   BB |
+        5|B           |
+        6|  C      BB |
+        7|B      C  B |
+        8|BBBB BBBBBB |
+        9|B   C  BB   |
+        0|BBBBB     B |
+        1|      BBBBBB|
+         --------------
+        Robot position: (3,4)
+        Robot energy: 5/5
+        dest_x: 5
+        dest_y: 5
+        4:RDRT
+        Program ends.
+
+      id: 9
+      expected: |-
+        Welcome to the cleaning program
+          012345678901  
+         --------------
+        0|BBBBBBBBBBB |
+        1|BBBBBBBBB   |
+        2|BBB BBB B B |
+        3|B         BB|
+        4|B BR B   BB |
+        5|B           |
+        6|  C      BB |
+        7|B      C  B |
+        8|BBBB BBBBBB |
+        9|B   C  BB   |
+        0|BBBBB     B |
+        1|      BBBBBB|
+         --------------
+        Robot position: (3,4)
+        Robot energy: 5/5
+        dest_x: 3
+        dest_y: 11
+        14:DDLRRDDDRDDLLT
+        Program ends.
+
+      id: 10
+      expected: |-
+        Welcome to the cleaning program
+          012345678901  
+         --------------
+        0|BBBBBBBBBBB |
+        1|BBBBBBBBB   |
+        2|BBB BBB B B |
+        3|B         BB|
+        4|B B  B   BB |
+        5|B    R      |
+        6|  C      BB |
+        7|B      C  B |
+        8|BBBB BBBBBB |
+        9|B   C  BB   |
+        0|BBBBB     B |
+        1|      BBBBBB|
+         --------------
+        Robot position: (5,5)
+        Robot energy: 5/5
+        The farthest position is (4:9) and the distance is 6
+        Program ends.
+
+      id: 11
+      expected: |-
+        Welcome to the cleaning program
+          012345678901  
+         --------------
+        0|BBBBBBBBBBB |
+        1|BBBBBBBBB   |
+        2|BBB BBB B B |
+        3|B         BB|
+        4|B BR B   BB |
+        5|B           |
+        6|  C      BB |
+        7|B      C  B |
+        8|BBBB BBBBBB |
+        9|B   C  BB   |
+        0|BBBBB     B |
+        1|      BBBBBB|
+         --------------
+        Robot position: (3,4)
+        Robot energy: 5/5
+        The farthest position is (2:6) and the distance is 4
+        Program ends.
+
+<del>      id: 111
+      expected: |-
+        Welcome to the cleaning program
+          012345678901  
+         --------------
+        0|BBBBBBBBBBB |
+        1|BBBBBBBBB   |
+        2|BBB BBB B B |
+        3|B         BB|
+        4|B BR B   BB |
+        5|B           |
+        6|  C      BB |
+        7|B      C  B |
+        8|BBBB BBBBBB |
+        9|B   C  BB   |
+        0|BBBBB     B |
+        1|      BBBBBB|
+         --------------
+        Robot position: (3,4)
+        Robot energy: 5/5
+        The farthest position is (4:9) and the distance is 9
+        Program ends.</del>
+
+      id: 111
+      expected: |-
+        Welcome to the cleaning program
+          012345678901  
+         --------------
+        0|BBBBBBBBBBB |
+        1|BBBBBBBBB   |
+        2|BBB BBB B B |
+        3|B         BB|
+        4|B BR B   BB |
+        5|B           |
+        6|  C      BB |
+        7|B      C  B |
+        8|BBBB BBBBBB |
+        9|B   C  BB   |
+        0|BBBBB     B |
+        1|      BBBBBB|
+         --------------
+        Robot position: (3,4)
+        Robot energy: 5/5
+        The farthest position is (7:7) and the distance is 14
+        Program ends.
+      </pre>
+      </div>
+      <div class="container-fluid border-bottom my-5" id="updatelog">
+        <h2 class="mt-4">11. Update Log</h2>
+  
+        <p>
+        <ul>
+          <li>
+            Update at 2:35pm, Nov 5: Updated FAQ.
+          </li> 
+
+          <li>
+            Update at 9:02pm, Nov 4: Updated demo program for the bug in Task 4.
+          </li> 
+
+          <li>
+            Update at 12:50pm, Nov 4: Updated test case assumption (full battery cap at 5) for Task 2, Task 3 and Task 4. Add additional information on the 'recharge' case and 'non-recharge' case for Task 4.
+          </li> 
+
+          <li>
+            Update at 12:50pm, Nov 1: Updated demo program.
+          </li> 
+          <li>
+            Update at 5:50pm, Oct 31: Clarified the requirement in the limitation.
+          </li> 
+          <li>
+            Update at 8:00pm, Oct 29: Updated demo output for Zinc.
+          </li> 
+          <li>
+            Update at 5:00pm, Oct 29: Updated demo output for Zinc.
+          </li> 
+          <li>
+            Update at 4:40pm, Oct 29: Updated demo program.
+          </li> 
+          <li>
+            Update at 11:55am, Oct 29: Updated expected output from Zinc.
+          </li> 
+          <li>
+            Update at 10:50am, Oct 28: Updated demo program, update descriptions on Task 4.
+          </li>
+          <li>
+            Update at 7:30pm, Oct 25: Put a notice on the FAQ (Separate Compilation).
+          </li>
+          <li>
+            Update at 2:30pm, Oct 25: Put a notice on the Mac executable link.
+          </li>
+          <li>
+            Update at 1:15pm, Oct 25: Updated Windows sample executable.
+          </li>
+          <li>
+            Update at 1:00pm, Oct 25: Updated time requirement for running the test case.
+          </li>
+          <li>
+            Update at 12:50pm, Oct 24
+          </li>
+          <ul>
+            <li>Updated <code>given_function.cpp</code> to fix bug. </li>
+            <li>Updated <code>MAX_PATH</code> to <code>PA2_MAX_PATH</code> to prevent crash on some students' computers.
+            </li>
+            <li>Re-compiled Mac demo program with recent Intel Macbook Pro.</li>
+          </ul>
+  
+        </ul>
+        </p>
+        <br><br>
+        <p style="color:#cccccc">Page last modified at
+          <script type="text/javascript">document.write(document.lastModified);</script>.
+        </p>
+  
+      </div>
+    </div>
+  </div>
+  <!-- /#page-content-wrapper -->
+  <!-- /#wrapper -->
+  <!-- Bootstrap core JavaScript -->
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function (e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+
+    SyntaxHighlighter.highlight();
+  </script>
+</body>
+
+</html>

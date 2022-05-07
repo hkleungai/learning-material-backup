@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)https://course.cse.ust.hk/comp2011/labs/lab7/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>COMP2011 Lab 7</title>
+  <!-- Bootstrap core CSS -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+
+  <!-- For code highlighting -->
+  <script src='../sh/shCore.js' type='text/javascript'></script>
+  <!--script src='./sh/shAutoloader.js' type='text/javascript'></script-->
+  <script src='../sh/shBrushCpp.js' type='text/javascript'></script>
+  <script src='../sh/loadcode.js' type='text/javascript'></script>
+  <link href='../sh/shCore.css' rel='stylesheet' type='text/css'>
+  <link href='../sh/shThemeDefault.css' rel='stylesheet' type='text/css'>
+
+  <style>
+    .input {
+      color: #00ff00;
+    }
+  </style>
+
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.1034.0" data-gr-ext-installed="">
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">COMP2011 Lab 7</div>
+      <div class="list-group list-group-flush">
+        <a href="https://course.cse.ust.hk/comp2011/labs/lab7/#Intro" class="list-group-item list-group-item-action bg-light">Introduction</a>
+        <a href="https://course.cse.ust.hk/comp2011/labs/lab7/#Tasks" class="list-group-item list-group-item-action bg-light">Tasks</a>
+        <a href="https://course.cse.ust.hk/comp2011/labs/lab7/#Output" class="list-group-item list-group-item-action bg-light">Expected Output</a>
+        <a href="https://course.cse.ust.hk/comp2011/labs/lab7/#Grade" class="list-group-item list-group-item-action bg-light">Grading Scheme</a>
+        <span class="list-group-item list-group-item-action bg-light">Prepared by: <a href="mailto:jbai@connect.ust.hk">Jiaxin Bai</a></span>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="col-sm-9">
+        <span class="navbar-toggler-icon" id="menu-toggle"></span>
+    </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/">Course Webpage</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/forum.html">Online Forum</a>
+            </li>
+            <!--li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li-->
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid border-bottom my-5">
+        <h1>COMP2011 Lab 7: Bubble Sort, Again! </h1><br>
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Intro">
+        <h2 class="mt-4">Introduction</h2>
+        <p>In programming assignment 1, you have implemented Bubble Sort. As mentioned, Bubble Sort is a well-known sorting algorithm (you can find detailed information <a href="https://en.wikipedia.org/wiki/Bubble_sort">here</a>, and visualization <a href="https://visualgo.net/en/sorting">here</a>). </p>
+        <p>In this lab, you are going to implement the bubble sort algorithms on two types of data types: double array, and cstring array. Given two types of arrays, your task is to sort them using the functions defined in the utils.cpp, and you are not allowed to modify the contents in the main.cpp.</p>
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Tasks">
+        <h2 class="mt-4">Tasks</h2>
+        <p>You will implement two overloaded bubbleSort functions, and then conduct separate compilations.</p>
+        <h2 class="mt-4">Task1</h2>
+        <p>Implement the bubbleSort function  in utils.cpp, which can be used for sorting double floating point type arrays. In the main function, you will be asked to input the array size first, and then you are asked to input the content of the array. The contents are floating point numbers. The array and its size will be passed to this function.</p>  
+	<p>This function also contains a default argument, ascending, which is set to be the value, true, by default, meaning sorting in the ascending order. By setting this argument to false, the array is sorted in descending order. You also need to implement this default argument in your code. </p>
+
+      
+        <h2 class="mt-4">Task2</h2>
+        <p>Implement the bubbleSort function in utils.cpp, which can be used for sorting cstring arrays. In the main function, you will be asked to input the array size first, and then you are asked to input the content of the array. The contents are cstrings in this task. The array and it size will be passed to this function.</p>
+	<p>The function also contains a default argument, ascending, which is set to be true by default, meaning sorting in the acsending order. By setting this argument to  be 0, the array is sorted in descending order. You also need to implement this default argument in your code. </p>
+	<p>In sorting the cstrings, you may need to use the <a href="https://www.cplusplus.com/reference/cstring/strcmp/">strcmp</a>  and  <a href="https://www.cplusplus.com/reference/cstring/strcpy/">strcpy</a> functions for this task.</p> 
+
+      
+        <h2 class="mt-4">Task3</h2>
+        <p>Write your function prototypes in my_include.h, and then conduct the separate compilation. The main function is defined in main.cpp. Note that modifying the main function is not allowed in this lab. </p>
+
+	<br />
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Implementation">
+        <h2 class="mt-4">Implementation</h2>
+        <ul>
+          <li>Start your coding with the <a href="./lab7_skeleton.zip">package</a>. It contains skeleton codes, i.e. 3 files, namely, main.cpp, my_include.h, utils.cpp.</li>
+          <li>You only need to implement the functions in utils.cpp.</li>
+          <li>You don't need to change the function headers.</li>
+          <li>You can compile the program with the following command:<br />
+          For Win, 
+	  <pre>g++ -o lab7.exe main.cpp utils.cpp</pre>
+	  For Mac,
+	  <pre>g++ -o lab7.out main.cpp utils.cpp</pre> <br />
+        </ul>
+
+      <br />
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Output">
+        <h2 class="mt-4">Output</h2>
+        We have provided some pre-set test cases for you in the skeleton code. 
+
+        <br>
+        <p>Expected output.</p>
+        <pre class="shadow p-3 mb-5 bg-white rounded">         
+          ===========================================
+          Choose which array to operate on:
+          1: Floating Point Array 
+          2: Cstring Array 
+          3: Quit
+          1
+          Task 1: sort a floating point number array
+          Input the array size less than 100
+          6
+          Input the array content 
+          1 1 4 5 1 4
+          ===========================================
+          Sorted Ascending: 
+          1 1 1 4 4 5 
+          ===========================================
+          Sorted Descending: 
+          5 4 4 1 1 1 
+
+
+        </pre>
+        <p></p>
+        <pre class="shadow p-3 mb-5 bg-white rounded">         
+          ===========================================
+          Choose which array to operate on:
+          1: Floating Point Array 
+          2: Cstring Array 
+          3: Quit
+          2
+          Task 2: sort a cstring array
+          Input the array size less than 100
+          5
+          Input the array content 
+          Tom 
+          Jerry
+          Jeffrey
+          Alan
+          AlanWalker
+          ===========================================
+          Sorted Ascending: 
+          Alan
+          AlanWalker
+          Jeffrey
+          Jerry
+          Tom
+
+          ===========================================
+          Sorted Descending: 
+          Tom
+          Jerry
+          Jeffrey
+          AlanWalker
+          Alan
+
+
+
+
+
+        </pre>
+        <p></p>
+
+        
+
+
+      </div>
+
+
+      <div class="container-fluid border-bottom my-5" id="Grade">
+        <h2 class="mt-4">Grading Scheme</h2>
+        <p>Each lab carries 3 points in total. 
+      </p><ul>
+      <li>
+      By attending a lab, the student gets 1 point for attendance (but only if it is clear that the student does put in some effort). 
+      </li>
+      <li>
+      By completing the lab exercise correctly and answering TAs' question (if there is a
+      question) correctly, the student gets the remaining 2 more points. 
+      </li>
+      <li>
+      You are recommended to turn on the camera while demonstrating.
+      </li>
+      </ul>
+      If the student is unable to finish the lab and demonstrate to the TA by the end of the lab, they can only get the attendance point.
+      </div>
+
+  </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="./vendor/jquery.min.js"></script>
+  <script src="./vendor/bootstrap/js/boostrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+
+  </script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
