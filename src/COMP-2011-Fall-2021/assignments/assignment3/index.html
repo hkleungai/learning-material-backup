@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>COMP2011 Assignment 3: Trains</title>
+<!-- Bootstrap core CSS -->
+<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="../css/simple-sidebar.css" rel="stylesheet">
+<!-- For code highlighting -->
+<script src="./js/prism.js" type="text/javascript"></script>
+<link href="./css/prism.css" rel="stylesheet" />
+<style>
+table {
+  width: 100%;
+  display: inline-block;
+  overflow-x: auto;
+}
+
+table caption {
+  font-size: medium;
+}
+
+table thead th {
+  background-color: #ddd;
+}
+
+table th,
+table td {
+  text-align: left;
+  padding: 3px 6px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #aaa #aaa;
+}
+
+table tr:nth-child(even) {
+  background-color: #eee;
+}
+
+blockquote {
+  border: 1px solid #b3b3b3;
+  border-left: 10px solid #b3b3b3;
+  border-radius: 0px;
+  background: #fafafa;
+  font-size: 18px;
+  font-family: Georgia, serif;
+  margin: 10px;
+  padding: 10px 20px;
+}
+ 
+blockquote p {
+  margin: 0;
+  line-height: 30px;
+  padding-bottom: 20px;
+}
+ 
+blockquote.small {
+  display: block;
+  font-size: 80%;
+  color: brown;
+  text-align: right;
+}
+
+img.limit {
+  max-width: 100%
+}
+
+span.input {
+    color: #99cc99;
+}
+
+pre {
+    background: #f5f2f0;
+    padding: 15px;
+}
+
+</style>
+</head>
+
+<!--
+# How to auto indent HTML in vim
+:filetype indent on
+:set filetype=html           # abbrev -  :set ft=html
+:set smartindent             # abbrev -  :set si
+gg=G
+  -->
+<body class="language-none">
+<div class="d-flex" id="wrapper">
+  <!-- Sidebar -->
+  <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sticky-top">
+      <div class="sidebar-heading">Assignment 3</div>
+      <div class="list-group list-group-flush">
+        <a href="#Intro" class="list-group-item list-group-item-action bg-light">Introduction</a>
+        <a href="#Downloads" class="list-group-item list-group-item-action bg-light">Downloads</a>
+        <a href="#Overview" class="list-group-item list-group-item-action bg-light">Overview</a>
+        <a href="#FunctionsToImplement" class="list-group-item list-group-item-action bg-light">Functions to Implement</a>
+        <a href="#Sample" class="list-group-item list-group-item-action bg-light">Sample Output</a>
+        <a href="#Submission" class="list-group-item list-group-item-action bg-light">Submission</a>
+        <a href="#FAQ" class="list-group-item list-group-item-action bg-light">FAQ</a>
+        <span class="list-group-item list-group-item-action bg-light">Prepared by: <a href="mailto:wallacem@cse.ust.hk">Wallace Mak</a></span>
+      </div>
+    </div>
+  </div>
+  <!-- /#sidebar-wrapper -->
+  <!-- Page Content -->
+  <div id="page-content-wrapper">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+      <div class="col-sm-9">
+      <span class="navbar-toggler-icon" id="menu-toggle"></span>
+      </div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+        <li class="nav-item">
+        <a class="nav-link" href="https://course.cse.ust.hk/comp2011/">Course Webpage</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="https://course.cse.ust.hk/comp2011/forum.html">Online Forum</a>
+        </li>
+      </ul>
+      </div>
+    </nav>
+
+
+    <div class="container-fluid border-bottom my-5">
+      <div class="col-sm-12 col-lg-12 container">
+      <h1>COMP2011 Assignment 3: Trains</h1>
+      </div>
+    </div>
+
+    <div class="container-fluid border-bottom my-5" id="Intro">
+      <h2 class="mt-4">Introduction</h2>
+
+      <p>
+        Choo-choo! All aboard! Yes, this assignment is about trains. You will model them with doubly-linked lists and implement various functions which manipulate them. You will practice dynamic memory usage, pointers, and linked lists. It is challenging, so you are <b>highly recommended to start early</b>. If you need clarification of the requirements, please feel free to post on the Piazza. However, to avoid cluttering the forum with repeated/trivial questions, please do <b>read all the given code, webpage description, sample output, and <a href="#FAQ">latest FAQ</a> (refresh this page regularly) carefully before you post your questions</b>. Also please be reminded that we won't debug any student's assignment for the sake of fairness.
+      </p>
+
+
+    <img src="img/trains.jpg" height="600px">
+        <br>
+        <br>
+      <h4>About academic integrity</h4>
+            <p>We value academic integrity very highly. Please read the <a href="https://course.cse.ust.hk/comp2011/web/code.html">Honor Code</a> section on our course webpage to make sure you understand what is considered as plagiarism and what the penalties are. The following are some of the highlights:</p>
+
+            <ul>
+              <li>Do NOT try your "luck" - we use sophisticated plagiarism detection software to find cheaters. We also review codes for potential cases manually.</li>
+              <li>The penalty (for <b>BOTH</b> the copier and the copiee) is not just getting a zero in your assignment. Please read the Honor Code thoroughly.</li>
+              <li>Serious offenders will fail the course immediately, and there may be additional disciplinary actions from the department and university, upto and including expulsion.</li>
+            </ul>
+
+    </div>
+
+    <div class="container-fluid border-bottom my-5" id="Downloads">
+      <h2 class="mt-4">Downloads</h2>
+
+      <p>Download the starting skeleton code <a href="skeleton.zip">HERE</a>. Please download, unzip it, and add all the extracted files to your IDE now, as we will refer to the given source code from time to time in the description below. Your task is to complete 11 functions in todo.cpp, and submit it to ZINC.</p>
+
+      <p>Note that this is a C++ program that consists of multiple source files, therefore you should compile all those cpp files according to what you have learned in the labs/lectures.</p>
+
+      <p>
+      Here are some rules that you should follow:
+      <ul>
+        <li>You should NOT modify given.cpp and pa3.h at all.</li>
+        <li>You can modify the main function to add your own test cases. However, make sure your submitted todo.cpp can compile with the original unmodified versions of main.cpp, pa3.h, and given.cpp.</li>
+        <li>You are NOT allowed to include any additional library.</li>
+        <li>You are NOT allowed to use any global variable nor static variable like "static int x".</li>
+        <li>You are NOT allowed to use "auto".</li>
+        <li>You may use any library function that can be used without including additional libraries. (note: you must make sure it works on ZINC yourself as different environments may have different requirements).</li>
+        <li>You may create and use your own helper functions defined in todo.cpp itself.</li>
+        <li>You may use any kind of loops and local variables/arrays in general for this assignment.</li>
+      </ul>
+      </p>
+
+        <p>There is no demo program for this assignment as everything should already be well-defined and sufficiently described. Instead we have provided you with many examples and test cases and their corresponding outputs for you to check your understanding and program. You may find the test cases about them in the <a href="#Sample">sample output</a> section.</p>
+    </div>
+
+
+    <div class="container-fluid border-bottom my-5" id="Overview">
+      <h2 class="mt-4">Overview</h2>
+      <p>We use a doubly-linked list to represent a train. For that, a node struct is defined in pa3.h:</p>
+      <pre><code class="language-cpp">
+struct TrainCar //a node in the doubly-linked list that represents the train - it is therefore a car in the train
+{
+    CarType type; 
+    int maxLoad; //maximum possible load of cargo for this car; always 0 for HEAD
+    int load; //current load of cargo for this car; always 0 for HEAD
+    TrainCar* prev; //previous pointer
+    TrainCar* next; //next pointer
+};
+      </code></pre>
+      <p>The <code>CarType</code> is defined as follows.</p>
+      <pre><code class="language-cpp">
+enum CarType {HEAD, OIL, COAL, WOOD, STEEL, SUGAR}; //either HEAD for the train head or the type of the cargo the train car can carry
+      </code></pre>
+      <p>Our train always has exactly one HEAD car at the beginning of the list, and then possibly followed by cargo cars which can either carry OIL, COAL, WOOD, STEEL, or SUGAR.</p>
+      <p>For example, here is an illustration of a train of 4 train cars which is represented by a doubly-linked list of 4 nodes:</p>
+      <img src="img/train.png" width="1000px">
+      <br>
+      <br>
+      <p>(p.s. unfortunately not all programmers are artists... please use your imagination to imagine that it is a beautiful train! :))</p>
+      <ul>
+        <li>The first car (i.e. the first node) is always a HEAD (train head), and its load and maximum load should always be set to 0 because it is not supposed to carry any cargo at all. As the first node of the linked list, the prev pointer is always set to nullptr. The next pointer points to the next car/node (if any). If the train only consists of the train head and no other cars, then the next pointer should be set to nullptr.
+        <li>The second car/node in this example is a COAL car that carries COAL. The maximum load is 100 units while the current load is 40 units. Naturally, the current load can never exceed the maximum load which is at least 1. (except for the head car, as mentioned, of which both the current load and maximum load are always 0) It also cannot be negative. The next pointer points to the third car/node while the prev pointer points to the first car/node, as you can see from the arrows in the picture.</li>
+        <li>The third car/node in this example is a SUGAR car that carries SUGAR. The maximum load is 200 units while the current load is 120 units. What the prev and next pointers in a doubly-linked list point to should be obvious to you now - you may also refer to the picture above.</li>
+        <li>The fourth car/node in our example is also our last car/node in the train. It currently doesn't have any load of COAL so its current load is 0 while the maximum load is 130 units. As the last car/node, its next pointer is set to nullptr.</li>
+      </ul>
+
+      <p>The <code>printTrain</code> function, which prints the given train, is given to you. You can read its implementation in the given.cpp file. For the example given above, the output would be as follows (2 lines):</p>
+      <pre><code>
+[HEAD] -> [COAL:40/100] -> [SUGAR:120/200] -> [COAL:0/130]
+In reverse: [COAL:0/130] <- [SUGAR:120/200] <- [COAL:40/100] <- [HEAD]
+      </code></pre>
+      <p>The first line shows the train printed from the head node to the last node, while the second line shows the same train printed from the last node to the head node. You are expected to read the given code to understand how that is printed. We will be using this simple text representation in the rest of this assignment description.</p>
+      <p>Tip: if your program can print the first line but not the second line (the reverse printing of the train), it probably means that some of the prev pointers in your doubly-linked list is not properly set.</p>
+      <p>Also, in the description below, "position" of a car/node refers to the position of it in the linked list (counting from 0, starts at HEAD). For the example above, the "[HEAD]" node is at position 0, the [COAL:40/100]" node is at position 1, the "[SUGAR:120/200]" node is at position 2, and the "[COAL:0/130]" node is at position 3.</p>
+
+    </div>
+
+
+
+    <div class="container-fluid border-bottom my-5" id="FunctionsToImplement">
+      <h2 class="mt-4">Functions to Implement</h2>
+
+      <p>This section describes the functions that you need to implement for this assignment in todo.cpp. While we try to be as detailed as possible in the following description, you should check the given test cases in <code>main</code> and the corresponding sample output to verify your understanding, especially if you cannot understand the requirements completely just by reading the webpage description alone.</p>
+      <br>
+
+      <p><h5><code class="language-cpp">TrainCar* createTrainHead();</code></h5>
+      Dynamically create and return a train head car node. As it is currently the only car in the train, set both the prev and next pointers to nullptr. Friendly reminder: check the test cases. For this function, you may refer to the very first test case.
+      </p>
+      <br>
+
+<p><h5><code class="language-cpp">bool addCar(TrainCar* head, int position, CarType cargoType, int maxLoad);</code></h5>
+      Attempt to dynamically create and insert a new train car node of the specific <code>cargoType</code> with 0 current load and the specified <code>maxLoad</code> to an existing train headed by the specified <code>head</code> at the specified <code>position</code> (refer to the following examples to see how the position is used). It should return true if the addition is successful. The addition only fails when the given <code>cargoType</code> is HEAD because we would never add a train head with this function, or the given <code>position</code> is not larger than 0 because we won't be adding a new car before the train head, or the given <code>position</code> is larger than the length of the train (see examples below), or the given <code>maxLoad</code> is zero or negative. When it fails, do nothing to the train and simply return false.<br><br>
+      However, <b>in this and all other functions that you need to implement, you can assume the <code>head</code> parameter given always points to a valid train head node of a valid existing train</b> in all our test cases. 
+      <br>
+      <br>
+      <p>Example 1:
+      <ul>
+        <li>Original train which has its train head node pointed by <code>train</code> (which will be passed to the function as parameter <code>head</code>):
+<pre><code>
+[HEAD]
+In reverse: [HEAD]
+</code></pre>
+</li>
+<li>After calling <code>addCar(train, 1, OIL, 100)</code> which returns true:
+<pre><code>
+[HEAD] -> [OIL:0/100]
+In reverse: [OIL:0/100] <- [HEAD]
+</code></pre>
+</li>
+      </ul>
+      </p>
+      <p>Example 2:
+      <ul>
+        <li>Original train which has its train head node pointed by <code>train</code>:
+<pre><code>
+[HEAD] -> [OIL:0/100]
+In reverse: [OIL:0/100] <- [HEAD]
+</code></pre>
+</li>
+<li><code>addCar(train, 0, SUGAR, 200)</code> should simply return false.</li>
+<li><code>addCar(train, 3, SUGAR, 200)</code> should simply return false. (length of the train is 2, and 3 is larger than that)</li>
+<li><code>addCar(train, 1, SUGAR, 0)</code> should simply return false.</li>
+<li>After calling <code>addCar(train, 1, SUGAR, 200)</code> which returns true:
+<pre><code>
+[HEAD] -> [SUGAR:0/200] -> [OIL:0/100]
+In reverse: [OIL:0/100] <- [SUGAR:0/200] <- [HEAD]
+</code></pre>
+</li>
+      </ul>
+      </p>
+      <p>Example 3:
+      <ul>
+        <li>Original train which has its train head node pointed by <code>train</code>:
+<pre><code>
+[HEAD] -> [OIL:0/100]
+In reverse: [OIL:0/100] <- [HEAD]
+</code></pre>
+</li>
+<li>After calling <code>addCar(train, 2, SUGAR, 200)</code> which returns true:
+<pre><code>
+[HEAD] -> [OIL:0/100] -> [SUGAR:0/200] 
+In reverse: [SUGAR:0/200] <- [OIL:0/100] <- [HEAD]
+</code></pre>
+</li>
+      </ul>
+      </p>
+      <br>
+
+<p><h5><code class="language-cpp">bool deleteCar(TrainCar* head, int position);</code></h5>
+       Attempt to remove a car node at the specified <code>position</code>. It should return true if the deletion is successful. The deletion only fails when the given <code>position</code> is invalid (less than 1 or not smaller than the car length, see examples below). When it fails, do nothing to the train and simply return false.<br><br>
+       It should go without saying that you need to release any dynamically allocated memory allocated to the car node removed.<br><br>
+      <p>Example 1:
+      <ul>
+        <li>Original train which has its train head node pointed by <code>train</code>:
+<pre><code>
+[HEAD] -> [OIL:0/100] -> [SUGAR:0/200] 
+In reverse: [SUGAR:0/200] <- [OIL:0/100] <- [HEAD]
+</code></pre>
+</li>
+<li><code>deleteCar(train, 0)</code> should simply return false. We won't delete the train head with this function.</li>
+<li><code>deleteCar(train, 3)</code> should simply return false. The length of the train is 3, so there is no node to delete at position 3.</li>
+<li>After calling <code>deleteCar(train, 1)</code> which returns true:
+<pre><code>
+[HEAD] -> [SUGAR:0/200] 
+In reverse: [SUGAR:0/200] <- [HEAD]
+</code></pre>
+</li>
+</ul>
+      </p>
+      <p>Example 2:
+      <ul>
+        <li>Original train which has its train head node pointed by <code>train</code>:
+<pre><code>
+[HEAD] -> [OIL:0/100] -> [SUGAR:0/200] 
+In reverse: [SUGAR:0/200] <- [OIL:0/100] <- [HEAD]
+</code></pre>
+</li>
+<li>After calling <code>deleteCar(train, 2)</code> which returns true:
+<pre><code>
+[HEAD] -> [OIL:0/100] 
+In reverse: [OIL:0/100] <- [HEAD]
+</code></pre>
+</li>
+</ul>
+      </p>
+      <br>
+
+<p><h5><code class="language-cpp">bool swapCar(TrainCar* head, int a, int b);</code></h5>
+      Swap train cars at the given positions <code>a</code> and <code>b</code>. It should return true if the swap is successful. The swap only fails when any of the given positions is invalid, just like the <code>deleteCar</code> function. When it fails, do nothing to the train and simply return false. 
+      <br><br>
+      Swap can also be successfully performed if <code>a</code> is the same as <code>b</code> as long as they are valid positions, although the train won't apparently change.<br><br>
+
+      <p>Example 1:
+      <ul>
+        <li>Original train which has its train head node pointed by <code>train</code>:
+<pre><code>
+[HEAD] -> [OIL:0/100] -> [SUGAR:0/200] 
+In reverse: [SUGAR:0/200] <- [OIL:0/100] <- [HEAD]
+</code></pre>
+</li>
+<li><code>swapCar(train, 0, 1)</code> should simply return false.</li>
+<li><code>swapCar(train, 1, 3)</code> should simply return false.</li>
+<li>After calling <code>swapCar(train, 1, 2)</code> which returns true:
+<pre><code>
+[HEAD] -> [SUGAR:0/200] -> [OIL:0/100]
+In reverse: [OIL:0/100] <- [SUGAR:0/200] <- [HEAD]
+</code></pre>
+Note that calling <code>swapCar(train, 2, 1)</code> would have the same effect.
+</li>
+</ul>
+      </p>
+
+      </p>
+      <br>
+
+<p><h5><code class="language-cpp">void sortTrain(TrainCar* head, bool ascending);</code></h5>
+      Sort the cargo train cars by their current loads ascendingly if <code>ascending</code> is true or descendingly if <code>ascending</code> is false. The train head should not be included in the sorting as the train head must always be at position 0.<br><br>
+
+      For simplicity, assume no two cargo cars in the same train have the same current load in all test cases that test this function.
+      <br><br>
+
+      <p>Example 1:
+      <ul>
+        <li>Original train which has its train head node pointed by <code>train</code>:
+<pre><code>
+[HEAD] -> [SUGAR:30/400] -> [OIL:10/100] -> [COAL:40/200] -> [STEEL:20/300] -> [COAL:5/500]
+In reverse: [COAL:5/500] <- [STEEL:20/300] <- [COAL:40/200] <- [OIL:10/100] <- [SUGAR:30/400] <- [HEAD]
+</code></pre>
+</li>
+<li>After calling <code>sortTrain(train, true)</code>:
+<pre><code>
+[HEAD] -> [COAL:5/500] -> [OIL:10/100] -> [STEEL:20/300] -> [SUGAR:30/400] -> [COAL:40/200]
+In reverse: [COAL:40/200] <- [SUGAR:30/400] <- [STEEL:20/300] <- [OIL:10/100] <- [COAL:5/500] <- [HEAD]
+</code></pre>
+</li>
+<li>After calling <code>sortTrain(train, false)</code>:
+<pre><code>
+[HEAD] -> [COAL:40/200] -> [SUGAR:30/400] -> [STEEL:20/300] -> [OIL:10/100] -> [COAL:5/500]
+In reverse: [COAL:5/500] <- [OIL:10/100] <- [STEEL:20/300] <- [SUGAR:30/400] <- [COAL:40/200] <- [HEAD]
+</code></pre>
+</li>
+</ul>
+      </p>
+
+      </p>
+      <br>
+
+<p><h5><code class="language-cpp">bool load(TrainCar* head, CarType type, int amount);</code></h5>
+      Attempt to load the specified <code>amount</code> of cargo of the specified <code>type</code> for the train (i.e. add new cargo to the train). It should return true if the loading is successful. The loading only fails if there is not enough free space for the specified cargo type in the train. When it fails, do nothing to the train and simply return false. When there are multiple cars of that cargo type, the loading always tries to fill the cargo cars that are closer to the train head first. Refer to the examples below.<br><br>
+      You can assume the <code>amount</code> is always positive and the <code>type</code> won't be HEAD. (i.e. no checking of those parameters is needed) <br><br>
+
+      <p>Example 1:
+      <ul>
+        <li>Original train which has its train head node pointed by <code>train</code>:
+<pre><code>
+[HEAD] -> [SUGAR:30/400] -> [OIL:10/100] -> [COAL:40/200] -> [STEEL:20/300] -> [COAL:5/500]
+In reverse: [COAL:5/500] <- [STEEL:20/300] <- [COAL:40/200] <- [OIL:10/100] <- [SUGAR:30/400] <- [HEAD]
+</code></pre>
+</li>
+<li><code>load(train, WOOD, 1)</code> should simply return false because the train doesn't even have any WOOD cargo car.</li>
+<li><code>load(train, SUGAR, 380)</code> should simply return false because the train can only carry at most 370 additional units of SUGAR.</li>
+<li>After calling <code>load(train, SUGAR, 300)</code> which returns true:
+<pre><code>
+[HEAD] -> [SUGAR:330/400] -> [OIL:10/100] -> [COAL:40/200] -> [STEEL:20/300] -> [COAL:5/500]
+In reverse: [COAL:5/500] <- [STEEL:20/300] <- [COAL:40/200] <- [OIL:10/100] <- [SUGAR:330/400] <- [HEAD]
+</code></pre>
+</li>
+</ul>
+      </p>
+
+      <p>Example 2:
+      <ul>
+        <li>Original train which has its train head node pointed by <code>train</code>:
+<pre><code>
+[HEAD] -> [SUGAR:30/400] -> [OIL:10/100] -> [COAL:40/200] -> [STEEL:20/300] -> [COAL:5/500]
+In reverse: [COAL:5/500] <- [STEEL:20/300] <- [COAL:40/200] <- [OIL:10/100] <- [SUGAR:30/400] <- [HEAD]
+</code></pre>
+</li>
+<li>After calling <code>load(train, COAL, 510)</code> which returns true:
+<pre><code>
+[HEAD] -> [SUGAR:30/400] -> [OIL:10/100] -> [COAL:200/200] -> [STEEL:20/300] -> [COAL:355/500]
+In reverse: [COAL:355/500] <- [STEEL:20/300] <- [COAL:200/200] <- [OIL:10/100] <- [SUGAR:30/400] <- [HEAD]
+</code></pre>
+In this example, the first COAL car is filled with 160 units of additional COAL first, then the second COAL car is filled with the remaining 350 units of COAL.
+</li>
+</ul>
+      </p>
+
+      </p>
+      <br>
+
+<p><h5><code class="language-cpp">bool unload(TrainCar* head, CarType type, int amount);</code></h5>
+  Attempt to unload the specified <code>amount</code> of cargo of the specified <code>type</code> for the train (i.e. remove cargo from the train). It should return true if the unloading is successful. The unloading only fails if there is not enough cargo to remove for the specified cargo type in the train. When it fails, do nothing to the train and simply return false. When there are multiple cars of that cargo type, the unloading always tries to unload the cargo cars that are closer to the train tail first. Refer to the examples below.<br><br>
+      You can assume the <code>amount</code> is always positive and the <code>type</code> won't be HEAD.<br><br>
+
+      <p>Example 1:
+      <ul>
+        <li>Original train which has its train head node pointed by <code>train</code>:
+<pre><code>
+[HEAD] -> [SUGAR:30/400] -> [OIL:10/100] -> [COAL:40/200] -> [STEEL:20/300] -> [COAL:5/500]
+In reverse: [COAL:5/500] <- [STEEL:20/300] <- [COAL:40/200] <- [OIL:10/100] <- [SUGAR:30/400] <- [HEAD]
+</code></pre>
+</li>
+<li><code>unload(train, WOOD, 1)</code> should simply return false because the train doesn't even have any WOOD cargo car.</li>
+<li><code>unload(train, SUGAR, 31)</code> should simply return false because the train only has 30 units of SUGAR.</li>
+<li>After calling <code>unload(train, SUGAR, 29)</code> which returns true:
+<pre><code>
+[HEAD] -> [SUGAR:1/400] -> [OIL:10/100] -> [COAL:40/200] -> [STEEL:20/300] -> [COAL:5/500]
+In reverse: [COAL:5/500] <- [STEEL:20/300] <- [COAL:40/200] <- [OIL:10/100] <- [SUGAR:1/400] <- [HEAD]
+</code></pre>
+</li>
+</ul>
+      </p>
+
+      <p>Example 2:
+      <ul>
+        <li>Original train which has its train head node pointed by <code>train</code>:
+<pre><code>
+[HEAD] -> [SUGAR:30/400] -> [OIL:10/100] -> [COAL:40/200] -> [STEEL:20/300] -> [COAL:5/500]
+In reverse: [COAL:5/500] <- [STEEL:20/300] <- [COAL:40/200] <- [OIL:10/100] <- [SUGAR:30/400] <- [HEAD]
+</code></pre>
+</li>
+<li>After calling <code>unload(train, COAL, 15)</code> which returns true:
+<pre><code>
+[HEAD] -> [SUGAR:30/400] -> [OIL:10/100] -> [COAL:30/200] -> [STEEL:20/300] -> [COAL:0/500]
+In reverse: [COAL:0/500] <- [STEEL:20/300] <- [COAL:30/200] <- [OIL:10/100] <- [SUGAR:30/400] <- [HEAD]
+</code></pre>
+In this example, 5 units of COAL are removed from the the last COAL car first, then 10 units of COAL are remove from the second last COAL car.
+</li>
+</ul>
+      </p>
+
+      </p>
+      <br>
+
+<p><h5><code class="language-cpp">void printCargoStats(const TrainCar* head);</code></h5>
+      Print the one-line cargo stats to the console terminal with cout. The exact format required will be explained with the following example.
+      <br><br>
+      You can assume the train has at least one cargo car in all the test cases that test this function.
+      <br><br>
+
+<p>Example 1:
+      <ul>
+        <li>Original train which has its train head node pointed by <code>train</code>:
+<pre><code>
+[HEAD] -> [SUGAR:30/400] -> [OIL:10/100] -> [COAL:40/200] -> [STEEL:0/300] -> [COAL:5/500]
+In reverse: [COAL:5/500] <- [STEEL:0/300] <- [COAL:40/200] <- [OIL:10/100] <- [SUGAR:30/400] <- [HEAD]
+</code></pre>
+</li>
+
+<li><code>printCargoStats(train)</code> should print the following line to the console terminal with cout:
+<pre><code>
+SUGAR:30/400,OIL:10/100,COAL:45/700,STEEL:0/300
+</code></pre>
+As you can see, it simply tells the user, for each cargo type that exists in the train, the total current load and the total maximum load. For example, there are in total 45 units of COAL while at most 700 units can be carried, hence we have "COAL:45/700".
+<br><br>
+The printing order of the cargo types depend on their first appearances in the train. In this example, since the SUGAR car appears first, the stats for SUGAR are printed first. The stats for OIL are printed second as OIL appears the second in the train. Finally, because COAL first appears earlier than STEEL in the train, the stats for COAL are printed before STEEL. Stats for WOOD are not printed because there is no WOOD car at all in this example.
+<br><br>
+The stats for different cargo types are separated by exactly one comma ",". There should be no empty spaces at all in the whole line. There is also exactly one new-line character <code>endl</code> at the end of the line.
+<br><br>
+Following all the rules listed above, there can only be one version of the printed line. Any difference in your output will be considered as incorrect. Since all grading will be automatically done by output comparison and we will not allow any student to modify their submitted code after the submission deadline, please check carefully if your code can output the stats with the exact format as described. You can compare your output with our sample output for the given test cases which test this function, or run them on ZINC to make sure (friendly reminder: ZINC server will be very busy when the deadline approaches, please do not expect you can get the grading reports for checking quickly during that time; probably you will need to manually compare your output with our sample output carefully then if you start late).
+<br><br>
+
+</li>
+</ul>
+      </p>
+
+
+      </p>
+      <br>
+
+<p><h5><code class="language-cpp">void divide(const TrainCar* head,  TrainCar* results[CARGO_TYPE_COUNT]);</code></h5>
+      Create new trains of single cargo types from the given train. The cars in the new trains must be dynamically created. (i.e. in the new trains, do not just put/point to any existing cars of the given train - you need to create new copies of the cars) The original train should not be modified. We will use the following examples to explain what you need to do.
+      <br><br>
+      You can assume the train has at least one cargo car in all the test cases that test this function.
+      <br><br>
+
+<p>Example 1:
+      <ul>
+        <li>Original train which has its train head node pointed by <code>train</code>:
+<pre><code>
+[HEAD] -> [SUGAR:30/400] -> [OIL:10/100] -> [COAL:40/200] -> [STEEL:0/300] -> [COAL:5/500]
+In reverse: [COAL:5/500] <- [STEEL:0/300] <- [COAL:40/200] <- [OIL:10/100] <- [SUGAR:30/400] <- [HEAD]
+</code></pre>
+</li>
+
+<li><code>divide(train, results)</code> will perform the following:
+  <ol>
+    <li>Find out how many cargo types there are in total for this train. For this example, there are 4, in this order according to their first appearances in the train: SUGAR, OIL, COAL, STEEL</li>
+    <li>Generate a new train for each of the cargo types, in the order determined in the previous step. Therefore, for this example, there should be 4 new trains created for this example: a SUGAR train first, then an OIL train, then a COAL train, and finally a STEEL train.</li>
+    <li>For the SUGAR (the first cargo type) train, you will need to create a new train head, and then add a new SUGAR car of the same load and maximum load as the only SUGAR car we have in the given train:
+<pre><code>
+[HEAD] -> [SUGAR:30/400]
+In reverse: [SUGAR:30/400] <- [HEAD]
+</code></pre>
+    Make the first result pointer (results[0]) point to the head car node of it.
+    </li>
+    <li>For the OIL (the second cargo type) train, you will need to create a new train head, and then add a new OIL car of the same load and maximum load as the only OIL car we have in the given train:
+<pre><code>
+[HEAD] -> [OIL:10/100]
+In reverse: [OIL:10/100] <- [HEAD]
+</code></pre>
+    Make the second result pointer (results[1]) point to the head car node of it.
+    </li>
+    <li>For the COAL (the third cargo type) train, you will need to create a new train head, and then add two new COAL cars of the same loads and maximum loads as the two OIL cars we have in the given train. Note that we keep their relative ordering in the new train as you can see:
+<pre><code>
+[HEAD] -> [COAL:40/200] -> [COAL:5/500]
+In reverse: [COAL:5/500] <- [COAL:40/200] <- [HEAD]
+</code></pre>
+    Make the third result pointer (results[2]) point to the head car node of it.
+    </li>
+    <li>For the STEEL (the fourth cargo type) train, you will need to create a new train head, and then add a new STEEL car of the same load and maximum load as the only STEEL car we have in the given train:
+<pre><code>
+[HEAD] -> [STEEL:0/300]
+In reverse: [STEEL:0/300] <- [HEAD]
+</code></pre>
+    Make the fourth result pointer (results[3]) point to the head car node of it.
+    </li>
+    <li>Set all the remaining result pointers to nullptr. Since there are only 4 new trains created in this example, only the first 4 result pointers will point to the new trains, you should therefore set results[4] to nullptr. (note: CARGO_TYPE_COUNT is 5, so there are only 5 results pointers)</li>
+  </ol>
+</li>
+<li>If we print the results array with the following code which is also used in our test cases as you can see in main.cpp:
+<pre><code class="language-cpp">
+cout &lt;&lt; "Divide results:" &lt;&lt; endl;
+for(int i=0; i&lt;CARGO_TYPE_COUNT; i++)
+{
+    cout &lt;&lt; "results[" &lt;&lt; i &lt;&lt; "]:" &lt;&lt; endl;
+    if(results[i] == nullptr)
+        cout &lt;&lt; "nullptr" &lt;&lt; endl;
+    else
+        printTrain(results[i]);
+}
+</code></pre>
+The following would be the output:
+<pre><code>
+Divide results:
+results[0]:
+[HEAD] -> [SUGAR:30/400]
+In reverse: [SUGAR:30/400] <- [HEAD]
+results[1]:
+[HEAD] -> [OIL:10/100]
+In reverse: [OIL:10/100] <- [HEAD]
+results[2]:
+[HEAD] -> [COAL:40/200] -> [COAL:5/500]
+In reverse: [COAL:5/500] <- [COAL:40/200] <- [HEAD]
+results[3]:
+[HEAD] -> [STEEL:0/300]
+In reverse: [STEEL:0/300] <- [HEAD]
+results[4]:
+nullptr
+</code></pre>
+</li>
+
+</li>
+</ul>
+
+As usual, you may use the other examples in the given test cases in main.cpp to verify/help with your understanding.
+      </p>
+
+      </p>
+      <br>
+
+<p><h5><code class="language-cpp">TrainCar* optimizeForMaximumPossibleCargos(const TrainCar* head, int upperBound);</code></h5>
+      Find a subset of the cargo cars which can carry the maximum amount of cargo (type doesn't matter for this part) that is not more than the given <code>upperBound</code>, then create a new train with those cargo cars and return it. The cars in the returned train must be dynamically created. (i.e. in the returned train, do not just put/point to any existing cars of the given train - you need to create new copies of the cars) The original train should not be modified. We will use the following examples to explain what you need to do.
+      <br><br>
+      You can assume the train has at least one cargo car in all the test cases that test this function.
+      <br><br>
+      For simplicity, you can assume there will only be exactly one solution in each of the test cases for this function.
+      <br><br>
+
+<p>Example 1:
+      <ul>
+        <li>Original train which has its train head node pointed by <code>train</code>:
+<pre><code>
+[HEAD] -> [SUGAR:30/400] -> [COAL:10/100] -> [COAL:25/200]
+In reverse: [COAL:25/200] <- [COAL:10/100] <- [SUGAR:30/400] <- [HEAD]
+</code></pre>
+</li>
+<li>There are 8 possible trains that can be generated with those cargo cars (we always keep the same relative ordering among them, so there can only be exactly 8 of them in this example):
+  <ol>
+    <li>
+<pre><code>
+[HEAD] -> [SUGAR:30/400] -> [COAL:10/100] -> [COAL:25/200]
+In reverse: [COAL:25/200] <- [COAL:10/100] <- [SUGAR:30/400] <- [HEAD]
+</code></pre>
+which carries 65 units of cargo in total.<br><br>
+    </li>
+    <li>
+<pre><code>
+[HEAD] -> [SUGAR:30/400] -> [COAL:10/100]
+In reverse: [COAL:10/100] <- [SUGAR:30/400] <- [HEAD]
+</code></pre>
+which carries 40 units of cargo in total.<br><br>
+    </li>
+    <li>
+<pre><code>
+[HEAD] -> [SUGAR:30/400] -> [COAL:25/200]
+In reverse: [COAL:25/200] <- [SUGAR:30/400] <- [HEAD]
+</code></pre>
+which carries 55 units of cargo in total.<br><br>
+    </li>
+    <li>
+<pre><code>
+[HEAD] -> [COAL:10/100] -> [COAL:25/200]
+In reverse: [COAL:25/200] <- [COAL:10/100] <- [HEAD]
+</code></pre>
+which carries 35 units of cargo in total.<br><br>
+    </li>
+    <li>
+<pre><code>
+[HEAD] -> [SUGAR:30/400]
+In reverse: [SUGAR:30/400] <- [HEAD]
+</code></pre>
+which carries 30 units of cargo in total.<br><br>
+    </li>
+    <li>
+<pre><code>
+[HEAD] -> [COAL:10/100]
+In reverse: [COAL:10/100] <- [HEAD]
+</code></pre>
+which carries 10 units of cargo in total.<br><br>
+    </li>
+    <li>
+<pre><code>
+[HEAD] -> [COAL:25/200]
+In reverse: [COAL:25/200] <- [HEAD]
+</code></pre>
+which carries 25 units of cargo in total.<br><br>
+    </li>
+    <li>
+<pre><code>
+[HEAD]
+In reverse: [HEAD]
+</code></pre>
+which carries 0 unit of cargo in total.<br><br>
+    </li>
+  </ol>
+</li>
+
+<li><code>optimizeForMaximumPossibleCargos(train, 100)</code> should create and return a new train:</code>
+<pre><code>
+[HEAD] -> [SUGAR:30/400] -> [COAL:10/100] -> [COAL:25/200]
+In reverse: [COAL:25/200] <- [COAL:10/100] <- [SUGAR:30/400] <- [HEAD]
+</code></pre>
+which carries 65 units of cargo in total.<br><br>
+</li>
+
+<li><code>optimizeForMaximumPossibleCargos(train, 35)</code> should create and return a new train:</code>
+<pre><code>
+[HEAD] -> [COAL:10/100] -> [COAL:25/200]
+In reverse: [COAL:25/200] <- [COAL:10/100] <- [HEAD]
+</code></pre>
+which carries 35 units of cargo in total.<br><br>
+</li>
+
+<li><code>optimizeForMaximumPossibleCargos(train, 36)</code> should create and return a new train:</code>
+<pre><code>
+[HEAD] -> [COAL:10/100] -> [COAL:25/200]
+In reverse: [COAL:25/200] <- [COAL:10/100] <- [HEAD]
+</code></pre>
+which carries 35 units of cargo in total.<br><br>
+</li>
+
+<li><code>optimizeForMaximumPossibleCargos(train, 40)</code> should create and return a new train:</code>
+<pre><code>
+[HEAD] -> [SUGAR:30/400] -> [COAL:10/100]
+In reverse: [COAL:10/100] <- [SUGAR:30/400] <- [HEAD]
+</code></pre>
+which carries 40 units of cargo in total.<br><br>
+</li>
+
+<li><code>optimizeForMaximumPossibleCargos(train, 5)</code> should create and return a new train:</code>
+<pre><code>
+[HEAD]
+In reverse: [HEAD]
+</code></pre>
+which carries 0 unit of cargo in total.<br><br>
+</li>
+
+</ul>
+</p>
+
+Note that you should not assume the maximum number of cars the given train can have, since the train is a linked list.
+
+      </p>
+      <br>
+
+<p><h5><code class="language-cpp">void deallocateTrain(TrainCar* head);</code></h5>
+      Release/deallocate all the memory allocated for all the cars in the given train.
+      </p>
+      <p>Tip: If this function is crashing your program for all the test cases on ZINC, you may consider leaving its implementation empty so that you can get the majority of points from test cases that don't check for memory leak.</p>
+      <br>
+
+
+</div>
+
+
+
+
+
+
+
+    <div class="container-fluid border-bottom my-5" id="Sample">
+      <h2 class="mt-4">Sample Output</h2>
+      <p> Your finished program should produce the same output as <a href="sample.zip">our sample output</a> for the test cases. User input, if any, is omitted in the files. You can run them locally or run them online on ZINC anytime. Please note that sample output, naturally, does not show all possible cases. It is part of the assessment for you to design your own test cases to test your program. <b>Be reminded to remove any debugging message</b> that you might have added before submitting your final submission.</p>
+
+
+      <p>There are 22 given test cases of which the code can be found in the given main function. These 22 test cases are first run without any memory leak checking (they are numbered #1 - #22 on ZINC). Then, the same 22 test cases will be run again, in the same order, with memory leak checking (those will be numbered #23 - #44 on ZINC). For example, test case #24 on ZINC is actually the given test case 2 (in the given main function) run with memory leak checking.</p>
+
+      <p>Each of the test cases run without memory leak checking (i.e., #1 - #22 on ZINC) is worth 1 mark. The second run of each test case with memory leak checking (i.e., #23 - #44 on ZINC) is worth 0.2 mark. The maximum score you can get on ZINC, before the deadline, will therefore be 22*(1+0.2) = 26.4.</p>
+
+
+
+      <b>About memory leak and other potential errors</b>
+
+      <p>Memory leak checking is done via the <code>-fsanitize=address,leak,undefined</code> option (<a href="https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html">related documentation here</a>) of the g++ compiler on Linux (it won't work on Windows for the versions we have tested). Check the "Errors" tab (next to "Your Output" tab in the test case details popup) for errors such as memory leak. Other errors/bugs such as out-of-bounds, use-after-free bugs, and some undefined-behavior-related bugs may also be detected. You will get 0 mark for the test case if there is any error there. Note that if your program has no errors detected by the sanitizers, then the "Errors" tab may not appear. If you wish to check for memory leak yourself using the same options, you may follow our <a href="leak-checking/">Checking for memory leak yourself</a> guide. It is known that the memory leak detection tools may not be able to detect all the leaks a program has - however for automatic grading purpose we will only deduct marks for leaks that it can detect.</p>
+
+      <b>After the deadline</b>
+      <p>We will have 22 additional test cases which won't be revealed to you before the deadline. Together with the 22 given test cases, there will then be 44 test cases used to give you the final assignment grade. All 44 test cases will be run two times as well: once without memory leak checking and once with memory leak checking. The assignment total will therefore be 44*(1+0.2) = 52.8. Details will be provided in the marking scheme which will be released after the deadline.</p>
+
+
+    </div>
+
+
+
+
+
+    <div class="container-fluid border-bottom my-5" id="Submission">
+
+      <h2 class="mt-4">Submission</h2>
+
+      <h4>Deadline</h4>
+
+      <p><font color="red"> 23:59:00, Nov 30th (Tue)</font></p>
+
+      
+      <p>Please submit the <b>todo.cpp</b> only to <a href="http://zinc.cse.ust.hk">ZINC</a>. For assignment 3, we will check for memory leak in your program in some of the test cases. ZINC usage instructions can be found <a href="https://zinc.cse.ust.hk/guide">here</a>.
+
+            <p>Notes:</p>
+            <ul>
+                  <li>You may submit your file multiple times, but only the last submission will be graded. <b>You do NOT get to choose which version we grade.</b> If you submit after the deadline, late penalty will be applied according to the submission time of your last submission.</li>
+                  <li>Submit early to avoid any last-minute problem. Only ZINC submissions will be accepted.</li>
+                  <li>The ZINC server will be very busy on the last day especially in the last few hours, so you should expect you would get the grading result report not-very-quickly. However, as long as your submission is successful, we would grade your latest submission with all test cases after the deadline.</li>
+                  <li>In the grading report, pay attention to various errors reported. For example, <b>under the "make" section, if you see a red cross, click on the STDERR tab to see the compilation errors.</b> You must fix those before you can see any program output for the test cases below.</li>
+                  <li>Make sure you submit the correct file yourself. You can download your own file back from ZINC to verify. Again, <b>we only grade what you uploaded last to ZINC</b>.</li>
+           </ul>
+
+                 <h4>Compilation Requirement</h4>
+
+      <p>
+        It is <strong>required</strong> that your submissions can be compiled and run successfully in our online autograder ZINC. If we cannot even compile your work, it won't be graded. Therefore, for parts that you cannot finish, just put in dummy/empty implementation so that your whole program can be compiled for ZINC to grade the other parts that you have done.</p>
+            <p>
+              <h4>Late submission policy</h4>
+            </p>
+
+            <p>There will be a penalty of -1 point (applied to the assignment score which will be scaled to have a maximum of 100 point) for
+              every minute you are late. For instance, since the deadline of the assignment is 23:59:00 on Nov 30th, if you submit your solution at 1:00:00 on Dec 1st, there will be a penalty of -61 points for your assignment. However, the lowest grade you may get from
+              an assignment is zero: any negative score after the deduction due to late penalty (and any other
+              penalties) will be reset to zero.</p>
+
+
+
+    </div>
+
+
+
+
+    <div class="container-fluid border-bottom my-5" id="FAQ">
+      <h2 class="mt-4">FAQ</h2>
+
+      <p>You should check this section a day before the submission deadline to make sure you haven't missed out any clarification, even if you have already submitted your work to ZINC by then.</p>
+
+      <p>
+        <ul>
+          <li>
+            Q: My code doesn't work / there is an error, here is the code, can you help me to fix it?
+          </li>
+          <li>
+            A: As the assignment is a major course assessment, to be fair, you are supposed to work on it on your own and we should not finish the tasks for you. We might provide some very general hints to you, but we shall not fix the problem or debug for you.
+          </li>
+
+<br>
+
+          <li>Q: My program gives the correct output on my computer, but it gives a different one on ZINC. What may be the cause?</li>
+          <li>A: Usually inconsistent strange result (on different machines/platforms, or even different runs on the same machine) is due to relying on uninitialized hence garbage values, missing return statements, accessing out-of-bound array elements, improper use of dynamic memory, or relying on library functions that might be implemented differently on different platforms (such as pow() in cmath).<br>
+            You may find a list of common causes and tips on debugging in the notes <a href="http://wallacem.people.ust.hk/notes/on-common-c-runtime-errors/">here</a>.<br>
+            In this particular PA, it is probably related to misuse of dynamic memory. Good luck with bug hunting! </li>
+      
+<br>
+
+          <li>
+            Q: Will there be exactly 5 cargo types as described in the actual grading after deadline? And they are the same types as described, right?
+          </li>
+          <li>
+            A: Yes. Everything that has been described in our description won't change. 
+          </li>
+
+<br>
+          <li>
+            Q: For <code>optimizeForMaximumPossibleCargos</code>, can I assume upperBound to be always positive? (>0)
+          </li>
+          <li>
+            A: Yes. 
+          </li>
+<br>
+          <li>
+            Q: Can I use function X or class Y in this assignment?
+          </li>
+          <li>
+            A:  In general if it is not forbidden in the description, and you can use it without including any additional library on ZINC, then you can use it. We suggest quickly testing it on ZINC (to see if a basic usage of it compiles there) before committing to using it as library inclusion requirement may differ on different environments.
+          </li>
+<br>
+          <li>
+            Q: What is the maximum length of the train?
+          </li>
+          <li>
+            A:  It is written that "Note that you should not assume the maximum number of cars the given train can have, since the train is a linked list.".
+          </li>
+<br>
+          <li>
+            Q: Is there a typo in the description about invalid positions in the <code>deleteCar</code> function?
+          </li>
+          <li>
+            A:  Yes, it should be "less than 1 or not smaller than the car length" instead of "less than 1 or not larger than the car length" as you can see in the given examples. It has been fixed at 5:58pm on 23th Nov.
+          </li>
+<br>
+          <li>
+            Q: Will there be any empty car (0 current load) for test cases that test the <code>optimizeForMaximumPossibleCargos</code> function?
+          </li>
+          <li>
+            A:  It should be implied from our written assumption "For simplicity, you can assume there will only be exactly one solution in each of the test cases for this function." that there won't be any empty car, otherwise the solution won't be unique.
+          </li>
+<br>
+
+
+          <!--
+          <li>Q: </li>
+          <li>A: </li>
+          -->
+        </ul>
+      </p>
+
+    </div>
+  </div>
+</div>
+<!-- /#page-content-wrapper -->
+<!-- /#wrapper -->
+<!-- Bootstrap core JavaScript -->
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Menu Toggle Script -->
+<script>
+  $("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+    });
+
+  SyntaxHighlighter.highlight();
+</script>
+</body>
+</html>

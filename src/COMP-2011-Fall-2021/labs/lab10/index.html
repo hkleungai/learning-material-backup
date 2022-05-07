@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)https://course.cse.ust.hk/comp2011/labs/lab10/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>COMP2011 Lab 10</title>
+  <!-- Bootstrap core CSS -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+
+  <!-- For code highlighting -->
+  <script src='../sh/shCore.js' type='text/javascript'></script>
+  <!--script src='./sh/shAutoloader.js' type='text/javascript'></script-->
+  <script src='../sh/shBrushCpp.js' type='text/javascript'></script>
+  <script src='../sh/loadcode.js' type='text/javascript'></script>
+  <link href='../sh/shCore.css' rel='stylesheet' type='text/css'>
+  <link href='../sh/shThemeDefault.css' rel='stylesheet' type='text/css'>
+
+  <style>
+    .input {
+      color: #00ff00;
+    }
+  </style>
+
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.1034.0" data-gr-ext-installed="">
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">COMP2011 Lab 10</div>
+      <div class="list-group list-group-flush">
+        <a href="https://course.cse.ust.hk/comp2011/labs/lab10/#Intro" class="list-group-item list-group-item-action bg-light">Introduction</a>
+        <a href="https://course.cse.ust.hk/comp2011/labs/lab10/#Tasks" class="list-group-item list-group-item-action bg-light">Tasks</a>
+        <a href="https://course.cse.ust.hk/comp2011/labs/lab10/#Output" class="list-group-item list-group-item-action bg-light">Expected Output</a>
+        <a href="https://course.cse.ust.hk/comp2011/labs/lab10/#Grade" class="list-group-item list-group-item-action bg-light">Grading Scheme</a>
+        <span class="list-group-item list-group-item-action bg-light">Prepared by: <a href="mailto:mqinae@connect.ust.hk">Meng Qin</a></span>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="col-sm-9">
+        <span class="navbar-toggler-icon" id="menu-toggle"></span>
+    </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/">Course Webpage</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/forum.html">Online Forum</a>
+            </li>
+            <!--li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li-->
+          </ul>
+        </div>
+      </nav>
+
+      <div class="col-sm-12 col-lg-12 container">
+          <h1>COMP2011 Lab 10: Final Exam Scheduling Using C++ Class</h1>
+            <figure class="figure mx-auto d-block">
+                <img src="Tough-Exams.jpg" class="mx-5 my-5" width="500" alt="Final Exam Scheduling."/>
+            </figure>
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Intro">
+        <h2 class="mt-4">Introduction</h2>
+        <p>The final week is coming. Our university staffs are working hard to schedule the final exam of many courses. In this lab, suppose you are required to help the staffs implement a simple exam scheduling program using the C++ Class. A <a href="./lab10_skeleton.zip">skeleton code</a> has been provided to help you get started.</p>
+        <p>Consider the following application scenario. A set of courses apply to use a classroom as the place of their final exam. One can define a <b>Course</b> class and a <b>Classroom</b> class. See <ins>Course.h</ins> and <ins>Classroom.h</ins> of the skeleton code for their definitions.</p>
+        <p>Concretely, a <b>Course</b> class has the following data members:
+        <ul>
+            <li>char* <b>course_ID</b>: course ID, e.g., COMP2011</li>
+            <li>char* <b>course_name</b>: course name, e.g., Programming_with_C++</li>
+            <li>int <b>start_time</b>: expected start timestamp of the final exam</li>
+            <li>int <b>end_time</b>: expected end timestamp of the final exam</li>
+            <li>int <b>num_students</b>: number of students that will attend the final exam of this course</li>
+        </ul>
+        For simplicity, we use an integer timestamp (e.g., 0, 10, 100, etc.) to represent the <b>start_time</b> and <b>end_time</b> instead of specifying the day, hour, and minute.</p>
+		
+        <p>A <b>Classroom</b> class has the following data members:
+        <ul>
+            <li>char* <b>room_ID</b>: classroom ID, e.g., RM2464</li>
+            <li>int <b>quota</b>: number of seats, i.e., the maximum number of students of an exam</li>
+            <li>Course* <b>app_list</b>: a Course array records all the courses applying to use this classroom</li>
+            <li>Course* <b>exam_list</b>: a Course array records the courses that can use this classroom as their final exam place</li>
+            <li>int <b>num_app</b>: number of courses applying to use this classroom, i.e., length of <b>app_list</b></li>
+            <li>int <b>num_exams</b>: number of exams that will be held in this classroom, i.e., length of <b>exam_list</b></li>
+        </ul>
+        In addition to the accessors and mutators, the <b>Classroom</b> class also has the following member functions:
+        <ul>
+            <li>void <b>receive_app</b>(Course course): receive the application of a course, where we only receive the application of courses whose number of students is less than or equal to the classroom's quota</li>
+            <li>void <b>gen_timetable</b>(): generate the timetable of final week of this classroom</li>
+            <li>void <b>print_timetable</b>(): print the timetable of final week of this classroom</li>
+        </ul>
+        In this lab, we consider a simple case that <b>only one classroom receives the applications from multiple courses</b>. Note that there may be some time conflicts among the courses. Your program should decide whether to accept the application of a course such that
+        <ul>
+            <li>(1) the number of students of each course should be less than or equal to the quota</li>
+            <li>(2) this classroom can hold as many examinations as possible</li>
+            <li>(3) there are no time conflicts among the exams</li>
+        </ul>
+        Such a task can be formulated as the <a href="https://en.wikipedia.org/wiki/Interval_scheduling">Interval Scheduling Problem</a>. You are required to implement a greedy algorithm, which can ensure the number of exams that can be held in a classroom is maximized.
+        </p>
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Tasks">
+        <h2 class="mt-4">Tasks</h2>
+        <ul>
+            <li><b>Task 1</b>: Implement the mutator of the <b>Course</b> class (see <ins>Course.cpp</ins> of the skeleton code).</li>
+            <li><b>Task 2</b>: Implement the constructor of the <b>Classroom</b> class (see <ins>Classroom.cpp</ins> of the skeleton code).</li>
+            <li><b>Task 3</b>: Implement the member function <b>receive_app</b> of the <b>Classroom</b> class (see <ins>Classroom.cpp</ins> of the skeleton code). You are required to add a course to app_list (if its number of students is less than or equal to the classroom's quota)  and increment num_app.</li>
+            <li><b>Task 4</b>: Implement the member function <b>gen_timetable</b> of the <b>Classroom</b> class (see <ins>Classroom.cpp</ins> of the skeleton code). You are required to implement a greedy algorithm of the interval scheduling problem including the following 2 steps.
+                <dd>Step 1: Sort the <b>app_list</b> according to the course <b>end_time</b>;</dd>
+                <dd>Step 2: From the beginning of <b>app_list</b>, if a course has no time conflicts with those courses already added in <b>exam_list</b>, add it to <b>exam_list</b> and increment <b>num_exams</b>.</dd>
+            </li>
+        </ul>
+        <p>Some information of the classroom and courses should be saved in a file with the following format. The first line gives the (1) course ID, (2) quota, and (3) number of courses (applying to use this classroom) separated by whitespaces. Starting from the second line, each line gives the information of a course, including (1) course ID, (2) course name, (3) expected start timestamp, (4) expected end timestamp, and (5) number of students, separated by whitespaces. For each course, ensure that the end timestamp is larger than the start timestamp and there are no whitespaces in the course name (i.e., use 'Programming_with_C++' instead of 'Programming with C++'). We assume that there are at most 20 courses applying to use a classroom. We also assume that the string length of the classroom ID and course ID should be less than 20. The string length of course name should be less than 100. An example of the input file is as follow.</p>
+        <pre class="shadow p-3 mb-5 bg-white rounded"> 
+RM2464 300 3
+COMP1021 Introduction_to_Computer_Science 10 160 250
+COMP2011 Programming_with_C++ 155 255 200
+COMP2611 Computer_Organization 0 150 103
+        </pre>
+        <p>You can compile the program using the following command.</p>
+        <ul>
+          <li>For Windows: <ins>g++ -o lab10.exe Course.cpp Classroom.cpp main.cpp</ins></li>
+          <li>For Mac: <ins>g++ -o lab10.out Course.cpp Classroom.cpp main.cpp</ins></li>
+        </ul>
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Output">
+        <h2 class="mt-4">Example Outputs</h2>
+        <p><b>Example 1</b>: Use the input file <b>case_1.txt</b></p>
+        <pre class="shadow p-3 mb-5 bg-white rounded">
+RM2464 300 4
+COMP1021 Introduction_to_Computer_Science 10 160 250
+COMP2011 Programming_with_C++ 155 255 200
+COMP2611 Computer_Organization 0 150 103
+COMP3021 Java_Programming 200 300 79
+        </pre>
+        <pre class="shadow p-3 mb-5 bg-white rounded">
+Enter the path of input file: case_1.txt
+========================================
+Final Week Time Table of RM2464
+========================================
+ Course ID      Course Name     Time    #Students
+0 COMP2611 Computer_Organization 0--150 103
+1 COMP2011 Programming_with_C++ 155--255 200
+========================================
+Number of (Valid) Applications: 4
+Number of Exams: 2
+        </pre>
+
+        <p><b>Example 2</b>: Use the input file <b>case_2.txt</b></p>
+        <pre class="shadow p-3 mb-5 bg-white rounded">
+RM2464 300 4
+COMP1021 Introduction_to_Computer_Science 10 160 250
+COMP2011 Programming_with_C++ 155 255 200
+COMP2611 Computer_Organization 0 150 400
+COMP3021 Java_Programming 200 300 79
+        </pre>
+        <pre class="shadow p-3 mb-5 bg-white rounded">
+Enter the path of input file: case_2.txt
+========================================
+Final Week Time Table of RM2464
+========================================
+ Course ID      Course Name     Time    #Students
+0 COMP1021 Introduction_to_Computer_Science 10--160 250
+1 COMP3021 Java_Programming 200--300 79
+========================================
+Number of (Valid) Applications: 3
+Number of Exams: 2
+        </pre>
+
+        <p><b>Example 3</b>: Use the input file <b>case_3.txt</b></p>
+        <pre class="shadow p-3 mb-5 bg-white rounded">
+RM2464 300 10
+COMP1021 Introduction_to_Computer_Science 50 150 500
+COMP2011 Programming_with_C++ 150 300 200
+COMP2611 Computer_Organization 80 240 103
+COMP3021 Java_Programming 300 400 79
+COMP3111 Software_Engineering 0 120 87
+COMP3511 Operating_Systems 350 450 130
+COMP3721 Theory_of_Computation 20 140 67
+COMP4021 Internet_Computing 200 300 75
+COMP4211 Machine_Learning 200 350 80
+COMP4331 Data_Mining 180 360 56
+        </pre>
+        <pre class="shadow p-3 mb-5 bg-white rounded">
+Enter the path of input file: case_3.txt
+========================================
+Final Week Time Table of RM2464
+========================================
+ Course ID      Course Name     Time    #Students
+0 COMP3111 Software_Engineering 0--120 87
+1 COMP2011 Programming_with_C++ 150--300 200
+2 COMP3511 Operating_Systems 350--450 130
+========================================
+Number of (Valid) Applications: 9
+Number of Exams: 3
+        </pre>
+
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Grade">
+        <h2 class="mt-4">Grading Scheme</h2>
+        <p>Each lab carries 3 points in total. 
+      </p><ul>
+      <li>
+      By attending a lab, the student gets 1 point for attendance (but only if it is clear that the student does put in some effort). 
+      </li>
+      <li>
+      By completing the lab exercise correctly and answering TAs' question (if there is a
+      question) correctly, the student gets the remaining 2 more points. 
+      </li>
+      <li>
+      You are recommended to turn on the camera while demonstrating.
+      </li>
+      </ul>
+      If the student is unable to finish the lab and demonstrate to the TA by the end of the lab, they can only get the attendance point.
+      </div>
+
+  </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="./vendor/jquery.min.js"></script>
+  <script src="./vendor/bootstrap/js/boostrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+
+  </script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>

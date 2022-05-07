@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <!-- include CSS stylesheets -->
+    <!-- <link rel="stylesheet" href="../css/underground.css" type="text/css" /> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- include JQuery library  -->
+    <script type="text/javascript" src="../jQuery/jquery.min.js"></script>
+    <!-- Users script: A very simple usage of JQuery library -->
+    <script type="text/javascript" src="../jQuery/show.js"></script>
+    <title>COMP2011 Lab 09</title>
+</head>
+<style>
+    #sidebar {
+        width: 21%;
+        border-right: 3px solid #dee2e6 !important;
+    }
+</style>
+
+<body>
+    <div class="d-flex" id="body_wrap">
+        <!-- Sidebar -->
+        <div class="show" id="sidebar">
+            <div class="bg-light">
+                <div class="sidebar-heading" style="padding: 0.875rem 1.25rem;">Lab 9</div>
+                <div class="list-group list-group-flush">
+                    <a href="#Intro" class="list-group-item list-group-item-action bg-light">Introduction</a>
+                    <a href="#Description" class="list-group-item list-group-item-action bg-light">Description</a>
+                    <a href="#Task" class="list-group-item list-group-item-action bg-light">Tasks</a>
+                    <a href="#Hint" class="list-group-item list-group-item-action bg-light">Hints</a>
+                    <a href="#Output" class="list-group-item list-group-item-action bg-light">Sample Output</a>
+                    <!--<a href="#Hint" class="list-group-item list-group-item-action bg-light">Hint</a>-->
+                    <a href="#Grade" class="list-group-item list-group-item-action bg-light">Grading</a>
+                    <span class="list-group-item list-group-item-action bg-light">Prepared by: <a
+                     href="lyuanaa@connect.ust.hk">Linping YUAN</a></span>
+                </div>
+            </div>
+        </div>
+        <!-- /#sidebar -->
+        <!-- Page Content -->
+        <div id="main">
+            <!-- Navbar Dropdown -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <div class="col-sm-9">
+                    <button class="btn" type="button" data-toggle="collapse" data-target="#sidebar" aria-expanded="false">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://course.cse.ust.hk/comp2011/web/announcements.html">Course Webpage</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://course.cse.ust.hk/comp2011/forum.html">Online Forum</a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Main content -->
+
+            <div class="col-sm-12 col-lg-12 container">
+                <h1>COMP2011 Lab 09</h1>
+
+                <figure class="figure mx-auto d-block">
+                    <img src="lineup.jpeg" class="mx-5 my-5" width="600" alt="Students are lining up."/>
+                    <figcaption class="figure-caption text-right">https://new.qq.com/omn/20191121/20191121A0FU2J00.html</figcaption>
+                </figure>
+            </div>
+            <div class="container-fluid border-bottom my-5" id='Intro'>
+
+                <h2>Introduction</h2>
+                <p> This lab will help you better understand the use of linked lists, including creating, inversing and sorting a linked list.   </p>
+                <p>A <a href="./lab9_skeleton.cpp">skeleton code</a> has been provided to help you get started. 
+
+            </div>
+
+            <div class="container-fluid border-bottom my-5" id='Intro'>
+
+                <h2>Description</h2>
+                <p>
+                    Think back to your experience at primary schools when you were a kid.
+                    Teachers might ask all children to line up according to their heights.
+                    For example, tall children stand at the end of the line.
+                    This lab will use the scenario and invite you to use linked lists to simulate the process of lining up.
+            </div>
+
+            <div class="container-fluid border-bottom my-5" id="Task">
+                <h2>Tasks</h2>
+                <p> Let us assume there are <i>N</i> kids in a class, and their heights are between [120, 160]. 
+                    You are required to finish the following tasks:
+                </p>
+                <ul>
+                <li> Task 1: create an initial linked list consisting of <i>N</i> nodes with random heights, each presenting a kid. </li> 
+                <li> Task 2: reverse the initial linked list. </li>
+                <li> Task 3: line up the kids according to their heights in an ascending order. </li>    
+                </ul>
+            </div>
+
+            <div class="container-fluid border-bottom my-5" id="Hint">
+                <h2>Hints</h2>
+                <p> For task 2, as shown below, you can use two pointers, let them point to nodes one by one,
+                    and set cur->next=pre each time.
+                </p>
+
+                <figure class="figure mx-auto d-block">
+                    <img src="hint_for_task2.gif" class="mx-5 my-5" width="600" alt="Hint for Task 2."/>
+                </figure>
+
+                <p> For task 3, you can use bubble sort or any other sort algorithms.
+                </p>
+            </div>
+
+            <div class="container-fluid border-bottom my-5" id="Output">
+                <h2>Sample Output</h2>
+
+                <p>Example 1</p>
+                <pre class="shadow p-3 mb-5 bg-white rounded">
+                    Please input the number of kids in the class (no more than 20) or enter an alphabet to exit:
+                    3
+                    
+                    Output:
+                    The initial list of kids' heights is:
+                    158 129 122 
+                    The reversed list of kids' heights is:
+                    122 129 158 
+                    The ascending list of kids' heights is:
+                    122 129 158 
+
+                </pre>
+
+                <p>Example 2</p>
+                <pre class="shadow p-3 mb-5 bg-white rounded">
+                    Please input the number of kids in the class (no more than 20) or enter an alphabet to exit:
+                    7
+                    
+                    Output:
+                    The initial list of kids' heights is:
+                    122 155 145 138 140 134 132 
+                    The reversed list of kids' heights is:
+                    132 134 140 138 145 155 122 
+                    The ascending list of kids' heights is:
+                    122 132 134 138 140 145 155 
+
+                </pre>
+
+
+                <p>Example 3</p>
+                <pre class="shadow p-3 mb-5 bg-white rounded">
+                    Please input the number of kids in the class (no more than 20) or enter an alphabet to exit:
+                    15
+                    
+                    Output:
+                    The initial list of kids' heights is:
+                    143 157 120 157 153 132 140 157 150 133 129 149 137 120 127 
+                    The reversed list of kids' heights is:
+                    127 120 137 149 129 133 150 157 140 132 153 157 120 157 143 
+                    The ascending list of kids' heights is:
+                    120 120 127 129 132 133 137 140 143 149 150 153 157 157 157 
+                </pre>
+
+            </div>
+            <!-- block 0 ends here -->
+            <!-- block 1 starts here -->
+            <!-- block 1 ends here -->
+            <!-- block 2 starts here -->
+            <div class="container-fluid border-bottom my-5" id="Grade">
+                <h2>Grading Scheme</h2>
+                <p>
+                    Each lab carries 3 points in total.
+                    <ul>
+                        <li>
+                            By attending a lab, the student gets 1 point for attendance (but only if it is clear that the student does put in some effort).
+                        </li>
+
+                        <li>
+                            By completing the lab exercise correctly and answering TAs' question (if there is a question) correctly, the student gets the remaining 2 more points.
+                        </li>
+
+                        <li>
+                            You are recommended to turn on the camera while demonstrating.
+                        </li>
+                    </ul>
+                    If the student is unable to finish the lab and demonstrate to the TA by the end of the lab, they can only get the attendance point.
+                </p>
+            </div>
+        </div>
+        <!-- main ends here -->
+    </div>
+    <!-- Bootstrap JS import -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- Menu Toggle Script (typescript) -->
+    <script>
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#body_wrap").toggleClass("toggled");
+        });
+    </script>
+</body>
+
+</html>

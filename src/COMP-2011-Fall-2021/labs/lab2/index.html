@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>COMP2011 Lab 2</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+
+  <!-- For code highlighting -->
+  <script src='../sh/shCore.js' type='text/javascript'></script>
+  <!--script src='./sh/shAutoloader.js' type='text/javascript'></script-->
+  <script src='../sh/shBrushCpp.js' type='text/javascript'></script>
+  <script src='../sh/loadcode.js' type='text/javascript'></script>
+  <link href='../sh/shCore.css' rel='stylesheet' type='text/css'>
+  <link href='../sh/shThemeDefault.css' rel='stylesheet' type='text/css'>
+
+  <style>
+    .input {
+      color: #00ff00;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">COMP2011 Lab 2</div>
+      <div class="list-group list-group-flush">
+        <a href="#Intro" class="list-group-item list-group-item-action bg-light">Introduction</a>
+        <a href="#Description" class="list-group-item list-group-item-action bg-light">Game Description</a>
+        <a href="#Implementation" class="list-group-item list-group-item-action bg-light">Implementation</a>
+        <a href="#Output" class="list-group-item list-group-item-action bg-light">Sample Output</a>
+        <a href="#Bonus" class="list-group-item list-group-item-action bg-light">Bonus Tasks</a>
+        <a href="#Grade" class="list-group-item list-group-item-action bg-light">Grading Scheme</a>
+        <span class="list-group-item list-group-item-action bg-light">Prepared by: <a href="mailto:wdaiaj@connect.ust.hk">Weihang Dai</a></span>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="col-sm-9">
+        <span class="navbar-toggler-icon" id="menu-toggle"></span>
+    </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/">Course Webpage</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/forum.html">Online Forum</a>
+            </li>
+            <!--li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li-->
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid border-bottom my-5">
+        <h1>COMP2011 Lab 2</h1><br/>
+        <figure class="figure mx-auto d-block">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Mastermind.jpg" class="figure-img mx-auto d-block" width=60% alt="Responsive image" style="max-width:800px;"> <figcaption class="figure-caption text-right"></figcaption>
+        </figure>
+        </div>
+
+      <div class="container-fluid border-bottom my-5" id="Intro">
+        
+
+        <h2 class="mt-4">Introduction</h2>
+
+        <p>In this lab, you are going to implement the game Mastermind. It would be helpful to first review this set of lecture notes: <a href="https://course.cse.ust.hk/comp2011/notes/h.control1.pdf">Control Flow</a>, <a href="https://course.cse.ust.hk/comp2011/notes/h.basics2.pdf">Basics II</a>, <a href="https://course.cse.ust.hk/comp2011/notes/h.control2.pdf">Control II</a>.</p>
+
+      
+	<p> A skeleton code has been provided <a href="./lab2.cpp">here</a> to help you get started. Feel free to start from scratch without the use of skeleton if you wish.</p>
+	</div>
+
+
+      <div class="container-fluid border-bottom my-5" id="Description">
+        <h2 class="mt-4">Game Description</h2>
+          <p>We will be following the standard rules for the Mastermind game. 
+          </p>
+
+          <p>
+            The game involves two parties, a codemaker and a code breaker. The codemaker sets a code consisting of 4 colored pins and it is the codebreakers objective to guess the code in 12 guesses or less, with the codemaker providing hints after each turn. 
+          </p>
+
+
+          <p>The code is made up of 4 pins. Each pin can be one of 6 possible colors: Yellow (1), Orange (2), Black (3), Green (4), Blue (5), or Purple (6). The codemaker randomly picks a color for each of the 4 positions and the code breaker must guess the correct color for each position within 12 turns. </p>
+
+
+          <p>After each turn, the codemaker gives hints to the code breaker.</p>
+          
+          <ul>
+          
+            <li>For each poisition guessed, if the color is the same as the code, the codemaker shows a red pin as a response</li>
+
+            <li>If the color at the position is wrong, but the color appears at another position in the code, then the codemaker shows a white pin. </li>
+
+	    <li><span style="color:red">Each pin and position is considered once and only once when giving feedback. </span></li>
+
+            <li>Otherwise, no feedback is given</li>
+          </ul>
+
+          <p>A maximum of 4 pins is given as feedback. The game ends once the codebreaker receives 4 red pins. For a video introduction to the game: https://www.youtube.com/watch?v=dMHxyulGrEk </p>
+
+
+          <p>Some examples are shown below</p>
+<p> Explanation: The guess exactly matches the code, so 4 red pins are shown.</p>
+
+          <pre class="shadow p-3 mb-5 bg-white rounded">
+            Coder maker's colors:
+            p0=4    p1=6    p2=6    p3=1
+
+            Please input your guess:
+            4 6 6 1
+
+            Red pins: 4, White pins: 0
+          </pre>
+	  
+ <p> Explanation: The fourth number, 4, matches with the first/second/third position of the code. Because we only consider each pin once, the feedback is 1 white pin.</p>
+          <pre class="shadow p-3 mb-5 bg-white rounded">
+            Coder maker's colors:
+            p0=4    p1=4    p2=4    p3=1
+
+            Please input your guess:
+            2 2 2 4
+
+            Red pins: 0, White pins: 1
+          </pre>
+	 
+<p> Explanation: The second number, 4, matches with the first position of the code (p0). The third guess is also a 4, but we have already considered p0. The feedback is 1 white pin.</p>
+          <pre class="shadow p-3 mb-5 bg-white rounded">
+            Coder maker's colors:
+            p0=4    p1=1    p2=1    p3=1
+
+            Please input your guess:
+            2 4 4 4
+
+            Red pins: 0, White pins: 1
+          </pre>
+	
+<p> Explanation: The first number, 4, matches with the first position of the code (p0). The second, third, and fourth guess is also a 4, but we have already considered p0. The feedback is 1 red pin.</p>
+          <pre class="shadow p-3 mb-5 bg-white rounded">
+            Coder maker's colors:
+            p0=4    p1=1    p2=1    p3=1
+
+            Please input your guess:
+            4 4 4 4
+
+            Red pins: 1, White pins: 0
+          </pre>
+	
+<p> Explanation: The first number, 4, matches with the first position of the code (p0). The second guess is also a 4, but we have already considered p0, and match with p3 instead. The third guess is a 4, but p0 and p3 have already been considered. The feedback is 1 red pin, 1 white pin</p>
+          <pre class="shadow p-3 mb-5 bg-white rounded">
+            Coder maker's colors:
+            p0=4    p1=1    p2=1    p3=4
+
+            Please input your guess:
+            4 4 4 2
+
+            Red pins: 1, White pins: 1
+          </pre>
+	
+
+      </div>
+      
+      <div class="container-fluid border-bottom my-5" id="Implementation">
+        <h2 class="mt-4">Implementation</h2>
+
+        <ul>
+          <li>We assume the code is randomly selected by the codemaker. The colors are represented by the values 1-6</li>
+
+          <li>During the start of each round, we ask the codebreaker to guess the 4 pin code. The player enters 4 numbers between 1-6 and separated by a space. We assume the input is given correctly and do not perform input validation </li>
+            
+            <li>The guess is evaluated and the feedback is automatically given by the codemaker. The total number of Red and White pins are shown. </li>
+
+          <li>If the codebreaker reaches the end of 12 turns, or the codebreaker guesses the code correctly, the game ends. </li>
+
+        </ul>
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Output">
+        <h2 class="mt-4">Sample Output</h2>
+      
+        <p>You may use the skeleton code <a href="./lab2.cpp">here</a> to help you. Below is a sample execution of the game. The user input is hightighted in green. </p>
+
+        <p>
+<pre class="shadow p-3 mb-5 bg-white rounded">
+
+  ==============================
+  Welcome to the Mastermind Game
+  ==============================
+  Coder maker's colors:
+  p0=2    p1=2    p2=4    p3=5
+  
+  Code maker has made his choice.
+  Code breaker, you have 12 attempts to crack his code.
+  Game starts!
+  
+  Attempt 1
+  Please input your guess:
+  <span class="input">1 2 3 4 </span>
+  Red pins: 1, White pins: 1
+  
+  Attempt 2
+  Please input your guess:  
+  <span class="input">1 2 5 6 </span>
+  Red pins: 1, White pins: 1
+  
+  Attempt 3
+  Please input your guess:  
+  <span class="input">1 3 2 5 </span>
+  Red pins: 1, White pins: 1
+  
+  Attempt 4
+  Please input your guess:  
+  <span class="input">4 2 5 6 </span>
+  Red pins: 1, White pins: 2
+  
+  Attempt 5
+  Please input your guess:
+  <span class="input">3 2 6 5 </span>
+  Red pins: 2, White pins: 0
+  
+  Attempt 6
+  Please input your guess:
+  <span class="input">6 2 6 5</span>
+  Red pins: 2, White pins: 0
+  
+  Attempt 7
+  Please input your guess:
+  <span class="input">4 2 3 5 </span>
+  Red pins: 2, White pins: 1
+  
+  Attempt 8
+  Please input your guess:
+  <span class="input">2 2 4 5 </span>
+  Red pins: 4, White pins: 0
+  
+  Congratulations!
+  Coder maker's colors:
+  p0=2    p1=2    p2=4    p3=5
+  You cracked the code with 8 attempts
+
+
+</pre>
+        </p>
+
+
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Bonus">
+        <h2 class="mt-4">Bonus Tasks</h2>
+
+        <p>The following bonus tasks are for pure challenge purpose. They are not graded.</p>
+
+        <ul>
+          <li>What is the optimal strategy for the codebreaker?</li>
+        </ul>
+      </div>
+
+          <div class="container-fluid border-bottom my-5" id="Grade">
+            <h2 class="mt-4">Grading Scheme</h2>
+            <p>Each lab carries 3 points in total. 
+      <UL>
+      <LI>
+      By attending a lab, the student gets 1 point for attendance (but only if it is clear that the student does put in some effort). 
+      </LI>
+      <LI>
+      By completing the lab exercise correctly and answering TAs' question (if there is a
+      question) correctly, the student gets the remaining 2 more points. 
+      </LI>
+      <LI>
+      Please turn on your camera when demonstrating your work to the TA.
+      </LI>
+      </UL>
+      If the student is unable to finish the lab and demonstrate to the TA by the end of the lab, they can only get the attendance point.
+          </div>
+
+  </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+
+  </script>
+
+</body>
+
+</html>

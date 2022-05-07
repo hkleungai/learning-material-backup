@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>COMP2011 PA1: the Magic Array</title>
+  <!-- Bootstrap core CSS -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="../css/simple-sidebar.css" rel="stylesheet">
+  <!-- For code highlighting -->
+  <script src="./js/prism.js" type="text/javascript"></script>
+  <link href="./css/prism.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/katex.min.css">
+  <style>
+    /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+    code[class*="language-"],
+    pre[class*="language-"] {
+      color: #333;
+      background: none;
+      font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+      text-align: left;
+      white-space: pre;
+      word-spacing: normal;
+      word-break: normal;
+      word-wrap: normal;
+      line-height: 1.4;
+
+      -moz-tab-size: 8;
+      -o-tab-size: 8;
+      tab-size: 8;
+
+      -webkit-hyphens: none;
+      -moz-hyphens: none;
+      -ms-hyphens: none;
+      hyphens: none;
+    }
+
+    /* Code blocks */
+    pre[class*="language-"] {
+      padding: .8em;
+      overflow: auto;
+      /* border: 1px solid #ddd; */
+      border-radius: 3px;
+      /* background: #fff; */
+      background: #f5f5f5;
+    }
+
+    /* Inline code */
+    :not(pre)>code[class*="language-"] {
+      padding: .1em;
+      border-radius: .3em;
+      white-space: normal;
+      background: #f5f5f5;
+    }
+
+    .token.comment,
+    .token.blockquote {
+      color: #969896;
+    }
+
+    .token.cdata {
+      color: #183691;
+    }
+
+    .token.doctype,
+    .token.punctuation,
+    .token.variable,
+    .token.macro.property {
+      color: #333;
+    }
+
+    .token.operator,
+    .token.important,
+    .token.keyword,
+    .token.rule,
+    .token.builtin {
+      color: #a71d5d;
+    }
+
+    .token.string,
+    .token.url,
+    .token.regex,
+    .token.attr-value {
+      color: #183691;
+    }
+
+    .token.property,
+    .token.number,
+    .token.boolean,
+    .token.entity,
+    .token.atrule,
+    .token.constant,
+    .token.symbol,
+    .token.command,
+    .token.code {
+      color: #0086b3;
+    }
+
+    .token.tag,
+    .token.selector,
+    .token.prolog {
+      color: #63a35c;
+    }
+
+    .token.function,
+    .token.namespace,
+    .token.pseudo-element,
+    .token.class,
+    .token.class-name,
+    .token.pseudo-class,
+    .token.id,
+    .token.url-reference .token.variable,
+    .token.attr-name {
+      color: #795da3;
+    }
+
+    .token.entity {
+      cursor: help;
+    }
+
+    .token.title,
+    .token.title .token.punctuation {
+      font-weight: bold;
+      color: #1d3e81;
+    }
+
+    .token.list {
+      color: #ed6a43;
+    }
+
+    .token.inserted {
+      background-color: #eaffea;
+      color: #55a532;
+    }
+
+    .token.deleted {
+      background-color: #ffecec;
+      color: #bd2c00;
+    }
+
+    .token.bold {
+      font-weight: bold;
+    }
+
+    .token.italic {
+      font-style: italic;
+    }
+
+
+    /* JSON */
+    .language-json .token.property {
+      color: #183691;
+    }
+
+    .language-markup .token.tag .token.punctuation {
+      color: #333;
+    }
+
+    /* CSS */
+    code.language-css,
+    .language-css .token.function {
+      color: #0086b3;
+    }
+
+    /* YAML */
+    .language-yaml .token.atrule {
+      color: #63a35c;
+    }
+
+    code.language-yaml {
+      color: #183691;
+    }
+
+    /* Ruby */
+    .language-ruby .token.function {
+      color: #333;
+    }
+
+    /* Markdown */
+    .language-markdown .token.url {
+      color: #795da3;
+    }
+
+    /* Makefile */
+    .language-makefile .token.symbol {
+      color: #795da3;
+    }
+
+    .language-makefile .token.variable {
+      color: #183691;
+    }
+
+    .language-makefile .token.builtin {
+      color: #0086b3;
+    }
+
+    /* Bash */
+    .language-bash .token.keyword {
+      color: #0086b3;
+    }
+
+    /* highlight */
+    pre[data-line] {
+      position: relative;
+      padding: 1em 0 1em 3em;
+    }
+
+    pre[data-line] .line-highlight-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: transparent;
+      display: block;
+      width: 100%;
+    }
+
+    pre[data-line] .line-highlight {
+      position: absolute;
+      left: 0;
+      right: 0;
+      padding: inherit 0;
+      margin-top: 1em;
+      background: hsla(24, 20%, 50%, .08);
+      background: linear-gradient(to right, hsla(24, 20%, 50%, .1) 70%, hsla(24, 20%, 50%, 0));
+      pointer-events: none;
+      line-height: inherit;
+      white-space: pre;
+    }
+
+    pre[data-line] .line-highlight:before,
+    pre[data-line] .line-highlight[data-end]:after {
+      content: attr(data-start);
+      position: absolute;
+      top: .4em;
+      left: .6em;
+      min-width: 1em;
+      padding: 0 .5em;
+      background-color: hsla(24, 20%, 50%, .4);
+      color: hsl(24, 20%, 95%);
+      font: bold 65%/1.5 sans-serif;
+      text-align: center;
+      vertical-align: .3em;
+      border-radius: 999px;
+      text-shadow: none;
+      box-shadow: 0 1px white;
+    }
+
+    pre[data-line] .line-highlight[data-end]:after {
+      content: attr(data-end);
+      top: auto;
+      bottom: .4em;
+    }
+
+    html body {
+      font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #333;
+      background-color: #fff;
+      overflow: initial;
+      box-sizing: border-box;
+      word-wrap: break-word
+    }
+
+    html body>:first-child {
+      margin-top: 0
+    }
+
+    html body h1,
+    html body h2,
+    html body h3,
+    html body h4,
+    html body h5,
+    html body h6 {
+      line-height: 1.2;
+      margin-top: 1em;
+      margin-bottom: 16px;
+      color: #000
+    }
+
+    html body h1 {
+      font-size: 2.25em;
+      font-weight: 300;
+      padding-bottom: .3em
+    }
+
+    html body h2 {
+      font-size: 1.75em;
+      font-weight: 400;
+      padding-bottom: .3em
+    }
+
+    html body h3 {
+      font-size: 1.5em;
+      font-weight: 500
+    }
+
+    html body h4 {
+      font-size: 1.25em;
+      font-weight: 600
+    }
+
+    html body h5 {
+      font-size: 1.1em;
+      font-weight: 600
+    }
+
+    html body h6 {
+      font-size: 1em;
+      font-weight: 600
+    }
+
+    html body h1,
+    html body h2,
+    html body h3,
+    html body h4,
+    html body h5 {
+      font-weight: 600
+    }
+
+    html body h5 {
+      font-size: 1em
+    }
+
+    html body h6 {
+      color: #5c5c5c
+    }
+
+    html body strong {
+      color: #000
+    }
+
+    html body del {
+      color: #5c5c5c
+    }
+
+    html body a:not([href]) {
+      color: inherit;
+      text-decoration: none
+    }
+
+    html body a {
+      color: #08c;
+      text-decoration: none
+    }
+
+    html body a:hover {
+      color: #00a3f5;
+      text-decoration: none
+    }
+
+    html body img {
+      max-width: 100%
+    }
+
+    html body>p {
+      margin-top: 0;
+      margin-bottom: 16px;
+      word-wrap: break-word
+    }
+
+    html body>ul,
+    html body>ol {
+      margin-bottom: 16px
+    }
+
+    html body ul,
+    html body ol {
+      padding-left: 2em
+    }
+
+    html body ul.no-list,
+    html body ol.no-list {
+      padding: 0;
+      list-style-type: none
+    }
+
+    html body ul ul,
+    html body ul ol,
+    html body ol ol,
+    html body ol ul {
+      margin-top: 0;
+      margin-bottom: 0
+    }
+
+    html body li {
+      margin-bottom: 0
+    }
+
+    html body li.task-list-item {
+      list-style: none
+    }
+
+    html body li>p {
+      margin-top: 0;
+      margin-bottom: 0
+    }
+
+    html body .task-list-item-checkbox {
+      margin: 0 .2em .25em -1.8em;
+      vertical-align: middle
+    }
+
+    html body .task-list-item-checkbox:hover {
+      cursor: pointer
+    }
+
+    html body blockquote {
+      margin: 16px 0;
+      font-size: inherit;
+      padding: 0 15px;
+      color: #5c5c5c;
+      background-color: #f0f0f0;
+      border-left: 4px solid #d6d6d6
+    }
+
+    html body blockquote>:first-child {
+      margin-top: 0
+    }
+
+    html body blockquote>:last-child {
+      margin-bottom: 0
+    }
+
+    html body hr {
+      height: 4px;
+      margin: 32px 0;
+      background-color: #d6d6d6;
+      border: 0 none
+    }
+
+    html body table {
+      margin: 10px 0 15px 0;
+      border-collapse: collapse;
+      border-spacing: 0;
+      display: block;
+      width: 100%;
+      overflow: auto;
+      word-break: normal;
+      word-break: keep-all
+    }
+
+    html body table th {
+      font-weight: bold;
+      color: #000
+    }
+
+    html body table td,
+    html body table th {
+      border: 1px solid #d6d6d6;
+      padding: 6px 13px
+    }
+
+    html body dl {
+      padding: 0
+    }
+
+    html body dl dt {
+      padding: 0;
+      margin-top: 16px;
+      font-size: 1em;
+      font-style: italic;
+      font-weight: bold
+    }
+
+    html body dl dd {
+      padding: 0 16px;
+      margin-bottom: 16px
+    }
+
+    html body code {
+      font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+      font-size: .85em !important;
+      color: #000;
+      background-color: #f0f0f0;
+      border-radius: 3px;
+      padding: .2em 0
+    }
+
+    html body code::before,
+    html body code::after {
+      letter-spacing: -0.2em;
+      content: "\00a0"
+    }
+
+    html body pre>code {
+      padding: 0;
+      margin: 0;
+      font-size: .85em !important;
+      word-break: normal;
+      white-space: pre;
+      background: transparent;
+      border: 0
+    }
+
+    html body .highlight {
+      margin-bottom: 16px
+    }
+
+    html body .highlight pre,
+    html body pre {
+      padding: 1em;
+      overflow: auto;
+      font-size: .85em !important;
+      line-height: 1.45;
+      border: #d6d6d6;
+      border-radius: 3px
+    }
+
+    html body .highlight pre {
+      margin-bottom: 0;
+      word-break: normal
+    }
+
+    html body pre code,
+    html body pre tt {
+      display: inline;
+      max-width: initial;
+      padding: 0;
+      margin: 0;
+      overflow: initial;
+      line-height: inherit;
+      word-wrap: normal;
+      background-color: transparent;
+      border: 0
+    }
+
+    html body pre code:before,
+    html body pre tt:before,
+    html body pre code:after,
+    html body pre tt:after {
+      content: normal
+    }
+
+    html body p,
+    html body blockquote,
+    html body ul,
+    html body ol,
+    html body dl,
+    html body pre {
+      margin-top: 0;
+      margin-bottom: 16px
+    }
+
+    html body kbd {
+      color: #000;
+      border: 1px solid #d6d6d6;
+      border-bottom: 2px solid #c7c7c7;
+      padding: 2px 4px;
+      background-color: #f0f0f0;
+      border-radius: 3px
+    }
+
+    @media print {
+      html body {
+        background-color: #fff
+      }
+
+      html body h1,
+      html body h2,
+      html body h3,
+      html body h4,
+      html body h5,
+      html body h6 {
+        color: #000;
+        page-break-after: avoid
+      }
+
+      html body blockquote {
+        color: #5c5c5c
+      }
+
+      html body pre {
+        page-break-inside: avoid
+      }
+
+      html body table {
+        display: table
+      }
+
+      html body img {
+        display: block;
+        max-width: 100%;
+        max-height: 100%
+      }
+
+      html body pre,
+      html body code {
+        word-wrap: break-word;
+        white-space: pre
+      }
+    }
+
+    .markdown-preview {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box
+    }
+
+    .markdown-preview .pagebreak,
+    .markdown-preview .newpage {
+      page-break-before: always
+    }
+
+    .markdown-preview pre.line-numbers {
+      position: relative;
+      padding-left: 3.8em;
+      counter-reset: linenumber
+    }
+
+    .markdown-preview pre.line-numbers>code {
+      position: relative
+    }
+
+    .markdown-preview pre.line-numbers .line-numbers-rows {
+      position: absolute;
+      pointer-events: none;
+      top: 1em;
+      font-size: 100%;
+      left: 0;
+      width: 3em;
+      letter-spacing: -1px;
+      border-right: 1px solid #999;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none
+    }
+
+    .markdown-preview pre.line-numbers .line-numbers-rows>span {
+      pointer-events: none;
+      display: block;
+      counter-increment: linenumber
+    }
+
+    .markdown-preview pre.line-numbers .line-numbers-rows>span:before {
+      content: counter(linenumber);
+      color: #999;
+      display: block;
+      padding-right: .8em;
+      text-align: right
+    }
+
+    .markdown-preview .mathjax-exps .MathJax_Display {
+      text-align: center !important
+    }
+
+    .markdown-preview:not([for="preview"]) .code-chunk .btn-group {
+      display: none
+    }
+
+    .markdown-preview:not([for="preview"]) .code-chunk .status {
+      display: none
+    }
+
+    .markdown-preview:not([for="preview"]) .code-chunk .output-div {
+      margin-bottom: 16px
+    }
+
+    .scrollbar-style::-webkit-scrollbar {
+      width: 8px
+    }
+
+    .scrollbar-style::-webkit-scrollbar-track {
+      border-radius: 10px;
+      background-color: transparent
+    }
+
+    .scrollbar-style::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background-color: rgba(150, 150, 150, 0.66);
+      border: 4px solid rgba(150, 150, 150, 0.66);
+      background-clip: content-box
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode]) {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      margin: 0;
+      padding: 0;
+      overflow: auto
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview {
+      position: relative;
+      top: 0
+    }
+
+    @media screen and (min-width:914px) {
+      html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview {
+        padding: 2em calc(50% - 457px + 2em)
+      }
+    }
+
+    @media screen and (max-width:914px) {
+      html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview {
+        padding: 2em
+      }
+    }
+
+    @media screen and (max-width:450px) {
+      html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview {
+        font-size: 14px !important;
+        padding: 1em
+      }
+    }
+
+    @media print {
+      html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn {
+        display: none
+      }
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn {
+      position: fixed;
+      bottom: 8px;
+      left: 8px;
+      font-size: 28px;
+      cursor: pointer;
+      color: inherit;
+      z-index: 99;
+      width: 32px;
+      text-align: center;
+      opacity: .4
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn {
+      opacity: 1
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 300px;
+      height: 100%;
+      padding: 32px 0 48px 0;
+      font-size: 14px;
+      box-shadow: 0 0 4px rgba(150, 150, 150, 0.33);
+      box-sizing: border-box;
+      overflow: auto;
+      background-color: inherit
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar {
+      width: 8px
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track {
+      border-radius: 10px;
+      background-color: transparent
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background-color: rgba(150, 150, 150, 0.66);
+      border: 4px solid rgba(150, 150, 150, 0.66);
+      background-clip: content-box
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a {
+      text-decoration: none
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul {
+      padding: 0 1.6em;
+      margin-top: .8em
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li {
+      margin-bottom: .8em
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul {
+      list-style-type: none
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview {
+      left: 300px;
+      width: calc(100% - 300px);
+      padding: 2em calc(50% - 457px - 150px);
+      margin: 0;
+      box-sizing: border-box
+    }
+
+    @media screen and (max-width:1274px) {
+      html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview {
+        padding: 2em
+      }
+    }
+
+    @media screen and (max-width:450px) {
+      html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview {
+        width: 100%
+      }
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview {
+      left: 50%;
+      transform: translateX(-50%)
+    }
+
+    html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc {
+      display: none
+    }
+
+    /* Please visit the URL below for more information: */
+    /*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+    table {
+      width: 100%;
+      display: inline-block;
+      overflow-x: auto;
+    }
+
+    table caption {
+      font-size: medium;
+    }
+
+    table thead th {
+      background-color: #ddd;
+    }
+
+    table th,
+    table td {
+      text-align: left;
+      padding: 3px 6px;
+      border-width: 1px;
+      border-style: solid;
+      border-color: #aaa #aaa;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #eee;
+    }
+
+    blockquote {
+      border: 1px solid #b3b3b3;
+      border-left: 10px solid #b3b3b3;
+      border-radius: 0px;
+      background: #fafafa;
+      font-size: 18px;
+      font-family: Georgia, serif;
+      margin: 10px;
+      padding: 10px 20px;
+    }
+
+    blockquote p {
+      margin: 0;
+      line-height: 30px;
+      padding-bottom: 20px;
+    }
+
+    blockquote .small {
+      display: block;
+      font-size: 80%;
+      color: brown;
+      text-align: right;
+    }
+
+    img.limit {
+      max-width: 100%
+    }
+  </style>
+</head>
+
+<body class="language-none">
+  <div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sticky-top">
+        <div class="sidebar-heading">Assignment 1</div>
+        <div class="list-group list-group-flush">
+          <a href="#0-important-notes" class="list-group-item list-group-item-action bg-light">0 Important Notes</a>
+          <a href="#1-introduction" class="list-group-item list-group-item-action bg-light">1 Introduction</a>
+          <a href="#2-definitions" class="list-group-item list-group-item-action bg-light">2 Definitions</a>
+          <a href="#3-tasks" class="list-group-item list-group-item-action bg-light">3 Tasks</a>
+          <a href="#4-downloads" class="list-group-item list-group-item-action bg-light">4 Downloads</a>
+          <a href="#5-submission" class="list-group-item list-group-item-action bg-light">5 Submission</a>
+          <a href="#6-grading" class="list-group-item list-group-item-action bg-light">6 Grading</a>
+          <a href="#7-faq" class="list-group-item list-group-item-action bg-light">7 FAQ</a>
+          <a href="#8-change-log" class="list-group-item list-group-item-action bg-light">8 Change Log</a>
+          <span class="list-group-item list-group-item-action bg-light">Prepared by:<br /> <a
+              href="mailto:szhongaj@connect.ust.hk">ZHONG, Shuhan</a></span>
+        </div>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="col-sm-9">
+          <span class="navbar-toggler-icon" id="menu-toggle"></span>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/">Course Webpage</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://piazza.com/class/ksu2b8ght613g3">Online Forum</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="container-fluid border-bottom my-5">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="comp2011-pa1-the-magic-array">COMP2011 PA1: the Magic Array</h1>
+
+<h2 class="mume-header" id="0-important-notes">0 IMPORTANT NOTES</h2>
+
+<p>There are a few things you <strong>CANNOT</strong> do. Failure to observe these rules would potentially result in <strong>ZERO</strong> mark for your assignment.</p>
+<ul>
+<li>You cannot define and use any additional global variable.</li>
+<li>You cannot change any defined global variable.</li>
+<li>You cannot change any function headers already included in the skeleton code.</li>
+<li>You cannot include or use any additional library (e.g., string)</li>
+</ul>
+<p><strong><span class="text-danger">About Academic Integrity:</span></strong></p>
+<p>We highly value academic integrity. Please read the Honor Code section on our course webpage to make sure you understand what is considered as plagiarism and what the penalties are. The following are some of the highlights:</p>
+<ul>
+<li><strong>DO NOT try your &quot;LUCK&quot;</strong> - we use sophisticated plagiarism detection software to find cheaters. We also review codes for potential cases manually.</li>
+<li>The penalty (for BOTH the copier and the copiee) is not just getting a zero in your assignment. Please read the Honor Code thoroughly.</li>
+<li>Serious offenders will fail the course immediately, and there may be additional disciplinary actions from the department and university, up to and including expulsion.</li>
+</ul>
+<p>This programming assignment is challenging, so you are highly recommended to start early. If you need clarification on the requirements, please feel free to post on the <a href="https://piazza.com/class/ksu2b8ght613g3">Piazza</a>. However, to avoid cluttering the forum with repeated/trivial questions, please carefully read all the given code, webpage description, sample output, and latest <a href="#7-faq">FAQ</a> (refresh this page regularly) carefully before you post your questions. Also please be reminded that we won&apos;t debug for any student&apos;s assignment for the sake of fairness.</p>
+<h2 class="mume-header" id="1-introduction">1 Introduction</h2>
+
+<p><img src="imgs/cube.gif" alt></p>
+<p>Most of you may have heard of or played with the <strong>Rubik&apos;s Cube</strong> or the <strong>Magic Cube</strong>, a 3D combination puzzle invented in 1974 by Hungarian sculptor and professor of architecture Ern&#x151; Rubik. The classic <strong>Magic Cube</strong> is a cube-shaped device made up of 26 small cubes that rotate on a central axis; nine colored cube faces, in three rows of three each, form each side of the cube. When you rotate a plane on an axis, all cube faces on the same plane will rotate together. To solve the puzzle, you are supposed to perform a series of rotations to transform it into the target cube face combination&#x2014;one among 43 quintillion possible ones.</p>
+<p>While the original <strong>Magic Cube</strong> puzzle is difficult to solve, in this assignment we are going to consider a simpler <strong>1D</strong> version of the <strong>Magic Cube</strong>, referred to as the <strong>Magic Array</strong>. The <strong>Magic Array</strong> is implemented using a 1D integer array in <code>C++</code>. You are supposed to first implement the basic rotation action, which will reverse the order of all elements in the specified subarray. Then, based on the rotation actions, you are supposed to implement three advanced actions , i.e. swap, sort and transform.</p>
+<p><img src="imgs/1d.png" alt></p>
+<p>In this programming assignment, we hope that you can make full use of knowledges you have learned so far in the <code>COMP2011</code> class, including <code>Control Statement</code>, <code>Loop Statement</code>, <code>Function</code> and <code>Array</code>.</p>
+<p><em><strong>Sounds interesting? Let&apos;s get started now!</strong></em></p>
+<h2 class="mume-header" id="2-definitions">2 Definitions</h2>
+
+<h3 class="mume-header" id="21-basics">2.1 Basics</h3>
+
+<h4 class="mume-header" id="211-basic-structure-the-magic-array">2.1.1 Basic Structure: the Magic Array</h4>
+
+<p>In this assignment, the <strong>Magic Array</strong> is defined as a 1D integer array of length <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span>, and each element in the array is a digit from <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>9</mn></mrow><annotation encoding="application/x-tex">9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">9</span></span></span></span>: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">{</mo><msub><mi>a</mi><mi>i</mi></msub><mi mathvariant="normal">&#x2223;</mi><mi>i</mi><mo>=</mo><mn>0</mn><mo separator="true">,</mo><mo>&#x2026;</mo><mi>n</mi><mo>&#x2212;</mo><mn>1</mn><mo separator="true">;</mo><msub><mi>a</mi><mi>i</mi></msub><mo>&#x2208;</mo><mo stretchy="false">{</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>4</mn><mo separator="true">,</mo><mn>5</mn><mo separator="true">,</mo><mn>6</mn><mo separator="true">,</mo><mn>7</mn><mo separator="true">,</mo><mn>8</mn><mo separator="true">,</mo><mn>9</mn><mo stretchy="false">}</mo><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{a_i|i=0,\ldots n-1; a_i \in \{0,1,2,3,4,5,6,7,8,9\}\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">&#x2223;</span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">&#x2026;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&#x2208;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">4</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">5</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">6</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">7</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">8</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">9</span><span class="mclose">}}</span></span></span></span>.</p>
+<h4 class="mume-header" id="212-basic-action-rotation">2.1.2 Basic Action: Rotation</h4>
+
+<p><img src="imgs/rotate.png" alt></p>
+<p>To play with the <strong>Magic Array</strong>, you are not supposed to directly change the order or value of the elements (just like you are not allowed to solve the Magic Cube by disassembling and reassembling). What you can do is to perform <code>rotation</code> on the array. Given the array we have defined, the <code>rotate</code> action is defined as the following two steps:</p>
+<ol>
+<li>Choose an integer <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span> where <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>&#x2208;</mo><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>n</mi><mo>&#x2212;</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">k\in[0,n-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&#x2208;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span></li>
+<li>Reverse the subarray <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">{</mo><msub><mi>a</mi><mi>i</mi></msub><mi mathvariant="normal">&#x2223;</mi><mi>i</mi><mo>=</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mo>&#x2026;</mo><mi>k</mi><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{a_i|i=0,1,\ldots k\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">&#x2223;</span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">&#x2026;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mclose">}</span></span></span></span></li>
+</ol>
+<h3 class="mume-header" id="22-advanced-actions">2.2 Advanced Actions</h3>
+
+<p>By performing a series of <code>rotate</code> actions, we can further implement the following complex actions: <code>swap</code>, <code>sort</code> and <code>transform</code>.</p>
+<h4 class="mume-header" id="221-swap-by-rotation">2.2.1 Swap by Rotation</h4>
+
+<p>One rotation action will change the order of all elements in the specified subarray. So, it is tricky if we only want to swap the position of two elements without affecting the order of the others. Denoting the left and right index of the two elements to be swapped as <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi></mrow><annotation encoding="application/x-tex">L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">L</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span></span></span></span>, the <code>swap</code> in a general case can be done by performing the following six rotations:</p>
+<ol>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mi>L</mi><mo>&#x2212;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k=L-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">L</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">k=L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">L</span></span></span></span></li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mi>R</mi></mrow><annotation encoding="application/x-tex">k=R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span></span></span></span></li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mi>R</mi><mo>&#x2212;</mo><mi>L</mi><mo>&#x2212;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k=R-L-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">L</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mi>R</mi><mo>&#x2212;</mo><mi>L</mi><mo>&#x2212;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k=R-L-2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">L</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span></li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mi>R</mi><mo>&#x2212;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k=R-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></li>
+</ol>
+<p>A visualization:</p>
+<p><img src="imgs/swap2.png" alt></p>
+<p>While the above six steps give a solution to the general cases, there are some special boundary cases that the red/green/purple parts in the figure above are missing, e.g., when <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">L=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">L</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>, there won&apos;t be the red part. You are supposed to consider those special cases in this assignment.</p>
+<h4 class="mume-header" id="222-sort-by-rotation">2.2.2 Sort by Rotation</h4>
+
+<p>Sorting is another important action when we play with the <strong>Magic Array</strong> with rotations. Rotations can be used to sort all elements in the <strong>Magic Array</strong> too.</p>
+<p>For example, <strong>Bubble Sort</strong> is a well-known sorting algorithm (you can find detailed information <a href="https://en.wikipedia.org/wiki/Bubble_sort">here</a>, and a visualization <a href="https://visualgo.net/en/sorting">here</a>). To sort a list, <strong>Bubble Sort</strong> repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order. The pass through the list is repeated until the list is sorted.</p>
+<p>We can adapt <strong>Bubble Sort</strong> to our <strong>Magic Array</strong> by substituting the swap action in the original algorithm with the &quot;swap by rotation&quot; action we have defined.</p>
+<h4 class="mume-header" id="223-transform-by-rotation">2.2.3 Transform by Rotation</h4>
+
+<p>Using the &quot;sort by rotation&quot; action, we can easily turn a given array into its sorted form by a series of rotations. Here we extend the sort action to a more general case, that we refer to as the &quot;transform by rotation&quot; action. Given two <strong>Magic Array</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>o</mi><mi>u</mi><mi>r</mi><mi>c</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">source</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">so</span><span class="mord mathnormal">u</span><span class="mord mathnormal">rce</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mi>a</mi><mi>r</mi><mi>g</mi><mi>e</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">target</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80952em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">e</span><span class="mord mathnormal">t</span></span></span></span>, if <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mi>a</mi><mi>r</mi><mi>g</mi><mi>e</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">target</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80952em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">e</span><span class="mord mathnormal">t</span></span></span></span> has the same elements as <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>o</mi><mi>u</mi><mi>r</mi><mi>c</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">source</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">so</span><span class="mord mathnormal">u</span><span class="mord mathnormal">rce</span></span></span></span> but in a different ordering, there exists a &quot;transform by rotation&quot; action, which uses a series of rotations to turn the <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>o</mi><mi>u</mi><mi>r</mi><mi>c</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">source</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">so</span><span class="mord mathnormal">u</span><span class="mord mathnormal">rce</span></span></span></span> array into the <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mi>a</mi><mi>r</mi><mi>g</mi><mi>e</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">target</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80952em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">e</span><span class="mord mathnormal">t</span></span></span></span> array.</p>
+<p><img src="imgs/transform.png" alt></p>
+<h2 class="mume-header" id="3-tasks">3 Tasks</h2>
+
+<p>Before you start to do the tasks, please carefully read through the <a href="#2-definitions">Definitions</a> sections.</p>
+<p>We have provided a skeleton code for you, and you must complete the following tasks based on that skeleton code. You are encouraged to complete those tasks in the given order. And you are encouraged to reuse the functions you have already implemented. You can also write your own helper functions, but please make sure the function you call is bug-free, or you may lose marks in all tasks that call this function.</p>
+<p>In this assignment, you can assume the length of the <strong>Magic Array</strong> is <strong>NO MORE THAN</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>16</mn></mrow><annotation encoding="application/x-tex">16</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">16</span></span></span></span>. And the length of the rotation series is <strong>NO MORE THAN</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1024</mn></mrow><annotation encoding="application/x-tex">1024</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1024</span></span></span></span>.<br>
+Two global constants have been defined in the skeleton code for you to use (You cannot change those defined global variables):</p>
+<pre data-role="codeBlock" data-info="c++" class="language-cpp"><span class="token keyword">const</span> <span class="token keyword">int</span> MAX_ARR_LEN <span class="token operator">=</span> <span class="token number">16</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token keyword">int</span> MAX_ROTATIONS <span class="token operator">=</span> <span class="token number">1024</span><span class="token punctuation">;</span>
+</pre><h3 class="mume-header" id="31-task-1-15-points">3.1 Task 1 <code>15 Points</code></h3>
+
+<p><strong>Rotate</strong></p>
+<pre data-role="codeBlock" data-info="c++" class="language-cpp"><span class="token keyword">int</span> <span class="token function">rotate</span><span class="token punctuation">(</span><span class="token keyword">int</span> arr<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> arrLen<span class="token punctuation">,</span> <span class="token keyword">int</span> k<span class="token punctuation">)</span>
+</pre><ul>
+<li>
+<p>Parameters:</p>
+<ul>
+<li><code>arr</code>: the array to be rotated.</li>
+<li><code>arrLen</code>: the length of <code>arr</code>.</li>
+<li><code>k</code>: the integer specifying the subarray to be rotated.</li>
+</ul>
+</li>
+<li>
+<p>Description:</p>
+<ul>
+<li>If <code>k</code> is not in <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>a</mi><mi>r</mi><mi>r</mi><mi>L</mi><mi>e</mi><mi>n</mi><mo>&#x2212;</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0,arrLen-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">rr</span><span class="mord mathnormal">L</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>:
+<ul>
+<li>print &quot;Error: Index k is out of range.&quot; to the screen <strong>(<code>standard output</code>)</strong> with an ending <code>endl</code>.</li>
+<li>return <code>-1</code>.</li>
+</ul>
+</li>
+<li>Else:
+<ul>
+<li>reverse the subarray of <code>arr</code>.</li>
+<li>return <code>0</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Example:</p>
+</li>
+</ul>
+<ol>
+<li>
+<ul>
+<li><code>arr</code>=[9,1,3,5,4], <code>arrLen</code>=5, <code>k</code>=3.</li>
+<li>After function call:</li>
+<li><code>arr</code>=[5,3,1,9,4].</li>
+<li>return=0.</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><code>arr</code>=[9,1,3,5,4], <code>arrLen</code>=5, <code>k</code>=6.</li>
+<li>After function call:</li>
+<li>print &quot;Error: Index k is out of range.&quot;</li>
+<li>return=-1</li>
+</ul>
+</li>
+</ol>
+<h3 class="mume-header" id="32-task-2-30-points">3.2 Task 2 <code>30 Points</code></h3>
+
+<p><strong>Swap two elements of the array by rotation without affecting the order of the other elements, and record the <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span>s used in the rotations.</strong></p>
+<pre data-role="codeBlock" data-info="c++" class="language-cpp"><span class="token keyword">int</span> <span class="token function">swapAndRecord</span><span class="token punctuation">(</span><span class="token keyword">int</span> arr<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> arrLen<span class="token punctuation">,</span> <span class="token keyword">int</span> indexA<span class="token punctuation">,</span> <span class="token keyword">int</span> indexB<span class="token punctuation">,</span> <span class="token keyword">int</span> rotations<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token operator">&amp;</span>rotationLen<span class="token punctuation">)</span>
+</pre><ul>
+<li>
+<p>Parameters:</p>
+<ul>
+<li><code>arr</code>: the array.</li>
+<li><code>arrLen</code>: length of <code>arr</code>.</li>
+<li><code>indexA</code> and <code>indexB</code>: the index of the two elements to be swapped.</li>
+<li><code>rotations</code>: rotations to swap the two elements as required.</li>
+<li><code>rotationLen</code>: length of <code>rotations</code>.</li>
+</ul>
+</li>
+<li>
+<p>Description:</p>
+<ul>
+<li>If <code>indexA</code> or <code>indexB</code> is not in <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>a</mi><mi>r</mi><mi>r</mi><mi>L</mi><mi>e</mi><mi>n</mi><mo>&#x2212;</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0,arrLen-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">rr</span><span class="mord mathnormal">L</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>:
+<ul>
+<li>Print &quot;Error: Index out of range.&quot; to the screen <strong>(<code>standard output</code>)</strong> with an ending <code>endl</code>.</li>
+<li>return <code>-1</code>.</li>
+</ul>
+</li>
+<li>Else:
+<ul>
+<li>Swap the elements at <code>indexA</code> and <code>indexB</code> of <code>arr</code> by rotations.</li>
+<li>store the k values of the rotations performed in <code>rotations</code>.</li>
+<li>store the count of rotations performed in <code>rotationLen</code>.</li>
+<li>return <code>0</code>.</li>
+</ul>
+</li>
+<li>The answers are <strong>NOT UNIQUE</strong>. Any series of rotations that can swap the two elements are accepted, but the length of the rotation series should be <strong>NO MORE THAN</strong> <code>MAX_ROTATIONS</code>.</li>
+</ul>
+</li>
+<li>
+<p>Example:</p>
+</li>
+</ul>
+<ol>
+<li>
+<ul>
+<li><code>arr</code>=[1,3,5,7,2,4,6], <code>arrLen</code>=7, <code>indexA</code>=5, <code>indexB</code>=2.</li>
+<li>After function call:
+<ul>
+<li><code>arr</code>=[1,3,4,7,2,5,6].</li>
+<li><code>rotations</code>=[1,2,5,2,1,4].</li>
+<li><code>rotationLen</code>=6.</li>
+<li>return=0</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><code>arr</code>=[1,3,5,7,2,4,6], <code>arrLen</code>=7, <code>indexA</code>=5, <code>indexB</code>=10.</li>
+<li>After function call:</li>
+<li>print &quot;Error: Index out of range.&quot;</li>
+<li>return=-1.</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>Hint: Read <a href="#221-swap-by-rotation">Section 2.2.1</a> for general cases, and think about how to deal with the special boundary cases.</li>
+</ul>
+<p><img src="imgs/swap_1357246.png" alt></p>
+<h3 class="mume-header" id="33-task-3-25-points">3.3 Task 3 <code>25 Points</code></h3>
+
+<p><strong>Sort the array by rotation, and record the <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span>s used in the rotations.</strong></p>
+<pre data-role="codeBlock" data-info="c++" class="language-cpp"><span class="token keyword">void</span> <span class="token function">sortAndRecord</span><span class="token punctuation">(</span><span class="token keyword">int</span> arr<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> arrLen<span class="token punctuation">,</span> <span class="token keyword">int</span> rotations<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token operator">&amp;</span>rotationLen<span class="token punctuation">)</span>
+</pre><ul>
+<li>
+<p>Parameters:</p>
+<ul>
+<li><code>arr</code>: the array to be sorted.</li>
+<li><code>arrLen</code>: the length of <code>arr</code>.</li>
+<li><code>rotations</code>: rotations to sort <code>arr</code>.</li>
+<li><code>rotationLen</code>: length of <code>rotations</code>.</li>
+</ul>
+</li>
+<li>
+<p>Description:</p>
+<ul>
+<li>Sort the elements of <code>arr</code> by rotations.</li>
+<li>store the k values of the rotations performed in <code>rotations</code>.</li>
+<li>store the count of rotations performed in <code>rotationLen</code>.</li>
+<li>The answers are <strong>NOT UNIQUE</strong>. Any series of rotations that can sort the array are accepted, but the length of the rotation series should be <strong>NO MORE THAN</strong> <code>MAX_ROTATIONS</code>.</li>
+</ul>
+</li>
+<li>
+<p>Example</p>
+<ul>
+<li><code>arr</code>=[1,3,5,7,2,4,6], <code>arrLen</code>=7.</li>
+<li>After function call:
+<ul>
+<li><code>arr</code>=[1,2,3,4,5,6,7].</li>
+<li><code>rotations</code>=[3,6,0,5,0,4,0,3,0,2,0,1].</li>
+<li><code>rotationLen</code>=12.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 class="mume-header" id="34-task-4-30-points">3.4 Task 4 <code>30 Points</code></h3>
+
+<p><strong>Transform the source array into the target by rotation, and record the <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span>s used in the rotations.</strong></p>
+<pre data-role="codeBlock" data-info="c++" class="language-cpp"><span class="token keyword">int</span> <span class="token function">transformAndRecord</span><span class="token punctuation">(</span><span class="token keyword">int</span> src<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> tgt<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> arrLen<span class="token punctuation">,</span> <span class="token keyword">int</span> rotations<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token operator">&amp;</span>rotationLen<span class="token punctuation">)</span>
+</pre><ul>
+<li>
+<p>Parameters:</p>
+<ul>
+<li><code>src</code>: the source array to be transformed by rotations.</li>
+<li><code>tgt</code>: the target array that <code>src</code> should be transformed to.</li>
+<li><code>arrLen</code>: the length of <code>src</code> and <code>tgt</code>.</li>
+<li><code>rotations</code>: actions to transform <code>src</code> to <code>tgt</code>.</li>
+<li><code>rotationLen</code>: length of <code>rotations</code>.</li>
+</ul>
+</li>
+<li>
+<p>Description:</p>
+<ul>
+<li>In this task you can assume <code>src</code> and <code>tgt</code> always have the same length.</li>
+<li>If <code>arr</code> and <code>tgt</code> have different elements:
+<ul>
+<li>return <code>-1</code>.</li>
+</ul>
+</li>
+<li>Else:
+<ul>
+<li>transform <code>arr</code> to <code>tgt</code> by rotations.</li>
+<li>store the k values of the rotations performed in <code>rotations</code>.</li>
+<li>store the count of rotations performed in <code>rotationLen</code>.</li>
+</ul>
+</li>
+<li>The answers are <strong>NOT UNIQUE</strong>. Any series of rotations that can sort the array are accepted, but the length of the rotation series should be <strong>NO MORE THAN</strong> <code>MAX_ROTATIONS</code>.</li>
+</ul>
+</li>
+<li>
+<p>Example:</p>
+</li>
+</ul>
+<ol>
+<li>
+<ul>
+<li><code>src</code>=[1,3,5,7,2,4,6], <code>tgt</code>=[1,5,3,7,2,4,6] <code>arrLen</code>=7.</li>
+<li>After function call:
+<ul>
+<li><code>src</code>=[1,5,3,7,2,4,6].</li>
+<li><code>rotations</code>=[1,2,1].</li>
+<li><code>rotationLen</code>=3.</li>
+<li>return=0.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><code>src</code>=[1,3,5,7,2,4,6], <code>tgt</code>=[1,5,3,7,2,4,7] <code>arrLen</code>=7.</li>
+<li>After function call:
+<ul>
+<li>return=-1.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>Hint: the rotations are reversible, i.e., if a series of rotations can transform array A to B, then the reversed series of rotations can transform B to A.</li>
+</ul>
+<h2 class="mume-header" id="4-downloads">4 Downloads</h2>
+
+<ul>
+<li>
+<p>Skeleton Code</p>
+<ul>
+<li>Please download and complete the skeleton code (<a href="./pa1.cpp">download</a>), it includes a driver program for your testing.</li>
+<li>You can modify the given driver functions and write your own test functions for testing.</li>
+</ul>
+</li>
+<li>
+<p>Sample Executables<br>
+We have also prepared sample executables for your better understanding about this assignment.</p>
+<ul>
+<li>Windows 10: <a href="./pa1_win.exe">download</a></li>
+<li>macOS: <a href="./pa1_mac">download</a></li>
+<li>Linux: <a href="./pa1_linux">download</a></li>
+</ul>
+</li>
+</ul>
+<h2 class="mume-header" id="5-submission">5 Submission</h2>
+
+<p>You are required to submit your solution to our auto-grading system <code>ZINC</code> (<a href="http://zinc.cse.ust.hk">ZINC</a>).</p>
+<p>Please rename your solution file to &quot;pa1.cpp&quot;, and submit it to <code>ZINC</code>.</p>
+<h3 class="mume-header" id="submission-details">Submission Details</h3>
+
+<p>Please read and follow the instructions <a href="https://zinc.cse.ust.hk/guide">Here</a>.</p>
+<h3 class="mume-header" id="deadline">Deadline</h3>
+
+<p><strong>23:59, 15th October 2021 (Fri)</strong></p>
+<ul>
+<li>You may submit your file multiple times, but only the latest version will be graded.</li>
+<li>Submit early to avoid any last-minute problem. Only <code>ZINC</code> submissions will be accepted.</li>
+<li>You should check the grading report after each submission to make sure it can be compiled and gives correct output.</li>
+</ul>
+<h3 class="mume-header" id="compilation-requirement">Compilation Requirement</h3>
+
+<p>It is <strong>required</strong> that your submissions can be compiled and run successfully in our online auto-grader <code>ZINC</code>. If we cannot even compile your work, it won&apos;t be graded. Therefore, for parts that you cannot finish, just put in dummy/empty implementation so that your whole program can be compiled for <code>ZINC</code> to grade the other parts that you have done. <strong>Again, you should wait for and check the grading report after each submission to <code>ZINC</code>.</strong></p>
+<h3 class="mume-header" id="late-submission-policy">Late Submission Policy</h3>
+
+<p>There will be a penalty of <code>-1</code> point (out of a maximum 100 points) for <strong>every minute</strong> you are late. For instance, since the deadline of the assignment is 23:59:00 on 15th OCT., if you submit your solution at 01:00:00 on 16th OCT, there will be a penalty of -61 points for your assignment. However, the lowest grade you may get from an assignment is zero: any negative score after the deduction due to late penalty (and any other penalties) will be reset to zero.</p>
+<h2 class="mume-header" id="6-grading">6 Grading</h2>
+
+<p>Your assignment will be automatically graded by our auto-grading system <code>ZINC</code>.</p>
+<ul>
+<li><strong>Please ensure your program can be compiled without any problem in ZINC by checking the report from ZINC.</strong> If your program cannot be compiled, you will receive 0 mark.</li>
+<li>In <code>pa1.cpp</code>, anything written below the line<pre data-role="codeBlock" data-info="c++" class="language-cpp"><span class="token comment">// DO NOT WRITE ANYTHING AFTER THIS LINE. ANYTHING AFTER THIS LINE WILL BE REPLACED.</span>
+</pre>will be replaced during grading. Make sure you write all your solution codes above this line.</li>
+<li>Your implementation will be graded by running multiple test cases, each contains a different input parameter. A test case should finish within 3 seconds. Failing to do so would result in 0 mark for that test case.</li>
+<li>Your program should not crash during a test case. If it does, you will receive 0 marks for that test case.</li>
+<li>The examples listed above are by no means complete. Additional test cases will be used during grading. You are encouraged to test your code using your own test cases.</li>
+<li>For tasks that deal with standard output, please compare your output with those of sample executables and make sure they are <strong>EXACTLY</strong> the same. You should also check for the <code>ZINC</code> grading report. Be careful about <code>endl</code>.</li>
+<li>For all tasks, please make sure there is no extra output in the task functions, e.g. extra <code>endl</code> or your own debugging messages. Extra output will also lead to 0 mark for that task.</li>
+<li>Only your latest submission will be graded. You are responsible to make sure the latest submission is correct. You should wait for <code>ZINC</code> to grade your work and then check the grading report carefully.</li>
+</ul>
+<h2 class="mume-header" id="7-faq">7 FAQ</h2>
+
+<ol>
+<li>In task 2/3/4 you are supposed to not only rotate the given <strong>Magic Array</strong>, but also store your rotations in the <code>rotations</code> with its length in <code>rotateLen</code>. The skeleton code doesn&apos;t check the correctness of your rotations, it just shows the result. So, if your solution shows right <strong>Magic Array</strong> result with the skeleton code but gets tested wrong on ZINC, please check the correctness of <code>rotations</code> and <code>rotationLen</code> in your result. You can just try to apply the <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span>s in the <code>rotations</code> on the original array by hand to see whether it can reach the target. Related forum discussions: <a href="https://piazza.com/class/ksu2b8ght613g3?cid=46">@46</a>.</li>
+<li>The answers to task 2/3/4 are <strong>NOT UNIQUE</strong>, any series of rotations that can achieve the specified task goal is accepted, but the length of the rotation series should be <strong>NO MORE THAN</strong> <code>MAX_ROTATIONS</code>.</li>
+<li>A rotation with <code>k=0</code> is accepted, though it will do nothing to the array.</li>
+</ol>
+<h2 class="mume-header" id="8-change-log">8 Change Log</h2>
+
+<ol>
+<li>
+<p>2021-10-01 16:30:00, fixed a bug in the skeleton code line 212 (in the function <code>void runTransform(int arr[], int arrLen)</code>):</p>
+<blockquote>
+<p><s>int tgt[arrLen]</s>, initResult = -1;<br>
+int tgt[MAX_ARR_LEN], initResult = -1;</p>
+</blockquote>
+<p>Please download and use the latest skeleton code at <a href="#4-downloads">4 Downloads</a>.</p>
+</li>
+<li>
+<p>2021-10-01 17:10:00, fixed several typos in descriptions of <a href="#31-task-1-15-points">3.1 Task 1</a> and <a href="#32-task-2-30-points">3.2 Task 2</a>:</p>
+<blockquote>
+<p>In <a href="#31-task-1-15-points">3.1 Task 1</a></p>
+<ul>
+<li>Description:
+<ul>
+<li><s>If <code>k</code> is not in [0,arrLen]:</s></li>
+<li>If <code>k</code> is not in <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>a</mi><mi>r</mi><mi>r</mi><mi>L</mi><mi>e</mi><mi>n</mi><mo>&#x2212;</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0,arrLen-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">rr</span><span class="mord mathnormal">L</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>:</li>
+</ul>
+</li>
+</ul>
+<p>In <a href="#32-task-2-30-points">3.2 Task 2</a></p>
+<ul>
+<li>Description:
+<ul>
+<li><s>If <code>indexA</code> or <code>indexB</code> is not in [0,arrLen]:</s></li>
+<li>If <code>indexA</code> or <code>indexB</code> is not in <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>a</mi><mi>r</mi><mi>r</mi><mi>L</mi><mi>e</mi><mi>n</mi><mo>&#x2212;</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0,arrLen-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">rr</span><span class="mord mathnormal">L</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>:</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+<li>
+<p>2021-10-01 22:26:00, revised the figure in <a href="#221-swap-by-rotation">2.2.1 Swap by Rotation</a>, which may cause misunderstanding about the indices.</p>
+</li>
+<li>
+<p>2021-10-02 23:00:00, fixed a bug in the <code>ZINC</code> configurations that mistakenly deduct points from task 2/3/4 even when the result <code>rotations</code> and <code>rotationLen</code> can achieve the specified goal.<br>
+Please refer to your latest <code>ZINC</code> submission report.</p>
+</li>
+<li>
+<p>2021-10-02 23:00:00, fixed a bug in the sample executables that may produce wrong result in some cases.<br>
+Please download and refer to the latest sample executables at <a href="#4-downloads">4 Downloads</a>.</p>
+</li>
+<li>
+<p>2021-10-08 17:00:00, fixed a typo in descriptions of <a href="#34-task-4-30-points">3.4 Task 4</a>:</p>
+<blockquote>
+<ul>
+<li>Example:</li>
+</ul>
+<ol>
+<li>
+<ul>
+<li><code>src</code>=[1,3,5,7,2,4,6], <code>tgt</code>=[1,5,3,7,2,4,6] <code>arrLen</code>=7.</li>
+<li>After function call:
+<ul>
+<li><code>src</code>=[1,5,3,7,2,4,6].</li>
+<li><code>src</code>=[1,5,3,7,2,4,6].</li>
+<li><s><code>rotations</code>=[2,1].</s></li>
+<li><s><code>rotationLen</code>=2.</s></li>
+<li><code>rotations</code>=[1,2,1].</li>
+<li><code>rotationLen</code>=3.</li>
+<li>return=0.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+</li>
+<li>
+<p>2021-10-08 17:00:00, fixed a bug in the <code>ZINC</code> configurations that may show wrong value in the debug information.<br>
+Please refer to your latest <code>ZINC</code> submission report.</p>
+</li>
+<li>
+<p>2021-10-08 17:00:00, fixed a typo in the skeleton code line 274 (in the function <code>void runOption()</code>):</p>
+<blockquote>
+<p><s><code>cout &lt;&lt; &quot;? Please enter an option (0-7): &quot;;</code></s><br>
+<code>cout &lt;&lt; &quot;? Please enter an option (0-6): &quot;;</code></p>
+</blockquote>
+<p>The same typos in the sample executables are also corrected.<br>
+This typo won&apos;t affect your result and your final grade.</p>
+</li>
+</ol>
+
+      </div>
+
+      </div>
+
+
+    </div>
+  </div>
+  <!-- /#page-content-wrapper -->
+  <!-- /#wrapper -->
+  <!-- Bootstrap core JavaScript -->
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function (e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+
+    SyntaxHighlighter.highlight();
+  </script>
+</body>
+
+</html>

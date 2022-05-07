@@ -65,6 +65,11 @@ const categorizedCourses: CategorizedCourses = {
   ],
   'Object-oriented Programming': [
     {
+      code: 'COMP 2011',
+      title: 'Programming with C++',
+      semesters: ['Fall 2021'],
+    },
+    {
       code: 'COMP 2012',
       title: 'Object-Oriented Programming and Data Structures',
       semesters: ['Spring 2022'],
