@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>COMP2011 Lab 3</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+
+  <!-- For code highlighting -->
+  <script src='../sh/shCore.js' type='text/javascript'></script>
+  <!--script src='./sh/shAutoloader.js' type='text/javascript'></script-->
+  <script src='../sh/shBrushCpp.js' type='text/javascript'></script>
+  <script src='../sh/loadcode.js' type='text/javascript'></script>
+  <link href='../sh/shCore.css' rel='stylesheet' type='text/css'>
+  <link href='../sh/shThemeDefault.css' rel='stylesheet' type='text/css'>
+
+  <style>
+    .input {
+      color: #00ff00;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">COMP2011 Lab 3</div>
+      <div class="list-group list-group-flush">
+        <a href="#Intro" class="list-group-item list-group-item-action bg-light">Introduction</a>
+        <a href="#Description" class="list-group-item list-group-item-action bg-light">Skeleton & Tasks Description</a>
+        <a href="#Implementation" class="list-group-item list-group-item-action bg-light">Implementation</a>
+        <a href="#Output" class="list-group-item list-group-item-action bg-light">Sample Output</a>
+        <a href="#Grade" class="list-group-item list-group-item-action bg-light">Grading Scheme</a>
+        <span class="list-group-item list-group-item-action bg-light">Prepared by: <a href="mailto:shanaj@cse.ust.hk">Han Siyuan</a></span>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="col-sm-9">
+        <span class="navbar-toggler-icon" id="menu-toggle"></span>
+    </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/">Course Webpage</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/forum.html">Online Forum</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid border-bottom my-5">
+        <h1>COMP2011 Lab 3</h1><br/>
+        <figure class="figure mx-auto d-block">
+          <img src="logo.jpg" class="figure-img mx-auto d-block" width=60% alt="Responsive image" style="max-width:400px;"> <figcaption class="figure-caption text-right"></figcaption></figure>
+
+        </figure>
+        </div>
+
+
+      <div class="container-fluid border-bottom my-5" id="Intro">
+        
+
+        <h2 class="mt-4">Introduction</h2> In this lab, we will use <a href="https://course.cse.ust.hk/comp2011/notes/h.function.pdf"><b>function</b></a> to implement more complex logic. You are required to implement the functions based on the pre-defined function definitions and finish the related logic by calling them in the main function properly.
+        
+        We provide the basic skeleton <a href="./lab3.cpp"> code</a> for you to start this lab. </p>
+      </div>
+
+
+      <div class="container-fluid border-bottom my-5" id="Description">
+        <h2 class="mt-4">Skeleton & Tasks Description</h2>
+
+        <h3>Skeleton</h3>
+        <p>
+          The scenario is about the cryptocurrency mining and transfer process. The students need to implement <b>several functions</b>> related to the mining and coin transferring processes, as well as the corresponding logic in <b>the main function</b>. In the main function, students choose the miner from [Alice or Bob or Carl] two times. Then, the selected miners will gain the mining rewards. Finally, the miners will transfer their coins to others. Finally, all three users will have the same amount of coins.
+        </p>
+
+        <h3>Tasks</h3>
+        <ul>
+          <li>Task 1: Implementing the <b>RandomInitBalance</b> function which can return a random double type number between dMin and dMax. </br></br>
+
+            <i>double RandomInitBalance(double dMin, double dMax)</i>;</br></br>
+
+          </li>
+          <li>Task 2: Implementing the <b>Mining</b> function. This function returns a double-type value representing the mining rewards.</br></br>
+
+            <i>double Mining(int selectedMiner, int blockNumber)</i>; </br></br>
+
+            1. The function has two arguments, which are the selected miner and the number of blocks to be mined by the miner. Different miners will get different benefits.</br>
+            2. Alice's basic reward is 10 coins per block. In case of sequential mining, the latter block yields 10 coins more the previous one. For example, if Alice mines 5 blocks, she will gain 10+20+30+40+50 coins as the reward.</br>
+            3. Bob can gain 20 coins per block. For example, if Bob mines 5 blocks, he will gain 100 coins as the reward.</br>
+            4. Carl's basic reward is 40 coins per block. In case of sequential mining, the latter block yields 5 coins less than the previous one. For example, if Carl mines 5 blocks, he will gain 40+35+30+25+20 coins as the reward.</br>
+            5. The accumulated block reward will be recalculated after each round. For example, if we enter 3 blocks for mining and choose Alice as the miner twice, the block reward for Alice is like :[10,20,30,10,20,30].</br></br>
+          </li>          
+          
+          <li>Task 3: Implementing the <b>ComputeFinalBalance</b> function. This function returns the average of the three double-type arguments.</br></br>
+            <i>double ComputeFinalBalance(double a, double b, double c)</i>;</br></br>
+          </li>
+
+          <li>Task 4: Implementing the <b>ComputeTransferValuePBV</b> function used to calculate the value to be transferred between two users(from fromBalance to toBalance) based on the final Balance. For example: ComputeTransferValuePBV(11, 9, 10) will return 1. It means the fromBalance(11) need to to transfer 1 coin to toBalance(9) when the finalBalance is 10.</br>
+          <b>Hint: the real transferring process can be more complex, so think carefully about all possible scenarios.</b></br></br>
+          
+          <i>double ComputeTransferValuePBV(double fromBalance, double toBalance, double finalBalance)</i>;</br></br>
+          </li>
+
+          <li>Task 5: Finishing the Crypto Transferring Process in the main function. Goal: Make three people have the same amount of coins by using the ComputeTransferValuePBV function. <b>Please show the details of each transfer.For example, Alice transfers xx coins to Bob.</b></br>
+
+            1. You cannot just assign the finalBalance to the each user. Please call the ComputeTransferValuePBV function.</br>
+            2. The coin transferring process is similar to a bank transfer or you lending money to a friend, where some people's balance increases and some people's balance decreases.</br>
+            3. The two miners that have been chosen will transfer coins to the remaining one, if their have more coins.</br>
+            4. If the same miner is chosen twice, she or he will transfer money to the remaining two participants if she or he has more coins.</br>
+          </li>
+        </ul>
+
+       
+
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Output">
+        <h2 class="mt-4">Sample Output</h2>
+        <p>
+          <ul>
+            <li>
+              In this example, the program first randomly assigns several coins to each miner. We can observe from the following figures that Alice has 1 coin, Bob has 14 coins, and Carl has 75 coins. (Hint: any random number between [1,100] is acceptable.)
+            </li>
+            <li>
+              After the initialization process, we first enter <b>5</b>. It means the miners will get the 5 block reward.
+              Then, we choose Alice as the first miner by entering <b>1</b> and choose Bob as the second miner by entering <b>2</b>.
+            </li>
+            <li>
+              Then, we can observe that the balance of Alice increases from 1 to <b>151</b> and that of Bob increases from 14 to <b>114</b> after the mining process.
+            </li>
+            <li>
+              Finally, we can observe that all of them gain the same balance of <b>113.333</b> after coin transferring process.
+            </li>
+          </ul>
+
+        </p>
+        <img src="fig1.png" alt=""></img> <br>
+        <img src="fig2.png" alt=""></img>
+      
+
+      </div>
+          <div class="container-fluid border-bottom my-5" id="Grade">
+            <h2 class="mt-4">Grading Scheme</h2>
+            <p>Each lab carries 3 points in total. 
+      <UL>
+      <LI>
+      By attending a lab, the student gets 1 point for attendance (but only if it is clear that the student does put in some effort). 
+      </LI>
+      <LI>
+      By completing the lab exercise correctly and answering TAs' question (if there is a
+      question) correctly, the student gets the remaining 2 more points. 
+      </LI>
+      <LI>
+      Please turn on your camera when demonstrating your work to the TA.
+      </LI>
+      </UL>
+      If the student is unable to finish the lab and demonstrate to the TA by the end of the lab, they can only get the attendance point.
+          </div>
+
+  </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+
+  </script>
+
+</body>
+
+</html>

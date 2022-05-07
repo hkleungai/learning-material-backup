@@ -1,0 +1,376 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>COMP2011 Self-test Web Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="keywords" content="" />
+<!--link rel="stylesheet" href="img/Underground.css" type="text/css" /-->
+<!-- Bubble tooltips: adopted from: http://www.web-graphics.com/mtarchive/bubbletooltips.html--><!-- For automatic tooltip: -->
+<script src="bubbletooltips/bubbletooltips.js" type=text/javascript></script>
+<!-- Example:  usage <a href="" title=""></a>  --><!-- For customize tooltip -->
+<link media=all href="bubbletooltips/bt.css" type=text/css rel=stylesheet>
+<script type="text/javascript" src="jquery/jquery.js"></script>
+
+<!-- JQuery Calender is located here... -->
+<style type="text/css">@import url(jquerycalendar/jquery-calendar.css);</style>
+<script type="text/javascript" src="jquerycalendar/jquery-calendar.js"></script>
+
+<script type="text/javascript" src="selftestmenu.js"></script>
+<link rel="stylesheet" type="text/css" href="selfteststyle.css" />
+<!-- highslide stuff: TESTING... -->
+<script type="text/javascript" src="highslide/highslide-with-html.js"></script>
+<script type="text/javascript">
+    hs.graphicsDir = 'highslide/graphics/';
+    hs.outlineType = 'rounded-white';
+    hs.outlineWhileAnimating = true;
+</script>
+<style type="text/css">@import url(highslide/myslide.css);</style>
+<!-- END OF highslide stuff -->
+
+</head>
+
+<!-- Start of the main html body -->
+<body>
+
+<!-- wrap starts here -->
+<div id="main">
+<div id="wrap">
+        <!-- header -->
+        <div id="header">
+                <span id="slogan" ></span>
+                <!-- tabs -->
+                <ul>
+                  <li class="showall-solution"><a href="#" title="Show all solutions"><span>Show all solutions</span></a></li>
+                  <li class="hideall-solution"><a href="#" title="Hide all solutions"><span>Hide all solutions</span></a></li>
+                  <li id="tabShowNormalView"><a href="#" title="The normal webpage view"><span>Web view</span></a></li>
+                  <li id="tabShowAllOnePage"><a href="#" title="The view which is suitable for printing"><span>Printable view</span></a></li>
+                  <li id="tabIncFontSize"><a href="#" title="Increase the font size" ><span >++ Font size</span></a></li>
+                  <li id="tabDecFontSize"><a href="#" title="Decrease the font size" ><span >-- Font size</span></a></li>
+                </ul>
+        </div>
+        <!-- main block: right panel -->
+        <!--div id="main"-->
+
+        <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Test Content %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  -->
+
+<div id='block13' style="display:block;">
+<h1>Self-test 13: <br> <!-- [Jan 2019] --> Some New Features in C++11</h1>
+
+<OL>
+
+<LI>
+<div class="question-wrapper">
+<div class="question-content">
+<p>
+Code 1:
+<pre>
+   char c1 = 200;
+</pre>
+
+Code 2:
+<pre>
+   char c2 { 200 };
+</pre>
+</p>
+<p>
+Which of the following statements is correct given the above two code segments are compiled in C++11?<br /><br />
+
+A) Both Code 1 and Code 2 have syntax errors.<br/>
+B) Both Code 1 and Code 2 are correct.<br/>
+C) Only Code 1 has syntax error.<br/>
+D) Only Code 2 has syntax error.<br/>
+</p>
+
+</div>
+<div class="toggle-solution">Solution</div>
+<div class="solution-content">
+   <b>Answer: D</b>
+   <p>
+   Only Code 2 has syntax error. The size of char type variable is 1 byte only and can only store values from -128 to 127.
+   Assigning the value 200 will cause overflow and result in information lost. The {} initializer does not allow
+   such narrowing conversion.
+   </p>
+</div>
+</div>
+<hr />
+</LI>
+
+<LI>
+<div class="question-wrapper">
+        <div class="question-content">
+   <pre>
+   double arr[5] = {3, 6, 2, 4, 5};
+
+   for (int k = 0; k < 5; k++)
+      arr[k] /= 2;
+
+   for (int k = 0; k < 5; k++)
+   cout << arr[k] << endl;
+   </pre>
+
+   Which of the following two code segments will give the same output as the above?
+
+   Code 1:
+   <pre>
+   double arr[5] = {3, 6, 2, 4, 5};
+
+   for (double& k: arr)
+      k /= 2;
+
+   for (double k: arr)
+   cout << k << endl;
+   </pre>
+
+   Code 2:
+   <pre>
+   double arr[5] = {3, 6, 2, 4, 5};
+
+   for (double k: arr)
+      k /= 2;
+
+   for (double k: arr)
+   cout << k << endl;
+   </pre>
+
+
+
+        </div>
+        <div class="toggle-solution">Solution</div>
+        <div class="solution-content">
+      <b>Answer: Code 1</b><br />
+      Code 1 will give the same output.
+      Code 2 only accesses the array elements by value. It copies the value of each element in the array to the variable k in each iteration
+      and therefore it will not change the values in the array.
+      Code 1 accesses the array elements by reference. k is the reference of each element in the array in each iteration
+      and therefore, it will change the elements in the array directly.
+        </div>
+</div>
+<hr />
+</LI>
+
+<LI>
+<div class="question-wrapper">
+        <div class="question-content">
+What is the output of the following program?
+<pre>
+#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+   int a = 1;
+
+   for (int k: {3, 0, 1})
+   {
+      a++;
+      cout << [=]() { return (a * k); }() << endl;
+   }
+
+   return 0;
+}
+</pre>
+        </div>
+        <div class="toggle-solution">Solution</div>
+        <div class="solution-content">
+<b>Answer:<br />
+   6<br />
+   0<br />
+   4<br />
+</b>
+   When the lamda expression is defined inside the for loop, the value of variable a at that moment is captured.
+        </div>
+</div>
+<hr />
+</LI>
+
+<LI>
+<div class="question-wrapper">
+        <div class="question-content">
+
+What is the output of the following program?
+<pre>
+#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+   int a = 1, k = 0;
+
+   auto f = [=]() { return (a * k); };
+
+   for (int k: {3, 0, 1})
+   {
+      a++;
+      cout << f() << endl;
+   }
+
+   return 0;
+}
+</pre>
+
+        </div>
+        <div class="toggle-solution">Solution</div>
+        <div class="solution-content">
+<b>Answer:<br />
+ 0<br />
+ 0<br />
+ 0<br />
+</b>
+The lamda expression is defined immediately after the definition of the variables a and k.
+Both a and k are already captured by then. The value of a is 1 and the value of k is 0.
+In each iteration of the for loop, a and k will not be captured again.
+        </div>
+</div>
+<hr />
+</LI>
+
+
+<LI>
+<div class="question-wrapper">
+        <div class="question-content">
+What is the output of the following program?
+<pre>
+#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+   int a = 1, k = 0;
+
+   auto f = [=](int k) { return (a * k); };
+
+   for (int k: {3, 0, 1})
+   {
+      a++;
+      cout << f(k) << endl;
+   }
+
+   return 0;
+}
+
+</pre>
+
+        </div>
+        <div class="toggle-solution">Solution</div>
+        <div class="solution-content">
+<b>Answer:<br />
+ 3<br />
+ 0<br />
+ 1<br />
+ </b>
+ When the lamda expression is defined and stored in the variable f, the value of variable a, which is 1, is captured.
+ As a result, the output of each iteration is the value of k (passed by value) multiplied by 1.
+        </div>
+</div>
+<hr />
+</LI>
+
+
+<LI>
+<div class="question-wrapper">
+        <div class="question-content">
+What is the output of the following program?
+<pre>
+#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+   int a = 1, k = 0;
+
+   auto f = [&](int k) { return (a * k); };
+
+   for (int k: {3, 0, 1})
+   {
+      a++;
+      cout << f(k) << endl;
+   }
+
+   return 0;
+}
+</pre>
+        </div>
+        <div class="toggle-solution">Solution</div>
+        <div class="solution-content">
+<b> Answer:<br />
+ 6<br />
+ 0<br />
+ 4<br />
+ </b>
+ When the lamda expression is defined and stored in the variable f, the value of variable a is captured by reference.
+ As a result, the output of each iteration is the value of k (passed by value) multiplied by the value of a at that moment.
+        </div>
+</div>
+<hr />
+</LI>
+
+
+<LI>
+<div class="question-wrapper">
+        <div class="question-content">
+What is the output of the following program?
+<pre>
+#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+   int a = 1, k = 0;
+
+   auto f = [&](double k) { return (k/a); };
+   auto g = [&](double k) -> int { return (k/a); };
+
+   for (int k: {3, 0, 1})
+   {
+      a++;
+      cout << f(k) << " " << g(k) << endl;
+   }
+
+   return 0;
+}
+</pre>
+        </div>
+        <div class="toggle-solution">Solution</div>
+        <div class="solution-content">
+<b>Answer:<br />
+ 1.5 1<br />
+ 0 0<br />
+ 0.25 0<br />
+</b>
+Since k is double and a is int, the expression (k/a) is calculated using floating-point arithemetic
+and the return result is of type double.
+
+For the lamda expression f, the data type of the return value is automatically inferred by the return statement, i.e. double.
+
+However, for the lamda expression g, the data type of the return value is explicitly specified as int.
+So, the results are converted to int.
+        </div>
+</div>
+<hr />
+</LI>
+
+
+<!-- Question Template -->
+<!--LI>
+<div class="question-wrapper">
+        <div class="question-content">
+what?
+        </div>
+        <div class="toggle-solution">Solution</div>
+        <div class="solution-content">
+        </div>
+</div>
+<hr />
+</LI-->
+
+</OL>
+
+
+        <!-- wrap ends here; don't delete this /div -->
+        </div>
+
+</div>
+</div>
+
+</body>
+</html>

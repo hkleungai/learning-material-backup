@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>COMP2011 Lab 2</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+
+  <!-- For code highlighting -->
+  <script src='../sh/shCore.js' type='text/javascript'></script>
+  <!--script src='./sh/shAutoloader.js' type='text/javascript'></script-->
+  <script src='../sh/shBrushCpp.js' type='text/javascript'></script>
+  <script src='../sh/loadcode.js' type='text/javascript'></script>
+  <link href='../sh/shCore.css' rel='stylesheet' type='text/css'>
+  <link href='../sh/shThemeDefault.css' rel='stylesheet' type='text/css'>
+
+  <style>
+    .input {
+      color: #00ff00;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">COMP2011 Lab 2</div>
+      <div class="list-group list-group-flush">
+        <a href="#Intro" class="list-group-item list-group-item-action bg-light">Introduction</a>
+        <a href="#Description" class="list-group-item list-group-item-action bg-light">Game Description</a>
+        <a href="#Implementation" class="list-group-item list-group-item-action bg-light">Implementation</a>
+        <a href="#Output" class="list-group-item list-group-item-action bg-light">Sample Output</a>
+        <a href="#Grade" class="list-group-item list-group-item-action bg-light">Grading Scheme</a>
+        <span class="list-group-item list-group-item-action bg-light">Prepared by: <a href="mailto:slidm@cse.ust.hk">LI Shuhan</a></span>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="col-sm-9">
+        <span class="navbar-toggler-icon" id="menu-toggle"></span>
+    </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/">Course Webpage</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/forum.html">Online Forum</a>
+            </li>
+            <!--li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li-->
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid border-bottom my-5">
+        <h1>COMP2011 Lab 2</h1><br/>
+        <figure class="figure mx-auto d-block">
+                <img src="./pic1.jpeg" class="figure-img mx-auto d-block" width=60% alt="Responsive image" style="max-width:400px;"> <figcaption class="figure-caption text-right">Figure 1: Sliding Puzzle Game</figcaption>
+        </figure>
+        </div>
+
+      <div class="container-fluid border-bottom my-5" id="Intro">
+        
+
+        <h2 class="mt-4">Introduction</h2>
+
+        <p>In this lab, you are going to implement the Sliding Puzzle Game. You can try to play the game and get familiar with it <a href="https://www.helpfulgames.com/subjects/brain-training/sliding-puzzle.html">here</a>. We provide a <a href="./skeleton.cpp">skeleton code</a> for you to start this lab. </p>
+      </div>
+
+
+      <div class="container-fluid border-bottom my-5" id="Description">
+        <h2 class="mt-4">Game Description</h2>
+          <p>Sliding Puzzle Game is made up as a set of blocks which are placed inside a frame. Within that frame the blocks can be moved around only by sliding. To solve the puzzle, you need to slide the blocks near the empty position and make sure that all the blocks are in their correct positions.
+          </p>
+
+          <p>
+            In this lab, you need to implement a Sliding Puzzle Game with 2x2 frame, which has 3 blocks "A", "B", and "C". The fourth block is an empty block denoted as "*". 
+          </p>
+
+          <p>
+            Meanwhile, the positions in this 2x2 frame are noted as 1, 2, 3, 4, where position 1 is in the top left corner, position 2 is in the top right corner, position 3 is in the bottom left corner, and position 4 is in the bottom right corner. 
+          </p>
+
+          <p>
+            At the begining, the puzzle is initialized as following:
+          </p>
+
+          <pre class="shadow p-3 mb-5 bg-white rounded">
+Position info:
+12
+34
+Puzzle status:
+BC
+A*
+          </pre>
+          <p>
+            To solve the puzzle, the final status should be:
+            <pre class="shadow p-3 mb-5 bg-white rounded">
+Position info:
+12
+34
+Puzzle status:
+AB
+C*
+            </pre>
+          </p>
+      </div>
+      
+      <div class="container-fluid border-bottom my-5" id="Implementation">
+        <h2 class="mt-4">Implementation</h2>
+
+        <ul>
+          <li>At the start of each round, print out the round number, position info, and the puzzle status.</li>
+
+          <li>
+            In each round, the program should prompt the player to select a position number for sliding. You must perform input validation:
+
+            <ul>
+              <li>The position number must be 1, 2, 3 or 4.</li>
+            </ul>
+
+            You should ask the player to input again if his input is incorrect. Note: 
+            <ul>
+              <li>The input must be the position number (1 to 4), not the character "A", "B", or "C".</li>
+              <li>You don't need to consider the situation that the chosen block is not avaliable to slide.</li>
+            </ul>
+          </li>
+          <li>
+            Then, you need to swap the location of empty block "*" and the block at chosen position. 
+          </li>
+          <li>
+            Check whether the puzzle is solved after this sliding. 
+            <ul>
+              <li>If no, the game goes to the next round.</li>
+              <li>If yes, the game is over. You need to output the total steps and the final puzzle status.</li>
+            </ul>
+          </li>
+
+
+        </ul>
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Output">
+        <h2 class="mt-4">Sample Output</h2>
+      
+        <p>Below is a sample of the game. You don't need to have exactly the same results.</p>
+
+        <p>
+<pre class="shadow p-3 mb-5 bg-white rounded">
+Welcome to the Sliding Puzzle Game!
+Round 1: 
+Position info:
+12
+34
+Puzzle status:
+BC
+A*
+Enter a position number between 1 to 4 to slide:3
+Round 2: 
+Position info:
+12
+34
+Puzzle status:
+BC
+*A
+Enter a position number between 1 to 4 to slide:
+...
+...
+Round 9: 
+Position info:
+12
+34
+Puzzle status:
+A*
+CB
+Enter a position number between 1 to 4 to slide:4
+Congratulations! The puzzle is solved in 9 steps.
+Final puzzle status:
+AB
+C*
+
+
+</pre>
+        </p>
+	<p>Here is the example of invalid input.</p>
+
+        <p>
+<pre class="shadow p-3 mb-5 bg-white rounded">
+Welcome to the Sliding Puzzle Game!
+Round 1:
+Position info:
+12
+34
+Puzzle status:
+BC
+A*
+Enter a position number between 1 to 4 to slide:8
+Invalid input.
+Enter a number between 1 to 4 to slide:
+
+      </div>
+          <div class="container-fluid border-bottom my-5" id="Grade">
+            <h2 class="mt-4">Grading Scheme</h2>
+            <p>Each lab carries 3 points in total. 
+      <UL>
+      <LI>
+      By attending a lab, the student gets 1 point for attendance (but only if it is clear that the student does put in some effort). 
+      </LI>
+      <LI>
+      By completing the lab exercise correctly and answering TAs' question (if there is a
+      question) correctly, the student gets the remaining 2 more points. 
+      </LI>
+      <LI>
+      Please turn on your camera when demonstrating your work to the TA.
+      </LI>
+      </UL>
+      If the student is unable to finish the lab and demonstrate to the TA by the end of the lab, they can only get the attendance point.
+          </div>
+
+  </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+
+  </script>
+
+</body>
+
+</html>

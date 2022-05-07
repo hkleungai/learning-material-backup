@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>COMP2011 Lab 4</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+
+  <!-- For code highlighting -->
+  <script src='../sh/shCore.js' type='text/javascript'></script>
+  <!--script src='./sh/shAutoloader.js' type='text/javascript'></script-->
+  <script src='../sh/shBrushCpp.js' type='text/javascript'></script>
+  <script src='../sh/loadcode.js' type='text/javascript'></script>
+  <link href='../sh/shCore.css' rel='stylesheet' type='text/css'>
+  <link href='../sh/shThemeDefault.css' rel='stylesheet' type='text/css'>
+
+  <style>
+    .input {
+      color: #00ff00;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">COMP2011 Lab 4</div>
+      <div class="list-group list-group-flush">
+        <a href="#Intro" class="list-group-item list-group-item-action bg-light">Introduction</a>
+        <a href="#Task" class="list-group-item list-group-item-action bg-light">Tasks</a>
+        <a href="#Output" class="list-group-item list-group-item-action bg-light">Expected Output</a>
+        <a href="#Help" class="list-group-item list-group-item-action bg-light">Help</a>
+        <a href="#Grade" class="list-group-item list-group-item-action bg-light">Grading Scheme</a>
+        <span class="list-group-item list-group-item-action bg-light">Prepared by: <a href="mailto:swangcy@connect.ust.hk">Sukai Wang</a></span>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+      	<div class="col-sm-9">
+        <span class="navbar-toggler-icon" id="menu-toggle"></span>
+		</div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/">Course Webpage</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/forum.html">Online Forum</a>
+            </li>
+            <!--li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li-->
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid border-bottom my-5" id="Intro">
+      	<div class="col-sm-12 col-lg-12 container">
+      	<h1>COMP2011 Lab 4</h1><br/>
+      	<figure class="figure mx-auto d-block">
+            		<img src="houses.png" class="figure-img mx-auto d-block" width=60% alt="Responsive image" style="max-width:500px;"> <figcaption class="figure-caption text-right">Snow White, Seven Dwarfs, and A Thief</figcaption>
+      	</figure>
+        </div>
+
+        <p>This lab is prepared for you to practice the 1-D array. In this lab we are going to get familiar with the index, boundary, and value of a 1-D array.</p>
+
+        <h2 class="mt-4">Introduction</h2>
+        
+        <p>In 2022, the snow-white and seven dwarfs move their houses to a 
+          community. The 8 houses are circular in the arrangement as the figure illustrated above.
+          One day, a thief sneaked into the community, 
+          and wanted to steal as many as he could. 
+          However, the community has a security system, 
+          which will raise alert when the two stolen houses 
+          in the adjacent two nights are too close. 
+          In this lab, we will design a safe stealing sequence for 
+          the thief to steal but not raise the alert. </p>
+          
+        <p>
+          In the program, we use a 1-D array to represent the community of arbitrary size, which is set to be 8 for the above example.
+           The index of each element in the
+          array corresponds to the house ID. Firstly, all of the elements in the
+           array are initialized to 0. When a house is stolen, 
+           the value of this element should be set to be the same as the stolen night. 
+        </p>
+
+        
+        <p>
+          <h4>Inputs:</h4>
+          <UL>
+            <LI>
+              The first stealing target of the thief.
+            </LI>
+            <LI>
+              The alert distance of the community's security system.
+            </LI>
+            </UL>
+
+          <h4>Rules:</h4>
+            <UL>
+              <LI>
+                Do not raise the alert, for both forward and backward directions. For example, when the alert distance is 2, and the thief’s current position is 3, 
+                then the next target ID must be equal or greater than 5 (&gt= 3 + 2), and equal or less than 1 (&lt= 3 - 2). 
+
+              </LI>
+              <LI>
+              You only need to consider the distance between the next target with the current position, 
+              not the previous stolen houses.
+              </LI>
+              <LI>
+                The thief cannot choose the house which has been stolen. And the closer the next target is, the better. 
+                For example, in this situation | 0 | * | 0 | 1 | 0 | 0 | 0 | 0 | (* means the thief's position and 0/1 means the state of the house) and the alert distance is 2, 
+                the next target should be house 4, not 3, not 5 neither.
+              </LI>
+              <LI>
+                The thief's stealing direction is to the right (clockwise in circular arrangement). When the thief is in house 6, his next target is house 0, 1, 2....
+              </LI>  
+              <LI>
+                The thief should leave immediately(finish the program) when 
+                no valid house that satisfies the first
+                 three rules.
+              </LI>  
+            </UL>
+
+            <h4>Outputs:</h4>
+            <UL>
+              <LI>
+                The states of the houses in each night.
+              </LI>
+              </UL>
+
+      
+            <div class="container-fluid border-bottom my-5" id="Task">
+              <h2 class="mt-4">Tasks</h2>
+                <p>In this lab you are given the <a href="./lab4.cpp"> code_skeleton</a>, 
+                  and you need to finish one while loop in the main( ) and two functions: 
+                  <UL>
+                    <LI>
+                      Task 1: while loop in the main( ).<br/>
+                      In each loop, you need to update variable 'night', call 'steal_house( )' function to get the thief's next target and update the thief's position,
+                      and call 'print_houses( )' function to print the states of the houses. When the next target is invalid, the thief should break out the while loop.
+                    </LI>
+                    <LI>
+                      Task 2: steal_house().<br/>
+                      In this function, the inputs are the array, thief's current position, 
+                      , the alert distance, and the 'night'; the output is the next target. 
+                      When the next target is valid, return the target index, else return -1. 
+                      You also need to modify the value of the target element to 'night'.
+                    </LI>
+                    <LI>
+                      Task 3: print_houses( ).<br/>
+                      In this function, the inputs are the array, the thief's current position, and the 'night'.
+                    The thief uses '*', valid houses use '0', and stolen houses use '1, 2, 3, ...' (stolen night).                    </LI>
+                   
+                  </UL>
+                  </p>
+            </div>
+      
+
+
+      <div class="container-fluid border-bottom my-5" id="Output">
+	      <h2 class="mt-4">Sample Output</h2>
+	    
+        <p>The following are some sample output. Note that the user input is in green color.</p>
+
+        <pre class="shadow p-3 mb-5 bg-white rounded">
+          
+The number of houses in this community is 8.
+Please input the first target house ID of the thief:
+<span class="input">2</span>
+Please input the alert distance of the community's security system:
+<span class="input">2</span>
+
+Night 1:
+        | 0 | 0 | * | 0 | 0 | 0 | 0 | 0 |
+Night 2:
+        | 0 | 0 | 1 | 0 | * | 0 | 0 | 0 |
+Night 3:
+        | 0 | 0 | 1 | 0 | 2 | 0 | * | 0 |
+Night 4:
+        | * | 0 | 1 | 0 | 2 | 0 | 3 | 0 |
+Night 5:
+        | 4 | 0 | 1 | * | 2 | 0 | 3 | 0 |
+Night 6:
+        | 4 | 0 | 1 | 5 | 2 | * | 3 | 0 |
+Night 7:
+        | 4 | 0 | 1 | 5 | 2 | 6 | 3 | * |
+Night 8:
+        | 4 | * | 1 | 5 | 2 | 6 | 3 | 7 |
+
+No house can be stolen.
+Finished.
+
+
+The number of houses in this community is 8.
+Please input the first target house ID of the thief:
+<span class="input">3</span>
+Please input the alert distance of the community's security system:
+<span class="input">4</span>
+
+Night 1:
+        | 0 | 0 | 0 | * | 0 | 0 | 0 | 0 |
+Night 2:
+        | 0 | 0 | 0 | 1 | 0 | 0 | 0 | * |
+
+No house can be stolen.
+Finished.
+</pre>
+
+
+
+
+    
+          <div class="container-fluid border-bottom my-5" id="Grade">
+            <h2 class="mt-4">Grading Scheme</h2>
+            <p>Each lab carries 3 points in total. 
+			<UL>
+			<LI>
+			By attending a lab, a student gets 1 point for attendnace (but only if it is clear that the student does put in some effort). 
+			</LI>
+			<LI>
+			By completing the lab exercise correctly and answering TAs' question (if there is a
+			question) correctly, the student gets the remaining 2 more points. 
+			</LI>
+			</UL>
+			If a student is unable to finish the lab and demonstrate to the TA by the end of the lab, they can only get the attendance point. 
+			
+      <BR>
+			<BR>
+			
+          </div>
+
+
+    <div class="mx-auto d-flex justify-content-center"> This lab page is maintained by Sukai Wang (swangcy@connect.ust.hk)</div>
+  </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+
+  </script>
+
+</body>
+
+</html>

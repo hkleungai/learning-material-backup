@@ -67,7 +67,7 @@ const categorizedCourses: CategorizedCourses = {
     {
       code: 'COMP 2011',
       title: 'Programming with C++',
-      semesters: ['Fall 2021'],
+      semesters: ['Fall 2021', 'Spring 2022'],
     },
     {
       code: 'COMP 2012',

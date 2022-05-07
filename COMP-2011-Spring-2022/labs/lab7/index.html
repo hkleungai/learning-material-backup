@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>COMP2011 Lab 7</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+
+  <!-- For code highlighting -->
+  <script src='../sh/shCore.js' type='text/javascript'></script>
+  <!--script src='./sh/shAutoloader.js' type='text/javascript'></script-->
+  <script src='../sh/shBrushCpp.js' type='text/javascript'></script>
+  <script src='../sh/loadcode.js' type='text/javascript'></script>
+  <link href='../sh/shCore.css' rel='stylesheet' type='text/css'>
+  <link href='../sh/shThemeDefault.css' rel='stylesheet' type='text/css'>
+
+  <style>
+    .input {
+      color: #00ff00;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">COMP2011 Lab 7</div>
+      <div class="list-group list-group-flush">
+        <a href="#Intro" class="list-group-item list-group-item-action bg-light">Introduction</a>
+        <a href="#Task" class="list-group-item list-group-item-action bg-light">Tasks</a>
+        <a href="#Output" class="list-group-item list-group-item-action bg-light">Expected Output</a>
+        <a href="#Help" class="list-group-item list-group-item-action bg-light">Help</a>
+        <a href="#Grade" class="list-group-item list-group-item-action bg-light">Grading Scheme</a>
+        <span class="list-group-item list-group-item-action bg-light">Prepared by: <a href="mailto:lixin@cse.ust.hk">Cindy Li</a></span>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+      	<div class="col-sm-9">
+        <span class="navbar-toggler-icon" id="menu-toggle"></span>
+		</div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/">Course Webpage</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/forum.html">Online Forum</a>
+            </li>
+            <!--li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li-->
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid border-bottom my-5" id="Intro">
+      	<div class="col-sm-12 col-lg-12 container">
+      	<h1>COMP2011 Lab 7</h1><br/>
+      	<figure class="figure mx-auto d-block">
+            		<img src="lab7.jpeg" class="figure-img mx-auto d-block" width=60% alt="Responsive image" style="max-width:500px;"> 
+      	</figure>
+        </div>
+
+        <h2 class="mt-4">Introduction</h2>
+
+        <p>In this lab, you will practice C++ structs and separate compilation by exploring voting and via implementing an election system!</p>
+
+        <h2>Voting system</h2>
+
+    <p>There are some assumptions in this election system:</p>
+
+    <ul>
+
+      <li> There are n candidates and m voters.</li>
+
+      <li> The total number of candidates and voters together should be less than or equal to MAX_SIZE.</li>
+
+      <li> Candidates and voters may vote.</li>
+
+      <li> Each voter and candidate has some attributes: a unique ID, a name, role (candidate or voter), a voting status, i.e. whether he/she has already voted and the number of votes cast towards him/her (voters can't be voted).</li>
+
+      <li> Each voter/candidate may cast 1 vote to candidate.</li>
+
+      <li> The candidate who has the highest number of votes wins.</li>
+
+      <li> If there are more than 1 candidate having the (same) highest number of votes, it is a tied election and there is no winner. </li>
+
+    </ul>
+
+    <div id="code1"></div>
+    <script>loadCode("test.cpp", "code1");</script>
+      </div>
+
+
+      <div class="container-fluid border-bottom my-5" id="Task">
+      	<h2 class="mt-4">Tasks</h2>
+        <p> <strong>The election system will include the setup (task 1), voting (task 2), and result-tallying (task 3) phases.</strong>
+
+          The setup phase will allow the administrator to setup the details of the candidates and voters.
+  
+          The voting phase will allow each participant to cast a vote to the selected candidates.
+  
+          The result-tallying phase will tally the votes and announce the winner, or tie. </p>
+
+          <p> Task 1 to 3 implements the three phases (setup, voting and result-tallying) which set up and executes a voting procedure as described above. </p>
+
+
+
+<p>You can start with the given skeleton (<a href="lab7_skeleton.cpp">lab7_skeleton.cpp</a>).</p>
+
+
+
+<p> There are global constants, user-defined data types at the very beginning of the skeleton. Take a look.</p>
+
+<ul>
+
+  <li> Participant structure, which has the following members:
+
+    <ul>
+
+      <li>id -- an integer variable storing a unique id of the participant (either a candidate or a voter).</li>
+
+      <li>name -- a Cstring for storing the name of the participant. It has to be copied from constant array names[][].</li>
+
+      <li>role -- an Role variable indicating the participant is a candidate or just a voter.</li>
+
+      <li>hasVoted -- a boolean variable for representing the voting status of the participant (i.e true for "has voted", false for "has not yet voted".</li>
+
+      <li>numVotes -- an integer variable for storing the number of votes a candidate has received. (Note: the numVotes of a voter should be zero).</li>
+
+    </ul>
+
+  </li>
+
+  <li>Election structure, which has the following members:
+
+    <ul>
+
+    <li>participants -- an array of Participant objects (array size: MAX_SIZE).<br />
+
+    <li>numCandidates -- the number of candidates.</li>
+
+    <li>numVoters -- the number of voters.</li>
+
+    </ul>
+
+    Note: the candidates will occupy the first numCandidates elements in the <strike>voters</strike> participants array, while the other voters will occupy the next numVoters elements in the <strike>voters</strike> array. 
+
+  </li>
+
+
+
+</ul>
+
+
+
+
+
+
+
+	<p>You should implement the 3 functions for each phrase: (refer to the sample output for more hints)</p>
+
+  <ul>
+
+    <li> <strong>setup()</strong> -- the setup phase which it register the details of the candidates and voters.</li>
+
+    <li> <strong>voting()</strong> -- the voting phase which only eligible voters should be able to cast the votes to eligible candidates.
+
+      <ul>
+
+        <li>The voter should have already be registered in the election (existed).</li>
+
+        <li>The voter should have not yet voted.</li>
+
+        <li>The candidate should have already be registered in the election (existed).</li>
+
+        <li>Increment the number of votes for the corresponding candidate.</li>
+
+      </ul>
+
+    </li>
+
+    <li> <strong>resultTallying()</strong> -- the result-tallying phase which output the final count for each candidate and announce the winner.
+
+      <ul>
+
+        <li>Print the number of votes for each candidate.</li>
+
+        <li>Find and output the one with the maximum number of votes, who is the winner.</li>
+
+      </ul>
+
+    </li>
+
+    Note: You don't need to worry about the input validation too much. 
+
+    Just try to implement a voting systems that you can.  
+
+    Add candidates and voters, allow voters to vote, and announce the result of the election. That will be great! 
+
+    </ul>
+
+    <p><strong>Once you finish task 1 to 3, there's a task 4 related to separate compilation. You should separate lab 7 codes into three files: lab7.h, main.cpp (defintion of main()) and lab7.cpp (definition of all other functions).</strong>
+      You need to demonstrate separate compilation in lab 7 demo. It would be even great to have a Makefile, but it's optional. </p>
+
+
+    <p>You can download the demo program here for Windows <a href="lab7-new.exe">here</a>.</p>
+    <p>You can download the demo program here for Mac <a href="lab7_mac">here</a>.</p>
+    Note: some students encountered problems running the demo programs in the past (e.g. in other labs and PA1), you may refer to the related Piazza posts about how to run the demo programs if you have no experience with it.
+      </div>
+      
+
+
+      <div class="container-fluid border-bottom my-5" id="Output">
+	      <h2 class="mt-4">Expected Output</h2>
+	    
+        
+<pre class="shadow p-3 mb-5 bg-white rounded">
+===============================
+  Welcome to the voting system! 
+===============================
+ Preparing ... 
+ Enter how many candidates will run for the election: 
+ 2
+ Enter how many more voters: 
+ 2
+ 
+ ID: 0   Name:JoeBiden   Role: Candidate
+ ID: 1   Name:QueenElizabethII   Role: Candidate
+ ID: 2   Name:Putin      Role: Voter
+ ID: 3   Name:Trudeau    Role: Voter
+ Voting starts ...
+ Enter the voter id to start voting:
+ 0
+ Enter the candidate id you want to vote for: 0
+ You vote for 0 JoeBiden
+ Continue with the next voter? (y/n) y
+ Enter the voter id to start voting:
+ 1
+ Enter the candidate id you want to vote for: 1
+ You vote for 1 QueenElizabethII
+ Continue with the next voter? (y/n) y
+ Enter the voter id to start voting:
+ 2
+ Enter the candidate id you want to vote for: 0
+ You vote for 0 JoeBiden
+ Continue with the next voter? (y/n) y
+ Enter the voter id to start voting:
+ 0
+ The voter has already voted!
+ Continue with the next voter? (y/n) y
+ Enter the voter id to start voting:
+ 3
+ Enter the candidate id you want to vote for: 0
+ You vote for 0 JoeBiden
+ Continue with the next voter? (y/n) y
+ Enter the voter id to start voting:
+ 1
+ The voter has already voted!
+ Continue with the next voter? (y/n) n
+ Tallying votes ...
+ Vote counting: 
+ ID: 0   Name: JoeBiden  Votes: 3
+ ID: 1   Name: QueenElizabethII  Votes: 1
+ Total votes received in election : 4
+ The winner is: JoeBiden
+ End of the election!
+
+</pre>
+      </p>
+
+
+
+	  </div>
+
+
+
+
+	        <div class="container-fluid border-bottom my-5" id="Help">
+	  	      <h2 class="mt-4">Help?</h2>
+<p>You may refer to <a href="https://course.cse.ust.hk/comp2011/labs/vscode/#terminal">this section</a> for how to run compilation commands in terminal in your VS Code.</p> You may also post on Piazza with the <u>lab7</u> tag for discussion and help.
+
+<!-- 		    <p>If you encounter any technical problems when compiling and running your first
+			program, you may check the <a
+			href="https://course.cse.ust.hk/comp2011/labs/vscode/#faq">FAQ</a> section of the
+			tutorial page, ask your lab TA, or post your issues on our  <a
+			href="https://course.cse.ust.hk/comp2011/forum.html">online discussion forum</a> (click "Piazza" on the menu of the COMP2011 Canvas Page) with
+			the <u>lab7</u> tag if it is about the VS Code. Before you post, however, please check
+			if your question is already asked on the forum. </p> -->
+
+			<!--
+        <p>If you really cannot get VS Code running (maybe you need more time to search for a solution and try), you may use some C++ online compiler for now. For example: <a href="http://cpp.sh/">http://cpp.sh/</a>. Those online compilers are actually sufficient for most lab exercises and lecture examples, although they are slow and have less features. However, you are highly recommended to set up the development environment software on your computer as soon as possible.</p>
+		-->
+
+	        </div>
+
+
+
+
+    
+          <div class="container-fluid border-bottom my-5" id="Grade">
+            <h2 class="mt-4">Grading Scheme</h2>
+            <p>Each lab carries 3 points in total. 
+			<UL>
+			<LI>
+			By attending a lab, a student gets 1 point for attendnace (but only if it is clear that the student does put in some effort). 
+			</LI>
+			<LI>
+			By completing the lab exercise correctly and answering TAs' question (if there is a
+			question) correctly, the student gets the remaining 2 more points. 
+			</LI>
+			</UL>
+			If a student is unable to finish the lab and demonstrate to the TA by the end of the lab, they can only get the attendance point. 
+			
+      
+          </div>
+
+
+    <div class="mx-auto d-flex justify-content-center"> This lab page is maintained by Cindy LI (lixin@cse.ust.hk)</div>
+  </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+
+  </script>
+
+</body>
+
+</html>

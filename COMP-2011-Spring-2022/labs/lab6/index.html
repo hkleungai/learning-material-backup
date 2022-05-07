@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>COMP2011 Lab 6</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+
+  <!-- For code highlighting -->
+  <script src='../sh/shCore.js' type='text/javascript'></script>
+  <!--script src='./sh/shAutoloader.js' type='text/javascript'></script-->
+  <script src='../sh/shBrushCpp.js' type='text/javascript'></script>
+  <script src='../sh/loadcode.js' type='text/javascript'></script>
+  <link href='../sh/shCore.css' rel='stylesheet' type='text/css'>
+  <link href='../sh/shThemeDefault.css' rel='stylesheet' type='text/css'>
+
+  <style>
+    .input {
+      color: #00ff00;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">COMP2011 Lab 6</div>
+      <div class="list-group list-group-flush">
+        <a href="#Intro" class="list-group-item list-group-item-action bg-light">Introduction</a>
+        <a href="#Description" class="list-group-item list-group-item-action bg-light">Description</a>
+        <a href="#Grade" class="list-group-item list-group-item-action bg-light">Grading Scheme</a>
+        <span class="list-group-item list-group-item-action bg-light">Prepared by: <a href="mailto:zheaj@cse.ust.hk">HE Ziyi</a></span>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="col-sm-9">
+        <span class="navbar-toggler-icon" id="menu-toggle"></span>
+    </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/">Course Webpage</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/forum.html">Online Forum</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid border-bottom my-5">
+        <h1>COMP2011 Lab 6</h1><br/>
+        <figure class="figure mx-auto d-block">
+                <img src="pic1.jpeg" class="figure-img mx-auto d-block" width=60% alt="Responsive image" style="max-width:400px;"> <figcaption class="figure-caption text-right">Figure 1: Floor Tiling</figcaption>
+        </figure>
+        </div>
+
+      <div class="container-fluid border-bottom my-5" id="Intro">
+        <h2 class="mt-4">Introduction</h2>
+
+        During the decoration stage, workers can use tiles to cover floors. The tiles are often of similar or repeated shapes. Before people start the work, they need to plan the layout first as it would be expensive to regret once they start using cement. <br>
+        In this lab, we will solve tasks related to floor tiling using <strong>Recursion</strong>. Download the skeleton <a href="./skeleton.cpp">code</a> to start the lab, and the demo (<a href="./lab6.exe">win</a> & <a href="./demo">mac</a> & <a href="./lab6_linux">linux</a>) to verify the correctness. 
+      </div>
+
+
+      <div class="container-fluid border-bottom my-5" id="Description">
+        <h2 class="mt-4">Description</h2>
+          Suppose you've bought a batch of tiles in the shape of <strong>1×2</strong>, and you are going to design the layout for a room in <strong>M×N</strong> grids (M, N &le; 6). <br>
+          Please notice: a) you are not allowed to cut the tiles; b) the tile can be laid vertically or horizontally; c) every grid in the room (array) needs to be covered. 
+          <p></p>
+
+          <h4>Tasks:</h4>
+          <UL>
+            <LI>
+              <p>Task 1: <code>bool findUncoveredGrid(int board[][MAX_WIDTH], int height, int width, int& r_id, int& c_id);</code></p>
+                The function returns a <code>bool</code> value to denote whether there exists uncovered grid or not. It will also use the pass-by-reference paramters <code>r_id</code> and <code>c_id</code> to store the row and column index of the "first" uncovered grid so that we can start or continue to lay tiles from this position. <br>
+              The searching sequence is not unique, you may select the top and leftmost grid, or you may check the leftmost column and select the top uncovered grid. Both are acceptable as long as you implement it consistently. <br>
+              Take the following case (with location [0][0] and [0][1] alreay covered by a tile) as an example, both [0][2] and [1][0] can be regarded as the first grid.<br>
+              <p><img src="pic5.png" alt="" width="200"></img></p>
+              
+            </LI>
+            <LI>
+              <p>Task 2: <code>int numberLayout(int board[][MAX_WIDTH], int height, int width);</code></p>
+              The recursion function <code>numberLayout()</code> returns the number of possible layouts for the uncovered area of the input 2D array. Please make use of the helper function <code>findUncoveredGrid()</code> to find an uncovered grid to start with. <br>
+              For a 2×3 array in the following figure (the colors have no meaning, just to differentiate tiles), the result should be 3. Layouts that are axisymmetric will be considered as different, for example, (a) and (b) are regarded as two layouts. <br>
+              <p><img src="pic2.png" alt="" width="500"></img></p>
+            </LI>
+            </UL>
+
+          <h4>Hints:</h4>
+          <UL>
+            <LI>
+              <p>
+              Task 1: In this program, we assign 0 to <em>uncovered</em> grids, and other values like 1 to <em>covered</em> grids of the 2D array. You can find the first uncovered grid by using the <strong>loop</strong>, and store its row index and column index to the pass-by-reference parameters <code>r_id</code> and <code>c_id</code>.
+              </p>
+            </LI>
+            <LI>
+              <p>
+              Task 2: You can solve the complicated problem by <strong>recursion</strong>, which means decomposing the problem into smaller sub-questions and composing them. For this task, think about placing the first tile to the top leftmost grid [0][0] vertically or horizontally, then the problem is simplied to calculating the number of possible layouts of the two cases of rest uncovered space. During the recursion, the first uncovered grid will not be [0][0], that's why you need to use <code>findUncoveredGrid()</code> to find an uncovered grid and keep decomposing the problem.
+              When the function detects that there is no uncovered grids, it means you already finish one layout, so it will return 1. 
+              <p>
+              <p><img src="pic4.png" alt="" width="700"></img></p>
+            </LI>
+            </UL>
+
+          
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Grade">
+            <h2 class="mt-4">Grading Scheme</h2>
+            <p>Each lab carries 3 points in total. 
+      <UL>
+      <LI>
+      By attending a lab, the student gets 1 point for attendance (but only if it is clear that the student does put in some effort). 
+      </LI>
+      <LI>
+      By completing the lab exercise correctly and answering TAs' question (if there is a
+      question) correctly, the student gets the remaining 2 more points. 
+      </LI>
+      <LI>
+      Please turn on your camera when demonstrating your work to the TA.
+      </LI>
+      </UL>
+      If the student is unable to finish the lab and demonstrate to the TA by the end of the lab, they can only get the attendance point.
+          </div>
+
+  </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+
+  </script>
+
+</body>
+
+</html>

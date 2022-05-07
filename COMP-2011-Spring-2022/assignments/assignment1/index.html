@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>COMP2011 PA1: the Magic Array</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
+    <!-- For code highlighting -->
+    <script src="./js/prism.js" type="text/javascript"></script>
+    <link href="./css/prism.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/katex.min.css">
+    <style>
+        /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+        
+        code[class*="language-"],
+        pre[class*="language-"] {
+            color: #333;
+            background: none;
+            font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            text-align: left;
+            white-space: pre;
+            word-spacing: normal;
+            word-break: normal;
+            word-wrap: normal;
+            line-height: 1.4;
+            -moz-tab-size: 8;
+            -o-tab-size: 8;
+            tab-size: 8;
+            -webkit-hyphens: none;
+            -moz-hyphens: none;
+            -ms-hyphens: none;
+            hyphens: none;
+        }
+        /* Code blocks */
+        
+        pre[class*="language-"] {
+            padding: .8em;
+            overflow: auto;
+            /* border: 1px solid #ddd; */
+            border-radius: 3px;
+            /* background: #fff; */
+            background: #f5f5f5;
+        }
+        /* Inline code */
+        
+         :not(pre)>code[class*="language-"] {
+            padding: .1em;
+            border-radius: .3em;
+            white-space: normal;
+            background: #f5f5f5;
+        }
+        
+        .token.comment,
+        .token.blockquote {
+            color: #969896;
+        }
+        
+        .token.cdata {
+            color: #183691;
+        }
+        
+        .token.doctype,
+        .token.punctuation,
+        .token.variable,
+        .token.macro.property {
+            color: #333;
+        }
+        
+        .token.operator,
+        .token.important,
+        .token.keyword,
+        .token.rule,
+        .token.builtin {
+            color: #a71d5d;
+        }
+        
+        .token.string,
+        .token.url,
+        .token.regex,
+        .token.attr-value {
+            color: #183691;
+        }
+        
+        .token.property,
+        .token.number,
+        .token.boolean,
+        .token.entity,
+        .token.atrule,
+        .token.constant,
+        .token.symbol,
+        .token.command,
+        .token.code {
+            color: #0086b3;
+        }
+        
+        .token.tag,
+        .token.selector,
+        .token.prolog {
+            color: #63a35c;
+        }
+        
+        .token.function,
+        .token.namespace,
+        .token.pseudo-element,
+        .token.class,
+        .token.class-name,
+        .token.pseudo-class,
+        .token.id,
+        .token.url-reference .token.variable,
+        .token.attr-name {
+            color: #795da3;
+        }
+        
+        .token.entity {
+            cursor: help;
+        }
+        
+        .token.title,
+        .token.title .token.punctuation {
+            font-weight: bold;
+            color: #1d3e81;
+        }
+        
+        .token.list {
+            color: #ed6a43;
+        }
+        
+        .token.inserted {
+            background-color: #eaffea;
+            color: #55a532;
+        }
+        
+        .token.deleted {
+            background-color: #ffecec;
+            color: #bd2c00;
+        }
+        
+        .token.bold {
+            font-weight: bold;
+        }
+        
+        .token.italic {
+            font-style: italic;
+        }
+        /* JSON */
+        
+        .language-json .token.property {
+            color: #183691;
+        }
+        
+        .language-markup .token.tag .token.punctuation {
+            color: #333;
+        }
+        /* CSS */
+        
+        code.language-css,
+        .language-css .token.function {
+            color: #0086b3;
+        }
+        /* YAML */
+        
+        .language-yaml .token.atrule {
+            color: #63a35c;
+        }
+        
+        code.language-yaml {
+            color: #183691;
+        }
+        /* Ruby */
+        
+        .language-ruby .token.function {
+            color: #333;
+        }
+        /* Markdown */
+        
+        .language-markdown .token.url {
+            color: #795da3;
+        }
+        /* Makefile */
+        
+        .language-makefile .token.symbol {
+            color: #795da3;
+        }
+        
+        .language-makefile .token.variable {
+            color: #183691;
+        }
+        
+        .language-makefile .token.builtin {
+            color: #0086b3;
+        }
+        /* Bash */
+        
+        .language-bash .token.keyword {
+            color: #0086b3;
+        }
+        /* highlight */
+        
+        pre[data-line] {
+            position: relative;
+            padding: 1em 0 1em 3em;
+        }
+        
+        pre[data-line] .line-highlight-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: transparent;
+            display: block;
+            width: 100%;
+        }
+        
+        pre[data-line] .line-highlight {
+            position: absolute;
+            left: 0;
+            right: 0;
+            padding: inherit 0;
+            margin-top: 1em;
+            background: hsla(24, 20%, 50%, .08);
+            background: linear-gradient(to right, hsla(24, 20%, 50%, .1) 70%, hsla(24, 20%, 50%, 0));
+            pointer-events: none;
+            line-height: inherit;
+            white-space: pre;
+        }
+        
+        pre[data-line] .line-highlight:before,
+        pre[data-line] .line-highlight[data-end]:after {
+            content: attr(data-start);
+            position: absolute;
+            top: .4em;
+            left: .6em;
+            min-width: 1em;
+            padding: 0 .5em;
+            background-color: hsla(24, 20%, 50%, .4);
+            color: hsl(24, 20%, 95%);
+            font: bold 65%/1.5 sans-serif;
+            text-align: center;
+            vertical-align: .3em;
+            border-radius: 999px;
+            text-shadow: none;
+            box-shadow: 0 1px white;
+        }
+        
+        pre[data-line] .line-highlight[data-end]:after {
+            content: attr(data-end);
+            top: auto;
+            bottom: .4em;
+        }
+        
+        html body {
+            font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+            overflow: initial;
+            box-sizing: border-box;
+            word-wrap: break-word
+        }
+        
+        html body>:first-child {
+            margin-top: 0
+        }
+        
+        html body h1,
+        html body h2,
+        html body h3,
+        html body h4,
+        html body h5,
+        html body h6 {
+            line-height: 1.2;
+            margin-top: 1em;
+            margin-bottom: 16px;
+            color: #000
+        }
+        
+        html body h1 {
+            font-size: 2.25em;
+            font-weight: 300;
+            padding-bottom: .3em
+        }
+        
+        html body h2 {
+            font-size: 1.75em;
+            font-weight: 400;
+            padding-bottom: .3em
+        }
+        
+        html body h3 {
+            font-size: 1.5em;
+            font-weight: 500
+        }
+        
+        html body h4 {
+            font-size: 1.25em;
+            font-weight: 600
+        }
+        
+        html body h5 {
+            font-size: 1.1em;
+            font-weight: 600
+        }
+        
+        html body h6 {
+            font-size: 1em;
+            font-weight: 600
+        }
+        
+        html body h1,
+        html body h2,
+        html body h3,
+        html body h4,
+        html body h5 {
+            font-weight: 600
+        }
+        
+        html body h5 {
+            font-size: 1em
+        }
+        
+        html body h6 {
+            color: #5c5c5c
+        }
+        
+        html body strong {
+            color: #000
+        }
+        
+        html body del {
+            color: #5c5c5c
+        }
+        
+        html body a:not([href]) {
+            color: inherit;
+            text-decoration: none
+        }
+        
+        html body a {
+            color: #08c;
+            text-decoration: none
+        }
+        
+        html body a:hover {
+            color: #00a3f5;
+            text-decoration: none
+        }
+        
+        html body img {
+            max-width: 100%
+        }
+        
+        html body>p {
+            margin-top: 0;
+            margin-bottom: 16px;
+            word-wrap: break-word
+        }
+        
+        html body>ul,
+        html body>ol {
+            margin-bottom: 16px
+        }
+        
+        html body ul,
+        html body ol {
+            padding-left: 2em
+        }
+        
+        html body ul.no-list,
+        html body ol.no-list {
+            padding: 0;
+            list-style-type: none
+        }
+        
+        html body ul ul,
+        html body ul ol,
+        html body ol ol,
+        html body ol ul {
+            margin-top: 0;
+            margin-bottom: 0
+        }
+        
+        html body li {
+            margin-bottom: 0
+        }
+        
+        html body li.task-list-item {
+            list-style: none
+        }
+        
+        html body li>p {
+            margin-top: 0;
+            margin-bottom: 0
+        }
+        
+        html body .task-list-item-checkbox {
+            margin: 0 .2em .25em -1.8em;
+            vertical-align: middle
+        }
+        
+        html body .task-list-item-checkbox:hover {
+            cursor: pointer
+        }
+        
+        html body blockquote {
+            margin: 16px 0;
+            font-size: inherit;
+            padding: 0 15px;
+            color: #5c5c5c;
+            background-color: #f0f0f0;
+            border-left: 4px solid #d6d6d6
+        }
+        
+        html body blockquote>:first-child {
+            margin-top: 0
+        }
+        
+        html body blockquote>:last-child {
+            margin-bottom: 0
+        }
+        
+        html body hr {
+            height: 4px;
+            margin: 32px 0;
+            background-color: #d6d6d6;
+            border: 0 none
+        }
+        
+        html body table {
+            margin: 10px 0 15px 0;
+            border-collapse: collapse;
+            border-spacing: 0;
+            display: block;
+            width: 100%;
+            overflow: auto;
+            word-break: normal;
+            word-break: keep-all
+        }
+        
+        html body table th {
+            font-weight: bold;
+            color: #000
+        }
+        
+        html body table td,
+        html body table th {
+            border: 1px solid #d6d6d6;
+            padding: 6px 13px
+        }
+        
+        html body dl {
+            padding: 0
+        }
+        
+        html body dl dt {
+            padding: 0;
+            margin-top: 16px;
+            font-size: 1em;
+            font-style: italic;
+            font-weight: bold
+        }
+        
+        html body dl dd {
+            padding: 0 16px;
+            margin-bottom: 16px
+        }
+        
+        html body code {
+            font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+            font-size: .85em !important;
+            color: #000;
+            background-color: #f0f0f0;
+            border-radius: 3px;
+            padding: .2em 0
+        }
+        
+        html body code::before,
+        html body code::after {
+            letter-spacing: -0.2em;
+            content: "\00a0"
+        }
+        
+        html body pre>code {
+            padding: 0;
+            margin: 0;
+            font-size: .85em !important;
+            word-break: normal;
+            white-space: pre;
+            background: transparent;
+            border: 0
+        }
+        
+        html body .highlight {
+            margin-bottom: 16px
+        }
+        
+        html body .highlight pre,
+        html body pre {
+            padding: 1em;
+            overflow: auto;
+            font-size: .85em !important;
+            line-height: 1.45;
+            border: #d6d6d6;
+            border-radius: 3px
+        }
+        
+        html body .highlight pre {
+            margin-bottom: 0;
+            word-break: normal
+        }
+        
+        html body pre code,
+        html body pre tt {
+            display: inline;
+            max-width: initial;
+            padding: 0;
+            margin: 0;
+            overflow: initial;
+            line-height: inherit;
+            word-wrap: normal;
+            background-color: transparent;
+            border: 0
+        }
+        
+        html body pre code:before,
+        html body pre tt:before,
+        html body pre code:after,
+        html body pre tt:after {
+            content: normal
+        }
+        
+        html body p,
+        html body blockquote,
+        html body ul,
+        html body ol,
+        html body dl,
+        html body pre {
+            margin-top: 0;
+            margin-bottom: 16px
+        }
+        
+        html body kbd {
+            color: #000;
+            border: 1px solid #d6d6d6;
+            border-bottom: 2px solid #c7c7c7;
+            padding: 2px 4px;
+            background-color: #f0f0f0;
+            border-radius: 3px
+        }
+        
+        @media print {
+            html body {
+                background-color: #fff
+            }
+            html body h1,
+            html body h2,
+            html body h3,
+            html body h4,
+            html body h5,
+            html body h6 {
+                color: #000;
+                page-break-after: avoid
+            }
+            html body blockquote {
+                color: #5c5c5c
+            }
+            html body pre {
+                page-break-inside: avoid
+            }
+            html body table {
+                display: table
+            }
+            html body img {
+                display: block;
+                max-width: 100%;
+                max-height: 100%
+            }
+            html body pre,
+            html body code {
+                word-wrap: break-word;
+                white-space: pre
+            }
+        }
+        
+        .markdown-preview {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box
+        }
+        
+        .markdown-preview .pagebreak,
+        .markdown-preview .newpage {
+            page-break-before: always
+        }
+        
+        .markdown-preview pre.line-numbers {
+            position: relative;
+            padding-left: 3.8em;
+            counter-reset: linenumber
+        }
+        
+        .markdown-preview pre.line-numbers>code {
+            position: relative
+        }
+        
+        .markdown-preview pre.line-numbers .line-numbers-rows {
+            position: absolute;
+            pointer-events: none;
+            top: 1em;
+            font-size: 100%;
+            left: 0;
+            width: 3em;
+            letter-spacing: -1px;
+            border-right: 1px solid #999;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none
+        }
+        
+        .markdown-preview pre.line-numbers .line-numbers-rows>span {
+            pointer-events: none;
+            display: block;
+            counter-increment: linenumber
+        }
+        
+        .markdown-preview pre.line-numbers .line-numbers-rows>span:before {
+            content: counter(linenumber);
+            color: #999;
+            display: block;
+            padding-right: .8em;
+            text-align: right
+        }
+        
+        .markdown-preview .mathjax-exps .MathJax_Display {
+            text-align: center !important
+        }
+        
+        .markdown-preview:not([for="preview"]) .code-chunk .btn-group {
+            display: none
+        }
+        
+        .markdown-preview:not([for="preview"]) .code-chunk .status {
+            display: none
+        }
+        
+        .markdown-preview:not([for="preview"]) .code-chunk .output-div {
+            margin-bottom: 16px
+        }
+        
+        .scrollbar-style::-webkit-scrollbar {
+            width: 8px
+        }
+        
+        .scrollbar-style::-webkit-scrollbar-track {
+            border-radius: 10px;
+            background-color: transparent
+        }
+        
+        .scrollbar-style::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background-color: rgba(150, 150, 150, 0.66);
+            border: 4px solid rgba(150, 150, 150, 0.66);
+            background-clip: content-box
+        }
+        
+        html body[for="html-export"]:not([data-presentation-mode]) {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            overflow: auto
+        }
+        
+        html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview {
+            position: relative;
+            top: 0
+        }
+        
+        @media screen and (min-width:914px) {
+            html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview {
+                padding: 2em calc(50% - 457px + 2em)
+            }
+        }
+        
+        @media screen and (max-width:914px) {
+            html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview {
+                padding: 2em
+            }
+        }
+        
+        @media screen and (max-width:450px) {
+            html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview {
+                font-size: 14px !important;
+                padding: 1em
+            }
+        }
+        
+        @media print {
+            html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn {
+                display: none
+            }
+        }
+        
+        html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn {
+            position: fixed;
+            bottom: 8px;
+            left: 8px;
+            font-size: 28px;
+            cursor: pointer;
+            color: inherit;
+            z-index: 99;
+            width: 32px;
+            text-align: center;
+            opacity: .4
+        }
+        
+        html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn {
+            opacity: 1
+        }
+        
+        html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 300px;
+            height: 100%;
+            padding: 32px 0 48px 0;
+            font-size: 14px;
+            box-shadow: 0 0 4px rgba(150, 150, 150, 0.33);
+            box-sizing: border-box;
+            overflow: auto;
+            background-color: inherit
+        }
+        
+        html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar {
+            width: 8px
+        }
+        
+        html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track {
+            border-radius: 10px;
+            background-color: transparent
+        }
+        
+        html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background-color: rgba(150, 150, 150, 0.66);
+            border: 4px solid rgba(150, 150, 150, 0.66);
+            background-clip: content-box
+        }
+        
+        html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a {
+            text-decoration: none
+        }
+        
+        html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul {
+            padding: 0 1.6em;
+            margin-top: .8em
+        }
+        
+        html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li {
+            margin-bottom: .8em
+        }
+        
+        html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul {
+            list-style-type: none
+        }
+        
+        html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview {
+            left: 300px;
+            width: calc(100% - 300px);
+            padding: 2em calc(50% - 457px - 150px);
+            margin: 0;
+            box-sizing: border-box
+        }
+        
+        @media screen and (max-width:1274px) {
+            html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview {
+                padding: 2em
+            }
+        }
+        
+        @media screen and (max-width:450px) {
+            html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview {
+                width: 100%
+            }
+        }
+        
+        html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview {
+            left: 50%;
+            transform: translateX(-50%)
+        }
+        
+        html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc {
+            display: none
+        }
+        /* Please visit the URL below for more information: */
+        /*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+        
+        table {
+            width: 100%;
+            display: inline-block;
+            overflow-x: auto;
+        }
+        
+        table caption {
+            font-size: medium;
+        }
+        
+        table thead th {
+            background-color: #ddd;
+        }
+        
+        table th,
+        table td {
+            text-align: left;
+            padding: 3px 6px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #aaa #aaa;
+        }
+        
+        table tr:nth-child(even) {
+            background-color: #eee;
+        }
+        
+        blockquote {
+            border: 1px solid #b3b3b3;
+            border-left: 10px solid #b3b3b3;
+            border-radius: 0px;
+            background: #fafafa;
+            font-size: 18px;
+            font-family: Georgia, serif;
+            margin: 10px;
+            padding: 10px 20px;
+        }
+        
+        blockquote p {
+            margin: 0;
+            line-height: 30px;
+            padding-bottom: 20px;
+        }
+        
+        blockquote .small {
+            display: block;
+            font-size: 80%;
+            color: brown;
+            text-align: right;
+        }
+        
+        img.limit {
+            max-width: 100%
+        }
+    </style>
+</head>
+
+<body class="language-none">
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="sticky-top">
+                <div class="sidebar-heading">Assignment 1</div>
+                <div class="list-group list-group-flush">
+                    <a href="#0-important-notes" class="list-group-item list-group-item-action bg-light">0 Important Notes</a>
+                    <a href="#1-introduction" class="list-group-item list-group-item-action bg-light">1 Introduction</a>
+                    <a href="#2-definitions" class="list-group-item list-group-item-action bg-light">2 Definitions</a>
+                    <a href="#3-tasks" class="list-group-item list-group-item-action bg-light">3 Tasks</a>
+                    <a href="#4-optional-challenge" class="list-group-item list-group-item-action bg-light">4 Optional Challenge</a>
+                    <a href="#5-downloads" class="list-group-item list-group-item-action bg-light">5 Downloads</a>
+                    <a href="#6-submission" class="list-group-item list-group-item-action bg-light">6 Submission</a>
+                    <a href="#7-grading" class="list-group-item list-group-item-action bg-light">7 Grading</a>
+                    <a href="#8-faq" class="list-group-item list-group-item-action bg-light">8 FAQ</a>
+                    <a href="#9-change-log" class="list-group-item list-group-item-action bg-light">9 Change Log</a>
+                    <span class="list-group-item list-group-item-action bg-light">Prepared by:<br /> <a
+              href="mailto:bwual@connect.ust.hk">WU, Bohuai</a></span>
+                </div>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <div class="col-sm-9">
+                    <span class="navbar-toggler-icon" id="menu-toggle"></span>
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://course.cse.ust.hk/comp2011/">Course Webpage</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://piazza.com/class/ksu2b8ght613g3">Online Forum</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="container-fluid border-bottom my-5">
+                <div class="mume markdown-preview  ">
+                    <h1 class="mume-header" id="comp2011-pa1-the-poker-staright">COMP2011 PA1: the Poker Straight</h1>
+                    <figure class="figure mx-auto d-block">
+                        <img src="./imgs/straight.jpg" class="figure-img mx-auto d-block" width=100% alt="Responsive image" style="max-width:400px;">
+                        <figcaption class="figure-caption text-right" style="font-size:large">Figure 1: An Example for <strong>Poker Straight.</strong></figcaption>
+                    </figure>
+                    <h2 class="mume-header" id="0-important-notes">0 IMPORTANT NOTES</h2>
+
+                    <p>There are a few things you <strong>CANNOT</strong> do. Failure to observe these rules would potentially result in <strong>ZERO</strong> mark for your assignment.</p>
+                    <ul>
+                        <li>You cannot define and use any additional global variable.</li>
+                        <li>You cannot change any given global variable.</li>
+                        <li>You cannot change any function signature already included in the skeleton code.</li>
+                        <li>You cannot include or use any additional library (e.g., string)</li>
+                    </ul>
+                    <p><strong><span class="text-danger">About Academic Integrity:</span></strong></p>
+                    <p>We highly value academic integrity. Please read the Honor Code section on our course webpage to make sure you understand what is considered as plagiarism and what the penalties are. The following are some of the highlights:</p>
+                    <ul>
+                        <li><strong>DO NOT try your &quot;LUCK&quot;</strong> - we use sophisticated plagiarism detection software to find cheaters. We also review codes for potential cases manually.</li>
+                        <li>The penalty (for BOTH the copier and the copiee) is not just getting a zero in your assignment. Please read the Honor Code thoroughly.</li>
+                        <li>Serious offenders will fail the course immediately, and there may be additional disciplinary actions from the department and university, up to and including expulsion.</li>
+                    </ul>
+                    <p>This programming assignment is challenging, so you are highly recommended to start early. If you need clarification on the requirements, please feel free to post on <a href="https://piazza.com/class/ksu2b8ght613g3">Piazza</a>.
+                        However, to avoid cluttering the forum with repeated/trivial questions, please carefully read the given code, the description, the sample output, and the latest <a href="#7-faq">FAQ</a> (refresh this page regularly) in this page before
+                        you post your questions. Also please be reminded that we won&apos;t help debug for any student&apos;s assignment for the sake of fairness.</p>
+
+                    <h2 class="mume-header" id="1-introduction">1 Introduction</h2>
+                    <p>Most of you may have already heard of or played with the <strong>Poker</strong>, a family of card games which has many variations, such as <a href="https://en.wikipedia.org/wiki/Texas_hold_%27em">Texas Hole'em</a>. In poker, players
+                        wager over which hand, classically a set of 5 playing cards, has the best rank according to a specific rules. 
+                    </p>
+                    <p>In this assignment, we try to design a game which has our specific rules and rankings. The classic list of poker hands is a ranking list for hands (sets of 5 playing cards). You can check <a href="https://en.wikipedia.org/wiki/List_of_poker_hands">this </a>to
+                        better understand them. To simplify the rules, we mainly focus on the straight similar to the one shown in Figure 1. However, the length of a hand may or may not be fixed as 5 (will be explained in Section 2.3). We may have different length of input sequence of cards
+                        or straights. Additionally, we make a new Rule: we allow <strong>Jokers</strong> to substitute any cards (e.g. a Joker can be A or K or 10, etc.), which will be explained in Section 2.4. </p>
+                    <p>In this assignment, the sequences of cards are implemented using one <strong>1D character array</strong> and one <strong>1D integer array</strong> in <code>C++</code>. And you are supposed to first transfer the character array to integer
+                        array (Task 1), then implement a simple sorting algorithm for integer array (Task 2). Then based on the sorted array, you are supposed to implement the straight checking (Task 3) and comparison functions (Task 4). Also, if you have enough confidence for your programming,
+                        you can also try to solve the finding longest straight problem (Optinal Challenge). </p>
+                    <p>In this programming assignment, we hope that you can make full use of the knowledges you have learned so far in the <code>COMP2011</code> class, including <code>Control Statement</code>, <code>Loop Statement</code>, <code>Function</code>,                        and <code>Array</code>.</p>
+                    <p><em><strong>Sounds exciting? Let&apos;s get started now!</strong></em></p>
+                    
+                    
+                    <h2 class="mume-header" id="2-definitions">2 Definitions</h2>
+
+                    <h3 class="mume-header" id="21-basic-knowledge-for-a-deck-of-cards">2.1 Basic Knowledge for a Deck of Cards</h3>
+
+                    <p>Originally, a deck of playing cards has 4 suits with usual patterns: <strong>2~10</strong>, <strong>J</strong>, <strong>Q</strong>, <strong>K</strong>, <strong>A</strong> for each suit and 2 extra <strong>Joker</strong> cards. Thus
+                        the total number of cards is 13 * 4 + 2 = 54.</p>
+                    <figure class="figure mx-auto d-block">
+                        <img src="./imgs/deck_of_cards.png" class="figure-img mx-auto d-block">
+                        <figcaption class="figure-caption text-right" style="font-size:large">Figure 2: A Whole Deck of Cards.</figcaption>
+                    </figure>
+                    <p>
+                        In this assignment, you can just ignore the suit symbols and only focus on the numbers. Therefore, you can consider that we randomly pick several cards from 54 cards out of the deck and check if they can form a straight.
+                        We make a new <strong>Rule</strong>: we allow 2 <strong>Jokers</strong> can substitute any cards (e.g. a <strong>Joker</strong> can be A or K or 10, etc.).
+                    </p>
+
+                    <h3 class="mume-header" id="22-character-representation-for-cards">2.2 Representation for Cards</h3>
+                    <p>When you are trying to write the tasks, some <strong>character</strong> arrays which represent the hands of cards will be given to you as input. For each card in the array, we use <strong>one</strong> <code>char</code> to represent:</p>
+                    <ol>
+                        <li>number <strong>2</strong> to <strong>9</strong>: <code>char</code> type, <code>'2'</code> to <code>'9'</code>.</li>
+                        <li>number <strong>10</strong>: <code>char</code> type, <code>'!'</code>.</li>
+                        <li><strong>J</strong>, <strong>Q</strong>, <strong>K</strong>, <strong>A</strong>: <code>char</code> type, <code>'J'</code>, <code>'Q'</code>, <code>'K'</code>, <code>'A'</code></li>
+                        <li><strong>Joker</strong>: <code>char</code> type, <code>'*'</code></li>
+                    </ol>
+                    <p>However, for the ease of performing up-coming functions and algorithms in a computer program, the above character arrays should be transformed to integer arrays (will first be implemented by you in Task 1). Therefore, we represent <strong>character</strong> cards as the following <strong>integer</strong> cards:</p>
+                    <ol>
+                        <li><code>'2'</code> to <code>'9'</code> &rArr; <code>2</code> to <code>9</code>.</li>
+                        <li><code>'!'</code> &rArr; <code>10</code>.</li>
+                        <li><code>'J'</code>, <code>'Q'</code>, <code>'K'</code>, <code>'A'</code> &rArr; <code>11</code>, <code>12</code>, <code>13</code>, <code>1</code>.</li>
+                        <li><code>'*'</code> &rArr; <code>0</code></li>
+                    </ol>
+
+                    <h3 class="mume-header" id="23-straight">2.3 Straight</h3>
+                    <p>A <strong>straight</strong> is a hand that contains several cards of <strong>sequential rank</strong> (a non-cyclic subsequence of <a href="#fig3">Figure 3</a>) or even one card. So A can be in front of 2 or behind
+                        K. Besides, the <strong>suit symbols</strong> will be ignored when comparing their ranks, only the numbers will be focused (will be implemented by you in Task 4).</p>
+                    <figure class="figure mx-auto d-block">
+                        <img src="./imgs/longest_straight.png" class="figure-img mx-auto d-block" id="fig3">
+                        <figcaption class="figure-caption text-right" style="font-size:large">Figure 3: A Sequence of Cards.</figcaption>
+                    </figure>
+                    <p>For example, some straights with 5 cards <strong>can</strong> be the following subsequences:</p>
+                    <ul>
+                        <li>[A, 2, 3, 4, 5]</li>
+                        <li>[6, 7, 8, 9, 10]</li>
+                        <li>[9, 10, J, Q, K]</li>
+                        <li>[10, J, Q, K, A]</li>
+                    </ul>
+                    <p>But, the straights with 5 cards  <strong>CANNOT</strong> be:</p>
+                    <ul>
+                        <li>[K, A, 2, 3, 4] (across the A from K to 2: cyclic subsequences are not allowed)</li>
+                        <li>[Q, A, 2, 3, 4] (Q is not adjacent to A: non-subsequences are not allowed)</li>
+                    </ul>
+                    <p>For the <strong>longest</strong> length of 14, the <strong>ONLY</strong> straight is:</p>
+                    <li>[A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A] (one A is in front of 2 and another A is behind K)</li>
+                    <p>but <strong>CANNOT</strong> be cyclic:</p>
+                    <li>[2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A, 2] (cross the A, repeated 2)</li>
+                    <p>Also, <strong>except</strong> the longest straight from A to A above having double A, a straight has <strong>NO</strong> repeated cards. For example, a straight with 6 cards <strong>CANNOT</strong> be:</p>
+                    <li>[2, 2, 3, 3, 4, 5] (repeated 2 and 3)</li>
+                    <p>Therefore, to form a straight, a hand must meet <strong>ALL</strong> the requirements below:</p>
+                    <ol>
+                        <li>A non-cyclic subsequence of [A, 2, 3,...,Q, K, A].</li>
+                        <li>One A can only be in front of the 2 or behind K, but cannot be both at the same time. A straight cannot cross the A from K to 2.</li>
+                        <li>Except the longest straight which has two A, any other straight cannot have repeated numbers.</li>
+                        <li>Length is between 1 to 14 (inclusive).</li>
+                    </ol>
+
+                    <h3 class="mume-header" id="24-joker">2.4 Joker</h3>
+                    <p>In this assignment, We have two <em>special</em> cards, <strong>Jokers</strong>. The jokers can represent <strong>any</strong> numbers to help the hand to form a straight.</p>
+                    <p>For example:</p>
+                    <ul>
+                        <li>[A, Joker, 3, Joker, 5] can be a straight, because:
+                            <ul>
+                                <li>one Joker represents number <strong>2</strong> and one Joker represents number <strong>4</strong></li>
+                                <li>then this hand is actually &rArr; [A, <strong>2*</strong>, 3, <strong>4*</strong>, 5].</li>
+                            </ul>
+                        </li>
+                        <li>[10, J, Q, K, Joker] can also be a straight, because:
+                            <ul>
+                                <li>The Joker can represent card <strong>9</strong>, then this hand is &rArr; [<strong>9*</strong>, 10, J, Q, K].</li>
+                                <li>or, Joker can represent card <strong>A</strong>, then this hand is &rArr; [10, J, Q, K, <strong>A*</strong>].</li>
+                                <li>Both of these two can form a valid straight.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p><em>(cards with * means this card is represented by Joker)</em></p>
+
+                    <h3 class="mume-header" id="25-value-of-a-straight">2.5 Value of a Hands</h3>
+                    <p>Before comparing two straights, we first need to make some rules about the value of a straight or a non-straight hand. </p>
+                    <p>In this assignment, we set that: </p>
+                    <ol>
+                        <li>The value of a straight hand is the highest value of the cards.</li>
+                        <li>The value of a non-straight hand is the sum of all cards numbers. The non-integer are computed as follows:</li>
+                        <ul>
+                            <li>J is 11, Q is 12, K is 13, A is 14, Joker is 15.</li>
+                        </ul>
+                    </ol>
+                    <p>For example:</p>
+                    <ul>
+                        <li>[A, 2, 3, 4, 5] is a straight with value <strong>5</strong>.</li>
+                        <li>[9, 10, J, Q, K] is a straight with value <strong>13</strong>.</li>
+                        <li>Specifically, for the straight [10, J, Q, K, A], we consider this A has value 14. Therefore, the value of [10, J, Q, K, A] is <strong>14</strong>.</li>
+                    </ul>
+                    <p>Because joker will only substitute a number, it will not influence the actual value of the straight:</p>
+                    <ul>
+                        <li>[9, 10, J, Q, Joker] is a straight with value <strong>13</strong>.</li>
+                    </ul>
+                    <p>For non-straight hands,</p>
+                    <ul>
+                        <li> [Joker, A, K, K, J] has a value of <strong>66</strong>.</li>
+                    </ul>
+
+                    <h3 class="mume-header" id="26-comparison-of-two-hands">2.6 Comparison of Two Hands</h3>
+                    <p>In this assignment, we will compare two hands of playing cards with fixed length.</p>
+                    <p>For the comparison, we define the rules:</p>
+                    <dl>
+                        <dt>Rule 1: A straight is always better than any non-straight hands.</dt>
+                        <ul>
+                            <li>Eg. [A, 2, 3, 4, 5] is larger than [A, A, A, Joker, Joker], because the first one is a straight but the second one is not.</li>
+                        </ul>
+                        <dt>Rule 2: When comparing two straights, the straight has higher value is larger than another.</dt>
+                        <ul>
+                            <li>Eg. [9, 10, J, Q, K] is larger than [A, 2, 3, 4, 5]</li>
+                        </ul>
+                        <dt>Rule 3: When comparing two non-straight hands, we calculate the <em>sum</em> of each cards. At this time, we always consider:</dt>
+                        <ul>
+                            <li>Eg. [A, A, Joker, 10, Q] is larger than [A, A, K, 9, J], because [A, A, Joker, 10, Q] has value 14+14+15+10+12=65 and [A, A, K, 9, J] has value 14+14+13+9+11=61.</li>
+                        </ul>
+                    </dl>
+
+                    <h2 class="mume-header" id="3-tasks">3 Tasks</h2>
+
+                    <p>Before you start to do the tasks, please carefully read through the <a href="#2-definitions">Definitions</a> sections.</p>
+                    <p>We have provided skeleton code for you, and you must complete the following tasks based on that skeleton code. You are encouraged to complete those tasks in the given order. And you are encouraged to reuse the functions you have
+                        already implemented. You can also write your own helper functions, but please make sure the function you call is bug-free, or you may lose marks in all tasks that call this function.</p>
+                    <p>In this assignment, you can assume the length of the input array for <strong>Tasks 1, 2, 3</strong> are <strong>NO MORE THAN</strong>
+                        <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>16</mn></mrow><annotation encoding="application/x-tex">16</annotation></semantics></math></span>
+                        <span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">16</span></span>
+                        </span>
+                        </span>. And the length of the input array for <strong>Task 4</strong> is <strong>EXACTLY</strong>
+                        <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn></mrow><annotation encoding="application/x-tex">5</annotation></semantics></math></span>
+                        <span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span></span>
+                        </span>
+                        </span>. Moreover the length of the input array for <strong>Task 5</strong> is <strong>NO MORE THAN</strong>
+                        <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10</mn></mrow><annotation encoding="application/x-tex">10</annotation></semantics></math></span>
+                        <span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">10</span></span>
+                        </span>
+                        </span> and the <strong>MIN</strong> length that a straight should have for <strong>Task 5</strong> is
+                        <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">3</annotation></semantics></math></span>
+                        <span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span>
+                        </span>
+                        </span>
+                    </p>
+                    <br> Four global constants have been defined in the skeleton code (You cannot change the defined global variables):</p>
+                    <pre data-role="codeBlock" data-info="c++" class="language-cpp"><span class="token keyword">const</span> <span class="token keyword">int</span> MAX_INPUT_LEN <span class="token operator">=</span> <span class="token number">16</span><span class="token punctuation">;</span> <span class="token comment">//Tasks 1, 2, 3</span>
+<span class="token keyword">const</span> <span class="token keyword">int</span> VALUE_COMPARE_LEN <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span> <span class="token comment">//Task 4</span>
+<span class="token keyword">const</span> <span class="token keyword">int</span> INPUT_STRAIGHT_LEN <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> <span class="token comment">//Task 5</span>
+<span class="token keyword">const</span> <span class="token keyword">int</span> MIN_STRAIGHT_LEN <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span> <span class="token comment">//Task 5</span>
+</pre>
+
+                    <h3 class="mume-header" id="31-task-1-15-points">3.1 Task 1 <code>10 Points</code></h3>
+
+                    <p><strong>Change input character array to integer array.</strong></p>
+                    <pre data-role="codeBlock" data-info="c++" class="language-cpp"><span class="token keyword">void</span> <span class="token function">cardToNumers</span><span class="token punctuation">(</span><span class="token keyword">char</span> cards<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> length<span class="token punctuation">,</span> <span class="token keyword">int</span> cards_num<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</pre>
+                    <ul>
+                        <li>
+                            <p>Parameters:</p>
+                            <ul>
+                                <li><code>cards</code>: the array storing the card characters.</li>
+                                <li><code>length</code>: the length of <code>cards</code> and <code>cards_num</code>.</li>
+                                <li><code>cards_num</code>: output array to store the corresponding digits of cards.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p>Description:</p>
+                            <ul>
+                                <li>For elements in <code>cards</code>, you should put its corresponding integer to the corresponding index of <code>cards_num</code>. The transformation should follow the rule of <a href="#22-character-representation-for-cards">2.2 Representation for Cards</a>                                    .
+                                </li>
+                                <li>You can assume that the each element in input <code>cards</code> array is <strong>always</strong> valid. And the <code>cards_num</code> array is an empty array with the same length. But you should assume that each element
+                                    of the input <code>cards_num</code> is <em>unknown</em> or <em>garbage</em>. You are encouraged to initialize the <code>cards_num</code> first.
+                                </li>
+                                <li>You can assume the length is always greater or equal to <code>1</code>, and always less or equal to <code>MAX_INPUT_LEN</code>.</li>
+                                <li>You should <strong>not</strong> change the element order of <code>cards</code> array, i.e. the array remains the same. And <code>cards_num</code> should store the corresponding integers.
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p>Example:</p>
+                        </li>
+                    </ul>
+                    <ol>
+                        <li>
+                            <ul>
+                                <li><code>cards</code>=['9', '5', 'A', '!', '*', 'J'], <code>length</code>=6, <code>cards_num[6]</code>.</li>
+                                <li>After function call:</li>
+                                <ul>
+                                    <li><code>cards</code>=['9', '5', 'A', '!', '*', 'J'].</li>
+                                    <li><code>cards_num</code>=[9, 5, 1, 10, 0, 11].</li>
+                                </ul>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <ul>
+                                <li><code>cards</code>=['!', 'J', 'Q', 'K', 'A', '*', '2'], <code>length</code>=7, <code>cards_num[7]</code>.</li>
+                                <li>After function call:</li>
+                                <ul>
+                                    <li><code>cards</code>=['!', 'J', 'Q', 'K', 'A', '*', '2'].</li>
+                                    <li><code>cards_num</code>=[10, 11, 12, 13, 1, 0, 2].</li>
+                                </ul>
+
+                            </ul>
+                        </li>
+                    </ol>
+                    <h3 class="mume-header" id="32-task-2-15-points">3.2 Task 2 <code>15 Points</code></h3>
+
+                    <p><strong>Sort the given integer array.</strong></p>
+                    <pre data-role="codeBlock" data-info="c++" class="language-cpp"><span class="token keyword">void</span> <span class="token function">sortCards</span><span class="token punctuation">(</span><span class="token keyword">int</span> cards_num<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> length<span class="token punctuation"><span class="token punctuation">)</span>
+</pre>
+                    <ul>
+                        <li>
+                            <p>Parameters:</p>
+                            <ul>
+                                <li><code>cards_num</code>: input unsorted array of cards numbers.</li>
+                                <li><code>length</code>: the length of <code>cards_num</code>.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p>Description:</p>
+                            <ul>
+                                <li>Sort the elements of the <code>cards_num</code> by using a sort algorithm. To deal with this problem, one of the easiest methods is to implement the <strong>bubble sort</strong> algorithm (you can find <a href="https://en.wikipedia.org/wiki/Bubble_sort">here</a>).
+                                </li>
+                                <li>Also, you can write your own swap function to help you to implement bubble sort.
+                                </li>
+                                <li>After functions call, the input <code>cards_num</code> array should be a sorted array.
+                                </li>
+                                <li>You can assume the input <code>cards_num</code> is always legal. The length is always greater or equal to <code>1</code> and less or equal to <code>MAX_INPUT_LEN</code>.
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p>Example:</p>
+                            <ul>
+                                <li><code>cards_num</code>=[1,3,5,7,2,4,6,0,13], <code>length</code>=9.</li>
+                                <li>After function call:
+                                    <ul>
+                                        <li><code>cards_num</code>=[0,1,2,3,4,5,6,7,13].</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+
+
+
+                    <h3 class="mume-header" id="33-task-3-35-points">3.3 Task 3 <code>35 Points</code></h3>
+
+                    <p><strong>Check if the given sequence of cards can form a straight.</strong></p>
+                    <pre data-role="codeBlock" data-info="c++" class="language-cpp"><span class="token keyword">bool</span> <span class="token function">isContinuous</span><span class="token punctuation">(</span><span class="token keyword">char</span> cards<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> length<span class="token punctuation">,</span> <span class="token keyword">int</span> cards_num<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</pre>
+                    <ul>
+                        <li>
+                            <p>Parameters:</p>
+                            <ul>
+                                <li><code>cards</code>: the array storing the card characters to be transferred.</li>
+                                <li><code>length</code>: the length of <code>cards</code> and <code>cards_num</code>.</li>
+                                <li><code>cards_num</code>: output array to store the corresponding digits of input array.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p>Description:</p>
+                            <ul>
+                                <li>For this task, you need to read the definition of the straight on <a href="#23-straight">2.3 Straight</a> part.</li>
+                                <li>You should use the integer array, <code>cards_num</code>, to help you deal with this task. It's better to be a sorted array after the function call (hint: use functions of task 1 and task 2). But we will not examine the
+                                    content of the this array after function call. You may have many methods to deal with this task.</li>
+                                <li>If the <code>cards</code> can form a straight:</li>
+                                <ul>
+                                    <li>return <code>true</code></li>
+                                </ul>
+                                <li>Else:</li>
+                                <ul>
+                                    <li>return <code>false</code></li>
+                                </ul>
+                                <li>You can assume that the each element in input <code>cards</code> array is <strong>always</strong> valid. And the <code>cards_num</code> array is an empty array with the same length. But you should assume that each element
+                                    of the input <code>cards_num</code> is <em>unknown</em> or <em>garbage</em>. You are encouraged to initialize the <code>cards_num</code> first.
+                                </li>
+                                <li>You can assume the length is always greater or equal to <code>1</code>, and always less or equal to <code>MAX_INPUT_LEN</code>.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p>Example</p>
+                        </li>
+                    </ul>
+                    <ol>
+                        <li>
+                            <ul>
+                                <li><code>cards</code>=['!', 'J', 'Q', 'K', 'A', '*'], <code>length</code>=6, <code> cards_num[6]</code>.</li>
+                                <li>Because the Joker(<code>*</code>) here can represent the number 9, so that the cards can form a straight [9*, 10, J, Q, K, A], it is a straight.</li>
+                                <li>After function call:</li>
+                                <ul>
+                                    <li>return true</li>
+                                </ul>
+                            </ul>
+                        </li>
+                        <li>
+                            <ul>
+                                <li><code>cards</code>=['Q', 'K', '*', '2'], <code>length</code>=4, <code>cards_num[4]</code>.</li>
+                                <li>Because whatever the Joker(<code>*</code>) represent, it cannot form a straight.</li>
+                                <li>After function call:</li>
+                                <ul>
+                                    <li>return false</li>
+                                </ul>
+                            </ul>
+                        </li>
+                    </ol>
+
+
+                    <h3 class="mume-header" id="34-task-4-40-points">3.4 Task 4 <code>40 Points</code></h3>
+
+                    <p><strong>Compare the values of given two hands that have same number of cards.</strong></p>
+                    <pre data-role="codeBlock" data-info="c++" class="language-cpp"><span class="token keyword">int</span> <span class="token function">comparValue</span><span class="token punctuation">(</span><span class="token keyword">char</span> handA<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,<span class="token keyword">char</span> handB<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">&</span> valueA<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">&</span> valueB<span class="token punctuation">)</span>
+</pre>
+                    <ul>
+                        <li>
+                            <p>Parameters:</p>
+                            <ul>
+                                <li><code>handA</code>, <code>handB</code>: two unsorted <code>char</code> array storing the input hands of cards.</li>
+                                <li><code>valueA</code>, <code>valueB</code>: the value of A and B that you should assign.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p>Description:</p>
+                            <ul>
+                                <li>You need to compare two hands according to <a href="#26-comparison-of-two-hands">2.6 Comparison of two hands</a>.</li>
+                                <li><code>handA</code> and <code>handB</code> has the fixed length of <code>VALUE_COMPARE_LEN</code>.</li>
+                                <li>If <code>handA</code> is larger than <code>handB</code>:
+                                    <ul>
+                                        <li>return <code>1</code>.</li>
+                                    </ul>
+                                </li>
+                                <li>If <code>handA</code> is equal to <code>handB</code>:
+                                    <ul>
+                                        <li>return <code>0</code>.</li>
+                                    </ul>
+                                </li>
+                                <li>If <code>handA</code> is smaller than <code>handB</code>:
+                                    <ul>
+                                        <li>return <code>-1</code>.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p>Example:</p>
+                        </li>
+                    </ul>
+                    <ol>
+                        <li>
+                            <ul>
+                                <li><code>handA</code>= ['10', 'J', 'Q', 'K', 'A'], <code>handB</code>=['A', '2', '3', '4', '5'].</li>
+                                <li>Because both <code>handA</code> and <code>handB</code> form a straight, and value of <code>handA</code> is 14 and value of <code>handB</code> is 5, <code>handA</code> is larger than <code>handB</code>.</li>
+                                <li>After function call:</li>
+                                <ul>
+                                    <li>return 1.</li>
+                                    <li><code>valueA</code>=14, <code>valueB</code>=5.</li>
+                                </ul>
+                            </ul>
+                        </li>
+                        <li>
+                            <ul>
+                                <li><code>handA</code>= ['8', '4', '5', '6', '7'], <code>handB</code>= ['*', '*', '4', '5', '6'].</li>
+                                <li>Because both <code>handA</code> and <code>handB</code> form a straight, and value of <code>handA</code> is 8 and value of <code>handB</code> is also 8 ([4, 5, 6, 7*, 8*]), <code>handA</code> is equal to <code>handB</code>.</li>
+                                <li>After function call:</li>
+                                <ul>
+                                    <li>return 0.</li>
+                                    <li><code>valueA</code>=8, <code>valueB</code>=8.</li>
+                                </ul>
+                            </ul>
+                        </li>
+                        <li>
+                            <ul>
+                                <li><code>handA</code>= ['*', '*', 'A', 'A', 'A'], <code>handB</code>= ['A', '2', '3', '4', '5'].</li>
+                                <li>Because <code>handA</code> is not a straight but <code>handB</code> is a straight, <code>handA</code> is smaller than <code>handB</code>.</li>
+                                <li>After function call:</li>
+                                <ul>
+                                    <li>return -1.</li>
+                                    <li><code>valueA</code>=72, <code>valueB</code>=5.</li>
+                                </ul>
+                            </ul>
+                        </li>
+                    </ol>
+                    <ul>
+                        <li>Hint: You may create some arrays with length of VALUE_COMPARE_LEN to help you to deal with this task.</li>
+                    </ul>
+                    
+
+                    <h2 class="mume-header" id="4-optional-challenge">4 Optional Challenge</h2>
+                    <h3 class="mume-header" id="41-task-5-optional-0-point">4.1 Task 5 <code>Optional 0 Point</code></h3>
+                    <p><strong>This is a Optional Task for you. We do NOT grade this task. But you can still try it if you are interested in it.</strong></p>
+                    <p><strong>Given an <strong>interger</strong> cards number array, find the longest straight. At this time, there will be no Jokers in the straight.</strong></p>
+                    <pre data-role="codeBlock" data-info="c++" class="language-cpp"><span class="token keyword">int</span> <span class="token function">longestStraight</span><span class="token punctuation">(</span><span class="token keyword">int</span> cards_num<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation"><span class="token punctuation">)</span>
+</pre>
+                    <ul>
+                        <li>
+                            <p>Parameters:</p>
+                            <ul>
+                                <li><code>cards_num</code>: input unsorted array of cards numbers.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p>Description:</p>
+                            <ul>
+                                <li>For this task, the length of the input array will be fixed as <code>INPUT_STRAIGHT_LEN</code>=10. The minimum length of the straight is <code>MIN_STRAIGHT_LEN</code>=3. If the length of the longest straight is smaller than
+                                    <code>MIN_STRAIGHT_LEN</code>, return 0.</li>
+                                <li>You need to find the longest straight in the input array. If there are several longest straight, choose the straight with <strong>higher</strong> value. And return the length of the longest straight.</li>
+                                <li>At the same time, after function call, you need to put the longest straight to the <strong>left</strong> of the array with <strong>ascending</strong> order. i.e. The <code>cards_num[0:k-1]</code> is the longest straight
+                                    with <strong>ascending</strong> order. Then put the other elements to the <strong>right</strong> after the longest straight with <strong>ascending</strong> order.
+                                    <ul>
+                                        <li>One special case is: if A in the longest straight is after K, then you change the integer 1 to 14 and put it after 13 (K). See examples.</li>
+                                    </ul>
+                                </li>
+                                    
+                                <li>For this task, there will be <strong>NO</strong> Jokers.</li>
+                                <li>The answers are <strong>NOT UNIQUE</strong>. Any series of rotations that can sort the array are accepted, but the length of the rotation series should be <strong>NO MORE THAN</strong> <code>MAX_ROTATIONS</code>.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p>Example:</p>
+                        </li>
+                    </ul>
+                    <ol>
+                        <li>
+                            <ul>
+                                <li><code>cards_num</code>=[1, 2, 3, 4, 5, 10, 11, 12, 13, 13].</li>
+                                <li>After function call:</li>
+                                <ul>
+                                    <li>return 5.</li>
+                                    <li><code>cards_num</code>=[10, 11, 12, 13, 14, 2, 3, 4, 5, 13].</li>
+                                </ul>
+                            </ul>
+                        </li>
+                        <li>
+                            <ul>
+                                <li><code>cards_num</code>=[1, 2, 3, 4, 5, 10, 11, 12, 13, 6].</li>
+                                <li>After function call:</li>
+                                <ul>
+                                    <li>return 6.</li>
+                                    <li><code>cards_num</code>=[1, 2, 3, 4, 5, 6, 10, 11, 12, 13].</li>
+                                </ul>
+                            </ul>
+                        </li>
+                        <li>
+                            <ul>
+                                <li><code>cards_num</code>=[1, 1, 1, 1, 2, 2, 2, 2, 4, 4].</li>
+                                <li>After function call:</li>
+                                <ul>
+                                    <li>return 0.</li>
+                                    <li><code>cards_num</code>=[1, 1, 1, 1, 2, 2, 2, 2, 4, 4].</li>
+                                </ul>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <h2 class="mume-header" id="5-downloads">5 Downloads</h2>
+
+                    <ul>
+                        <li>
+                            <p>Skeleton Code</p>
+                            <ul>
+                                <li>Please download and complete the skeleton code (<a href="./pa1.cpp">download</a>), it includes a driver program for your testing.</li>
+                                <li>You can modify the given driver functions and write your own test functions for testing.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p>Sample Executables<br> We have also prepared sample executables for your better understanding about this assignment.</p>
+                            <ul>
+                                <li>Windows 10: <a href="./pa1_demo.exe">download</a></li>
+                                <li>macOS: <a href="./pa1_mac">download</a></li>
+                                <li>Linux: <a href="./pa1_linux">download</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h2 class="mume-header" id="6-submission">6 Submission</h2>
+
+                    <p>You are required to submit your solution to our auto-grading system <code>ZINC</code> (<a href="http://zinc.cse.ust.hk">ZINC</a>).</p> (<b>The ZINC submission entry for PA1 will be open sometime later as announced.</b> You may already start working on the assignment, but you may submit later.)<br><br>
+
+                    <p>You can also test your program on <code>ZINC</code>.</p>
+                    <p>Please rename your solution file to &quot;pa1.cpp&quot;, and submit it to <code>ZINC</code>.</p>
+                    <h3 class="mume-header" id="submission-details">Submission Details</h3>
+
+                    <p>Please read and follow the instructions <a href="https://zinc.cse.ust.hk/guide">Here</a>.</p>
+                    <h3 class="mume-header" id="deadline">Deadline</h3>
+
+                    <p><strong>12:00pm (noon), 15th March 2022 (extended)</strong></p>
+                    <ul>
+                        <li>You may submit your file multiple times, but only the latest version will be graded.</li>
+                        <li>Submit early to avoid any last-minute problem. Only <code>ZINC</code> submissions will be accepted.</li>
+                        <li>You should check the grading report after each submission to make sure it can be compiled and gives correct output.</li>
+                    </ul>
+                    <h3 class="mume-header" id="compilation-requirement">Compilation Requirement</h3>
+
+                    <p>It is <strong>required</strong> that your submissions can be compiled and run successfully in our online auto-grader <code>ZINC</code>. If we cannot even compile your work, it won&apos;t be graded. Therefore, for parts that you cannot
+                        finish, just put in dummy/empty implementation so that your whole program can be compiled for <code>ZINC</code> to grade the other parts that you have done. <strong>Again, you should wait for and check the grading report after each submission to <code>ZINC</code>.</strong></p>
+                    <h3 class="mume-header" id="late-submission-policy">Late Submission Policy</h3>
+
+                    <p>There will be a penalty of <code>-1</code> point (out of a maximum 100 points) for <strong>every minute</strong> you are late. For instance, since the deadline of the assignment is 12:00:00 on 15th Mar, if you submit your solution
+                        at 13:00:00 on 15th Mar, there will be a penalty of -61 points for your assignment. However, the lowest grade you may get from an assignment is zero: any negative score after the deduction due to late penalty (and any other penalties)
+                        will be reset to zero.</p>
+                        
+                    <h2 class="mume-header" id="7-grading">7 Grading</h2>
+
+                    <p>Your assignment will be automatically graded by <code>ZINC</code>.</p>
+                    <ul>
+                        <li><strong>Please ensure your program can be compiled without any problem in ZINC by checking the report from ZINC.</strong> If your program cannot be compiled, you will receive 0 mark.</li>
+                        <li>In <code>pa1.cpp</code>, anything written below the line<pre data-role="codeBlock" data-info="c++" class="language-cpp"><span class="token comment">// DO NOT WRITE ANYTHING AFTER THIS LINE. ANYTHING AFTER THIS LINE WILL BE REPLACED.</span>
+</pre>will be replaced during grading. Make sure you write all your solution codes above this line.</li>
+                        <li>Your implementation will be graded by running multiple test cases, each contains a different input parameter. A test case should finish within 3 seconds. Failing to do so would result in 0 mark for that test case.</li>
+                        <li>Your program should not crash during a test case. If it does, you will receive 0 marks for that test case.</li>
+                        <li>The examples listed above are by no means complete. Additional test cases will be used during grading. You are encouraged to test your code using your own test cases.</li>
+                        <li>For tasks that deal with standard output, please compare your output with those of sample executables and make sure they are <strong>EXACTLY</strong> the same. You should also check for the <code>ZINC</code> grading report. Be
+                            careful about <code>endl</code>.</li>
+                        <li>For all tasks, please make sure there is no extra output in the task functions, e.g. extra <code>endl</code> or your own debugging messages. Extra output will also lead to 0 mark for that task.</li>
+                        <li>Only your latest submission will be graded. You are responsible to make sure the latest submission is correct. You should wait for <code>ZINC</code> to grade your work and then check the grading report carefully.</li>
+                    </ul>
+                    <h2 class="mume-header" id="8-faq">8 FAQ</h2>
+
+                    <ol>
+                        <li>In task 3 you are supposed not to change the order of <code>char</code> array <code>cards</code>, and it's better for you to use the <code>int</code> array <code>cards_num</code> to store the corresponding integers and use it to
+                            deal with the problem. But we will not check the content of the array of <code>cards</code> and <code>cards_num</code>.</li>
+                        <li>In task 2 you are supposed to support any array with whatever the length is, but you can assume that the length is within [1, MAX_INPUT_LEN].</li>
+                        <li>The answers to task 2/3/4/5 are <strong>NOT UNIQUE</strong>.</li>
+                        <li>In task 5 if the A is behind K and in the longest straight, then it should become 14. Otherwise, A is 1.</li>
+                        <li>Why my code works well on my vscode, but it doesn't work on the zinc system?
+                            <ul>
+                                <li>The g++ compiler on the vscode will help you to deal with the some illegal syntax, but the compiler on the Zinc system will not help you to do that.</li>
+                                <li>Some hint for you to debug:
+                                    <ol>
+                                        <li>You should <strong>initialize</strong> the int array by yourself. You should not assume the uninitialized integer array will be all 0s.</li>
+                                        <li>Create an array with <strong>non-const</strong> variable is <Strong>illegal</Strong>. The g++ compiler will let you do so. But the ZINC system will not.</li>
+                                        <li>You may check the website <a href="http://wallacem.people.ust.hk/notes/on-common-c-runtime-errors/">here</a> to see some other possible reasons.</li>
+                                    </ol>
+                                </li>
+
+                            </ul>
+                        </li>
+                    </ol>
+                    <h2 class="mume-header" id="9-change-log">9 Change Log</h2>
+
+                    <ol>
+                        <li>2022-3-1-15:00: Modify the comments in the skeleton code. Joker should be represented as <code>'*'</code>, <strong>NOT</strong> <code>'#'</code>. Please refer to this website.</li> 
+                        <li>2022-3-1-15:00: Modify the demo file. Specifically, <code>[A, 2, 3, 4, 5]</code> has value of 5, <strong>NOT</strong> value of 14.</li>
+                        <li>2022-3-2-15:00: Modify the description for the global variables in <a href="#3-tasks">3 Tasks</a> for task 4, the input length is <strong>EXACTLY</strong> 5. </li> 
+                        <li>2022-3-4-15:00: Reupload a new .exe file for Mac. Student can use the following commands: 
+                            <ul>
+                                <li><code>cd /path/to/the/folder</code></li>
+                                <li><code>chmod +x ./pa1_mac</code></li>
+                                <li><code>./pa1_mac</code></li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+    <!-- /#wrapper -->
+    <!-- Bootstrap core JavaScript -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+
+        SyntaxHighlighter.highlight();
+    </script>
+</body>
+
+</html>
