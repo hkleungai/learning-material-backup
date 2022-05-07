@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>COMP1022Q Lab 5 - Jigsaw Game</title>
+    <link href="../../../css/lab.css" rel="stylesheet" />
+    <style>
+            img {
+                border: 1px solid grey;
+            }
+            pre {width: 65em; }
+            pre .comment { color:rgb(0,128,0); } /* Fix color on comment line */
+        </style>
+</head>
+
+<body>
+    <h1>
+        <span class='lab'>COMP1022Q Lab 5</span>
+        <span class='title'>Jigsaw Game</span>
+    </h1>
+
+    <h2>What You Will Learn in This Lab</h2>
+
+    <ul>
+        <li>In this lab you will gain experience in the following areas:
+        <ul>
+            <li>Manipulating images using an online tool</li>
+            <li>VBA programming
+            <ul>
+                <li>Using Integer variables</li>
+                <li>Generating a random number using <tt>Randomize</tt>, <tt>Rnd</tt> and <tt>Int</tt></li>
+                <li>Using nested loops
+
+                    <ul>
+                        <li>A For loop is nested inside another For loop to load images into shapes</li>
+                        <li>A For Each loop is nested inside another For Each loop to check if the jigsaw is correct</li>
+                    </ul>
+
+
+                </li>
+                <li>Using <tt>MsgBox</tt> to output a message</li>
+                <li>Using shapes (<tt>ActiveSheet.Shapes.AddShape</tt>)</li>
+                <li>Using <tt>&amp;</tt> to concatenate strings and variables</li>
+                <li>Loading images into shapes using <tt>.Fill.UserPicture</tt></li>
+                <li>Changing the background colour of all cells using <tt>.Interior.ColorIndex</tt></li>
+                <li>Accessing Excel cells from VBA using <tt>Cells</tt> and <tt>Range</tt></li>
+            </ul>
+            </li>
+
+
+        </ul>
+        </li>
+    </ul>
+
+    <h2>About This Lab</h2>
+
+    <ul>
+        <li>In this lab, you will create a Jigsaw game inside Microsoft Excel</li>
+        <li>Like a real jigsaw, the objective of the game is to drag all the pieces of the jigsaw into the correct place</li>
+        <li>Here is a video showing the game being played  (there's no sound):
+            <br>
+              <video width="960" height="540" controls>
+                <source src="jigsaw_demo.mp4" type="video/mp4">
+                <track src="jigsaw_demo.vtt" label="English captions"
+                    kind="captions" srclang="en" default>
+              Your browser does not support the video tag.
+
+
+              </video>
+
+
+            <ul>
+                <li>A direct link to the video is <a href="jigsaw_demo.mp4">here</a></li>
+            </ul>
+        </li>
+        <li>This lab will work on a Mac as well as a PC (but on a Mac you need to be careful of a couple of things, discussed later)</li>
+    </ul>
+
+    <h2><a name="start"></a>Getting Started</h2>
+
+    <ul>
+        <li>An Excel file (jigsaw.xlsm) is given to you as a starting point
+        <a href="jigsaw.xlsm">here</a> (right click on the link, select 'Save Target As' or something similar)</li>
+        <li>Please download the file into your local hard disk</li>
+        <li><b>If you are using a PC</b>:
+
+            <ul>
+             <li>You can put the files (the Excel file and the jigsaw images you will make later) almost anywhere</li>
+
+            </ul>
+        </li>
+        <li><b>If you are using a Mac</b>:
+        <ul>
+            <li>Programs on a Mac which read files will only be able to do that if they are in a folder where it is OK to do that</li>
+            <li>Our jigsaw program will read lots of image files (the jigsaw piece images)</li>
+            <li>So if you are using a Mac you need to put the Excel file and the images in a folder where programs can read files</li>
+            <li>Here is an example:
+            <ul>
+                <li>In Mac Finder, select Go > Go to Folder...   <br>
+                <img src="images/mac_finder_go.png" alt="Mac Finder Dialog"  />
+                </li>
+                <li>Copy and paste the following path: <i>/Users/<b>your username</b>/Library/Group Containers/UBF8T346G9.Office </i> </li>
+
+                <ul>
+                    <li>Please note that you need to replace <i>your username</i> with your own username on your Mac</li>
+                    <li>To check <i>your username</i>, you should open <b>Finder  &gt; Preferences... &gt; Sidebar </b>, the username should be shown next to the home button of the Favorites menu </li>
+                </ul>
+
+
+                <li>On a Mac, you must put both your Excel file and the images in a folder (e.g.,
+                    a folder called <i>jigsaw</i>) inside this special folder (<i>/Users/<b>your username</b>/Library/Group Containers/UBF8T346G9.Office</i>)</li>
+            </ul>
+            </li>
+        </ul>
+        </li>
+        <li>After you finish your work please remember to store it somewhere safe (e.g. your USB disk)</li>
+    </ul>
+
+    <h2>Overview</h2>
+
+    <ul>
+        <li>Here is an overview of the system structure of the lab:<br>
+            <a href="images/overview.png"><img src="images/overview.png" width="800px" alt="System Structure" /></a><br/>
+            <span class="footnote">Click on the image to see it in its original size</span>
+        </li>
+        <li>Here are the steps for building this project:
+        <ol>
+            <li><a href="#create">Create the Images for the Jigsaw Pieces</a>
+
+            <ul class="none">
+                <li>1.1. <a href="#create1">Find a suitable image</a></li>
+                <li>1.2. <a href="#create2">Split the image into jigsaw pieces</a>
+            </ul>
+
+            </li>
+
+            <li><a href="#move">Write the VBA Code to Move the Pieces Randomly</a></li>
+
+            <ul class="none">
+                <li>2.1. <a href="#move1">Prepare the LoadJigsawPieces() macro</a></li>
+                <li>2.2. <a href="#move2">Set up the nested loops</a>
+                <li>2.3. <a href="#move3">Contents of the loops</a>
+
+                <ul class="none">
+                    <li>2.3.1. <a href="#move31">Generate a random position</a></li>
+                    <li>2.3.2. <a href="#move32">Create a shape at this position</a></li>
+                    <li>2.3.3. <a href="#move33">Prepare names used by this jigsaw piece</a></li>
+                    <li>2.3.3. <a href="#move34">Load the image file</a></li>
+                </ul>
+
+                </li>
+            </ul>
+
+            <li><a href="#check">Check if the Jigsaw is Correct</a></li>
+
+            <ul class="none">
+                <li>3.1. <a href="#check1">Overview of checking the jigsaw</a> </li>
+                <li>3.2. <a href="#check2">Show the game over message by changing the appearance of cells </a> </li>
+            </ul>
+
+            </li>
+
+            <li><a href="#submission">Submission</a></li>
+
+        </ol>
+        </li>
+    </ul>
+
+    <h2 id="pre-recorded-videos">Pre-recorded videos</h2>
+    <ul>
+        <li>The following videos have sound. Please turn on your speaker or use your headphone to watch the videos</li>
+        <li>The following videos provide step-by-step instructions to help students complete the lab
+
+            <ul>
+                <li><a href="https://hkust.zoom.us/rec/play/7517JLuo_Do3E9TG5gSDA6VxW47ve_is1SZM-6UMxE2zVnJRNAGmZrFENLGtnp9uByzqVKu0kyjIcjcJ?autoplay=true&startTime=1584406813000" target="_blank">Supplementary: Getting started for multimedia Excel labs in Mac (for Mac users only)</a></li>
+                <li><a href="https://hkust.zoom.us/rec/share/zuMuFZfp_01LW4X_83CDYr9mRpn9T6a8g3dI86JcxUyaB22xH5dBVgUbh_myhtbj?startTime=1583805942000" target="_blank">Part 1 - Create the Images for the Jigsaw Pieces</a></li>
+                <li><a href="https://hkust.zoom.us/rec/share/1NIvMYPZ8UxIHp2K0nrFA64MHrrLX6a81Xcd-_pexUyJ5ZZDrrJis-dITPcLHA_B?startTime=1583808791000" target="_blank">Part 2 - Write the VBA Code to Move the Pieces Randomly</a></li>
+                <li><a href="https://hkust.zoom.us/rec/share/2uZTFbH9ykdLfYnB7VjBULUgBJ-9eaa81iEdqKdcy8vl0WJvFO_qw7ZNCkkIekI?startTime=1583811148000" target="_blank">Part 3 - Check if the Jigsaw is Correct</a></li>
+            </ul>
+
+        </li>
+
+    </ul>
+
+    <h2><a name="create"></a>1. Create the Images for the Jigsaw Pieces</h2>
+
+    <ul>
+        <li>Each jigsaw piece uses an image file</li>
+        <li><b>For this lab please fix your jigsaw to a 3*3 structure</b>
+        <ul>
+            <li>If it's more than that then it becomes hard to mark your work</li>
+        </ul>
+        </li>
+        <li>You have 9 jigsaw pieces (for a 3 x 3 structure), so you need to have 9 images</li>
+    </ul>
+
+    <h3><a name="create1"></a>1.1. Find a suitable image</h3>
+
+    <ul>
+        <li>You first need to find an appropriate image for your jigsaw</li>
+        <li>It should have an appropriate size so that it fits in the screen
+        <ul>
+            <li>Around 1500 pixels wide, <b>or</b> around 1000 pixels tall</li>
+        </ul>
+        </li>
+        <li>To make this lab fun, you can use your own image</li>
+        <li>You can also use the image provided in this lab page:<br/>
+            <img src="imagesToPlayWith/HongKong-small.jpg" width="300" alt="Hong Kong bird-eye view"/><br/>
+            <span class="footnote"><em>(Right click and save the file to somewhere you can find it later)</em></span>
+        </li>
+    </ul>
+
+    <h3><a name="create2"></a>1.2. Split the image into the jigsaw pieces</h3>
+
+    <ul>
+        <li>You need to extract parts of the solution image so that you can have a set of jigsaw pieces
+        <ul>
+            <li>Every jigsaw piece will show an image file (part of the original image)</li>
+        </ul>
+        </li>
+        <li>You can either use software on your computer to split the image, or use an online service</li>
+        <li>Here are some online image splitters that may be helpful:
+        <ul>
+            <li><a href="https://www.imgonline.com.ua/eng/cut-photo-into-pieces.php" target="_blank">Cut photo into equal parts online</a></li>
+            <li><a href="http://www.imagesplitter.net" target="_blank">Image Splitter</a> &ndash; if "Cut photo into equal parts online" is not working, try this</li>
+        </ul>
+        </li>
+        <li>After you input the appropriate parameters in the image splitting system, you can obtain a set of, for example, 9 images in a zip file
+        <ul>
+            <li>If you do not understand certain parameters in the image splitting system, you can leave them unchanged</li>
+            <li>Please extract these files into the same folder as your Excel file (<tt>jigsaw.xlsm</tt>)
+            <ul>
+                <li>For Mac users, please check carefully that these image files go with your Excel file <b>in the folder we mentioned in <a href="#start">Getting Started</a></b></li>
+            </ul>
+            </li>
+        </ul>
+        </li>
+
+        <li>After extracting, you have a set of images, but you still have to rename them so they can be loaded by VBA easily
+        <ul>
+            <li>They may have names like this before renaming:<br/>
+                <img src="images/images_before_rename.png" alt="Images before rename" /></li>
+            <li>You have to rename them so that the file name includes the row and column information, like this:<br/>
+                <img src="images/images_after_rename.png" alt="Images after rename" /></li>
+        </ul>
+        </li>
+
+        <li>Please also rename your original image into <strong>solution</strong> for submission later
+        <ul>
+            <li>For example, if your solution image was called <i>boyfriend_at_disneyland</i> rename it to <i>solution</i></li>
+        </ul>
+        </li>
+        <li>VBA code in the Excel file will load the images and use them for the jigsaw pieces</li>
+        <li>Before proceeding to the next section, you should have the following files all in the same folder:
+        <ul>
+            <li>Your Excel file (<tt>jigsaw.xlsm</tt>)</li>
+            <li>The original image (such as <tt>solution.jpg</tt> or <tt>solution.png</tt> ... )</li>
+            <li>9 images for the jigsaw pieces (<tt>image-1-1.jpg</tt>, <tt>image-1-2.jpg</tt>, ..., <tt>image-3-2.jpg</tt>, <tt>image-3-3.jpg</tt>)
+            <ul>
+                <li>For this lab you need to fix your jigsaw to a 3*3 structure</li>
+                <li>For this lab, it is recommended to use JPEG format for the jigsaw pieces</li>
+                <li>Other image formats may not work (can't be loaded into Excel)</li>
+            </ul>
+
+            <li>
+                Please make sure that the filenames do not have double ".jpg" (e.g. <tt>image-1-1.jpg.jpg</tt> is wrong)
+            </li>
+
+            </li>
+        </ul>
+        </li>
+    </ul>
+
+    <h2><a name="move"></a>2. Write the VBA Code to Move the Pieces Randomly</h2>
+
+    <ul>
+        <li>Now you can return to Excel and open the VBA Editor from the Developer tab</li>
+    </ul>
+
+    <h3><a name="move1"></a>2.1. Locate the LoadJigsawPieces() macro</h3>
+
+    <ul>
+        <li>We will use a macro called <i>LoadJigsawPieces()</i> to create the jigsaw pieces</li>
+        <li>You can run the macro by pressing <tt>Ctrl-Shift-L</tt></li>
+        <li>You can find and edit the macro from the macro window</li>
+        <li>Locate the macro <tt>LoadJigsawPieces()</tt> provided in the starting code
+        <pre><span class="res">Sub</span> LoadJigsawPieces()
+
+    <span class="comment">'This sub-routine will load the jigsaw piece into the worksheet</span>
+
+    <span class="comment">'You should write your code below</span>
+
+<span class="res">End Sub</span></pre>
+        </li>
+
+        <li>You can set up two variables to define the total number of columns and rows, like this: <br/>
+        <pre><span class="res">Dim</span> TotalRows <span class="res">As Integer</span>
+<span class="res">Dim</span> TotalColumns <span class="res">As Integer</span>
+
+TotalRows = 3
+TotalColumns = 3</pre>
+        </li>
+    </ul>
+
+
+    <h3><a name="move2"></a>2.2. Set up the nested loops</h3>
+    <ul>
+        <li>Here is the structure of our two levels of loops:
+        <pre><span class="todo" style="color:black">For loop going through the rows
+    For loop going through the columns
+        Generate a random position for the shape
+        Create a shape at this position
+        Prepare the name of the shape
+        Prepare the name of the image file that goes with this shape
+        Load the image file into the shape
+    Next column
+Next row</pre>
+        </li>
+        <li>You can prepare the shell of the outside <tt>for</tt> loop first:
+        <pre><span class="res">For</span> Row = 1 <span class="res">To</span> TotalRows <span class="comment">' Go through the rows one by one</span>
+    <span class="todo"></span><span class="comment">' We will prepare the loop contents later</span>
+<span class="res">Next</span> Row</pre>
+        </li>
+        <li>Next, you should add the inner loop:
+        <pre><span class="res">For</span> Row = 1 <span class="res">To</span> TotalRows <span class="comment">' Go through the rows one by one</span>
+    <span class="res">For</span> Column = 1 <span class="res">To</span> TotalColumns <span class="comment">' Go through the columns one by one</span>
+      <span class="todo"></span><span class="comment">' We will prepare the loop contents later</span>
+    <span class="res">Next</span> Column
+<span class="res">Next</span> Row</pre>
+        </li>
+        <li>Remember, you need to use <tt>Dim</tt> to define <tt>Row</tt> and <tt>Column</tt> at the top of this subroutine</li>
+    </ul>
+
+    <h3><a name="move3"></a>2.3. Contents of the loops</h3>
+
+    <h4><a name="move31"></a>2.3.1. Generate a random position</h4>
+
+    <ul>
+        <li>The jigsaw pieces will be put at random positions on the screen at start of the game</li>
+        <li>To generate a random number, you have to first run this command to ensure you have different random numbers every time:
+        <pre>Randomize</pre>
+        </li>
+        <li>Then, you can generate a random <tt>x</tt> position from 0 to 800 with this command:
+        <pre>X = Int(Rnd() * 800)</pre>
+        <ul>
+            <li><tt>Int()</tt> converts the result into integer</li>
+            <li>Remember to 'Dim' the variables</li>
+        </ul>
+        </li>
+        <li>Please prepare a <tt>Y</tt> position similarly</li>
+        <li>To check if these variables are being prepared properly, we can use the <tt>MsgBox</tt> as a debugging tool, for example:
+        <pre>MsgBox "Row = " & Row</pre>
+        </li>
+        <li>You can now try this subroutine by closing and reopening your Excel file, or simply by choosing <tt>Run</tt> in the VBA Editor toolbar</li>
+        <li>After you confirm that the variables <tt>Row</tt>, <tt>Column</tt>, <tt>X</tt>, and <tt>Y</tt> are working properly,
+            you should remove the <tt>MsgBox</tt>
+        <ul>
+            <li>Or you may convert the command into a comment by adding the symbol ' in front, so that the command will be ignored by VBA</li>
+        </ul>
+        </li>
+    </ul>
+
+    <h4><a name="move32"></a>2.3.2. Create a shape at this position</h4>
+
+    <ul>
+        <li>You can create a rectangle shape with VBA using this command:
+        <pre>ActiveSheet.Shapes.AddShape( <strong>msoShapeRectangle</strong>, <span class="todo">left</span>, <span class="todo">top</span>, <span class="todo">width</span>, <span class="todo">height</span> )</pre>
+        </li>
+        <li>You need to fill in the correct parameters:
+        <ul>
+            <li><em>type</em>: The type of shape we use this time is <tt>msoShapeRectangle</tt>
+            <ul>
+                <li><tt>msoShapeRectangle</tt> is just a special variable which takes the value of <tt>1</tt>
+                <ul>
+                    <li>For example, this will show you <tt>1</tt>:
+                    <pre>MsgBox msoShapeRectangle</pre>
+                    </li>
+                </ul>
+                </li>
+                <li>You can find more shape names here:<br/>
+                    <a href="https://msdn.microsoft.com/en-us/VBA/Office-Shared-VBA/articles/msoautoshapetype-enumeration-office" target="_blank">https://msdn.microsoft.com/en-us/VBA/Office-Shared-VBA/articles/msoautoshapetype-enumeration-office</a>
+                </li>
+            </ul>
+            </li>
+            <li><em style="color:red">left</em> / <em style="color:red">top</em>: You will use the two variables <tt>X</tt> and <tt>Y</tt> that you have prepared in <a href="#move31">section 2.3.1</a>
+
+                <ul>
+                    <li>The left is the x position of the shape (the top left corner)</li>
+                    <li>The top is the y position of the shape (the top left corner)</li>
+                </ul>
+
+
+            </li>
+            <li><em style="color:red">width</em> / <em style="color:red">height</em>: These are the width and height of each jigsaw piece image</li>
+            <li>To check out the width and height of the jigsaw piece images, you can right click on the file and choose <tt>Properties</tt> (<em>on Windows</em>) or <tt>Get Info</tt> (<em>on Mac</em>), for example:<br/>
+            <img src="images/image_dimensions.png" alt="Image dimensions" /><br/><span class="footnote">File properties on Windows</span><br/></br/><img src="images/image_dimensions_mac.png" alt="Image dimensions on Mac" /><br/><span class="footnote">File info on Mac</span>
+            <ul>
+                <li>The width of this image is 500, and the height is 282</li>
+            </ul>
+            </li>
+        </ul>
+        </li>
+        <li>In this lab, you need to put the generated shape into a variable for further adjustments:
+        <pre>Set ThisShape = ActiveSheet.Shapes.AddShape( <span class="todo"> . . . </span> )</pre>
+        <ul>
+            <li>This variable <i>ThisShape</i> also needs to be created before it is used, as a <tt>Shape</tt> type</li>
+        </ul>
+        </li>
+    </ul>
+
+    <h4><a name="move33"></a>2.3.3. Prepare the names used by this jigsaw piece</h4>
+
+    <ul>
+        <li>You need to prepare the name of this shape, to be used in the checking stage later:
+        <pre>ThisShape.Name = Column & "-" & Row <span class="comment">  ' e.g. Row=2, Column=3 => "3-2"</span></pre>
+        </li>
+        <li>Remember you can always use MsgBox to check what is in a variable e.g.
+        <pre>MsgBox ThisShape.Name   <span class="comment">' This shows the generated shape name</span></pre>
+        <ul>
+            <li>Do not forget to remove this <tt>MsgBox</tt> after you confirm that the variable is working fine</li>
+        </ul>
+        </li>
+        <li>Then, you can set up the image file name to be loaded, using the <tt>Row</tt> and <tt>Column</tt> variables,
+            according to your actual file names:<br/>
+            <img src="images/images_after_rename.png" alt="Images after rename" />
+        </li>
+        <li>The file name with variables can be built by:
+        <pre>ThisFilename = <span class="todo">front part of the file name</span> & Row & "-" & Column & ".jpg"</pre>
+        <ul>
+            <li>In our example, the front part is <tt>&quot;image-&quot;</tt>
+            <ul>
+                <li>Check that you named all your files properly!</li>
+            </ul>
+            </li>
+            <li>If you did not change the file type, the image should be a jpg file (a common image file format)</li>
+            <li><tt>ThisFilename</tt> should be a <tt>String</tt> variable</li>
+        </ul>
+        </li>
+        <li>We build our file name using 5 pieces of text here, connected by the <tt>&</tt> operator
+        <ul>
+            <li>The <tt>Row</tt> and <tt>Column</tt> are the variables we used earlier, for example <tt>2</tt> and <tt>3</tt> respectively
+            <ul>
+                <li>Remember we will use a 3*3 structure for our jigsaw in this lab</li>
+            </ul>
+            </li>
+            <li>In our example, the variable <tt>ThisFilename</tt> will be <tt>image-2-3.jpg</tt>
+        </ul>
+        </li>
+    </ul>
+
+    <h4><a name="move34"></a>2.3.4. Load the image file</h4>
+
+    <ul>
+        <li>Finally, you can load the image file into the shape:
+        <pre>ThisShape.Fill.UserPicture ThisWorkbook.Path & "/" & <span class="todo">the filename variable you created</span></pre>
+        <ul>
+            <li>You just need to fill in the variable name you used in <a href="#move33">section 2.3.3</a></li>
+        </ul>
+        </li>
+        <li>This command works fine for both Windows and Mac machines</li>
+    </ul>
+
+    <h3><a name="move4"></a>2.4. Try out your work</h3>
+
+    <ul>
+        <li>You can now try to use the macro</li>
+        <li>Press <tt>Ctrl-Shift-L</tt> to make the jigsaw pieces appearing in random positions</li>
+        <li>If you see error messages, it would be good to check that all the file names are correct</li>
+        <li>If you want to load the jigsaw pieces again, you MUST remove all the image shapes first!
+        <ul>
+            <li>Just select one of the shapes and press <tt>Ctrl+A</tt> to select all the shapes, then you can delete them all</li>
+        </ul>
+        </li>
+    </ul>
+
+    <h2><a name="check"></a>3. Check if the Jigsaw is Correct</h2>
+
+    <h3><a name="check1"></a>3.1 Overview of checking the jigsaw</h3>
+
+    <ul>
+        <li>To allow players to check if the jigsaw pieces are arranged correctly, a subroutine <tt>CheckJigsawPieces()</tt> has been built for you</li>
+        <li>Although the code is already given to you, you need to read and understand it</li>
+        <li>The code uses the <tt>For Each</tt> loop, which will be introduced later in the lectures</li>
+        <li>The <tt>For Each</tt> loop gets each shape from the collection of all shapes and repeats the loop content </li>
+        <li>The basic idea of the subroutine works like this:
+        <pre><span class="todo" style="color:black">First assume jigsaw is correct
+
+A For Each loop goes through every shape
+    Obtain row/column data from shape name using text handling functions <tt>Left()</tt> and <tt>Right()</tt>
+    Obtain shape position using .Left and .Top properties
+
+    Another For Each loop goes through every shape in worksheet for comparison
+        Obtain row/column data of compared shape
+        Obtain compared shape position
+
+    If the position of the current shape violates the row/column data when comparing with another shape:
+        Jigsaw is wrong
+
+After the loop has finished, show an appropriate message</span></pre>
+        </li>
+        <li>Here you can see how the jigsaw pieces could be aligned in a 2×2 jigsaw:<br>
+            <img src="images/violation.png" height="250px" />
+        </li>
+        <li>We need to check, for example
+        <ul>
+            <li>The jigsaw piece for <strong>row 1 column 2</strong> (i.e. <tt>ThisShape</tt>)
+                should NOT be below the piece for <strong>row 2 column 2</strong></li>
+            <li>The jigsaw piece for <strong>row 1 column 2</strong> (i.e. <tt>ThisShape</tt>)
+                should NOT be on the left of the piece for <strong>row 1 column 1</strong></li>
+        </ul>
+        <img src="images/violation2.png" height="250px" />
+        </li>
+        <li>With a good understanding, you should create the shortcut key to run this as a macro using <strong><tt>Ctrl-Shift-C</tt></strong></li>
+    </ul>
+
+    <h3><a name="check2"></a>3.2 Show the Game Over Message by Changing the Appearance of Cells</h3>
+
+    <ul>
+        <li>Apply the following changes on the Excel cells
+        <ul>
+            <li>Select a cell to show the message, such as cell <tt>A3</tt></li>
+            <li>Apply the following effect to the cell you have chosen
+            <ul>
+                <li>Change the font-size to a bigger number, such as <strong>36</strong></li>
+                <li>Change the text colour to a colour, such as <strong>Yellow</strong>
+
+                    <ul>
+                        <li>The text colour must be visible even after you change the background colour for the correct and the wrong jigsaw pieces </li>
+                    </ul>
+
+                </li>
+            </ul>
+            </li>
+        </ul>
+        </li>
+        <li>Replace all <tt>MsgBox</tt> in the CheckJigsawPieces() subroutine by instead displaying a message in cell <tt>A3</tt>
+        <ul>
+            <li><b>When we check your work we don't want to encounter any message boxes</b></li>
+        </ul>
+        </li>
+        <li>Example results:
+        <ul>
+            <li>The jigsaw is <strong>correct</strong>
+
+                <ul>
+
+                    <li>
+                Replace the background colour of all the cells by a <b>cool colour (e.g. cyan/purple)</b>
+                </li>
+                <li>
+                The colour reference can be found <a href="all_background_colours.html">here</a><br>
+                <img src="images/expected_correct.png" height="100px" />
+                    </li>
+                </ul>
+            </li>
+            <li>The jigsaw is <strong>wrong</strong>
+
+                <ul>
+                    <li>
+                    Replace the background colour of all the cells by a  <b>hot colour (e.g. yellow/red)</b>
+                    </li>
+
+                    <li>
+                    The colour reference can be found <a href="all_background_colours.html">here</a><br>
+                    <img src="images/expected_wrong.png" height="100px" />
+                    </li>
+
+                </ul>
+
+            </li>
+        </ul>
+        </li>
+        <li>Please refer to the lecture:<br>
+            <span class="title"><strong>Changing the Appearance of Cells</strong></span>
+            <span class="pdfs">
+            [
+            <a href="../../s2020_notes/19_changing_appearance_of_cells/19_1022q_changing_appearance_of_cells_s2020_bw.pdf">B&amp;W</a>,
+            <a href="../../s2020_notes/19_changing_appearance_of_cells/19_1022q_changing_appearance_of_cells_s2020.pdf">colour</a>,
+            <a href="../../s2020_notes/19_changing_appearance_of_cells/19_1022q_changing_appearance_of_cells_s2020_wbg.pdf">colour on white</a>
+            ]
+            </span>
+            <ul>
+                <li>
+            Examples used in the notes <a href="../../s2020_notes/19_changing_appearance_of_cells/examples/">here</a>
+            </li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2><a name="submission" id="submission" />4. Submission</h2>
+
+    <ul>
+        <li>You don't need to submit this work, but you may keep a copy of your own work for your reference</li>
+
+        <li>Anything you save on the lab computer will probably be automatically wiped when you leave the computer!</li>
+
+        <li>So make sure you save a copy away from the lab computer</li>
+
+        <li>For example, you can put your work in your USB disk (if you have one) or email a copy to yourself</li>
+    </ul>
+
+</body>
+</html>

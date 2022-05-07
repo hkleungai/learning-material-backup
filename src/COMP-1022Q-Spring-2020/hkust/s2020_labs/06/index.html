@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>COMP1022Q Lab 6 - 'Escape the Monster' Game</title>
+	<link href="../../../css/lab.css" rel="stylesheet" />
+	<style>
+		img {
+		   border: 1px solid grey;
+		}
+		pre {width: 65em; }
+		pre .comment { color:rgb(0,128,0); }
+	 </style>
+</head>
+
+<body>
+    <h1>
+        <span class='lab'>COMP1022Q Lab 6</span>
+        <span class='title'>'Escape the Monster' Game</span>
+    </h1>
+
+    <h2>What You Will Learn in This Lab</h2>
+
+    <ul>
+        <li>In this lab you will gain experience in the following areas:
+        <ul>
+			<li>
+				Using shapes
+				<ul>
+				<li>Using shapes as buttons</li>
+				<li>Change transparency, adding text</li>
+				</ul>
+			</li>
+
+            <li>Programming in VBA
+            <ul>
+				<li>Using global variables</li>
+				<li>Using Functions </li>
+				<li>Selecting a cell using <i>.Select</i></li>
+				<li>Using <tt>ActiveCell</tt> to get the current selected cell</li>
+				<li>Using <tt>.Row</tt> and <tt>.Column</tt> to get the row and the column value of a cell </li>
+				<li>Using <tt>Integer</tt> variables to record the next player position, the current position of the monster, the next position of the monster
+				</li>
+				<li>Using a <tt>Boolean</tt> variable to store the game whether is being played or not</li>
+
+				<li>Using <i>If</i> statements
+				</li>
+				</ul>
+
+				<li>Writing VBA code from pseudocode
+
+				</li>
+
+
+
+            </li>
+        </ul>
+		</li>
+		<li>To encourage you to try your own programming, this lab has parts which the TA won't help you with!</li>
+    </ul>
+
+    <h2>About This Lab</h2>
+
+    <ul>
+        <li>In this lab you will create a game inside Microsoft Excel</li>
+        <li>The goal of the game is to get to the right side of the worksheet before the monster gets you</li>
+<li>This video shows the game being played successfully (there's no sound):</li>
+	<video width="960" height="540" controls>
+	  <source src="player_win.mp4" type="video/mp4">
+	Your browser does not support the video tag.
+	</video>
+	<ul>
+	<li>A direct link to the video is <a href="player_win.mp4">here</a></li>
+	</ul></li>
+<li>This video shows the game being played unsuccessfully (there's no sound):</li>
+	<video width="960" height="540" controls>
+	  <source src="player_lose.mp4" type="video/mp4">
+	Your browser does not support the video tag.
+	</video>
+	<ul>
+	<li>A direct link to the video is <a href="player_lose.mp4">here</a></li>
+	</ul></li>
+        <li>This lab will work on a Mac as well as a PC</li>
+    </ul>
+
+    <h2>Getting Started</h2>
+
+    <ul>
+        <li>An Excel file (<a href="game-v2.xlsm">game-v2.xlsm</a>) is given to you as a starting point
+		 (right click on the link, select 'Save Target As' or something similar)</li>
+	<ul><li>Carefully remember where you have put your file so you can find it later!</li></ul>
+
+        <li>Please put the file in your local hard disk</li>
+
+        <li>After you finish your work please remember to store it
+somewhere safe (e.g. your USB disk)</li>
+    </ul>
+
+    <h2>Overview</h2>
+
+    <ul>
+
+        <li>To create the game there are a few main things to consider:
+        <ul>
+            <li><a href="#the_colors">The colors</a></li>
+            <li><a href="#accessing_vba_code">Accessing VBA code</a></li>
+        </ul>
+	<li>Here are the steps we will take:
+        <ol>
+            <li><a href="#player">Handling the player's position</a>
+		<ul class="none">
+			<li>1.1. <a href="#player1">The general idea </a></li>
+			<li>1.2. <a href="#player2">Create shapes to be used as buttons</a></li>
+			<li>1.3. <a href="#player3">Understand ResetGame subroutine</a></li>
+			<li>1.4. <a href="#player4"> Understand MovePlayerLeft subroutine</a></li>
+			<li>1.5. <a href="#player5">Complete MovePlayerRight, MovePlayerUp, and MovePlayerDown subroutines</a></li>
+			<li>1.6. <a href="#player6">Check the player movement</a></li>
+		</ul>
+		</li>
+            <li><a href="#monster">Handling the monster's position</a></li>
+		<ul class="none">
+			<li>2.1. <a href="#monster1">The general idea</a></li>
+			<li>2.2. <a href="#monster1">Check if the game is being played</a></li>
+			<li>2.3. <a href="#monster2">Hide the current position of the monster</a></li>
+			<li>2.4. <a href="#monster3">Work out the next position of the monster</a>
+			<ul class="none">
+				<li>2.4.1. <a href="#monster41">Using the current monster position for the next monster position</a></li>
+				<li>2.4.2. <a href="#monster42">Change the row of the monster</a></li>
+				<li>2.4.3. <a href="#monster43">Check if the new position is a wall</a></li>
+				<li>2.4.4. <a href="#monster44">Change the column of the monster</a></li>
+				<li>2.4.5. <a href="#monster45">Check if the new position is a wall again</a></li>
+			</ul>
+			</li>
+			<li>2.5. <a href="#monster5">Set the new monster position</a></li>
+		</ul>
+		</li>
+            <li><a href="#endgame">Check if the game has finished</a></li>
+		<ul class="none">
+			<li>3.1. <a href="#endgame1">The general idea</a></li>
+			<li>3.2. <a href="#endgame2">Check if the game is being played</a></li>
+			<li>3.3. <a href="#endgame3">Check if the player wins</a></li>
+			<li>3.4. <a href="#endgame4">Check if the player loses</a></li>
+		</ul>
+		</li>
+            <li><a href="#moremaps">More game maps</a></li>
+			<li><a href="#diagonal_movement_player">Diagonal movement arrows for the player </a> - WILL BE PARTLY TAUGHT
+				<ul class="none">
+					<li>5.1. <a href="#handling_diagonal_movements">Handling diagonal movements</a></li>
+					<li>5.2. <a href="#check_carefully_diagonal_movements">Check carefully the diagonal movements</a></li>
+				</ul>
+			</li>
+			<li><a href="#difficulty_distance">Distance and Difficulty level</a> - WON'T BE TAUGHT BUT NEEDS TO BE DONE!
+				<ul class="none">
+					<li>6.1. <a href="#difficulty_distance_overview">Overview</a></li>
+					<li>6.2. <a href="#difficulty_distance_game_worksheet">Modifying the GAME worksheet</a></li>
+					<li>6.3. <a href="#difficulty_distance_function">Adding a new function to calculate the distance between the monster and the player</a></li>
+					<li>6.4. <a href="#difficulty_distance_check_distance">Check the distance is always correct</a></li>
+					<li>6.5. <a href="#difficulty_distance_check_end_of_game">Modifying the CheckForEndOfGame subroutine</a></li>
+				</ul>
+
+			</li>
+			<li><a href="#final_product">The finished product</a></li>
+
+        </ol>
+        </li>
+	</ul>
+
+	<h2 id="pre-recorded-videos">Pre-recorded videos</h2>
+    <ul>
+        <li>The following videos have sound. Please turn on your speaker or use your headphone to watch the videos</li>
+        <li>The following videos provide step-by-step instructions to help students complete the lab
+
+            <ul>
+				<li><a href="https://hkust.zoom.us/rec/share/4JFTdJ3c0H9JSIXM50L7UaUdO9W7T6a81yQW_aEInRl4HpnXlzj5b84N6ZC9zjUM?startTime=1584411269000" target="_blank">Part 1 - Learning Outcomes and Demonstration of the Lab Result</a></li>
+				<li><a href="https://hkust.zoom.us/rec/share/_ZZRNe3q7nJLYqfQ5kfgSvcxD7TjX6a81XMZ-PUMxR545HgdPVuPrd_u5XCXd9WF?startTime=1584413975000" target="_blank">Part 2 - Going Over the Given Code</a></li>
+				<li><a href="https://hkust.zoom.us/rec/share/wN5-MrfX9mhJRpHV63DPRYx7LLTPeaa80yYb_fcOzEo8yDS9XIi236s3dTLKH4B-?startTime=1584415553000" target="_blank">Part 3 - Handling the Player's Position</a></li>
+				<li><a href="https://hkust.zoom.us/rec/share/15VJKu237kdIcrPI-lnuV4V8Irvjaaa8hiIa_PNcmRoipC7mWorUbUkrVkoH-QvM?startTime=1584421155000" target="_blank"> Part 4 - Handling the Monster's Position</a></li>
+				<li><a href="https://hkust.zoom.us/rec/share/39B2KuHNyGZLTI3Iq037SrAcL8f0T6a80SUerKcLzR5Mz5v32AqVV3XLxB56bWcr?startTime=1584423709000" target="_blank">Part 5 - Check if the Game Has Finished</a></li>
+				<li><a href="https://hkust.zoom.us/rec/share/9exvKY6r83tIW4H81E-AQ5ENIK_4aaa8hHUb8vEInR53o3cftqekDV779uiftBtl?startTime=1584424713000" target="_blank">Part 6 and 7 - Diagonal movement, Distance and Difficulty level (WILL BE PARTLY TAUGHT)</a></li>
+
+
+
+            </ul>
+
+        </li>
+
+    </ul>
+
+    <a name="the_colors"></a>
+    <h2>The Colors</h2>
+
+
+    <ul>
+        <li>We use the following colors for our game</li>
+	<br>
+
+	<br>
+		<a href="images/explanation_of_colours.png">
+
+		<img src="images/explanation_of_colours.png" alt="Explanation of colors used" width="750px;" style="border:0px;">
+
+		</a>
+		<br />
+		<span class="footnote">Click on the image to see its original size</span>
+
+		<br><br><br>
+
+	<ul>
+		<li>If you want to know all the values of the different possible colors, you can look <a href="all_background_colours.html">here</a>
+	</li>
+	</ul>
+
+	<li>For comparison, cells which don't have any background color look like this:</li>
+	<img src="images/cells_which_dont_have_colour.png" alt="Cells which dont have a background color look like this" >
+
+	<li>In other words, cells which don't have a background color just look like typical cells</li>
+	<li>For our game, every cell has a background color, so we don't see those lines around the cells in our game area</li>
+	<li><strong><span style="color:red">WARNING:</span> Notice that in Excel VBA you must use the American spelling of &quot;color&quot;</strong></li>
+
+    </ul>
+
+
+    <a name="accessing_vba_code"></a>
+    <h2>Accessing the VBA Code</h2>
+
+	<ul>
+		<li>You need to access the VBA code using the VBA Editor. The steps were thoroughly discussed in <a href="../../../hkust/f2019_labs/02/#macro1">a previous lab</a>
+		<ol>
+			<li>Make sure the <em>Developer</em> tab is already enabled in the Ribbon</li>
+			<li>Choose <em>Visual Basic</em> from the <em>Developer</em> tab
+                    <p>
+
+
+						<img src="images/vb_editor.png" alt="Visual Basic in Ribbon" />
+
+					</p>
+			</li>
+			<li>Choose <em>Module1</em> under <em>Modules</em>
+                    <p>
+						<img src="images/module1.png" alt="Visual Basic in Ribbon" />
+
+
+					</p>
+			</li>
+		</ol>
+	</ul>
+
+
+    <a name="player"></a>
+    <h2>1. Handling the Player's Position</h2>
+
+	<a name="player1" id="player1"/>
+	<h3>1.1. The general idea</h3>
+    <ul>
+
+			<li>The player is represented by the currently selected cell
+
+				<p><img src="images/player.png" alt="The player"
+					style="border:0px;" /></p>
+			</li>
+		<li>Add shapes to control the player's movement. 5 shapes are needed:
+		<ul>
+			<li>Reset the game when the reset button is clicked</li>
+			<li>Move the player to the left if the left arrow shape is clicked</li>
+			<li>Move the player to the right if the right arrow shape is clicked</li>
+			<li>Move the player up if the up arrow shape is clicked</li>
+			<li>Move the player down if the down arrow shape is clicked</li>
+		</ul>
+		</li>
+
+		<li>Now we will go through each of these stages</li>
+
+
+    </ul>
+
+	<a name="player2" id="player2"/>
+	<h3>1.2. Create shapes to be used as buttons</h3>
+	<ul>
+
+		<li>When the user wants to play the game, first he/she must press the Reset button</li>
+		<li>The position of the player (the selected cell) is controlled by 4 arrow key shapes</li>
+
+		<li>The following shapes should be added near the top of the <strong>Game</strong> worksheet
+			<ul>
+				<li>The rectangular shape, containing text <strong>Reset</strong> or similar, should be added at the top-left corner of the worksheet</li>
+				<li>The arrow key shapes should be added near the Reset button</li>
+				<li>To avoid blocking the worksheet cells
+
+					<ul>
+						<li>A suitable transparency value (e.g. 75%) should be used for the shapes</li>
+						<li>The transparency value can be changed by right-clicking a shape and then choose "Format Shape..."</li>
+					</ul>
+
+				</li>
+				<li>The layout of these shapes should be something suitable e.g. :
+					<p><img src="images/arrows_and_reset.png" alt="The arrows and reset shapes"
+						style="height:250px;" /></p>
+
+				</li>
+			</ul>
+		<li>After the shapes are created, we need to assign macros to the shapes
+			<ul>
+				<li><tt>ResetGame</tt> should be assigned to the reset button
+
+
+				</li>
+				<li><tt>MovePlayerLeft</tt> should be assigned to the left arrow shape</li>
+				<li><tt>MovePlayerRight</tt> should be assigned to the right arrow shape</li>
+				<li><tt>MovePlayerUp</tt> should be assigned to the up arrow shape</li>
+				<li><tt>MovePlayerDown</tt> should be assigned to the down arrow shape</li>
+			</ul>
+		</li>
+
+		</li>
+	</ul>
+
+	<a name="player3" id="player3"/>
+	<h3>1.3. Understand ResetGame subroutine</h3>
+	<ul>
+		<li>The <tt>ResetGame</tt> subroutine is given
+			<pre><span class="comment">' This subroutine resets the game</span>
+<span class="res">Sub</span> ResetGame()
+    ClearMonsters <span class="comment">' Remove any monsters from a previous game</span>
+    StartTheGame <span class="comment"> ' Get things ready for the game</span>
+<span class="res">End Sub</span>
+</pre>
+
+		</li>
+
+		<li>Although the  <tt>ClearMonsters</tt> and <tt>StartTheGame</tt> subroutines are already given to you, you need to read and understand them
+
+			<ul>
+				<li><tt>ClearMonsters</tt> subroutine removes any remaining monsters (green cells) from previous games
+
+					<ul>
+						<li>
+							<tt>ClearMonsters</tt>  subroutine is implemented by a nested for loop to replace all green cells to white cells
+						</li>
+					</ul>
+
+				</li>
+				<li><tt>StartTheGame</tt> subroutine sets up several global variables and moves the player and the monster to the default positions</li>
+
+			</ul>
+
+		</li>
+
+	</ul>
+
+	<a name="player4" id="player4"/>
+	<h3>1.4. Understand MovePlayerLeft subroutine</h3>
+	<ul>
+		<li>The <tt>MovePlayerLeft</tt> subroutine is given as an example </li>
+		<li>Before copying the VBA code to the <tt>MovePlayerLeft</tt> subroutine, you should read the code carefully and understand how the code works:
+
+
+
+			<pre>NextPlayerRow = ActiveCell.Row
+NextPlayerColumn = ActiveCell.Column - 1
+
+<span class="res">If</span> NextPlayerColumn >= 1 <span class="res">Then</span> <span class="comment">' Check the next column exists</span>
+    <span class="res">If</span> Cells(NextPlayerRow, NextPlayerColumn).Interior.ColorIndex = 2 <span class="res">Then</span> <span class="comment">' 2 is white</span>
+        Cells(NextPlayerRow, NextPlayerColumn).Select  <span class="comment">' Move to new location</span>
+        HandleMonsterPosition <span class="comment">' to be implemented in section 2</span>
+        CheckForEndOfGame     <span class="comment">' to be implemented in section 3</span>
+    <span class="res">End If</span>
+<span class="res">End If</span></pre>
+
+		</li>
+	</ul>
+
+	<a name="player5" id="player5"/>
+	<h3>1.5. Complete MovePlayerRight, MovePlayerUp, and MovePlayerDown subroutines</h3>
+
+	<ul>
+		<li><tt>MovePlayerRight</tt>, <tt>MovePlayerUp</tt>, and <tt>MovePlayerDown</tt> subroutines should be similar to <tt>MovePlayerLeft</tt> subroutine</li>
+
+		<li>Fill in the blanks carefully to complete <tt>MovePlayerRight</tt>, <tt>MovePlayerUp</tt>, and <tt>MovePlayerDown</tt> subroutines
+
+			<ol>
+				<li>Update <tt>NextPlayerRow</tt> appropriately</li>
+				<li>Update <tt>NextPlayerColumn</tt> appropriately</li>
+				<li>Update the condition in the outer if statement</li>
+				<li>The remaining part should be the same as the <tt>MovePlayerLeft</tt> subroutine</li>
+			</ol>
+
+<pre>NextPlayerRow = <span class="todo">. . . fill in your code here . . .</span>
+NextPlayerColumn = <span class="todo">. . . fill in your code here . . .</span>
+
+<span class="res">If</span> <span class="todo">. . . fill in your code here . . .</span><span class="res"> Then</span>
+    <span class="res">If</span> Cells(NextPlayerRow, NextPlayerColumn).Interior.ColorIndex = 2 <span class="res">Then</span> <span class="comment">' 2 is white </span>
+        Cells(NextPlayerRow, NextPlayerColumn).Select  <span class="comment">' Move to new location</span>
+        HandleMonsterPosition <span class="comment">' to be implemented in section 2</span>
+        CheckForEndOfGame     <span class="comment">' to be implemented in section 3</span>
+    <span class="res">End If</span>
+<span class="res">End If</span>
+</pre>
+
+
+		</li>
+	</ul>
+
+	<a name="player6" id="player6"/>
+	<h3>1.6. Check the player movement</h3>
+
+	<ul>
+		<li>Before proceeding to the next section, you can check the player movement</li>
+		<li>Click the reset button to move the player and the monster to the default positions</li>
+		<li>Click on the arrow key shapes to check the following:
+			<ol>
+				<li>The player cannot walk outside the game area</li>
+				<li>The player cannot walk inside a wall cell</li>
+			</ol>
+		</li>
+	</ul>
+
+
+    <a name="monster"></a>
+    <h2>2. Handling the Monster's Position</h2>
+
+	<a name="monster1" id="monster1"/>
+	<h3>2.1. The general idea</h3>
+
+	<ul>
+			<li>The monster is represented by a green cell
+
+					<p><img src="images/monster.png" alt="A green background has a ColorIndex value of 4"  style="border:0px;" /></p>
+			</li>
+
+        <li>The monster moves immediately after the player moves</li>
+		<li>The monster tries to move closer to the player</li>
+		<li>However, the monster cannot go through walls</li>
+		<li>The monster moves right after every time the player moves</li>
+		<li>The monster can even move diagonally!</li>
+	</ul>
+
+	<a name="monster2" id="monster2"/>
+    <h3>2.2. Check if the Game is Being Played</h3>
+
+    <ul>
+	<li>It is possible that the game is already finished when the game executes to this point</li>
+	<li>It makes sense to check whether the game is being played, and if it isn't, it is not necessary to do <a href="#monster3">the next 2 steps</a></li>
+		<li>Put this appropriately in <tt>HandleMonsterPosition()</tt>:
+		<pre>
+<span class="res">If Not</span> GameIsBeingPlayed <span class="res">Then</span>
+    <span class="res">Exit Sub</span> <span class="comment">' Stop running this subroutine</span>
+<span class="res">End If</span></pre>
+		<ul><li><tt>GameIsBeingPlayed</tt> is a Boolean (True or False) variable controlled elsewhere</li></ul>
+    </ul>
+
+
+	<a name="monster3" id="monster3"/>
+    <h3>2.3. Hide the Current Position of the Monster</h3>
+
+    <ul>
+	<li>The way to 'move' the monster is this:
+		<ul>
+			<li>First we change the color of the current monster position so the monster 'disappears'</li>
+			<li>(Later we will change the position of another cell to green, so it looks like the monster has moved there)</li>
+		</ul></li>
+		<li>Put this appropriately in <tt>HandleMonsterPosition()</tt>:
+		<pre>
+Cells(MonsterRow, MonsterColumn).Interior.ColorIndex = 2 <span class="comment">' Change the cell color to white</span></pre>
+	<ul><li><tt>MonsterRow</tt> and <tt>MonsterColumn</tt> together store the current position of the monster cell</li></ul>
+    </ul>
+
+	<a name="monster4" id="monster4"/>
+    <h3>2.4. Work Out the Next Position of the Monster</h3>
+
+	<ul>
+<li>Now we have to work out the next position of the monster. We will do that in several steps:</li>
+	<ul class="none">
+		<li>2.4.1. <a href="#monster41">Using the current monster position for the next monster position</a></li>
+		<li>2.4.2. <a href="#monster42">Change the row of the monster</a></li>
+		<li>2.4.3. <a href="#monster43">Check if the new position is a wall</a></li>
+		<li>2.4.4. <a href="#monster44">Change the column of the monster</a></li>
+		<li>2.4.5. <a href="#monster45">Check if the new position is a wall</a></li>
+	</ul>
+</ul>
+	<a name="monster41" id="monster41"/>
+    <h4>2.4.1. Using the current monster position for the next monster position</h4>
+
+    <ul>
+	<li>It's just a way to get started</li>
+	<li>In the next few steps we will adjust the new monster position</li>
+		<li>Put this appropriately in <tt>HandleMonsterPosition()</tt>:
+		<pre>
+NextMonsterRow = MonsterRow <span class="comment">' Copy current row number of monster</span>
+NextMonsterColumn = MonsterColumn <span class="comment"> ' Copy current column number of monster</span></pre>
+	<ul>
+	<li>We assume that the monster stays in the same position for next round, for now</li>
+	<li>The following steps may change the &quot;next&quot; position if the conditions are fulfilled</li>
+	</ul>
+    </ul>
+
+	<a name="monster42" id="monster42"/>
+    <h4>2.4.2. Change the row of the monster</h4>
+
+    <ul>
+	<li>We change the row of the monster so it gets closer to the player</li>
+		<li>Put this appropriately in <tt>HandleMonsterPosition()</tt> and fill in the missing code:
+		<pre>
+<span class="res">If</span> MonsterRow > ActiveCell.Row <span class="res">Then</span> <span class="comment">' If monster is below the player</span>
+    NextMonsterRow = NextMonsterRow - 1 <span class="comment">' Move monster up</span>
+<span class="res">ElseIf</span> MonsterRow < ActiveCell.Row <span class="res">Then</span>
+    <span class="todo">. . . fill in your code here . . .</span> <span class="comment">' Move monster down</span>
+<span class="res">End If</span></pre>
+		<ul><li>To move the monster down, add 1 to <tt>NextMonsterRow</tt></li></ul>
+	<li>What does the logic mean? How does the monster move relative to the player?</li>
+    </ul>
+
+	<a name="monster43" id="monster34"/>
+    <h4>2.4.3. Check if the new position is a wall</h4>
+    <ul>
+	<li>If the new position is a wall, we reset the row back to what it was before</li>
+	<li>Instead of <tt>ActiveCell</tt>, you need to use <strong><tt>Cells(NextMonsterRow, NextMonsterColumn)</tt></strong> to locate the next monster position</li>
+		<li>What should you write in <tt>HandleMonsterPosition()</tt> to check this?</li>
+		<li>Your code should look like this:
+		<pre>
+<span class="res">If</span> <span class="todo">. . . fill in your code here . . .</span> <span class="res">Then</span>
+    NextMonsterRow = MonsterRow <span class="comment">' Use original row value</span>
+<span class="res">End If</span></pre>
+	<ul><li>This means that if the &quot;next&quot; position is a wall, we bring the monster back to the original position</li></ul>
+    </ul>
+
+	<a name="monster44" id="monster44"/>
+    <h4>2.4.4. Change the column of the monster</h4>
+
+    <ul>
+	<li>Besides the row, you also need to change the column</li>
+		<li>Put this appropriately in <tt>HandleMonsterPosition()</tt> and fill in the missing code:
+		<pre>
+<span class="res">If</span> MonsterColumn > ActiveCell.Column <span class="res">Then</span> <span class="comment">' If monster is on right of player</span>
+    <span class="todo">. . . fill in your code here . . .</span> <span class="comment">' Move monster left</span>
+<span class="res">ElseIf</span> MonsterColumn < ActiveCell.Column <span class="res">Then</span>
+    <span class="todo">. . . fill in your code here . . .</span> <span class="comment">' Move monster right</span>
+<span class="res">End If</span></pre>
+		<ul>
+		<li>To move the monster to the left, decrease <tt>NextMonsterColumn</tt> by 1</li>
+		<li><strong><span style="color:red">WARNING:</span> If you copy code from previous steps, check carefully that you have edited your code properly to deal with <em>Column</em> not <em>Row</em></strong></li>
+		</ul>
+		<li>How can you move the monster to the right then?</li>
+    </ul>
+
+	<a name="monster45" id="monster45"/>
+    <h4>2.4.5. Check if the new position is a wall again</h4>
+
+    <ul>
+	<li>Similar to <a href="#monster43">Part 2.4.3</a>, you need to check if the new position is a wall, if it is then we reset the column back to what it was before</li>
+		<li>Could you figure out what to write in <tt>HandleMonsterPosition()</tt>?</li>
+		<li>Notice that you should change the value of <tt>NextMonsterColumn</tt> this time</li>
+		<li><strong><span style="color:red">WARNING:</span> If you don't finish this step properly, your monster may go through the wall, which is not allowed!</strong></li>
+    </ul>
+
+	<a name="monster5" id="monster5"/>
+    <h3>2.5. Set the new monster position</h3>
+
+    <ul>
+	<li>At this point we have worked out the new monster position</li>
+	<li>For example, in this illustration, you can see the &quot;next&quot; position is determined based on the player position</li>
+	<p>
+		<a href="images/rowcolumn.png">
+		<img src="images/rowcolumn.png" alt="Row and Column" style="width:700px;" />
+		</a>
+		<br />
+		<span class="footnote">Click on the image to see its original size</span>
+	</p>
+	<li>Now we show the monster at that position</li>
+		<li>Put this appropriately in <tt>HandleMonsterPosition()</tt>:
+		<pre>
+MonsterRow = NextMonsterRow <span class="comment">' Set the "next" position, copy row value</span>
+MonsterColumn = NextMonsterColumn <span class="comment">' Set the "next" position, copy column value</span>
+
+<span class="comment">' After setting, use green color to indicate monster position</span>
+Cells(MonsterRow, MonsterColumn).Interior.ColorIndex = 4 <span class="comment">' 4 is green, the monster color</span></pre>
+	</li>
+	<ul><li>The position of the monster is not finalized until now, when we specify it in the variables <tt>MonsterRow</tt> and <tt>MonsterColumn</tt></li></ul>
+	<p>
+	<li>Now you may try to move the player again, and see how the monster reacts</li>
+	<li>Right now the monster may catch you, but we would not win or lose yet</li>
+
+    </ul>
+
+
+
+    <a name="endgame"></a>
+    <h2>3. Check if the Game Has Finished</h2>
+
+	<a name="endgame1" id="endgame1"/>
+    <h3>3.1. The General Idea</h3>
+    <ul>
+        <li>There are 2 ways the game can end:</li>
+	<ol>
+	<li>If the player gets to the right side of the game, then the
+player wins</li>
+	<li>If the monster is at the same position as the player, then the
+player loses</li>
+	</ol>
+	<li>Putting these into steps, we get this sequence:</li>
+	<ul class="none">
+		<li>3.2. <a href="#endgame2">Check if the game is being played</a></li>
+		<li>3.3. <a href="#endgame3">Check if the player wins</a></li>
+		<li>3.4. <a href="#endgame4">Check if the player loses</a></li>
+	</ul>
+	<li>Since you have already had some basic ideas of VBA, the following steps are given in <em>pseudocode</em></li>
+	<li>Pseudocode is programming steps written in English, but not actual programming code</li>
+	<li>Write your own VBA code in the subroutine <tt>CheckForEndOfGame()</tt>!</li>
+    </ul>
+
+	<a name="endgame2" id="endgame2"/>
+    <h3>3.2. Check if the Game is Being Played</h3>
+
+    <ul>
+	<li>Perhaps the game is already finished</li>
+	<li>It makes sense to check whether the game is being played, and if it isn't don't bother doing <a href="#endgame3">the next 2 steps (3.3 and 3.4)</a></li>
+	<li>This code is exactly the same as <a href="#monster2">Part 2.2</a> &mdash; just copy the code from there and put it in <tt>CheckForEndOfGame()</tt></li>
+    </ul>
+
+	<a name="endgame3" id="endgame3"/>
+    <h3>3.3. Check if the Player Wins</h3>
+
+    <ul>
+	<li>If the player gets to the right side of the game, then the
+player wins</li>
+	<li>The right side of the game is column 20</li>
+	<li>How can you check that the user (soon to be at position NextPlayerRow, NextPlayerColumn) has reached column 20?</li>
+		<li>Write this in VBA:
+		<pre><span class="todo" style="color:black">If player column = 20 Then
+	Show a msgbox with a message like "You escaped the monster!"
+	Hide the monster
+	Put False into the variable GameIsBeingPlayed to denote the finish of the game</span>
+<span class="comment">'Continue in the next part...</span></pre>
+	<ul>
+	<li><strong>This IS NOT actual VBA code</strong>, this is pseudocode, do not simply copy it to the VBA editor</li>
+	<li>We don't need <tt>End If</tt> here yet, since we will continue the If block in the next part</li></ul>
+    </ul>
+
+	<a name="endgame4" id="endgame4"/>
+    <h3>3.4 Check if the Player Loses</h3>
+
+    <ul>
+	<li>If the monster is at the same position as the player, then the
+player loses</li>
+		<li>This is not going to happen if <a href="#endgame2">Check if the Player Wins</a> was fulfilled, so we can use <tt>ElseIf</tt>:
+		<pre><span class="comment">'Resume from the previous part...</span>
+<span class="todo" style="color:black">ElseIf monster's row is the same as player's row, and
+          monster's column is the same as player's column Then
+	Show a msgbox with a message like "The monster has eaten you!"
+	Hide the monster
+	Tell the code that the game has finished
+End If</span></pre>
+	</li>
+	<ul>
+	<li><strong>This IS NOT actual VBA code</strong>, this is pseudocode, do not simply copy it to the VBA editor</li>
+	<li>Never forget the <tt>End If</tt> which closes the If block</li></ul>
+	<p>
+	<li>By this time, your game is playable!</li>
+    </ul>
+
+
+    <a name="moremaps"></a>
+<h2>4. More Game Maps</h2>
+<ul>
+	<li>The game is intended to be played when you are in the first worksheet (THE GAME)</li>
+	<li>But we have prepared more maps for you to play with</li>
+	<li>To use a new map, just follow these steps:
+	<ol>
+		<li>Go to the worksheet with the map you want</li>
+		<li>Select <strong>row 1-23 only</strong> and copy (<tt>Ctrl+C</tt>)
+			<ul>
+				<li>If you accidentally select row 24, the words 'Distance' and 'Difficulty' will be destroyed </li>
+			</ul>
+		</li>
+		<li>Return to the first worksheet (THE GAME), click on cell A1 and paste (<tt>Ctrl+V</tt>)</li>
+
+	</ol></li>
+	<li>You now can enjoy another level of the game!</li>
+	<li>All the maps included in the starting Excel file can be successfully completed, none of them are 'impossible'</li>
+	<li>You could also make your own map for more fun</li>
+	<ul>
+		<li>It's very easy to build - any background colour which is not green is a wall</li>
+	</ul>
+
+	<li>This video shows the current stage (4 directions only) being used (there's no sound):</li>
+	<br>
+	<video width="960" height="540" controls>
+	  <source src="4_dirs.mp4" type="video/mp4">
+	Your browser does not support the video tag.
+	</video>
+	<ul>
+	<li>A direct link to the video is <a href="4_dirs.mp4">here</a></li>
+	</ul></li>
+
+</ul>
+
+<a name="diagonal_movement_player"></a>
+<h2>5. Diagonal movement arrows for the player - WILL BE PARTLY TAUGHT</h2>
+
+<a name="handling_diagonal_movements"></a>
+<h3>5.1 Handling diagonal movements</h3>
+
+<ul>
+
+
+  <li>Hints to complete the diagonal movements for the player
+
+	<ol>
+		<li>Add 4 extra arrow shapes for the diagonal movements in a suitable layout:
+
+				<p><img src="images/arrows_diagonal.png" alt="Diagonal arrows and reset shapes"
+					style="height:250px;" /></p>
+		</li>
+		<li>Add 4 extra subroutines for the diagonal movement
+
+			<ul>
+				<li><tt>Sub MovePlayerUpLeft ... End Sub </tt> for the up-left diagonal movement - WILL BE TAUGHT</li>
+				<li><tt>Sub MovePlayerUpRight ... End Sub </tt> for the up-right diagonal movement - WON'T BE TAUGHT, PLEASE DO IT YOURSELF!</li>
+				<li><tt>Sub MovePlayerDownLeft ... End Sub </tt> for the down-left diagonal movement - WON'T BE TAUGHT, PLEASE DO IT YOURSELF!</li>
+				<li><tt>Sub MovePlayerDownRight ... End Sub </tt> for the down-right diagonal movement - WON'T BE TAUGHT, PLEASE DO IT YOURSELF!</li>
+			</ul>
+
+		</li>
+		<li>Follow the similar steps in <a href="#player5">Part 1.5</a> to complete the 4 extra subroutines</li>
+
+
+
+
+	</ol>
+
+  </li>
+
+
+
+</ul>
+
+<a name="check_carefully_diagonal_movements"></a>
+<h3>5.2 Check carefully the diagonal movements</h3>
+
+<ul>
+	<li>Check carefully to ensure the correctness of the 4 diagonal movements</li>
+	<li>Check carefully on the boundaries of the map
+		<ul>
+			<li>Make sure no error of any kind occurs when the user tries to go too far left/right/up/down using the diagonal direction arrows</li>
+		</ul>
+	</li>
+</ul>
+
+<a name="difficulty_distance"></a>
+<h2>6. Distance and Difficulty level - WON'T BE TAUGHT BUT NEEDS TO BE DONE!</h2>
+
+<a name="difficulty_distance_overview"></a>
+<h3>6.1. Overview</h3>
+
+<ul>
+
+  <li>Once you have finished the previous stages and checked carefully that it works, move on to this stage</li>
+  <li>This is an extra challenge for you</li>
+	<li><strong>Important</strong> - this stage <strong>WON'T BE TAUGHT</strong> in the lab teaching sessions! Please don't ask the TA to teach this part!</li>
+  <li>Instead, you need to finish it yourself</li>
+</ul>
+
+<a name="difficulty_distance_game_worksheet"></a>
+<h3>6.2. Modifying the GAME worksheet</h3>
+
+<ul>
+
+  <li>You should modify the GAME worksheet as follows:
+		<ul>
+			<li>The difficulty text should be shown on an appropriate cell, such as cell D24</li>
+			<li>The user enters a number into the next cell (i.e. cell F24) which represents the difficulty (1=normal difficulty, the bigger the number = harder)</li>
+			<li>The distance text should be shown on an appropriate cell, such as cell K24</li>
+			<li>The distance value should be shown on an appropriate cell, such as cell M24</li>
+			<li>Here is the expected output after adding the 4 cells:
+				<p>
+					<img src="images/worksheet_cells_added.png" width="700px;" />
+				</p>
+			</li>
+		</ul>
+  </li>
+</ul>
+
+<a name="difficulty_distance_function"></a>
+<h3>6.3. Adding a new function to calculate the distance between the monster and the player</h3>
+<ul>
+
+
+  <li>You need to write a new function which returns <strong>the distance between the monster and the player</strong>
+	<pre><span class="res">Function</span> PlayerMonsterDistance()
+<span class="comment">   ' calculate distance</span>
+<span class="comment">   ' show the distance in a cell</span>
+<span class="comment">   ' return the distance</span>
+<span class="res">End Function</span></pre>
+
+
+  </li>
+
+  <li><strong>How to use the function?</strong>
+	<ul>
+		<li>For example, if your function is called <tt>PlayerMonsterDistance()</tt> then you can use it like this:
+			<pre>Distance = PlayerMonsterDistance()</pre>
+		</li>
+		<li>For proper programming you would create the variable <tt>Distance</tt> first, perhaps as a <tt>Single</tt> variable</li>
+	</ul>
+
+  </li>
+
+  <li><b>How to calculate the distance?</b>
+
+
+		<ul>
+			<li>
+					This can be done by using Pythagoras' theorem:
+					<br><br>
+
+					<a href="images/distance_formula_pythagoras2.png">
+					<img style="border:0px;" src="images/distance_formula_pythagoras2.png">
+					</a>
+					<br />
+					<span class="footnote">Click on the image to see its original size</span>
+
+					<br><br>
+			</li>
+
+			<li>The left side of the above image shows the basic idea of Pythagoras' theorem
+				<ul>
+						<li>We want to calculate the distance between the player and the monster</li>
+						<li>This is the same as calculating the distance between two points</li>
+							<li>The distance we want to know is shown as <i>c</i> in the above left image</li>
+						<li>To calculate that we need to know the values of <i>a</i> and <i>b</i> in the above left image</li>
+				</ul>
+			</li>
+
+			<li>Now look at the right side of the above image
+					<ul>
+							<li>To get <i>a</i> we can subtract the x value of the player (x1) from the x value of the monster (x2)</li>
+							<li>To get <i>b</i> we can subtract the y value (the row) of the player (y1) from y value (the row) of the monster (y2)</li>
+						</ul>
+
+			</li>
+
+		<li>The distance <i>d</i> between the player and the monster is the square root of <i>a</i> squared plus <i>b</i> squared
+				<ul>
+				<li>Like this: distance <i>d</i> = &radic;( (x2 - x1)<sup>2</sup> + (y2 - y1)<sup>2</sup>)</li>
+				</ul>
+		</li>
+
+		<li>How to do a square?
+
+			<ul>
+				<li>You can simply multiply the variable with itself </li>
+				<li>For example, the square of <tt>x</tt> is <tt>x * x</tt></li>
+				<li>Or you can do  <tt>x ^ 2</tt> </li>
+			</ul>
+		</li>
+
+		<li>How to do square root?
+
+
+
+			<ul>
+					<li>In VBA <i>Sqr</i> means square root</li>
+					<li>For example, this code:
+					<pre>MsgBox Sqr(100)  <span class="comment">' Show the square root of 100</pre>
+					will show the answer of 10, which is the square root of 100</span></li>
+					</ul>
+			 </ul>
+
+		</li>
+
+
+
+	</li>
+
+
+</ul>
+
+<a name="difficulty_distance_check_distance"></a>
+<h3>6.4. Check the distance is always correct</h3>
+
+<ul>
+
+	<li>Before you continue, check that the distance is always correct</li>
+	<li>Move the player on the left of the monster/ on the right of the monster/ above/ below the monster, and check the displayed number looks OK</li>
+
+	<li>This video shows how the distance is being updated when the player is approaching the monster (there's no sound):</li>
+	<video width="550" controls>
+	  <source src="distance.mp4" type="video/mp4">
+	Your browser does not support the video tag.
+	</video>
+	<ul>
+	<li>A direct link to the video is <a href="distance.mp4">here</a></li>
+	</ul></li>
+
+	<li> Another 'more realistic' video which shows the display when the player is above/right/below the monster (there's no sound):</li>
+	<video width="550" controls>
+	  <source src="distance2.mp4" type="video/mp4">
+	Your browser does not support the video tag.
+	</video>
+	<ul>
+	<li>A direct link to the video is <a href="distance2.mp4">here</a></li>
+	</ul></li>
+</ul>
+
+<a name="difficulty_distance_check_end_of_game"></a>
+<h3>6.5. Modifying the CheckForEndOfGame subroutine</h3>
+<ul>
+
+  <li>You should modify the <tt>CheckForEndOfGame</tt> subroutine e.g. if the Difficulty number is shown in cell F24:
+<pre>Distance = PlayerMonsterDistance() <span class="comment">' Get the current distance from the function</span>
+<span class="res">If</span> Distance &lt;= Range("F24").Value <span class="res">Then</span>
+   MsgBox "The monster has eaten you!"
+<span class="res">End If</span></pre>
+
+  </li>
+
+
+</ul>
+
+<a name="final_product"></a>
+<h2>7. The finished product </h2>
+
+<ul>
+	<li>The game is finished!</li>
+	<li>Here are several videos showing how the finished product should look like:
+
+		<ul>
+
+			<li>This video shows the game being played successfully, with difficulty value 0 (there's no sound):
+				<br>
+				<video width="960" height="540" controls>
+					<source src="final_product.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+					</video>
+						<ul>
+							<li>A direct link to the video is <a href="final_product.mp4">here</a></li>
+						</ul>
+				</li>
+
+			<li>This video shows the game being played successfully, with difficulty value 2 (there's no sound):
+				<br>
+				<video width="960" height="540" controls>
+				<source src="player_win.mp4" type="video/mp4">
+				Your browser does not support the video tag.
+				</video>
+					<ul>
+						<li>A direct link to the video is <a href="player_win.mp4">here</a></li>
+					</ul>
+			</li>
+
+			<li>This video shows the game being played unsuccessfully, with difficulty value 2 (there's no sound):
+				<br>
+				<video width="960" height="540" controls>
+					<source src="player_lose.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+					</video>
+						<ul>
+							<li>A direct link to the video is <a href="player_lose.mp4">here</a></li>
+						</ul>
+				</li>
+
+
+
+		</ul>
+
+	</li>
+</ul>
+
+
+    <h2 id="submission">8. Submission</h2>
+
+    <ul>
+        <li>This lab is a hand-in lab</li>
+        <li>You need to submit your Excel file, probably called <strong>game-v2.xlsm</strong>
+
+            <ul>
+                <li>The xlsm file format must be used in order to keep the VBA code, and we discussed the correct method to save the Excel file in <a href="../02/#savefile">lab2</a></li>
+            </ul>
+        </li>
+        <li>Enter your name and student ID number in any blank area of Row 24 in the "THE GAME" worksheet (as row 2 is occupied by the game board), so it can be easily seen</li>
+        <li>The marking scheme of the lab is <a href="marking_scheme.html">here</a></li>
+        <li>You need to submit your work <strong>before 1 May 11:59pm</strong>
+            to the COMP1022Q Canvas site here:
+        <p>
+            <a target="blank" href="https://canvas.ust.hk/courses/29889/assignments/107716">https://canvas.ust.hk/courses/29889/assignments/107716</a>
+        </p>
+        </li>
+        <li><b>Submit your work early</b>, days before the deadline!</li>
+        <li>If you find that you have made a mistake after you have submitted your work, you can submit again, as many times as you like, BEFORE the deadline
+            <ul>
+                <li>We will mark the most recent submission which is before the deadline</li>
+            </ul>
+	    </li>
+	</ul>
+
+</body>
+</html>

@@ -44,6 +44,11 @@ var categorizedCourses = {
             code: 'COMP 1021',
             title: 'Introduction to Computer Science',
             semesters: ['Spring 2022']
+        },
+        {
+            code: 'COMP 1022Q',
+            title: 'Introduction to Computing with Excel VBA',
+            semesters: ['Spring 2020']
         }
     ],
     'Machine Learning': [

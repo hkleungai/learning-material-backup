@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>COMP1022Q Lab 3 - Guessing Game</title>
+    <link href="../../../css/lab.css" rel="stylesheet" />
+
+    <style>
+        img {
+            border: 1px solid grey;
+        }
+        pre {width: 65em; }
+        pre .comment { color:rgb(0,128,0); } /* Fix color on comment line */
+    </style>
+</head>
+
+<body>
+    <h1>
+        <span class='lab'>COMP1022Q Lab 3</span>
+        <span class='title'>Guessing Game</span>
+    </h1>
+
+    <h2>What You Will Learn in This Lab</h2>
+
+    <ul>
+        <li>In this lab you will gain experience in the following areas:
+        <ul>
+            <li>Using VBA
+            <ul>
+				<li>Generating a random number by using <tt>Randomize</tt>, <tt>Rnd</tt>, and <tt>Int</tt>
+                <li>Using a loop such as <tt>While...Wend</tt></li>
+				<li>Using <tt>InputBox</tt> and <tt>MsgBox</tt> for input and output</li>
+				<li>Using <tt>If-ElseIf-Else</tt> for decisions</li>
+				<li>Accessing Excel cells from VBA using <tt>Cells</tt> and <tt>Range</tt></li>
+            </ul>
+            </li>
+        </ul>
+        </li>
+    </ul>
+
+        <h2>Overview</h2>
+
+        <ul>
+            <li>In this session, you need to create a guessing game by writing your own Excel VBA code</li>
+
+    <li>
+        This video shows the finished game being played (there's no sound):</li>
+        <video height="654" controls>
+        <source src="guessing_game_s3.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+        </video>
+        <ul>
+        <li>A direct link to the video is  <a href="guessing_game_s3.mp4">here</a></li>
+        </ul>
+    </li>
+
+
+            <li>At the beginning of the game, an integer random number is generated, but is not shown to the player</li>
+            <li>To play this game, the player has to repeatedly enter the number he/she guesses to check if the correct number has been guessed</li>
+            <li>Examples will be shown during the lab session</li>
+            <li>Finally, we will further show the game history in Excel cells</li>
+			<li>To complete the program you need to do these:
+			<ul class="none">
+				<li>1. <a href="#understand">Understand the given Excel file</a></li>
+				<li>2. <a href="#game">Implementing the Guessing Game</a></li>
+            <ul class="none">
+                <li>2.1. <a href="#game1">Introduction</a></li>
+                <ul class="none">
+                    <li>2.1.1. <a href="#game11">Handling VBA errors</a></li>
+                </ul>
+                <li>2.2. <a href="#game2">Creating an integer random number</a></li>
+                <li>2.3. <a href="#game3">Checking the player's guess</a>
+                <ul class="none">
+                    <li>2.3.1. <a href="#game31">Is Guess &lt; 1 or &gt; 100?</a></li>
+                    <li>2.3.2. <a href="#game32">Is Guess &gt; target?</a></li>
+                    <li>2.3.3. <a href="#game33">Is Guess &lt; target?</a></li>
+                    <li>2.3.4. <a href="#game34">Final stage</a></li>
+                </ul>
+                </li>
+                <li>2.4. <a href="#game24">Counting the number of guesses</a></li>
+            </ul>
+            </li>
+            <li>3. <a href="#history">Showing the game history in cells</a>
+            <ul class="none">
+                <li>3.1. <a href="#history1">Introduction</a></li>
+                <li>3.2. <a href="#history2">Saving the response first</a></li>
+                <li>3.3. <a href="#history3">Showing variable contents in Excel cells</a></li>
+                <li>3.4. <a href="#history4">Clearing the worksheet before each game</a></li>
+            </ul>
+            <li>4. <a href="#check_your_work">Check your work carefully</a></li>
+            <li>5. <a href="#submission">Submission</a></li>
+            </li>
+        </ul>
+        </ul>
+
+    <h2 id="pre-recorded-videos">Pre-recorded videos</h2>
+    <ul>
+        <li>The following videos have sound. Please turn on your speaker or use your headphone to watch the videos</li>
+        <li>The following videos provide step-by-step instructions to help students complete the lab
+
+            <ul>
+                <li><a href="https://hkust.zoom.us/rec/share/z8BKErit-25LH6eUzU_kBIVmR5r5X6a81nUf-fsEyExArUfH3o5LE7_iWxq_K-FZ?startTime=1583034324000" target="_blank">Part 1 - Understand the Given Excel File</a></li>
+                <li><a href="https://hkust.zoom.us/rec/share/6dBpIbj_80dIQYnNzmz6VJx4Pqi7X6a80yQd_PoEzxxlSyre6vBANq1lNQ4wBreM?startTime=1583036048000" target="_blank">Part 2 - Implementing the Guessing Game</a></li>
+                <li><a href="https://hkust.zoom.us/rec/share/uep0Ifb6xHJLWYXmzAKHC4AMOYLLX6a8hydN__MJzU-CT9T2O2C2ykNpsw6AAUeF?startTime=1583040715000" target="_blank">Part 3 - Showing the game history in cells</a></li>
+            </ul>
+
+        </li>
+
+    </ul>
+
+    <h2><a name="understand" id="understand"></a>1. Understand the Given Excel File</h2>
+
+    <ul>
+        <li>You are given an Excel file <a href="guess.xlsm">here</a> to start with</li>
+        <li>
+                This video shows the steps to see the starting code (there's no sound):</li>
+                <video height="654" controls>
+                  <source src="guessing_game_s1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video>
+                <ul>
+                    <li>A direct link to the video is  <a href="guessing_game_s1.mp4">here</a></li>
+                </ul>
+        </li>
+
+        <li>When Excel prompts, you must choose &quot;Enable Macros&quot; or &quot;Enable Content&quot; so that you can run the VBA code
+        <p><img src="images/enable_content.png" alt="Security Warning prompt for contents" /></p></li>
+		<li>There is only one worksheet, which has some text showing the keyboard shortcut to start the macro for this lab</li>
+			<ul>
+			<li>On Windows, you can press <tt>Ctrl+G</tt></li>
+			<li>On Mac, you can press <tt>Option+Cmd+G</tt> because <tt>Ctrl+G</tt> is assigned for a special purpose in Excel on Mac</li>
+			</ul>
+
+        <li>To do any kind of work with VBA you need to select and use the Developer tab:</li>
+
+            <p><a href="images/developerTab1.png"><img src="images/developerTab1.png"  alt="Showing the Developer tab" /></a><br />
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+
+	<li>The Developer tab looks like this:</li>
+
+            <p><a href="images/developerTab2.png"><img src="images/developerTab2.png" width="800" alt="Showing the Developer tab" /></a><br />
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+
+	<li>Can you see it in your Excel? If not, you need to tell Excel to show it:</li>
+	<ol>
+		<li>Select <i>File</i></li>
+		<li>Select <i>Options</i></li>
+		<li>Select <i>Customise Ribbon</i></li>
+		<li>Make sure that 'Developer' has a tick next to it, on the right side:</li>
+
+            <p><a href="images/developerTab3.png"><img src="images/developerTab3.png" width="600" alt="Showing the Developer tab" /></a><br />
+
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+		<li>Select <i>OK</i></li>
+	</ol>
+	<li>If you are using Excel on Mac, you may need to follow <a href="https://support.office.com/en-us/article/use-the-developer-tab-to-create-or-delete-a-macro-in-excel-2016-for-mac-5bd3dfb9-39d7-496a-a812-1b5e8e81d96a" target="_blank">the instruction shown on this Microsoft support page</a></li>
+
+
+    <li>Some beginning code is already given in the <tt>GuessNumber</tt> macro</li>
+	<li>You can find it here:</li>
+		<ol>
+			<li>Select <i>Macros</i> in the <i>Developer</i> tab</li>
+
+            <p><a href="images/macro01.png"><img src="images/macro01.png" width="600" alt="the Macro Window" /></a><br />
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+
+			<li>A window like this will be shown:</li>
+
+            <p><a href="images/macro02.png"><img src="images/macro02.png" width="300"  alt="the Macro Window" /></a><br />
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+
+			<li>Now select the <tt>GuessNumber</tt> macro and choose 'Edit'</li>
+
+            <p><a href="images/macro03.png"><img src="images/macro03.png" width="300" alt="the Macro Window" /></a><br />
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+
+			<li>You will see the following display:</li>
+
+            <p><a href="images/macro04.png"><img src="images/macro04.png" width="500" alt="The VBA Editor" /></a><br />
+            <span class="footnote">Click on the image to see it in its original size</span></p>
+
+		</ol>
+
+	<li>The VBA editor is showing you the content of the macro</li>
+	<li>As you can see, your macro has a start (<i>Sub Guess()</i>) and an end (<i>End Sub</i>)</li>
+
+    </ul>
+
+
+
+        <h2><a name="game"></a>2. Implementing the Guessing Game</h2>
+        <h3><a name="game1"></a>2.1. Introduction</h3>
+        <ul>
+            <li>Here is a flow diagram of the main part of the game:
+            <p><img style="border:0px;" src="images/flowchart.png" alt="Flow diagram" /></p>
+            </li>
+            <li>The guessing game program will take the input from the user with an <tt>InputBox</tt> and return the message in a <tt>MsgBox</tt></li>
+        </ul>
+
+        <h3><a name="game11"></a>2.1.1. Handling VBA errors</h3>
+        <ul>
+        	<li>It is unavoidable for human beings to make mistakes</li>
+        	<li>But it is important to learn how to deal with errors, especially when programming</li>
+        	<li>VBA may show message boxes with some hints where things might have gone wrong</li>
+        	<p><img src="images/error1.png" width="200" alt="Error 1" /> <img src="images/error2.png" width="200" alt="Error 2" /> <img src="images/error3.png" width="200" alt="Error 3" /> <img src="images/error4.png" width="200" alt="Error 4" /> <strong>. . .</strong></p></li>
+        	<li>Sometimes when an error happens VBA allows you to &quot;End&quot; or &quot;Debug&quot;:<br/>
+        	<p><img src="images/error5.png" width="300" alt="Error 5" /></p></li>
+        	<li>If you press debug you will see the error being highlighted in the VBA editor, like this:<br/>
+        	<p><img src="images/debug1.png" alt="Debug methods" /></p></li>
+        	<li>You can look at the highlighted lines to see if anything is wrong</li>
+        	<li>Sometimes for some simple errors, the code will run again after fixing</li>
+        	<li>However, the program may not start anymore if it is in &quot;Break mode&quot;, like this:<br/>
+        	<p><img src="images/debug2.png" alt="Break mode" /></p></li>
+        	<li>In this case, you have to choose the <tt>Reset</tt> button to resume the program:<br/>
+        	<p><img src="images/debug3.png" alt="Reset button" /></p></li>
+            <li>Often it is very time consuming to do debugging, so type everything carefully!
+                <br>
+                For example
+                <ul>
+                    <li><tt>CurrentRow</tt> is an integer variable defined at the beginning of <tt>GuessNumber</tt> macro </li>
+                    <li>Some students may accidentially type the variable as <tt>CurrentR0w</tt> (i.e. a number zero instead of a letter 'o')</em></li>
+                    <li>Some students may skip several letters when using the variable (i.e. <tt>CurrRow</tt> instead of <tt>CurrentRow</tt>)</li>
+
+                    <li>To avoid typo mistakes, you can scroll up to the beginning of the macro, copy the variable name, and then paste the variable name to an appropriate place</li>
+
+
+                </ul>
+
+
+            </li>
+        </ul>
+
+
+
+
+        <h3><a name="game2"></a>2.2. Creating an integer random number</h3>
+
+        <ul>
+            <li>When the program starts it needs to create an integer random number which is the number that the player has to guess</li>
+            <li>The code shown in the starting Excel file is not complete</li>
+            <li>You have to write the code to finish it</li>
+            <li>First, you need to use the VBA function <tt>Rnd()</tt> to generate the random number as follows:
+            <pre>Randomize
+Target = Int(Rnd() * 100) + 1</pre>
+            </li>
+            <li>The code above generates a random integer number in a range of 1 to 100 (including 1 and 100), e.g. 54</li>
+		<ul>
+		<li>Handling random numbers will be discussed more in the lectures</li>
+		</ul>
+            <li>So now the variable <tt>Target</tt> stores the random number that the player has to guess</li>
+	    <li>Let's also tell the user that this number is ready:
+	    <pre>MsgBox "I am thinking of a number." & vbNewLine & vbNewLine & "What number am I thinking of?"</pre>
+	    </li>
+			<ul>
+				<li>As in Excel formulas, the <tt>&</tt> symbol is for concatenating strings</li>
+				<li><tt>vbNewLine</tt> means 'move to the next line'</li>
+			</ul>
+            <li>The player needs to guess the number in a loop as follows. It's pseudo-code. Can you write it in VBA?
+            <pre><span class="todo" style="color:black">While Guess is not equal to Target</span>
+
+    Guess = InputBox("Please enter a number between 1 and 100:", "Guessing Game")
+
+    <span class="todo" style="color:black">check what the user types in, if it is correct, then we have finished
+Wend</span></pre>
+            </li>
+            <li>The <tt>InputBox</tt> function shows a window which asks the player to enter a guess
+            <p><img src="images/input.png" alt="The player input" /></p>
+            </li>
+            <li>Then we check if the player has a correct guess</li>
+		<li><b>How to stop the loop?</b></li>
+            <li>Since the loop goes on forever (unless the user can guess the number), it may show infinite message boxes</li>
+            <li>It is hard to stop the program running because the VBA editor is not responsive when a message box is shown</li>
+            <li>When this happens you have to press this on your keyboard: <tt>Ctrl+Break</tt>
+            <ul>
+            	<li>The <tt>Pause/Break</tt> key is sometimes on the top right corner of your keyboard<br/>
+            	<p><img style="border:0px;" src="images/break_key.jpg" width="400" alt="Break key on keyboard" /></p></li>
+                <li>On a Mac computer, there is no <tt>Break</tt> key,
+
+                    <del>and you have to press <tt>Cmd + .</tt> <em>(the dot)</em> instead</del>
+
+                    <em> ADDED on Friday, 4 October, 2019 at 2PM: </em> you have to press “Command+Option+Esc”. A dialog will be shown to allow you to select Excel to quit. The VBA program will be restored when you reopen the Excel file.
+
+
+                </li>
+            </ul>
+        </ul>
+
+        <h3><a name="game3"></a>2.3. Checking the player's guess</h3>
+
+        <ul>
+            <li>You have to write the code to check if the player has a correct guess inside the <tt>While</tt> loop</li>
+            <li>Check the flow chart in <a href="#game1">Section 2.1</a> for the procedure</li>
+            <li>The player's guessed number is stored in the variable <tt>Guess</tt></li>
+        </ul>
+
+        <h4><a name="game31"></a>2.3.1. Is Guess &lt; 1 or &gt; 100?</h4>
+
+        <ul>
+            <li>Before we check if the player has the correct guess, we have to make sure the guessed number is in the range of 1 to 100</li>
+            <li>If the guessed number is lower (smaller) than 1 or higher (greater) than 100, we tell the player to enter a number in the correct range, i.e.
+            <pre><span class="b">If</span> Guess &lt; 1 <span class="b">Or</span> Guess &gt; 100 <span class="b">Then</span>
+    MsgBox "Please enter an integer number between 1 and 100."
+<span class="b">End If</span></pre>
+            </li>
+            <li>Finally, we can compare the guessed number with the random number that was generated at the beginning of the game</li>
+        </ul>
+
+        <h4><a name="game32"></a>2.3.2. Is Guess &gt; Target?</h4>
+
+        <ul>
+            <li>The guessed number is higher (greater) than the player's random number, e.g.
+            <table class="simple">
+                <tr>
+                    <th>Guess</th>
+                    <th>Target</th>
+                </tr>
+                <tr>
+                    <td style="text-align: center">80</td>
+                    <td style="text-align: center">75</td>
+                </tr>
+            </table>
+            </li>
+            <li>In this situation you need to tell the player to try again with a lower (smaller) number</li>
+        </ul>
+
+        <h4><a name="game33"></a>2.3.3. Is Guess &lt; Target?</h4>
+
+        <ul>
+            <li>The guessed number is lower (smaller) than the player's random number, e.g.
+            <table class="simple">
+                <tr>
+                    <th>Guess</th>
+                    <th>Target</th>
+                </tr>
+                <tr>
+                    <td style="text-align: center">10</td>
+                    <td style="text-align: center">75</td>
+                </tr>
+            </table>
+            </li>
+            <li>In this situation you need to tell the player to try again with a higher (greater) number</li>
+        </ul>
+
+        <h4><a name="game34"></a>2.3.4. Final stage</h4>
+
+        <ul>
+            <li>If none of the above conditions is correct, the guessed number will be the computer's random number</li>
+            <li>In this situation you need to tell the player he/she has a correct guess, e.g.
+            <p><img src="images/correct.png" alt="Correct guess" /></p>
+            </li>
+        </ul>
+
+        <h3><a name="game24"></a>2.4. Counting the number of guesses</h3>
+
+        <ul>
+            <li>After the above steps you now have a working game</li>
+            <li>In this part, we will add an additional feature to show the number of guesses that were made before the player got the right answer</li>
+            <li>For example, &quot;It took you 8 guesses to get the number!&quot;</li>
+            <li>To do this you would have to
+            <ol>
+                <li>Make a variable at an appropriate place, which will be used to count the guesses, i.e.:
+                <pre>NumberOfGuesses = 0</pre>
+                </li>
+                <li>Add 1 to the variable every time a guess is made, like this:
+                <pre>NumberOfGuesses = NumberOfGuesses + 1</pre>
+                </li>
+                <li>Show the value of the variable when the player gets the right answer</li>
+            </ol>
+            </li>
+            <li>
+                    This video shows the intermediate result of the guessing game up to section 2.4 (there's no sound):</li>
+                    <video height="654" controls>
+                      <source src="guessing_game_s2.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                    </video>
+                    <ul>
+                        <li>A direct link to the video is  <a href="guessing_game_s2.mp4">here</a></li>
+                    </ul>
+            </li>
+        </ul>
+
+
+        <h2><a name="history"></a>3. Showing the game history in cells</h2>
+
+        <h3><a name="history1"></a>3.1 Introduction</h3>
+
+        <ul>
+            <li>You need to display the game history in Excel cells</li>
+            <li>The flow of the game is the same as above, except that we are now showing the history to Excel cells
+            </li>
+        </ul>
+
+        <h3><a name="history2"></a>3.2 Saving the response first</h3>
+
+        <ul>
+            <li>Instead of displaying the hints and other messages with <tt>MsgBox</tt> directly, let's save the sentence into a variable for further use, e.g.:<br/>
+            <pre><span class="comment">' MsgBox "Too high." ' This code is removed by converting it into a comment</span>
+Response = "Too high."</pre>
+            </li>
+			<li>You can do the same for all the four cases of response</li>
+            <li>Then this <tt>Response</tt> variable should be displayed in a <tt>MsgBox</tt> at the end of every loop</li>
+        </ul>
+
+        <h3><a name="history3"></a>3.3 Showing variable contents in Excel cells</h3>
+
+        <ul>
+            <li>You can use VBA code <tt>Cells(RowNumber, ColumnNumber).Value = ...</tt> to write to a cell at row <tt>RowNumber</tt> and column <tt>ColumnNumber</tt></li>
+			<li>We can write the history like this:
+			<p><img src="images/game_history.png" alt="Excel Game History" /></p></li>
+			<li>You can use the variable <tt>CurrentRow</tt> to keep track of which row to write to</li>
+			<ul>
+				<li>Before the game, this variable is already initialized as 2</li>
+				<li>Therefore the writing would start at row 2</li>
+			</ul>
+			<li>Then you can show the response at an appropriate location by:
+			<pre>Cells(CurrentRow, 2).Value = Response</pre></li>
+
+			<ul>
+				<li>This writes the response on column B</li>
+				<li>The row number should increase by 1 every time after writing</li>
+			</ul>
+
+			<li>Similarly, you can also show the player's guess in Column A</li>
+        </ul>
+
+        <h3><a name="history4"></a>3.4 Clearing the worksheet before each game</h3>
+
+        <ul>
+			<li>The history should be cleared every time before a game</li>
+			<li>You can do it using this command at an appropriate location:
+			<pre>Range("A2:B102").ClearContents</pre></li>
+			<ul>
+				<li>This will clear 101 rows of columns A and B</li>
+				<li>But it is unlikely that the game will go down that far!</li>
+			</ul>
+
+        </ul>
+
+    <h2 id="check_your_work">4. Check your work carefully</h2>
+    <ul>
+        <li>Run your project and check it works correctly </li>
+        <li>You should try entering different inputs to test if your system responds appropriately</li>
+        <li>
+            This video shows the finished game being played (there's no sound):</li>
+            <video height="654" controls>
+            <source src="guessing_game_s3.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video>
+            <ul>
+            <li>A direct link to the video is  <a href="guessing_game_s3.mp4">here</a></li>
+            </ul>
+        </li>
+        <li>
+            This video shows the finished game with a different random number (there's no sound):</li>
+            <video height="654" controls>
+            <source src="guessing_game_s4.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video>
+            <ul>
+            <li>A direct link to the video is  <a href="guessing_game_s4.mp4">here</a></li>
+            </ul>
+        </li>
+        <li>Besides the normal cases shown in the video, you should also check some special cases. For example,
+            <ul>
+                <li>Enter a number larger than 100 (e.g. 101)</li>
+                <li>Enter a number smaller than 1 (e.g. 0)</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2 id="submission">5. Submission</h2>
+	<ul>
+        <li>This lab is a hand-in lab</li>
+        <li>You need to submit your Excel file, probably called <strong>guess.xlsm</strong>
+
+            <ul>
+                <li>The xlsm file format must be used in order to keep the VBA code, and we discussed the correct method to save the Excel file in <a href="../02/#savefile">lab2</a></li>
+            </ul>
+        </li>
+        <li>Enter your name and student ID number in somewhere at/near the top of column C, for example Cell C1 (as column A and B are occupied), so it can be easily seen</li>
+        <li>The marking scheme of the lab is <a href="marking_scheme.html">here</a></li>
+        <li>You need to submit your work <strong>before 27 Mar 11:59pm</strong>
+            to the COMP1022Q Canvas site here:
+        <p>
+            <a target="blank" href="https://canvas.ust.hk/courses/29889/assignments/97123">https://canvas.ust.hk/courses/29889/assignments/97123</a>
+        </p>
+        </li>
+        <li><b>Submit your work early</b>, days before the deadline!</li>
+        <li>If you find that you have made a mistake after you have submitted your work, you can submit again, as many times as you like, BEFORE the deadline
+            <ul>
+                <li>We will mark the most recent submission which is before the deadline</li>
+            </ul>
+	    </li>
+
+
+	</ul>
+</body>
+</html>

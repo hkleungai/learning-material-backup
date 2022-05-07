@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>COMP1022Q Lab 4 - Throwing Game</title>
+    <link href="../../../css/lab.css" rel="stylesheet" />
+
+    <style>
+       img {
+            border: 1px solid grey;
+        }
+        pre {width: 65em; }
+        pre .comment { color:rgb(0,128,0); } /* Fix color on comment line */
+    </style>
+</head>
+
+<body>
+
+    <h1>
+        <span class='lab'>COMP1022Q Lab 4</span>
+        <span class='title'>Throwing Game</span>
+    </h1>
+
+
+    <h2>What You Will Learn in This Lab</h2>
+    <ul>
+        <li>In this lab, you will gain experience in the following areas:
+        <ul>
+            <li>Using cell formulas
+                <ul>
+                    <li>Using named cells in formulas. For example, <tt>Speed</tt> and <tt>Gravity</tt> are named cells used in this lab</li>
+                    <li>Using the <tt>INT</tt> function to convert a number with a decimal place to an integer </li>
+                </ul>
+            </li>
+            <li>VBA Programming
+            <ul>
+                <li>Using <tt>Integer</tt> variables </li>
+                <li>Using a For loop (<tt>For...Next</tt>)</li>
+                <li>Using <tt>MsgBox</tt> to output a message</li>
+                <li>Generating a random number by using <tt>Rnd</tt> and <tt>Int</tt></li>
+                <li>Using conditional statements (<tt>If...End If</tt>)</li>
+                <li>Terminating a For loop early (<tt>Exit For</tt>)</li>
+                <li>Accessing Excel cells from VBA using <tt>Worksheets</tt> and <tt>Cells</tt></li>
+                <li>Changing the background colour of a cell using <tt>.Interior.ColorIndex</tt></li>
+            </ul>
+            </li>
+        </ul>
+        </li>
+    </ul>
+
+
+    <h2>Getting Started</h2>
+    <ul>
+
+        <li>We don't actually show a ball, we just show the path of the ball </li>
+        <li>This video shows the game being played (there's no sound):
+            <br>
+        <video height="600" controls>
+            <source src="throwing_ball_overview.mp4" type="video/mp4">
+                <track src="throwing_ball_overview.vtt" label="English captions"
+                    kind="captions" srclang="en" default>
+            Your browser does not support the video tag.
+        </video>
+
+            <ul>
+                <li>A direct link to the video is  <a href="throwing_ball_overview.mp4">here</a></li>
+            </ul>
+
+    </li>
+
+        <li>An Excel file (throwing_lab.xlsm) is given to you as a starting point <a href="throwing_lab.xlsm">here</a> (right click on the link, select 'Save Target As' or something similar)
+            <ul>
+                <li>Please put the file in your local hard disk</li>
+                <li>Carefully remember where you have put your file so you can find it later!</li>
+            </ul>
+
+        </li>
+
+
+        <li>After you finish your work please remember to store it somewhere safe (e.g. your USB disk)</li>
+
+
+    </ul>
+
+    <h2>Overview</h2>
+
+    <ul>
+        <li>In this lab, you will make a "throwing ball" game</li>
+        <li>Here is an example of what you see when you play the finished game</li>
+
+            <a href="images/game_display.png"><img src="images/game_display.png" height="500" alt="Game Display" /></a><br />
+                <span class="footnote">Click on the image to see its original size</span>
+
+
+            <ul>
+                <li>In this example image, the ball path is shown using green cells </li>
+                <li>In our program, we will assign a random colour to the ball path every time when we throw a ball
+             </li>
+                <li>The target is shown using a red cell </li>
+            </ul>
+
+        </li>
+
+
+        <li>Here are the steps to play the throwing ball game:
+
+            <ol>
+                <li><strong>Create the Target - </strong>Press <tt>Ctrl-Shift-T</tt>  to remove all previously added colours and create a target at a random position (in red colour) on the screen</li>
+
+                <li><strong>Adjust the Values - </strong> Modify the cell values of <tt>Gravity</tt> and <tt>Speed</tt></li>
+
+                <li><strong>Throw the Ball - </strong> Press <tt>Ctrl-Shift-S</tt> to throw a ball</li>
+
+                <li>Please note that <tt>Ctrl-Shift-T</tt> and <tt>Ctrl-Shift-S</tt> work on Mac</li>
+		<ul>
+		<li>The path of the ball is shown by changing the background colour of cells, using a random colour</li>
+		</ul>
+
+            </ol>
+        </li>
+
+        <li>To make the game work you need to do the following things
+
+            <ol>
+                <li>
+                    <a href="#calculate_ball_path">Use Cell Formulas to Calculate the Ball Path in the Calculations Worksheet</a>
+
+                    <ul class="none">
+			            <li>1.1 <a href="#using_gravity_and_speed">Things We Need to Calculate the Ball Positions</a></li>
+                        <li>1.2 <a href="#calculate_y">Calculate Vertical Positions (Y) using the Horizontal Positions (X), Gravity, and Speed</a></li>
+                        <li>1.3 <a href="#calculate_row_col">Calculate Row and Column values using the (X, Y) coordinates</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#init_background_ball">Create a Macro for Creating a Target</a>
+
+                    <ul class="none">
+                        <li>2.1 <a href="#create_macro_overview">Overview</a></li>
+                        <li>2.2 <a href="#init_every_cell">Initialise Every Cell to White</a> </li>
+                        <li>2.3 <a href="#calculate_random_target">Calculate a Random Position for the Target Cell</a></li>
+                        <li>2.4 <a href="#modify_target_color">Modify the Background Colour of the Target Cell</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#throw_ball">Create a Macro for Throwing a Ball</a>
+                    <ul class="none">
+                        <li>3.1 <a href="#throw_ball_overview">Overview</a></li>
+                        <li>3.2 <a href="#random_background_color">Randomly Select a Background Colour for the Ball</a></li>
+                        <li>3.3 <a href="#calculate_ball_loop">Calculate and Update the Ball Position Using a Loop</a>
+
+                            <ul class="none">
+                                <li>3.3.1 <a href="#ball_row_column">Take the Ball Row and Column from the Calculations worksheet</a></li>
+                                <li>3.3.2 <a href="#check_row_high_low">Check if the Ball Row is Too High or Too Low</a></li>
+                                <li>3.3.3 <a href="#check_hit_target">Check whether the Ball Hits the Target</a></li>
+                            </ul>
+
+
+                        </li>
+                        <li>3.4 <a href="#test_macro">Test the Macro</a></li>
+                    </ul>
+                </li>
+                <li><a href="#check">Check your Game Carefully</a></li>
+                <li><a href="#submission">Submission</a></li>
+
+            </ol>
+        </li>
+    </ul>
+
+    <h2 id="pre-recorded-videos">Pre-recorded videos</h2>
+    <ul>
+        <li>The following videos have sound. Please turn on your speaker or use your headphone to watch the videos</li>
+        <li>The following videos provide step-by-step instructions to help students complete the lab
+
+            <ul>
+                <li><a href="https://hkust.zoom.us/rec/share/4-tKPq3W111JBYHO6G3EdK8CDJj-eaa81iIdqPpYzzM3EDSkQIVIzASxM3ayVE0?startTime=1583127999000" target="_blank">Lab Overview and Demonstration of the Expected Solution</a></li>
+                <li><a href="https://hkust.zoom.us/rec/share/1fx1P5fbsUBIUIXj52HAWKVxLIj7T6a82iAf-vFen0l4M2NQcggAy5Y4VOiRyZk7?startTime=1583129647000" target="_blank">Part 1 - Use Cell Formulas to Calculate the Ball Path in the Calculations Worksheet</a></li>
+                <li><a href="https://hkust.zoom.us/rec/share/ou1kDoDM-VxIY9aS5hv1XP4wIoD3X6a81iRN_adYyKkD6bL8Nvp8kzUL_jzBI4w?startTime=1583208271000" target="_blank">Part 2 - Create a Macro for Creating a Ball</a></li>
+                <li><a href="https://hkust.zoom.us/rec/share/yOdJHev9_FtOHKeU6hvPaqF_IJjvT6a80yEZqfFby0g1CXEwPXcjihbl4Bm1lzar?startTime=1583209661000" target="_blank">Part 3 - Create a Macro for Throwing a Bal</a></li>
+
+            </ul>
+
+        </li>
+
+    </ul>
+
+
+
+    <h2><a name="calculate_ball_path" id="calculate_ball_path"></a>1. Use Cell Formulas to Calculate the Ball Path in the Calculations Worksheet</h2>
+
+
+    <h3><a name="using_gravity_and_speed" id="using_gravity_and_speed">1.1 Things We Need to Calculate the Ball Positions</a></h3>
+
+    <ul>
+        <li>We don't actually show a ball, we just show the path of the ball </li>
+        <li>This video shows the changes in the Calculations worksheet when you change the Gravity and Speed values (there's no sound):
+            <br>
+            <video controls>
+                <source src="calculations_changes.mp4" type="video/mp4">
+                    <track src="calculations_changes.vtt" label="English captions"
+                    kind="captions" srclang="en" default>
+                Your browser does not support the video tag.
+            </video>
+
+            <ul>
+                <li>A direct link to the video is  <a href="calculations_changes.mp4">here</a></li>
+            </ul>
+
+        </li>
+
+        <li>The calculations which work out the position of the ball are done in the Calculations worksheet, using cell formulas</li>
+	<li>The formulas need these two inputs from the Game worksheet to calculate the ball positions:</li>
+
+            <ol>
+
+                <li>
+                    A cell called <tt>Gravity</tt>, located at <tt>B7</tt> of the Game worksheet
+		</li>
+                    <img src="images/box_gravity.png" style="width:200px;"  alt="Gravity Box" />
+                    <ul>
+                        <li>This value doesn't exactly mean gravity</li>
+			<li>It is just a number which 'pulls' the ball downwards</li>
+                    </ul>
+
+		<ul>
+			<li>The value given to you in the starter Excel file is <tt>0.8</tt></li>
+			<li>The value can be changed by the user</li>
+		</ul>
+
+
+                <li>A cell called <tt>Speed</tt>, located at <tt>B8</tt> of the Game worksheet</li>
+
+                    <img src="images/box_speed.png" style="width:200px;"  alt="Gravity Box" />
+
+		<ul>
+			<li>The value given to you in the starter Excel file is <tt>5</tt></li>
+			<li>The value can be changed by the user</li>
+		</ul>
+
+            </ol>
+
+        </li>
+    </ul>
+
+
+    <h3><a name="calculate_y" id="calculate_y">1.2 Calculate Vertical Positions (Y) using the Horizontal Positions (X), Gravity, and Speed</a></h3>
+
+    <ul>
+
+	<li>This image shows you the area in the Calculations worksheet where we will be working in the following stages:</li>
+
+    <a href="images/before_section_1_2_v2.png">
+	<img src="images/before_section_1_2_v2.png" height="100" alt="Section 1.2 - To Do" /></a><br />
+        <span class="footnote">Click on the image to see its original size</span>
+
+                <li>This image shows the general idea behind the columns:</li>
+
+                    <a href="images/result_row_1_2.png"><img src="images/result_row_1_2.png" height="200px"
+			alt="Result of row 1 and 2 in the Calculations worksheet" /></a>
+			<br>
+                        <span class="footnote">Click on the image to see its original size</span>
+
+        <li>Calculating the column values
+
+
+           <ul>
+            <li>Go to the Calculations worksheet</li>
+            <li>To display the ball path properly, we need to map the (X,Y) coordinates to Excel Rows and Columns</li>
+            <li>Mapping the horizontal position (X) is trivial. The Column value should always be the same as X</li>
+            <li>So the following formula should be applied to Cell <tt>C2</tt>:
+
+                <pre>=A2</pre>
+
+            </li>
+               <li>Copy down the formula to the range in <tt>C2:C101</tt></li>
+
+
+
+           </ul>
+        </li>
+
+        <li>Before writing the formula for the vertical position (Y), let's understand what we are going to calculate
+
+
+            <ul>
+
+                <li>
+                    We can apply the following Excel formula in <tt>B2</tt>, the first cell of the column of vertical position (Y)
+                    <pre>=Speed * A2 - 0.5 * Gravity * A2 * A2</pre>
+                </li>
+
+                <li>For <tt>Speed * A2</tt>, you can treat it as an upward force</li>
+                <li>For <tt> - 0.5 * Gravity * A2 * A2</tt> , you can treat it as a downward force</li>
+                <li>Don't worry too much about what the formula exactly does. This course is not a Physics course!</li>
+                <li><tt>Speed</tt> and <tt>Gravity</tt> are the cells mentioned in the last section</li>
+		<li>We can use those names in any cell formula, which is what we have done here</li>
+                <li>Copy the formula to all the cells below (cells <tt>B2:B101</tt>)</li>
+            </ul>
+
+        </li>
+
+    </ul>
+
+
+
+
+    <h3><a name="calculate_row_col" id="calculate_row_col">1.3 Calculate Row and Column values using the (X, Y) coordinates</a></h3>
+
+
+    <ul>
+
+        <li>
+            Calculating the row values
+            <ul>
+
+                <li>Calculating row values is a bit tricky. You need to first locate the starting position of the ball </li>
+
+                <li>Select the Game worksheet</li>
+			<ul>
+				<li>You can see a black line between row 40 and 41</li>
+                    <a href="images/game_ground.png"><img src="images/game_ground.png" height="200" alt="Ground of the Game" /></a><br />
+                        <span class="footnote">Click on the image to see its original size</span>
+				<li>That is the ground of the throwing ball game</li>
+			</ul>
+
+                <li>In this game, the ball always being thrown from row 40</li>
+                <li>Select the Calculations worksheet by clicking the "Calculations" tab at the bottom</li>
+                <li>The following formula should be applied to Cell <tt>D2</tt>:
+
+                    <pre>=INT(40-B2)</pre>
+                </li>
+                <li>The <tt>INT</tt> function in the above formula is used to convert a number with a decimal place to an integer </li>
+                <li>Let's use Row 2 as an example:
+
+
+                    <ul>
+                        <li><tt>4.6</tt> is the value calculated by the formula in <a href="#calculate_y">section 1.2</a> above</li>
+                        <li><tt>40 - 4.6</tt> is equal to <tt>35.4</tt></li>
+                        <li>If we apply the cell <tt>INT</tt> function, the part after the decimal place will be discarded (there's no rounding)</li>
+                        <li>The result will become <tt>35</tt></li>
+                    </ul>
+                </li>
+
+
+                <li>Copy the formula to the range in <tt>D2:D101</tt> </li>
+
+            </ul>
+
+
+        </li>
+    </ul>
+
+
+    <h2><a name="init_background_ball" id="init_background_ball"></a>2. Create a Macro for Creating a Ball</h2>
+
+
+
+    <h3><a name="create_macro_overview" id="create_macro_overview">2.1 Overview </a></h3>
+
+
+    <ul>
+
+        <li>We don't actually show a ball, we just show the path of the ball </li>
+        <li>This video shows the macro for creating a target being executed (there's no sound):
+            <br >
+            <video controls>
+                <source src="macro_create_target.mp4" type="video/mp4">
+
+                        <track src="macro_create_target.vtt" label="English captions"
+                        kind="captions" srclang="en" default>
+                Your browser does not support the video tag.
+            </video>
+
+            <ul>
+                <li>A direct link to the video is  <a href="macro_create_target.mp4">here</a></li>
+            </ul>
+
+        </li>
+
+        <li>
+
+            Here is a flow diagram of <tt>CreateTarget</tt>
+
+            <p><a href="images/lab4-flowchart-marco1.png"><img style="border:0px;" src="images/lab4-flowchart-marco1.png" height="400" alt="Flowchart of CreateTarget" /></a><br />
+                <span class="footnote">Click on the image to see its original size</span></p>
+
+        </li>
+
+        <li>
+
+            Select Macros in the Developer tab</li>
+
+           <a href="images/macro01.png"><img src="images/macro01.png" height="100" alt="Macro Developer Tab" /></a><br />
+                <span class="footnote">Click on the image to see its original size</span>
+
+
+
+        <li>Select <tt>CreateTarget</tt> and click Edit</li>
+
+
+
+
+
+    </ul>
+
+
+
+    <h3><a name="init_every_cell" id="init_every_cell">2.2 Initialise Every Cell to White </a></h3>
+
+    <ul>
+        <li>First, let's set the background of every cell to white
+
+            <ul>
+                <li>We would like to clear all existing ball paths and any previous target on the screen</li>
+            </ul>
+
+        </li>
+        <li>In VBA, we can type in the following code to achieve the result:
+
+            <pre>Cells.Interior.ColorIndex = 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">'2 = white</span></pre>
+
+            <ul>
+                <li><i>Cells</i>, without a row and column, refer to all cells in the current Excel worksheet</li>
+            </ul>
+
+        </li>
+        <li>In Excel, the colour index of white is 2. A list of colours can be found <a href="all_background_colours.html">here</a></li>
+        <li>To test the current version of the macro
+
+            <ul>
+                <li>Select the Game worksheet by clicking the "Game" tab at the bottom</li>
+                <li>Press <tt>Ctrl-Shift-T</tt> to trigger this macro</li>
+                <li>
+            All cells should be changed back to the white colour
+                </li>
+            </ul>
+
+        </li>
+
+    </ul>
+
+    <h3><a name="calculate_random_target" id="calculate_random_target">2.3 Calculate a Random Position for the Target Cell</a></h3>
+
+    <ul>
+        <li>Next, we need to calculate a random position for the target cell</li>
+        <li>You should store the position in Row and Column respectively</li>
+        <li>Both of them should be a random value in the range from 1 to 40 (inclusive)</li>
+        <li>In VBA, we can type in the following programming statements:
+
+            <pre> Column = Int(Rnd() * 40) + 1
+ Row = Int(Rnd() * 40) + 1</pre>
+
+        </li>
+
+        <li>
+
+            Explanation
+
+            <ul>
+
+        <li><strong><tt>Rnd()</tt></strong> &nbsp; The <tt>Rnd</tt> function generates a random number that is greater than or equal to 0 and less than 1</li>
+        <li><strong><tt>Rnd()*40</tt></strong> &nbsp; Multiplying this value with 40 will give us a number that is greater than or equal to 0 and less than 40</li>
+        <li><strong><tt>Int(Rnd()*40)</tt></strong> &nbsp; Applying a <tt>Int</tt> function will discard the decimal places, which gives us an integer from 0 to 39 (inclusive)</li>
+        <li><strong><tt>Int(Rnd()*40)+1</tt></strong> &nbsp; Adding 1 will give us a random integer from 1 to 40 (inclusive)</li>
+        <li>Generating a random number has been discussed in the lectures </li>
+            </ul>
+
+        </li>
+
+    </ul>
+
+
+    <h3><a name="modify_target_color" id="modify_target_color">2.4 Modify the Background Colour of the Target Cell</a></h3>
+
+    <ul>
+        <li>Next, we need to fill in the target cell using red colour
+
+
+            <ul>
+                <li>A list of colours can be found <a href="all_background_colours.html">here</a></li>
+            </ul>
+        </li>
+
+        <li>As you can see in the list, the colour index of red is 3</li>
+        <li>In VBA, we can type in the following programming statement:
+            <pre>Cells(Row, Column).Interior.ColorIndex = 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">'3 = red</span></pre>
+        </li>
+        <li>Row and Column are 2 integers calculated in the <a href="#calculate_random_target">previous step</a></li>
+        <li>
+            To test the current version of this macro
+
+            <ul>
+                <li>Select the Game worksheet</li>
+                <li>Press <tt>Ctrl-Shift-T</tt> to trigger this macro</li>
+            </ul>
+
+           </li>
+        <li>A target cell in red should be appeared in the range of
+            <tt>A1:AN40</tt> (<tt>AN</tt> is the 40<sup>th</sup> column in Excel)
+        </li>
+    </ul>
+
+
+
+    <h2><a name="throw_ball" id="throw_ball"></a>3. Create a Macro for Throwing a Ball</h2>
+
+    <h3 id="throw_ball_overview">3.1 Overview</h3>
+
+    <ul>
+
+        <li>We don't actually show a ball, we just show the path of the ball</li>
+        <li>This video shows the macro for throwing a ball (there's no sound):
+            <br>
+            <video controls>
+                <source src="throwing_ball_overview.mp4" type="video/mp4">
+                    <track src="throwing_ball_overview.vtt" label="English captions"
+                    kind="captions" srclang="en" default>
+                Your browser does not support the video tag.
+            </video>
+
+            <ul>
+                <li>A direct link to the video is  <a href="throwing_ball_overview.mp4">here</a></li>
+            </ul>
+
+        </li>
+
+        <li>
+            Here is a flow diagram of <tt>ThrowBall</tt></li>
+
+            <a href="images/lab4-flowchart.png"><img style="border:0px;" src="images/lab4-flowchart.png" height="800" alt="Flowchart of ShootBullet" /></a><br />
+                <span class="footnote">Click on the image to see its original size</span>
+
+
+
+        <li>
+            Select Macros in the Developer tab</li>
+
+            <a href="images/macro01.png"><img src="images/macro01.png" height="100" alt="Ground of the Game" /></a><br />
+                <span class="footnote">Click on the image to see its original size</span>
+
+
+        <li>Select <tt>ThrowBall</tt> and click Edit</li>
+
+
+
+    </ul>
+
+
+    <h3><a name="random_background_color" id="random_background_color"></a> 3.2 Randomly Select a Background Colour for the Ball</h3>
+
+
+    <ul>
+        <li>In this step, we would like to calculate a random colour index ranging from 4 (Green) to 18 (Purple)</li>
+        <li>A table of colours can be found <a href="all_background_colours.html">here</a></li>
+        <li>Referring to <a href="#calculate_random_target">step 2.3</a>, can you write the code to generate a random integer from 4 to 18 inclusive in VBA?</li>
+        <li>Here is the starting point for this part:
+            <pre>BallBackgroundColour = &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:green;">'Write your code to generate a random number from 4 to 18</span> </pre>
+        </li>
+    </ul>
+
+    <h3><a name="calculate_ball_loop" id="calculate_ball_loop"> 3.3 Calculate and Update the Ball Position Using a Loop</a></h3>
+
+
+    <ul>
+        <li>Next, we need to complete the For loop</li>
+    </ul>
+
+    <h4><a name="ball_row_column" id="ball_row_column"> 3.3.1 Take the Ball Row and Column from the Calculations worksheet </a></h4>
+
+
+    <ul>
+        <li>In this step, we would like to take the Ball Row and Column from the Calculations worksheet</li>
+        <li>In the Calculations worksheet, we know that
+            <ul>
+                <li>The Ball Column values are stored in <tt>Column C</tt></li>
+                <li>The Ball Row values are stored in <tt>Column D</tt></li>
+
+            </ul>
+
+                </li>
+        <li>In the Calculations worksheet, we also know that the first data row is located at row 2</li>
+        <li>In VBA, we can type in
+            <pre>BallColumn = Worksheets("Calculations").Cells(Row + 1, 3).Value
+BallRow = Worksheets("Calculations").Cells(Row + 1, 4).Value</pre>
+        </li>
+        <li>Can you explain why we have <tt>Row + 1</tt> above?</li>
+    </ul>
+
+    <h4><a name="check_row_high_low" id="check_row_high_low"> 3.3.2 Check if the Ball Row is Too High or Too Low</a></h4>
+
+    <ul>
+        <li>Next, we would like to check whether the ball row is too high or too low</li>
+        <li>We define "too high" and "too low" as follows:
+
+
+            <ul>
+                <li><strong>Too high:</strong> Ball row value is less than or equal to 0. It is because the first row number in Excel is 1</li>
+                <li><strong>Too low:</strong> Ball row value is greater than or equal to 100. </li>
+            </ul>
+        </li>
+        <li>If the ball row value is either too high or too low, we are going to exit the For loop</li>
+        <li>Can you program this part using VBA? Here is the hint:
+
+            <pre><span class="res">If</span> <i style="color:green;">Write down a comparison here</i> <span class="res">Then</span>
+    <span class="res">Exit For</span> <span style="color:green;">' The ball is too high or low, stop the loop</span>
+<span class="res">End If</span></pre>
+
+        </li>
+    </ul>
+
+    <h4><a name="check_hit_target" id="check_hit_target"> 3.3.3 Check whether the Ball Hits the Target</a></h4>
+
+    <ul>
+        <li>First, we need to get the current colour of the cell where the ball is about to go</li>
+        <li>We can write the following VBA code to achieve that:
+            <pre>CurrentCellColour = Cells(BallRow, BallColumn).Interior.ColorIndex</pre>
+        </li>
+        <li><tt>BallRow</tt> and <tt>BallColumn</tt> are calculated in <a href="#ball_row_column">step 3.3.1</a></li>
+        <li>If the ball hits the target, we should show a message: <i>Well done! You have hit the target!</i> using <tt>MsgBox</tt></li>
+        <li>How can we check whether the ball hits the target? Can you program this part using VBA? Here is the hint:
+            <pre><span class="res">If</span> <i style="color:green;">Write down a comparison here</i> <span class="res">Then</span>
+    MsgBox "Well done! You have hit the target!"
+    <span class="res">Exit For</span> <span class="comment">' We have finished, stop the loop</span>
+<span class="res">End If</span></pre>
+        </li>
+
+        <li>In VBA, we can write the following:
+            <pre>Cells(BallRow, BallColumn).Interior.ColorIndex = BallBackgroundColour</pre>
+        </li>
+    </ul>
+
+    <h4><a name="test_macro" id="test_macro"> 3.4 Test the Macro</a></h4>
+    <ul>
+        <li>
+
+            To test the current version of this macro
+
+            <ul>
+                <li>Select the Game worksheet</li>
+                <li>Press <tt>Ctrl-Shift-T</tt> to generate a target, if you haven't got one</li>
+                <li>Press <tt>Ctrl-Shift-S</tt> to throw a ball</li>
+                <li>Please note that <tt>Ctrl-Shift-T</tt> and <tt>Ctrl-Shift-S</tt> work on Mac</li>
+            </ul>
+
+
+
+           </li>
+
+
+        <li>You should see something like this:
+        </li>
+
+        <a href="images/game_display.png"><img src="images/game_display.png" height="500" alt="Game Display" /></a><br />
+            <span class="footnote">Click on the image to see its original size</span>
+
+
+    </ul>
+
+
+        <h2><a name="check" id="check">4. Check your Game Carefully</a></h2>
+
+	<ul>
+
+        <li>Now your game should be complete</li>
+
+	<li>Check it carefully by trying all the different things</li>
+            <ol>
+                <li><strong>Create the Target - </strong> Press <tt>Ctrl-Shift-T</tt> to create a target</li>
+		<ul>
+			<li>This will remove all previously added colours</li>
+			<li>Then a target will be created at a random position (in red colour) on the screen</li>
+			<li>You can repeatedly run this macro to repeatedly generate a new target</li>
+		</ul>
+
+                <li><strong>Adjust the Values - </strong> Modify the values in the <tt>Gravity</tt> and <tt>Speed</tt> cells</li>
+		<ul>
+			<li>These values are referred to in the formulas in the Calculations worksheet</li>
+			<li>That means as soon as one of the two values changes, the results of all the fomulas will immediately change</li>
+		</ul>
+
+                <li><strong>Throw the ball  - </strong> Press <tt>Ctrl-Shift-S</tt> to throw a ball
+
+                    <ul>
+                            <li>The throwing of the ball uses the values in the Calculations worksheet</li>
+                            <li>The path of the ball is shown by changing the background colour of cells, using a random colour</li>
+                            <li>You can repeatedly run this macro to repeatedly throw a ball using a random colour</li>
+                        </ul>
+
+                </li>
+
+            </ol>
+
+	</ul>
+
+    <h2 id="submission">5. Submission</h2>
+	<ul>
+        <li>This lab is a hand-in lab</li>
+        <li>You need to submit your Excel file, probably called <strong>throwing_lab.xlsm</strong>
+
+            <ul>
+                <li>The xlsm file format must be used in order to keep the VBA code, and we discussed the correct method to save the Excel file in <a href="../02/#savefile">lab2</a></li>
+            </ul>
+        </li>
+        <li>Enter your name and student ID number in somewhere at/near the top of column D, for example Cell D1 (as the other columns are occupied), so it can be easily seen</li>
+        <li>The marking scheme of the lab is <a href="marking_scheme.html">here</a></li>
+        <li>You need to submit your work <strong>before 3 Apr 11:59pm</strong>
+            to the COMP1022Q Canvas site here:
+        <p>
+            <a target="blank" href="https://canvas.ust.hk/courses/29889/assignments/103510">https://canvas.ust.hk/courses/29889/assignments/103510</a>
+        </p>
+        </li>
+        <li><b>Submit your work early</b>, days before the deadline!</li>
+        <li>If you find that you have made a mistake after you have submitted your work, you can submit again, as many times as you like, BEFORE the deadline
+            <ul>
+                <li>We will mark the most recent submission which is before the deadline</li>
+            </ul>
+	    </li>
+	</ul>
+
+</body>
+</html>
