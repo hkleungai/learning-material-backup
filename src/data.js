@@ -1,5 +1,5 @@
 var categorizedCourses = {
-    'Algorithm Analysis': [
+    'Algorithmic Study': [
         {
             code: 'COMP 2711H',
             title: 'Honors Discrete Mathematical Tools for Computer Science',
@@ -22,6 +22,13 @@ var categorizedCourses = {
         {
             code: 'COMP 3511',
             title: 'Operating System',
+            semesters: ['Spring 2022']
+        }
+    ],
+    'Computer Vision / Graphics': [
+        {
+            code: 'COMP 4451',
+            title: 'Game Programming',
             semesters: ['Spring 2022']
         }
     ],
