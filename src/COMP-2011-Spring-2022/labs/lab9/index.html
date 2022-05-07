@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>COMP2011 Lab 9</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+
+  <!-- For code highlighting -->
+  <script src='../sh/shCore.js' type='text/javascript'></script>
+  <!--script src='./sh/shAutoloader.js' type='text/javascript'></script-->
+  <script src='../sh/shBrushCpp.js' type='text/javascript'></script>
+  <script src='../sh/loadcode.js' type='text/javascript'></script>
+  <link href='../sh/shCore.css' rel='stylesheet' type='text/css'>
+  <link href='../sh/shThemeDefault.css' rel='stylesheet' type='text/css'>
+
+  <style>
+    .input {
+      color: #00ff00;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">COMP2011 Lab 9</div>
+      <div class="list-group list-group-flush">
+        <a href="#Intro" class="list-group-item list-group-item-action bg-light">Introduction</a>
+        <a href="#Task" class="list-group-item list-group-item-action bg-light">Tasks</a>
+        <a href="#Implementation" class="list-group-item list-group-item-action bg-light">Implementation</a>
+        <a href="#Output" class="list-group-item list-group-item-action bg-light">Expected Output</a>
+        <a href="#Grade" class="list-group-item list-group-item-action bg-light">Grading Scheme</a>
+        <span class="list-group-item list-group-item-action bg-light">Prepared by: HUANG, Xinyang</span>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+      	<div class="col-sm-9">
+        <span class="navbar-toggler-icon" id="menu-toggle"></span>
+		</div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/">Course Webpage</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/forum.html">Online Forum</a>
+            </li>
+            <!--li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li-->
+          </ul>
+        </div>
+      </nav>
+
+      
+      <div class="col-sm-12 col-lg-12 container">
+        <h1>COMP2011 Lab 9</h1><br/>
+        <figure class="figure mx-auto d-block">
+                <img src="Twitter.png" class="figure-img mx-auto d-block" width=60% alt="Responsive image" style="max-width:1000px;"> <figcaption class="figure-caption text-right">figure 1: An example of Twitter</figcaption>
+        </figure>
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Intro">
+        <h2 class="mt-4">Introduction</h2>
+        <p>
+          In this lab, you will use the <b>Link List</b> to design a simple <b>Twitter</b>. Please download the <a href="./skeleton.zip">skeleton code</a> firstly. It is better to read this lab page and skeleton code together.
+        <p>
+          The skeleton.zip inludes:<br>
+          <img src="./project_screenshot.png"></img><br>
+        <p>
+          Real Twitter maintains several users, and each user has an id. User behaviour includes: <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;1. Post a tweet.<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;2. Follow other users. <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;3. Get the several most recent news feeds from himself and the following users. <br>
+        <p>
+          &nbsp;&nbsp;&nbsp;&nbsp;In this lab, we will try to design a simple Twitter, which allows users to perform all four actions described above. The skeleton code provides a basic structure of Twitter, and you only need to fill your code in a fixed position (between "Your code begin at here" and "Your code end at here" in <b>myTwitter.cpp</b>).
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Task">
+        <h2 class="mt-4">Task Description</h2>
+        <h4 class="mt-4">Description of myTwitter.h</h4>
+        <p>
+          In this section, we will describe the key variables or structures to help you understand the skeleton code. 
+        <p>
+          <b>struct Tweet</b>: <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;Maintain a tweet send by one User. Each Tweet includes a timestamp and a tweet_id. Structure Tweet is actually a Link list and it contains Tweet *p_next_tweet to point to the next structure Tweet. <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<b>Tweet.timestamp</b>: Represents the time it was sent. The skeleton code will maintain a globle time (int current_time in myTwitter.cpp) and assign this attribute aotumatically.<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<b>Tweet.tweet_id</b>: Consists of user_id and timestamp and the first number of a tweet_id is the user id. Example: User 1 send a tweet at time 10, then the tweet id is 1010; User 2 send a tweet at time 11, then the tweet id is 2011.<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<b>Tweet.p_next_tweet</b>: Point to next node of the link list.<br>
+
+        <p>
+          <b>struct User</b>: <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;Maintain user information, which includes user_id, link list of Tweet and users who are following.<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<b>User.self_id</b>: The id of user, vary from 0 to MAX_USER-1.<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<b>User.p_my_tweets_head</b>: The head node of link list (Tweet).<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<b>User.followings_size</b>: The size of following users, vary from 0 to MAX_FOLLOWEE.<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<b>User.followings[MAX_FOLLOWEE]</b>: An array of structure User, which represents the users who are following. Note: Only elements with index less than followings_size are valid (Exp: followings_size=2, User.followings=[A, B, NULL, NULL, ...])<br>
+
+        <h4 class="mt-4">Task 1: isEmpty</h4>
+        <p>
+          Goal: Determines if the specified user has sent a tweet (actually determines whether a given linked table is empty or not).<br>
+          Input: user_id: int, must smaller than MAX_USER. Used to get the User in UsrList<br>
+          Return: True (empty) or False (not empty)<br>
+          <br>
+          <b>Hint</b>: Use UsrList[user_id].p_my_tweets_head to visit the head node of user's tweet link list.
+
+        <h4 class="mt-4">Task 2: postTweet</h4>
+        <p>
+          Goal: Post a tweet for a given user (actually add a link node to the link list).<br>
+          Input: user_id.<br>
+          Return: None.<br>
+        <p>
+          <img src="./add_node.png" width="800">
+        <p>
+          &nbsp;&nbsp;&nbsp;&nbsp;The skeleton code will help to create a new Tweet (new link node). You just need add the new node to the <b>front</b> of current link list. As shown in the picture above, the new node should point to the current head node.
+
+        <h4 class="mt-4">Task 3: printNewsFeed</h4>
+        <p>
+          Description: <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;One main function of real Twitter is to display several most recent news feeds from <b>the user A and following users of A</b>. For example, user 1 is following user 2 and 3. Then, user 1 can see several most recent news feeds from user 1, 2 and 3. In Task 3, we will try to implement this function according to the timestamp of each Tweet (A larger timestamp means that the Tweet was sent more recently). In Twitter.h, max_recent_num means the total number of recent news feeds which need to be displayed. <br>
+        <p>
+          <img src="./news_feeds.png" width="800">
+        <p>
+          &nbsp;&nbsp;&nbsp;&nbsp;An example shows as above, and the number is tweet_id, which is described at struct Tweet. User 1 is following User 2 and 3, and Twitter will show 4 most recent news feeds. According to the timestamp of each Tweet, the Twitter will show 3007, 1006, 2005 and 1004 in order. In this task, we just need to output the tweet_id of 5 most recent news feeds (max_recent_num=5). Other examples you can find in Section Implementation.<br>
+        <p>
+          <b>Hint</b>: If postTweet in Task 2 is implemented correctly, the most recent tweets will be distributed in the front of each link list. Therefore, we can start with a set of head nodes and find the tweet with max timestamp.
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Implementation">
+        <h2 class="mt-4">Implementation</h2>
+        <p>
+          &nbsp;&nbsp;&nbsp;&nbsp;In this section, I will describe how to compile main.cpp and check your code by yourself.<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;Step 1: Open the terminal, and change the current path to skeleton files (./skeleton_my_twitter/). Use command "pwd" (in Linux or MacOS) or "chdir" (in Windows) to check your current path.<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;Step 2: Input "g++ -std=c++11 myTwitter.cpp main.cpp -o test" in your terminal to compile.<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;Step 3: Input ./test to run the test code.<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;The above process compiles both myTwitter.cpp and main.cpp together, but you can also use other methods such as "make" to compile.
+        
+        <p>
+          <b>How to debug</b><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;Compare your results with the results in Section Expected Output.<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;The content of tweet.txt refers to the sender id of each tweet and the order in which it is sent. Each line in following_relationship.txt means that user A is following user B. You can try modifying these two files to help you debug your program.
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Output">
+        <h2 class="mt-4">Expected Output</h2>
+        <p>
+          Contents in tweet.txt:
+        <pre class="shadow p-3 mb-5 bg-white rounded">
+2
+4
+1
+1
+1
+2
+2
+3
+2
+4
+3
+2
+3
+1
+2
+2
+3
+        </pre>
+        <p>
+          Contents in following_relationship.txt
+        <pre class="shadow p-3 mb-5 bg-white rounded">
+1 2
+1 4
+        </pre>
+        <p>
+          Sample output:
+        <pre class="shadow p-3 mb-5 bg-white rounded">
+******************************************
+All tweets in current myTwitter: 
+******************************************
+Tweet of user 0 is empty. 
+Tweets of user 1: 1014 1005 1004 1003 
+Tweets of user 2: 2016 2015 2012 2009 2007 2006 2001 
+Tweets of user 3: 3017 3013 3011 3008 
+Tweets of user 4: 4010 4002 
+******************************************
+Recent news feed of user 1: 
+******************************************
+Current time is: 18
+You should display recent 5 tweets
+2016
+2015
+1014
+2012
+4010
+        </pre>
+
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Grade">
+        <h2 class="mt-4">Grading Scheme</h2>
+          <p>Each lab carries 3 points in total. 
+            <UL>
+            <LI>
+            By attending a lab, the student gets 1 point for attendance (but only if it is clear that the student does put in some effort). 
+            </LI>
+            <LI>
+            By completing the lab exercise correctly and answering TAs' question (if there is a
+            question) correctly, the student gets the remaining 2 more points. 
+            </LI>
+            <LI>
+            Please turn on your camera when demonstrating your work to the TA.
+            </LI>
+            </UL>
+            If the student is unable to finish the lab and demonstrate to the TA by the end of the lab, they can only get the attendance point.
+      </div>
+
+    <div class="mx-auto d-flex justify-content-center"> This lab page is maintained by HUANG, Xinyang (xhuangci@cse.ust.hk)</div>
+  </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+
+  </script>
+
+</body>
+
+</html>

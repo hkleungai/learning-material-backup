@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>COMP2011 Lab 5</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+
+  <!-- For code highlighting -->
+  <script src='../sh/shCore.js' type='text/javascript'></script>
+  <!--script src='./sh/shAutoloader.js' type='text/javascript'></script-->
+  <script src='../sh/shBrushCpp.js' type='text/javascript'></script>
+  <script src='../sh/loadcode.js' type='text/javascript'></script>
+  <link href='../sh/shCore.css' rel='stylesheet' type='text/css'>
+  <link href='../sh/shThemeDefault.css' rel='stylesheet' type='text/css'>
+
+  <style>
+    .input {
+      color: #ff0000;
+    }
+    td, th {
+      border: 1px solid #000000;
+      width: 2em;
+      text-align: center;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">COMP2011 Lab 5</div>
+      <div class="list-group list-group-flush">
+        <a href="#Intro" class="list-group-item list-group-item-action bg-light">Introduction</a>
+        <a href="#Description" class="list-group-item list-group-item-action bg-light">Description</a>
+        <a href="#Implementation" class="list-group-item list-group-item-action bg-light">Implementation</a>
+        <a href="#Output" class="list-group-item list-group-item-action bg-light">Expected Output</a>
+        <a href="#Grade" class="list-group-item list-group-item-action bg-light">Grading Scheme</a>
+        <span class="list-group-item list-group-item-action bg-light">Prepared by: <a href="mailto:jliudq@connect.ust.hk">LIU, Jianmeng</a></span>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="col-sm-9">
+        <span class="navbar-toggler-icon" id="menu-toggle"></span>
+    </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/">Course Webpage</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://piazza.com/class/kyjoh8x133w5y5">Piazza</a>
+            </li>
+            <!--li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li-->
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid border-bottom my-5">
+        <h1>COMP2011 Lab 5</h1><br/>
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Intro">
+        <h2 class="mt-4">Introduction</h2>
+
+        <p>In this lab, you are going to implement a deciphering system, which is to decrypt a piece of message encrypted by <a href='https://en.wikipedia.org/wiki/Caesar_cipher' target="_blank"><em>Caesar cipher</em>(or <em>shift cipher</em>)</a>. The lab material mainly covers two self-study parts: <a href='https://course.cse.ust.hk/comp2011/notes/h.fileio.pdf' target="_blank">C++ File I/O</a> and <a href='https://course.cse.ust.hk/comp2011/notes/h.stlstr.pdf' target="_blank">C++ String</a>. Please make sure you have already read through the two sets of slides before working on this lab.</p>
+
+        <p>Here are some notes that are useful in this lab.</p>
+        <ul>
+          <li>
+            <p>A <strong>stream</strong> in C++ is a <em>sequence of characters</em>. You have already used <code>cin &gt;&gt; a</code> to receive input from keyboard and <code>cout &lt;&lt; a</code>  to print message onto screen. You may vividly think they are &quot;streams&quot; in real life: consider <code>cin</code> is your keyboard, then <code>cin &gt;&gt; a</code> is like a &quot;stream&quot; flows from your keyboard into a variable <code>a</code>, the <code>&gt;&gt;</code> indicates the direction of stream; similarly, consider <code>cout</code> is your screen, then <code>cout &lt;&lt; a</code> is like a &quot;stream&quot; flows from variable <code>a</code> into your screen, so it displays the value of <code>a</code> and <code>&lt;&lt;</code> also indicates the direction of stream.</p>
+            <p><img src="stream-intro.png" style="zoom:40%;" /></p>
+          </li>
+          <li>
+            <p>To read data from a file, we can create an <strong>input (file)  stream</strong>, say  <code>ifs</code>, and run <code>ifs &gt;&gt; a</code>, to read a value from a file and store it into a variable <code>a</code>. Similarly, to output data into a file, we can create an <strong>output (file) stream</strong>, say <code>ofs</code>, and run <code>ofs &lt;&lt; a</code>.</p>
+          </li>
+          <li>
+            <p><code>cerr</code> is standard(console) error output, it will (usually) display message on your screen. From now on, when you output error messages, you should use <code>cerr</code> instead of <code>cout</code>. However, since it is difficult to observe the differences between <code>cerr</code> and <code>cout</code> in vscode. We do not contain this as a task. </p>
+          </li>
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Description">
+        <h2 class="mt-4">Description</h2>
+        
+        <p>In cryptography,  a <strong>Caesar cipher</strong>, also known as <strong>shift cipher</strong>,(which you may have learnt in COMP 2711 or COMP 2711H) is one of the simplest and most widely known encryption techniques, in which each letter in the plaintext (i.e., original message) is replaced by a letter some <em>fixed</em> number of positions down the alphabet.</p>
+        <p>For example, shifting each letter by 3 positions will result in:</p>
+        <table >
+          <thead>
+            <tr>
+              <th style='text-align:center;' >Plain</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th><th>I</th><th>J</th><th>K</th><th>L</th><th>M</th><th>N</th><th>O</th><th>P</th><th>Q</th><th>R</th><th>S</th><th>T</th><th>U</th><th>V</th><th>W</th><th>X</th><th>Y</th><th>Z</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style='text-align:center;' >Cipher</td><td>X</td><td>Y</td><td>Z</td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td><td>N</td><td>O</td><td>P</td><td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>V</td><td>W</td>
+            </tr>
+          </tbody>
+        </table>
+        <br/>
+        <p><img src="shift-cipher.png" style="zoom:80%;" /></p>
+        <p>which means to encrypt the message, we substitute all &quot;A&quot; to be &quot;X&quot;, all &quot;B&quot; to be &quot;Y&quot;, etc.</p>
+        <p>When encrypting, we look up each letter of the message in the &quot;plain&quot; line and writes down the corresponding letter in the &quot;cipher&quot; line.</p>
+        <pre><code>Plaintext:  THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
+Ciphertext: QEB NRFZH YOLTK CLU GRJMP LSBO QEB IXWV ALD
+        </code></pre>
+        <p>
+          To obtain ciphertext, we can do <code>(x + shift) % 26</code>, where <code>x</code> is the letter in the plaintext, and <code>shift</code> is the number of positions we want to shift.
+          In this example, <code>shift = -3</code>, you may also view it as <code>shift = 23</code>.
+        </p>
+
+        <p>However, in this lab, &quot;ciphertext&quot; is given, and we expect you to find the correct &quot;plaintext&quot;. To make things interesting, we won&#39;t give you how many number of shifts did we use while encrypting. You need to try all possible shifts (hint: only need to try 0~25), and check if any shift makes all words in the message meaningful. We have prepared a wordlist for you, so you only need to check if the words appear in wordlist to determine whether it is meaningful or not.</p>
+         
+      </div>
+      
+      <div class="container-fluid border-bottom my-5" id="Implementation">
+        <h2 class="mt-4">Tasks</h2>
+        
+        <p>There are 5 tasks in total. Some resources are provided <a href='lab5_skeleton.zip'  target="_blank">here</a>, you can find a skeleton file &quot;lab5_skeleton.cpp&quot;, a wordlist &quot;wordlist.txt&quot;, and a demo input &quot;encrypted.txt&quot;. </p>
+        <p>Detailed descriptions of tasks are provided below, you may also find similar instructions in the comments of skeleton file.</p>
+        <br/>
+
+        <h3 id='task-0-given-dont-need-to-do-anything'>Task 0 (given as a reference, don&#39;t need to do anything)</h3>
+        <p><code>bool read_word_list()</code> </p>
+        <p>This function reads words from the given wordlist in file &quot;wordlist.txt&quot; and store them in a string array. It returns <code>true</code> if successfully loaded, <code>false</code> otherwise.</p>
+        <p>This function is a demo for using input file stream, and is already implemented. You should not modify it.</p>
+        <br/>
+        
+        <h3 id='task-1'>Task 1 </h3>
+        <p><code>bool is_in_list(string word)</code></p>
+        <p>This function checks if the word given appears in the wordlist, return <code>true</code> if the word is in the wordlist, <code>false</code> otherwise.</p>
+        <br/>
+
+        <h3 id='task-2'>Task 2</h3>
+        <p><code>bool is_all_in_list(string word[], int length)</code></p>
+        <p>This function checks if ALL the words in the string array are in the wordlist, and return <code>true</code> if ALL words are in the wordlist, <code>false</code> otherwise.</p>
+        <p>You should use <code>is_in_list(string word)</code> implemented in Task 1 as a helper function.</p>
+        <p><strong>Notice:</strong> Since this task depends on Task 1 and we only check the result during lab demo, you can receive partical credit if your result is wrong but either one of Task 1 and Task 2 is correct.</p>
+        <br/>
+
+        <h3 id='task-3'>Task 3</h3>
+        <p><code>bool read_encrypted_messages(string encrypted[], int &amp;message_len)</code></p>
+        <p>Read encrypted messages from file &quot;encrypted.txt&quot; and store it in the string array &quot;encrypted[]&quot;, and also store its length in &quot;message_len&quot;. It returns <code>true</code> if successfully loaded, and <code>false</code> otherwise.</p>
+        <p>This task is similar to Task 0. However, there may contain extra spaces or newlines in &quot;encrypted.txt&quot;(as shown below), and we don&#39;t give the length of message. You need to figure it out by yourself.</p>
+        <p>A demo of &quot;encrypted.txt&quot;: (<strong>This file can only contain lower case alphabets and extra spaces/newlines</strong>)</p>
+        <pre class="shadow p-3 mb-5 bg-white rounded"><code>ie       qcqpydw  jxqj    oek  
+
+
+
+
+
+        secfbuju                    jxu
+
+        
+          
+              bqr rubyulu                        yd  oekhiubv yi jxu          
+              
+              
+              
+              
+              
+                              iushuj                                
+
+        ev              
+
+                                  
+
+                              
+
+        ikssuii                   
+
+
+
+
+
+
+        </code></pre>
+        <p><strong>Hint:</strong> Do you remember <code>cin</code> can skip extra spaces while reading input? Do you think input file stream can do similar things?</p>
+        <br/>
+
+        <h3 id='task-4'>Task 4</h3>
+        <p><code>bool find_valid_shift(string encrypted[], int message_len, string decrypted[])</code></p>
+        <p>This function tries all possible shifts from 0 to 25, and check if any shift makes the decrypted message(plaintext) valid (i.e., all words in the decrypted message are in the wordlist). If any shift makes the message valid, it returns <code>true</code>, and the decrypted message is stored in the string array <code>decrypted[]</code>, otherwise it returns <code>false</code> and the array <code>decrypted[]</code> is meaningless. (i.e., we don&#39;t care about the value in the array)</p>
+        <p>The &quot;encrypted.txt&quot; file should only contain <strong>lower case alphabets</strong> and extra spaces/newlines, you don&#39;t need to consider cases when there is (1) capital letters, (2) numbers, (3) symbols, and so on.</p>
+        <br/>
+
+        <h3 id='task-5'>Task 5</h3>
+        <p><code>bool store_decrypted_messages(string decrypted[], int message_len)</code></p>
+        <p> This function stores decrypted message(given in the string array <code>decrypted[]</code>) into file &quot;decrypted.txt&quot;. Each word in the message should be followed by a space. If the file cannot be opened, it returns <code>false</code>, otherwise, returns <code>true</code>.</p>
+        <p>This function is similar to Task 0, but you should use output file stream instead.</p>
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Output">
+        <h2 class="mt-4">Expected Output</h2>
+        <!-- <br/> -->
+        <p>Below is a sample run of the program with the main function in the skeleton codes and &quot;encrypted.txt&quot; given in the skeleton package. </p>
+        <p>Your program should output:</p>
+        <pre class="shadow p-3 mb-5 bg-white rounded">
+Successfully decrypted the message!
+        </pre>
+        <p>There should be a new file &quot;decrypted.txt&quot; generated by your program, which contains:</p>
+        <pre class="shadow p-3 mb-5 bg-white rounded">
+so amazing that you complete the lab believe in yourself is the secret of success 
+        </pre>
+      </div>
+
+      <!-- <div class="container-fluid border-bottom my-5" id="Hints">
+        <h2 class="mt-4">Hints</h2>
+        <div>
+          <ul>
+          <li>Try to make use of <i>space</i> to separate .</li>
+          <li>For lookup, you can refer to the example on p.11 of the self-study lecture notes of C++ String.</li>
+          </ul>
+
+        </div>
+        <div>
+        </div>
+      </div> -->
+
+      <div class="container-fluid border-bottom my-5" id="Grade">
+        <h2 class="mt-4">Grading Scheme</h2>
+        <p>Each lab carries 3 points in total. 
+      <ul>
+      <li>
+      By attending a lab, the student gets 1 point for attendance (but only if it is clear that the student does put in some effort). 
+      </li>
+      <li>
+      By completing the lab exercise correctly and answering TAs' question (if there is a
+      question) correctly, the student gets the remaining 2 more points. 
+      </li>
+      <li>
+      You are recommended to turn on the camera while demonstrating.
+      </li>
+      </ul>
+      If the student is unable to finish the lab and demonstrate to the TA by the end of the lab, they can only get the attendance point.
+      </div>
+
+  </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+
+  </script>
+
+</body>
+
+</html>

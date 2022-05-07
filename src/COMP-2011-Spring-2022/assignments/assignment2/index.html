@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>COMP2011 Assignment 2: Sum them up!</title>
+<!-- Bootstrap core CSS -->
+<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="../css/simple-sidebar.css" rel="stylesheet">
+<!-- For code highlighting -->
+<script src="./js/prism.js" type="text/javascript"></script>
+<link href="./css/prism.css" rel="stylesheet" />
+<style>
+table {
+  width: 100%;
+  display: inline-block;
+  overflow-x: auto;
+}
+
+table caption {
+  font-size: medium;
+}
+
+table thead th {
+  background-color: #ddd;
+}
+
+table th,
+table td {
+  text-align: left;
+  padding: 3px 6px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #aaa #aaa;
+}
+
+table tr:nth-child(even) {
+  background-color: #eee;
+}
+
+blockquote {
+  border: 1px solid #b3b3b3;
+  border-left: 10px solid #b3b3b3;
+  border-radius: 0px;
+  background: #fafafa;
+  font-size: 18px;
+  font-family: Georgia, serif;
+  margin: 10px;
+  padding: 10px 20px;
+}
+ 
+blockquote p {
+  margin: 0;
+  line-height: 30px;
+  padding-bottom: 20px;
+}
+ 
+blockquote.small {
+  display: block;
+  font-size: 80%;
+  color: brown;
+  text-align: right;
+}
+
+img.limit {
+  max-width: 100%
+}
+
+span.input {
+    color: #99cc99;
+}
+
+span.highlight {
+    color: #279ed9;
+}
+
+pre {
+    background: #f5f2f0;
+    padding: 15px;
+}
+
+</style>
+</head>
+
+<!--
+# How to auto indent HTML in vim
+:filetype indent on
+:set filetype=html           # abbrev -  :set ft=html
+:set smartindent             # abbrev -  :set si
+gg=G
+  -->
+<body class="language-none">
+<div class="d-flex" id="wrapper">
+  <!-- Sidebar -->
+  <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sticky-top">
+      <div class="sidebar-heading">Assignment 2</div>
+      <div class="list-group list-group-flush">
+        <a href="#intro" class="list-group-item list-group-item-action bg-light">Introduction</a>
+        <a href="#problem" class="list-group-item list-group-item-action bg-light">Problem description</a>
+        <a href="#important" class="list-group-item list-group-item-action bg-light">Important requirements</a>
+        <a href="#download" class="list-group-item list-group-item-action bg-light">Downloads</a>
+        <a href="#given" class="list-group-item list-group-item-action bg-light">Given function</a>
+        <a href="#tasks" class="list-group-item list-group-item-action bg-light">Functions to implement</a>
+        <a href="#optional" class="list-group-item list-group-item-action bg-light">Optional task to think about</a>
+        <a href="#sample" class="list-group-item list-group-item-action bg-light">Sample output and grading scheme</a>
+        <a href="#submission" class="list-group-item list-group-item-action bg-light">Submission</a>
+        <a href="#faq" class="list-group-item list-group-item-action bg-light">FAQ</a>
+        <span class="list-group-item list-group-item-action bg-light">Prepared by: <a href="mailto:wallacem@cse.ust.hk">Wallace Mak</a></span>
+      </div>
+    </div>
+  </div>
+  <!-- /#sidebar-wrapper -->
+  <!-- Page Content -->
+  <div id="page-content-wrapper">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+      <div class="col-sm-9">
+      <span class="navbar-toggler-icon" id="menu-toggle"></span>
+      </div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+        <li class="nav-item">
+        <a class="nav-link" href="https://course.cse.ust.hk/comp2011/">Course Webpage</a>
+        </li>
+        <!-- <li class="nav-item">
+        <a class="nav-link" href="https://course.cse.ust.hk/comp2011/forum.html">Online Forum</a>
+        </li> -->
+      </ul>
+      </div>
+    </nav>
+
+
+    <div class="container-fluid border-bottom my-5">
+      <div class="col-sm-12 col-lg-12 container">
+      <h1>COMP2011 Assignment 2:  Sum them up!</h1>
+      </div>
+    </div>
+
+    <div class="container-fluid border-bottom my-5" id="intro">
+      <h2 class="mt-4">Introduction</h2>
+
+      <p>
+        In this programming assignment, you will practice recursion. It is challenging, so you are <b>highly recommended to start early</b>. If you need clarification of the requirements, please feel free to post on the Piazza with the <u>pa2</u> tag. However, to avoid cluttering the forum with repeated/trivial questions, please do <b>read all the given code, webpage description, sample output, and <a href="#faq">latest FAQ</a> (refresh this page regularly) carefully before you post your questions</b>. Also please be reminded that we won't debug any student's assignment for the sake of fairness.
+      </p>
+      <p>
+        You are going to write a problem-solving program that tries to reach a target number by summing up a subset of given numbers. Details will be given in the description below. Have fun! :)
+      </p>
+
+
+    <img src="img/numbers.jpg" height="600px"><!-- 
+        <br>
+        <br>
+      <h4>Story</h4>
+      <p></p> -->
+
+      <h4>About academic integrity</h4>
+            <p>We value academic integrity very highly. Please read the <a href="https://course.cse.ust.hk/comp2011/web/code.html">Honor Code</a> section on our course webpage to make sure you understand what is considered as plagiarism and what the penalties are. The following are some of the highlights:</p>
+
+            <ul>
+              <li>Do NOT try your "luck" - we use sophisticated plagiarism detection software to find cheaters. We also review codes for potential cases manually.</li>
+              <li>The penalty (for <b>BOTH</b> the copier and the copiee) is not just getting a zero in your assignment. Please read the Honor Code thoroughly.</li>
+              <li>Serious offenders will fail the course immediately, and there may be additional disciplinary actions from the department and university, upto and including expulsion.</li>
+            </ul>
+
+    </div>
+
+<div class="container-fluid border-bottom my-5" id="problem">
+      <h2 class="mt-4">Problem description</h2>
+      <p>The input is an unique positive integer array (e.g. [1, 2, 3, 4]) and a target integer (e.g., 3). The objective is to build a simple math formula that gives the target with a subset of the given array.</p>
+      <p>In the formula you can choose to include the positive version (i.e. addition) or the negative version (i.e. subtraction) of each input number, but the relative order of the numbers must be the same as their relative order in the array.</p>
+      <p>Suppose the input array is [1, 2, 3, 4], let's see some examples to illustrate the rules we follow:</p>
+      <ul>
+          <li>"1+2+3+4" is OK.</li>
+          <li>"1+2+4+3" is NOT OK because 4 must appear after 3.</li>
+          <li>"2+4" is OK. (note that we can choose not to include all numbers)</li>
+          <li>"2-4" is OK. (you can do subtractions)</li>
+          <li>"-2-4" is OK.</li>
+          <li>"-1+3-4" is OK.</li>
+          <li>"3" is OK. (a number by itself is also considered as a valid formula)</li>
+          <li>"-3" is OK.</li>
+          <li>"" is NOT OK. (you must have at least one number in the formula)</li>
+      </ul>
+      <p>The solution may not be unique, for example, with array [1, 2, 3, 4], and target 3 the following 5 formulas work:</p>
+      <ul>
+        <li>"1+2"</li>
+        <li>"1-2+4"</li>
+        <li>"-1+4"</li>
+        <li>"2-3+4"</li>
+        <li>"3"</li>
+      </ul>
+      <p>Our program will look for the "best" solution. By "best", we will follow a very specific ranking system:</p>
+      <ul>
+          <li>We always prefer including an earlier number (either positive or negative version) than not including it. E.g. for array [1, 2, 3, 4] and target 3, "1+2" is better than "3" and "-1+4" is better than "2-3+4".</li>
+          <li>We always prefer including the positive version of the number than the negative version of it. E.g. for array [1, 4, 2] and target 3, "1+2" is better than "-1+4".</li>
+      </ul>
+      <p>In fact, the 5 formulas listed earlier are already ranked from "best" to "worst". More ranking examples will be provided in the section where we describe the <code>solve</code> function later.</p>
+
+    <div class="container-fluid border-bottom my-5" id="important">
+      <h2 class="mt-4">Important requirements</h2>
+      <p>To make the assignment a good practice of writing proper recursions, which is the main point of assignment 2, you will get zero mark if you do not follow any of the following rules. <b>Please carefully check your code before you submit it.</b></p>
+      <ul>
+        <li>You are NOT allowed to use any kind of loops in any part of your submitted code.</li>
+        <li>You are NOT allowed to use <code>goto</code>.</li>
+        <li>You are NOT allowed to use any global variable, or static variable like <code>static int x</code>.</li>
+        <li>You are NOT allowed to include any additional libraries (e.g. cstring library or cmath library) yourself. Everything you need is already included. However, feel free to implement any functions you need yourself with recursion.</li>
+        <li>You are NOT allowed to modify any of the given function prototypes including the return types, function names, and parameter lists. (but you can overload them if you want - we will explain why you might want to do that later)</li>
+    </div>
+
+
+      
+<div class="container-fluid border-bottom my-5" id="download">
+      <h2 class="mt-4">Download</h2>
+
+      <p>
+        <!-- <br>
+        <b>Starting code</b>
+        <br> -->
+        <p>Download the starting skeleton code <a href="pa2.cpp">HERE</a>. Please download and open it now, as we will refer to it from time to time in the description below. Your task is to complete 5 functions in this given skeleton code file, and submit it to ZINC.</p>
+        <p>There is no demo program for this assignment as everything is well-defined and sufficiently described. Instead we have provided you with many test cases and their corresponding outputs for you to check your program, in addition to the examples we give in the description below. You may find the information about them in the <a href="#sample">sample output</a> section.</p>
+
+      </p>
+    </div>
+
+
+
+
+    <div class="container-fluid border-bottom my-5" id="given">
+        <h2 class="mt-4">Given function</h2>
+        <p>The <code>printArray</code> function has been given to you as a hint on how you may solve the other recursion problems in this assignment.</p>
+        <h5><code class="language-cpp">void printArray(int array[], int arraySize)</code></h5>
+        This function prints the given <code>array</code> of the given <code>arraySize</code> as a formula. As one of the assignment tasks (you can consider it as task 0), you need to read its code yourself to understand exactly how it works and what it prints. We are not going to explain it for you here.
+        <br><br>
+        In terms of the implementation, you will see that it is simply calling the overloaded version of itself (<code class="language-cpp">void printArray(int array[], int arraySize, int currentPosition)</code>) with a simple call: <code class="language-cpp">printArray(array, arraySize, 0);</code>
+        <br><br>
+        The reason for overloading the function and adding the 3rd parameter <code>currentPosition</code> to it is that we want to have a control variable just like what you have in a for-loop (like the <b>i</b> in <code class="language-cpp">for(int i=0;i<10;i++)...</code>) You can see in the overloaded function implementation how it is used.
+        <br><br>
+        We hope that you can learn from this example to use this approach which will be very useful for the following tasks. While you can create the overloaded versions of any function, you should NOT modify the original function prototype specified in the task description and the skeleton code. That is, for instance, if the task asks you to implement <code class="language-cpp">void printArray(int array[], int arraySize)</code> which takes two parameters, you should implement this exact prototype, but please feel free to add the overloaded version of it (e.g. <code class="language-cpp">void printArray(int array[], int arraySize, int currentPosition)</code>) which takes additional parameters if needed, like we did for <code>printArray</code>. In the main function, you can see that, we only use the original prototypes to call those functions. For example, for <code>printArray</code>, we only provide two parameters (instead of three parameters) to it in the main function according to its original prototype. If you have modified the original prototype, the testing code in the main function won't be able to call your function for testing.
+    </div>
+
+
+    <div class="container-fluid border-bottom my-5" id="tasks">
+        <h2 class="mt-4">Functions to implement</h2>
+        <p>There are 5 functions that you need to implement for this assignment. Again, you must use recursions and NOT any kinds of loops in all of them including the overloaded and helper functions involved.</p>
+        <p>For simplicity, you can assume all inputs are valid and consistent. (e.g. we won't provide an array that has only 4 elements, and tell you its size is 5 in the function below.)</p>
+        <br>
+
+        <h5><code class="language-cpp">int arraySum(int array[], int arraySize)</code></h5>
+        This function returns the sum of all the elements in the given <code>array</code> of the given <code>arraySize</code>. You can assume <code>arraySize</code> is at least 1.</code>
+        <br><br>
+        Examples:
+        <ul>
+          <li>If <code>array</code> is {1, 2, 3, 4} and <code>arraySize</code> is 4, the function should return 10.</li>
+          <li>If <code>array</code> is {-7, 4, -1098} and <code>arraySize</code> is 3, the function should return -1101.</li>
+        </ul>
+        <br>
+
+        <h5><code class="language-cpp">bool solve(int input[], int size, int target, int result[], int& resultSize) </code></h5>
+        This function tries to find the "best" solution as we defined earlier for the given unique positive integer array <code>input</code> of size <code>size</code> for the specified <code>target</code> number. If such a solution doesn't even exist, it simply returns false. Otherwise, it stores the result in the <code>result</code> array of size <code>resultSize</code>, and returns true.
+        <br><br>
+        You can assume the <code>resultSize</code> is always initially 0 when we call your function from the main in all test cases. You can refer to the given test cases in the main function for more examples, and to see how this function is called. You can also assume <code>size</code> won't be larger than <code>ARRAY_MAX_SIZE</code>.
+        <br><br>
+        Hint: Basically for every number in the array, there are 3 choices: adding it, subtracting it, or totally excluding it. When one of these 3 choices is (temporarily) made you may want to make a recursive call to build up a potential solution with that choice.
+        <br><br>
+        Examples:
+        <ul>
+
+          <li>If <code>array</code> is {55, 42, 43}, <code>arraySize</code> is 3, and <code>target</code> is 44, the function should simply return false. What <code>result</code> and <code>resultSize</code> store don't matter.</li> (<i>Fixed a mistake/typo in the example on Mar 24th 8:38am</i>)
+
+          <li>If <code>array</code> is {45, 42, 43}, <code>arraySize</code> is 3, and <code>target</code> is 43, the function should return true and the <code>result</code> should store {43} while <code>resultSize</code> should store 1. Therefore, calling <code>printArray(result, resultSize)</code> will print "43".
+          </li>
+
+          <li>If <code>array</code> is {45, 42, 43}, <code>arraySize</code> is 3, and <code>target</code> is -43, the function should return true and the <code>result</code> should store {-43} while <code>resultSize</code> should store 1. Therefore, calling <code>printArray(result, resultSize)</code> will print "-43".
+          </li>
+
+          <li>If <code>array</code> is {1, 2, 3, 4}, <code>arraySize</code> is 4, and <code>target</code> is 3, the function should return true and the <code>result</code> should store {1, 2} while <code>resultSize</code> should store 2. Therefore, calling <code>printArray(result, resultSize)</code> will print "1+2". For your information, all possible solutions in the ranked order are as follows:
+            <ul>
+              <li>1+2</li>
+              <li>1-2+4</li>
+              <li>-1+4</li>
+              <li>2-3+4</li>
+              <li>3</li>
+            </ul>
+          </li>
+
+          <li>If <code>array</code> is {1, 2, 3, 4}, <code>arraySize</code> is 4, and <code>target</code> is 7, the function should return true and the <code>result</code> should store {1, 2, 4} while <code>resultSize</code> should store 3. Therefore, calling <code>printArray(result, resultSize)</code> will print "1+2+4". For your information, all possible solutions in the ranked order are as follows:
+            <ul>
+              <li>1+2+4</li>
+              <li>3+4</li>
+            </ul>
+          </li>
+
+          <li>If <code>array</code> is {1, 2, 3, 4}, <code>arraySize</code> is 4, and <code>target</code> is 4, the function should return true and the <code>result</code> should store {1, 2, -3, 4} while <code>resultSize</code> should store 4. Therefore, calling <code>printArray(result, resultSize)</code> will print "1+2-3+4". For your information, all possible solutions in the ranked order are as follows:
+            <ul>
+              <li>1+2-3+4</li>
+              <li>1+3</li>
+              <li>-1+2+3</li>
+              <li>-1-2+3+4</li>
+              <li>4</li>
+            </ul>
+          </li>
+
+          <li>If <code>array</code> is {6, 4, 3, 2, 1}, <code>arraySize</code> is 5, and <code>target</code> is 4, the function should return true and the <code>result</code> should store {6, 4, -3, -2, -1} while <code>resultSize</code> should store 5. Therefore, calling <code>printArray(result, resultSize)</code> will print "6+4-3-2-1". For your information, all possible solutions in the ranked order are as follows:
+            <ul>
+              <li>6+4-3-2-1</li>
+              <li>6-4+3-2+1</li>
+              <li>6-4+3-1</li>
+              <li>6-4+2</li>
+              <li>6-3+2-1</li>
+              <li>6-3+1</li>
+              <li>6-2</li>
+              <li>-6+4+3+2+1</li>
+              <li>4+3-2-1</li>
+              <li>4-3+2+1</li>
+              <li>4</li>
+              <li>3+2-1</li>
+              <li>3+1</li>
+            </ul>
+          </li>
+        </ul>
+        To help you verify your understanding and test your program, we also provide these 13 additional results for you to read/use <a href="ranked2.zip">here</a> (updated <i>array=[1,3,5,7,9,11,13,15,17,2,4,6];target=11.txt</i> in it at 8:50am on Apr 4th, see FAQ). Those are complete lists of ranked solutions for the inputs and targets specified in the file names.
+        <ul>
+            <!-- <li><a href="sample/array=[1,2,3,4];target=1.txt">Ranked list of solutions for array {1, 2, 3, 4} and target 1.</a></li> -->
+        </ul>
+
+        <br>
+        <p><i>Originally we wanted to ask you to implement the solve function with a string-based approach. To reduce the difficulty of this assignment, we have made that task an optional ungraded task. The following 3 functions are individual tasks and will be graded individually. When combined, we can solve the same problem with a string-based approach (optional task). </i></p>
+        <br>
+
+        <h5><code class="language-cpp">void printString(const char str[])</code></h5>
+        This function prints the given C-string to the console with <code>cout</code>.
+        <br><br>
+        Examples:
+        <ul>
+          <li>If <code>str</code> is "abc123abc", "abc123abc" will be printed.
+          <li>If <code>str</code> is "1+2+3", "1+2+3" will be printed.
+        </ul>
+        <p>Hint: C-strings are null-terminated.</p>
+        <i><p>Clarification: please also print an endl at the end as you can see from the sample output. (clarified in FAQ at 12:45pm on Mar 22th)</p></i>
+        <br>
+
+        <h5><code class="language-cpp">int getIntValue(const char str[], int start, int end)</code></h5>
+        This function returns the integer value represented by the substring starting from index <code>start</code> to index <code>end</code> in the given C-string <code>str</code>. You can assume the specified substring always represents a valid positive integer with no leading zeros.
+        <br><br>
+        Examples:
+        <ul>
+          <li>If <code>str</code> is "abc123abc", <code>start</code> is 3, and <code>end</code> is 5, the function should return 123.</li>
+          <li>If <code>str</code> is "abc123abc", <code>start</code> is 3, and <code>end</code> is 4, the function should return 12.</li>
+          <li>If <code>str</code> is "abc123abc", <code>start</code> is 5, and <code>end</code> is 5, the function should return 3.</li>
+        </ul>
+        <p>Hint: While you cannot use any function from the cmath library or any other libraries, you can implement the "pow" function with recursion yourself for this task if needed.</p>
+        <br>
+
+
+        <h5><code class="language-cpp">int evaluate(const char str[])</code></h5>
+        This function returns the integer result of a given formula stored in the non-empty C-string <code>str</code>. You can assume the given string always represents a valid formula which is defined as a formula that can be printed by the given <code>printArray</code> function.
+        <br><br>
+        Examples:
+        <ul>
+          <li>If <code>str</code> is "1+1", the function should return 2.</li>
+          <li>If <code>str</code> is "-2", the function should return -2.</li>
+          <li>If <code>str</code> is "123-456", the function should return -333.</li>
+          <li>If <code>str</code> is "123-456+8-9+2", the function should return -332.</li>
+        </ul>
+        <p>Hint: While you cannot use any function from the cstring library or any other libraries, you can implement the "strlen" function with recursion yourself for this task if needed.</p>
+        <br>
+    </div>
+
+    <div class="container-fluid border-bottom my-5" id="optional">
+        <h2 class="mt-4">Optional task to think about</h2>
+        <p>The following function is <b>optional and will NOT be graded</b>. It is not even given in the skeleton code. If you want to have extra practices, you can add this function yourself after you have finished and submitted your assignment.</p>
+
+
+        <!-- <span style="color:grey">Optional ungraded task:</span>  -->
+
+        <h5><code class="language-cpp">bool solve(int input[], int size, int target, char result[])</code></h5>
+        
+        This function tries to find the "best" solution as we defined earlier for the given unique positive integer array <code>input</code> of size <code>size</code> for the specified <code>target</code> number. If such a solution doesn't even exist, it simply returns false. Otherwise, it stores the result in the <code>result</code> C-string, and returns true. Note that <code>result</code>, as a C-string, must be properly null-terminated. There are many approaches. The functions implemented in the previous tasks may or may not be useful for this depending on how you approach this problem.
+        <br><br>
+        Since this task is optional and will NOT be graded, please do NOT include this in your solution submitted for assignment 2. 
+        <br><br>
+    </div>
+
+
+
+    <div class="container-fluid border-bottom my-5" id="sample">
+      <h2 class="mt-4">Sample output</h2>
+      <p> Your finished program should produce the same output as <a href="sample.zip">our sample output</a> for the test cases. You can run them locally or run them online on ZINC anytime. Please note that sample output, naturally, does not show all possible cases. It is part of the assessment for you to design your own test cases to test your program. <b>Be reminded to remove any debugging message</b> that you might have added before submitting your final submission.</p>
+
+      <b>Grading scheme</b>
+
+      <p>There are 20 given test cases of which the code can be found in the given main function. After the deadline, we will have 20 additional test cases which won't be revealed to you before the deadline. Together with the 20 given test cases, there will then be in total 40 test cases used to give you the final assignment grade. Each test case is worth the same (i.e., 2.5% each), and there won't be any partial credit for each test case.</p>
+
+      <p>Also note that each test case is only given at most 10 seconds to run on ZINC. If your program takes more time than that to be done with a test case, ZINC will give you 0 for that.</p>
+
+      <p>The table below gives you a rough idea of what the test cases are about:</p>
+
+      <table>
+        <tbody>
+          <tr>
+            <th>Function name</th>
+            <th>Number of given test cases that mainly test this function</th>
+            <th>Number of hidden test cases that mainly test this function</th>
+            <th>Contribution to the total score</th>
+          </tr>
+          <tr>
+            <td>arraySum</td>
+            <td>2</td>
+            <td>2</td>
+            <td>10%</td>
+          </tr>
+          <tr>
+            <td>solve</td>
+            <td>6</td>
+            <td>6</td>
+            <td>30%</td>
+          </tr>
+          <tr>
+            <td>printString</td>
+            <td>2</td>
+            <td>2</td>
+            <td>10%</td>
+          </tr>
+          <tr>
+            <td>getIntValue</td>
+            <td>4</td>
+            <td>4</td>
+            <td>20%</td>
+          </tr>
+          <tr>
+            <td>evaluate</td>
+            <td>6</td>
+            <td>6</td>
+            <td>30%</td>
+          </tr>
+        </tbody>
+      </table>
+
+     <!--  <p>Each of the test cases is worth 4 marks, and there is no partial credit for each case. We will have other additional 15 test cases which are not released to you before the deadline. In total, all 25 test cases (10 given + 15 hidden) will contribute to the 100 total marks of the assignment.</p> -->
+
+    </div>
+
+
+
+
+
+    <div class="container-fluid border-bottom my-5" id="submission">
+
+      <h2 class="mt-4">Submission</h2>
+
+      <h4>Deadline</h4>
+
+      <p><font color="red"> 23:59:00, Apr 12 (Tue)</font> (extended)</p>
+
+      
+      <p>Please submit the <b>pa2.cpp</b> only to <a href="http://zinc.cse.ust.hk">ZINC</a>. ZINC usage instructions can be found <a href="https://zinc.cse.ust.hk/guide">here</a>. Friendly reminder: before you submit your code, <b>make sure it complies with all the rules in <a href="#important">important requirements</a></b>. No mark will be given if you violate the rules.</p>
+
+            <p>Notes:</p>
+            <ul>
+                  <li>You may submit your file multiple times, but only the last submission will be graded. <b>You do NOT get to choose which version we grade.</b> If you submit after the deadline, late penalty will be applied according to the submission time of your last submission.</li>
+                  <li>Submit early to avoid any last-minute problem. Only ZINC submissions will be accepted.</li>
+                  <li>The ZINC server will be very busy on the last day especially in the last few hours, so you should expect you would get the grading result report not-very-quickly. However, as long as your submission is successful, we would grade your latest submission with all test cases after the deadline.</li>
+                  <li>In the grading report, pay attention to various errors reported. For example, <b>under the "make" section, if you see a red cross, click on the STDERR tab to see the compilation errors.</b> You must fix those before you can see any program output for the test cases below.</li>
+                  <img src="img/zinc-make.png">
+                  <li>Make sure you submit the correct file yourself. You can download your own file back from ZINC to verify. Again, <b>we only grade what you uploaded last to ZINC</b>.</li>
+           </ul>
+
+                 <h4>Compilation Requirement</h4>
+
+      <p>
+        It is <strong>required</strong> that your submissions can be compiled and run successfully in our online autograder ZINC. If we cannot even compile your work, it won't be graded. Therefore, for parts that you cannot finish, just put in dummy/empty implementation so that your whole program can be compiled for ZINC to grade the other parts that you have done.<!--  <u>You should wait for and check the grading report after each submission to ZINC.</u> --></p>
+            <p>
+              <h4>Late submission policy</h4>
+            </p>
+
+            <p>There will be a penalty of -1 point (out of a maximum 100 points) for
+              every minute you are late. For instance, since the deadline of the assignment is 23:59:00 on Apr 11th, if you submit your solution at 1:00:00 on Apr 12th, there will be a penalty of -61 points for your assignment. However, the lowest grade you may get from an assignment is zero: any negative score after the deduction due to late penalty (and any other penalties) will be reset to zero.</p>
+
+
+
+    </div>
+
+
+
+
+    <div class="container-fluid border-bottom my-5" id="faq">
+      <h2 class="mt-4">FAQ</h2>
+
+      <p>
+        <ul>
+          <li>
+            Q: My code doesn't work / there is an error, here is the code, can you help me to fix it?
+          </li>
+          <li>
+            A: As the assignment is a major course assessment, to be fair, you are supposed to work on it on your own and we should not finish the tasks for you. We might provide some very general hints to you, but we shall not fix the problem or debug for you.
+          </li>
+          <br>
+          <li>
+              Q: Can I use if-else statements, switch statements, local variables defined inside the functions, static_cast, arrays, etc.?
+          </li>
+          <li>
+              A: Sure, as they are not forbidden in our PA2 rules.
+          </li>
+          <br>
+          <li>
+            Q: Can I use library functions or data structures?
+          </li>
+          <li>
+            A: You can use any functions or data structures as long as you do not include additional library yourself. You also need to make sure your program compiles and works well on ZINC.
+          </li>
+          <br>
+          <li>
+            Q: Can I modify the main function?
+          </li>
+          <li>
+            A: You may modify it to add your own test cases, but note that we will replace your main function with something else on ZINC. With this said, you should make sure your program can compile with the original version of the main function.
+          </li>
+          
+
+  <!--         <br>
+          <li>
+              Q: My algorithm is like this... it should work, right? But it doesn't... :( Help?
+          </li>
+          <li>
+              A: It may not be very appropriate for us to directly comment on the correctness of your proposed solution. However, here are some tips for debugging your program here: <a href="https://piazza.com/class/kk5c9mtczmr10b?cid=273">here</a> Good luck with the bug hunting! :)
+          </li> -->
+          
+          <br>
+          <li>
+              Q: My code gives perfect results in my own computer, but it gives a different result on ZINC, why?
+          </li>
+          <li>
+              A: Usually inconsistent strange result (on different machines/platforms, or even different runs on the same machine) is due to relying on uninitialized hence garbage values, missing return statements, accessing out-of-bound array elements, etc.. You may see the explanations and debugging tips in the <a href="http://wallacem.people.ust.hk/notes/on-common-c-runtime-errors/">notes here</a>.
+          </li>
+
+          <br>
+          <li>
+              Q: For printString, do we need to also output '\n' at the end of the string? Also is it OK for the solution to contain just a cout statement?
+          </li>
+          <li>
+              A: Yes an endl should be printed as you can see from the sample output and ZINC report.<br><br>
+
+                For implementation, actually it indeed can be this simple. Originally we wanted to ask everyone to use recursion to implement this (although it is still quite simple hence only 10% mark), but we don't really enforce that now. Therefore using a simple cout statement is acceptable as indeed no loop is involved. Consider that just free points for everyone who knows cout and submitted a syntactically correct program! ;)
+          </li>
+
+          <br>
+          <li>
+            Q: For solve, may I have some examples with target 0 and no solution?
+          </li>
+          <li>
+            A: You may refer to some examples <a href="https://piazza.com/class/kyjoh8x133w5y5?cid=211">here</a>.
+          </li>
+
+          <br>
+          <li>
+            Q: For solve, is the number of items in the result array a criteria for picking the best solution to return?
+          </li>
+          <li>
+            A: Not really - we have never mentioned that. You may refer to a detailed explanation and a counterexample in the follow-up discussion <a href="https://piazza.com/class/kyjoh8x133w5y5?cid=212">here</a>.
+          </li>
+          <br>
+          <li>
+            Q: For the first example for solve, there is actually a solution for "If array is {45, 42, 43}, arraySize is 3, and target is 44", right?
+          </li>
+          <li>
+            A: Yes, that actually was a typo/mistake, the example should be "If array is {55, 42, 43}, arraySize is 3, and target is 44", then there is really no solution for that input. Sorry about that, thanks for letting us know! Fixed that at 8:38am on Mar 24th.</a>
+          </li>
+
+          <br>
+          <li>
+            Q: It is mentioned that we can "feel free to implement any functions you need yourself with recursion.", does that mean we can add/create/write/overload any (helper) function we need?
+          </li>
+          <li>
+            A: Yes.</a>
+          </li>
+
+          <br>
+          <li>
+            Q: So can I use pow() from the cmath library and strlen() from the cstring library?
+          </li>
+          <li>
+            A: No, please don't use them from the library as we have mentioned since you cannot include any library yourself, although you can create your own versions of it. You may refer to <a href="https://piazza.com/class/kyjoh8x133w5y5?cid=215">this post</a> and <a href="https://piazza.com/class/kyjoh8x133w5y5?cid=216">this post</a> for clarification if needed.</a>
+          </li>
+
+          <br>
+          <li>
+            Q: When both of the two rules apply: "prefer including an earlier number than not including it" and " "prefer the positive version over the negative version", how do we decide which formula is ranked higher / better? 
+          </li>
+          <li>
+            A: We will basically always look at the first differing element. Take the given test case #7 as an example: input {88, 13, 1, 3, 5, 9} with an target of 9. "13+1-5" is better than "13-1-3" because the first differing element is the second number (i.e. +1 in the first formula and -1 in the second formula). It is "1" for both formulas. As the positive version of it is considered as the better one (i.e. +1 is better than -1), the first formula is considered as overall better.
+            <br><br>
+            On the other hand, for input {1, 2, 3, 4} with an target of 3, "-1+4" is better than "2-3+4" because the first differing element is the first number (i.e -1 in the first formula and 2 in the second formula). They are different numbers. As "1" (which -1 is based on) is an earlier number in the input array than "2", the first formula is considered as overall better.
+          </a>
+          </li>
+
+          <br>
+          <li>
+            Q: For solve, should we include 0 in the result array?
+          </li>
+          <li>
+            A: No. 0 is not a positive number so it will never be in the input array. To construct the formula, we only use/consider the numbers in the input array.
+          </a>
+          </li>
+
+          <br>
+          <li>
+            Q: For solve, if the input is {1, 2, 3, 5} and the target is 1, is "1+2+3-5" better than "1"?
+          </li>
+          <li>
+            A: Yes. The former contains “2” while the latter doesn’t, so it is better due to the rule “prefer including an earlier number than not including it”. Here is the list of all solutions ranked from the highest to the lowest for input array {1, 2, 3, 5} and target 1, FYI:
+            <ul>
+<li>1+2+3-5</li>
+<li>1-2-3+5</li>
+<li>1</li>
+<li>-1+2</li>
+<li>-1-3+5</li>
+<li>-2+3</li>
+</ul>
+          </a>
+          </li>
+
+          <br>
+          <li>
+            Q: What do you mean by "an earlier number" in the rule "prefer including an earlier number than not including it"?
+          </li>
+          <li>
+            A: An “earlier number” means an “earlier number in the input array”. We really are talking about the number appearance ordering in the input array sequence. You may refer to the follow-up discussion in <a href="https://piazza.com/class/kyjoh8x133w5y5?cid=264">this post</a> for further explanations and additional examples.
+          </a>
+          </li>
+
+          <br>
+          <li>
+            Q: Are some alternative solutions missing in the file <i>"array=[1,3,5,7,9,11,13,15,17,2,4,6];target=11.txt"</i> in the provided sample solutions <i>ranked.zip</i>?
+          </li>
+          <li>
+            A: Yes, some alternative solutions were missing for that case in the old version for that case. A new version has been uploaded at 8:50am on Apr 7th <a href="ranked2.zip">here</a>. Sorry for the inconvenience caused. Thanks for pointing that out! p.s. the best solution remains the same "1+3+5+7+9+11+13-15-17-2-4".
+          </a>
+          </li>
+
+          <br>
+          <li>
+            Q: Can zeros, negative numbers, or duplicated numbers appear in the input array?
+          </li>
+          <li>
+            A: No, per our description the input array must be an unique positive integer array. So for example, {1,-1,2,3}, {0,1,2,3}, {1,2,3,3} are all invalid and won't appear in our test cases.
+          </a>
+          </li>
+
+
+
+
+
+
+
+
+
+          <!--
+          <li>Q: </li>
+          <li>A: </li>
+          -->
+        </ul>
+      </p>
+      <br><br>
+      <p style="color:#cccccc">Page last modified at <script type="text/javascript">document.write(document.lastModified);</script>.</p>
+
+    </div>
+  </div>
+</div>
+<!-- /#page-content-wrapper -->
+<!-- /#wrapper -->
+<!-- Bootstrap core JavaScript -->
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Menu Toggle Script -->
+<script>
+  $("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+    });
+
+  SyntaxHighlighter.highlight();
+</script>
+</body>
+</html>

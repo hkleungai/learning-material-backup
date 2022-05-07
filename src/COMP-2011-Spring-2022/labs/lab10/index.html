@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>COMP2011 Lab 10</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+
+  <!-- For code highlighting -->
+  <script src='../sh/shCore.js' type='text/javascript'></script>
+  <!--script src='./sh/shAutoloader.js' type='text/javascript'></script-->
+  <script src='../sh/shBrushCpp.js' type='text/javascript'></script>
+  <script src='../sh/loadcode.js' type='text/javascript'></script>
+  <link href='../sh/shCore.css' rel='stylesheet' type='text/css'>
+  <link href='../sh/shThemeDefault.css' rel='stylesheet' type='text/css'>
+
+  <style>
+    .input {
+      color: #ff0000;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">COMP2011 Lab 10</div>
+      <div class="list-group list-group-flush">
+        <a href="#Intro" class="list-group-item list-group-item-action bg-light">Introduction</a>
+        <a href="#Description" class="list-group-item list-group-item-action bg-light">Description</a>
+        <a href="#Tasks" class="list-group-item list-group-item-action bg-light">Tasks</a>
+        <a href="#Output" class="list-group-item list-group-item-action bg-light">Grading</a>
+        <a href="#Grade" class="list-group-item list-group-item-action bg-light">Submission</a>
+        <span class="list-group-item list-group-item-action bg-light">Prepared by: <a href="mailto:zgaoao@connect.ust.hk">GAO, Zhimeng</a></span>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="col-sm-9">
+        <span class="navbar-toggler-icon" id="menu-toggle"></span>
+    </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/">Course Webpage</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/forum.html">Online Forum</a>
+            </li>
+            <!--li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li-->
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid border-bottom my-5">
+        <h1>COMP2011 Lab 10</h1><br/>
+		<figure class="figure mx-auto d-block">
+                <img src="fig0.png" class="figure-img mx-auto d-block" width="400" alt="gas station">
+            </figure>
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Intro">
+        <h2 class="mt-4">Introduction</h2>
+        In this lab, we will use class to design a library management system.  
+        <br/>
+        In the library management system, we defined a class called Book to store all the information of a book, including name, number of pages, number of authors and author names. 
+        Also, since the books are stored by a <b>linked list</b>, there would a pointer next pointing to the next book.
+        <br/>
+        To simplify, we use a string without space to store the names of books and authors. For example, if a name is "Abc Def Ghi", we use "Abc_Def_Ghi" to represent it.
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Description">
+        <h2 class="mt-4">Description</h2>
+        
+        <p>
+          
+
+        To finish this lab, you have to first download <a href="lab10_skeleton.zip">lab10_skeleton.zip</a>. It contains
+		<ul>
+		<li>the class implementation of <b>Book</b> <a href="Book.h">Book.h</a>,</li>
+          <li>the skeleton code of the implementation of <b>Book</b> <a href="Book.cpp">Book.cpp</a>, </li>
+		  <li> <a href="main.cpp">main.cpp</a>, <a href="ManagementSystem.cpp">ManagementSystem.cpp</a>, <a href="ManagementSystem.h">ManagementSystem.h</a>, and </li>
+      <li>the expected output of the six test cases.</li>
+    </ul>
+		All you need to do is to implement the member functions  of <b>Book</b> in Book.cpp.
+  </br>
+</br>
+Note: Book.cpp is updated on May 6. If you have already started before that, you can simply add one line code to the beginning of the destructor: 
+<code>cout << "Delete the book titled \"" << name << "\"" << endl; </code>  This is the only difference between the new version and the original version.
+</br>
+</br>
+		
+    There are totally six testcases in this lab. You can compare the output of your code with the expected output locally by following steps: 
+    <ul>
+      <li>In terminal, run "g++ main.cpp Book.cpp ManagementSystem.cpp -o lab10.exe -g -Wall -lm -std=c++11" to compile.</li>
+      <li>In terminal, run "lab10.exe > out.txt"(for Windows) or "./lab10.exe > out.txt"(for MacOS or Linux) to put the output of your code into a file named "out.txt".</li>
+      <li>Then, input the index of the test case you would like to test. (We take test case 1 for example here)</li>                
+      <li>In terminal, run "fc out.txt TestCaseOutput1.txt"(for Windows) or "diff out.txt TestCaseOutput1.txt"(for MacOS or Linux) to compare your output with the expected output.</li>
+      </ul>
+    There is another way to compare your output with the expected output: you can simply copy your own output and the expected output and use some online tool to compare them. <a href="https://www.diffchecker.com"> Here</a> is a website you can use. If you are not fimiliar with terminal, this is highly recommended.
+
+  </br>
+		
+  Run the program and try it out!
+
+		</p>
+		
+        
+         
+      </div>
+      
+      <div class="container-fluid border-bottom my-5" id="Tasks">
+        <h2 class="mt-4">Tasks</h2>
+        
+		<p> There are 5 tasks in book.cpp. Descriptions of tasks are provided below, instructions and some examples are also provided via comments in the skeleton codes.
+		</p>
+		<ul>
+          <li><b>Task 1</b>: Constructor of a new book. </li>
+          <p>
+            In this part, all the information of a book including numPages, numAuthor, authorList, name, next will be initialized.
+            Note that next would be initialized as nullptr in the constructor, and its value would be set in main.cpp after a book is constructed. 
+            Alao, remember to allocate memory for variable name, numAuthor, and each element in the array numAuthor.
+          </p>
+
+          <li><b>Task 2</b>: Destructor to delete an existing book.
+          </li>       
+          <p>
+            In this part, all the memory allocated previously in the constructor should be deallocated.
+            Note that for an array (e.g., numAuthor), the array as a whole and each element in the array should be deallocated respectively.
+          </p>
+          
+          <li><b>Task 3</b>: Search for and print out information of book(s) with a given name.
+          </li>       
+          <p>
+            Note that the strcmp function can be used to compare two strings.
+            The function printSingleBookInfo() can be used to print out the information of a given book.
+            Since the books are stored in a linked list, next is a pointer to the next book. And for the last book, next should be nullptr.          
+          </p>
+          
+          <li><b>Task 4</b>: Search for and print out information of book(s) of a given author.
+          </li>       
+          <p>
+            Note that the strcmp function can be used to compare two strings.
+            The function printSingleBookInfo() can be used to print out the information of a given book.
+            Since the books are stored in a linked list, next is a pointer to the next book. And for the last book, next should be nullptr.          
+          </p>
+
+          <li><b>Task 5</b>: Search for and delete book(s) of a given name.
+          </li>       
+          <p>
+            Note that the strcmp function can be used to compare two strings.
+            Since the books are stored in a linked list, next is a pointer to the next book. And for the last book, next should be nullptr.          
+          </br>
+          To simplify, in the function <code>deleteBookByName</code>, we would start from the second book. 
+          The case that the first book is a book to be deleted are handled in <code> ManagementSystem.cpp </code>.    
+        </p>
+          <p>
+
+            You can download the demo program here for Windows <a href="demo_Windows.exe"> here</a>. <br/>
+            You can download the demo program here for MacOS(M1) <a href="demo_MacOS"> here</a>.
+              </p>
+              </ul>
+      </div>
+
+
+      <div class="container-fluid border-bottom my-5" id="Output">
+        <h2 class="mt-4">Grading</h2>
+
+
+        <p>Your assignment will be automatically graded by <code>ZINC</code>.</p >
+          <ul>
+              <li>In the grading report, pay attention to various errors reported. For example, under the "make" section, if you see a red cross, click on the STDERR tab to see the compilation errors. You must fix those before you can see any program output for the test cases below.</li>
+
+              <li><strong>Please ensure your program can be compiled without any problem in ZINC.</strong> If your program cannot be compiled, you will receive 0 mark.</li>
+
+
+              <li>Your implementation will be graded by running six test cases, each contains a different input parameter. A test case should finish within 3 seconds. Failing to do so would result in 0 mark for that test case.</li>
+
+              <li>Sanitizer checkings will be turned on for test case 1. If it reports any error (including memory leak and other runtime errors detected) you will get 0 for that case. See PA3 page for what that is, and how you may check for memory leak yourself without using ZINC.</li>
+
+              <li>Your program should not crash during a test case. (e.g. you see a non-zero exit code in your ZINC grading report) If it does, you will receive 0 marks for that test case.</li>
+<!--               <li>Your program should not have memory leak during a test case. If it does, you will receive 0 marks for that test case.</li> -->
+              <!-- <li>For tasks that deal with standard output, please compare your output with those of sample executables and make sure they are <strong>EXACTLY</strong> the same. You should also check for the <code>ZINC</code> grading report.</li> -->
+              <li>Only your latest submission will be graded. You are responsible to make sure the latest submission is correct. <!-- You should wait for <code>ZINC</code> to grade your work and then check the grading report carefully. --></li>
+
+              <li>Do not hardcode your solution for the given test cases.</li>
+
+          </ul>
+        
+        
+
+      </div>
+
+      <div class="container-fluid border-bottom my-5" id="Grade">
+        <h2 class="mt-4">Submission</h2>
+
+
+
+        <p>You are required to submit your solution to our auto-grading system <code>ZINC</code> (<a href="https://zinc.cse.ust.hk/assignments">ZINC</a >).</p > 
+        <!-- (<b>The ZINC submission entry for Lab10 will be open sometime later as announced.</b> You may already start working on the assignment, but you may submit later.)<br><br> -->
+
+          <!-- <p>You can also test your program on <code>ZINC</code>.</p > -->
+          <p>Please submit &quot;Book.cpp&quot; to <code>ZINC</code>.</p >
+
+            <p>The deadline of submission is 12:00pm (<font style="color:red"><b>NOON</b></font>), 11th May 2022</p >
+
+
+              
+          <ul>
+              <li>You may submit your file multiple times, but only the latest version will be graded.</li>
+              <li>Submit early to avoid any last-minute problem. Only <code>ZINC</code> submissions will be accepted.</li>
+              <li>Penalty for late submission is -1 per hour (round up if needed, e.g. -1 for 1 to 60 minutes late; -2 for 61 to 120 minutes late; -3 for more than 120 minutes late).</li>
+              <!-- <li>You should check the grading report after each submission to make sure it can be compiled and gives correct output.</li> -->
+          </ul>
+
+          
+          <p>It is <strong>required</strong> that your submissions can be compiled and run successfully in our online auto-grader <code>ZINC</code>. If we cannot even compile your work, it won&apos;t be graded. Therefore, for parts that you cannot
+              finish, just put in dummy/empty implementation so that your whole program can be compiled for <code>ZINC</code> to grade the other parts that you have done.<!--  <strong>Again, you should wait for and check the grading report after each submission to <code>ZINC</code>.</strong> --></p >
+<br><br><hr>
+<h4>About any ZINC server / webpage / UI problem</h4>
+            <p></p>
+<p>
+If you see a blank page or some errors after some action on ZINC, you may try refreshing the page and repeating the action again, and it usually will work the second / third time. If it still doesn't work, try using another browser / private window. Please also email the details about the bug you encountered (potentially with a screenshot if that is helpful) to <u>zinc@cse.ust.hk</u> and they will try to fix the bug as soon as possible.</p>
+<p>
+It is not unusual that reports may not be generated until hours later when deadline approaches. When the ZINC cannot give you the grading report quickly, please test your program on your own computer, and you may compare your output with the sample output we provided yourself. Please do NOT resubmit the same file again and again, as it will lag the server and won’t make it give you the report faster.</p>
+<p>
+While you may not get the grading report quickly, as long as your submission is successful (the grading part and submission collection part are working separately on ZINC, and the submission collection part is usually responsive and stable), we would grade your latest submission with all test cases after the deadline, so don’t worry too much.</p>
+<p>
+If testing on a Linux machine (on which ZINC is operating) is needed for some reason, you may refer to <a href="https://course.cse.ust.hk/comp2012/assignments/assignment4/leak-checking/">here</a> for instructions on remote-accessing a Linux lab machine. It is not exactly the ZINC server, but it is close in many scenarios, meaning you may be able to reproduce the crash/problems there.
+</p>
+
+
+
+
+
+
+      </div>
+
+  </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+
+  </script>
+
+</body>
+
+</html>
