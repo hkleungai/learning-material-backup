@@ -1,0 +1,443 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>COMP2012H Self-test Web Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="keywords" content="" />
+<!--link rel="stylesheet" href="img/Underground.css" type="text/css" /-->
+<!-- Bubble tooltips: adopted from: http://www.web-graphics.com/mtarchive/bubbletooltips.html--><!-- For automatic tooltip: -->
+<script src="bubbletooltips/bubbletooltips.js" type=text/javascript></script>
+<!-- Example:  usage <a href="" title=""></a>  --><!-- For customize tooltip -->
+<link media=all href="bubbletooltips/bt.css" type=text/css rel=stylesheet>
+<script type="text/javascript" src="jquery/jquery.js"></script>
+
+<!-- JQuery Calender is located here... -->
+<style type="text/css">@import url(jquerycalendar/jquery-calendar.css);</style>
+<script type="text/javascript" src="jquerycalendar/jquery-calendar.js"></script>
+
+<script type="text/javascript" src="selftestmenu.js"></script>
+<link rel="stylesheet" type="text/css" href="selfteststyle.css" />
+<!-- highslide stuff: TESTING... -->
+<script type="text/javascript" src="highslide/highslide-with-html.js"></script>
+<script type="text/javascript">    
+    hs.graphicsDir = 'highslide/graphics/';
+    hs.outlineType = 'rounded-white';
+    hs.outlineWhileAnimating = true;
+</script>
+<style type="text/css">@import url(highslide/myslide.css);</style>
+<!-- END OF highslide stuff -->
+
+</head>
+
+<!-- Start of the main html body -->
+<body>
+
+<!-- wrap starts here -->
+<div id="main">
+<div id="wrap">
+        <!-- header -->
+        <div id="header">
+                <span id="slogan" ></span>
+                <!-- tabs -->
+                <ul>
+                  <li class="showall-solution"><a href="#" title="Show all solutions"><span>Show all solutions</span></a></li>
+                  <li class="hideall-solution"><a href="#" title="Hide all solutions"><span>Hide all solutions</span></a></li>
+                  <li id="tabShowNormalView"><a href="#" title="The normal webpage view"><span>Web view</span></a></li>
+                  <li id="tabShowAllOnePage"><a href="#" title="The view which is suitable for printing"><span>Printable view</span></a></li>
+                  <li id="tabIncFontSize"><a href="#" title="Increase the font size" ><span >++ Font size</span></a></li>
+                  <li id="tabDecFontSize"><a href="#" title="Decrease the font size" ><span >-- Font size</span></a></li>
+                </ul>
+        </div>
+        <!-- main block: right panel -->
+        <!--div id="main"-->
+
+        <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Test Content %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  -->
+
+    <div id='block6' style="display:block;">
+      <h1>Self-test 6:  <br /> <!-- [Oct. 26-30] --> Array</h1>
+      
+      <OL>
+        <LI>
+        <div class="question-wrapper">
+        <div class="question-content">
+          <p>Consider the following program. Which of the following is true?
+
+<pre>
+#include &lt;iostream&gt;
+using namespace std;
+int main(void)
+{
+    int n = 0;
+    int i = n+1;
+    int z[10] = {1,2,3,4,5,6,7,8,9,10};
+
+    for (i = 0; i &lt;= 5; i++)
+    {
+        cout &lt;&lt; z[2*i+1] &lt;&lt; " " &lt;&lt; 2*i+1 &lt;&lt; endl;
+    }
+
+    return 0;
+}
+</pre>
+
+          <OL TYPE="A">
+            <li>The program fails to compile.</li>
+            <li>The output of the program is:
+
+<pre>
+2 1
+4 3
+6 5
+8 7
+10 9
+</pre>
+            </li>
+            <li>We cannot determine the output of the program definitely.</li>
+            <li>The program outputs the 10 elements in array z.</li>
+          </ol>
+        </div>  
+
+        <div class="toggle-solution">Solution</div>
+        <div class="solution-content">
+        <p> <b>C</b> <br />
+          While the for loop iterates from i = 0 to 5, the values of elements z[1], z[3], z[5], z[7], z[9], z[11] should be displayed. However, since the size of the array z is only 10, the index 11 is out of bound. We cannot guarantee what happens when the compute tries to display the value of z[11]; if the location of z[11] does not belong to the user, it will give the runtime error of "segmentation fault". 
+          </p>
+        </div>          
+        </div>
+        <hr />
+        </LI>
+
+
+        <LI>
+        <div class="question-wrapper">
+        <div class="question-content">
+          <p>What is the output of the following program segment?</p>
+<pre>
+char a[7] = "ABC8900";
+int i = 0;
+while (i*2 < 8)
+{
+    cout &lt;&lt; a[i];
+    i++;
+}
+</pre>
+
+          <OL TYPE="A">
+            <LI>AC90</LI>
+            <LI>B80</LI>
+            <LI>Segmentation error</LI>
+            <LI>Cannot even compile</LI>
+            </div>      
+
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p> <b>D.</b> <br />
+              The character string "ABC8900" is equivalent to {'A','B','C','8','9','0','0','\0'}. Thus, "ABC8900" actually consists of 8 characters, and the <i>a</i> array, which has a size of 7, is not big enough to store "ABC8900". Initializing an array with more elements than its size is a compilation error. 
+              </p>
+            </div>              
+            </div>
+            <hr />
+            </LI>
+
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>What is the output of the following program segment?</p>
+<pre>
+char a[6][4] = {"ABC", "abc", "123", "789", "689", "123"};
+
+for (int i = 2; i &gt;= 0; i--)
+{
+    for (int j = 0; j &lt; 3; j++)
+        cout &lt;&lt; a[2*i][j];
+
+    cout &lt;&lt; endl;
+}
+</pre>
+
+          <OL TYPE="A">
+            <LI>&nbsp;
+<pre>
+689
+123
+ABC
+</pre>
+            </LI>
+            <LI>&nbsp;
+<pre>
+abc
+789
+123
+</pre>
+            </LI>
+            <LI>&nbsp;
+<pre>
+ABC
+abc
+123
+</pre>
+            </LI>
+            <LI>Segmentation error </LI>
+          </OL>
+        </div>  
+
+        <div class="toggle-solution">Solution</div>
+        <div class="solution-content">
+          <p> <b>A.</b> <br />
+          The declaration: char a[6][4] represents a list of 6 words, each with a maximum length of 3-character long. The outer <i>i</i> loop picks the words to print, while the inner <i>j</i> picks the characters to print in each word. The expression: 2*i picks the words with index = 4, 2, 0 since <i>i</i> iterates from 2 to 0. Since <i>j</i> iterates from 0 to 2, all the 3 characters of each words are printed. 
+          </p>
+        </div>          
+        </div>
+        <hr />
+        </LI>
+
+
+        <LI>
+        <div class="question-wrapper">
+        <div class="question-content">
+          <p>Which of the function(s) below will never produce segmentation fault at runtime?
+<pre>
+void boo1 (const char x[3][20])
+{
+    for (int i = 0; i &lt; 3; i++)
+        for (int j = 0; j &lt; 20; j++)
+            cout &lt;&lt; x[j][i];
+}
+
+void boo2 (const char x[3][20])
+{
+    for (int i = 0; i &lt; 20; i++)
+        for (int j = 0; j &lt; 3; j++)
+            cout &lt;&lt; x[j][i];
+}
+
+void boo3 (const char x[3][20])
+{
+    for (int i = 1; i &lt;= 6; i++)
+        for (int j = 0; j &lt; 3; j++)
+            cout &lt;&lt; x[j][i*2-1];
+}
+</pre>          
+          <OL TYPE="A">
+            <LI>boo1 & boo2</LI>
+            <LI>boo2 & boo3</LI>
+            <LI>boo1 & boo3</LI>
+            <LI>None of the above</LI>
+            </div>      
+
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p> <b>B.</b> <br />
+              In the output statement of boo1, the first index of x (which is <i>j</i>) iterates from 0 to 19, but the size of the first dimension of the x array is only 3. So the index <i>j</i> will soon get out of bound, causing the segmentation fault runtime error. 
+              </p>
+            </div>              
+            </div>
+            <hr />
+            </LI>
+
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>Which of the function(s) cannot be compiled? </p>
+<pre>
+void foo1 (const char x[10][10])
+{
+    for (int i = 0; i &lt; 10; i++)
+        for (int j = 0; j &lt; 10; j++)
+            cout &lt;&lt; x[i][j];
+}
+
+void foo2 (const char x[][10])
+{
+    for (int i = 0; i &lt; 10; i++)
+        for (int j = 0; j &lt; 10; j++)
+            cout &lt;&lt; x[i][j];
+}
+
+void foo3 (const char x[10][])
+{
+    for (int i = 0; i &lt; 10; i++)
+        for (int j = 0; j &lt; 10; j++)
+            cout &lt;&lt; x[i][j];
+}
+</pre>          
+              <OL TYPE="A">
+                <LI> foo2 only </LI>
+                <LI> foo3 only </LI>
+                <LI> foo2 and foo3 only </LI>
+                <LI> All of the functions </LI>
+                <LI> None of the functions </LI>
+                </div>  
+
+                <div class="toggle-solution">Solution</div>
+                <div class="solution-content">
+                  <p> <b>B.</b> <BR>
+                  In the function declaration of multidimensional arrays, the size of all dimensions except the first one (which is optional) must be specified.
+                  </p>
+                </div>          
+                </div>
+                <hr />
+                </LI>
+
+                <LI>
+                <div class="question-wrapper">
+                <div class="question-content">
+                  <p>Which of the function(s) below can successfully be compiled and add 1 to every element of the 10x10 array?</p>
+<pre>
+void cfoo1 (char arr[10][10])
+{
+    for (int i = 0; i &lt; 10; i++)
+        for (int j = 0; j &lt; 10; j++)
+            arr[i][j]++;
+}
+
+void cfoo2 (const char arr[10][10])
+{
+    for (int i = 0; i &lt; 10; i++)
+        for (int j = 0; j &lt; 10; j++)
+            arr[i][j]++;
+}
+
+void cfoo3 (char& arr[10][10])
+{
+    for (int i = 0; i &lt;10; i++)
+        for (int j = 0; j &lt; 10; j++)
+            arr[i][j]++;
+}
+</pre>          
+                  <OL TYPE="A">
+                    <LI>cfoo1 only</LI>
+                    <LI>cfoo3 only</LI>
+                    <LI>cfoo1 and cfoo2 only</LI>
+                    <LI>cfoo2 and cfoo3 only</LI>
+                    <LI>All of functions</LI>
+                  </OL>         
+                </div>  
+
+                <div class="toggle-solution">Solution</div>
+                <div class="solution-content">
+                  <p> <b>A.</b> 
+                  In function cfoo2, the char array is declared as read only (const), and its elements cannot be modified using the increment operator. In function cfoo3, x is declared as an array of character references (char&), but array of references is not allowed in C++. 
+                  </p>
+                </div>          
+                </div>
+                <hr />
+                </LI>
+
+                <LI>
+                <div class="question-wrapper">
+                <div class="question-content">
+                  <p>Which of the following(s) show(s) the correct input and corresponding output of the program?</p>
+<pre>
+int main(void)
+{
+    char x[20];
+    cout &lt;&lt; "enter a C string:";
+    cin &gt;&gt; x;
+    cout &lt;&lt; x &lt;&lt; endl;
+    return 0;
+}
+</pre>
+          <OL TYPE="A">
+            <LI>&nbsp;
+<pre>
+enter a C string:    hkust comp2011
+hkust
+</pre>
+            </LI>
+            <LI>&nbsp;
+<pre>
+enter a C string:    hkust comp2011
+hkust comp2011
+</pre>
+            </LI>
+            <LI>&nbsp;
+<pre>
+enter a C string:    hkust comp2011
+    hkust comp2011
+</pre>
+            </LI>
+            <LI>&nbsp;
+<pre>
+enter a C string:    hkust comp2011 c++ programming
+    hkust comp2011 c+
+</pre>
+            </LI>
+            </div>      
+
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p> <b>A.</b> <br />
+              cin will skip all the leading white spaces when reading data of the required type until it sees the next white space.
+So if one enters a sentence with spaces between words, only the first word is read into x.
+              </p>
+            </div>              
+            </div>
+            <hr />
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>Which of the following is the correct way to assign values to EACH element of an array?</p>
+              <OL TYPE="A">
+                <LI>&nbsp;
+<pre>
+char x[][] = {"a", "b", "c", "d", "e" };
+</pre>
+            </LI>
+            <LI>&nbsp;
+<pre>
+int x[] = {{1}, {2}, {3}, {4}, {5}};
+</pre>
+            </LI>
+            <LI>&nbsp;
+<pre>
+int x[]; for (int j = 0; j &lt; 5; ++j) x[j] += 2;
+</pre>
+            </LI>
+            <LI>&nbsp;
+<pre>
+float x[6]; for (int j = 5; j &gt; -1; j--) x[j] = 8;
+</pre>
+            </LI>
+            <LI>&nbsp;
+<pre>
+float x[1] = 3.4;
+</pre>
+                
+                </p>            
+            </div>      
+
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p> <b>D.</b> <br />
+              Others are wrong:<BR>
+              Answer A: All dimenision, except the first MUST be specified when initializing an array. <br>
+              Answer B: The initializer is a 2D array initializer. <br>
+              Answer C: the size of the x array is missing. <br>
+              Answer E: x is not a single integer variable! To initialize it, you need something like "float x[1] = {3.4};" <br>
+              </p>
+            </div>              
+            </div>
+            <hr />
+            </LI>
+
+          </OL>
+        </div>
+
+
+
+        
+
+
+        <!-- wrap ends here; don't delete this /div --> 
+        </div>
+
+</div>
+</div>
+
+</body>
+</html>

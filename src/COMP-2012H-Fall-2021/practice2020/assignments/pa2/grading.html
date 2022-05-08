@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- ### Change assignment number ### -->
+    <title>COMP 2012H Assignment 2: Grade Appeal</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/blog-home.css" rel="stylesheet">
+
+    <!-- Prism syntax highlighter -->
+    <link href="prism.css" rel="stylesheet"/>
+	
+	<style>
+    pre {
+      background: #f4f4f4 !important;
+      border: 1px solid #ddd !important;
+      border-left: 3px solid #f36d33 !important;
+      color: #666 !important;
+      page-break-inside: avoid !important;
+      font-family: monospace !important;
+      font-size: 14px !important;
+      line-height: 1.6 !important;
+      margin-bottom: 1.6em !important;
+      max-width: 100% !important;
+      overflow: auto !important;
+      padding: 1em 1.5em !important;
+      display: block !important;
+      word-wrap: break-word !important;
+    }
+	
+	table, th, td {
+	  border: 1px solid black;
+	}
+	th, td {
+	  padding: 5px;
+	}
+	th {
+	  text-align: left;
+	}
+    </style>
+	
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+</head>
+
+<body>
+<script src="prism.js"></script>
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+
+        <!-- Entries Column -->
+        <div class="col-md-9">
+
+            <h2 class="my-4"><span style="color:darkblue">COMP 2012H</span>
+                <small>Honors Object-Oriented Programming and Data Structures</small>
+            </h2>
+
+            <!-- ### Change assignment number and title ### -->
+            <h3 class="my-4">Assignment 2
+                <span style="color:#660066">Grade Appeal</span>
+            </h3>
+
+            <!-- Introduction section -->
+
+            <div class="card mb-4">
+                <div class="card-body" id="introduction">
+                    <h3 class="card-title">Introduction</h3>
+                    <p class="card-text">
+                    Check the Assignment 2 grade on the <a href="https://zinc.cse.ust.hk/">ZINC Online Submission System</a>. 
+					Your submission record will state all test case failures (if any) and their expected values. 
+					If you are unable to see the test case failure details, please check back later, as the ZINC Web GUI Student View might be desynchronized from the server database.
+					</p>
+
+					<p>We have late submission penalty for PA2. Your grade will be scaled by a factor linearly decrease from 100% to 0% for 48h. The grade after scaling is not available yet on ZINC. If you want a non-latest version to be graded, please contact TA in charge. </p>
+
+					<p>There are 28 test cases in total. The subscores are as follows.</p>
+					<ul>
+						<li>Revealed: 1-4, 0 + 0 (correctness + memory) each.</li>
+						<li>Task 2: 5-12, 3 + 0.75 each, 24 + 6 total.</li>
+						<li>Task 3: 13-19, 4 + 1 each, 28 + 7 total.</li>
+						<li>Task 4: 20-26, 2 + 0.5 each, 14 + 3.5 total.</li>
+						<li>Task 5: 27-28, 7 + 1.75 each, 14 + 3.5 total.</li>
+					</ul>
+					
+					For grade appeals, please follow the listed procedure below. 
+					Appeals with incomplete information and/or not following the listed procedure will not be processed:
+					<ol>
+						<li>
+							Read the list of common errors and appeal cases, and follow their sub-instructions (if applicable).
+						</li>
+						<li>
+							No partial credit within a test-case. The score of a test case can only be (correctness+memory), (correctness) or 0.
+						</li>
+						<li>
+							Check the test cases for more details of what each test-case is doing.
+						</li>
+						<li>
+							Send an email to the TA in-charge, ZHANG, Jingyang, <a href="mailto:jzhangbs@connect.ust.hk">jzhangbs@connect.ust.hk</a>, 
+							with the subject header "COMP2012H PA2 Grade Appeal".
+						</li>
+						<li>
+							State which test-case(s) you wish to appeal. Briefly state your reasoning for why your code should have passed those test-case(s).
+						</li>
+						<li>
+							You may propose changes to your source code. Attach your code snippet with the proposed changes in your email. 
+							However, you may not be able to reclaim all the points. Generally speaking, TA will only accept the cases that your original code is conceptually correct but failed the test case because of trivial mistakes (not related to the learning objectives of this assignment). The amount of points you can reclaim is also related to the type of your mistake. 
+						</li>
+						<li>
+							The TA in-charge reserves the right to reject any and all source code changes, as the solution has already been released. 
+						</li>
+						<li>
+							<strong>DO NOT</strong> attach any .exe/executable file(s) in your email.
+                        </li>
+                        <li>
+							Appeal deadline is <span style="font-weight:bold">20 Nov 2020 Friday 23:59 HKT</span>. No late appeals will be processed.
+                        </li>
+                        <li>
+							Finalized scores will be uploaded to Canvas after all appeals are processed.
+						</li>
+					</ol>
+					
+					Common Errors and Appeal Cases:
+					<ol>
+						<li>If you don't finish the proof properly, the program will keep asking an input, which will not be provided by the predefined inputs. As a result, your program will timeout. </li>
+						<li>If you find your program don't crash on your own machine, additionally test it on cs lab 2 machines running linux. (Because of the reasons below)</li>
+                        <li>Uninitialized variables will have garbage (random) values in C++. Sometimes it will be 0,
+                            sometimes it will not. In that case, your program may generate different results on
+                            different machines or different runs if your logic depend on an uninitialized value. If you have
+                            assumed them to be 0 or something specific (e.g. a very large value), your code is faulty
+                            and will get random results.
+                        </li>
+                        <li>If your function doesn't have a return statement for some cases, the returned value is
+                            undefined (can be random) for those cases.
+                        </li>
+                        <li>Retrieving values from deleted/unallocated dynamic memory, or index out-of-bounds, may not always crash your
+                            program but may give random values.
+                        </li>
+                        <li>
+                            Compilation errors will result in 0 marks for this assignment. 
+							This should not occur as revealed test cases were already provided to test your code on ZINC. 
+							Exceptions will only be given for compilation errors that are the fault of the TA's testing code.
+                        </li>
+						<li>Runtime errors and crashes due to incorrect memory access / memory allocation / memory
+                            deallocation / missing variable initialization / missing return values / out-of-bound array access / etc, 
+							may not occur all the time on all machines. However, even though you may not encounter the error/crash when
+                            you test your program, if your program crashes during any of the test cases on ZINC,
+                            the corresponding test cases will be considered as failed and will receive 0 marks.
+                        </li>
+						<!-- <li>
+							Runtime crashes due to point 5 above, or due to timeouts (infinite loop / infinite recursion / runtime taking too long) of the whole test, 
+							will only be regraded if you can debug, fix, and report it in your email appeal with attached code snippet. 
+							The corresponding test-case(s) where the runtime crash occured will still be considered as originally failed and will receive 0 marks, 
+							but you can recover your marks for the rest of the test-cases.
+						</li> -->
+                    </ol>
+					
+					<!-- ZINC Submission Report GTest "An error occurred during the execution of this stage":
+					<ul>
+						<li>
+							This is due to a runtime crash or timeout of GTest. This means that your score of PA1 is 0.
+							Please see points 5 and 6 of the Common Errors and Appeals section above for more instructions on how to recover your marks. 
+							Note that you can refer to the released solution to help you debug. You may also download the GTest code and run it yourself. 
+						</li>
+					</ul> -->
+                </div>
+                <div class="card-footer text-muted">
+                    End of Introduction
+                </div>
+            </div>
+			
+            <!-- <div class="card mb-4">
+                <div class="card-body" id="localsolver">
+                    <h3 class="card-title">Local Solver One Cell Per Function Call</h3>
+                    <p class="card-text">
+					If you have implemented your <code>local_solver()</code> to immediately return when it finds one possible hidden cell to reveal/flag, 
+					the current GTest would fail the last three <code>local_solver()</code> test cases, as it is expecting each function call to find all possible hidden cells to reveal/flag in the whole grid, not only the first one encountered. 
+					</p>
+					
+					If you are sure that your <code>local_solver()</code> function still solves the grid correctly, please follow the appeal intructions below:
+					<ol>
+						<li>
+							If you have already sent an appeal email following the general procedures, then you don't need to do anything else. 
+							Please wait for the TA in-charge to process your grade appeal and send you a reply.
+						</li>
+						<li>
+							If you have other appeal cases but haven't sent an email before, please follow the general grade appeal procedures listed in the previous section.
+						</li>
+						<li>
+							If you only wish to appeal this case, send an email to the TA in-charge, ZHANG, Jingyang, <a href="mailto:jzhangbs@connect.ust.hk">jzhangbs@connect.ust.hk</a>, 
+							with the subject header "COMP2012H PA1 Grade Appeal, Local Solver One Cell per Function Call". All other grade appeal cases within that email will be ignored. 
+						</li>
+						<li>
+							The TA in-charge will verify that your ZINC submission code can pass a modified GTest test-case. 
+							This test-case will replace the three <code>local_solver()</code> test cases 
+							(not replacing the <code>CompletelyHiddenGrid</code> test-case, which you should have passed anyway).
+						</li>
+						<li>
+							If you pass the modified GTest test-case, you will recover your <code>local_solver()</code> marks for those three replaced test-cases, but subject to a 5% penalty. 
+							This would be equivalent to passing 2 of those 3 test-cases. Your finalized grade for <code>local_solver()</code> will only be a maximum of 15%/20%, 
+							assuming you have also passed the <code>CompletelyHiddenGrid</code> test-case.
+						</li>
+						<li>
+							You may download and run the modified GTest code yourself in the section below. 
+							This test-case runs <code>local_solver()</code> on a General Grid but only checks the final grid state.
+						</li>
+					</ol>
+
+					
+					Explanation for the 5% Grade Penalty:
+					<ul>
+						<li>
+							While it is technically true that the PA1 description for Task 3 did not explicitly state to reveal and flag all possible hidden cell candidates per iteration, 
+							it should be obvious from the output parameters of <code>int cells_to_reveal[MAX_CELLS][2]</code> and <code>int cells_to_reveal[MAX_CELLS][2]</code> both being such large arrays, 
+							as well as the presence of the <code>int num_cells[2]</code> output parameter. 
+							<ul>
+								<li>
+									For the case of only returning one cell per function call, instead we only need <code>int cell_to_reveal[2]</code> and <code>int cell_to_flag[2]</code>. 
+									We can also replace <code>int num_cells[2]</code> with <code>bool is_reveal_or_flag[2]</code>. 
+								</li>
+							</ul>
+						</li>
+						<li>
+							Returning only one cell per function call is also an inefficiency, as every function call has a runtime overhead cost. 
+							Also, while both implementations theoretically have the same <code>O(num_grid_cells^2)</code> runtime in the worst case, 
+							the solution's implementation is <code>O(num_grid_cells)</code> runtime in the average case where there are more than one possible hidden cell candiates per iteration. 
+							<ul>
+								<li>
+									For example, let's say there is one hidden cell to flag, and one hidden cell to reveal, and both these cells are at the bottom-right of the grid. 
+									The one-cell-per-function-call return will traverse the whole grid twice in total (once for each function call to find those two cells), 
+									while the solution implementation will only traverse the whole grid once in total (doesn't immediately return when finding the first cell, so can find the second cell).
+								</li>
+								<li>
+									The worst case runtime for the solution implementation would only occur if the hidden cells are "chained", 
+									meaning that revealing/flagging a hidden cell then only provides enough information to reveal/flag the subsequent hidden cells, 
+									so the <code>local_solver()</code> function has to return first in order to call <code>reveal()</code> and/or <code>flag()</code> for one cell, before calling <code>local_solver()</code> again.  
+									This is then similar behavior as the one-cell-per-function-call implementation, 
+									implying that the one-cell-per-function-call implementation's average case runtime and worst case runtime are equivalent.
+								</li>
+							</ul>
+						</li>
+						<li>
+							This 5% Grade Penalty is chosen so as to be analogous to failing <code>enumerate_possibilities()</code> Optimization test-case. 
+						</li>
+					</ul>
+                </div>
+                <div class="card-footer text-muted">
+                    End of Local Solver One Cell Per Function Call
+                </div>
+            </div>			 -->
+
+
+            <!-- <div class="card mb-4">
+                <div class="card-body" id="scheme">
+                    <h3 class="card-title">Grading Scheme</h3>
+                    <p class="card-text">
+                        Each Task Function has 1 test-case per 5% of score, for a total of 20 test-cases. Passing a test-case is worth 5%, while failing a test-case is 0%, with no partial credit within a test-case.
+                    </p>
+			  <table style="width:95%">
+				<tr>
+				  <th style="width:90%">Task Function</th>
+				  <th>Grade</th>
+				</tr>
+				<tr>
+				  <td>Task 1 - <code>reveal()</code></td>
+				  <td>10%</td>
+				</tr>
+				<tr>
+				  <td>Task 2 - <code>flag()</code></td>
+				  <td>5%</td>
+				</tr>
+				<tr>
+				  <td>Task 3 - <code>local_solver()</code></td>
+				  <td>20%</td>
+				</tr>
+				<tr>
+				  <td>Task 4 - <code>classify_hidden_cells()</code></td>
+				  <td>10%</td>
+				</tr>
+				<tr>
+				  <td>Task 5 - <code>has_satisfiable_neighbor_constraints()</code></td>
+				  <td>10%</td>
+				</tr>
+				<tr>
+				  <td>Task 6 - <code>record_possibility()</code></td>
+				  <td>10%</td>
+				</tr>
+				<tr>
+				  <td>Task 7 - <code>enumerate_possibilities()</code></td>
+				  <td>20%</td>
+				</tr>
+				<tr>
+				  <td>Task 8 - <code>handle_constrained_cells()</code></td>
+				  <td>5%</td>
+				</tr>
+				<tr>
+				  <td>Task 9 - <code>handle_unconstrained_cells()</code></td>
+				  <td>5%</td>
+				</tr>
+				<tr>
+				  <td>Task 10 - <code>global_solver()</code></td>
+				  <td>5%</td>
+				</tr>				
+			  </table>
+                </div>
+                <div class="card-footer text-muted">
+                    End of Grading Scheme
+                </div>
+            </div> -->
+
+
+            <div class="card mb-4">
+                <div class="card-body" id="cases">
+                    <h3 class="card-title">Solution &amp; Test Cases</h3>
+					<p class="card-text"></p>
+					<ul>
+						<li>Solution: <a href="files/pa2_complete.zip">pa2_complete.zip</a></li>
+						<li>Test cases: <a href="files/test_cases.zip">test_cases.zip</a></li>
+						<!-- <li>Task 7 No Recursion: <a href="https://course.cse.ust.hk/comp2012h/assignments/pa1_sol/PA1_Task7_no_recursion.cpp">PA1_Task7_no_recursion.cpp</a></li> -->
+						<!-- <li>GTest Code: <a href="https://course.cse.ust.hk/comp2012h/assignments/pa1_sol/pa1_gtest_code.zip">pa1_gtest_code.zip</a></li> -->
+						<!-- <li>GTest Modified Local Solver Test Case: <a href="https://course.cse.ust.hk/comp2012h/assignments/pa1_sol/PA1_GTest_local_solver_one_cell.cpp">PA1_GTest_local_solver_one_cell.cpp</a></li> -->
+						<!-- <li>GTest Library for Windows: <a href="https://course.cse.ust.hk/comp2012h/assignments/pa1_sol/pa1_gtest_windows.zip">pa1_gtest_windows.zip</a></li> -->
+					</ul>
+					
+						<!-- Refer to the GTest <a href="https://github.com/google/googletest/blob/master/googletest/docs/primer.md">usage and coding documentation</a>. <br/>
+						<br/>
+						GTest compilation instructions (Windows only):
+						<ol>
+							<li>
+								Extract <code>pa1_gtest_windows.zip</code> into any convenient folder. 
+							</li>
+							<li>
+								Place your <code>PA1.cpp</code> into that convenient folder.
+							</li>
+							<li>
+								You should now have these files and subdirectories inside that convenient folder: 
+								<ul>
+									<li><code>PA1.h</code></li>
+									<li><code>PA1.cpp</code></li>
+									<li><code>PA1_sol.h</code></li>
+									<li><code>PA1_sol.cpp</code></li>
+									<li><code>PA1_GTest.cpp</code></li>
+									<li><code>.\include\gtest\</code> (various subdirectories and files)</li>
+									<li><code>.\lib\libgtest.a</code></li>
+									<li><code>.\lib\libgtest_main.a</code></li>
+								</ul>
+							</li>
+							<li>
+								In a terminal, navigate to that convenient folder, and run the following <code>g++</code> commands:
+								<ul>
+									<li><code>g++ -std=c++11 -pedantic -Wall -Wextra -g -c PA1.cpp -o PA1.o</code></li>
+									<li><code>g++ -std=c++11 -pedantic -Wall -Wextra -g -c PA1_sol.cpp -o PA1_sol.o</code></li>
+									<li><code>g++ -std=c++11 -pedantic -Wall -Wextra -g "-I.\\include" -c PA1_GTest.cpp -o PA1_GTest.o</code></li>
+									<li><code>g++ "-L.\\lib" -o PA1_GTest.exe PA1.o PA1_sol.o PA1_GTest.o -lgtest -lgtest_main</code></li>
+								</ul>
+							</li>
+							<li>
+								Things to try if you get compilation errors:
+								<ul>
+									<li>Replace with full directory pathnames (<code>"-IC:\\Desktop\\convenient_folder\\include"</code> , <code>"-LC:\\Desktop\\convenient_folder\\lib"</code>) if relative pathnames fail to parse.</li>
+									<li>If you get "declaration not found in scope" errors related to <code>gtest-*.h</code> during Step 3, try replacing <code>-std=c++11</code> with <code>-std=c++0x</code>, <code>-std=gnu++0x</code>, or <code>-std=gnu++11</code>.</li>
+									<li>If you are still having compilation errors, it might be a version difference with the MinGW compiler. Please try reinstalling according to the VS Code setup in Lab1.</li>
+								</ul>
+							</li>
+							<li>
+								Run <code>PA1_GTest.exe</code>. Note that there is no pause after output, so the terminal may close automatically.
+							</li>
+							<li>
+								To run the modified test-case for Local Solver, just replace <code>PA1_GTest.cpp</code> with <code>PA1_GTest_local_solver_one_cell.cpp</code>, as well as the relevant compilation commands.
+							</li>
+						</ol>
+					
+					<p class="card-text">
+						To congifure googletest for other platforms, please refer to the <a href="https://github.com/google/googletest/blob/master/googletest/README.md">googletest make documentation</a>. 
+						You'll need to compile the googletest library files <code>libgtest.a</code> and <code>libgtest_main.a</code> specifically for your platform.
+					</p>
+					<br/>
+					<br/>
+						List of Test Cases:
+						<ol>
+							<li>Reveal.NonZeroCell</li>
+							<li>Reveal.ZeroCell</li>
+							<li>Flag.Toggle</li>
+							<li>LocalSolver.CompletelyHiddenGrid</li>
+							<li>LocalSolver.SimpleReveal</li>
+							<li>LocalSolver.SimpleFlag</li>
+							<li>LocalSolver.GeneralGrid</li>
+							<li>ClassifyHiddenCells.CompletelyHiddenGrid</li>
+							<li>ClassifyHiddenCells.PartiallyRevealedGrid</li>
+							<li>HasSatisfiableNeighborConstraints.InsufficientPossibleFlags</li>
+							<li>HasSatisfiableNeighborConstraints.TooManyFlags</li>
+							<li>RecordPossibility.InvalidRecord</li>
+							<li>RecordPossibility.ValidRecord</li>
+							<li>EnumeratePossibilities.SimpleGrid</li>
+							<li>EnumeratePossibilities.ResetHidden</li>
+							<li>EnumeratePossibilities.Optimization</li>
+							<li>EnumeratePossibilities.GeneralGrid</li>
+							<li>HandleConstrainedCells.RevealAndOrFlag</li>
+							<li>HandleUnconstrainedCells.RevealAndOrFlag</li>
+							<li>GlobalSolver.GeneralGrid</li>
+						</ol>
+					General Grid:<br/>
+					<img src="images/GlobalSolverGrid.png" alt="General Grid" style="width:75%;height:75%;"> -->
+                </div>
+                <div class="card-footer text-muted">
+                    End of Solution &amp; Test Cases
+                </div>
+            </div>
+
+
+            <!--            <div class="card mb-4">-->
+            <!--                <div class="card-body" id="solution">-->
+            <!--                    <h3 class="card-title">Sample solution</h3>-->
+            <!--                    <p class="card-text">-->
+            <!--                        Since the test cases are self-contained in the main function for each subtask cpp file (see <a-->
+            <!--                            href="test_wrapper.zip ">test_wrapper.zip</a>), there are no standard solutions to-->
+            <!--                        implement.-->
+            <!--                    <p>-->
+            <!--                </div>-->
+            <!--                <div class="card-footer text-muted">-->
+            <!--                    End of Sample solution-->
+            <!--                </div>-->
+            <!--            </div>-->
+
+
+            <div class="card mb-4">
+                <div class="card-body" id="stats">
+                    <h3 class="card-title">Statistics</h3>
+                    <p class="card-text">
+						Before Appealing, with late penalty
+                    <p>
+					<ul>
+						<li>Total: 100</li>
+						<li>Average: 82.1</li>
+						<li>Standard Deviation: 22.7</li>
+						<li>Median: 90</li>
+						<li>Minimum: 0</li>
+						<li>Maximum: 100</li>
+					</ul>
+					<!-- Normalized to 100:
+					<ul>
+						<li>Total: 100</li>
+						<li>Average: 88.5</li>
+						<li>Standard Deviation: 14.9</li>
+						<li>Median: 95</li>
+						<li>Minimum: 25</li>
+						<li>Maximum: 100</li>
+					</ul> -->
+					<!-- Normalized to 8:
+					<ul>
+						<li>Total: 8</li>
+						<li>Average: 7.1</li>
+						<li>Standard Deviation: 1.2</li>
+						<li>Median: 7.6</li>
+						<li>Minimum: 2</li>
+						<li>Maximum: 8</li>
+					</ul> -->
+					
+					<img src="images/hist_pre.png" alt="Grade Distribution Graph" style="width:75%;height:75%;">
+                </div>
+                <div class="card-footer text-muted">
+                    End of Statistics
+                </div>
+            </div>
+
+
+            <!--            <div class="card mb-4">-->
+            <!--                <div class="card-body" id="note">-->
+            <!--                    <h3 class="card-title">Note</h3>-->
+            <!--                    <p class="card-text">-->
+            <!--                        <br/> We will perform plagiarism checking at a later time and marks could be adjusted for those-->
+            <!--                        who are caught.-->
+            <!--                    <p>-->
+            <!--                </div>-->
+            <!--                <div class="card-footer text-muted">-->
+            <!--                    End of Note-->
+            <!--                </div>-->
+            <!--            </div>-->
+
+
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-3">
+            <div class="sticky-top">
+            <!-- Menu Widget -->
+            <div class="card my-12">
+                <h5 class="card-header">Menu</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <ul class="mb-0" type="circle" style="padding-left:20px">
+                                <li>
+                                    <a href="#introduction">Introduction</a>
+                                </li>
+								<!-- <li>
+                                    <a href="#localsolver">Local Solver One Cell Per Function Call</a>
+                                </li> -->
+                                <!-- <li>
+                                    <a href="#scheme">Grading Scheme</a>
+                                </li> -->
+                                <li>
+                                    <a href="#cases">Solution &amp; Test Cases</a>
+                                </li>
+                                <li>
+                                    <a href="#stats">Statistics</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Maintainance widget -->
+            <div class="card my-4">
+                <h5 class="card-header">Page maintained by</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    ZHANG, Jingyang
+                                </li>
+                                <li>
+                                    Email: <a href="mailto:jzhangbs@connect.ust.hk">jzhangbs@connect.ust.hk</a>
+                                </li>
+                                <li>Last Modified:
+                                    <script type="text/javascript">document.write(document.lastModified);</script>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Homepage widget -->
+            <div class="card my-4">
+                <h5 class="card-header">Homepage</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a href="http://course.cse.ust.hk/comp2012h">Course Homepage</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">Maintained by COMP 2012H Teaching Team &copy; 2020 HKUST Computer Science and Engineering</p>
+    </div>
+    <!-- /.container -->
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

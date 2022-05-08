@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- ### Change assignment number ### -->
+    <title>COMP 2012H Assignment 3: Grade Appeal</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/blog-home.css" rel="stylesheet">
+
+    <!-- Prism syntax highlighter -->
+    <link href="prism.css" rel="stylesheet"/>
+	
+	<style>
+    pre {
+      background: #f4f4f4 !important;
+      border: 1px solid #ddd !important;
+      border-left: 3px solid #f36d33 !important;
+      color: #666 !important;
+      page-break-inside: avoid !important;
+      font-family: monospace !important;
+      font-size: 14px !important;
+      line-height: 1.6 !important;
+      margin-bottom: 1.6em !important;
+      max-width: 100% !important;
+      overflow: auto !important;
+      padding: 1em 1.5em !important;
+      display: block !important;
+      word-wrap: break-word !important;
+    }
+	
+	table, th, td {
+	  border: 1px solid black;
+	}
+	th, td {
+	  padding: 5px;
+	}
+	th {
+	  text-align: left;
+	}
+    </style>
+	
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+</head>
+
+<body>
+<script src="prism.js"></script>
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+
+        <!-- Entries Column -->
+        <div class="col-md-9">
+
+            <h2 class="my-4"><span style="color:darkblue">COMP 2012H</span>
+                <small>Honors Object-Oriented Programming and Data Structures</small>
+            </h2>
+
+            <!-- ### Change assignment number and title ### -->
+            <h3 class="my-4">Assignment 3
+                <span style="color:#660066">Grade Appeal</span>
+            </h3>
+
+            <!-- Introduction section -->
+
+            <div class="card mb-4">
+                <div class="card-body" id="introduction">
+                    <h3 class="card-title">Introduction</h3>
+                    <p class="card-text">
+                    Check the Assignment 3 grade on the <a href="https://zinc.cse.ust.hk/">ZINC Online Submission System</a>. <br/>
+					<br/>
+					There are 99 GTest test cases in total, with each test case having its own grade. The grade stated by ZINC will be 1 if you passed the test case, 0 if you failed, and is <b>NOT</b> indicative of your actual grade. 
+					Please calculate your actual grade by checking the Grading Scheme section. No partial credit is possible within a single test case, as they are not worth more than 2% each. <br/>
+					The two Standard I/O Tests check for Memory and Undefined Behavior errors, and are worth 7% and 3% respectively, also with no partial credit possible. 
+					</p>
+					
+					For grade appeals, please follow the listed procedure below. 
+					Appeals with incomplete information and/or not following the listed procedure will not be processed:
+					<ol>
+						<li>
+							Read the list of common errors and appeal cases, and follow their sub-instructions (if applicable).
+						</li>
+						<li>
+							Check the GTest code in the section below for more details of what each test case is doing.
+						</li>
+						<li>
+							Send an email to the TA in-charge, CHANG Bing Yen, <a href="mailto:bychang@connect.ust.hk">bychang@connect.ust.hk</a>, 
+							with the subject header "COMP2012H PA3 Grade Appeal".
+						</li>
+						<li>
+							State which test case(s) you wish to appeal (refer to the list in the section below). Clearly state your reasoning for why your code should have passed those test case(s).
+						</li>
+						<li>
+							You may propose changes to your source code. Attach your code snippet with the proposed changes in your email. 
+							However, such changes are subject to a grade deduction at the discretion of the TA in-charge, proportional to the magnitude, complexity, and hindsight of the changes.
+						</li>
+						<li>
+							The TA in-charge reserves the right to reject any and all source code changes, as the solution has already been released. 
+						</li>
+						<li>
+							<strong>DO NOT</strong> attach any .exe/executable file(s) in your email.
+                        </li>
+                        <li>
+							Appeal deadline is <span style="font-weight:bold">30 November 2020 Monday 23:59 HKT</span>. No late appeals will be processed.
+                        </li>
+                        <li>
+							Finalized scores will be uploaded to Canvas after all appeals are processed.
+						</li>
+					</ol>
+					
+					Common Errors and Appeal Cases:
+					<ol>
+                        <li>Uninitialized variables will have garbage (random) values in C++. Sometimes it will be 0,
+                            sometimes it will not. In that case, your program may generate different results on
+                            different machines or different runs if your logic depend on an uninitialized value. If you have
+                            assumed them to be 0 or something specific (e.g. a very large value), your code is faulty
+                            and will get random results.
+                        </li>
+                        <li>If your function doesn't have a return statement for some cases, the returned value is
+                            undefined (can be random) for those cases.
+                        </li>
+                        <li>Retrieving values from deleted/unallocated dynamic memory, or index out-of-bounds, may not always crash your
+                            program but may give random values.
+                        </li>
+                        <li>
+                            Compilation errors will result in however many marks ZINC states for your submission. 
+							This should not occur as a revealed test case were already provided to test your code on ZINC. 
+							Your appeal email should include the code snippet(s) that fix the cause(s) of the compilation error. 
+							The corresponding test case(s) where the compilation error occured will still be considered as originally failed and will receive 0 marks, 
+							but you can recover your marks for the rest of the test cases.
+                        </li>
+						<li>Runtime errors and crashes due to incorrect memory access / memory allocation / memory
+                            deallocation / missing variable initialization / missing return values / out-of-bound array access / etc, 
+							may not occur all the time on all machines. However, even though you may not encounter the error/crash when
+                            you test your program, if your program crashes during any of the test cases on ZINC,
+                            the corresponding test cases will be considered as failed and will receive 0 marks.
+                        </li>
+						<li>
+							Runtime crashes due to point 5 above, or due to timeouts (infinite loop / infinite recursion / runtime taking too long) of the whole GTest, 
+							will only be regraded if you can debug, fix, and report it in your email appeal with attached code snippet. 
+							The corresponding test case(s) where the runtime crash occured will still be considered as originally failed and will receive 0 marks, 
+							but you can recover your marks for the rest of the test cases.
+						</li>
+                    </ol>
+                </div>
+                <div class="card-footer text-muted">
+                    End of Introduction
+                </div>
+            </div>
+			
+            <div class="card mb-4">
+                <div class="card-body" id="scheme">
+                    <h3 class="card-title">Grading Scheme</h3>
+                    <p class="card-text">
+                        No partial credit within a test case.
+                    </p>
+			  <table style="width:95%">
+				<tr>
+				  <th style="width:90%">GameEngineTest</th>
+				  <th>Grade</th>
+				</tr>
+				<tr>
+				  <td><code>IsGameOverTwoPlayers</code></td>
+				  <td>2%</td>
+				</tr>
+				<tr>
+				  <td><code>IsGameOverOnePlayer</code></td>
+				  <td>2%</td>
+				</tr>				
+				<tr>
+				  <td><code>IsGameOverZeroPlayers</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><em>Subtotal</em></td>
+				  <td><em>5%</em></td>
+				</tr>
+			  </table>
+			  <br/>
+			  
+			  <table style="width:95%">
+				<tr>
+				  <th style="width:90%">GameMapTest</th>
+				  <th>Grade</th>
+				</tr>
+				<tr>
+				  <td><code>UpdateTerrainMapEmptyToOccupied</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><code>UpdateTerrainMapOccupiedToEmpty</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><code>IsValidPath</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><code>IsValidPathOutOfBounds</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><code>IsValidPathTerrainBlocked</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><code>IsValidPathTerrainOccupied</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><code>IsValidPathOutOfMovementRange</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><em>Subtotal</em></td>
+				  <td><em>7%</em></td>
+				</tr>				
+			  </table>
+			  <br/>
+			  
+			  <table style="width:95%">
+				<tr>
+				  <th style="width:90%">PlayerTest</th>
+				  <th>Grade</th>
+				</tr>
+				<tr>
+				  <td><code>GetUnitById</code></td>
+				  <td>2%</td>
+				</tr>
+				<tr>
+				  <td><code>HasUnitsAlive</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><code>HasNoUnitsAlive</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><code>HasUnitsReady</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><code>HasNoUnitsReady</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><code>ReadyAllUnits</code></td>
+				  <td>2%</td>
+				</tr>
+				<tr>
+				  <td><code>GetName</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><code>GetNumUnits</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><code>GetUnits</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><em>Subtotal</em></td>
+				  <td><em>11%</em></td>
+				</tr>
+			  </table>
+			  <br/>
+			  
+			  <table style="width:95%">
+				<tr>
+				  <th style="width:90%">UnitTest</th>
+				  <th>Grade</th>
+				</tr>
+				<tr>
+				  <td><code>BeginTurn</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><code>EndTurn</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><code>MoveDeltaPositiveRowPositiveCol</code></td>
+				  <td>0.5%</td>
+				</tr>
+				<tr>
+				  <td><code>MoveDeltaNegativeRowNegativeCol</code></td>
+				  <td>0.5%</td>
+				</tr>
+				<tr>
+				  <td><code>MoveDeltaPositiveRowNegativeCol</code></td>
+				  <td>0.5%</td>
+				</tr>
+				<tr>
+				  <td><code>MoveDeltaNegativeRowPositiveCol</code></td>
+				  <td>0.5%</td>
+				</tr>
+				<tr>
+				  <td><code>HealRate</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><code>HealMaxHealth</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><code>GetId</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><code>GetUnitType</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><code>GetAttackRange</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><code>GetMovementRange</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><code>GetPositionRow</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><code>GetPositionCol</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><code>IsReadyTrue</code></td>
+				  <td>0.5%</td>
+				</tr>
+				<tr>
+				  <td><code>IsReadyFalse</code></td>
+				  <td>0.5%</td>
+				</tr>
+				<tr>
+				  <td><code>IsAliveNonzeroHealth</code></td>
+				  <td>0.5%</td>
+				</tr>
+				<tr>
+				  <td><code>IsAliveZeroHealth</code></td>
+				  <td>0.5%</td>
+				</tr>
+				<tr>
+				  <td><em>Subtotal</em></td>
+				  <td><em>14%</em></td>
+				</tr>
+			  </table>
+			  <br/>
+			  
+			  <table style="width:95%">
+				<tr>
+				  <th style="width:90%">DerivedUnitTest (Duplicated for all 4 Derived Unit Classes)</th>
+				  <th>Grade</th>
+				</tr>
+				<tr>
+				  <td><code>ConstructorId</code></td>
+				  <td>0.5%</td>
+				</tr>
+				<tr>
+				  <td><code>ConstructorUnitType</code></td>
+				  <td>0.5%</td>
+				</tr>
+				<tr>
+				  <td><code>ConstructorHealth</code></td>
+				  <td>0.5%</td>
+				</tr>
+				<tr>
+				  <td><code>ConstructorAttack</code></td>
+				  <td>0.5%</td>
+				</tr>
+				<tr>
+				  <td><code>ConstructorDefense</code></td>
+				  <td>0.5%</td>
+				</tr>
+				<tr>
+				  <td><code>ConstructorAttackRange</code></td>
+				  <td>0.5%</td>
+				</tr>
+				<tr>
+				  <td><code>ConstructorMovementRange</code></td>
+				  <td>0.5%</td>
+				</tr>
+				<tr>
+				  <td><code>ConstructorPositionRow</code></td>
+				  <td>0.5%</td>
+				</tr>
+				<tr>
+				  <td><code>ConstructorPositionCol</code></td>
+				  <td>0.5%</td>
+				</tr>
+				<tr>
+				  <td><code>ToString</code></td>
+				  <td>1%</td>
+				</tr>
+				<tr>
+				  <td><code>AttackSwordsman</code></td>
+				  <td>1.5%</td>
+				</tr>
+				<tr>
+				  <td><code>AttackPikeman</code></td>
+				  <td>1.5%</td>
+				</tr>
+				<tr>
+				  <td><code>AttackKnight</code></td>
+				  <td>1.5%</td>
+				</tr>
+				<tr>
+				  <td><code>AttackArcher</code></td>
+				  <td>1.5%</td>
+				</tr>
+				<tr>
+				  <td><code>SimultaneousCounterattack</code></td>
+				  <td>1.5%</td>
+				</tr>
+				<tr>
+				  <td><em>Subtotal</em></td>
+				  <td><em>13% x4</em></td>
+				</tr>
+			  </table>
+			  <br/>
+			  
+			  <table style="width:95%">
+				<tr>
+				  <th style="width:90%">ArcherTest</th>
+				  <th>Grade</th>
+				</tr>
+				<tr>
+				  <td><code>RangedAttackAgainstMelee</code></td>
+				  <td>0.5%</td>
+				</tr>
+				<tr>
+				  <td><code>RangedAttackAgainstArcher</code></td>
+				  <td>0.5%</td>
+				</tr>
+				<tr>
+				  <td><em>Subtotal</em></td>
+				  <td><em>1%</em></td>
+				</tr>
+			  </table>
+			  <br/>
+			  
+			  <table style="width:95%">
+				<tr>
+				  <th style="width:90%">Standard I/O Test</th>
+				  <th>Grade</th>
+				</tr>
+				<tr>
+				  <td><code>Test #1 (Memory &amp; Address)</code></td>
+				  <td>7%</td>
+				</tr>
+				<tr>
+				  <td><code>Test #2 (Undefined Behavior)</code></td>
+				  <td>3%</td>
+				</tr>
+				<tr>
+				  <td><em>Subtotal</em></td>
+				  <td><em>10%</em></td>
+				</tr>
+			  </table>
+                </div>
+                <div class="card-footer text-muted">
+                    End of Grading Scheme
+                </div>
+            </div>
+
+
+            <div class="card mb-4">
+                <div class="card-body" id="cases">
+                    <h3 class="card-title">Solution &amp; Test Cases</h3>
+					<p class="card-text">
+					<ul>
+						<li>Solution: <a href="https://course.cse.ust.hk/comp2012h/assignments/pa3_sol/PA3_solution.zip">PA3_solution.zip</a></li>
+						<li>GTest Code: <a href="https://course.cse.ust.hk/comp2012h/assignments/pa3_sol/pa3_gtest_code.zip">pa3_gtest_code.zip</a></li>
+						<li>GTest Library for Windows: <a href="https://course.cse.ust.hk/comp2012h/assignments/pa3_sol/pa3_gtest_windows.zip">pa3_gtest_windows.zip</a></li>
+					</ul>
+					</p>
+					
+						Refer to the GTest <a href="https://github.com/google/googletest/blob/master/googletest/docs/primer.md">usage and coding documentation</a>. <br/>
+						<br/>
+						GTest compilation instructions (Windows only) (similar to PA1):
+						<ol>
+							<li>
+								Extract <code>pa3_gtest_windows.zip</code> into any convenient folder. 
+							</li>
+							<li>
+								Place your submission header and source files into that convenient folder.
+							</li>
+							<li>
+								You should now have these files and subdirectories inside that convenient folder: 
+								<ul>
+									<li>(PA3 header and source files, also textfiles for loading GameMap, Players, and Units)</li>
+									<li><code>UnitDerivedGTest.h</code></li>
+									<li><code>PA3_GTest.cpp</code></li>
+									<li><code>.\include\gtest\</code> (various subdirectories and files)</li>
+									<li><code>.\lib\libgtest.a</code></li>
+									<li><code>.\lib\libgtest_main.a</code></li>
+								</ul>
+							</li>
+							<li>
+								In a terminal, navigate to that convenient folder, and run the following <code>g++</code> commands:
+								<ul>
+									<li><code>g++ -std=c++11 -pedantic -Wall -Wextra -g -O0 -c GameEngine.cpp -o GameEngine.o</code></li>
+									<li><code>g++ -std=c++11 -pedantic -Wall -Wextra -g -O0 -c GameMap.cpp -o GameMap.o</code></li>
+									<li><code>g++ -std=c++11 -pedantic -Wall -Wextra -g -O0 -c Player.cpp -o Player.o</code></li>
+									<li><code>g++ -std=c++11 -pedantic -Wall -Wextra -g -O0 -c Unit.cpp -o Unit.o</code></li>
+									<li><code>g++ -std=c++11 -pedantic -Wall -Wextra -g -O0 -c Swordsman.cpp -o Swordsman.o</code></li>
+									<li><code>g++ -std=c++11 -pedantic -Wall -Wextra -g -O0 -c Pikeman.cpp -o Pikeman.o</code></li>
+									<li><code>g++ -std=c++11 -pedantic -Wall -Wextra -g -O0 -c Knight.cpp -o Knight.o</code></li>
+									<li><code>g++ -std=c++11 -pedantic -Wall -Wextra -g -O0 -c Archer.cpp -o Archer.o</code></li>
+									<li><code>g++ -std=c++11 -pedantic -Wall -Wextra -g -O0 "-I.\\include" -c PA3_GTest.cpp -o PA3_GTest.o</code></li>
+									<li><code>g++ "-L.\\lib" -o PA3_GTest.exe GameEngine.o GameMap.o Player.o Unit.o Swordsman.o Pikeman.o Knight.o Archer.o PA3_GTest.o -lgtest -lgtest_main</code></li>
+								</ul>
+							</li>
+							<li>
+								Things to try if you get compilation errors:
+								<ul>
+									<li>Replace with full directory pathnames (<code>"-IC:\\Desktop\\convenient_folder\\include"</code> , <code>"-LC:\\Desktop\\convenient_folder\\lib"</code>) if relative pathnames fail to parse.</li>
+									<li>If you get "declaration not found in scope" errors related to <code>gtest-*.h</code> during Step 3, try replacing <code>-std=c++11</code> with <code>-std=c++0x</code>, <code>-std=gnu++0x</code>, or <code>-std=gnu++11</code>.</li>
+									<li>If you are still having compilation errors, it might be a version difference with the MinGW compiler. Please try reinstalling according to the VS Code setup in Lab1.</li>
+								</ul>
+							</li>
+							<li>
+								Run <code>PA3_GTest.exe</code>. Note that there is no pause after output, so the terminal may close automatically.
+							</li>
+						</ol>
+					
+					<p class="card-text">
+						To configure googletest for other platforms, please refer to the <a href="https://github.com/google/googletest/blob/master/googletest/README.md">googletest make documentation</a>. 
+						You'll need to compile the googletest library files <code>libgtest.a</code> and <code>libgtest_main.a</code> specifically for your platform.
+					</p>
+					
+					<p class="card-text">
+						The Memory and Undefined Behavior checks are performed with the compiler itself by adding the "<code>-fsanitize=address</code>" and "<code>-fsanitize=undefined</code>" compiler flags with GNU g++ on Linux. 
+						However, these flags are not available for MinGW on Windows.
+						Nevertheless, the memory management code that you need to complete is just only in the <code>Player</code> Destructor - call <code>delete</code> on each <code>Unit*</code> in <code>units</code> array, and call <code>delete[]</code> on <code>units</code>.
+					</p>
+                </div>
+                <div class="card-footer text-muted">
+                    End of Solution &amp; Test Cases
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body" id="stats">
+                    <h3 class="card-title">Statistics</h3>
+                    <p class="card-text">
+						<ul>
+							<li>Total: 100</li>
+							<li>Average: 97.93</li>
+							<li>Standard Deviation: 5.15</li>
+							<li>Median: 100</li>
+							<li>Minimum: 63</li>
+							<li>Maximum: 100</li>
+						</ul>
+						
+						Normalized to 8:
+						<ul>
+							<li>Total: 8</li>
+							<li>Average: 7.83</li>
+							<li>Standard Deviation: 0.41</li>
+							<li>Median: 8</li>
+							<li>Minimum: 5.04</li>
+							<li>Maximum: 8</li>
+						</ul>
+						
+						<img src="images/grade.png" alt="Grade Distribution Graph" style="width:75%;height:75%;">
+                    <p>
+                </div>
+                <div class="card-footer text-muted">
+                    End of Statistics
+                </div>
+            </div>
+
+
+            <!--            <div class="card mb-4">-->
+            <!--                <div class="card-body" id="note">-->
+            <!--                    <h3 class="card-title">Note</h3>-->
+            <!--                    <p class="card-text">-->
+            <!--                        <br/> We will perform plagiarism checking at a later time and marks could be adjusted for those-->
+            <!--                        who are caught.-->
+            <!--                    <p>-->
+            <!--                </div>-->
+            <!--                <div class="card-footer text-muted">-->
+            <!--                    End of Note-->
+            <!--                </div>-->
+            <!--            </div>-->
+
+
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-3">
+            <div class="sticky-top">
+            <!-- Menu Widget -->
+            <div class="card my-12">
+                <h5 class="card-header">Menu</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <ul class="mb-0" type="circle" style="padding-left:20px">
+                                <li><a href="#introduction">Introduction</a></li>
+                                <li><a href="#scheme">Grading Scheme</a></li>
+                                <li><a href="#cases">Solution &amp; Test Cases</a></li>
+                                <li><a href="#stats">Statistics</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Maintainance widget -->
+            <div class="card my-4">
+                <h5 class="card-header">Page maintained by</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    CHANG Bing Yen
+                                </li>
+                                <li>
+                                    Email: <a href="mailto:bychang@connect.ust.hk">bychang@connect.ust.hk</a>
+                                </li>
+                                <li>Last Modified:
+                                    <script type="text/javascript">document.write(document.lastModified);</script>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Homepage widget -->
+            <div class="card my-4">
+                <h5 class="card-header">Homepage</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a href="http://course.cse.ust.hk/comp2012h">Course Homepage</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">Maintained by COMP 2012H Teaching Team &copy; 2020 HKUST Computer Science and Engineering</p>
+    </div>
+    <!-- /.container -->
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

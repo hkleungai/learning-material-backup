@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>COMP 2012H Fall 2020 Demo Schedule</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.7.0/fullcalendar.min.css" integrity="sha256-OAQcJF9MnDYbnZYQd5xvB1r7IyPYZncXephiGoO5B1g=" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <style type="text/css">
+    body {
+      margin: 0;
+    }
+    #app {
+      position: absolute;
+      width: 100%;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Roboto', sans-serif;
+      align-items: center;
+    }
+    
+    .titlebar {
+      width: 100%;
+      height: 72px;
+      background-color: #FFA500;
+      box-shadow: 0 1px 6px rgba(0,0,0,.117647), 0 1px 4px rgba(0,0,0,.117647);
+      display: flex;
+      align-items: center;
+    }
+
+    .titlebar > span {
+      color: white;
+      font-size: 24px;
+      margin-left: 24px;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items:center;
+    }
+
+    .calendars {
+      display: flex;
+      padding: 24px;
+      justify-content: center;
+    }
+
+    .calendars > div {
+      width: 340px;
+      margin: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="titlebar">
+      <span>COMP 2012H (Fall 2020) Project Demo Schedule</span>
+    </div>
+    <div class="container">
+      <p style="width: 640px; margin: 16px 0;">Please select a timeslot by clicking an empty slot on the provided dates, then input your student id to complete your registration.</p>
+      <b style="width: 640px;"><i>*Remarks: Each timeslot can take up to 1 project group at most. <!--You may click on a occupied timeslot if there are less than 3 SID displaying to make your reservation.--></i></b>
+      <div class="calendars">
+        <div id="d1"></div>
+        <div id="d2"></div>
+        <div id="d3"></div>
+      </div>
+    </div>
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.2/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.7.0/fullcalendar.min.js"></script>
+  <script type="text/javascript">
+
+    const config = {
+      apiKey: "AIzaSyDvAR8tKFd-b_oW1DO7Dfk7SKeLd_17JXw",
+      authDomain: "course-demo-booking.firebaseapp.com",
+      databaseURL: "https://course-demo-booking.firebaseio.com",
+      projectId: "course-demo-booking",
+      storageBucket: "course-demo-booking.appspot.com",
+      messagingSenderId: "138974404816",
+      appId: "1:138974404816:web:b852cc116ea1b58a557ed5"
+    };
+    firebase.initializeApp(config);
+
+    const validateSID = async (id) => {
+      if (!id) {
+        alert('Student ID cannot be empty')
+        return false
+      }
+      else {
+        const snapshot = await firebase.database().ref(`students/${id}`).once('value')
+        if (snapshot.val()) {
+          return true
+        }
+        else {
+          alert('Your student ID is invalid, please try again')
+          return false
+        }
+      }
+    }
+
+    const register = async (path, sid) => {
+      const endpoint = firebase.database().ref(path)
+      const snapshot = await endpoint.once('value')
+      if (!snapshot.val() || !snapshot.val().occupants || snapshot.val().occupants.length < 1) {
+        await endpoint.set({ ...snapshot.val(), occupants: snapshot.val()?[...snapshot.val().occupants, sid]:[sid]})
+        await firebase.database().ref(`students/${sid}`).set(false)
+        return true
+      }
+      else {
+        alert('This timeslot has reached its maximum number of capacity, please choose another timeslot.')
+        return false
+      }
+    }
+
+    const reservables = [
+      {
+        id: '#d1',
+        date: "2020-12-05",
+        availability: ['10:30:00', '12:30:00'],
+      },
+      {
+        id: '#d2',
+        date: "2020-12-05",
+        availability: ['14:00:00', '15:30:00'],
+      },
+      {
+        id: '#d3',
+        date: "2020-12-05",
+        availability: ['15:45:00', '17:30:00'],
+      }
+    ];
+
+    firebase.database().ref('dates').on('value', (snapshot) => {
+      let reservations = {
+        "2020-12-05": [
+        ]
+      }
+      const record = snapshot.val()
+      for(date in record){
+        for(slot in record[date].slots){
+          if (record[date].slots[slot].occupants) {
+            const event = {
+              title: record[date].slots[slot].occupants.map( sid => `****${sid.substring(4,8)}`).join(' '),
+              start: `${date}T${slot}`,
+              end: `${date}T${moment(slot, 'hh:mm:ss').add(15, 'minutes').format('HH:mm:ss')}`
+            }
+            console.log(event)
+            reservations[date].push(event)
+          }
+        }
+      }
+      reservables.forEach((calendar) => {
+        $(calendar.id).fullCalendar('removeEventSources')
+        $(calendar.id).fullCalendar('addEventSource', reservations[calendar.date]);
+      })
+    })
+
+    $(document).ready(function() {
+      reservables.forEach( (event) => {
+        $(event.id).fullCalendar({
+          header: {
+            right: ''
+          },
+          defaultView: 'agendaDay',
+          defaultDate: moment(event.date),
+          displayEventTime: false,
+          eventClick: async (clickedEvent, el) => {
+            if (clickedEvent.title.split(' ').length < 1) {
+              const title = prompt('Please Enter Your Student ID')
+              const isValid = await validateSID(title)
+              if (isValid) {
+                await register(`dates/${event.date}/slots/${clickedEvent.start.format('HH:mm:ss')}`, title)
+                // if (result) {
+                //   clickedEvent.title += ` ${title}`
+                //   $(event.id).fullCalendar( 'updateEvent', clickedEvent )
+                // }
+              }
+            }
+            else {
+              alert('This timeslot has reached its maximum number of capacity, please choose another timeslot.')
+            }
+          },
+          selectable: true,
+          selectHelper: true,
+          select: async (start, end) => {
+            const title = prompt('Please Enter Your Student ID')
+            const isValid = await validateSID(title)
+            if (!isValid) {
+              $(event.id).fullCalendar('unselect')
+              return
+            }
+            else {
+              await register(`dates/${event.date}/slots/${start.format('HH:mm:ss')}`, title)
+              // if (result) {
+              //   $(event.id).fullCalendar('renderEvent', { title, start, end })
+              // }
+            }
+          },
+          selectAllow: function(selectInfo) { 
+              const duration = moment.duration(selectInfo.end.diff(selectInfo.start));
+              return duration.asMinutes() === 15;
+          },
+          slotDuration: '00:15:00',
+          minTime: event.availability[0],
+          maxTime: event.availability[1],
+          editable: false,
+          allDaySlot: false,
+          height: 640
+        })
+
+      });
+
+
+
+    });
+  </script>
+</body>
+</html>

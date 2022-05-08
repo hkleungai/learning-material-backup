@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<!-- ### Change lab number ### -->
+    <title>COMP 2012H Lab 1: Common Errors</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/blog-home.css" rel="stylesheet">
+	
+	<!-- Prism syntax highlighter -->
+	<link href="prism.css" rel="stylesheet" />
+
+	  <style>
+		  #review img {
+			  width: 600px;
+		  }
+	  </style>
+	  <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </head>
+
+  <body>
+    <script src="prism.js"></script>
+	
+    <!-- Page Content -->	
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Entries Column -->
+        <div class="col-md-12">
+
+          <h2 class="my-4"><span style="color:darkblue">COMP 2012H</span>
+            <small>Honors Object-Oriented Programming and Data Structures</small>
+          </h2>
+		  
+		  <!-- ### Change lab number and title ### -->
+		  <h3 class="my-4">Lab 2
+            <span style="color:#660066">Arrays and Functions</span>
+          </h3>
+
+			<!-- setting up eclipse section -->
+			<!-- ### Complete introduction section for the lab ### -->
+			<div class="card mb-4">
+
+				<div class="card-body" id="eclipse">
+					<h3 class="card-title">Common Errors</h3>
+					<p class="card-text">
+					<ol>
+					  <li>Indexing errors when implementing <code>swipe()</code>, <code>copy_grid()</code>, and <code>gridNotEqual()</code> functions.
+					  <ul>
+					    <li>for (int i = 0; i &lt; 3; i++), instead of i &lt; 4.</li>
+						<li>for (int i = 4; i &gt; 0; i--), instead of for (int i = 3; i &gt;= 0; i--)</li>
+						<li>Wrong direction of indexing.</li>
+					  </ul>            
+					  </li>
+					  <br/>
+					  <li>Not properly combining or shifting the numbers based on the rules.
+					  <ul>
+					    <li>Shifting only 1 space instead of through all empty space.</li>
+						<li>Recursive combinations, e.g. (4, 2, 0, 2) becoming (8, 0, 0, 0), the 2's combine into a 4 and then the 4's combine again.</li>
+						<li>Not shifting after combining.</li>
+					  </ul>
+					  </li>
+					  <br/>
+					  <li>Still generating a random number even on an invalid swipe move (when the grid doesn't change).</li>
+					</ol>
+				    </p>
+				</div>
+				<div class="card-footer text-muted">
+					End of Common Errors
+				</div>
+			</div>
+			
+			<!-- setting up eclipse section -->
+			<!-- ### Complete introduction section for the lab ### -->
+			<div class="card mb-4">
+
+				<div class="card-body" id="eclipse">
+					<h3 class="card-title">Interesting Cases</h3>
+					<p class="card-text">
+					<ol>
+					  <li>Using a completely random trial-and-error <code>generate()</code>.<br/><br/>
+<pre class="prettyprint" style="border:0">
+bool success = false;
+while (!success) {
+	int i = rand() % 4;
+	int j = rand() % 4;
+	if (grid[i][j] == 0) {
+		grid[i][j] = getRandomNumber();
+		success = true;
+	}
+	// ...
+</pre>
+<ul>
+  <li>Because the grid is small, even for the worst case situation of only 1 empty space, expected case takes 16 trials, but worst case will take much longer than that, since 16 trials does not guarantee seeing a 1/16 success, and this algorithm doesn't scale to larger problems.</li>  
+</ul>
+</li>
+<br/>
+<li>Using matrix inversions and transpositions for the different directions of <code>swipe()</code>.
+<ul>
+	<li>One student only implemented swipe_left(), and then implemented <code>inverse()</code> and <code>transpose()</code> functions to implement the other directions. While the code is clean, the efficiency is not, because of all the array copying in the <code>inverse()</code> and <code>transpose()</code> functions.</li>
+    <li>We asked the student to re-implement the four <code>swipe()</code> directions as the lab question instead.</li>    
+</ul>
+</li>
+					</ol>
+				    </p>
+				</div>
+				<div class="card-footer text-muted">
+					End of Interesting Cases
+				</div>
+			</div>
+
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>	
+  </body>
+
+</html>

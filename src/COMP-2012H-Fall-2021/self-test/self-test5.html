@@ -1,0 +1,404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>COMP2012H Self-test Web Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="keywords" content="" />
+<!--link rel="stylesheet" href="img/Underground.css" type="text/css" /-->
+<!-- Bubble tooltips: adopted from: http://www.web-graphics.com/mtarchive/bubbletooltips.html--><!-- For automatic tooltip: -->
+<script src="bubbletooltips/bubbletooltips.js" type=text/javascript></script>
+<!-- Example:  usage <a href="" title=""></a>  --><!-- For customize tooltip -->
+<link media=all href="bubbletooltips/bt.css" type=text/css rel=stylesheet>
+<script type="text/javascript" src="jquery/jquery.js"></script>
+
+<!-- JQuery Calender is located here... -->
+<style type="text/css">@import url(jquerycalendar/jquery-calendar.css);</style>
+<script type="text/javascript" src="jquerycalendar/jquery-calendar.js"></script>
+
+<script type="text/javascript" src="selftestmenu.js"></script>
+<link rel="stylesheet" type="text/css" href="selfteststyle.css" />
+<!-- highslide stuff: TESTING... -->
+<script type="text/javascript" src="highslide/highslide-with-html.js"></script>
+<script type="text/javascript">    
+    hs.graphicsDir = 'highslide/graphics/';
+    hs.outlineType = 'rounded-white';
+    hs.outlineWhileAnimating = true;
+</script>
+<style type="text/css">@import url(highslide/myslide.css);</style>
+<!-- END OF highslide stuff -->
+
+</head>
+
+<!-- Start of the main html body -->
+<body>
+
+<!-- wrap starts here -->
+<div id="main">
+<div id="wrap">
+        <!-- header -->
+        <div id="header">
+                <span id="slogan" ></span>
+                <!-- tabs -->
+                <ul>
+                  <li class="showall-solution"><a href="#" title="Show all solutions"><span>Show all solutions</span></a></li>
+                  <li class="hideall-solution"><a href="#" title="Hide all solutions"><span>Hide all solutions</span></a></li>
+                  <li id="tabShowNormalView"><a href="#" title="The normal webpage view"><span>Web view</span></a></li>
+                  <li id="tabShowAllOnePage"><a href="#" title="The view which is suitable for printing"><span>Printable view</span></a></li>
+                  <li id="tabIncFontSize"><a href="#" title="Increase the font size" ><span >++ Font size</span></a></li>
+                  <li id="tabDecFontSize"><a href="#" title="Decrease the font size" ><span >-- Font size</span></a></li>
+                </ul>
+        </div>
+        <!-- main block: right panel -->
+        <!--div id="main"-->
+
+        <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Test Content %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  -->
+
+	<div id='block5' style="display:block;">
+	  <h1>Self-test 5:  <br /> <!-- [Oct. 19-23] --> Basics II and Control II</h1>
+
+      <OL>
+        <LI>
+        <div class="question-wrapper">
+        <div class="question-content">
+          <p>Which of the following assignment statements is/are legal?</p>
+          <ol type="A">
+            <li>int t = 4.5;</li>
+            <li>int t = 23;</li>
+			<li>int t = static_cast&lt;int&gt;(false);</li>           
+
+          </ol>
+        </div>
+        
+        <div class="toggle-solution">Solution</div>
+        <div class="solution-content">
+        <p><b> All of them are correct.</b> <br>
+          However, what is the value stored in each variable? </p>
+        <p> 
+          <ul>
+            <li>In A, t will be assigned 4. It is becasue when casting a double to an integer, only the integral part will be kept.</li>
+            <li>In B, t will be assigned 23 as expected.</li>
+            <li>In C, t will be assigned 0 since false is internally represented as 0.</li>                     
+          </ul>
+          </p>
+        </div>
+        </div>
+        <hr />
+        </LI>
+
+
+        <LI>
+        <div class="question-wrapper">
+        <div class="question-content">
+          <p>Consider the following code. What will be the output?<br></p>
+<pre>
+int a = 12, b = 9, c = 6, d = 4;
+int ans = a/static_cast&lt;double&gt;(b)*c-d/b;
+cout &lt;&lt; ans &lt;&lt; endl;
+</pre>
+          <OL TYPE="A">
+            <LI>5</LI>
+            <LI>6</LI>
+            <LI>7.5556</LI>
+            <LI>8</LI>
+          </OL>
+        </div>  
+                
+        <div class="toggle-solution">Solution</div>
+        <div class="solution-content">
+          <p> <b> D</b>. <br>
+          a/static_cast&lt;double&gt;(b)*c-d/b = 12 / 9.0 * 6 - 4 / 9 = 8.0 - 0 = 8.0 and then the value 8.0 will be coerced to 8.
+          </p>
+        </div>          
+        </div>
+        <hr />
+        </LI>
+
+
+        <LI>
+        <div class="question-wrapper">
+        <div class="question-content">
+          <p>Consider the following code. What will be the output if the input is 9?</p>
+<pre>
+    double test = true;
+    int num;
+    cin &gt;&gt; num;
+
+    if (num &gt; 10)
+        test = false;
+    else if (num &gt; 9)
+        test += 2.2;
+    else if (num &gt; 8)
+        test += 3.3;
+    else if (num &gt; 7)
+        test += 4.4;
+    else if (num &gt; 6)
+        test += 5.5;
+
+    if (num &gt; 5)
+        test += 6.6;
+    else if (num &gt; 4)
+        test += 7.7;
+    else
+        test += 8.8;
+
+    cout &lt;&lt; static_cast&lt;int&gt;(test) &lt;&lt; endl;
+</pre>
+          <OL TYPE="A">
+            <LI>4</LI>
+            <LI>10</LI>
+            <LI>11</LI>
+            <LI>38</LI>
+          </UL> 
+        </div>  
+
+        <div class="toggle-solution">Solution</div>
+        <div class="solution-content">
+          <p> <b> B</b>. <BR>
+          Because 9 is greater than 8 and 5, and test is initialized to 1 (since true is internally represented by 1), test += 3.3 and test += 6.6 will be executed. Thus, test will get the value of 10.9. Finally, it is cast back to int 10 before it is printed out. 
+          </p>
+        </div>          
+        </div>
+        <hr />
+        </LI>
+
+        <LI>
+
+
+
+
+<!--
+
+<div class="question-wrapper">
+        <div class="question-content">
+                <p>
+                
+<p><font  >4. Consider the following code, what will be the output?<br></p>
+<p><font  >int test2 = 251 &gt;&gt; 3 &lt;&lt; 
+4;</font></p>
+<p><font  >cout &lt;&lt; test2 &lt;&lt;endl;</font> <br>
+
+</p>
+<p><font  >A) 484</font></p>
+<p><font  >B) 490</font></p>
+<p><font  >C) 496</font></p>
+<p><font  >D) 502</font> <br></p>
+                
+                </p>            
+        </div>  
+        <div class="toggle-solution">Solution</div>
+        
+        <div class="solution-content">
+        
+        <p>
+        <b>Solution:</b> 
+        
+        <p><font  > C. int test2 = 251 &gt;&gt; 
+3 &lt;&lt; 4; is equivalent to 251 / 8 * 16 = 31 * 16 = 496.</font> <br>
+
+</p>
+
+        </p>
+        
+        </div>          
+</div>
+<hr />
+            </LI>
+
+            <LI>
+
+<div class="question-wrapper">
+        <div class="question-content">
+                <p>
+<p>5. What will (255 &amp; ~1) be evaluated? <br> </p>
+<p><font  >A) 1</font></p>
+<p><font  >B) 254</font></p>
+<p><font  >C) 255</font></p>
+<p><font  >D) false</font></p>
+
+<p><font  >E) Cannot be compiled</font> <br>
+</p>
+                </p>            
+        </div>  
+        <div class="toggle-solution">Solution</div>
+        
+        <div class="solution-content">
+        
+        <p>
+<p><font  > B. &amp; in C++ means bit-wise 
+AND while ~ is the bit-wise NOT. ~1 will do a bit-wise NOT on the representation 
+of 1 so the result will be that only the least decimal bit becomes zero 
+and the other are 1. Then 255 is bit-wise AND with the ~1 and due to 
+AND, the least decimal bit of 255 becomes 0 and the results is 254.</font> <br>
+</p>
+<p> <br></p>
+
+        </p>
+        
+        </div>          
+</div>
+<hr />
+            </LI>
+
+-->
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>Which of the following functions CANNOT be compiled?
+<pre>
+    void foo1 (int a, int b, int c)
+    {
+        a = b;
+        b = c;
+    }
+
+    void foo2 (int a, int b, const int&amp; c)
+    {
+        a = b;
+        b = c;
+    }
+
+    void foo3 (int a, const int b, const int c)
+    {
+        a = b;
+        b = c;
+    }
+</pre>
+
+          <OL TYPE="A">
+            <LI>foo3 Only</LI>
+            <LI>foo1 nor foo3 Only</LI>
+            <LI>foo2 nor foo3 Only</LI>
+            <LI>All</LI>
+          </OL>   
+                
+        </div>  
+        <div class="toggle-solution">Solution</div>
+        <div class="solution-content">
+          <p> <b>A</b>.<BR>
+          Because parameter b in foo3 is defined as const int, it cannot be modified by an assignment statement.<BR>
+          Function foo1 expects a return value but contains no return statement. It is allowed but is not recommended. As a matter of fact, during compilation, a warning message will be issued. In this course, as far as exam is concerned, it will be considered as an error.<BR>
+          In foo2, c is declared as const int &. This is allowed. In any case, the object passed to c will be treated as a const int though it is passed by reference.
+          </p>
+        </div>          
+        </div>
+        <hr />
+        </LI>
+
+
+        <LI>
+        <div class="question-wrapper">
+        <div class="question-content">
+          <p>Which of the following data type(s) cannot be used in the integral expression of switch?</p>
+          <ol type="A">
+            <li><font  >bool</font></li>
+            <li><font  >char</font></li>
+            <li><font  >double</font></li>
+            <li><font  >float</font></li>
+            <li><font  >int</font></li>
+          </ol>         
+          </p>          
+        </div>  
+
+        <div class="toggle-solution">Solution</div>
+        <div class="solution-content">
+        <p><b>C and D</b>.<BR> We cannot use floating point values for the integral expression in the switch statement.</p>
+        </div>          
+        </div>
+        <hr />
+        </LI>
+
+
+        <LI>
+        <div class="question-wrapper">
+        <div class="question-content">
+          <p>Consider the following two code segments. Will they give the same result for the identifier <i>count</i>?</p>
+          <p>Code segment 1:</p>
+<pre>
+    int count = 0;
+    for (int i = 0, j = 10; i &lt; 10 &amp;&amp; j &gt; 0; i++, j--)
+        count = count + 1;
+</pre>
+
+          <p>Code segment 2:</p>
+<pre>
+    int count = 0;
+    for (int i = 0; i &lt; 10; i++);
+    for (int j = 10; j &gt; 0; j--)
+        count = count + 1;
+</pre>
+                
+        </div>  
+        <div class="toggle-solution">Solution</div>
+        <div class="solution-content">
+          <p><b> Yes</b>.<BR>
+          At the end of the program run, the variable <i>count</i> in both program segments will become 10. In Code Segment 1, <i>i</i> increases while <i>j</i> decreases at the same rate. So after executing count = count+1 10 times, <i>i</i> and <i>j</i> becomes 10 and 0 respectively. In Code Segment 2, the first for loop (the <i>i</i> loop) actually has an empty body. The second loop (the <i>j</i> loop) executes 10 times and the identifier <i>count</i> is incremented to 10 too.</p>
+        </div>          
+        </div>
+        <hr />
+        </LI>
+
+
+        <LI>
+        <div class="question-wrapper">
+        <div class="question-content">
+          <p>What is the output of the following program?</p>
+<pre>           
+    #include &lt;iostream&gt;
+    using namespace std;
+
+    int main(void)
+    {
+        int s = 0;
+        switch(s)
+        {
+        case 0:
+            cout &lt;&lt; s &lt;&lt; endl;
+            s = s+1;
+        case 1:
+            cout &lt;&lt; s &lt;&lt; endl;
+            s = s+1;
+        case 2:
+            cout &lt;&lt; s &lt;&lt; endl;
+            s = s+1;
+        case 3:
+            cout &lt;&lt; s &lt;&lt; endl;
+            s = s+1;
+        default: 
+            cout &lt;&lt; s &lt;&lt;endl;
+        }
+
+        return 0;
+    }
+</pre>          
+        </div>  
+        <div class="toggle-solution">Solution</div>
+        <div class="solution-content">
+          <p> <b>Solution:</b> </p>
+          0<BR>
+          1<BR>
+          2<BR>
+          3<BR>
+          4<BR>
+        </div>          
+        </div>
+        <hr />
+        </LI>
+
+      </OL>
+    </div>
+
+
+
+
+    
+
+
+        <!-- wrap ends here; don't delete this /div --> 
+        </div>
+
+</div>
+</div>
+
+</body>
+</html>

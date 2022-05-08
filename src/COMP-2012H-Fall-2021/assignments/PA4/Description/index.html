@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- ### Change assignment number ### -->
+    <title>COMP 2012H Assignment 4: SimpleCity GUI</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/blog-home.css" rel="stylesheet">
+    
+    <!-- Prism syntax highlighter -->
+    <link href="vendor/prism/prism.css" rel="stylesheet" />
+
+    <style type="text/css">
+      img.limit {
+        max-width: 100%
+      }
+    </style>
+  </head>
+
+  <body>
+    <script src="vendor/prism/prism.js"></script>
+    
+    <!-- Page Content -->   
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Entries Column -->
+        <div class="col-md-9">
+
+          <h2 class="my-4">
+            <span style="color:darkblue">COMP 2012H</span>
+            <small>Honors Object-Oriented Programming and Data Structures</small>
+          </h2>
+
+          <!-- ### Change assignment number and title ### -->
+          <h3 class="my-4">
+            Assignment 4
+            <span style="color:#660066">SimpleCity GUI</span>
+          </h3>
+
+          <div class="alert alert-primary" role="alert">
+            This programming assignment requires <em>Qt</em>. <strong>Please refer to the <a href="../../../labs/supp-lab">supplementary lab</a> to get started with <em>Qt</em>.</strong>
+          </div>
+
+          <div class="alert alert-info" role="alert">
+            This programming assignment is designed to work with <em>Qt</em> version 5.15.1, but you can install other <em>Qt</em> versions.
+          </div>
+
+          <!-- <div class="alert alert-warning" role="alert">
+            We highly encourage you to participate on <a href="https://piazza.com/class/kte6bcbkbzn7gk">Piazza</a>. You can ask questions anonymously.
+          </div> -->
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="announcements">
+              <h3 class="card-title">Announcements</h3>
+              <ul>
+                <li>
+                  <strong>Updated November 10</strong>: The skeleton code and description were updated to better guide you to complete handling the side menu animation. If you have already completed this part, you do not need to download the skeleton again.
+                </li>
+                <li>
+                  <strong>Updated November 9</strong>: If you are using <em>Qt</em> version 5.12.11 (or older), <code>menuwindow.cpp</code> may not compile. To fix this, change lines 17-19 of <code>menuwindow.cpp</code> from
+                  <pre class="language-cpp line-numbers" data-start="17"><code>
+                    QPixmap p = ui->label_logo->pixmap(Qt::ReturnByValue);
+                    const int SCALE = 4;
+                    ui->label_logo->setPixmap(p.scaled(p.width() * SCALE, p.height() * SCALE));
+                  </code></pre>
+                  to
+                  <pre class="language-cpp line-numbers" data-start="17"><code>
+                    const QPixmap *p = ui->label_logo->pixmap();
+                    const int SCALE = 4;
+                    ui->label_logo->setPixmap(p->scaled(p->width() * SCALE, p->height() * SCALE));
+                  </code></pre>
+                </li>
+                <li><strong>Updated November 8</strong>: Skeleton code was released.</li>
+              </ul>
+            </div>
+            <div class="card-footer text-muted">
+              End of Announcements
+            </div>
+          </div>
+
+          <div class="card bg-light mb-4">
+            <div class="card-body" id="honor-code">
+              <h3 class="card-title">Honor Code</h3>
+              <p class="card-text">
+                We value academic integrity very highly. Please read the <a href="https://course.cse.ust.hk/comp2012h/#honorcode">Honor Code</a> section on our course webpage to make sure you understand what is considered as plagiarism and what the penalties are. The following are some of the highlights:
+              </p>
+
+              <ul>
+                <li>Do NOT try your &quot;luck&quot; - we use sophisticated plagiarism detection software to find cheaters. We also review codes for potential cases manually.</li>
+                <li>The penalty (for <strong>BOTH</strong> the copier and the copiee) is not just getting a zero in your assignment. Please read the <a href="https://course.cse.ust.hk/comp2012h/#honorcode">Honor Code</a> thoroughly.</li>
+                <li>Serious offenders will fail the course immediately, and there will be additional disciplinary actions from the department and university, upto and including expulsion.</li>
+              </ul>
+            </div>
+            <div class="card-footer text-muted">
+              End of Honor Code
+            </div>
+          </div>
+
+          <div class="card bg-light mb-4">
+            <div class="card-body" id="ilo">
+              <h3 class="card-title">Objectives &amp; Intended Learning Outcomes</h3>
+              <p class="card-text">
+                The objective of this assignment is to provide you with practice on the OOP concepts of Inheritance and Polymorphism, as well as writing code with less reliance on a provided skeleton code. Upon completion of this assignment, you should be able to:
+              </p>
+
+              <ol>
+                <li>Write appropriate header files on your own, without being provided them as part of the skeleton code.</li>
+                <li>Manage dynamic memory effectively with the use of class constructors and destructors.</li>
+                <li>Use inheritance to allow for significant code reuse between base classes and derived classes.</li>
+                <li>Use function overriding in derived classes to provide different function implementations for the same member function prototype.</li>
+                <li>Understand how base class pointers/references can point/refer to derived class objects, yet polymorphically call derived class functions that are declared <code class="language-cpp">virtual</code>.</li>
+                <li>Code a program following the OOP paradigm.</li>
+                <li>Have an overview of Qt GUI programming.</li>
+                <li>Learning to use new library by searching the document.</li>
+              </ol>
+            </div>
+            <div class="card-footer text-muted">
+              End of Objectives &amp; Intended Learning Outcomes
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <img class="card-img-top" src="./images/simplecity.png" alt="Git illustration">
+
+            <div class="card-body" id="introduction">
+              <h3 class="card-title">Introduction</h3>
+
+              <p class="card-text">
+                In this (last) assignment, you are going to implement the <strong>graphical user interface (GUI)</strong> for <em>SimpleCity</em>.
+              </p>
+
+              <p class="card-text">
+                Since <em>Qt</em> is not taught in the lectures, you are expected to self-learn <em>Qt</em>. Here are some useful resources:
+              </p>
+
+              <ul>
+                <li>Qt for Beginners (Tutorial)<br> <a href="https://wiki.qt.io/Qt_for_Beginners">https://wiki.qt.io/Qt_for_Beginners</a></li>
+                <li>Qt Examples (Examples)<br> <a href="https://doc.qt.io/qt-5/all-examples.html">https://doc.qt.io/qt-5/all-examples.html</a></li>
+                <li>Learn Qt 5 (E-book)<br> <a href="https://www.oreilly.com/library/view/learn-qt-5/9781788478854/?ar">https://www.oreilly.com/library/view/learn-qt-5/9781788478854/?ar</a></li>
+              </ul>
+            </div>
+
+            <div class="card-footer text-muted">
+              End of Introduction
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="code-structure">
+              <h3 class="card-title">Code Structure</h3>
+
+              <pre><code class="language-treeview">
+                pa4
+                ├── City.cpp 
+                ├── City.h 
+                ├── SimpleCity.pro
+                ├── buildings/
+                │   ├── Apartment.cpp 
+                │   ├── Apartment.h 
+                │   ├── Building.cpp 
+                │   ├── Building.h 
+                │   ├── BuildingInformationFormatString.h
+                │   ├── Clinic.cpp 
+                │   ├── Clinic.h 
+                │   ├── GoldMine.cpp 
+                │   ├── GoldMine.h 
+                │   ├── Health.cpp 
+                │   ├── Health.h 
+                │   ├── Hospital.cpp 
+                │   ├── Hospital.h 
+                │   ├── House.cpp 
+                │   ├── House.h 
+                │   ├── Residential.cpp
+                │   ├── Residential.h 
+                │   ├── Revenue.cpp 
+                │   ├── Revenue.h 
+                │   ├── SilverMine.cpp 
+                │   └── SilverMine.h 
+                ├── graphics.cpp
+                ├── graphics.h
+                ├── images/
+                │   ├── apartment.png
+                │   ├── clinic.png
+                │   ├── destruct.png
+                │   ├── gold_mine.png
+                │   ├── hospital.png
+                │   ├── house.png
+                │   ├── navigation.png
+                │   ├── next.png
+                │   ├── silver_mine.png
+                │   └── stripes.png
+                ├── images.qrc
+                ├── main_gui.cpp
+                ├── mainwindow.cpp
+                ├── mainwindow.h
+                ├── mainwindow.ui
+                ├── menuwindow.cpp
+                ├── menuwindow.h
+                ├── menuwindow.ui
+                └── test-city.txt
+              </code></pre>
+
+              <ul>
+                <li><code>SimpleCity.pro</code>: The <em>Qt Creator</em> project file for SimpleCity. Open this in <em>Qt Creator</em>.</li>
+                <li><code>City.cpp</code>, <code>City.h</code> and files in <code>buildings/</code>: Provided files implementing the game logic. These are also the files you worked on in PA3. No need to modify these files.</li>
+                <li>Files in <code>images/</code> and <code>images.qrc</code>: Image files used in the application and the corresponding <em>Qt Resource Collection Files</em>. No need to modify these files.</li>
+                <li><code>main_gui.cpp</code>: The <code class="language-cpp">main()</code> function. No need to modify this file.</li>
+                <li><code>mainwindow.cpp</code>, <code>mainwindow.h</code> and <code>mainwindow.ui</code>: Files implementing the main window. You may need to modify <code>mainwindow.cpp</code> and <code>mainwindow.h</code>.</li>
+                <li><code>menuwindow.cpp</code>, <code>menuwindow.h</code> and <code>menuwindow.ui</code>: Files implementing the menu window. You may need to modify <code>menuwindow.cpp</code> and <code>menuwindow.h</code>.</li>
+                <li><code>graphics.cpp</code> and <code>graphics.h</code>: Files implementing the game graphics. No need to modify these files.</li>
+                <li><code>test-city.txt</code>: Save file for testing.</li>
+              </ul>
+
+              <p>However, since this assignment is graded in live demo, you are not constrained to follow our rules. You can do whatever you like to the code, as long as the application produces the expected results. (See <a href="#submission">Submission &amp; Grading</a>)</p>
+
+            </div>
+              
+            <div class="card-footer text-muted">
+              End of Code Structure
+            </div>
+          </div>
+          
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="part1">
+              <h3 class="card-title">Part 1: Menu Window</h3>
+              <p class="card-text">
+                When the application is started, the menu window appears. You only need to modify <code>menuwindow.cpp</code> and possibly <code>menuwindow.h</code>.
+              </p>
+
+              <img src="./images/menu_window1.png" width="50%" class="limit">
+            </div>
+
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <h5>Load Game</h5>
+
+                When the "Load Game" button is clicked, open a dialog to prompt the player to choose a save file to load. If no file is chosen, for example, "Cancel" is clicked, or the dialog is closed, do nothing. If a file is chosen, then load the city from the file and start the game. The menu window is closed and the main window is started. Similar to PA3, you can assume the format of the save file is correct.
+              </li>
+
+              <li class="list-group-item">
+                <h5>New Game</h5>
+
+                <p>When the "New Game" button is clicked, the UI is changed to prompt the player for the desired size of the city.</p>
+
+                <img src="./images/menu_window2.png" width="50%" class="limit">
+
+                <p>
+                  The current map size is shown in the label in the center. By default, the map size is 20. The left arrow button decreases the map size by 2, to a minimum of 10. The right arrow button increases the map size by 2, to a maximum of 30. When the "Start Game" button is clicked, create a new city with the specified map size and start the game. The menu window is closed and the main window is started.
+                </p>
+              </li>
+
+              <li class="list-group-item">
+                <h5>Hints</h5>
+
+                <ul class="language-cpp">
+                  <li>
+                    Read <code>menuwindow.ui</code> to understand the UI elements of the menu window.
+                    <ul>
+                      <li>The grid size is displayed in <code>MenuWindow::ui->label_grid_size</code>, which is a <code>QLabel</code>.</li>
+                      <li>To switch UI after clicking the "New Game" button, you need to set something for <code>MenuWindow::ui->pages</code>, which is a <code>QStackedWidget</code>.</li>
+                    </ul>
+                  </li>
+                  <li>You may use <code>QFileDialog</code> to display the dialog for the player to choose a save file.</li>
+                  <li>To start the game, you may use <code>MenuWindow::start_game()</code>. Either create a new city or load a city from save, then pass the city pointer to this function.</li>
+                </ul>
+              </li>
+            </ul>
+
+            <div class="card-footer text-muted">
+              End of Part 1
+            </div>
+          </div>         
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="part2">
+              <h3 class="card-title">Part 2: Main Window</h3>
+              <p class="card-text">
+                When the game is started, the main window is shown. Most functions regarding the game display has been already implemented in <code>graphics.cpp</code> and <code>graphics.h</code>, and you do not need to modify these files. You only need to modify <code>mainwindow.cpp</code> and possibly <code>mainwindow.h</code>.
+
+              <img src="./images/main_window.png" class="limit">
+            </div>
+
+            <ul class="list-group list-group-flush language-cpp">
+              <li class="list-group-item">
+                <h5>Handling Next and Save Game Buttons</h5>
+
+                At the top, there is a "Next" button. When it is clicked, the game moves to the next turn. At the bottom, there is a "Save Game" button. When it is clicked, open a dialog to prompt the player to choose a file to save. If no file is chosen, for example, "Cancel" is clicked, or the dialog is closed, do nothing.
+              </li>
+
+              <li class="list-group-item">
+                <h5>Handling Overlay Buttons</h5>
+
+                <p>
+                  At the top, there are 3 buttons that control the display of overlay: "Normal Overlay", "Type Overlay" and "Neighbor Effects Overlay". The display of overlay has already been implemented in <code>graphics.cpp</code> and <code>graphics.h</code>.
+                </p>
+
+                <p>By default, "Normal Overlay" is chosen. When "Type Overlay" is chosen, the buildings are highlighted according to their types (Health, Revenue or Residential):</p>
+
+                <img src="./images/overlay1.png" class="limit">
+
+                <p>When "Neighbor Effects Overlay" is chosen, lines are shown to indicate neighboring effects between buildings:</p>
+
+                <img src="./images/overlay2.png" class="limit">
+
+                <p>You need to configure the behaviors of the overlay buttons:</p>
+
+                <ol>
+                  <li>
+                    Complete the method <code>MainWindow::initialize_overlay_buttons()</code>, which is called in the <code>MainWindow</code> constructor. You should set the style sheet of the overlay buttons, such that the selected overlay type is white, while others are blue. By default, the "Normal Overlay" button is selected.
+                    <ul>
+                      <li>You may use <code>QButton::setStyleSheet()</code> and make use of the strings <code>BTN_SELECTED_STYLE</code> and <code>BTN_RELEASED_STYLE</code>.</li>
+                    </ul>
+                  </li>
+
+                  <li>
+                    Set the actions of the overlay buttons. When an overlay button is clicked, it calls <code>MainWindow::on_overlay_button_clicked()</code> with the corresponding value of the enum class <code>OverlayButton</code>. For example,
+                    <ul>
+                      <li>When the "Normal Overlay" button is clicked, it calls <code>MainWindow::on_overlay_button_clicked(OverlayButton::NORMAL)</code>.</li>
+                    </ul>
+                  </li>
+
+                  <li>
+                    Complete the method <code>MainWindow::on_overlay_button_clicked()</code>.
+                    <ul>
+                      <li>Set the style sheet of the overlay buttons, such that the selected overlay type is white, while others are blue.</li>
+                      <li>Set the member variable <code>MainWindow::selected_overlay_button</code> to the selected overlay button. This is accessed by the code in <code>graphics.cpp</code> to display the overlay.</li>
+                    </ul>
+                  </li>
+                </ol>
+              </li>
+
+              <li class="list-group-item">
+                <h5>Handling Side Menu Animation</h5>
+
+                The side menu on the right are hidden by default. It only shows up when the mouse is around the right window edge. Detection of mouse cursor location is handled by the code in <code>graphics.cpp</code>, which sets the member variable <code>MainWindow::side_menu_status</code>. You need to complete the code in <code>MainWindow::main_loop()</code>, which is called 50 times per second to perform the animation. In particular, you need to complete two cases in the switch statement (<strong>Updated November 10)</strong>:
+
+                <ol>
+                  <li>In <code>HIDDEN_TO_VISIBLE</code> case, decrease the x-coordinate of <code>MainWindow::ui->side_menu_move</code> by fixed steps (e.g. 10), to a minimum of 0. Once 0 (<strong>or less</strong>) is reached, set <code>MainWindow::side_menu_status</code> to <code>VISIBLE</code>.</li>
+
+                  <li>In <code>VISIBLE_TO_HIDDEN</code> case, increase the x-coordinate of <code>MainWindow::ui->side_menu_move</code> by fixed steps (e.g. 10), to a maximum of 400. Once 400 (<strong>or greater</strong>) is reached, set <code>MainWindow::side_menu_status</code> to <code>HIDDEN</code>, and set the maximum width of <code>MainWindow::ui->side_menu_move</code> to 0.</li>
+                </ol>
+
+                Hints (<strong>Added November 10</strong>):
+
+                <ul>
+                  <li>
+                    It is helpful to add debug statements to visualize the change of side menu status:
+                    <pre class="language-cpp"><code>
+                      switch (side_menu_status) {
+                      case SideMenuStatus::HIDDEN:
+                          qDebug("Hidden");
+                          break;
+                      case SideMenuStatus::HIDDEN_TO_VISIBLE:
+                          qDebug("Hidden -> Visible");
+                          break;
+                      case SideMenuStatus::VISIBLE:
+                          qDebug("Visible");
+                          break;
+                      case SideMenuStatus::VISIBLE_TO_HIDDEN:
+                          qDebug("Visible -> Hidden");
+                          break;
+                      }
+                    </code></pre>
+                  </li>
+
+                  <li>In the <code>HIDDEN_TO_VISIBLE</code> state, the side menu should be appearing. When it has appeared, move to the <code>VISIBLE</code> state.</li>
+
+                  <li>In the <code>VISIBLE_TO_HIDDED</code> state, the side menu should be disappearing. When it has disappeared, move to the <code>HIDDEN</code> state.</li>
+                </ul>
+
+                Note (<strong>Added November 10</strong>):
+
+                <ul>
+                  <li><code>MainWindow::ui->side_menu</code> is the parent widget for <code>MainWindow::ui->side_menu_move</code>. We set its maximum width to control whether the widget and the side menu can be displayed. If the maximum width is not set, then <code>MainWindow::ui->side_menu</code> always block mouse cursor in front of the grid.</li>
+                </ul>
+              </li>
+
+              <li class="list-group-item">
+                <h5>Handling Side Menu Buttons</h5>
+
+                You need to configure the behaviors of the side menu buttons:
+
+                <ol>
+                  <li>
+                    Complete the method <code>MainWindow::initialize_side_menu_buttons()</code>, which is called in the <code>MainWindow</code> constructor. You should set the style sheet of the side menu buttons, such that the selected button is white, while others are blue. By default, the "Navigate" button is selected.
+                    <ul>
+                      <li>You may use <code>QButton::setStyleSheet()</code> and make use of of the strings <code>BTN_SELECTED_STYLE</code> and <code>BTN_RELEASED_STYLE</code>.</li>
+                    </ul>
+                  </li>
+
+                  <li>
+                    Set the actions of the side menu buttons. When a side menu button is clicked, it calls <code>MainWindow::on_side_menu_button_clicked()</code> with the corresponding value of the enum class <code>SideMenuButton</code>. For example,
+                    <ul>
+                      <li>When the "Clinic" button is clicked, it calls <code>MainWindow::on_side_menu_button_clicked(SideMenuButton::CLINIC)</code>.</li>
+                    </ul>
+                  </li>
+
+                  <li>
+                    Complete the method <code>MainWindow::on_side_menu_button_clicked()</code>.
+                    <ul>
+                      <li>Set the style sheet of the side menu buttons, such that the selected button is white, while others are blue.</li>
+                      <li>If the selected button is a building type, also check whether the city has enough budget to construct that type of building. If not, change the selected button to "Navigate".</li>
+                      <li>Set the member variable <code>MainWindow::selected_side_menu_button</code> to the selected side menu button. This is accessed by the code in <code>graphics.cpp</code>.</li>
+                    </ul>
+                  </li>
+                </ol>
+              </li>
+
+              <li class="list-group-item">
+                <h5>Hints</h5>
+
+                <ul>
+                  <li>
+                    Read <code>mainwindow.ui</code> to understand the UI elements of the main window.
+                  </li>
+                  <li>You may use <code>QFileDialog</code> to display the dialog for the player to choose a save file.</li>
+                </ul>
+              </li>
+
+              <li class="list-group-item">
+                <h5>Other Implemented Functions</h5>
+
+                The city map can be zoomed in and out by scrolling the mouse wheel. The city map can be moved by pressing WASD keys. These functions are implemented in <code>graphics.cpp</code>.
+              </li>
+            </ul>
+
+            <div class="card-footer text-muted">
+              End of Part 2
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="compilation">
+              <h3 class="card-title">Compilation</h3>
+
+              <div class="alert alert-info" role="alert">
+                This programming assignment is designed to work with <em>Qt</em> version 5.15.1, but you can install other <em>Qt</em> versions.
+              </div>
+              
+              Compile the project in <em>Qt Creator</em>.
+            </div>
+            <div class="card-footer text-muted">
+              End of Compilation
+            </div>
+          </div>
+
+          <div class="card mb-4">
+            <div class="card-body" id="resources">
+              <h3 class="card-title">Resources</h3>
+
+              <ul>
+                <li>
+                  Skeleton code (<strong>Updated November 10</strong>): <a href="./resources/pa4.zip">pa4.zip</a>.
+                </li>
+
+                <li>
+                  Demo program (executable for Windows): <a href="resources/simplecity_gui_demo_windows.exe">simplecity_gui_demo_windows.exe</a>
+                </li>
+
+                <li>
+                  Demo program (executable for MacOS): <a href="resources/simplecity_gui_demo_mac.zip">simplecity_gui_demo_mac.zip</a>
+                  <ul>
+                    <li>In Finder, right click on the demo program while holding Control. Select Open. Click Open.</li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <div class="card-footer text-muted">
+              End of Resources
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="submission">
+              <h3 class="card-title">Submission &amp; Grading</h3>
+
+              <p class="card-text">
+                <strong>Deadline: 20 November 2021 Saturday HKT 23:59.</strong>
+              </p>
+
+              <p>
+                You may earn 8% course grade for each PA. Since ZINC does not (yet) support grading assignments with GUI, you need to submit the source files to Canvas, and then perform live demo. 
+              </p>
+
+              <h4>Files to Submit</h4>
+
+              <p>
+                Compress all source code as <code>pa4_[student-id].zip</code> and <a href="https://canvas.ust.hk/courses/38828/assignments/181215">submit to Canvas</a>.
+              </p>
+
+              <h4>Late Submission Policy</h4>
+
+              <p>
+                There will be a penalty of -1 point (out of a maximum 100 points) for every minute you are late. For instance, since the deadline is 23:59:00 on 20 November 2021, if you submit your solution at 1:00:00 on 21 November 2021, there will be a penalty of -61 points for your assignment. However, the lowest grade you may get from an assignment is zero: any negative score after the deduction due to late penalty (and any other penalties) will be reset to zero.
+              </p>
+
+              <h4>Live Demo</h4>
+                
+              <p>
+                Live demo of your work will be held in Week 12-13. You will be demonstrating your work in a 1-to-1 session with a TA. You will be asked to download your submission from Canvas, compile it in <em>Qt Creator</em> and run it by following a series of steps. The TA will grade you work by checking whether the behavior matches the expected behavior. The schedule of the live demo will be announced later.
+              </p>
+
+              <h4>Grading Scheme</h4>
+
+              <p>In the live demo, the TA will ask you to follow the below steps sequentially. The TA may ask you to do some specific actions in order to check the behavior of your program. If your program crashed in the middle, you are given another two chances to retry. The <em>latest</em> run is graded. No partial credits are given in each step.</p>
+
+              <ol>
+                <li>[5 points] Your program can be compiled. Starting the program shows the menu window.</li>
+                <li>[4 points] When "Load Game" is clicked, a file dialog is shown.</li>
+                <li>[1 points] When the file dialog is closed, the menu window does not go away.</li>
+                <li>[5 points] When "New Game" is clicked, map size selection is shown.</li>
+                <li>[5 points] Both increase and decrease size button work. The map size can be increased and decreased within the range 10-30, taking on even values only.</li>
+                <li>[5 points] Set the map size to 10 and click on "Start Game". The main window is shown with a city with 10x10 grid.</li>
+                <li>[5 points] Close the window and start over with map size of 12. The main window is shown with a city with 12x12 grid.</li>
+                <li>[5 points] The city map can be moved an resized by WASD keys and scrolling the mouse wheel.</li>
+                <li>[5 points] Move the mouse cursor close to the right window edge. The side menu slides to appear with an animation.</li>
+                <li>[5 points] Move the mouse cursor away from the right window edge. The side menu slides to disappear with an animation.</li>
+                <li>[5 points] Open the side menu. "Hospital", "Gold Mine" and "Apartment" buttons cannot be selected. "Navigate" button is selected instead due to insufficient budget. On the other hand, "Clinic", "Silver Mine" and "House" can be selected.</li>
+                <li>[1 points] Construct a single house on the map.</li>
+                <li>[2 points] Move the mouse cursor close to the right window edge to show the side menu. "House" button is still selected.</li>
+                <li>[2 points] Construct a single clinic and silver mine next to the house.</li>
+                <li>[2 points] Move the mouse cursor close to the right window edge to show the side menu. "Navigate" button is selected due to insufficient budget.</li>
+                <li>[1 points] Press the "Next" button for 9 times. The city is on turn 10 with budget $322.</li>
+                <li>[2 points] "Apartment" buttons can be selected in the side menu.</li>
+                <li>[2 points] But "Gold Mine" and "Hospital" button cannot be selected in the side menu due to insufficient budget. Selection is change to "Navigate".</li>
+                <li>[3 points] Left click on one of the buildings on the grid. A message box showing information of the building pops up.</li>
+                <li>[1 points] Construct a silver mine anywhere on the map.</li>
+                <li>[2 points] Open the side menu. "Apartment" button cannot be selected. "Navigate" button is selected due to insufficient budget.</li>
+                <li>[7 points] Advance for a few turns such that each type of building can be built on the map and the budget exceeds $1000.</li>
+                <li>[2 points] Select "Remove" in the side menu and destruct one building.</li>
+                <li>[1 points] Select "Navigate" to revert back into navigation mode.</li>
+                <li>
+                  [7 points] Cycle through the overlay buttons, each mode of overlay should be correctly shown.
+                  <ul>
+                    <li>Note: If you have mistakenly deleted a building in the previous step, so that no neighboring effects are present, you can use the stored $1000 to build a house next to a clinic to see if the neighboring effects overlay is working.</li>
+                  </ul>
+                </li>
+                <li>[5 points] Click "Save Game". A file dialog is shown. Save the city to a file.</li>
+                <li>[5 points] Construct some more buildings and go to next turn.</li>
+                <li>[5 points] Close the window and restart the program. Loads the save in the previous step. The previous state is loaded.</li>
+              </ol>
+              
+            </div>
+            <div class="card-footer text-muted">
+              End of Submission &amp; Grading
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="memory-leak">
+              <h3 class="card-title">Memory Leak</h3>
+              <p class="card-text">
+                In this assignment, we do not check for memory leak.
+              </p>
+            </div>
+            <div class="card-footer text-muted">
+              End of Memory Leak
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="acknowledgments">
+              <h3 class="card-title">Acknowledgments</h3>
+              <p>
+                This assignment was originally proposed and designed by Yu Hei CHAU.
+              </p>
+
+              <p>
+                The images of the in-game buildings are created by pixel32 @ opengameart.org. <br>
+                <a href="https://opengameart.org/content/pixel-city-municipal-buildings">https://opengameart.org/content/pixel-city-municipal-buildings</a>
+              </p>
+            </div>
+            <div class="card-footer text-muted">
+              End of Acknowledgments
+            </div>
+          </div>
+
+          <!-- 
+          <div class="card mb-4">
+            <div class="card-body" id="stub">
+              <h3 class="card-title">Stub</h3>
+              <p class="card-text">
+                Blah blah blah
+              </p>
+            </div>
+            <div class="card-footer text-muted">
+              End of Stub
+            </div>
+          </div>
+          -->
+
+        </div>
+          
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-3">
+          <div class="sticky-top">
+            <!-- Menu Widget -->
+            <div id="menu" class="card my-12">
+              <h5 class="card-header">Menu</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="mb-0" type="circle" style="padding-left:20px">
+                      <li>
+                        <a href="#announcements">Announcements</a>
+                      </li>
+                      <li>
+                        <a href="#honor-code">Honor Code</a>
+                      </li>
+                      <li>
+                        <a href="#ilo">Objectives &amp; and ILOs</a>
+                      </li>
+                      <li>
+                        <a href="#introduction">Introduction</a>
+                      </li>
+                      <li>
+                        <a href="#code-structure">Code Structure</a>
+                      </li>
+                      <li>
+                        <a href="#part1">Part 1: Menu Window</a>
+                      </li>
+                      <li>
+                        <a href="#part2">Part 2: Main Window</a>
+                      </li>
+                      <li>
+                        <a href="#compilation">Compilation</a>
+                      </li>
+                      <li>
+                        <a href="#resources">Resources</a>
+                      </li>
+                      <li>
+                        <a href="#submission">Submission &amp; Grading</a>
+                      </li>
+                      <li>
+                        <a href="#memory-leak">Memory Leak</a>
+                      </li>
+                      <li>
+                        <a href="#acknowledgments">Acknowledgments</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Maintainance widget -->
+            <div class="card my-4">
+              <h5 class="card-header">Page maintained by</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        Kelvin CHIU
+                      </li>
+                      <li>
+                        Email: <a href="mailto:kelvinchiu@cse.ust.hk">kelvinchiu@cse.ust.hk</a>
+                      </li>
+                      <li>
+                        Last Modified: <script type="text/javascript">document.write(document.lastModified);</script>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Homepage widget -->
+            <div class="card my-4">
+              <h5 class="card-header">Homepage</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        <a href="https://course.cse.ust.hk/comp2012h/">Course Homepage</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Maintained by COMP 2012H Teaching Team &copy; 2021 HKUST Computer Science and Engineering</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> 
+  </body>
+
+</html>
+
+
+            

@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>COMP2012H Self-test Web Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="keywords" content="" />
+<!--link rel="stylesheet" href="img/Underground.css" type="text/css" /-->
+<!-- Bubble tooltips: adopted from: http://www.web-graphics.com/mtarchive/bubbletooltips.html--><!-- For automatic tooltip: -->
+<script src="bubbletooltips/bubbletooltips.js" type=text/javascript></script>
+<!-- Example:  usage <a href="" title=""></a>  --><!-- For customize tooltip -->
+<link media=all href="bubbletooltips/bt.css" type=text/css rel=stylesheet>
+<script type="text/javascript" src="jquery/jquery.js"></script>
+
+<!-- JQuery Calender is located here... -->
+<style type="text/css">@import url(jquerycalendar/jquery-calendar.css);</style>
+<script type="text/javascript" src="jquerycalendar/jquery-calendar.js"></script>
+
+<script type="text/javascript" src="selftestmenu.js"></script>
+<link rel="stylesheet" type="text/css" href="selfteststyle.css" />
+<!-- highslide stuff: TESTING... -->
+<script type="text/javascript" src="highslide/highslide-with-html.js"></script>
+<script type="text/javascript">    
+    hs.graphicsDir = 'highslide/graphics/';
+    hs.outlineType = 'rounded-white';
+    hs.outlineWhileAnimating = true;
+</script>
+<style type="text/css">@import url(highslide/myslide.css);</style>
+<!-- END OF highslide stuff -->
+
+</head>
+
+<!-- Start of the main html body -->
+<body>
+
+<!-- wrap starts here -->
+<div id="main">
+<div id="wrap">
+        <!-- header -->
+        <div id="header">
+                <span id="slogan" ></span>
+                <!-- tabs -->
+                <ul>
+                  <li class="showall-solution"><a href="#" title="Show all solutions"><span>Show all solutions</span></a></li>
+                  <li class="hideall-solution"><a href="#" title="Hide all solutions"><span>Hide all solutions</span></a></li>
+                  <li id="tabShowNormalView"><a href="#" title="The normal webpage view"><span>Web view</span></a></li>
+                  <li id="tabShowAllOnePage"><a href="#" title="The view which is suitable for printing"><span>Printable view</span></a></li>
+                  <li id="tabIncFontSize"><a href="#" title="Increase the font size" ><span >++ Font size</span></a></li>
+                  <li id="tabDecFontSize"><a href="#" title="Decrease the font size" ><span >-- Font size</span></a></li>
+                </ul>
+        </div>
+        <!-- main block: right panel -->
+        <!--div id="main"-->
+
+        <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Test Content %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  -->
+
+
+	<div id='block7' style="display:block;">
+	  <h1>Self-test 7: <br /> <!-- [Nov. 2-6] --> Recursive functions </h1>
+          <OL>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>What is the output of following code?</p>
+<pre>
+#include &lt;iostream&gt;
+using namespace std;
+
+int rec(int n)
+{
+    if (n &lt;= 2)
+        return n;
+
+    return rec(n-1) + rec(n-2);
+}
+
+int main(void)
+{
+    cout &lt;&lt; rec(5) &lt;&lt; endl;
+    return 0;
+}
+</pre>
+	    </div>  
+	    <div class="toggle-solution">Solution</div>
+	    <div class="solution-content">
+        
+	      <p><b>8</b></p>
+<pre>
+Top-Down Tracing:
+
+                   rec(5)
+                 /       \
+           rec(4)         rec(3)
+          /     \         /    \
+      rec(3)  rec(2)*  rec(2)*  rec(1)*
+      /    \       
+ rec(2)*  rec(1)*
+</pre>
+        <p>The result is the sum of all bottom nodes, marked with asterisks in the above tree. This top-down tracing approach is a good way, not only to solve this kind of questions by hand, but is also a good way to understand how recursion works.
+        </p>
+	    </div>          
+	    </div>
+	    <hr />
+	    </LI>
+
+
+            <LI>
+	    <div class="question-wrapper">
+	    <div class="question-content">
+	      <p>Let us change the input argument to 7. What is the expected result? (This question is designed for you to practice tracing recursive calls as discussed in the last question.)
+	      </p> 
+	    </div>  
+
+	    <div class="toggle-solution">Solution</div>
+	    <div class="solution-content">
+	      <p> <b>21</b></p>
+        
+	    </div>          
+	    </div>
+	    <hr />
+	    </LI>
+
+
+            <LI>
+
+	    <div class="question-wrapper">
+	    <div class="question-content">
+	      <p>Try to guess the purpose of the following code and then rewrite it using recursion.</p> 
+<pre>
+int mysterious(int x)
+{
+    if (x == 0)
+        return 1;
+    else
+    {
+        int counter;
+        for (counter = 0; x != 0; ++counter)
+            x /= 10;
+
+        return counter;
+    }
+}
+</pre>
+                
+	    </div>  
+	    <div class="toggle-solution">Solution</div>
+	    <div class="solution-content">
+	      <p>The mysterious function will count the number of digits in the given integer argument.
+	      The following may be its recursive version:</p>
+<pre>
+int count_digits_recursive(int x)
+{
+    if (x &lt; 10) 
+        return 1;
+    else
+        return count_digits_recursive(x/10) + 1;
+}
+</pre>
+	    </div>          
+	    </div>
+	    <hr />
+	    </LI>
+
+
+            <LI>
+	    <div class="question-wrapper">
+	    <div class="question-content">
+	      <p>Write a recursive function that prints out the octal representation of number n. That is, convert a non-negative integer from base 10 to base 8.</p>            
+	    </div>  
+
+	    <div class="toggle-solution">Solution</div>
+	    <div class="solution-content">
+	      <p> </p>
+<pre>
+void octal(int n)
+{
+    if (n < 8)
+        cout << n ;
+    else
+    {
+        octal(n/8);
+        octal(n%8);
+    }
+}
+</pre>
+        
+	    </div>          
+	    </div>
+	    <hr />
+	    </LI>
+
+
+            <LI>
+	    <div class="question-wrapper">
+	    <div class="question-content">
+	      <p>Write a recursive function to compute the greatest common divisor of two positive integers. The function's protype should be: int gcd(int, int);. Hint: <a href="http://en.wikipedia.org/wiki/Euclidean_algorithm", target="dummy">the Euclidean algorithm</a></p>
+	    </div>  
+
+	    <div class="toggle-solution">Solution</div>
+	    <div class="solution-content">
+<pre>
+int gcd(int m, int n) 
+{
+    if(n == 0) 
+        return m;
+    else
+        return gcd(n, m%n);
+}
+</pre>
+
+
+        </p>
+        
+        </div>          
+	</div>
+	<hr />
+	</LI>
+
+
+	<LI>
+	<div class="question-wrapper">
+	<div class="question-content">
+	  <p>Which of the following statements is not a disadvantage of recursion?</p>
+
+	  <OL TYPE="A">
+	    <li>Difficult to trace and debug</li>
+	    <li>More demanding memory resources</li>
+	    <li>Elegant and concise solution</li>
+	    <li>More computational time</li>
+	  </OL>
+	  </p>            
+	</div>  
+
+	<div class="toggle-solution">Solution</div>
+	<div class="solution-content">
+        <p><b>C.</b></p>
+	</div>          
+	</div>
+	<hr />
+	</LI>
+
+      </OL>
+    </div>
+
+        <!-- wrap ends here; don't delete this /div --> 
+        </div>
+
+</div>
+</div>
+
+</body>
+</html>

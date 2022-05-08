@@ -1,0 +1,462 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>COMP2012H Self-test Web Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="keywords" content="" />
+<!--link rel="stylesheet" href="img/Underground.css" type="text/css" /-->
+<!-- Bubble tooltips: adopted from: http://www.web-graphics.com/mtarchive/bubbletooltips.html--><!-- For automatic tooltip: -->
+<script src="bubbletooltips/bubbletooltips.js" type=text/javascript></script>
+<!-- Example:  usage <a href="" title=""></a>  --><!-- For customize tooltip -->
+<link media=all href="bubbletooltips/bt.css" type=text/css rel=stylesheet>
+<script type="text/javascript" src="jquery/jquery.js"></script>
+
+<!-- JQuery Calender is located here... -->
+<style type="text/css">@import url(jquerycalendar/jquery-calendar.css);</style>
+<script type="text/javascript" src="jquerycalendar/jquery-calendar.js"></script>
+
+<script type="text/javascript" src="selftestmenu.js"></script>
+<link rel="stylesheet" type="text/css" href="selfteststyle.css" />
+<!-- highslide stuff: TESTING... -->
+<script type="text/javascript" src="highslide/highslide-with-html.js"></script>
+<script type="text/javascript">    
+    hs.graphicsDir = 'highslide/graphics/';
+    hs.outlineType = 'rounded-white';
+    hs.outlineWhileAnimating = true;
+</script>
+<style type="text/css">@import url(highslide/myslide.css);</style>
+<!-- END OF highslide stuff -->
+
+</head>
+
+<!-- Start of the main html body -->
+<body>
+
+<!-- wrap starts here -->
+<div id="main">
+<div id="wrap">
+        <!-- header -->
+        <div id="header">
+                <span id="slogan" ></span>
+                <!-- tabs -->
+                <ul>
+                  <li class="showall-solution"><a href="#" title="Show all solutions"><span>Show all solutions</span></a></li>
+                  <li class="hideall-solution"><a href="#" title="Hide all solutions"><span>Hide all solutions</span></a></li>
+                  <li id="tabShowNormalView"><a href="#" title="The normal webpage view"><span>Web view</span></a></li>
+                  <li id="tabShowAllOnePage"><a href="#" title="The view which is suitable for printing"><span>Printable view</span></a></li>
+                  <li id="tabIncFontSize"><a href="#" title="Increase the font size" ><span >++ Font size</span></a></li>
+                  <li id="tabDecFontSize"><a href="#" title="Decrease the font size" ><span >-- Font size</span></a></li>
+                </ul>
+        </div>
+        <!-- main block: right panel -->
+        <!--div id="main"-->
+
+        <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Test Content %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  -->
+
+        <div id='block3' style="display:block;">
+          <h1>Self-test 3: <br /> <!-- [Sept. 28-Oct. 2] --> Control flow (Loops) </h1>
+
+          <OL>
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p> What will be printed by the following code segment?</p>
+<pre>
+int i = 9;
+
+while (i &gt;= 0)
+{
+    cout &lt;&lt; i &lt;&lt; " ";
+    i = i-1;
+}
+</pre>
+            </div>      
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+        
+              <p> <b>9 8 7 6 5 4 3 2 1 0 </b> </p>
+            </div>              
+            </div>
+            <hr />
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p> What will be printed by the following code segment?</p>
+<pre>
+int i = 0;
+
+while (i &lt; 10)
+{
+    cout &lt;&lt; 9-i &lt;&lt; " ";
+    i = i+1;
+}
+</pre>
+            </div>      
+
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p> <b>9 8 7 6 5 4 3 2 1 0 </b> </p>
+            </div>              
+            </div>
+            <hr />
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p> What will be printed by the following code segment?</p>
+<pre>
+int i = 9;
+
+while (i &gt;= 0)
+{
+    cout &lt;&lt; i &lt;&lt; " ";
+    i = i-1;
+    cout &lt;&lt; i &lt;&lt; " ";
+    i = i-1;
+}
+</pre>
+            </div>      
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p> <b>  9 8 7 6 5 4 3 2 1 0 </b> </p>
+            </div>              
+            </div>
+            <hr />
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>What will be printed by the following program?
+<pre>
+int N = 100;
+int i = 0;
+int count = 0;
+
+while (i &lt; N)
+{
+    if (i%2 == 0)
+    {
+        count = count+1;
+    }
+}
+cout &lt;&lt; count &lt;&lt; endl;
+</pre>
+              </p>              
+            </div>      
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p> <b>Nothing!</b> The program will enter into an infinite loop because no codes modify i inside the while-loop. As a result, i will keep its value of zero forever and the while-loop condition is always true.  </p>
+            </div>              
+            </div>
+            <hr />
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p> What is printed by the following program?</p>
+<pre>
+int i = 0;
+int j = 0;
+
+while (i &lt; 3)
+{
+    while (j &lt; 3)
+    {
+        cout &lt;&lt; j &lt;&lt; " ";
+        j = j+1;
+    }
+
+    cout &lt;&lt; endl;
+    i = i+1;
+}
+</pre>
+              <p>
+              <ol type="A">
+                <li> &nbsp;
+<pre>
+0 1 2
+0 1 2
+0 1 2
+</pre>
+                </li>
+
+                <li> &nbsp;
+<pre>
+0 1 2
+3 4 5
+6 7 8
+</pre>
+                </li>
+
+                <li> &nbsp;
+<pre>
+0 1 2
+
+
+</pre>
+                </li>
+              </ol>
+              </p>              
+            </div>      
+
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p> <b>C</b>. <br /> When the outer while-loop executes for the first time, the inner while-loop executes 3 times. Hence, 3 numbers are printed. After that, j remains at the value of 3. So during the execution of the 2nd and 3rd times of the outer while-loop , the inner while-loop is not executed and only two newlines are printed. </p>
+            </div>              
+            </div>
+            <hr />
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>Can the following code segment be compiled and executed? Can the code segment escape from the infinite loop? What will be the final results of a and b after getting out of the while loop? 
+<pre>
+int a = 100;
+int b = 200;
+
+while (true)
+{
+    if (a &gt;= b)
+        continue;
+
+    a = a+1;
+    b = b-1;
+}
+</pre>
+              </p>              
+            </div>      
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p> <b>It can be compiled and executed without errors</b> but it will end up in an infinite loop because the continue-statement will only go back to check the statement containing the boolean expression of the nearest loop, in this case, the statement: while (true). </p>
+            </div>              
+            </div>
+            <hr />
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>Write C++ codes to print the following pattern?
+<pre>
+*******
+ ***** 
+  ***  
+   * 
+</pre>
+              </p>              
+            </div>      
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p>
+              <b>Solution 1: </b> 
+<pre>
+cout &lt;&lt; "*******" &lt;&lt; endl;
+cout &lt;&lt; " ***** " &lt;&lt; endl;
+cout &lt;&lt; "  ***  " &lt;&lt; endl;
+cout &lt;&lt; "   *   " &lt;&lt; endl;
+</pre>
+              <p><b>Alternative Solution:</b></p>
+<pre>
+    for (int row = 0; row < 4; ++row)
+    {
+        // Output leading space
+        for (int j = 0; j < row; ++j)
+            cout << ' ';
+        
+        // Output leading space
+        for (int j = 0; j < 2*(4-row)-1; ++j)
+            cout << '*';
+        
+        cout << endl;
+    }
+</pre>
+            </div>              
+            </div>
+            <hr />
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>Write a program to print the checker pattern with varying size.
+<pre>
+e.g. given:
+int SIZE = 4;
+
+0 1 0 1
+1 0 1 0
+0 1 0 1
+1 0 1 0
+
+e.g. given:
+int SIZE = 5;
+
+0 1 0 1 0
+1 0 1 0 1
+0 1 0 1 0
+1 0 1 0 1
+0 1 0 1 0
+</pre>
+              </p>              
+            </div>      
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p>
+<pre>
+int SIZE = 4;
+int row = 0;
+int col = 0;
+
+while (row &lt; SIZE)
+{
+    col = 0;
+    while (col &lt; SIZE)
+    {
+        cout &lt;&lt; (row+col)%2 &lt;&lt; " ";
+        col = col+1;
+    }
+
+    cout &lt;&lt; endl;
+    row = row+1;
+}
+</pre>
+              </p>
+            </div>              
+            </div>
+            <hr />
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p> What is the output of the above program when the user input is 5? </p>
+<pre>
+#include &lt;iostream&gt;
+using namespace std;
+
+int main(void)
+{
+    int i = 0, j;
+    int number;
+    cin &gt;&gt; number;
+    i = number;
+
+    while (i &gt; 0)
+    {
+        j = 0;
+        while (j &lt; number-i)
+        {
+            cout &lt;&lt; " ";
+            j = j+1;
+        }
+
+        j = 0;
+        while (j &lt; i)
+        {
+            cout &lt;&lt; "*";
+            j = j+1;   
+        }
+
+        cout &lt;&lt; endl;
+        i = i-1;
+    }
+}
+</pre>
+              <p>
+              <OL type="A">
+                <LI> &nbsp;
+<pre>
+*****
+ ****
+  ***
+   **
+    *
+</pre>
+                </LI>
+                <LI> &nbsp;
+<pre>
+*
+**
+***
+****
+*****
+</pre>
+                </LI>
+                <LI> &nbsp;
+        
+<pre>
+*****
+***
+*
+</pre>
+                </LI>
+                <LI> &nbsp;
+<pre>
+*****
+****
+***
+**
+*
+</pre>
+                </LI>
+              </OL>
+              </p>
+            </div>      
+
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p> <b>A</b> </p>
+            </div>              
+            </div>
+            <hr />
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>What is printed by the following program?
+<pre>
+int num = 3474;
+int sum = 0;
+
+while (num &gt; 0)
+{
+    sum = sum + num%10;
+    num = num / 10;
+}
+
+cout &lt;&lt; sum &lt;&lt; endl;
+</pre>
+              </p>              
+            </div>      
+
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p> <b>18.</b> Variable <i>sum</i> is the sum of all individual digits of variable <i>num</i>.</p>
+            </div>              
+            </div>
+            <hr />
+            </LI>
+            
+          </OL>
+        </div>
+
+
+
+
+
+        <!-- wrap ends here; don't delete this /div --> 
+        </div>
+
+</div>
+</div>
+
+</body>
+</html>

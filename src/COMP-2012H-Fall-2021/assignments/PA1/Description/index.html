@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- ### Change assignment number ### -->
+    <title>COMP 2012H Assignment 1: Tile-Matching Game</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="comp2012h_pa1_files/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="comp2012h_pa1_files/blog-home.css" rel="stylesheet">
+	
+    <!-- Prism syntax highlighter -->
+    <link href="comp2012h_pa1_files/prism.css" rel="stylesheet">
+
+		<style>
+			pre {
+				background: #f4f4f4 !important;
+				border: 1px solid #ddd !important;
+				border-left: 3px solid #f36d33 !important;
+				color: #666 !important;
+				page-break-inside: avoid !important;
+				font-family: monospace !important;
+				font-size: 14px !important;
+				line-height: 1.6 !important;
+				margin-bottom: 1.6em !important;
+				max-width: 100% !important;
+				overflow: auto !important;
+				padding: 1em 1.5em !important;
+				display: block !important;
+				word-wrap: break-word !important;
+			}
+
+			table, th, td {
+				border: 1px solid black;
+			}
+			th, td {
+				padding: 5px;
+			}
+			th {
+				text-align: left;
+			}
+    </style>
+    <link rel="stylesheet" type="text/css" href="comp2012h_pa1_files/prettify.css">
+  	<script src="comp2012h_pa1_files/prompt.js"></script>
+	</head>
+
+  <body data-new-gr-c-s-check-loaded="8.880.0" data-gr-ext-installed="">
+    <script src="comp2012h_pa1_files/prism.js"></script>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Entries Column -->
+        <div class="col-md-9">
+
+          <h2 class="my-4">
+            <span style="color:darkblue">COMP 2012H</span>
+            <small>Honors Object-Oriented Programming and Data Structures</small>
+          </h2>
+
+          <!-- ### Change assignment number and title ### -->
+          <h3 class="my-4">
+            Assignment 1 
+            <span style="color:#660066">Tile-Matching Game</span>
+          </h3>
+		  
+					<!-- Honor Code section -->
+					<div class="card mb-4">
+					<div class="card-body" id="honor" style="background-color:#f4f4f4">
+						<h3 class="card-title">Honor Code</h3>
+						<p class="card-text">
+						We value academic integrity very highly. Please read the <a href="https://course.cse.ust.hk/comp2012h/#honorcode">Honor Code</a> section on our course webpage to make sure you understand what is considered as plagiarism and what the penalties are.
+						The following are some of the highlights:
+						</p><ul>
+							<li>
+							Do NOT try your "luck" - we use sophisticated plagiarism detection software to find cheaters.
+							We also review codes for potential cases manually.
+							</li>
+							<li>
+							The penalty (for <b>BOTH</b> the copier and the copiee) is not just getting a zero in your assignment.
+							Please read the <a href="https://course.cse.ust.hk/comp2012h/#honorcode">Honor Code</a> thoroughly.
+							</li>
+							<li>
+								Serious offenders will fail the course immediately, and there will be additional disciplinary actions
+								from the department and university, upto and including expulsion.
+							</li>
+						</ul>
+						<p></p>
+					</div>
+					<div class="card-footer text-muted">
+									End of Honor Code
+								</div>
+					</div>
+
+					<div class="card mb-4">
+						<div class="card-body" id="objective" style="background-color:#f4f4f4">
+							<h3 class="card-title">Objectives & Intended Learning Outcomes</h3>
+							<p class="card-text">
+								The objective of this assignment is to provide you with practice on arrays, functions, and recursion.
+								Upon completion of this assignment, you should be able to:
+							</p>
+							<ol>
+								<li>
+									Define and use arrays to store data
+								</li>
+								<li>
+									Modularize your program in functions
+								</li>
+								<li>
+									Describe how to do file input/output
+								</li>
+								<li>
+									Develop recursive functions to solve computational problems
+								</li>
+							</ol>
+							<p></p>
+						</div>
+						<div class="card-footer text-muted">
+							End of Objectives & Intended Learning Outcomes
+						</div>
+					</div>
+
+					<!-- Introduction section -->
+					<!-- ### Complete introduction section for the assignment ### -->
+					<div class="card mb-4">
+						<!-- ### Add an image representing the assignment content here ### -->
+						<img class="card-img-top" src="comp2012h_pa1_files/pic.jpg" alt="Card image cap">
+						<div class="card-body" id="introduction">
+							<p class="card-text">
+								<small>
+									<em>
+										"Candy Crush" is an example of a Match-Three game <br> Source:
+										<a href="https://en.wikipedia.org/wiki/Candy_Crush" target="_blank">https://en.wikipedia.org/wiki/Candy_Crush</a>
+									</em>
+								</small>
+							</p>
+							<h3 class="card-title">Introduction</h3>
+							<p class="card-text">
+								The goal of this assignment is to implement a text-based "match-three" game. You can check this
+								Wikipedia link <a href="https://en.wikipedia.org/wiki/Tile-matching_video_game" target="_blank">here</a>
+								for a historical overview of this genre of games. The rules of the game are as follows:
+							</p>
+							<ul>
+								<li>
+									The player is presented with a randomized 9 x 9 grid, each tile containing a single digit from 1 to 6.
+								</li>
+								<li>
+									In each turn, the player swaps two (horizontally or vertically) adjacent tiles.
+								</li>
+								<li>
+									After each move, the game looks for "matches" and processes them:
+									<ul>
+										<li>
+											A <i>match</i> is a sequence of three or more consecutive identical items in the same row or column.
+										</li>
+										<li>
+											Each match will be removed. Items above the removed tiles will be shifted down to take up the space,
+											and new items will be created at the top.
+										</li>
+										<li>
+											Each removed tile increases the player's score by 1.
+										</li>
+										<li>
+											The above process is repeated until no more matches exist in the 9 x 9 grid.
+										</li>
+									</ul>
+								</li>
+								<li>
+									The player's goal is to get the highest score possible under a finite number of moves.
+								</li>
+							</ul>
+							<p class="card-text">
+								In this assignment, you are required to:
+							</p>
+							<ul>
+								<li>
+									Implement the game mechanisms outlined above; (Tasks 1, 2, 3)
+								</li>
+								<li>
+									Implement a <i>solver</i>, which considers all possible moves and return the move that will result in
+									the highest gain in score. (Tasks 4, 5)
+								</li>
+							</ul>
+							<br>
+
+						</div>
+						<div class="card-footer text-muted">
+							End of Introduction
+						</div>
+					</div>
+
+					<div class="card mb-4">
+						<div class="card-body" id="description">
+							<h3 class="card-title">Description</h3>
+							<p class="card-text">
+								Please read the <a href="#faq">FAQ</a> section for some common clarifications. You should check that
+								a day before the deadline to make sure you don't miss any clarification, even if you have already
+								submitted your work by then.
+							</p>
+							<br>
+
+							<h4>Coordinate system</h4>
+							<p class="card-text">
+								The <i>map</i> is the data structure that records the current position of items in a game. The
+								position of items within a map is initialized from a given input file, and updated accordingly during
+								the game. It is further divided into two regions:
+							</p>
+							<ul>
+								<li>
+									The bottom part of the map is called the <i>active</i> area. This is the section of the map visible
+									to the player; they can only swap tiles within this region, and only matches within this region
+									will be removed.
+								</li>
+								<li>
+									The remaining part is called the <i>hidden area</i>. These tiles will move downwards into the top of
+									the active area whenever matches are eliminated.
+								</li>
+							</ul>
+							<p class="card-text">
+								In each game, the map is represented by a global 2D array <code>int map[MAX_ROWS][WIDTH]</code>. The
+								following diagram illustrates the structure and coordinate system of the map:
+							</p>
+							<img class="card-img-top" src="comp2012h_pa1_files/coordinate.png" alt="Card image cap">
+							<p></p>
+							<p class="card-text">
+								In this assignment, we always set <code>WIDTH = 9</code>, <code>HEIGHT = 9</code>, and <code>MAX_ROWS =
+								81</code>. Note that the origin is at the bottom-left corner, so the first row <code>map[0]</code>
+								refers to the bottommost row of the map (and the active area).
+							</p>
+							<br>
+
+							<h4>Project structure</h4>
+							<p class="card-text">
+								The skeleton project structure is as follows:
+							</p>
+							<pre>PA1&#10;├── game.cpp&#10;├── game.h&#10;├── main.cpp&#10;└── map.txt</pre>
+							<p class="card-text">
+								<code>main.cpp</code> contains the game interface; <code>game.cpp</code> and <code>game.h</code>
+								provide functions for various game mechanisms; and <code>map.txt</code> is a sample map file. Your
+								job is to complete five functions <code>game.cpp</code> so that the game will function properly. The
+								purposes and specifications for these functions are documented in the <a href="#tasks">Tasks</a>
+								section.
+							</p>
+							<p class="card-text">
+								Since you will be asked to submit the completed <code>game.cpp</code> only, making modifications to
+								<code>game.h</code> and <code>main.cpp</code> is strongly discouraged.
+							</p>
+							<br>
+
+							<h4>Solver</h4>
+							<p class="card-text">
+								You are required to write a <i>greedy</i> solver that returns the optimal move at the current stage.
+								The solver considers all possible next moves, and return the move that results in the biggest score
+								gain.
+							</p>
+							<p class="card-text">
+								When there are multiple <i>candidate moves</i> that lead to the biggest gain, the solver should
+								recursively solve for the best subsequent move for each candidate move, and choose the candidate that
+								can result in the biggest <i>total</i> gain.
+								<!-- To prevent the no. of choices to consider from increasing exponentially, we only require the
+								solver to consider at most 5 moves (i.e. 4 subsequent moves after the current one). -->
+							</p>
+							<p class="card-text">
+								Note that as with other greedy algorithms, such a solver do not always return the "actual" optimal
+								move. It is possible that a move with a small gain could lead to another move with a much higher gain
+								in the next round. Nevertheless, it is computationally infeasible to consider too many steps at once,
+								and this greedy solution should produce reasonable results for our purposes.
+							</p>
+							<br>
+
+							<h4>Gameplay</h4>
+							<p class="card-text">
+								During each round, the game interface displays the current active area, player score, and no. of
+								remaining moves. The latter two are stored in the global variables <code>score</code> and
+								<code>remaining_moves</code>, defined in <code>game.h</code>. Initially, each player has a score of 0
+								and a total of 12 remaining moves. The console then asks the user enter one of the below commands:
+							</p>
+							<ul>
+								<li>
+									<code>swap <i>x_pos</i> <i>y_pos</i> <i>direction</i></code> - swaps a specific tile with its
+									neighbour in some direction.
+								</li>
+								<li>
+									<code>solve</code> - invokes the solver to get the optimal move for this round, and execute this
+									move.
+								</li>
+								<li>
+									<code>quit</code> - quits the game.
+								</li>
+							</ul>
+							<br>
+
+							<h4>Additional Remarks</h4>
+							<p class="card-text">
+							</p>
+							<ul>
+								<!-- <li>
+									All the tasks are located in <code>PA1.cpp</code>. You are discouraged from modifying the other
+									skeleton code files, as you are only allowed to submit your version of <code>PA1.cpp</code> to ZINC,
+									which will then be compiled with the skeleton code versions of the remaining files.
+								</li> -->
+								<li>
+									All console I/O formatting is handled by the skeleton code, and ZINC grading will be done via
+									direct testing of the game state variables and function return values (Unit Testing).
+								</li>
+								<li>
+									You are allowed to define your own helper functions, but be careful as ZINC won't be able to know
+									of their existence. This shouldn't be a problem as long as the changes to the game state variables
+									and task function return values are as expected.
+								</li>
+								<li>
+									All the task functions are in global scope, and you are allowed to have the task functions call
+									each other for easier implementation. Be careful when two or more functions call each other
+									reciprocally, as they may enter an infinite loop.
+								</li>
+								<li>
+									You are free (but not strictly required) to use recursion in any of the task functions. Some
+									recursion hints are given in the tasks, but otherwise the final decision is up to you. Avoid
+									accidental infinite recursion.
+								</li>
+								<!-- <li>
+									Be mentally prepared to spend hours and days hunting for bugs.
+								</li> -->
+							</ul>
+							<p></p>
+						</div>
+						<div class="card-footer text-muted">
+							End of Description
+						</div>
+					</div>
+
+          <div class="card mb-4">      
+            <div class="card-body" id="tasks">
+              <h3 class="card-title">Tasks</h3>
+							<p class="card-text">
+								This section describes the functions that you will need to implement. Note that some parameters are
+								used for function output, i.e. the objective variable is passed to the parameter by reference, and is
+								subsequently modified by the function.
+							</p>
+							<br>
+
+							<h4>Task 1 - Implement the <code>findMatches()</code> function</h4>
+							<p class="card-text">
+								<b>Description</b> - Find all tiles that belong to a match; these tiles will be removed at a later
+								stage.
+							</p>
+							<pre><code class="language-cpp">int findMatches(int map[][WIDTH], bool matches[HEIGHT][WIDTH]);</code></pre>
+							<p class="card-text">
+								<b>Parameters</b>
+							</p>
+							<ul>
+								<li>
+									<code class="language-cpp">int map[][WIDTH]</code> - <i>Input</i> - game map.
+								</li>
+								<li>
+									<code class="language-cpp">bool matches[HEIGHT][WIDTH]</code> - <i>Output</i> - 2D boolean array
+									indicating the position of all tiles that are part of some match.
+								</li>
+							</ul>
+							<p class="card-text">
+								<b>Return value</b> - Number of matched tiles.
+							</p>
+							<p class="card-text">
+								<b>Notes</b>
+							</p>
+							<ul>
+								<li>
+									Do not mark tiles with the value 0 as a match. These indicate placeholder tiles, which are inserted
+									into the map when an entire column of a map is used up and there are no more tiles to draw from. (See
+									Task 2 for more details.)
+								</li>
+								<li>
+									While the entire map is passed into this function, only consider matches completely within the
+									active area.
+								</li>
+							</ul>
+							<br>
+
+							<h4>Task 2 - Implement the <code>processMatches()</code> function</h4>
+							<p class="card-text">
+								<b>Description</b> - Find all matches using <code>findMatches()</code> and remove them. Then, update
+								the game map by shifting tiles downwards to fill up the removed space. Since new matches may exist
+								after updating, recursively call this function until there are no matches on the map.
+							</p>
+							<pre><code class="language-cpp">int processMatches(int map[][WIDTH]);</code></pre>
+							<p class="card-text">
+								<b>Parameters</b>
+							</p>
+							<ul>
+								<li>
+									<code class="language-cpp">int map[][WIDTH]</code> - <i>Input</i> - game map.
+								</li>
+							</ul>
+							<p class="card-text">
+								<b>Return value</b> - Total number of matched tiles, including recursive calls.
+							</p>
+							<p class="card-text">
+								<b>Notes</b>
+							</p>
+							<ul>
+								<li>
+									If no matches are found, simply return 0. This is the <i>base condition</i> for recursion.
+								</li>
+								<li>
+									After shifting tiles downwards to fill up the removed space, there will be empty space at the very
+									top of the map. Fill up these tiles with the value 0 as a placeholder value.
+								</li>
+								<li>
+									The provided code uses the return value of this function to obtain the increase in score after each
+									move.
+								</li>
+							</ul>
+							<br>
+
+							<h4>Task 3 - Implement the <code>swapTiles()</code> function</h4>
+							<p class="card-text">
+								<b>Description</b> - Swap two tiles in the map.
+							</p>
+							<pre><code class="language-cpp">void swapTiles(int map[][WIDTH], int x1, int y1, int x2, int y2);</code></pre>
+							<p class="card-text">
+								<b>Parameters</b>
+							</p>
+							<ul>
+								<li>
+									<code class="language-cpp">int map[][WIDTH]</code> - <i>Input</i> - game map.
+								</li>
+								<li>
+									<code class="language-cpp">int x1</code> - <i>Input</i> - x-coordinate of the first tile to swap.
+								</li>
+								<li>
+									<code class="language-cpp">int y1</code> - <i>Input</i> - y-coordinate of the first tile to swap.
+								</li>
+								<li>
+									<code class="language-cpp">int x2</code> - <i>Input</i> - x-coordinate of the second tile to swap.
+								</li>
+								<li>
+									<code class="language-cpp">int y2</code> - <i>Input</i> - y-coordinate of the second tile to swap.
+								</li>
+							</ul>
+							<br>
+
+							<h4>Task 4 - Implement the <code>considerMoves()</code> function</h4>
+							<p class="card-text">
+								<b>Description</b> - Given the current map, consider every possible move and return the candidate
+								move(s) that increases the score by the most.
+							</p>
+							<pre><code class="language-cpp">int considerMoves(int map[][WIDTH], int candidate_moves[][4], int& num_candidate_moves);</code></pre>
+							<p class="card-text">
+								<b>Parameters</b>
+							</p>
+							<ul>
+								<li>
+									<code class="language-cpp">int map[][WIDTH]</code> - <i>Input</i> - game map.
+								</li>
+								<li>
+									<code class="language-cpp">int candidate_moves[][4]</code> - <i>Output</i> - a 2D array containing
+									all candidate moves. Each row corresponds to a single move, and contains the coordinates of the two
+									points to be swapped, in the format <code>x1, y1, x2, y2</code> (same order as Task 3).
+								</li>
+								<li>
+									<code class="language-cpp">int& num_candidate_moves</code> - <i>Output</i> - the total number of
+									candidate moves.
+								</li>
+							</ul>
+							<p class="card-text">
+								<b>Return value</b> - The maximal score gain.
+							</p>
+							<p class="card-text">
+								<b>Notes</b>
+							</p>
+							<ul>
+								<li>
+									Note that the first dimension to the 2D array <code>candidate_moves</code> is intentionally left
+									out, as the actual number of candidate moves is not a fixed value. For this assignment, you can pass
+									in a 2D array with the first dimension set to <code>(HEIGHT-1) * WIDTH + (WIDTH-1) * HEIGHT =
+									144</code>, which is the number of all possible moves, and only use part of the array to store the
+									values.
+									<ul>
+										<li>
+											In practice, it is recommended to use dynamically resizable containers (e.g.
+											<code>std::vector</code>) to store data whose size is not determined at compile-time. These
+											will be introduced later in the course.
+										</li>
+									</ul>
+								</li>
+								<li>
+									In the unlikely case where no moves can create any matches, do not return any candidate move and
+									return 0 as the maximal score gain.
+								</li>
+								<li>
+									<b>(Updated 18/09/21)</b> Please iterate through all possible moves and fill in the rows of <code>
+									candidate_moves</code> in
+									the
+									following order:
+									<ul>
+										<li>
+											First check all of the right-swaps, then check all of the up-swaps.
+										</li>
+										<li>
+											Ignore all left-swaps and down-swaps, since they are equivalent to right- and up-swaps.
+										</li>
+										<li>
+											When checking for right- and up-swaps, loop through the y-axis (rows) in ascending order.
+										</li>
+										<li>
+											When handling each row, loop through the x-axis (columns) in ascending order.
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<p class="card-text">
+								<b>(Updated 21/09/21) Example</b> - Suppose we check all 144 possible moves. The highest increase in
+								score is 9, and there are four moves that result in an increase of 9. The moves are (1,7) <-> (1,8),
+								(5,1)	<-> (6,1), (4,0) <-> (4,1) and (6,7) <-> (6,8).
+							</p>
+							<ul>
+								<li>
+									Let's determine the order of these 4 moves, using the rules above.
+									<ul>
+										<li>
+											(5,1) <-> (6,1) is a right-swap and the other three are up-swaps. Hence, it will come first.
+										</li>
+										<li>
+											Next we rank by y-coordinates. (4,0) <-> (4,1) comes next since it is the bottommost of the
+											three remaining moves.
+										</li>
+										<li>
+											(1,7) <-> (1,8) and (6,7) <-> (6,8) are on the same row, so we rank them by x-coordinates.
+											(1,7) <-> (1,8) comes first since it is to the left of (6,7) <-> (6,8).
+										</li>
+									</ul>
+								</li>
+								<li>
+									<code>candidate_moves</code>, which is a 144 x 4 array, should be filled up according to the above
+									order, i.e. the first row is <code>[5, 1, 6, 1]</code>, the second row is <code>[4, 0, 4,
+									1]</code>, and so on. The top 4 rows is to be filled, and the remaining 140 rows can be left
+									untouched.
+								</li>
+								<li>
+									<code>num_candidate_moves</code> should be set to 4. That way, when this function is called
+									somewhere else (e.g. in Task 5), the calling function will know that only the first 4 rows of
+									<code>candidate_moves</code> contain useful information.
+								</li>
+								<li>Finally, the function exits with return value of 9, the score gain of the candidate moves.</li>
+							</ul>
+							<p></p>
+							<br>
+
+							<h4>Task 5 - Implement the <code>solver()</code> function</h4>
+							<p class="card-text">
+								<b>Description</b> - Find the optimal move using the <code>considerMoves</code> function. If more
+								than one candidate moves exist, then for each of the candidate move:
+							</p>
+							<ul>
+								<li>
+									Execute the move (to a temporary copy of the map).
+								</li>
+								<li>
+									Recursively call <code>solver()</code> on the modified map to determine the subsequent optimal move.
+								</li>
+								<li>
+									The candidate move that gives the highest total subsequent score gain is the optimal move.
+								</li>
+								<li>
+									<b>(Updated 17/09/21)</b> If there are still multiple candidate moves that have the highest total
+									subsequent score gain, return the one that appears first in <code>candidate_moves</code> returned
+									from <code>considerMoves()</code>.
+								</li>
+							</ul>
+							<pre><code class="language-cpp">int solver(int map[][WIDTH], int return_coordinates[4]);</code></pre>
+							<p class="card-text">
+								<b>Parameters</b>
+							</p>
+							<ul>
+								<li>
+									<code class="language-cpp">int map[][WIDTH]</code> - <i>Input</i> - game map.
+								</li>
+								<li>
+									<code class="language-cpp">int return_coordinates[4]</code> - <i>Output</i> - the coordinates of the
+									two tiles to be swapped in the optimal move, in the format <code>x1, y1, x2, y2</code> (same order
+									as Tasks 3 and 4).
+								</li>
+							</ul>
+							<p class="card-text">
+								<b>Return value</b> - Total score gain of the optimal move, considering all recursive calls.
+							</p>
+							<p class="card-text">
+								<b>Notes</b>
+							</p>
+							<ul>
+								<li>
+									You can use the <code>copyMap</code> function to copy a map.
+								</li>
+								<li>
+									Given a typical map, there is very often only one optimal move, and the number of candidate moves does
+									not exceed 3 moves. Thus, there is no need to worry too much about the no. of candidate moves
+									increasing exponentially.
+								</li>
+								<li>
+									<code>solver()</code> can be called with a map as the only argument if
+									<code>return_coordinates</code> is not needed. This may be useful for recursive calls of
+									<code>solver()</code>.
+								</li>
+							</ul>
+							<pre><code class="language-cpp">int solver(int map[][WIDTH]);</code></pre>
+							<ul>
+								<li>
+									If <code>considerMoves</code> return zero candidate moves, do not return any coordinates and return
+									0 as the maximal score gain.
+								</li>
+							</ul>
+							<p class="card-text">
+								<b>(Updated 21/09/21) Example</b> - Suppose we run the demo program on the default
+								<code>map.txt</code>, and keep on calling <code>solve</code>. At the 5th <code>solve</code>, the
+								program chooses (5,4) <-> (6,4) as the optimal move. We explain why below.
+							</p>
+							<ul>
+								<li>
+									Initially, <code>considerMoves</code> should return two candidate moves, (5,4) <-> (6,4) and (5,1)
+									<->	(5,2). Both of them increase the score by 20. (5,4) <-> (6,4) is in front because it is a
+									right-swap.
+								</li>
+								<li>
+									Since there are multiple candidates, we will recursively run <code>solver()</code> on these two moves.
+								</li>
+								<li>
+									We first take the move (5,4) <-> (6,4) (on a copy of the map), then run <code>solver()</code>.
+									<ul>
+										<li>
+											<code>considerMoves</code> should return another two candidate moves, (1,1) <-> (2,1) and (7,3)
+											<->	(8,3). Both of the increase the score by 6. (1,1) <-> (2,1) is in front because it has a
+											smaller y-coordinate.
+										</li>
+										<li>
+											Again, we will recursively run <code>solver()</code> on these two moves.
+										</li>
+										<li>
+											We first take the move (1,1) <-> (2,1) and run <code>solver()</code>.
+											<ul>
+												<li>
+													<code>considerMoves</code> should return one candidate move, (5,3) <-> (5,4), which increases
+													the score by 12.
+												</li>
+												<li>
+													Since there is only one candidate, <code>solver()</code> exits with return value of 12.
+												</li>
+											</ul>
+										</li>
+										<li>
+											We then take the move (7,3) <-> (8,3) and run <code>solver()</code>.
+											<ul>
+												<li>
+													<code>considerMoves</code> should return one candidate move, (1,1) <-> (2,1), which increases
+													the score by 6.
+												</li>
+												<li>
+													Since there is only one candidate, <code>solver()</code> exits with return value of 6.
+												</li>
+											</ul>
+										</li>
+										<li>
+											Hence, for the two candidates at this round, the total score gains are 12 and 6 respectively. We
+											select the larger one value of 12, and add it to this round's increase which is 6.
+											<code>solver()</code> exits with return value of 18.
+										</li>
+									</ul>
+								</li>
+								<li>
+									Now we take the move (5,1) <-> (5,2).
+									<ul>
+										<li>
+											<code>considerMoves</code> should return one candidate move, (2,6) <-> (2,7), which increases
+											the score by 13. Since there is only one candidate, <code>solver()</code> exits with return
+											value of 13.
+										</li>
+									</ul>
+								</li>
+								<li>
+									Finally, for the two candidates in the initial call, the total score gains are 18 and 13
+									respectively. We select the larger value of 18, and add it to this round's increase, which is 20.
+									Thus the return value of <code>solver()</code> is 38. Since the candidate (5,4) <-> (6,4) has a
+									higher score, we set <code>return_coordinates</code> to <code>[5, 4, 6, 4]</code>.
+								</li>
+								<li>
+									In case the total score gains for both candidates are the same, then (5,4) <-> (6,4) should still be
+									chosen over (5,1) <-> (5,2), because of the order in Task 4.
+								</li>
+							</ul>
+              <br>
+            </div>
+            <div class="card-footer text-muted">
+              End of Tasks
+            </div>
+          </div>
+
+          <!-- Download section -->
+		  		<!-- ### Complete download section for the assignment ### -->
+          <div class="card mb-4">            
+            <div class="card-body" id="download">
+              <h3 class="card-title">Resources &amp; Sample I/O</h3>
+							<ul>
+								<li>
+									Skeleton code: <a href="../Resources/PA1_Skeleton.zip">
+									PA1_skeleton.zip</a>
+								</li>
+								<li>
+									Demo programs:
+									<a href="../Resources/PA1_demo_windows.exe">Windows</a> /
+									MacOS (please check later)
+									<!--<a href="../Resources/PA1_demo_mac_intel">MacOS</a>-->
+								</li>
+								<li>
+									Sample program outputs:
+									<a href="../Resources/sample1.txt">Sample 1</a> /
+									<a href="../Resources/sample2.txt">Sample 2</a>
+								</li>
+							</ul>
+            </div>            
+						<div class="card-footer text-muted">
+              End of Resources &amp; Sample I/O
+            </div>
+          </div>
+		  
+					<!-- Submission and grading section -->
+					<!-- ### Complete submission and grading section for the assignment ### -->
+          <div class="card mb-4">            
+            <div class="card-body" id="submission">
+              <h3 class="card-title">Submission &amp; Grading</h3> 
+			  			<p class="card-text">
+			    			<strong>Deadline: 28 September 2021 Tuesday HKT 23:59.</strong><br>
+								You may earn 8% course grade for each PA via Automated Grading on the
+								<a href="https://zinc.cse.ust.hk/">ZINC Online Submission System</a>. <br>
+								Compress the single source code file <code>game.cpp</code> by itself as <code>PA1.zip</code>
+								for submission to ZINC.
+							</p>
+							<p class="card-text">
+								<b>(Updated 21/09/21)</b> There are two revealed <code>stdio</code> test cases (one of them is just the
+								Sample I/O) on ZINC which are both worth 0 points. Their main purpose is to double-confirm that your
+								code can successfully compile and execute on ZINC, and also to provide you with straightforward tests.
+							</p>
+							<p class="card-text">
+								It is a good indicator that your code is mostly correct (but not a 100% guarantee) if you can pass
+								both revealed <code>stdio</code> test cases. Please note that the <a href="#download">Sample I/O</a>
+								and the revealed <code>stdio</code> test cases on ZINC don't show all possible cases. It is part of
+								the assessment for you to design your own test cases to test your program. Please also remember to
+								remove or comment out any debugging message(s) that you might have added, before submitting your
+								code.
+							</p>
+							<p class="card-text">
+								Download the textfiles of the two <code>stdio</code> test cases here:
+								<a href="../Resources/PA1_stdio_revealed.zip">PA1_stdio_revealed.zip</a>
+			  			</p>
+			  			<br>
+			  			<h4>Grading Scheme</h4>
+			  			<p class="card-text">
+								The actual grading is with
+								<a href="https://github.com/google/googletest/blob/master/googletest/docs/primer.md">Googletest C++ Unit Testing (GTest)</a>.
+								Each test case will be worth 5% in the Grading Scheme table below, for a total of 20 test cases. The
+								actual grading will also only be triggered, with the scores and test cases revealed, after the
+								deadline. This hidden grading policy is for all the PAs in order to prevent reverse-engineering of
+								the test cases, since the PAs are a significant part of the course assessment and course grade. On
+								the other hand, the Labs have a more visible grading policy, as their primary purpose is for hands-on
+								programming practice, with full Lab marks being the expectation.
+							</p>
+							<p class="card-text">
+								<b>(Updated 17/09/21)</b> We will execute unit testing on the task functions individually, and some
+								of the test cases may include invalid input values. In general, you can assume that:</p>
+							<ul>
+								<li>
+									The <code>map</code> input arrays in all tasks are always of correct size and contains valid input
+								</li>
+								<li>
+									For <code>candidate_moves</code> (Task 4), only the first N rows is used (where N is the no. of
+									candidate moves), and the values of the remaining rows don't matter (i.e. it can be uninitialized).
+								</li>
+								<li>
+									For other input parameters, please check the validness of input when implementing the functions.
+								</li>
+							</ul>
+
+							</p>
+							<p class="card-text">
+								Please ensure that you submit to ZINC well before the deadline as <strong>all late submissions will
+								be automatically rejected</strong>.
+			  			</p>
+							<table style="width:95%">
+								<tbody><tr>
+									<th style="width:90%">Task Function</th>
+									<th>Grade</th>
+								</tr>
+								<tr>
+									<td>Task 1 - <code>findMatches()</code></td>
+									<td>10%</td>
+								</tr>
+								<tr>
+									<td>Task 2 - <code>processMatches()</code></td>
+									<td>20%</td>
+								</tr>
+								<tr>
+									<td>Task 3 - <code>swapTiles()</code></td>
+									<td>10%</td>
+								</tr>
+								<tr>
+									<td>Task 4 - <code>considerMoves()</code></td>
+									<td>30%</td>
+								</tr>
+								<tr>
+									<td>Task 5 - <code>solver()</code></td>
+									<td>30%</td>
+								</tbody>
+							</table>
+            </div>
+						<div class="card-footer text-muted">
+              End of Submission &amp; Grading
+            </div>
+          </div>
+		  
+					<!-- FAQ section -->
+					<!-- ### Complete FAQ section for the assignment ### -->
+          <div class="card mb-4">            
+            <div class="card-body" id="faq">
+              <h3 class="card-title">Frequently Asked Questions</h3>
+			  			<p>
+  			    		<b>Q</b>: My code doesn't work, there is an error/bug, here is the code, can you help me fix it?<br>
+			    			<b>A</b>: As the assignment is a major course assessment, to be fair, you are supposed to work on it
+								on your own and we should not finish the tasks for you. We are happy to help with explanations and
+								advice, but we shall not directly debug the code for you.
+							</p>
+							<p>
+								<b>Q</b>: The demo program enters an infinite loop when given unexpected input (e.g. inputting a
+								character when expecting an integer). Is this a bug? <br>
+								<b>A</b>: This is just the behavior of <code>cin &gt;&gt; variable;</code> when given input that is
+								not type-matched. You don't need to worry about these user-input-error cases for PA1, as all console
+								I/O is already handled for you by the skeleton code in <code>main.cpp</code>. In other words, only
+								your code in <code>game.cpp</code> is graded.
+							</p>
+							<p>
+								<b>Q</b>: What are the restrictions regarding modifying the header files, writing our own helper
+								functions, including extra header files, etc.? <br>
+								<b>A</b>: The only hard restriction is that you can only submit <code>game.cpp</code> to ZINC, and we
+								will use the skeleton code versions of <code>game.h</code> and <code>main.cpp</code>. Anything else
+								that you do, while not strictly prohibited, <strong>will be at your own risk regarding the PA1
+								grading result</strong>. Please keep in mind that there is a grade penalty for all grade appeals that
+								include modifications to your already submitted code (no matter how trivial the modification is).
+							</p>
+							<p>
+								<b>Q</b>: Am I allowed to use local function declarations (function declaration inside an existing
+								function) for my helper functions? <br>
+								<b>A</b>: You are strongly discouraged from doing so, as that "feature" is a leftover merely for
+								backwards compatibility with C. In C++, it is superseded with class functions and lambda functions,
+								which will be taught later in this course.
+							</p>
+							<p>
+								<b>Q</b>: <b>(Updated 17/09/21)</b> In the demo program, why can we enter invalid commands such as
+								<code>swap 8 0 up</code> or <code>swap 4 8 right</code>? <br>
+								<b>A</b>: As explained in the previous email, this is caused by incorrect range checking in
+								<code>main.cpp</code>. You can re-download the skeleton code to get the correct version. The sample
+								programs should also be fixed now.
+							</p>
+							<p>
+								<b>Q</b>: <b>(Updated 19/09/21)</b> What are the difference between "cells" and "tiles"? <br>
+								<b>A</b>: Both of them refer to a single digit in the game map. To avoid confusion, all occurences of
+								the word "cells" above have been replaced with "tiles".
+							</p>
+            </div>
+		    		<div class="card-footer text-muted">
+              End of FAQ
+            </div>          
+          </div>
+        </div>
+				
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-3">
+		  		<div class="sticky-top">
+            <!-- Menu Widget -->
+            <div class="card my-12">
+              <h5 class="card-header">Menu</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="mb-0" style="padding-left:20px" type="circle">
+					  <li>
+						<a href="#honor">Honor Code</a>
+					  </li>
+                      <li>
+                        <a href="#objective">Objectives & ILOs</a>
+                      </li>
+											<li>
+												<a href="#introduction">Introduction</a>
+											</li>
+                      <li>
+                        <a href="#description">Description</a>
+                      </li>
+											<li>
+												<a href="#tasks">Tasks</a>
+											</li>
+                      <li>
+                        <a href="#download">Resources &amp; Sample I/O</a>
+                      </li>
+			  		  <li>
+					    <a href="#submission">Submission &amp; Grading</a>
+					  </li>
+					  <li>
+					    <a href="#faq">FAQ</a>
+					  </li>
+                    </ul>
+                  </div>                
+                </div>
+              </div>
+            </div>
+		  
+		    <!-- Maintenance widget -->
+            <div class="card my-4">
+              <h5 class="card-header">Page maintained by</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        Hong Wing PANG
+                      </li>
+                      <li>
+                        Email: <a href="mailto:hwpang@connect.ust.hk">hwpang@connect.ust.hk</a>
+                      </li>
+					  <li>Last Modified: <script type="text/javascript">document.write(document.lastModified);</script></li>
+                    </ul>
+                  </div>				
+                </div>
+              </div>
+            </div>
+		  
+		  
+		    <!-- Homepage widget -->
+            <div class="card my-4">
+              <h5 class="card-header">Homepage</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        <a href="http://course.cse.ust.hk/comp2012h">Course Homepage</a>
+                      </li>
+                    </ul>
+                  </div>				
+                </div>
+              </div>
+            </div>
+		  </div>
+        </div>
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Maintained by COMP 2012H Teaching Team © 2021 HKUST Computer Science
+					and Engineering</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="comp2012h_pa1_files/jquery.js"></script>
+    <script src="comp2012h_pa1_files/bootstrap.js"></script>	
+  
+
+
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>

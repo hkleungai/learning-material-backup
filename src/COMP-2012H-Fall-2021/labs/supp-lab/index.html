@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- ### Change lab number ### -->
+  <title>COMP 2012H Supplementary Lab: GUI Programming using Qt</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/blog-home.css" rel="stylesheet">
+
+  <!-- Prism syntax highlighter -->
+  <link href="prism.css" rel="stylesheet" />
+  <style>
+    img[src$="project_.png"],
+    img[src$="design_.png"],
+    img[src$="code_.png"],
+    img[src$="install1-new.png"],
+    img[src$="install2-new.png"] {
+      width: 90%;
+    }
+  </style>
+</head>
+
+<body>
+  <script src="prism.js"></script>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Entries Column -->
+      <div class="col-md-9">
+
+        <h2 class="my-4"><span style="color:darkblue">COMP 2012H</span>
+          <small>Honors Object-Oriented Programming and Data Structures</small>
+        </h2>
+
+        <!-- ### Change lab number and title ### -->
+        <h3 class="my-4">Supplementary Lab
+          <span style="color:#660066">GUI Programming using Qt</span>
+        </h3>
+
+        <!-- Introduction section -->
+        <!-- ### Complete introduction section for the lab ### -->
+        <div class="card mb-4">
+
+          <!-- ### Add an image representing the lab content here ### -->
+
+          <div class="card-body" id="introduction">
+            <h3 class="card-title">Introduction</h3>
+	    <br/>
+            <p class="card-text">
+              In this lab we will implement a GUI for the 8 puzzle game. The following description will guide
+              you complete the skeleton code.
+            </p>
+	    <center>
+              <img src="images/demo.png" style="width:60%">
+            </center>
+          </div>
+          <div class="card-footer text-muted">
+            End of Introduction
+          </div>
+        </div>
+        <div class="card mb-4">
+          <div class="card-body" id="setup">
+            <h3 class="card-title">Set Up Qt Environment</h3>
+	    <br/>
+            <h4 id="install-qt-on-your-own-computer">Install Qt on your own computer</h4>
+            <p>Download the installer from <a href="https://www.qt.io/download-qt-installer">here</a> or the offline
+              installer <a href="https://www.qt.io/offline-installers">here</a>. Login to your account (or just skip it)
+              and choose the install directory. Choose the following 2 components.</p>
+            <p><img src="images/install1-new.png" alt="" style="width:100%">
+              <br/><br/>
+              <img src="images/install2-new.png" alt="" style="width:100%"></p>
+            <p>You can choose other version of MinGW if you have special reason as long as the 2 components are
+              consistent.</p>
+            <p>For MacOS:</p>
+            <p><img src="images/install1-mac.png" alt="" style="width:100%">
+              <br/><br/>
+              <img src="images/install2-mac.png" alt="" style="width:100%"></p>
+            <p>Note that the version of Qt installed in lab is not the latest version. But you should have no problem
+              using the common features.</p>
+
+          </div>
+          <div class="card-footer text-muted">
+            End of Setup Qt Environment
+          </div>
+        </div>
+
+        <!-- Lab work section -->
+        <!-- ### Complete the lab work section for the lab ### -->
+        <div class="card mb-4">
+          <div class="card-body" id="labwork">
+            <h3 class="card-title">Lab Work</h3>
+	    <br/>
+            <h4 id="overview-of-qt">Overview of Qt</h4>
+            <p>Qt is a cross-platform application development framework. In this course we mainly utilize the API for
+              creating GUI for your program. In Qt, the widgets on the interface (buttons, input box, etc.) are
+              maintained by classes. The widget can be created by creating the class, and its properties can be set by
+              modifying the member variables of the class. These predefined classes can also be inherited so as to be
+              customizable.</p>
+            <p>Unlike the normal console applications you wrote in this course before, the programs with GUI do not run
+              sequentially. Instead, they wait for the events triggered by user inputs and call the corresponding
+              handlers after the initialization of the program. Qt uses signals and slots mechanism to register the
+              handlers for various events.</p>
+	    <br/>
+            <h4 id="overview-of-the-skeleton-code">Overview of the skeleton code</h4>
+            <p>Use <code>QtCreator</code> to open <code>8puzzle.pro</code>. If QtCreator complains about there are no
+              correct settings, you need to choose the toolchain. Choose <code>MinGW</code> in our case.</p>
+            <p><img src="images/project_.png" alt="" style="width:100%"><br/><br/>
+              <img src="images/code_.png" alt="" style="width:100%"></p>
+            <p>First double click <code>Forms/mainwindow.ui</code> to go to the UI editing view. You can see 9 buttons
+              for the puzzle and one <code>generate</code> button to generate a new puzzle.</p>
+            <p><img src="images/design_.png" alt="" style="width:100%"></p>
+            <p>Currently all the buttons show <code>0</code>. This is because this UI editing tool is best suitable for
+              static content. Since the numbers will be changed according to user input, we will initialize the numbers
+              by codes.</p>
+            <p>The widgets list on the right side shows that the number buttons have type <code>NumCell</code> while the
+              <code>generate</code> button has type <code>QPushButton</code>, which is a built-in type. This is because
+              we want to store the row and column index in the number cells so that they know their own location. To
+              achieve this, we create <code>NumCell</code> that inherits <code>QPushButton</code> and also has
+              additional member variables to store the location.</p>
+            <p>Now go back to the code view and see <code>main.cpp</code>. The main function creates and executes the
+              main window, which is defined in <code>MainWindow.cpp</code>. In the constructor the main window, we set
+              the row and column index for every cells and generate a puzzle. Note there is a line
+              <code>ui-&gt;setupUi(this)</code> that initializes the widgets created in the UI editor. The content in
+              the object <code>ui</code> is automatically generated by the Qt framework in the building process. You can
+              access the widgets by <code>ui-&gt;&lt;name_of_widget&gt;</code>, where the name is defined by setting the
+              <code>objectName</code> attribute in the UI editor.</p>
+            <p>Now the program finishes the initialization. In the following tasks, we will bind the input events with
+              the corresponding handler.</p>
+	    <br/>
+            <h4 id="task-1---generate-button">Task 1 - Generate button</h4>
+            <p>We expect that when we click the <code>generate</code> button, the 9 cells will show a new puzzle. We now
+              have prepared the generate function that can generate a valid puzzle and update the UI. All we need to do
+              is to bind the click event to this function.</p>
+            <p>We have 3 ways to do the binding. One is to explicitly bind by <code>connect</code> function. And if the
+              widget is created in the UI editor, we have the second option, which is to let Qt do the binding by
+              following the naming convention. The third one is to inherit the predefined class and override the
+              predefined event handler. Here we use the second one. And in the following tasks we will try the first
+              one.</p>
+            <p>In Qt, if we want to create the slot (handler) for the signal (event) <code>&lt;signal&gt;</code> emitted
+              by <code>&lt;emit_instance&gt;</code>, we just need to create a function named
+              <code>on_&lt;emit_instance&gt;_&lt;signal&gt;</code> and Qt will automatically connect the slot to the
+              signal. In our case, <code>&lt;emit_instance&gt;</code> is <code>generate</code>, which is the name of the
+              generate button, and <code>&lt;signal&gt;</code> is <code>clicked</code>, which is predefined by Qt. One
+              special point is that we need to put a predefined macro <code>slots</code> after the access control
+              indicator. In our case, we need to add the following code to the declaration of <code>MainWindow</code>.
+            </p>
+            <pre><code class="language-c++"><div><span class="hljs-keyword">private</span> slots:
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">on_generate_clicked</span><span class="hljs-params">()</span></span>;
+</div></code></pre>
+            <p>And this function just call the prepared <code>generate()</code> function.</p>
+            <pre><code class="language-c++"><div><span class="hljs-keyword">void</span> MainWindow::on_generate_clicked()
+{
+    generate();
+}
+</div></code></pre>
+	    <br/>
+            <h4 id="task-2---inherit-qpushbutton">Task 2 - Inherit <code>QPushButton</code></h4>
+            <p>We hope the number buttons know their location so as to judge whether number can be moved. However,
+              predefined <code>QPushButton</code> doesn't have these member variables. So we create <code>NumCell</code>
+              which derives from the <code>QPushButton</code>. <code>NumCell</code> still preserves all the features of
+              the push button and at the same time knows it's location by storing it in the new variables.</p>
+            <p>Complete the declaration of <code>NumCell</code> as follows and implement the accessors/mutators.</p>
+            <pre><code class="language-c++"><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NumCell</span>:</span> <span class="hljs-keyword">public</span> QPushButton {
+    ...
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-keyword">int</span> row, col, num;
+
+<span class="hljs-keyword">public</span>:
+    NumCell(QWidget *parent);
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">get_row</span><span class="hljs-params">()</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">set_row</span><span class="hljs-params">(<span class="hljs-keyword">int</span> row)</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">get_col</span><span class="hljs-params">()</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">set_col</span><span class="hljs-params">(<span class="hljs-keyword">int</span> col)</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">get_num</span><span class="hljs-params">()</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">set_num</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span></span>;
+};
+</div></code></pre>
+            <p>Note that the constructor takes <code>QWidget *parent</code> as an argument. It is required by the base
+              class. So implement the constructor as follows.</p>
+            <pre><code class="language-c++"><div>NumCell::NumCell(QWidget *parent)
+        :QPushButton(parent), row(<span class="hljs-number">0</span>), col(<span class="hljs-number">0</span>), num(<span class="hljs-number">0</span>) {}
+</div></code></pre>
+	    <br/>
+            <h4 id="task-3---move-the-numbers">Task 3 - Move the numbers</h4>
+            <p>In this task we connect the <code>click</code> signal of the <code>NumCell</code> with the
+              <code>operate</code> slot of the <code>MainWindow</code>. In this task we will define a new signal with
+              arguments, which can pass the clicked location to the slot function.</p>
+            <p>The event chain is as follows: for each <code>NumCell</code>, the predefined <code>clicked</code> signal
+              is connected to a custom <code>on_clicked</code> slot. The <code>on_clicked</code> slot manually emits a
+              custom <code>operate_signal(int row, int col)</code> signal with arguments. The
+              <code>operate_signal</code> from all the <code>NumCell</code> are connected with the prepared
+              <code>operate(int row, int col)</code> of <code>MainWindow</code>. Here we create a new signal because the
+              predefined signal cannot pass parameters to the slot.</p>
+            <p>We need to add the following to the <code>NumCell</code>.</p>
+            <pre><code class="language-c++"><div><span class="hljs-comment">// numcell.h</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NumCell</span>:</span> <span class="hljs-keyword">public</span> QPushButton {
+    ...
+<span class="hljs-keyword">public</span> slots:
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">on_clicked</span><span class="hljs-params">()</span></span>;
+
+signals:
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">operate_signal</span><span class="hljs-params">(<span class="hljs-keyword">int</span> rol, <span class="hljs-keyword">int</span> col)</span></span>;
+};
+
+<span class="hljs-comment">// numcell.cpp</span>
+<span class="hljs-keyword">void</span> NumCell::on_clicked() {
+    <span class="hljs-function">emit <span class="hljs-title">operate_signal</span><span class="hljs-params">(row, col)</span></span>;
+}
+</div></code></pre>
+            <p>In this case we need to manually connect the signal and the slot.</p>
+            <pre><code class="language-c++"><div><span class="hljs-comment">// numcell.cpp</span>
+NumCell::NumCell(QWidget *parent)
+        :QPushButton(parent), row(<span class="hljs-number">0</span>), col(<span class="hljs-number">0</span>), num(<span class="hljs-number">0</span>) {
+    connect(<span class="hljs-keyword">this</span>, &amp;NumCell::clicked, <span class="hljs-keyword">this</span>, &amp;NumCell::on_clicked);
+}
+</div></code></pre>
+            <p>And add the following to the <code>MainWindow</code>.</p>
+            <pre><code class="language-c++"><div><span class="hljs-comment">// mainwindow.h</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainWindow</span> :</span> <span class="hljs-keyword">public</span> QMainWindow {
+    ...
+<span class="hljs-keyword">private</span> slots:
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">operate</span><span class="hljs-params">(<span class="hljs-keyword">int</span> row, <span class="hljs-keyword">int</span> col)</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">on_generate_clicked</span><span class="hljs-params">()</span></span>;
+    ...
+};
+
+<span class="hljs-comment">// mainwindow.cpp</span>
+<span class="hljs-keyword">void</span> MainWindow::on_generate_clicked()
+{
+    generate();
+}
+</div></code></pre>
+            <p>Also we need to connect the signals from every number cells.</p>
+            <pre><code class="language-c++"><div><span class="hljs-comment">// mainwindow.cpp</span>
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(<span class="hljs-keyword">new</span> Ui::MainWindow)
+{
+    ...
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">3</span>; i++) {
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j=<span class="hljs-number">0</span>; j&lt;<span class="hljs-number">3</span>; j++) {
+            num_cells[i][j]-&gt;set_row(i);
+            num_cells[i][j]-&gt;set_col(j);
+            connect(num_cells[i][j], &amp;NumCell::operate_signal, <span class="hljs-keyword">this</span>, &amp;MainWindow::operate);
+        }
+    }
+    ...
+}
+</div></code></pre>
+<br/>
+            <h4 id="bonus">Bonus</h4>
+            <p>Modify the program so that it supports moving numbers by 
+WASD. You will need the third method of handler
+              definition. You may want to check <a href="https://doc.qt.io/qt-5/qwidget.html#keyPressEvent">this</a>.
+            </p>
+	    <br/>
+            <h4 id="tips-for-writing-your-own-program">Tips for writing your own program</h4>
+            <p>This lab aims at introducing the basic logic of the Qt programs. But we cannot cover all the topics. If
+              you would like to add more features, try to search on the internet for similar questions (e.g.
+              stackoverflow) and check official <a href="https://doc.qt.io/archives/qt-5.11/">document</a> for details
+              of API.</p>
+          </div>
+          <div class="card-footer text-muted">
+            End of Lab Work
+          </div>
+        </div>
+
+        <!-- Resources section -->
+        <!-- ### Complete resources section for the lab ### -->
+        <div class="card mb-4">
+          <div class="card-body" id="resources">
+            <h3 class="card-title">Resources &amp; Sample I/O</h3>
+            <ul>
+              <li>Skeleton code: <a href="file/8puzzle_sk.zip">8puzzle_sk.zip</a></li>
+              <li>Demo programs: <a href="file/demo_win.zip">demo_win.zip</a> <a href="file/demo_mac.zip">demo_mac.zip</a></li>
+              <!-- <li>Solution: <a href="file/8puzzle.zip">8puzzle.zip</a></li> -->
+            </ul>
+          </div>
+          <div class="card-footer text-muted">
+            End of Resources and Sample I/O
+          </div>
+        </div>
+
+        <!-- Grading scheme section -->
+        <!-- ### Complete grading section for the lab ### -->
+        <!--<div class="card mb-4">
+          <div class="card-body" id="grading">
+            <h3 class="card-title">Grading scheme</h3>
+            <p class="card-text">You may earn 3 points for each lab:
+              <ul>
+                <li>Attendance (1 point)</li>
+                <li>Demonstrate your solution to a TA/lab helper (1 point)</li>
+                <li>Answer a simple question in your lab session (1 point) if you are selected. If you are not selected,
+                  you have it on completion of the above two tasks.</li>
+              </ul>
+              Please understand that there are many students at the lab waiting for demo their works. It may take some
+              times before we can check your work. We will always check student's work from the seats at front. Come to
+              the lab earlier and grab a front seat to demo earlier!
+            </p>
+          </div>
+          <div class="card-footer text-muted">
+            End of Grading Scheme
+          </div>
+        </div>-->
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-3">
+        <div class="sticky-top">
+          <!-- Menu Widget -->
+          <div class="card my-12">
+            <h5 class="card-header">Menu</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="mb-0" type="circle" style="padding-left:20px">
+                    <li>
+                      <a href="#introduction">Introduction</a>
+                    </li>
+                    <li>
+                      <a href="#setup">Set Up Qt Environment</a>
+                    </li>
+                    <li>
+                      <a href="#labwork">Lab Work</a>
+                    </li>
+                    <li>
+                      <a href="#resources">Resources &amp; Sample I/O</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Maintainance widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Page maintained by</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      TIAN, Yao
+                    </li>
+                    <li>
+                      Email: <a href="mailto:ytianbc@connect.ust.hk">ytianbc@connect.ust.hk</a>
+                    </li>
+                    <li>Last Modified:
+                      <script type="text/javascript">document.write(document.lastModified);</script>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Homepage widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Homepage</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="http://course.cse.ust.hk/comp2012h">Course Homepage</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Maintained by COMP 2012H Teaching Team &copy; 2021 HKUST Computer 
+Science
+        and Engineering</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

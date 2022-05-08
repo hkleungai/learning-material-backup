@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<!-- ### Change assignment number ### -->
+    <title>COMP 2012H Assignment 2: Grade Appeal</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/blog-home.css" rel="stylesheet">
+
+    <!-- Prism syntax highlighter -->
+    <link href="prism.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  </head>
+
+  <body>
+    <script src="prism.js"></script>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Entries Column -->
+        <div class="col-md-9">
+
+          <h2 class="my-4"><span style="color:darkblue">COMP 2012H</span>
+            <small>Honors Object-Oriented Programming and Data Structures</small>
+          </h2>
+
+		  <!-- ### Change assignment number and title ### -->
+		  <h3 class="my-4">Assignment 2
+            <span style="color:#660066">Grade Appeal</span>
+          </h3>
+
+          <!-- Introduction section -->
+		  <!-- ### Complete introduction section for the assignment ### -->
+          <div class="card mb-4">
+
+		    <!-- ### Add an image representing the assignment content here ### -->
+            <div class="card-body" id="appeal">
+              <h3 class="card-title">Grade Appeal Procedures</h3>
+              <p class="card-text">
+			  Check your grade and remarks <a href="remarks.html">here</a>. <br/>
+			  Check the Grading Scheme <a href="appeal/PA2_Grading_Scheme.pdf">here</a>. <br/>
+			  Check the sample solution <a href="appeal/sol.zip">here</a>. <br/>
+
+			  <ol>
+				<li>Download the <a href="appeal/grader.zip">grader</a> and <a href="appeal/memory_leak_grader.zip">memory_leak_grader</a>.</li>
+				<li>Supply your own <code>Process.cpp</code>, <code>ProcessNode.cpp</code>, <code>ProcessQueue.cpp</code>, and <code>ProcessScheduler.cpp</code> files to compile and run these two programs.</li>
+				<li>You can run <code>grader</code> with the following command line options: 
+					<ul>
+						<li><code>-o results.txt</code> to write the output into the specified textfile.</li>
+						<li><code>-s</code> to also output successful cases.</li>
+						<li>To run individual test cases, add these command line options with the double-quotes: 
+							<ul>
+								<li><code>"Process"</code></li>
+								<li><code>"ProcessQueue enqueue() and dequeue()"</code></li>
+								<li><code>"ProcessQueue is_empty()"</code></li>
+								<li><code>"AddProcess1"</code></li>
+								<li><code>"AddProcess2"</code></li>
+								<li><code>"RemoveProcess"</code></li>
+								<li><code>"Quantum"</code></li>
+								<li><code>"Aging1"</code></li>
+								<li><code>"Aging2"</code></li>
+								<li><code>"Randomized Stress Test"</code></li>
+							</ul>
+						</li>
+					</ul>
+				<li>Run <code>memory_leak_grader</code> with Dr. Memory or Valgrind to get the memory leak report.</li>
+				<li>Send an email to Bing Yen if the results of the <code>grader</code> and <code>memory_leak_grader</code> are not consistent with your given grade. 
+				Attach your <code>grader</code> and/or <code>memory_leak_grader</code> output as textfile(s) in your email.</li>
+			  </ol>
+			  
+			  </p>
+            </div>
+            <div class="card-footer text-muted">
+              End of Grade Appeal Procedures
+            </div>
+          </div>
+
+		  <div class="card mb-4">
+            <div class="card-body" id="crash">
+              <h3 class="card-title">Crash or Infinite Loop</h3>
+			  <p class="card-text">
+			  If the <code>grader</code> or <code>memory_leak_grader</code> program crashes or enters an infinite loop for any of the test cases, 
+			  and the cause is only due to a minor bug (e.g. forgetting to check for <code>nullptr</code>), 
+			  you may fix the bug and send an email to Bing Yen with your updated <code>.cpp</code> file(s), as well as a description of the fix. 
+			  We will regrade your assignment only for the "Process", "ProcessQueue", and "ProcessScheduler" portions, 
+			  but we will not regrade the "Randomized Stress Test" and "Memory Leak" portions.<br/>
+			  <br/>
+			  However, we will not regrade if the bugfix is not obvious and straightforward. 
+			  </p>
+            </div>
+            <div class="card-footer text-muted">
+              End of Crash or Infinite Loop
+            </div>
+          </div>
+		  
+          <div class="card mb-4">
+            <div class="card-body" id="leak">
+				<h3 class="card-title">Check Memory Leak</h3>
+                    <p class="card-text">
+                        You can use <a href="http://drmemory.org/">Dr. Memory</a>
+                        or <a href="http://valgrind.org/">Valgrind</a> to check memory
+                        leak. After your program finishes, these tools will generate a 
+                        report containing all the memory related issues. <br/>
+					<br/>
+					
+                    <h4>Dr. Memory (For Windows, Mac and Linux)</h4>
+					<p class="card-text">
+                    Run the following in command line: <br/>
+                        <code>X:\path\to\drmemory\bin64\drmemory.exe X:\path\to\your\executable.exe</code><br><br>
+                        You will get following message: 
+                        <pre>
+Error #1: LEAK 16 direct bytes 0x0000000002fd0dc0-0x0000000002fd0dd0 + 0 indirect bytes
+# 0 replace_operator_new                [d:\drmemory_package\common\alloc_replace.c:2900]
+# 1 ProcessScheduler::add_process       [C:\memory_leak_tester\../ProcessScheduler.cpp:74]
+# 2 main                                [C:\memory_leak_tester\../memory_leak_grader.cpp:18]
+
+FINAL SUMMARY:
+
+ERRORS FOUND:
+	1 unique,  1023 total,  16368 byte(s) of leak(s)
+                        </pre>
+                        Note:<br>
+						<ul>
+                        <li>We ignore all errors that are not caused by <code>Process</code>, <code>ProcessNode</code>, <code>ProcessQueue</code>, or <code>ProcessScheduler</code>.</li>
+                        <li>Some of the leak problems cannot be detected if your compiler is Visual Studio.</li>
+                        <li>It may take quite long time when you run it for the first time.</li>
+						</ul>
+                    </p>
+                    <br/>
+					
+                    <h4>Valgrind (For Mac and Linux)</h4>
+					<p class="card-text">
+                    Run the following in command line: <br/>
+                        <code>$ valgrind --tool=memcheck --leak-check=full  path/to/your/executable</code><br><br>
+                        You will get the following message: 
+                        <pre>
+==10425== HEAP SUMMARY:
+==10425==     in use at exit: 16,368 bytes in 1023 blocks
+==10425==   total heap usage: 1023 allocs, 0 frees, 16,368 bytes allocated
+==10425==
+==10425== 16,368 bytes in 1023 blocks are definitely lost in loss record 1 of 1
+==10425==    at 0x4838DEF: operator new(unsigned long) (vg_replace_malloc.c:334)
+==10425==    by 0x109146: ProcessScheduler::add_process() (in /some/dir/test)
+==10425==    by 0x109152: main (in /some/dir/test)</pre>
+                        Note: Valgrind doesn't support Windows.
+                    </p>
+				</div>
+			<div class="card-footer text-muted">
+              End of Check Memory Leak
+            </div>
+		  </div>
+
+          <div class="card mb-4">
+            <div class="card-body" id="stats">
+              <h3 class="card-title">Statistics (Including Bonus Task)</h3>
+			  <p class="card-text">
+				<ul>
+					<li>Total: 115%</li>
+					<li>Mean: 74.5%</li>
+					<li>SD: 33%</li>
+					<li>Median: 87%</li>
+					<li>Max: 115%</li>
+					<li>Min: 4%</li>
+				</ul>
+            </div>
+            <div class="card-footer text-muted">
+              End of Statistics
+            </div>
+          </div>
+		  
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-3">
+		  <div class="sticky-top">
+            <!-- Menu Widget -->
+            <div class="card my-12">
+              <h5 class="card-header">Menu</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="mb-0" type="circle" style="padding-left:20px">
+                      <li>
+                        <a href="#appeal">Grade Appeal Procedures</a>
+                      </li>
+                      <li>
+                        <a href="#crash">Crash or Infinite Loop</a>
+                      </li>
+                      <li>
+                        <a href="#leak">Check Memory Leak</a>
+                      </li>
+					  <li>
+                        <a href="#stats">Statistics</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+		    <!-- Maintainance widget -->
+            <div class="card my-4">
+              <h5 class="card-header">Page maintained by</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        CHANG Bing Yen
+                      </li>
+                      <li>
+                        Email: <a href="mailto:bychang@connect.ust.hk">bychang@connect.ust.hk</a>
+                      </li>
+					  <li>Last Modified: <script type="text/javascript">document.write(document.lastModified);</script></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+		    <!-- Homepage widget -->
+            <div class="card my-4">
+              <h5 class="card-header">Homepage</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        <a href="http://course.cse.ust.hk/comp2012h">Course Homepage</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+		  </div>
+        </div>
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Maintained by COMP 2012H Teaching Team &copy; 2019 HKUST Computer Science and Engineering</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  </body>
+
+</html>

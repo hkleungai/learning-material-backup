@@ -74,5 +74,10 @@ const categorizedCourses: CategorizedCourses = {
       title: 'Object-Oriented Programming and Data Structures',
       semesters: ['Spring 2022'],
     },
+    {
+      code: 'COMP 2012H',
+      title: 'Honors Object-Oriented Programming and Data Structures',
+      semesters: ['Fall 2021'],
+    }
   ],
 };

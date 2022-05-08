@@ -1,0 +1,492 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>COMP2012H Self-test Web Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="keywords" content="" />
+<!--link rel="stylesheet" href="img/Underground.css" type="text/css" /-->
+<!-- Bubble tooltips: adopted from: http://www.web-graphics.com/mtarchive/BubbleTooltips.html--><!-- For automatic tooltip: -->
+<script src="bubbletooltips/bubbletooltips.js" type=text/javascript></script>
+<!-- Example:  usage <a href="" title=""></a>  --><!-- For customize tooltip -->
+<link media=all href="bubbletooltips/bt.css" type=text/css rel=stylesheet>
+<script type="text/javascript" src="jquery/jquery.js"></script>
+
+<!-- JQuery Calender is located here... -->
+<style type="text/css">@import url(jquerycalendar/jquery-calendar.css);</style>
+<script type="text/javascript" src="jquerycalendar/jquery-calendar.js"></script>
+
+<script type="text/javascript" src="selftestmenu.js"></script>
+<link rel="stylesheet" type="text/css" href="selfteststyle.css" />
+<!-- highslide stuff: TESTING... -->
+<script type="text/javascript" src="highslide/highslide-with-html.js"></script>
+<script type="text/javascript">    
+    hs.graphicsDir = 'highslide/graphics/';
+    hs.outlineType = 'rounded-white';
+    hs.outlineWhileAnimating = true;
+</script>
+<style type="text/css">@import url(highslide/myslide.css);</style>
+<!-- END OF highslide stuff -->
+
+</head>
+
+<!-- Start of the main html body -->
+<body>
+
+<!-- wrap starts here -->
+<div id="main">
+<div id="wrap">
+        <!-- header -->
+        <div id="header">
+                <span id="slogan" ></span>
+                <!-- tabs -->
+                <ul>
+                  <li class="showall-solution"><a href="#" title="Show all solutions"><span>Show all solutions</span></a></li>
+                  <li class="hideall-solution"><a href="#" title="Hide all solutions"><span>Hide all solutions</span></a></li>
+
+                </ul>
+        </div>
+        <!-- main block: right panel -->
+        <!--div id="main"-->
+
+          <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Test 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  -->
+          <div id='block1' style="display:block;	clear:left;">
+            <h1>Self-test 19: <br />  Binary Tree  </h1>
+
+          <OL>
+
+            <!-- Start of question 1 -->
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <!-- Put the question here -->
+              <p>True or False</p>
+              <p>The height of any binary search tree with <i>n</i> nodes is <i>O(log(n))</i>. </p>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <!-- Put the solution here -->
+              <b>False.</b> In the best case, the height of a BST is <i>O(log n) </i>if it is balanced.
+In the worst case, however, it can be <i>&theta;(n)</i>.
+            </div>              
+            </div>
+            <hr />
+            </LI>
+            <!-- End of question 1 -->
+
+            			
+			<!-- Start of question 2 -->
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <!-- Put the question here -->
+              <p>True or false.</p>
+              <p> Inserting into an AVL tree with <i>n</i> nodes requires <i>&theta;(log n)</i> rotations. </p>
+
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <!-- Put the solution here -->
+              <b>False.</b> There are two explanations.<br>
+1. There are cases where inserting into an AVL tree requires no rotations. <i>&theta;(log n)</i>
+rotations implies <i>&Omega;(log n)</i> rotations. Since we have insertions that require no
+rotations, this means inserting into an AVL tree does not require <i>&Omega;(log n)</i>
+rotations and thus it does not require <i>&theta;(log n)</i> rotations.<br>
+2. Inserting into an AVL tree may require looking at <i>O(log n)</i> nodes, but it only needs to
+perform at most 2 rotations to fix the imbalance. Thus inserting into an AVL tree
+requires <i>O(1)</i> rotations, which is not <i>&theta;(log n)</i>.
+<br>
+Common mistakes include thinking that rotations are needed for each
+node in the inserted node's ancestry line and thinking that we were asking for the runtime of insertion and not the number of rotations required.
+<!-- 				<ul>
+					<li>When an object of the class is returned by value.</li>
+					<li>When an object of the class is passed (to a function) by value as an argument.</li>
+					<li>When an object is constructed based on another object of the same class.</li>
+					<li>When compiler generates a temporary object.</li>
+				</ul>
+			It is however, not guaranteed that a copy constructor will be called in all these cases, because the C++ Standard allows the compiler to optimize the copy away in certain cases, one example being the <a href="http://en.wikipedia.org/wiki/Return_value_optimization" target="_blank">return value optimization</a> (sometimes referred to as RVO). -->
+            </div>              
+            </div>
+            <hr />
+            </LI>
+            <!-- End of question 2 -->
+			
+			
+			<!-- Start of question 3 -->
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <!-- Put the question here -->
+              <p>The level of a node is defined as the depth of it + 1. For example, the level of the root is 1 and that of its direct children is 2. The maximum number of nodes on level i of a binary tree is:<br>
+
+
+              <ol type="A">
+
+                <li>2^(i-1)</li>
+
+                <li>2^i</li>
+
+                <li>2^(i+1)</li>
+
+                <li>2^[(i+1)/2]</li>
+
+              </ol>
+              <br />
+              (The operator '^' indicates power for this question.)
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <!-- Put the solution here -->
+              <b>A is correct.</b> Proof: by Induction, Introduction base: i=1 (root). The number of nodes is: 2^(i-1) = 2^0 = 1. <br>Induction hypothesis: Assume that for i &ge; 1, the maximum number of nodes on level i-1 is 2^(i-2). <br>Induction step: Since each node in a binary tree has a maximum degree of 2. Therefore, the maximum number of nodes on level i is 2*2^(i-2) which is 2^(i-1). 
+            </div>              
+            </div>
+            <hr />
+            </LI>
+            <!-- End of question 3-->
+			
+			
+						<!-- Start of question 4-->
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <!-- Put the question here -->
+              <p>The maximum number of binary trees that can be formed with three unlabeled nodes is:</p>
+
+              <ol type="A">
+
+                <li>1</li>
+
+                <li>5</li>
+
+                <li>4</li>
+
+                <li>3</li>
+
+              </ol>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <!-- Put the solution here -->
+              <b>B is correct</b>. The following are all possible unlabeled binary trees.
+              <pre>
+
+           O
+        /     \
+      O        O
+         (i)
+
+            O
+          /
+       O
+     /
+   O
+        (ii)
+
+         O
+       /
+     O
+        \
+          O
+       (iii)
+
+  O
+     \
+       O
+          \
+           O
+      (iv)
+
+       O
+          \
+            O
+          /
+       O
+       (v)
+              </pre> 
+              Note that nodes are unlabeled. If the nodes are labeled, we get more number of trees.
+            </div>              
+            </div>
+            <hr />
+            </LI>
+            <!-- End of question 4 -->
+			
+			
+			<!-- Start of question 5-->
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <!-- Put the question here -->
+              <p> Postorder traversal of a given binary search tree, T produces the following sequence of keys 10, 9, 23, 22, 27, 25, 15, 50, 95, 60, 40, 29. Which one of the following sequences of keys can be the result of an in-order traversal of the tree T?
+</p>
+
+              <ol type="A">
+
+                <li>9, 10, 15, 22, 23, 25, 27, 29, 40, 50, 60, 95</li>
+
+                <li>9, 10, 15, 22, 40, 50, 60, 95, 23, 25, 27, 29</li>
+
+                <li>29, 15, 9, 10, 25, 22, 23, 27, 40, 60, 50, 95</li>
+
+                <li>95, 50, 60, 40, 27, 23, 22, 25, 10, 9, 15, 29</li>
+
+              </ol>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <!-- Put the solution here -->
+              <b>A is correct.</b> Inorder traversal of a BST always list elements in an increasing order. Among all four options, a) is the only increasing order sequence.
+            </div>              
+            </div>
+            <hr />
+            </LI>
+            <!-- End of question 5 -->
+					
+			
+			<!-- Start of question 6-->
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <!-- Put the question here -->
+              <p>Consider a node X in a binary tree. Given that X has two children, and that Y is the inorder successor of X. Which of the following is true about Y?</p>
+
+              <ol type="A">
+
+                <li>Y has no right child.</li>
+
+                <li>Y has no left child.</li>
+
+                <li>Y has both children.</li>
+
+                <li>None of the above.</li>
+
+              </ol>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <!-- Put the solution here -->
+              <b>B is correct.</b> Since X has both children, Y must be the leftmost node in the right sub-tree of X, so it won't have a left child.
+            </div>              
+            </div>
+            <hr />
+            </LI>
+            <!-- End of question 6 -->
+			
+			
+				<!-- Start of question 7-->
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <!-- Put the question here -->
+              <p>The following numbers are inserted into an empty binary search tree in the given order: 10, 1, 3, 5, 15, 12, 16. What is the height of the binary search tree (the height is the maximum distance of a leaf node from the root)?</p>
+
+              <ol type="A">
+
+                <li>2</li>
+
+                <li>3</li>
+
+                <li>4</li>
+
+                <li>6</li>
+
+              </ol>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <!-- Put the solution here -->
+              <b>B is correct.</b> The constructed binary search tree will be:
+              <pre>                    
+                    10
+                  /     \
+                 1       15
+                 \      /  \
+                  3    12   16
+                    \
+                     5</pre>
+            </div>              
+            </div>
+            <hr />
+            </LI>
+            <!-- End of question 7 -->
+			
+			
+				<!-- Start of question 8-->
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <!-- Put the question here -->
+              <p>The preorder traversal sequence of a binary search tree is 30, 20, 10, 15, 25, 23, 39, 35, 42. Which one of the following is the postorder traversal sequence of the same tree?</p>
+
+              <ol type="A">
+
+                <li>10, 20, 15, 23, 25, 35, 42, 39, 30</li>
+
+                <li>15, 10, 25, 23, 20, 42, 35, 39, 30</li>
+
+                <li>15, 20, 10, 23, 25, 42, 35, 39, 30</li>
+
+                <li>15, 10, 23, 25, 20, 35, 42, 39, 30</li>
+
+              </ol>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <!-- Put the solution here -->
+              <b>D is correct.</b> The following is the constructed tree.
+              <pre>            
+            30
+         /      \
+        20       39 
+       /  \     /  \
+     10    25  35  42  
+      \   /
+      15 23
+</pre>
+            </div>              
+            </div>
+            <hr />
+            </LI>
+            <!-- End of question 8 -->
+			
+			
+		    <!-- Start of question 9-->
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <!-- Put the question here -->
+              <p>Which of the following traversals is sufficient to construct the original BST from given traversals 1) Inorder 2) Preorder 3) Postorder</p>
+
+              <ol type="A">
+
+                <li>Any one of the given three traversals is sufficient</li>
+
+                <li>Either 2 or 3 is sufficient</li>
+
+                <li>2 and 3</li>
+
+                <li>1 and 3 </li>
+
+              </ol>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <!-- Put the solution here -->
+              <b>B is correct.</b> When we know either preorder or postorder traversal, we can construct the BST. Note that we can always just sort any given traversal and get the inorder traversal, as an inorder traversal of BST is always sorted.
+            </div>              
+            </div>
+            <hr />
+            </LI>
+            <!-- End of question 9 -->
+
+			
+			
+		    <!-- Start of question 10-->
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <!-- Put the question here -->
+              <p>Consider the following code. What does the function print() do in general? The function print() receives the root of a BST and a positive integer k as arguments.</p>
+			  
+<pre>
+  // A BST node
+struct node {
+    int data;
+    struct node *left, *right;
+};
+ 
+int count = 0;
+ 
+void print(struct node *root, int k)
+{
+    if (root != NULL && count <= k)
+    {
+        print(root->right, k);
+        count++;
+        if (count == k)
+          printf("%d ", root->data);
+       print(root->left, k);
+    }
+}
+</pre>
+
+              <ol type="A">
+
+                <li>Prints the k-th smallest element in BST.</li>
+
+                <li>Prints the k-th largest element in BST.</li>
+
+                <li>Prints the leftmost node at level k from root.</li>
+
+                <li>Prints the rightmost node at level k from root.</li>
+
+              </ol>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <!-- Put the solution here -->
+              <b>B is correct.</b> The function basically does a reverse inorder traversal of the given BST. The reverse inorder traversal visits the nodes in a reverse sorted order. Whenever a node is visited, count is incremented by 1 and the data of the node is printed only when count becomes k. Therefore, the k-th largest element would be printed.
+            </div>              
+            </div>
+            <hr />
+            </LI>
+            <!-- End of question 10 -->
+
+        <!-- Start of question 11-->
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <!-- Put the question here -->
+              <p>After inserting the elements 71, 65, 84, 69, 67, 83 to an empty binary search tree in the given order, the element at the maximum depth is</p>
+
+              <ol type="A">
+
+                <li>65</li>
+
+                <li>67</li>
+
+                <li>69</li>
+
+                <li>83</li>
+
+              </ol>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <!-- Put the solution here -->
+              <b>B is correct.</b> The constructed tree is:
+              <pre>       
+       71
+     /    \
+    65     84
+     \     /
+     69   83
+     /
+    67 </pre>
+            </div>              
+            </div>
+            <hr />
+            </LI>
+            <!-- End of question 11 -->					
+
+          </OL>
+        </div>
+
+        <!-- wrap ends here; don't delete this /div --> 
+        </div>
+
+</div>
+</div>
+
+</body>
+</html>
+

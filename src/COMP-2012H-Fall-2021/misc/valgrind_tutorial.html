@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- ### Change assignment number ### -->
+  <title>COMP 2012H Valgrind Tutorial</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/blog-home.css" rel="stylesheet">
+
+  <!-- Prism syntax highlighter -->
+  <link href="prism.css" rel="stylesheet" />
+
+  <style>
+    pre {
+      background: #f4f4f4;
+      border: 1px solid #ddd;
+      border-left: 3px solid #f36d33;
+      color: #666;
+      page-break-inside: avoid;
+      font-family: monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 1.6em;
+      max-width: 100%;
+      overflow: auto;
+      padding: 1em 1.5em;
+      display: block;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+
+<body>
+  <script src="prism.js"></script>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Entries Column -->
+      <div class="col-md-9">
+
+        <h2 class="my-4">
+          <span style="color:darkblue">COMP 2012H</span>
+          <small>Honors Object-Oriented Programming and Data Structures</small>
+        </h2>
+
+        <!-- ### Change assignment number and title ### -->
+        <h3 class="my-4">Valgrind Tutorial
+        </h3>
+
+        <!-- Introduction section -->
+        <!-- ### Complete introduction section for the assignment ### -->
+        <div class="card mb-4">
+
+          <!-- ### Add an image representing the assignment content here ### -->
+        <!-- Credits section -->
+        <!-- ### Complete Credits section for the assignment ### -->
+        <div class="card mb-4">
+          <!-- <div class="card-body" id="credits">
+            <h3 class="card-title">Solution, Marking Guide and Appeal Procedure</h3>
+            <p>
+    You may want to check your marks of PA2 and the feedback here:
+  <ol>
+  <li><a href="check_mark.html">Mark checking system</a></li>
+  <li><a href="marking_guide.pdf">Marking Guide (PDF)</a></li>
+  <li><a href="testcode_with_solution.zip">Test code and solution</a></li>
+  </ol>
+  Please note that you are required to appeal the PA by 10th of May, 2019 via email to kevinw@cse.ust.hk. Please run the test case before you send the email.    
+            </p>
+          </div> -->
+          <!-- <div class="card-footer text-muted"> -->
+            
+          <!-- </div> -->
+        </div>
+
+          <div class="card-body" id="tutorial">
+            <h3 class="card-title">Tutorial</h3>
+
+            <h5 class="card-title">Preparation</h5>
+
+            <p class="card-text">
+              Since <code>valgrind</code> is not available on Windows, and its macOS distribution is tricky to install in the latest macOS, we recommend you to run <code>valgrind</code> in the Linux Lab (Lab 2) by SSH. Here is a procedure to do this using Virtual Barn.
+
+              <ol>
+                <li>
+                  Follow the procedures <a href="#virtual_barn">here</a> to access Virtual Barn.
+                </li>
+                <li>
+                  Copy your files to Virtual Barn.
+                </li>
+                <li>
+                  Open <code>PuTTY</code>. There is a shortcut on your Desktop. Enter <code>csl2wk13.cse.ust.hk</code> as the Host Name.
+                  <img class="limit" src="./images/putty1.png" style="width:100%">
+                </li>
+                <li>
+                  Click Open. If a warning about the security key shows up, click Yes to dismiss it.
+                  <img class="limit" src="./images/putty2.png" style="width:100%">
+                </li>
+                <li>
+                  Enter your CSD login and password. You should login to your <em>home</em> directory. Enter the command <code>pwd</code> (Print Working Directory) to verify this. It should show <code>/homes/your_login</code>
+                  <img class="limit" src="./images/putty3.png" style="width:100%"> 
+                </li>
+                <li>
+                  Open <code>FileZilla</code> from Start Menu. Click "File" -> "Site Manager" -> "New Site". Choose SFTP for protocol. Enter <code>csl2wk13.cse.ust.hk</code> as Host.
+                  <img class="limit" src="./images/filezilla.png" style="width:100%">
+                </li>
+                <li>
+                  Click Connect and then enter your CSD login and password.
+                </li>
+                <li>
+                  If the connection succeeds, the right side should show your home directory at Linux Lab. Copy your files  by dragging them to the right side. You can close <code>FileZilla</code> after doing so.
+                </li>
+                <li>
+                  Go back to <code>PuTTY</code>, compile and run your program accordingly.
+                  <!-- <pre><code>
+                    g++ -std=c++11 -o pa1 main.cpp table.cpp intermediate.cpp
+                  </code></pre>
+                </li>
+                <li>
+                  If no compilation error occurred, you should be able to run your program by:
+                  <pre><code>
+                    ./pa1
+                  </code></pre>
+                </li> -->
+              </ol>
+
+              <!-- <ol>
+                <li>
+                  If you are unfamiliar with SSH, first you need to download an SSH client. We recommend <a href="https://pcmacstore.com/en/app/1354319581/core-shell-ssh-client">Core Shell</a>.
+                </li>
+                <li>
+                  Remote connect to one of the machines in the Linux Lab, e.g. csl2wk13.cse.ust.hk, using your CSD login and password. You should be in your <em>home</em> directory. Enter the command <code>pwd</code> (Print Working Directory) to verify this. It should show <code>/homes/your_login</code>:
+                  <pre><code>
+                    csl2wk13:your_login:xx> pwd
+                    /homes/your_login
+                  </code></pre>
+                </li>
+                <li>
+                  Upload <code>main.cpp</code>, <code>table.cpp</code>, <code>intermediate.cpp</code>, <code>table.h</code> and <code>intermediate.h</code> to the home directory. You can do this by drag and drop if you are using Core Shell.
+                </li>
+                <li>
+                  Compile your program using the following command:
+                  <pre><code>
+                    g++ -std=c++11 -o pa1 main.cpp table.cpp intermediate.cpp
+                  </code></pre>
+                </li>
+                <li>
+                  If no compilation error occurred, you should be able to run your program by:
+                  <pre><code>
+                    ./pa1
+                  </code></pre>
+                </li>
+              </ol> -->
+            </p>
+
+            <h5 class="card-title">Running <code>valgrind</code></h5>
+
+            <p class="card-text">
+              Run your program with <code>valgrind</code> by:
+              <pre><code>
+                valgrind --leak-check=full ./pa2_test.exe
+                # you can change the pa2_test.exe into other executable file path
+              </code></pre>
+
+              A report should show up at the end of the output. If you see the following message, your program is free from memory leak:
+
+              <pre><code>
+                ==12712== HEAP SUMMARY:
+                ==12712==     in use at exit: 0 bytes in 0 blocks
+                ==12712==   total heap usage: 18 allocs, 18 frees, 720 bytes allocated
+                ==12712==
+                ==12712== All heap blocks were freed -- no leaks are possible
+                ==12712==
+                ==12712== For counts of detected and suppressed errors, rerun with: -v
+                ==12712== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+              </code></pre>
+
+              But if you see the following messages instead, memory leaks could exist in your program:
+
+              <pre><code>
+                ==62364== LEAK SUMMARY:
+                ==62364==    definitely lost: 8 bytes in 2 blocks
+                ==62364==    indirectly lost: 0 bytes in 0 blocks
+                ==62364==      possibly lost: 0 bytes in 0 blocks
+                ==62364==    still reachable: 0 bytes in 0 blocks
+                ==62364==         suppressed: 0 bytes in 0 blocks
+              </code></pre>
+
+              OR
+
+              <pre><code>
+                ==13119== LEAK SUMMARY:
+                ==13119==    definitely lost: 0 bytes in 0 blocks
+                ==13119==    indirectly lost: 0 bytes in 0 blocks
+                ==13119==      possibly lost: 0 bytes in 0 blocks
+                ==13119==    still reachable: 560 bytes in 14 blocks
+                ==13119==         suppressed: 0 bytes in 0 blocks
+              </code></pre>
+
+            </p>
+            
+          </div>
+
+        </div>
+    </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-3">
+        <div class="sticky-top">
+          <!-- Menu Widget -->
+          <!--<div class="card my-12">
+            <h5 class="card-header">Menu</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="mb-0" type="circle" style="padding-left:20px">
+                    <li>
+                      <a href="#tutorial">Tutorial</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>-->
+
+          <!-- Maintenance widget -->
+          <!--<div class="card my-4">
+            <h5 class="card-header">Page maintained by</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      Peng YUN
+                    </li>
+                    <li>
+                      Email:
+                      <a href="mailto:pyun@cse.ust.hk">pyun@cse.ust.hk</a>
+                    </li>
+                    <li>Last Modified:
+                      <script type="text/javascript">document.write(document.lastModified);</script>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>-->
+
+
+          <!-- Homepage widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Homepage</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="http://course.cse.ust.hk/comp2012h">Course Homepage</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Maintained by 
+COMP 2012H Teaching Team &copy; 2021 HKUST Computer Science
+        and Engineering</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

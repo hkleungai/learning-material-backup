@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- ### Change assignment number ### -->
+    <title>COMP 2012H Assignment 3: SimpleCity</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/blog-home.css" rel="stylesheet">
+    
+    <!-- Prism syntax highlighter -->
+    <link href="vendor/prism/prism.css" rel="stylesheet" />
+
+    <style type="text/css">
+      img.limit {
+        max-width: 100%
+      }
+    </style>
+  </head>
+
+  <body>
+    <script src="vendor/prism/prism.js"></script>
+    
+    <!-- Page Content -->   
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Entries Column -->
+        <div class="col-md-9">
+
+          <h2 class="my-4">
+            <span style="color:darkblue">COMP 2012H</span>
+            <small>Honors Object-Oriented Programming and Data Structures</small>
+          </h2>
+
+          <!-- ### Change assignment number and title ### -->
+          <h3 class="my-4">
+            Assignment 3
+            <span style="color:#660066">SimpleCity</span>
+          </h3>
+
+          <div class="alert alert-primary" role="alert">
+            This programming assignment requires Makefile to build. <strong>Makefile and separate compilation were taught during the lab session on September 29.</strong>
+          </div>
+
+          <div class="alert alert-warning" role="alert">
+            We highly encourage you to participate on <a href="https://piazza.com/class/kte6bcbkbzn7gk">Piazza</a>. You can ask questions anonymously.
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="announcements">
+              <h3 class="card-title">Announcements</h3>
+              <ul>
+                <li><strong>Updated October 28:</strong> Deadline was postponed to November 8.</li>
+              </ul>
+            </div>
+            <div class="card-footer text-muted">
+              End of Announcements
+            </div>
+          </div>
+
+          <div class="card bg-light mb-4">
+            <div class="card-body" id="honor-code">
+              <h3 class="card-title">Honor Code</h3>
+              <p class="card-text">
+                We value academic integrity very highly. Please read the <a href="https://course.cse.ust.hk/comp2012h/#honorcode">Honor Code</a> section on our course webpage to make sure you understand what is considered as plagiarism and what the penalties are. The following are some of the highlights:
+              </p>
+
+              <ul>
+                <li>Do NOT try your &quot;luck&quot; - we use sophisticated plagiarism detection software to find cheaters. We also review codes for potential cases manually.</li>
+                <li>The penalty (for <strong>BOTH</strong> the copier and the copiee) is not just getting a zero in your assignment. Please read the <a href="https://course.cse.ust.hk/comp2012h/#honorcode">Honor Code</a> thoroughly.</li>
+                <li>Serious offenders will fail the course immediately, and there will be additional disciplinary actions from the department and university, upto and including expulsion.</li>
+              </ul>
+            </div>
+            <div class="card-footer text-muted">
+              End of Honor Code
+            </div>
+          </div>
+
+          <div class="card bg-light mb-4">
+            <div class="card-body" id="ilo">
+              <h3 class="card-title">Objectives &amp; Intended Learning Outcomes</h3>
+              <p class="card-text">
+                The objective of this assignment is to provide you with practice on the OOP concepts of Inheritance and Polymorphism, as well as writing code with less reliance on a provided skeleton code. Upon completion of this assignment, you should be able to:
+              </p>
+
+              <ol>
+                <li>Write appropriate header files on your own, without being provided them as part of the skeleton code.</li>
+                <li>Manage dynamic memory effectively with the use of class constructors and destructors.</li>
+                <li>Use inheritance to allow for significant code reuse between base classes and derived classes.</li>
+                <li>Use function overriding in derived classes to provide different function implementations for the same member function prototype.</li>
+                <li>Understand how base class pointers/references can point/refer to derived class objects, yet polymorphically call derived class functions that are declared <code class="language-cpp">virtual</code>.</li>
+                <li>Code a program following the OOP paradigm.</li>
+              </ol>
+            </div>
+            <div class="card-footer text-muted">
+              End of Objectives &amp; Intended Learning Outcomes
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <img class="card-img-top" src="./images/simplecity.png" alt="Git illustration">
+
+            <div class="card-body" id="introduction">
+              <h3 class="card-title">Introduction</h3>
+
+              <p class="card-text">
+                In this and the coming assignment, you are going to implement a simple city simulation game, which we call it <em>SimpleCity</em>. In this assignment, you first implement the game logic that can be presented in a command-line program. In the next assignment, you are going to implement the graphical user interface (GUI) for the game.
+              </p>
+
+              <p class="card-text">
+                The game consists of a <em>city</em>. A city consists of a square grid where <em>buildings</em> can be constructed on each grid cell. Also, a city has a <em>budget</em> for building constructions. A building can be built only if the <em>cost</em> to construct the building does not exceed the budget. At most one building can be constructed in each grid cell.
+              </p>
+
+              <p class="card-text">
+                There are three <em>categories</em> of buildings:
+              </p>
+
+              <ul>
+                <li><strong>Residential buildings</strong>: These buildings house <em>population</em> for the city.</li>
+                <li><strong>Revenue buildings</strong>: These buildings provide <em>revenue</em> which increases the budget of the city. The amount of revenue depends on the population of the city.</li>
+                <li><strong>Health buildings</strong>: These buildings provide <em>growth</em> of population.</li>
+              </ul>
+
+              <p class="card-text">
+                Therefore, it requires all three categories of buildings for a city to grow in both population and budget.
+              </p>
+
+              <p class="card-text">
+                There are six <em>types</em> of buildings, each type of building belongs to one category:
+              </p>
+
+              <ul>
+                <li>Residential buildings: <strong>House</strong>, <strong>Apartment</strong></li>
+                <li>Revenue buildings: <strong>Silver Mine</strong>, <strong>Gold Mine</strong></li>
+                <li>Health buildings: <strong>Clinic</strong>, <strong>Hospital</strong></li>
+              </ul>
+
+              <p class="card-text">
+                Buildings of the same category share some common attributes. The building hierarchy is visualized in the following diagram: <br>
+                <img src="./images/buildings.png" width="497px" class="limit">
+              </p>
+            </div>
+
+
+            <div class="card-footer text-muted">
+              End of Introduction
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="game-mechanics">
+              <h3 class="card-title">Game Mechanics</h3>
+
+              <ul>
+                <li>
+                  At start, the Player is prompted to take one of two actions:
+                  <ol>
+                    <li>
+                      Starting a new game. The Player is prompted to enter the size of the square grid, which is an even number between 10 and 20 inclusive. Then, a new city is created. The initial budget is $150.
+                    </li>
+                    <li>
+                      Loading an existing game from file. The Player is prompted to enter the filename of the save. Then, the city is loaded from the save.
+                    </li>
+                  </ol>
+                </li>
+
+                <li>
+                  City simulation takes <em>turn</em>. During a turn, the Player can perform the following three actions for arbitrary number of times:
+                  <ol>
+                    <li>
+                      <em>Constructing</em> a building at a grid cell. The Player is prompted to select the type of the building and enter the coordinates of the grid cell to build. The building can be constructed only if the cost does not exceed the budget and the grid cell has no buildings. If the building is constructed, the budget is reduced by the cost of the building. Here are the cost of each type of buildings:
+                      <ul>
+                        <li>House: $50</li>
+                        <li>Apartment: $300</li>
+                        <li>Silver Mine: $50</li>
+                        <li>Gold Mine: $400</li>
+                        <li>Clinic: $50</li>
+                        <li>Hospital: $500</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <em>Demolishing</em> a building at a grid cell. The Player is prompted to enter the coordinates of the grid cell to demolish. The building at the grid cell is removed. This action does not reduce budget.
+                    </li>
+                    <li>
+                      <em>Saving</em> the city to a file to be loaded later.
+                    </li>
+                  </ol>
+                </li>
+
+                <li>
+                  When the Player decides to make a turn, the following steps are performed:
+                  <ol>
+                    <li>The turn number of the city is increased by one.</li>
+                    <li>
+                      The budget of the city is increased by the sum of revenue generated by all Revenue buildings.
+                      <ul>
+                        <li>For Silver Mines, the revenue is <code>city's population + population in neighboring buildings</code>.</li>
+                        <li>For Gold Mines, the revenue is <code>2 * (city's population + population in neighboring buildings)</code>.</li>
+                        <li>The city's population is the sum of population of all Residential buildings.</li>
+                      </ul>
+                    </li>
+                    <li>
+                      The population is increased by the following steps.
+                      <ol>
+                        <li>
+                          The <em>population growth rate</em> of the city is calculated, as the sum of <em>population growth rate contribution</em> of each building:
+                          <ul>
+                            <li>For Residential buildings, it is <code>-population of the building</code>.</li>
+                            <li>For Clinics, it is <code>60 / (1 + number of neighboring Health buildings)</code>.</li>
+                            <li>For Hospitals, it is <code>360 / (1 + number of neighboring Health buildings)</code>.</li>
+                            <li>For other buildings, it is <code>0</code>.</li>
+                          </ul>
+                        </li>
+                        <li>
+                          For each Residential building, the maximum population is calculated:
+                          <ul>
+                            <li>For Houses, it is <code>50 * (1 + neighboring Residential building)</code></li>
+                            <li>For Apartments, it is <code>250 * (1 + neighboring Residential building)</code></li>
+                          </ul>
+                        </li>
+                        <li>
+                          For each Residential building, the <em>population growth</em> (can be negative) is calculated, as the <em>minimum</em> of two terms:
+                          <ol>
+                            <li><code>population growth rate of the city * (number of neighboring Health buildings - number of neighboring Gold Mines) / 10</code></li>
+                            <li>The remaining population: <code>maximum population - population</code></li>
+                          </ol>
+                        </li>
+                        <li>
+                          For each Residential building, the population is increased (or decreased) by its population growth.
+                          <ul>
+                            <li>If the new population exceeds the max population, set it to the max population.</li>
+                            <li>If the new population is smaller than 0, set it to 0.</li>
+                            <li>The new population does not affect population population of other buildings. You need to save the population growth of each Residential building and apply them in a batch.</li>
+                          </ul>
+                        </li>
+                      </ol>
+                    </li>
+                  </ol>
+                </li>
+                <li>
+                  This figure illustrates a city grid with size 12. <br>
+                  The yellow grid cells are the neighbors of the red grid cells.<br>
+                  <img src="./images/city-grid.png" width="298px" class="limit">
+                </li>
+              </ul>
+            </div>
+
+            <div class="card-footer text-muted">
+              End of Introduction
+            </div>
+          </div>
+
+          <div class="card mb-4 language-cpp">
+            <div class="card-body" id="save-format">
+              <h3 class="card-title">Save File Format</h3>
+
+              <div class="alert alert-warning" role="alert">
+                Reading and writing a save file requires <em>file I/O</em>. You are encouraged to study <a href="https://course.cse.ust.hk/comp2012h/notes/self-study-fileio-full.pdf">the set of self-study lecture slides on File I/O</a>.
+              </div>
+
+              The save file is a plaintext file that stores each value on a new line.
+
+              <ul>
+                <li>The first three values are the grid size, budget and turns of the city.</li>
+                <li>
+                  Then followed by each cell in the grid, in the order of <br><code>grid[0][0], grid[0][1], ... ,grid[1][0], grid[1][1], ..., grid[grid_size - 1][0], ...</code>
+                  <ul>
+                    <li>If the grid cell has no building, save <code>0</code></li>
+                    <li>If the grid cell has a building, save the value in the <code>Building::Type</code> enum (See <code>Building.h</code> in <a href="#code-structure">Code Structure</a>). For example, <code>1</code> denotes a Clinic.</li>
+                    <li>For Residential building, also store the population after a space. For example, <code>5 10</code> denotes a House with 10 population.</li>
+                  </ul>
+                </li>
+              </ul>
+
+              The following example is the save of a city with 2x2 grid, $100 budget at turn 5. Two buildings were constructed: A Clinic at <code>grid[0][0]</code>, a House with 10 population at <code>grid[1][1]</code>:
+              <pre><code>
+                2
+                100
+                5
+                1
+                0
+                0
+                5 10
+
+              </code></pre>
+
+              It is optional to have an empty line at the end.
+
+            </div>
+            <div class="card-footer text-muted">
+              End of Save File Format
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="code-structure">
+              <h3 class="card-title">Code Structure</h3>
+
+              <pre><code class="language-treeview">
+                pa3
+                ├── City.cpp 
+                ├── City.h 
+                ├── GameEngine.cpp 
+                ├── GameEngine.h 
+                ├── Makefile
+                ├── buildings/
+                │   ├── Apartment.cpp 
+                │   ├── Apartment.h 
+                │   ├── Building.cpp 
+                │   ├── Building.h 
+                │   ├── BuildingInformationFormatString.h
+                │   ├── Clinic.cpp 
+                │   ├── Clinic.h 
+                │   ├── GoldMine.cpp 
+                │   ├── GoldMine.h 
+                │   ├── Health.cpp 
+                │   ├── Health.h 
+                │   ├── Hospital.cpp 
+                │   ├── Hospital.h 
+                │   ├── House.cpp 
+                │   ├── House.h 
+                │   ├── Residential.cpp
+                │   ├── Residential.h 
+                │   ├── Revenue.cpp 
+                │   ├── Revenue.h 
+                │   ├── SilverMine.cpp 
+                │   └── SilverMine.h 
+                ├── main_cli.cpp
+                ├── test-city.txt
+                ├── test-info.txt
+                └── test-load.txt
+              </code></pre>
+
+              <ul>
+                <li><code>Makefile</code>: Makefile to build SimpleCity and create ZINC submission zip file. See <a href="#submission">Submission &amp; Grading</a></li>
+                <li><code>GameEngine.h</code>, <code>GameEngine.cpp</code>: Code for the implemented command-line game engine. No need to modify.</li>
+                <li><code>main_cli.cpp</code>: The <code class="language-cpp">main()</code> function. No need to modify.</li>
+                <li><code>City.h</code>, <code>City.cpp</code>: Implementation of the <code>City</code> class. Implement the methods in <code>City.cpp</code>. Do not modify <code>City.h</code></li>
+                <li><code>buildings/Building.h</code>, <code>buildings/Building.cpp</code>: Implementation of the <code>Building</code> abstract base class. Implement the methods in <code>Building.cpp</code>. Do not modify <code>Building.h</code></li>
+                <li><code>buildings/BuildingInformationFormatString.h</code>: Contains useful strings to display building information.</li>
+                <li>Other files in <code>buildings/</code>: Implementations of classes derived from <code>Building</code>. Complete the class declarations in corresponding <code>.h</code> files. Implement the methods in corresponding <code>.cpp</code> file.</li>
+                <li><code>test-city.txt</code>, <code>test-info.txt</code> and <code>test-load.txt</code>: Three save files for testing.</li>
+              </ul>
+
+            </div>
+
+            <ul class="list-group list-group-flush language-cpp">
+              <li class="list-group-item">
+                <pre><code>
+                  class City {
+                  public:
+                      struct Coordinates {
+                          int x;
+                          int y;
+
+                          ...
+                      };
+
+                      ...
+
+                  private:
+                      Building ***grid;
+                      int grid_size;
+                      int budget;
+                      int turn;
+                  };
+                </code></pre>
+
+                <p>
+                  The <code>City</code> class is defined in <code>City.h</code>. It has four private members. <code>grid</code> is a 2D dynamic array of building pointers. The 2D array is always a square. The size of it is specified in <code>grid_size</code>. <code>budget</code> denotes the budget of the city. <code>turn</code> is the turn of the city.
+                </p>
+
+                <p>
+                  The <code>Coordinates</code> struct is used to specify the coordinates of a particular grid cell in some methods of the <code>City</code> class. For <code>(x,y)</code> coordinates, it refers to the grid cell <code>grid[x][y]</code>.
+                </p>
+
+                <p>
+                  When <code>Building</code> objects are added to the city, the city takes ownership of the <code>Building</code> objects.
+                </p>
+              </li>
+
+              <li class="list-group-item">
+                <pre><code>
+                  class Building {
+                  public:
+                      enum class Type {
+                          CLINIC = 1,
+                          HOSPITAL = 2,
+                          SILVER_MINE = 3,
+                          GOLD_MINE = 4,
+                          HOUSE = 5,
+                          APARTMENT = 6
+                      };
+
+                      enum class Category {
+                          HEALTH,
+                          REVENUE,
+                          RESIDENTIAL
+                      };
+
+                      ...
+
+                  protected:
+                      explicit Building(City &city);
+
+                      City &amp;city;
+
+                  private:
+                      Building *neighboring_buildings[4]{};
+                  };
+                </code></pre>
+
+                <p>
+                  The <code>Building</code> class is defined in <code>Building.h</code>. It holds a reference to the city where the building was constructed. This city reference. The constructor is marked as protected, meaning that it is not possible to create a Building instance. The constructor and the city reference can only be accessed from derived classes. <code>neighboring_buildings</code> is an array of 4 pointers to buildings, all initialized to <code>nullptr</code>. This is used to access the neighboring buildings when computing some attributes of the building.
+                </p>
+
+                <p>
+                  Two enum classes for the building type and building category are also defined. Integer values for the building type are also defined. You may want to use <code>static_cast</code> to convert between building type and the corresponding integer value when processing save files.
+                </p>
+              </li>
+            </ul>
+              
+            <div class="card-footer text-muted">
+              End of Code Structure
+            </div>
+          </div>
+          
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="part1">
+              <h3 class="card-title">Part 1: City</h3>
+              <p class="card-text">
+                Implement the following functions of the <code>City</code> class.
+              </p>
+            </div>
+
+            <ul class="list-group list-group-flush language-cpp">
+              <li class="list-group-item">
+                <pre><code>
+                  City(int size);
+                </code></pre>
+
+                Creates a new City. Allocate the 2D array of grid cells with dimensions <code>size</code> by <code>size</code>. Set all grid cells to <code>nullptr</code>. Set grid size accordingly. Set <code>turn</code> to 1. Initially, the budget is $150. <code>size</code> is always greater than or equal to 1.
+              </li>
+
+              <li class="list-group-item">
+                <pre><code>
+                  City(const std::string &filename);
+                </code></pre>
+
+                Loads a city from the file <code>filename</code>. See <a href="#save-format">Save File Format</a> for the format of the save file. You can assume the file always exists and the format is correct. You can make use of the <code>&gt;&gt;</code> operator. Don't forget to set neighbors when adding buildings to the city.
+              </li>
+
+              <li class="list-group-item">
+                <pre><code>
+                  ~City();
+                </code></pre>
+                Deallocates all dynamically allocated memory, including the memory of <code>Building</code> objects added to the city.
+              </li>
+
+              <li class="list-group-item">
+                <pre><code>
+                  save(const std::string& filename) const;
+                </code></pre>
+                Saves the city to a file such that it can be loaded later. If the file already exists, overwrite existing content. You can make use of the <code>&lt;&lt;</code> operator.
+              </li>
+
+              <li class="list-group-item">
+                <pre><code>
+                  int get_turn() const;
+                  int get_budget() const;
+                  int get_grid_size() const;
+                </code></pre>
+
+                Returns the turn, budget and grid size of the city, respectively.
+              </li>
+
+              <li class="list-group-item">
+                <pre><code>
+                  int get_revenue() const;
+                  int get_population() const;
+                  int get_max_population() const;
+                  int get_population_growth() const;
+                  int get_population_growth_rate() const;
+                </code></pre>
+
+                Returns the corresponding attribute of the city.
+
+                <ul>
+                  <li>The revenue of the city is the sum of <em>revenue</em> of all buildings in the city.</li>
+                  <li>The population of the city is the sum of <em>population</em> of all buildings in the city.</li>
+                  <li>The max population of the city is the sum of <em>max population</em> of all buildings in the city.</li>
+                  <li>The population growth of the city is the sum of <em>population growth</em> of all buildings in the city.</li>
+                  <li>The population growth rate of the city is the sum of <em>population growth rate contribution</em> of all buildings in the city.</li>
+                </ul>
+              </li>
+
+              <li class="list-group-item">
+                <pre><code>
+                  Building *get_at(const Coordinates &coordinates) const;
+                </code></pre>
+
+                Returns a pointer to the building at the grid cell specified by the coordinates. Return <code>nullptr</code> if the cell has no buildings or the coordinates are out-of-bound.
+              </li>
+
+              <li class="list-group-item">
+                <pre><code>
+                  bool is_empty_at(const Coordinates &coordinates) const;
+                </code></pre>
+
+                Returns whether the grid cell specified by the coordinates is empty (has no buildings). Return <code>false</code> if the coordinates are out-of-bound.
+              </li>
+
+              <li class="list-group-item">
+                <pre><code>
+                  bool can_construct(Building::Type type) const;
+                  bool can_construct(Building::Type type, const Coordinates &coordinates) const;
+                </code></pre>
+
+                Returns whether the city has enough budget to construct the given type of building. If coordinates are provided, also check whether the building can be constructed at the grid cell specified by the coordinates. Return <code>false</code> if the coordinates are out-of-bound.
+              </li>
+
+              <li class="list-group-item">
+                <pre><code>
+                  bool construct_at(Building::Type type, const Coordinates &coordinates);
+                </code></pre>
+
+                Constructs a building with the specified type at the grid cell specified by the coordinates. If the building cannot be constructed (with reasons mentioned above), then return <code>false</code>. Otherwise, construct the building by setting the grid pointer accordingly, decrease budget and register neighboring buildings. For residential buildings, set the population to 0. Return <code>true</code>.
+              </li>
+
+              <li class="list-group-item">
+                <pre><code>
+                  bool demolish_at(const Coordinates &coordinates);
+                </code></pre>
+
+                Demolishes the building at the grid cell specified by the coordinates. If the coordinates are out-of-bound or the grid cell is empty, return <code>false</code>. Otherwise, demolish the building by setting the grid pointer accordingly and deregister neighboring buildings. Return <code>true</code>.
+              </li>
+
+              <li class="list-group-item">
+                <pre><code>
+                  void move_to_next_turn();
+                </code></pre>
+
+                Proceeds to next turn by following the steps in <a href="#game-mechanics">Game Mechanics</a>.
+              </li>
+            </ul>
+
+            <div class="card-footer text-muted">
+              End of Part 1
+            </div>
+          </div>         
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="part2">
+              <h3 class="card-title">Part 2: Buildings</h3>
+              <p class="card-text">
+                Implement the following functions of the <code>Building</code> class and its derived classes.
+              </p>
+            </div>
+
+            <ul class="list-group list-group-flush language-cpp">
+              <li class="list-group-item">
+                <pre><code>
+                  Building(City &city);
+
+                  Health(City &city);
+                  Clinic(City &city);
+                  Hospital(City &city);
+
+                  Revenue(City &city);
+                  SilverMine(City &city);
+                  GoldMine(City &city);
+
+                  Residential(City &city, int population);
+                  House(City &city, int population);
+                  Apartment(City &city, int population);
+                </code></pre>
+
+                A reference of the city where the building is constructed is passed to the constructor. The population of residential buildings is also passed to the constructor. You may need to store the population of residential buildings in a private data member.
+              </li>
+
+              <li class="list-group-item">
+                <pre><code>
+                  virtual ~Building() = default;
+                </code></pre>
+
+                The default destructor is used, so no need to implement destructors.
+              </li>
+
+              <li class="list-group-item">
+                <pre><code>
+                  virtual Building::Type get_type() const = 0;
+                  virtual Building::Category get_category() const = 0;
+                  virtual int get_cost() const = 0;
+                </code></pre>
+
+                Returns the building type, category and cost, respectively. For example, an apartment has the type <code>Building::Type::APARTMENT</code>, category <code>Building::Category::RESIDENTIAL</code> and cost 300.
+
+                <pre><code>
+                  static const int cost{0};
+                </code></pre>
+
+                It is helpful to store the cost in a static data member. In this way, the cost is associated with the class itself. We can obtain the cost from the class before making an instance.
+              </li>
+
+              <li class="list-group-item">
+
+                
+              </li>
+
+              <li class="list-group-item">
+                <pre><code>
+                  virtual std::string get_long_information() const = 0;
+                  virtual std::string get_short_information() const = 0;
+                </code></pre>
+
+                Returns the long and short information string of the building, respectively. For short information string, output the building type, followed by attribute specific to that type of the building. For long information string, also output the formula of each attribute. Refer to <code>BuildingInformationFormatString.h</code> for the information strings.
+
+                <ul>
+                  <li>
+                    Clinic:
+                    <pre><code class="language-text">
+                      Clinic
+                      Contribution to Population Growth Rate: [value]
+                    </code></pre>
+
+                    <pre><code class="language-text">
+                      Clinic
+                      Contribution to Population Growth Rate: [value]
+                      60 / (1 + Neighboring Health Buildings)
+                    </code></pre>
+                  </li>
+
+                  <li>
+                    Hospital:
+                    <pre><code class="language-text">
+                      Hospital
+                      Contribution to Population Growth Rate: [value]
+                    </code></pre>
+
+                    <pre><code class="language-text">
+                      Hospital
+                      Contribution to Population Growth Rate: [value]
+                      360 / (1 + Neighboring Health Buildings)
+                    </code></pre>
+                  </li>
+
+                  <li>
+                    Silver Mine:
+                    <pre><code class="language-text">
+                      Silver Mine
+                      Revenue: [value]
+                    </code></pre>
+
+                    <pre><code class="language-text">
+                      Silver Mine
+                      Revenue: [value]
+                      1 * (Total Population + Neighboring Population)
+                    </code></pre>
+                  </li>
+
+                  <li>
+                    Gold Mine:
+                    <pre><code class="language-text">
+                      Gold Mine
+                      Revenue: [value]
+                    </code></pre>
+
+                    <pre><code class="language-text">
+                      Gold Mine
+                      Revenue: [value]
+                      2 * (Total Population + Neighboring Population)
+                    </code></pre>
+                  </li>
+
+                  <li>
+                    House. The quota is <code>max population - population</code>:
+                    <pre><code class="language-text">
+                      House
+                      Population: [value]
+                      Max Population: [value]
+                      Contribution to Population Growth Rate: [value]
+                      Population Growth: [value]
+                    </code></pre>
+
+                    <pre><code class="language-text">
+                      House
+                      Population: [value]
+                      Max Population: [value]
+                      50 * (1 + Neighboring Residential Buildings)
+                      Contribution to Population Growth Rate: [value]
+                      -population
+                      Population Growth: [value] (Limited by Quota: [value])
+                      (Population Growth Rate of the City * (Neighboring Health Buildings - Neighboring Gold Mines)) / 10
+                    </code></pre>
+                  </li>
+
+                  <li>
+                    Apartment. The quota is <code>max population - population</code>:
+                    <pre><code class="language-text">
+                      Apartment
+                      Population: [value]
+                      Max Population: [value]
+                      Contribution to Population Growth Rate: [value]
+                      Population Growth: [value]
+                    </code></pre>
+
+                    <pre><code class="language-text">
+                      Apartment
+                      Population: [value]
+                      Max Population: [value]
+                      250 * (1 + Neighboring Residential Buildings)
+                      Contribution to Population Growth Rate: [value]
+                      -population
+                      Population Growth: [value] (Limited by Quota: [value])
+                      (Population Growth Rate of the City * (Neighboring Health Buildings - Neighboring Gold Mines)) / 10
+                    </code></pre>
+                  </li>
+                </ul>                   
+              </li>
+
+              <li class="list-group-item">
+                <pre><code>
+                  virtual int get_revenue() const;
+                </code></pre>
+
+                Returns the revenue of the building. Default to 0 except for Revenue buildings.
+
+                <ul>
+                  <li>For Silver Mines, it is <code class="language-text">city's population + population in neighboring buildings</code>.</li>
+                  <li>For Gold Mines, it is <code class="language-text">2 * (city's population + population in neighboring buildings)</code>.</li>
+                </ul>
+              </li>
+
+              <li class="list-group-item">
+                <pre><code>
+                  virtual int get_population() const;
+                </code></pre>
+
+                Returns the population of the building. Default to 0 except for Residential buildings.
+              </li>
+
+              <li class="list-group-item">
+                <pre><code>
+                  virtual int get_max_population() const;
+                </code></pre>
+
+                Returns the max population of the building. Default to 0 except for Residential buildings.
+
+                <ul>
+                  <li>For Houses, it is <code class="language-text">50 * (1 + neighboring Residential building)</code>.</li>
+                  <li>For Apartments, it is <code class="language-text">250 * (1 + neighboring Residential building)</code>.</li>
+                </ul>
+              </li>
+
+              <li class="list-group-item">
+                <pre><code>
+                  virtual int get_population_growth() const;
+                </code></pre>
+
+                Returns the population growth of the building. Default to 0 except for Residential buildings. For residential buildings, it is the minimum of two terms. Use integer division:
+
+                <ol>
+                  <li><code class="language-text">population growth rate of the city * (number of neighboring Health buildings - number of neighboring Gold Mines) / 10</code>.</li>
+                  <li>The remaining population: <code class="language-text">maximum population - population</code>.</li>
+                </ol>
+              </li>
+
+              <li class="list-group-item">
+                <pre><code>
+                  virtual int get_population_growth_rate_contribution() const;
+                </code></pre>
+
+                Returns the contribution of population growth rate of the building to the city. Default to 0 except for Health buildings and Residential buildings. Use integer division.
+
+                <ul>
+                  <li>For Residential buildings, it is <code>-population of the building</code>.</li>
+                  <li>For Clinics, it is <code class="language-text">60 / (1 + number of neighboring Health buildings)</code>.</li>
+                  <li>For Hospitals, it is <code class="language-text">360 / (1 + number of neighboring Health buildings)</code>.</li>
+                </ul>
+              </li>
+
+              <li class="list-group-item">
+                <pre><code>
+                  virtual void increase_population(int population);
+                </code></pre>
+
+                Increases the population of the building. Default to no action except for Residential buildings.
+
+                <ul>
+                  <li>If the new population exceeds the max population, set it to the max population.</li>
+                  <li>If the new population is smaller than 0, set it to 0.</li>
+                </ul>
+              </li>
+
+              <li class="list-group-item">
+                <pre><code>
+                  bool register_neighboring_building(Building *building);
+                  bool deregister_neighboring_building(Building *building);
+                </code></pre>
+
+                Common functions for all types of building. [Registers/Deregisters] the building referred by the pointer (never a <code>nullptr</code>) to the <code>neighboring_buildings</code> array. If the building is already [registered/already unregistered, or not registered], return <code>false</code>. Otherwise, return <code>true</code>. The order of buildings in the array does not matter.
+              </li>
+
+              <li class="list-group-item">
+                <pre><code>
+                  int number_neighboring_residential_buildings() const;
+                  int number_neighboring_health_buildings() const;
+                  int number_neighboring_gold_mines() const;
+                  int number_neighboring_population() const;
+                </code></pre>
+
+                Common functions for all types of building.
+
+                <ul>
+                  <li>Returns the number of neighboring buildings that are Residential buildings.</li>
+                  <li>Returns the number of neighboring buildings that are Health buildings.</li>
+                  <li>Returns the number of neighboring buildings that are Gold Mines.</li>
+                  <li>Returns the sum of population in neighboring buildings.</li>
+                </ul>
+              </li>
+            </ul>
+
+            <div class="card-footer text-muted">
+              End of Part 2
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="example">
+              <h3 class="card-title">Example</h3>
+              <p>
+                In the skeleton files, you can find the save file <code>test-city.txt</code>. Here are the city status and city map.
+              </p>
+
+              <pre><code>
+                Turn: 8
+                Budget: $3
+                Revenue: 99
+                Max Population: 200
+                Population: 35
+                Population Change: 25
+                Population Growth Rate: 85
+              </code></pre>
+
+              <pre><code class="no-whitespace-normalization">   0123456789
+  +----------+
+ 0|          |
+ 1|          |
+ 2|          |
+ 3|    S     |
+ 4|    EEC   |
+ 5|    CCS   |
+ 6|          |
+ 7|          |
+ 8|          |
+ 9|          |
+  +----------+</code></pre>
+            </div>
+
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                For the Clinics at <code>(4,5)</code> and <code>(5,5)</code>, the number of neighboring Health buildings are 1. Therefore, their contribution to population growth rate is <code>60 / 2 = 30</code>.
+
+                <pre><code>
+                  Clinic
+                  Contribution to Population Growth Rate: 30
+                  60 / (1 + Neighboring Health Buildings)
+                </code></pre>
+              </li>
+
+              <li class="list-group-item">
+                For the Clinic at <code>(6,4)</code>, the number of neighboring Health buildings are 0. Therefore, its contribution to population growth rate is <code>60 / 1 = 60</code>.
+
+                <pre><code>
+                  Clinic
+                  Contribution to Population Growth Rate: 60
+                  60 / (1 + Neighboring Health Buildings)
+                </code></pre>
+              </li>
+
+              <li class="list-group-item">
+                For the Silver Mine at <code>(6,5)</code>, the total population is 35, and the number of neighboring population is 0. Therefore, its revenue is <code>35 + 0 = 35</code>.
+
+                <pre><code>
+                  Silver Mine
+                  Revenue: 35
+                  1 * (Total Population + Neighboring Population)
+                </code></pre>
+              </li>
+
+              <li class="list-group-item">
+                For the Silver Mine at <code>(4,3)</code>, the total population is 35, and the number of neighboring population is 29 (the population of the House at <code>(4,3)</code> is 29). Therefore, its revenue is <code>35 + 29 = 64</code>.
+
+                <pre><code>
+                  Silver Mine
+                  Revenue: 64
+                  1 * (Total Population + Neighboring Population)
+                </code></pre>
+              </li>
+
+              <li class="list-group-item">
+                <p>For the House at <code>(4,4)</code>, the population is 29. For the House at <code>(5,4)</code>, the population is 6. Therefore, the contribution to population growth rate of the two houses are <code>-29</code> and <code>-6</code>. As a result, the population growth rate of the city is <code>-29 - 6 + 30 + 30 + 60 = 85</code> (including Health buildings).</p>
+
+                <p>For the House at <code>(4,4)</code>, the neighboring Residential buildings is 1, the neighboring Health buildings is 1, and the neighboring Gold Mines is 0. Therefore, the population growth is <code>85 * (1 - 0) / 10 = 8</code>, and the max population is <code>50 * (1 + 1) = 100</code>.</p>
+
+                <pre><code>
+                  House
+                  Population: 29
+                  Max Population: 100
+                  50 * (1 + Neighboring Residential Buildings)
+                  Contribution to Population Growth Rate: -29
+                  -population
+                  Population Growth: 8 (Limited by Quota: 71)
+                  (Population Growth Rate of the City * (Neighboring Health Buildings - Neighboring Gold Mines)) / 10
+                </code></pre>
+
+                <p>For the House at <code>(5,4)</code>, the neighboring Residential buildings is 1, the neighboring Health buildings is 2, and the neighboring Gold Mines is 0. Therefore, the population growth is <code>85 * (2 - 0) / 10 = 17</code>, and the max population is <code>50 * (1 + 1) = 100</code>.</p>
+
+                <pre><code>
+                  House
+                  Population: 6
+                  Max Population: 100
+                  50 * (1 + Neighboring Residential Buildings)
+                  Contribution to Population Growth Rate: -6
+                  -population
+                  Population Growth: 17 (Limited by Quota: 94)
+                  (Population Growth Rate of the City * (Neighboring Health Buildings - Neighboring Gold Mines)) / 10
+                </code></pre>
+              </li>
+
+              <li class="list-group-item">
+                At the next turn, the budget is increased to <code>3 + (35 + 64) = $102</code>. Population of the House at <code>(4,4)</code> is increased to <code>29 + 8 = 37</code>. Population of the House at <code>(5,4)</code> is increased to <code>6 + 17 = 23. The total population is <code>37 + 23 = 60</code>.</code>
+
+                <pre><code>
+                  Turn: 9
+                  Budget: $102
+                  Revenue: 157
+                  Max Population: 200
+                  Population: 60
+                  Population Change: 18
+                  Population Growth Rate: 60
+                </code></pre>
+              </li>
+            </ul>
+
+            <div class="card-footer text-muted">
+              End of Example
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="compilation">
+              <h3 class="card-title">Compilation</h3>
+              
+              <p>Use the <code>Makefile</code> provided in the skeleton file for compilation. Simply run <code>make</code> in the directory that contains <code>main_cli.cpp</code> and <code>Makefile</code>. After successful compilation, an executable, <code>simplecity</code> (or <code>simplecity.exe</code>) will be produced.</p>
+
+              <p>
+                <strong>Note:</strong> If you are a Windows user and you wish to run <code>simplecity.exe</code> outside VSCode, change line 6 of <code>Makefile</code> from:
+              </p>
+
+              <pre><code>
+                LDFLAGS :=
+              </code></pre>
+
+              to:
+
+              <pre><code>
+                LDFLAGS := -static
+              </code></pre>
+            </div>
+            <div class="card-footer text-muted">
+              End of Compilation
+            </div>
+          </div>
+
+          <div class="card mb-4">
+            <div class="card-body" id="resources">
+              <h3 class="card-title">Resources</h3>
+
+              <ul>
+                <li>
+                  Skeleton code: <a href="./resources/pa3.zip">pa3.zip</a>
+                </li>
+
+                <li>
+                  Demo program (executable for Windows): <a href="resources/simplecity_demo_windows.exe">simplecity_demo_windows.exe</a>
+                </li>
+
+                <li>
+                  Demo program (executable for MacOS): <a href="resources/simplecity_demo_mac">simplecity_demo_mac</a>
+                  <ol>
+                    <li><a href="https://support.apple.com/guide/terminal/make-a-file-executable-apdd100908f-06b3-4e63-8a87-32e71241bab4/mac">Make the demo program executable</a></li>
+                    <li>In Finder, right click on the demo program while holding Control. Select Open With -> Terminal</li>
+                  </ol>
+                </li>
+                <li>
+                  Makefile to use for checking memory leak in Linux machines in Lab 2: <a href="./resources/Makefile">Makefile</a>
+                </li>
+              </ul>
+            </div>
+            <div class="card-footer text-muted">
+              End of Resources
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="submission">
+              <h3 class="card-title">Submission &amp; Grading</h3>
+
+              <p class="card-text">
+                <strong>Deadline: 8 November 2021 Monday HKT 23:59.</strong>
+
+                <br>
+
+                You may earn 8% course grade for each PA via Automated Grading on the <a href="https://zinc.cse.ust.hk/">ZINC Online Submission System</a>. Please check <a href="https://course.cse.ust.hk/comp2012h/zinc-submission/">here</a> for a usage overview of ZINC.
+              </p>
+
+              <h4>Files to Submit</h4>
+
+              <p>There are a number of files you need to submit to ZINC. A <code>Makefile</code> target is provided to automate the creation of the zip file. Run the following command in the directory that contains <code>Makefile</code>:</p>
+
+              <pre><code>
+                make pa3.zip
+              </code></pre>
+
+              <p>Then, <code>pa3.zip</code> is produced. Submit <code>pa3.zip</code> to ZINC. It contains the following files:</p>
+
+              <ul>
+                <li><code>City.cpp</code></li>
+                <li><code>buildings/Building.cpp</code></li>
+                <li><code>buildings/Health.h</code></li>
+                <li><code>buildings/Health.cpp</code></li>
+                <li><code>buildings/Revenue.h</code></li>
+                <li><code>buildings/Revenue.cpp</code></li>
+                <li><code>buildings/Residential.h</code></li>
+                <li><code>buildings/Residential.cpp</code></li>
+                <li><code>buildings/Clinic.h</code></li>
+                <li><code>buildings/Clinic.cpp</code></li>
+                <li><code>buildings/Hospital.h</code></li>
+                <li><code>buildings/Hospital.cpp</code></li>
+                <li><code>buildings/SilverMine.h</code></li>
+                <li><code>buildings/SilverMine.cpp</code></li>
+                <li><code>buildings/GoldMine.h</code></li>
+                <li><code>buildings/GoldMine.cpp</code></li>
+                <li><code>buildings/House.h</code></li>
+                <li><code>buildings/House.cpp</code></li>
+                <li><code>buildings/Apartment.h</code></li>
+                <li><code>buildings/Apartment.cpp</code></li>
+              </ul>
+
+              <h4>Late Submission Policy</h4>
+
+              <p>
+                There will be a penalty of -1 point (out of a maximum 100 points) for every minute you are late. For instance, since the deadline is 23:59:00 on 8 November 2021, if you submit your solution at 1:00:00 on 9 November 2021, there will be a penalty of -61 points for your assignment. However, the lowest grade you may get from an assignment is zero: any negative score after the deduction due to late penalty (and any other penalties) will be reset to zero.
+              </p>
+              
+            </div>
+            <div class="card-footer text-muted">
+              End of Submission &amp; Grading
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="testcases">
+              <h3 class="card-title">Test Cases</h3>
+              <p class="card-text">
+                Here are the revealed test cases on ZINC and the input.
+              </p>
+            </div>
+
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <h5>Test #1</h5>
+
+                Start a new city, print status and map, then quit.
+              
+                <pre data-src="./resources/test-new-city.in"></pre>
+              </li>
+
+              <li class="list-group-item">
+                <h5>Test #2</h5>
+
+                Start a new city, attempt to construct some buildings, then quit.
+
+                <pre data-src="./resources/test-construct.in"></pre>
+              </li>
+
+              <li class="list-group-item">
+                <h5>Test #3</h5>
+
+                Start a new city, construct a building, attempt to demolish some buildings, then quit.
+
+                <pre data-src="./resources/test-demolish.in"></pre>
+              </li>
+
+              <li class="list-group-item">
+                <h5>Test #4</h5>
+
+                Load a city from <code>test-load.txt</code>, print status and map, then quit.
+
+                <pre data-src="./resources/test-load.in"></pre>
+              </li>
+
+              <li class="list-group-item">
+                <h5>Test #5</h5>
+
+                Load a city from <code>test-info.txt</code>, print the short and long information string for each type of building, then quit.
+
+                <pre data-src="./resources/test-info.in"></pre>
+              </li>
+
+              <li class="list-group-item">
+                <h5>Test #6</h5>
+
+                Load a city from <code>test-city.txt</code>, move to next turn, check status, move to a few turns later, check status, then quit.
+
+                <pre data-src="./resources/test-city.in"></pre>
+              </li>
+            </ul>
+
+            <div class="card-footer text-muted">
+              End of Test Cases
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="memory-leak">
+              <h3 class="card-title">Memory Leak</h3>
+              <p class="card-text">
+                Before the program terminates, you need to ensure you have deallocated all dynamic memory you have allocated in the entire execution of the program.
+              </p>
+
+              <p>
+                Memory leak is checked by using the sanitizer, invoked by the <code>-fsanitize=address,leak,undefined</code> option (See related documentation <a href="https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html">here</a>). Some revealed test cases on ZINC also check for memory leak (See <a href="#testcases">Test Cases</a>).
+              </p>
+
+              <h4>Checking Memory Leak Yourself</h4>
+
+              <p>
+                Although some test cases on ZINC already check for memory leak, you may still want to check for memory leak yourself. However, the above option does not work in Windows minGW g++. Instead, you can do so by remote connecting using SSH to the machines in the Linux Lab (Lab 2). The following shows you how to do so by using the Virtual Barn. You may want to adjust the steps accordingly if you are familiar with using SSH on your own computer.
+              </p>
+
+              <ol>
+                <li>
+                  Remote control a Windows machine in <a href="https://itsc.ust.hk/services/academic-teaching-support/facilities/virtual-barn/overview">HKUST virtual barn</a>. After following the installation guide and user guide there to install the remote control client and connect to the HKUST network, choose the Programming Software server when you are offered a selection of different servers.
+                </li>
+                <li>
+                  Copy your files to Virtual Barn. If you have no idea, you can email yourself the files and then download them there.
+                </li>
+                <li>
+                  Open <code>PuTTY</code>. There is a shortcut on your Desktop. Enter a lab 2 machine (<code>csl2wkXX.cse.ust.hk</code>, where <code>XX=[01 ... 53]</code>, for example <code>csl2wk13.cse.ust.hk</code>) as the Host Name. Note: If that server doesn't work, you may try other servers by changing <code>XX</code>.
+                  <br><img class="limit" src="images/putty1.png">
+                </li>
+                <li>
+                  Click Open. If a warning about the security key shows up, click Yes to dismiss it.
+                  <br><img class="limit" src="images/putty2.png">
+                </li>
+                <li>
+                  Enter your CSD login and password. (Register one if you haven't done so in lab 1 by following the lab 1 instructions.) It may not show what you type when you are typing in the password. Don't worry, just type your password and hit the Enter key. You should login to your <em>home</em> directory. Enter the command <code>pwd</code> (Print Working Directory) to verify this. It should show <code class=" language-none">/homes/your_login</code>
+                  <br><img class="limit" src="images/putty3.png"> 
+                </li>
+                <li>
+                  Open <code>FileZilla</code> from Start Menu. Click "File" -&gt; "Site Manager" -&gt; "New Site". Choose <strong>SFTP</strong> for protocol according to the screenshot below. Enter <code class=" language-none">csl2wk13.cse.ust.hk</code> (or the server you used in the previous step) as Host. Choose "Ask for password" for the Logon Type.
+                  <br><img class="limit" src="images/filezilla.png">
+                </li>
+                <li>
+                  Click Connect and then enter your CSD login and password.
+                </li>
+                <li>
+                  If the connection succeeds, the right side should show your home directory at Linux Lab. Copy all PA2 files including cpp files, header files, the include directory, by dragging them to the right side. <strong>Do NOT drag a folder containing all those files, instead, you should drag the files themselves only.</strong> That would upload the individual files (without any folder) to <code>/homes/your_login</code>. <strong>Also, you need to use this <a href="./resources/Makefile">Makefile</a> in the machines in Linux Lab</strong>. This Makefile includes the sanitizer option on compilation. You can close <code>FileZilla</code> after doing so.
+                </li>
+                <li>
+                  Go back to <code class=" language-none">PuTTY</code>, and compile your program using the <code>make</code> command:
+                  <pre><code>
+                    make
+                  </code></pre>
+                </li>
+                <li>
+                  If no compilation errors occurred, you should be able to run your program by:
+                  <pre><code>
+                    ./simplecity
+                  </code></pre>
+                </li>
+                <li>
+                  Note: Memory leak check is enabled along with other runtime errors check for your program. If there are any errors, some error messages (just like what you would see in the Error tab on Zinc) will appear in the terminal as you run your program.
+                </li>
+              </ol>
+            </div>
+            <div class="card-footer text-muted">
+              End of Memory Leak
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="acknowledgments">
+              <h3 class="card-title">Acknowledgments</h3>
+              <p>
+                This assignment was originally proposed and designed by Yu Hei CHAU.
+              </p>
+            </div>
+            <div class="card-footer text-muted">
+              End of Acknowledgments
+            </div>
+          </div>
+
+          <!-- 
+          <div class="card mb-4">
+            <div class="card-body" id="stub">
+              <h3 class="card-title">Stub</h3>
+              <p class="card-text">
+                Blah blah blah
+              </p>
+            </div>
+            <div class="card-footer text-muted">
+              End of Stub
+            </div>
+          </div>
+          -->
+
+        </div>
+          
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-3">
+          <div class="sticky-top">
+            <!-- Menu Widget -->
+            <div id="menu" class="card my-12">
+              <h5 class="card-header">Menu</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="mb-0" type="circle" style="padding-left:20px">
+                      <li>
+                        <a href="#announcements">Announcements</a>
+                      </li>
+                      <li>
+                        <a href="#honor-code">Honor Code</a>
+                      </li>
+                      <li>
+                        <a href="#ilo">Objectives &amp; and ILOs</a>
+                      </li>
+                      <li>
+                        <a href="#introduction">Introduction</a>
+                      </li>
+                      <li>
+                        <a href="#game-mechanics">Game Mechanics</a>
+                      </li>
+                      <li>
+                        <a href="#save-format">Save File Format</a>
+                      </li>
+                      <li>
+                        <a href="#code-structure">Code Structure</a>
+                      </li>
+                      <li>
+                        <a href="#part1">Part 1: City</a>
+                      </li>
+                      <li>
+                        <a href="#part2">Part 2: Buildings</a>
+                      </li>
+                      <li>
+                        <a href="#example">Example</a>
+                      </li>
+                      <li>
+                        <a href="#compilation">Compilation</a>
+                      </li>
+                      <li>
+                        <a href="#resources">Resources</a>
+                      </li>
+                      <li>
+                        <a href="#submission">Submission &amp; Grading</a>
+                      </li>
+                      <li>
+                        <a href="#testcases">Test Cases</a>
+                      </li>
+                      <li>
+                        <a href="#memory-leak">Memory Leak</a>
+                      </li>
+                      <li>
+                        <a href="#acknowledgments">Acknowledgments</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Maintainance widget -->
+            <div class="card my-4">
+              <h5 class="card-header">Page maintained by</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        Kelvin CHIU
+                      </li>
+                      <li>
+                        Email: <a href="mailto:kelvinchiu@cse.ust.hk">kelvinchiu@cse.ust.hk</a>
+                      </li>
+                      <li>
+                        Last Modified: <script type="text/javascript">document.write(document.lastModified);</script>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Homepage widget -->
+            <div class="card my-4">
+              <h5 class="card-header">Homepage</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        <a href="https://course.cse.ust.hk/comp2012h/">Course Homepage</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Maintained by COMP 2012H Teaching Team &copy; 2021 HKUST Computer Science and Engineering</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> 
+  </body>
+
+</html>
+
+
+            

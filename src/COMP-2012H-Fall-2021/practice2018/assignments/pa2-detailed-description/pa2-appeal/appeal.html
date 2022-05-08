@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- ### Change assignment number ### -->
+<title>COMP 2012H Assignment 2: Grade checking and appeal</title>
+
+<!-- Bootstrap core CSS -->
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="css/blog-home.css" rel="stylesheet">
+
+<!-- Prism syntax highlighter -->
+<link href="prism.css" rel="stylesheet" />	
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+</head>
+
+<body>
+<script src="prism.js"></script>
+
+<!-- Page Content -->	
+<div class="container">
+
+<div class="row">
+
+<!-- Entries Column -->
+<div class="col-md-9">
+
+<h2 class="my-4"><span style="color:darkblue">COMP 2012H</span>
+<small>Honors Object-Oriented Programming and Data Structures</small>
+</h2>
+
+<!-- ### Change assignment number and title ### -->
+<h3 class="my-4">Assignment 2
+<span style="color:#660066">Grade checking and appeal</span>
+</h3>
+
+<!-- Introduction section -->
+
+<div class="card mb-4">
+<div class="card-body" id="introduction">
+<h3 class="card-title">Introduction</h3>
+<p class="card-text">
+<ol>
+  <li>Check the assignment 2 grade and remarks <a 
+href="https://course.cse.ust.hk/comp2012h/assignments/pa2-detailed-description/pa2-appeal/remarks.html">HERE</a>. It also shows you which test cases you failed and why marks were deducted.</li>
+  <li>If you want to appeal your grade, you MUST first read everything on this page, follow all the procedures, and try the test cases yourself. Your appeal will not be processed if you don't follow this rule.</li>
+  <li>Uninitialized variables will have garbage (random) values in C++. Sometimes it will be 0, sometimes it will not. In that case, your program may generate different results on different machines or different runs if your logic depend on an uninitialized value. If you assumed them to be 0 or something specific (e.g. a very large value), your code is faulty and will get random results.</li>
+  <li>If your function doesn't have a return statement for some cases, the returned value is undefined / can be random for those cases.</li>
+  <li>Retrieving values from deleted/unallocated dynamic memory block may not always crash your program but 
+may give 
+random values.</li>
+  <li>Runtime errors and crashes due to incorrect memory access / memory allocation / memory deallocation / missing 
+variable initialization / missing return values / out-of-bound array access / etc. may not occur all the time on all machines. However, even you may not encounter the error/crash when you test your program, if your program crashes during any of our testing on some machine, the corresponding test cases will be considered as failed and will receive 0 marks as your code is indeed faulty.</li>
+  <li>If the remarks say that your test case output is empty ("") or a potential runtime error occurred, it is very likely that a runtime error happened when we tested your program for that test case in some machine. Refer to the previous comments for possible causes. Verify your code to make sure they aren't faulty and won't produce any runtime error before you appeal those cases. Compare your solution with the sample solution yourself if needed, but please understand that it is not feasible for us to review all the assignment code of everyone to point out where all the subtle bugs are. We can run the test cases again for you (after you have verified them yourself), but all grading shall be done objectively in an automatic and consistent way. However, if your program crashed or give unreliable results, it is guaranteed that the problem is somewhere in your code, and marks will be deducted.</li>
+  <li>If you passed zero test cases on some Task, it may well mean that I comment out the testing for this Task since it causes segmentation fault or gets stuck over several hours. Feel free to contact us to ensure what is your case.</li>
+  <li>If you passed zero test cases on several consecutive Tasks, it may well mean that the testing <font color="red">terminated early </font> since it causes segmentation fault or running time errors. Feel free to contact us to ensure what is your case.</li>
+  <li>There is no scores for submssions which <font color="red">cannot be compiled</font>. Feel free to contact us to check the reasons case by case.</li>
+  <li>Our official assignment compilation environment is Eclipse and it is mentioned in the assignment 
+instruction that "It is required that your program can be compiled and run successfully in the pre-installed 
+Eclipse environment on our lab machines.". Except for the <a 
+href="https://course.cse.ust.hk/comp2012h/assignments/pa2-detailed-description/Stock_skeleton_full_declarations.zip">Stock_skeleton_full_declarations</a>, 
+we do not use any other header files. Therefore, it is very important for you to make sure that your program can compile with those files in their original unmodified states."</li>
+  <li>If you are certain that there is a grading mistake after reading this whole page and checking with the <a href="subtasks.zip">subtasks.zip</a> (test cases), email us with the following information. Appeals with incomplete information will not be processed.</li>
+  <li>Do not attach any .exe/executable file in the email. The code snippet and results snapshot are fine.</li>
+  <li>Appeal deadline is <span style="font-weight:bold">November 
+20, 23:59</span>. No late appeals will be processed.</li>
+  <li>Due to the large number of students that we have, please allow up to 48 hours for your appeal email to be processed and replied. If you do not receive a reply in 48 hours, please re-send your email.</li>
+  <li>Finalized scores will be uploaded to canvas after all appeals are processed.</li>
+</ol>
+</div>
+<div class="card-footer text-muted">
+End of Introduction
+</div>
+</div>
+
+
+
+<div class="card mb-4">
+<div class="card-body" id="scheme">
+<h3 class="card-title">Marking scheme</h3>
+<p class="card-text">
+There are total 61 test cases for 27 tasks with full <font 
+color="red">80 </font> points. The grading schemes are shown below in detail: 
+<br><br>
+<img src="grading-scheme.png" alt="Grading Scheme">
+<br><br>
+One typical grading report is as follows：
+<pre style='color:#000000;background:#ffffff;'>
+<span style='color:#800000; font-weight:bold; '>
+# Grading Report for Student Name [73/80]
+
++ Subtask #1: (createStockNode)
+	+ [1/1] | 1 tests, 1 passed.
+		- Test #1: Passed.
+
++ Subtask #2: (createHeadNode)
+	+ [1/1] | 1 tests, 1 passed.
+		- Test #1: Passed.
+1;2c
++ Subtask #3: (getStockId)
+	+ [2/2] | 2 tests, 2 passed.
+		- Test #1: Passed.
+		- Test #2: Passed.
+
++ Subtask #4: (getTopValue)
+	+ [2/2] | 4 tests, 4 passed.
+		- Test #1: Passed.
+		- Test #2: Passed.
+		- Test #3: Passed.
+		- Test #4: Passed.
+
++ Subtask #5: (getValueAt)
+	+ [2/2] | 4 tests, 4 passed.
+		- Test #1: Passed.
+		- Test #2: Passed.
+		- Test #3: Passed.
+		- Test #4: Passed.
+
++ Subtask #6: (getTopNext)
+	+ [2/2] | 2 tests, 2 passed.
+		- Test #1: Passed.
+		- Test #2: Passed.
+
++ Subtask #7: (getNextAt)
+	+ [2/2] | 2 tests, 2 passed.
+		- Test #1: Passed.
+		- Test #2: Passed.
+
++ Subtask #8: (getTopUpdate)
+	+ [2/2] | 2 tests, 2 passed.
+		- Test #1: Passed.
+		- Test #2: Passed.
+
++ Subtask #9: (getUpdateAt)
+	+ [3/3] | 3 tests, 3 passed.
+		- Test #1: Passed.
+		- Test #2: Passed.
+		- Test #3: Passed.
+
++ Subtask #10: (push)
+	+ [2/2] | 1 tests, 1 passed.
+		- Test #1: Passed.
+
++ Subtask #11: (pop)
+	+ [3/3] | 1 tests, 1 passed.
+		- Test #1: Passed.
+
++ Subtask #12: (createSnapshot)
+	+ [1/1] | 1 tests, 1 passed.
+		- Test #1: Passed.
+
++ Subtask #13: (stampSnapshot)
+	+ [4/4] | 4 tests, 4 passed.
+		- Test #1: Passed.
+		- Test #2: Passed.
+		- Test #3: Passed.
+		- Test #4: Passed.
+
++ Subtask #14: (add)
+	+ [6/6] | 6 tests, 6 passed.
+		- Test #1: Passed.
+		- Test #2: Passed.
+		- Test #3: Passed.
+		- Test #4: Passed.
+		- Test #5: Passed.
+		- Test #6: Passed.
+
++ Subtask #15: (remove)
+	+ [6/6] | 3 tests, 3 passed.
+		- Test #1: Passed.
+		- Test #2: Passed.
+		- Test #3: Passed.
+
++ Subtask #16: (set)
+	+ [4/6] | 3 tests, 2 passed.
+		- Test #1: Failed.
+		- Test #2: Passed.
+		- Test #3: Passed.
+
++ Subtask #17: (undo)
+	+ [6/6] | 4 tests, 4 passed.
+		- Test #1: Passed.
+		- Test #2: Passed.
+		- Test #3: Passed.
+		- Test #4: Passed.
+
++ Subtask #18: (getValueAt)
+	+ [3/3] | 3 tests, 3 passed.
+		- Test #1: Passed.
+		- Test #2: Passed.
+		- Test #3: Passed.
+
++ Subtask #19: (createSnapshotNode)
+	+ [1/1] | 1 tests, 1 passed.
+		- Test #1: Passed.
+
++ Subtask #20: (createDatabase)
+	+ [1/1] | 1 tests, 1 passed.
+		- Test #1: Passed.
+
++ Subtask #21: (needToStamp)
+	+ [1/1] | 1 tests, 1 passed.
+		- Test #1: Passed.
+
++ Subtask #22: (add)
+	+ [4/4] | 2 tests, 2 passed.
+		- Test #1: Passed.
+		- Test #2: Passed.
+
++ Subtask #23: (remove)
+	+ [4/4] | 2 tests, 2 passed.
+		- Test #1: Passed.
+		- Test #2: Passed.
+
++ Subtask #24: (set)
+	+ [4/4] | 2 tests, 2 passed.
+		- Test #1: Passed.
+		- Test #2: Passed.
+
++ Subtask #25: (getValueAt)
+	+ [3/3] | 3 tests, 3 passed.
+		- Test #1: Passed.
+		- Test #2: Passed.
+		- Test #3: Passed.
+
++ Subtask #26: (stamp)
+	+ [3/3] | 1 tests, 1 passed.
+		- Test #1: Passed.
+
++ Subtask #27: (reconstruct)
+	+ [0/5] | 1 tests, 0 passed.
+		- Test #1: Failed.
+</span>
+</pre>
+When you passed a test (marked with '1') then you got the corresponding points for this test; otherwise there is no points when failed (marked with '0').  
+<br><br/>
+For exactly how each test case is performed, please refer to the testing main function which can be found in the next section together with the testing instructions.
+</p>
+</div>
+<div class="card-footer text-muted">
+End of Marking scheme
+</div>
+</div>
+
+
+
+
+<div class="card mb-4">
+<div class="card-body" id="cases">
+<h3 class="card-title">Trying the test cases</h3>
+<p class="card-text">
+<ul>
+<li>Use our official compilation environment (i.e. Windows Eclipse in the lab machines)</li>
+<li>Create a standard C++ project that uses the MinGW compiler</li>
+<li>Download and extract the files in <a href="subtasks.zip">this TEST package (subtasks)</a>. </li>
+<li>Add all the extracted files to the project under a package/folder "subtasks"</li>
+<li>Put the header files ONLY from the <a 
+href="https://course.cse.ust.hk/comp2012h/assignments/pa2-detailed-description/Stock_skeleton_full_declarations.zip">Stock_skeleton_full_declarations</a> 
+to the project</li> <li>Add your own cpp files to the project</li>
+<li>Compile and run with the grader wrappers <a href="grader.cpp">grader.cpp</a> and <a href="GradeAllFiles.cpp">GradeAllFiles.cpp</a></li>
+<li>For the convenience, the <a href="test_wrapper.zip ">test_wrapper.zip</a> contains all files and path configurations to run the testing procedures.</li>
+<li>Check the output and read the code of each test case to understand what is being tested. The test cases are self-contained in the main function for each subtask cpp file.</li>
+</ul> 
+<p>
+Read all assignment instructions again before appeal if you disagree with any of the expected output.
+</div>
+<div class="card-footer text-muted">
+End of Trying the test cases
+</div>
+</div>
+
+
+
+<div class="card mb-4">
+<div class="card-body" id="solution">
+<h3 class="card-title">Sample solution</h3>
+<p class="card-text">
+Since the test cases are self-contained in the main function for each subtask cpp file (see <a href="test_wrapper.zip ">test_wrapper.zip</a>), there are no standard solutions to implement. 
+<p>
+</div>
+<div class="card-footer text-muted">
+End of Sample solution
+</div>
+</div>
+
+
+
+<div class="card mb-4">
+<div class="card-body" id="stats">
+<h3 class="card-title">Stats (for submitted works only)</h3>
+<p class="card-text">
+Total = 80.00; Mean = 63.25; SD = 20.47<br/>
+Normalized to 100.0; Mean = 79.05; SD = 25.56
+<p>
+</div>
+<div class="card-footer text-muted">
+End of Stats
+</div>
+</div>
+
+
+<div class="card mb-4">
+<div class="card-body" id="note">
+<h3 class="card-title">Note</h3>
+<p class="card-text">
+<br/> We will perform plagiarism checking at a later time and marks could be adjusted for those who are caught.<p>
+</div>
+<div class="card-footer text-muted">
+End of Note
+</div>
+</div>
+
+
+
+
+</div>
+
+<!-- Sidebar Widgets Column -->
+<div class="col-md-3">
+<!-- Menu Widget -->
+<div class="card my-12">
+<h5 class="card-header">Menu</h5>
+<div class="card-body">
+<div class="row">
+<div class="col-lg-12">
+  <ul class="mb-0" type="circle" style="padding-left:20px">
+	<li>
+	  <a href="#introduction">Introduction</a>
+	</li>
+	<li>
+	  <a href="#scheme">Marking scheme </a>
+	</li>
+	<li>
+	  <a href="#cases">Trying the test cases</a>
+	</li>
+	<li>
+	  <a href="#solution">Sample solution</a>
+	</li>
+	<li>
+	  <a href="#stats">Stats (for submitted works only)</a>
+	</li>
+	<li>
+	  <a href="#note">Note</a>
+	</li>
+  </ul>
+</div>                
+</div>
+</div>
+</div>
+
+<!-- Maintainance widget -->
+<div class="card my-4">
+<h5 class="card-header">Page maintained by</h5>
+<div class="card-body">
+<div class="row">
+<div class="col-lg-12">
+  <ul class="list-unstyled mb-0">
+	<li>
+	  HU, Guangneng
+	</li>
+	<li>
+	  Email: <a href="mailto:ghuac@connect.ust.hk">ghuac@connect.ust.hk</a>
+	</li>
+	<li>Last Modified: <script type="text/javascript">document.write(document.lastModified);</script></li>
+  </ul>
+</div>				
+</div>
+</div>
+</div>
+
+
+<!-- Homepage widget -->
+<div class="card my-4">
+<h5 class="card-header">Homepage</h5>
+<div class="card-body">
+<div class="row">
+<div class="col-lg-12">
+  <ul class="list-unstyled mb-0">
+	<li>
+	  <a href="http://course.cse.ust.hk/comp2012h">Course Homepage</a>
+	</li>
+  </ul>
+</div>				
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+<div class="container">
+<p class="m-0 text-center text-white">Maintained by COMP 2012H Teaching Team &copy; 2018 HKUST Computer Science and Engineering</p>
+</div>
+<!-- /.container -->
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>	
+</body>
+
+</html>

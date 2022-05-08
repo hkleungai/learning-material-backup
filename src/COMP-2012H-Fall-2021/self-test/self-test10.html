@@ -1,0 +1,734 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>COMP2012H Self-test Web Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="keywords" content="" />
+<!--link rel="stylesheet" href="img/Underground.css" type="text/css" /-->
+<!-- Bubble tooltips: adopted from: http://www.web-graphics.com/mtarchive/bubbletooltips.html--><!-- For automatic tooltip: -->
+<script src="bubbletooltips/bubbletooltips.js" type=text/javascript></script>
+<!-- Example:  usage <a href="" title=""></a>  --><!-- For customize tooltip -->
+<link media=all href="bubbletooltips/bt.css" type=text/css rel=stylesheet>
+<script type="text/javascript" src="jquery/jquery.js"></script>
+
+<!-- JQuery Calender is located here... -->
+<style type="text/css">@import url(jquerycalendar/jquery-calendar.css);</style>
+<script type="text/javascript" src="jquerycalendar/jquery-calendar.js"></script>
+
+<script type="text/javascript" src="selftestmenu.js"></script>
+<link rel="stylesheet" type="text/css" href="selfteststyle.css" />
+<!-- highslide stuff: TESTING... -->
+<script type="text/javascript" src="highslide/highslide-with-html.js"></script>
+<script type="text/javascript">    
+    hs.graphicsDir = 'highslide/graphics/';
+    hs.outlineType = 'rounded-white';
+    hs.outlineWhileAnimating = true;
+</script>
+<style type="text/css">@import url(highslide/myslide.css);</style>
+<!-- END OF highslide stuff -->
+
+</head>
+
+<!-- Start of the main html body -->
+<body>
+
+<!-- wrap starts here -->
+<div id="main">
+<div id="wrap">
+        <!-- header -->
+        <div id="header">
+                <span id="slogan" ></span>
+                <!-- tabs -->
+                <ul>
+                  <li class="showall-solution"><a href="#" title="Show all solutions"><span>Show all solutions</span></a></li>
+                  <li class="hideall-solution"><a href="#" title="Hide all solutions"><span>Hide all solutions</span></a></li>
+                  <li id="tabShowNormalView"><a href="#" title="The normal webpage view"><span>Web view</span></a></li>
+                  <li id="tabShowAllOnePage"><a href="#" title="The view which is suitable for printing"><span>Printable view</span></a></li>
+                  <li id="tabIncFontSize"><a href="#" title="Increase the font size" ><span >++ Font size</span></a></li>
+                  <li id="tabDecFontSize"><a href="#" title="Decrease the font size" ><span >-- Font size</span></a></li>
+                </ul>
+        </div>
+        <!-- main block: right panel -->
+        <!--div id="main"-->
+
+        <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Test Content %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  -->
+
+
+    <div id='block10' style="display:block;">
+      <h1>Self-test 10: <br> <!-- [Nov 16-20] --> Struct and Pointer</h1>
+      <OL>
+
+	<LI>
+	<div class="question-wrapper">
+        <div class="question-content">
+	  <p>We have a struct called Point as follows. Define a struct Rect for rectangles that are parallel to the axes in a Cartesian coordinate system. Represent a rectangle by its lower left and upper right endpoints using the Point type. </p>            
+<pre>
+    struct Point 
+    {
+        double x;
+        double y;
+    };
+</pre>
+	</div>  
+	<div class="toggle-solution">Solution</div>
+        <div class="solution-content">
+<pre>
+    struct Rect
+    {
+        Point lowerLeft;         /* lower right endpoint of rectangle */
+        Point upperRight;        /* upper right endpoint of rectangle */
+    };
+</pre>
+	</div>          
+	</div>
+	<hr />
+	</LI>
+
+
+	<LI>
+	<div class="question-wrapper">
+	<div class="question-content">
+	  <p>Write a function that returns <i>true</i> if a point falls within a rectangle, <i>false</i> otherwise. Use the Point and Rectangle types in Q1.</p>           
+	</div>  
+        <div class="toggle-solution">Solution</div>
+        <div class="solution-content">
+<pre>
+    bool point_in_rectangle(const Point&amp; p, const Rect&amp; r)
+    {
+        // Applying logical 'and' to connect these conditions
+        return (  (p.x &lt;= r.upperRight.x && p.x &gt;= r.lowerLeft.x)
+               && (p.y &lt;= r.upperRight.y && p.y &gt;= r.lowerLeft.y) );
+    }
+</pre>
+	</div>          
+	</div>
+	<hr />
+	</LI>
+	
+
+	<LI>
+	<div class="question-wrapper">
+	<div class="question-content">
+	  <p>Complete the following function using the structures and functions in Q1 and Q2, so that it returns <i>true</i> if the first rectangle is completely contained inside the second rectangle, and <i>false</i> otherwise.</p>
+<pre>
+    bool rectangle_in_rectangle(const Rect&amp; r1, const Rect&amp; r2)
+    {
+         // CODE HERE
+    }
+</pre>
+	</div>  
+	<div class="toggle-solution">Solution</div>
+        <div class="solution-content">
+<pre>
+    bool rectangle_in_rectangle(const Rect&amp; r1, const Rect&amp; r2)
+    {
+        return point_in_rectangle(r1.lowerLeft, r2) && point_in_rectangle(r1.upperRight,r2);
+    }
+</pre>
+	</div>          
+	</div>
+	<hr />
+	</LI>
+
+
+	<LI>
+	<div class="question-wrapper">
+	<div class="question-content">
+	  <p>What is the output of the following program? </p>            
+<pre>
+    #include &lt;iostream&gt;
+    using namespace std;
+
+    struct Point
+    {
+        int x; 
+        int y; 
+    };
+
+    void foo(int *x)
+    {
+        if (*x &gt; 0)
+        {
+            cout &lt;&lt; *x &lt;&lt; endl;
+            *x = *x - 1;
+            foo(x);
+        }
+    }
+
+    int main(void)
+    {
+        Point my = {4,5};
+        foo(&amp;(my.y));
+        cout &lt;&lt; my.x &lt;&lt; " " &lt;&lt; my.y &lt;&lt; endl;
+        return 0;
+    }
+</pre>
+        </div>  
+        <div class="toggle-solution">Solution</div>
+        <div class="solution-content">
+<pre>
+    5
+    4
+    3
+    2
+    1
+    4 0
+</pre>
+	  <p> When we call foo for the first time, the address of my.y passed to the function. variable x in the function foo will contain the address of my.y, so changing the value of *x actually changes the value of my.y. The function foo is called recursively, each time decrementing the value of my.y until its value becomes 0. However, during the recursive calls, my.x is not modified at all.</p>
+	</div>          
+	</div>
+	<hr />
+	</LI>
+
+
+	<LI>
+	<div class="question-wrapper">
+	<div class="question-content">
+	  <p>With the two struct defined as below, which one of the following initializations of a struct is incorrect? </p>
+<pre>
+    struct Student_Detail
+    {  
+        int year;   
+        char *name;
+    };
+
+    struct Student_Data 
+    {   
+        int id;    
+        struct Student_Detail detail;
+    };
+</pre>
+<p></p>
+<pre>
+    A.  Student_Data a;
+        a.detail.name = "Johnson Lee";
+
+    B.  Student_Data b;
+        b = { 10, 2009, "Johnson Lee" };
+
+    C. Student_Data c[10];
+       c[0].id = 100;
+       c[0].detail.year = 20;
+       c[0].detail.name = "Johnson Lee";
+       c[1] = c[0];
+
+    D. Student_Data c = { 2009, 20, "Johnson Lee" };
+</pre>
+
+	  </p>            
+	</div>  
+	<div class="toggle-solution">Solution</div>
+        <div class="solution-content">
+        <p> <b>B is not correct.</b> A struct variable can be initialized when it is defined using the brace initializer notation; so D is correct. But if it is not initialized during its definition it can't be done in that way. </p>
+	</div>          
+	</div>
+	<hr />
+	</LI>
+
+
+	<LI>
+	<div class="question-wrapper">
+        <div class="question-content">
+	  <p>What's the problem with the following code? </p>            
+<pre>
+    #include &lt;iostream&gt;
+    using namespace std;
+
+    int main(void)
+    {
+         int x = 2;
+         int *px;
+         *px = &amp;x;
+         cout &lt;&lt; *px &lt;&lt; endl;
+         return 0;
+    }
+</pre>
+        </div>  
+        <div class="toggle-solution">Solution</div>
+        <div class="solution-content">
+<pre>
+    #include &lt;iostream&gt;
+    using namespace std;
+    int main(void)
+    {
+         int x = 2;
+         int *px;
+         *px = &amp;x; // Compilation error. Correct: px = &amp;x;         
+         cout &lt;&lt; *px &lt;&lt; endl;
+         return 0;
+    }
+</pre>
+	  <p>Reason: the type of x is an integer. So &amp;x has the type of int*, and the type of *px is an integer.</p>
+	</div>          
+	</div>
+	<hr />
+	</LI>
+
+
+	<LI>
+	<div class="question-wrapper">
+	<div class="question-content">
+	  <p>What's the problem with the following code? </p>            
+<pre>
+    #include &lt;iostream&gt;
+    using namespace std;
+    int main(void)
+    {
+         int x = 2, y = 10;
+         int *px, py;
+         px = &amp;x;
+         py = &amp;y;
+         cout &lt;&lt; *px &lt;&lt; endl;
+         cout &lt;&lt; *py &lt;&lt; endl;
+         return 0;
+    }
+</pre>
+        </div>  
+        <div class="toggle-solution">Solution</div>
+        <div class="solution-content">
+<pre>
+    #include &lt;iostream&gt;
+    using namespace std;
+    int main(void)
+    {
+         int x = 2, y = 10;
+         int *px, py;
+         px = &amp;x;
+         py = &amp;y; // Compilation error.  
+         cout &lt;&lt; *px &lt;&lt; endl;
+         cout &lt;&lt; *py &lt;&lt; endl;
+         return 0;
+    }
+</pre>
+	  <p> Reason: py is an int type, but &y is an int* type. Compilation error is resulted. You can change the line int *px, py; to int *px, *py; to solve the problem </p>
+	</div>          
+	</div>
+	<hr />
+	</LI>
+
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+	      <p>What's the problem with the following code?</p> 
+	      <pre>
+char a[20][5];
+char** p = a; 
+p[3][6] = 9;
+	    </pre>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+	    <div class="solution-content">
+		<p>		
+The statement
+<pre>
+    char** p = a; 
+</pre>
+will give a compilation error.
+</p>
+<p>
+This is a common confusion when a 1-dimension array identifier and a 2-dimensional array identifier are interpreted as a pointer in C++. 
+</p>
+<p>
+In the following code
+<pre>
+      char s[10];      
+      char* q = s;
+</pre>
+s can be interpreted as a char pointer with the type of char* and thus q=s is fine. 
+</p>
+<p>
+However, for 2-dimensional array such as
+<pre>
+	 char a[20][5];
+</pre>
+a is a pointer to a 1-dimensional char array with 5 elements! That is, the type a is NOT char** but char (*)[5]. Recall that when you pass a 2-dimensional array to a function, you need to specify its second dimension. That is the reason.
+</p>
+<p>
+Finally, to correct the error, we need to define p as char (*p)[5].  That is,
+<pre>
+    char (*p)[5] = a; 
+</pre>
+</p>
+            </div>              
+            </div>
+            <hr />
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">      
+              <p>
+What are the outputs of the following code?
+<pre>
+    int a[5] = {1, 2, 3, 4, 5};
+
+    long x1 = reinterpret_cast&ltlong&gt(a);
+    long x2 = reinterpret_cast&ltlong&gt(a+1);
+    long y1 = reinterpret_cast&ltlong&gt(&a);
+    long y2 = reinterpret_cast&ltlong&gt(&a+1);
+
+    cout &lt&lt x2-x1 &lt&lt endl;
+    cout &lt&lt y2-y1 &lt&lt endl;
+</pre>
+</p>
+</div>
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+<p>
+	      <b><pre>
+4
+20
+</pre>
+</b> 
+</p>
+<p>
+In C++, a can be interpreted as a pointer to a[0], and (a+1) a pointer to a[1]. That is, a gives the address of a[0] and (a+1) gives the address of a[1] in the memory. Since the size of int is 4 bytes, therefore the numerical difference between (a+1) and a is 4. 
+</p>
+<p>
+However, &a means the address of the int a[5] array, and thus (&a+1) is interpreted as a pointer to an imaginary 1-dimensional int array put below the int a[5] array. Thus, the difference between (&a+1) and &a is the size of the whole int array with 5 integers, and is 4*5=20. 
+</p>
+            </div>
+            </div>
+            <hr />
+            </LI>
+
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>What's the problem with the following code?</p>
+	      <pre>
+char* s = "ABC";
+cout &lt&lt s &lt&lt endl;
+s[0] = 'B';
+cout &lt s &lt&lt endl;
+</pre>
+            </div>
+            
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+		<p>
+This will be compiled successfully but with a warning such as the one below:
+</p>
+<pre>
+     warning: conversion from string literal to 'char *' is deprecated
+      [-Wdeprecated-writable-strings]
+        char* s="ABC";
+</pre>
+<p>
+And if you run the program, it will crash. The reason is that the pointer s points to a constant C string which is protected by the operating system and cannot be modified. When you try to modify this constant C string, the program
+will fail.  
+</p>
+            </div>
+            </div>
+            <hr />
+            </LI>
+
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>What's the problem with the following code?</p>
+	      <pre>
+void allocate_memory(char *p)
+{
+    p = new char[50];
+    strcpy(p, "hello world");
+}
+
+int main(void)
+{
+    char *str = NULL;
+    allocate_memory(str);
+    cout &lt&lt str;
+    delete [] str;
+    str = NULL;
+
+    return 0;
+}
+</pre>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+		<p>
+This will be compiled successfully but the program will crash. When you call allocate_memory() you pass the str by value and its value is copied to p in allocate_memory(). Nothing really happens with the pointer str when the function allocate_memory is run. Thus, on return from allocate_memory(), str is still equal to NULL, and the program will crash when you delete a dynamic array which is actually a NULL pointer. The correct code should use pass-by-reference.
+<pre>
+void allocate_memory(char*& p)
+{
+    p = new char[50];
+    strcpy(p, "hello world");
+}
+</pre>
+		</p>
+            </div>
+            </div>
+            
+            <hr />
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>If the address of x is 1500 and the address of y is 400, what is the value of z after the following statements?</p>
+	      <pre>int x = 21;
+int* y = &x;
+int z = *y;
+</pre>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+		<p>
+                The value of z is 21.
+		</p>
+            </div>
+            </div>
+            
+            <hr />
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>What is wrong with the following program?</p>
+	      <pre>#include &lt;iostream&gt;
+using namespace std;
+
+int main(void)
+{
+  int i = 4, j = 2;
+  int *p, *q;
+
+  p = &i;
+  q = &p;
+
+  cout << *p << endl;
+  cout << *q << endl;
+
+  return 0;
+}
+</pre>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+		<pre>
+#include &lt;iostream&gt;
+
+using namespace std;
+
+int main(void)
+{
+  int i = 4, j = 2;
+  int *p, *q;
+
+  p = &i;
+  q = &p; // Compilation error. Correct : q = p; 
+
+  cout << *p << endl;
+  cout << *q << endl;
+
+  return 0;
+}
+
+		</pre>
+<p>Reason: q is of int* type, but &p is of int** type. Compilation error is resulted.</p>
+            </div>
+            </div>
+            
+            <hr />
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>What are the outputs of the following program?</p>
+	      <pre>#include &lt;iostream&gt;
+using namespace std;
+
+int main(void)
+{
+   int i = 4,j = 2;
+   int *p;
+   int r[5] = {0, 3, 6, 9, 12};
+   p = r;
+   i = (*p)++;
+   j = *(p++);
+   cout << "i=" << i << endl;
+   cout << "j=" << j << endl;
+
+   return 0;
+}
+</pre>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+<pre>i=0
+j=1
+</pre>
+		<p>
+Reason: p is equivalent to &r[0], hence *p is r[0]. The statement i = (*p)++; will put the original value of r[0], i.e. 0, to i, and then increase r[0] to 1. Then the statement "j = *(p++);" will first put the value of *p, i.e. 1, to j, and then increase the pointer p by 1 meaning p would then point to r[1].
+		</p>
+            </div>
+            </div>
+            
+            <hr />
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>Given the following array declaration:</p>
+<pre>int a[3][4];</pre>
+	      <p>Which of the following expression(s) is/are NOT equivalent to a[i][j]?</p>
+<pre>a) *(&a[0][0]+4*i+j)
+b) *(a[i]+j)
+c) *(a[i][0]+j)
+d) *((*(a+i)) + j)
+</pre>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+		<p>
+The expression (c) is not. a[i][0] is the of int type. Instead the address should be used, i.e. &a[i][0]. The correct expression is:
+<pre>*(&a[i][0]+j)</pre>
+
+		</p>
+            </div>
+            </div>
+            
+            <hr />
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>What is the problem with the following program?</p>
+	      <pre>#include &lt;iostream&gt;
+using namespace std;
+
+struct Point {
+  double x;
+  double y;
+};
+
+struct Shape {
+  Point* pts;
+  int numOfPts;
+};
+
+int main(void)
+{
+  Point temp[4] = {{0.0, 0.0}, {10.0, 5.0}, {10.0, 20.0}, {0.0, 20.0}};
+  Shape rect;
+  rect.numOfPts = 4;
+  rect.pts = &temp; 
+}
+</pre>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+<pre>#include &lt;iostream&gt;
+using namespace std;
+
+struct Point {
+  double x;
+  double y;
+};
+
+struct Shape {
+  Point* pts;
+  int numOfPts;
+};
+
+int main(void)
+{
+  Point temp[4] = {{0.0, 0.0}, {10.0, 5.0}, {10.0, 20.0}, {0.0, 20.0}};
+  Shape rect;
+  rect.numOfPts = 4;
+  rect.pts = &temp; // correct: rect.pts = temp;
+}
+</pre>
+		<p>Reason: rect.pts is of type Point*, while &temp is of type Point**. Hence, temp which is the address of the Point array should be assigned to rect.pts.
+		</p>
+            </div>
+            </div>
+            
+            <hr />
+            </LI>
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>Given the two structures in Question 16, namely, Point and Shape, and the following two functions:</p>
+<pre>void fn(Shape *shape)
+{
+  Point tmp;
+  for (int i = 0; i < (shape->numOfPts)/2; i++)
+  {
+    tmp = (*shape).pts[i];
+    *((*shape).pts + i) = *(shape->pts + shape->numOfPts - i - 1);
+    shape->pts[shape->numOfPts - i - 1] = tmp;
+  }
+
+}
+
+void printShape(Shape shape)
+{
+   for (int i = 0; i < shape.numOfPts; i++)
+       cout << shape.pts[i].x << "," << shape.pts[i].y << endl;
+}
+</pre>
+
+	<p>What are the outputs of the following main function?
+
+<pre>int main(void)
+{
+  Point temp[4] = {{0.0, 0.0}, {10.0, 5.0}, {10.0, 20.0}, {0.0, 20.0}};
+  Shape rect;
+  rect.numOfPts = 4;
+  rect.pts = temp; // Incorrect: rect.pts = &temp;
+  cout << "Before: " << endl;
+  printShape(rect);
+  fn(&rect);
+  cout << "After: " << endl;
+  printShape(rect);
+}
+</pre>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+                <pre>Before: 
+0,0
+10,5
+10,20
+0,20
+After: 
+0,20
+10,20
+10,5
+0,0
+		</pre>
+            </div>
+            </div>
+            
+            <hr />
+            </LI>
+
+        </OL>
+        </div>
+
+        <!-- wrap ends here; don't delete this /div --> 
+        </div>
+
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<!-- ### Change lab number ### -->
+    <title>COMP 2012H Lab 6: Inheritance</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="desc2_files/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="desc2_files/blog-home.css" rel="stylesheet">
+	
+	<!-- Prism syntax highlighter -->
+	<link href="desc2_files/prism.css" rel="stylesheet">	
+	
+	<style>
+    pre {
+      background: #f4f4f4 !important;
+      border: 1px solid #ddd !important;
+      border-left: 3px solid #f36d33 !important;
+      color: #666 !important;
+      page-break-inside: avoid !important;
+      font-family: monospace !important;
+      font-size: 14px !important;
+      line-height: 1.6 !important;
+      margin-bottom: 1.6em !important;
+      max-width: 100% !important;
+      overflow: auto !important;
+      padding: 1em 1.5em !important;
+      display: block !important;
+      word-wrap: break-word !important;
+    }
+    </style>
+	
+	<link rel="stylesheet" type="text/css" href="desc2_files/prettify.css">
+  <script src="desc2_files/prompt.js"></script></head>
+
+  <body data-new-gr-c-s-check-loaded="8.883.0" data-gr-ext-installed="">
+    <script src="desc2_files/prism.js"></script>
+	
+    <!-- Page Content -->	
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Entries Column -->
+        <div class="col-md-9">
+
+          <h2 class="my-4"><span style="color:darkblue">COMP 2012H</span>
+            <small>Honors Object-Oriented Programming and Data Structures</small>
+          </h2>
+		  
+		  <!-- ### Change lab number and title ### -->
+		  <h3 class="my-4">Lab 6
+            <span style="color:#660066">Inheritance</span>
+          </h3>
+
+          <div class="card mb-4">			
+            <div class="card-body" id="review">
+              <h3 class="card-title">Review</h3>
+                Inheritance is the ability to define a new class based on an existing class with a hierarchy. 
+The new class (<span style="font-weight:bold">derived class</span>) inherits data members and member 
+functions of the existing class (<span style="font-weight:bold">base class</span>).
+<br><br>
+New members and functions are added to the derived class. The new class only has to implement the behavior that 
+is extra to the base class, and the code of the base class can be re-used in the derived class. Inheritance 
+enables code re-use.
+			  <br><br>
+              <p class="card-text">                
+                Inheritance implements the is-a relationship. Suppose Student class inherits from 
+<code>UPerson</code> class,
+                </p><ul>
+                  <li>A <code>Student</code> object can be treated like a <code>UPerson</code> 
+object.</li>
+                  <li>All member functions of UPerson can be called by a <code>Student</code> object.</li>
+                </ul>
+                In other words, a <code>Student</code> object is a <code>UPerson</code> object.
+                In general, an object of the derived class can be treated like an object of the base class 
+under all circumstsances.
+			  <p></p>
+                 <br>
+                 <span style="color:blue">Polymorphic or Liskov Substitution Principle</span>
+                 <br><br>
+                 <style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 
+5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 
+5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-uys7{border-color:inherit;text-align:center}
+.tg .tg-l04w{font-weight:bold;background-color:#efefef;border-color:inherit;text-align:center}
+</style>
+<table class="tg" style="width:100%">
+  <tbody><tr>
+    <th class="tg-l04w">Function Expecting an Argument of Type</th>
+    <th class="tg-l04w">Will Also Accept</th>
+  </tr>
+  <tr>
+    <td class="tg-uys7">UPerson</td>
+    <td class="tg-uys7">Student</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">pointer to UPerson</td>
+    <td class="tg-c3ow">pointer to Student</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">UPerson reference</td>
+    <td class="tg-c3ow">Student reference</td>
+  </tr>
+</tbody></table> 
+              <br>
+<br>
+              <span style="color:blue">Initialization of Base Class objects</span><br><br>
+              <p>Suppose we have 3 classes, A, B and C. <br>C inherits B and B inherits A.
+                </p><ul>
+                  <li>If class C is derived from class B which is in turn derived from class A, then C 
+will contain data members of both B and A.</li>
+                  <li>Class C's constructor can only call class B's constructor, and class B's constructor 
+can only call class A's constructor.</li>
+                  <li>It is the <span style="color:red">responsibility</span> of each derived class to 
+<span style="color:red">initialize its <span style="font-weight:bold">direct</span> base class</span> 
+correctly.</li>
+                </ul>
+              <p></p>
+              <br>
+              <span style="font-weight:bold">Example:</span><br><br>
+              <pre class="prettyprint prettyprinted" style=""><span class="com">#include</span><span class="pln"> </span><span class="str">&lt;iostream&gt;</span><span class="pln">
+</span><span class="kwd">using</span><span class="pln"> </span><span class="kwd">namespace</span><span class="pln"> std</span><span class="pun">;</span><span class="pln">
+
+</span><span class="com">// Base class</span><span class="pln">
+</span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Shape</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="com">// protected members are accessible in member functions of Shape and</span><span class="pln">
+  </span><span class="com">// in all the derived classes, including Rectangle</span><span class="pln">
+  </span><span class="kwd">protected</span><span class="pun">:</span><span class="pln">
+    </span><span class="kwd">int</span><span class="pln"> width</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">int</span><span class="pln"> height</span><span class="pun">;</span><span class="pln">
+
+  </span><span class="kwd">public</span><span class="pun">:</span><span class="pln">
+    </span><span class="typ">Shape</span><span class="pun">()</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> width</span><span class="pun">(</span><span class="lit">0</span><span class="pun">),</span><span class="pln"> height</span><span class="pun">(</span><span class="lit">0</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"Default contor of Shape"</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    </span><span class="typ">Shape</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> width</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> height</span><span class="pun">)</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> width</span><span class="pun">(</span><span class="pln">width</span><span class="pun">),</span><span class="pln"> height</span><span class="pun">(</span><span class="pln">height</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"Other contor of Shape"</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    </span><span class="kwd">int</span><span class="pln"> getWidth</span><span class="pun">()</span><span class="pln"> </span><span class="kwd">const</span><span class="pln">  </span><span class="pun">{</span><span class="pln"> </span><span class="kwd">return</span><span class="pln"> width</span><span class="pun">;</span><span class="pln"> </span><span class="pun">}</span><span class="pln">
+    </span><span class="kwd">int</span><span class="pln"> getHeight</span><span class="pun">()</span><span class="pln"> </span><span class="kwd">const</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="kwd">return</span><span class="pln"> height</span><span class="pun">;</span><span class="pln"> </span><span class="pun">}</span><span class="pln">
+    </span><span class="kwd">void</span><span class="pln"> setWidth</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> w</span><span class="pun">)</span><span class="pln">  </span><span class="pun">{</span><span class="pln"> width </span><span class="pun">=</span><span class="pln"> w</span><span class="pun">;</span><span class="pln"> </span><span class="pun">}</span><span class="pln">
+    </span><span class="kwd">void</span><span class="pln"> setHeight</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> h</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> height </span><span class="pun">=</span><span class="pln"> h</span><span class="pun">;</span><span class="pln"> </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">};</span><span class="pln">
+
+</span><span class="com">// Derived class</span><span class="pln">
+</span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Rectangle</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Shape</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">public</span><span class="pun">:</span><span class="pln">
+    </span><span class="com">// If a Shape class constructor is not exlicitly called using member initialization list</span><span class="pln">
+    </span><span class="com">// of Rectangle class, C++ compiler will implicitly call the default constructor of Shape for us.</span><span class="pln">
+    </span><span class="com">// That is the constructor, Rectangle() {}, will be implicitly changed to:</span><span class="pln">
+    </span><span class="com">// Rectangle() : Shape() {}</span><span class="pln">
+    </span><span class="typ">Rectangle</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"Default contor of Rectangle"</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="com">// It's the responsibility of Rectangle class to initialize its direct base</span><span class="pln">
+    </span><span class="com">// class, i.e. Shape, through member initialization list.</span><span class="pln">
+    </span><span class="com">// In this case, we put : Shape(width, height)</span><span class="pln">
+    </span><span class="typ">Rectangle</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> width</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> height</span><span class="pun">)</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="typ">Shape</span><span class="pun">(</span><span class="pln">width</span><span class="pun">,</span><span class="pln"> height</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"Other contor of Rectangle"</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="kwd">int</span><span class="pln"> getArea</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="com">// Can access inherited protected data members width and height</span><span class="pln">
+      </span><span class="kwd">return</span><span class="pln"> width </span><span class="pun">*</span><span class="pln"> height</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">};</span><span class="pln">
+
+</span><span class="kwd">int</span><span class="pln"> main</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="typ">Rectangle</span><span class="pln"> rect1</span><span class="pun">;</span><span class="pln">
+  cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"Total area: "</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> rect1</span><span class="pun">.</span><span class="pln">getArea</span><span class="pun">()</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+  cout </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+
+  </span><span class="typ">Rectangle</span><span class="pln"> rect2</span><span class="pun">(</span><span class="lit">10</span><span class="pun">,</span><span class="pln"> </span><span class="lit">20</span><span class="pun">);</span><span class="pln">
+  cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"Total area: "</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> rect2</span><span class="pun">.</span><span class="pln">getArea</span><span class="pun">()</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}</span></pre>
+            <span style="text-decoration: underline">Output of the program:</span><br><br>
+<pre>Default contor of Shape
+Default contor of Rectangle
+Total area: 0
+
+Other contor of Shape
+Other contor of Rectangle
+Total area: 200
+</pre>
+            </div>
+            <div class="card-footer text-muted">
+              End of Review
+            </div>
+          </div>
+
+<!-- Introduction section -->
+		  <!-- ### Complete introduction section for the lab ### -->
+          <div class="card mb-4">		  
+            <div class="card-body" id="introduction">
+		    <!-- ### Add an image representing the lab content here ### -->
+			<center>
+            <img class="card-img-top" style="width:80%" src="desc2_files/fifo_lifo.png" alt="Card image cap">
+			</center>
+			<br>
+              <h3 class="card-title">Introduction</h3>
+			  <br>
+	        <p class="card-text">
+            In this lab, we will implement <code>DynamicArray</code> and <code>Deque</code> based on <code>List
+          </code>, which is a Linked List. Then, we will implement <code>Stack</code> and <code>Queue</code> based on
+            <code>Deque</code>. For simplicity, we will implement them to store an <code>int</code>. We store each
+            list element as a simple struct <code>Node</code>, which contains two properties: the node value
+            <code>int data</code>, and a pointer <code>Node* next</code> pointing towards the next node. The last
+            node in the list have <code>next == nullptr</code>.
+            </p>
+            <p>
+              Since a lot of the code would be reusable, especially the code related to inserting and deleting a
+              Linked List node, we will make use of inheritance to reuse parent class methods.
+            </p>
+
+</p><h4>Dynamic Array</h4>
+<p class="card-text">
+A Dynamic Array is an array that can contain a variable number of elements. 
+Insertion, deletion, reading and writing are all possible at any index position.
+
+</p><h4>Deque</h4>
+<p class="card-text">
+A Deque, or double-ended queue, is a data structure that supports a variable number of elements 
+similar to a Dynamic Array. 
+However, insertion, deletion and reading are only possible at the front and the back. Elements cannot be modified.
+
+</p><h4>Queue</h4>
+<p class="card-text">
+A Queue is similar to a Deque, with the restrictions that insertion is only possible at the back, while deletion and reading are only possible at the front.
+As with Deques, elements cannot be modified.
+
+Queues are known as "FIFO (First In First Out)" data containers. We typically refer to the "front" and "back" of the
+  Queue, where "front" means the <strong>oldest</strong> element, and "back" means the <strong>latest</strong>
+  element. We insert new values from the back of the queue and retrieve them from the front.<br>
+
+<!--
+<br>
+A typical standard Queue will have three functions. The function names and their usages should be self-explanatory. <br>
+</p><ul>
+  <li><code>peek()</code> or <code>front()</code>: Read the element at the front of the Queue; removal and modification are not allowed.</li>
+  <li><code>enqueue()</code>: Insert an element at the back of the Queue.</li>
+  <li><code>dequeue()</code>: Remove an element at the front of the Queue and return it.</li>
+</ul>
+<p></p>-->
+
+<h4>Stack</h4>
+<p class="card-text">
+A Stack is similar to a Queue, except that it is "LIFO" (Last In First Out). 
+In other words, we process the most recent item first.
+Instead of "front and back", we usually refer to the "top" of the Stack, which is the <strong>latest</strong>
+ element. 
+The "local variable stack" and "function call stack" are examples of 
+this type of LIFO data structure.
+This can be seen with the behavior of function calls; we process the 
+most recently called function before returning to the previous function.<br>
+
+  <!--
+A typical standard Stack will also have similar three functions as a typical standard Queue.
+</p><ul>
+  <li><code>peek()</code> or <code>top()</code>: Read the element at the top of the Stack, but not remove it, and 
+cannot modify it.</li>
+  <li><code>push()</code>: Insert an element at the top of the Stack.</li>
+  <li><code>pop()</code>: Remove an element at the top of the Stack and return it.</li>
+</ul>
+<p></p>-->
+<br>
+
+
+
+            
+                <p></p>
+            </div>
+            <div class="card-footer text-muted">
+              End of Introduction
+            </div>
+          </div>
+
+          <!-- Lab work section -->
+		  <!-- ### Complete the lab work section for the lab ### -->
+          <div class="card mb-4">      
+            <div class="card-body" id="labwork">
+              <h3 class="card-title">Lab Work</h3>
+			  <br>
+			  <h4>Task 1 - <code>List</code></h4>
+			  <p class="card-text">
+				The <code>print()</code> function is already provided to you in the skeleton code. 
+				Implement all other member functions of the <code>List</code> class.
+			  </p>
+			  <ul>
+				<!--
+				<li><code>List()</code>: Initializes an empty list by setting <code>head</code> to <code>nullptr</code>.
+				 -->
+				<li><code>List(const List&amp rhs)</code>: Initializes the list as a copy of <code>rhs</code>, by
+          deep-copying every <code>Node</code>.</li>
+          <li><code>~List()</code>: Deletes all <code>Node</code>s in the list.</li>
+				<li><code>List&amp assign(const List&amp rhs)</code>: Copy the content of <code>rhs</code> by deep-copying
+          every <code>Node</code>. Delete the existing array / nodes. At the end, return the current object as a
+          reference.</li>
+				<li><code>bool empty() const</code>: Returns whether the list is empty.</li>
+        <li><code>int size() const</code>: Return the no. of nodes in the list.</li>
+        <li><code>void insertAt(int data, int index)</code>: Inserts a new node containing <code>data</code> such that
+          it becomes the <code>index</code>-th node.</li>
+				<li><code>void removeAt(int index)</code>: Removes the <code>index</code>-th node.</li>
+				<li><code>int get(int index) const</code>: Returns the value of the <code>index</code>-th node.</li>
+				<li><code>void set(int index, int data)</code>:  Sets the value of the <code>index</code>-th node to
+          <code>data</code>.</li>
+			  </ul>
+        <p><strong>Note: </strong>for the methods requiring an index value (i.e. <code>insertAt</code>,
+          <code>removeAt</code>, <code>get</code> and <code>set</code>), you can assume the index supplied is
+          always valid. The same applies to all methods in the following tasks that call these methods.</p>
+			  <br>
+			  			  
+			  <h4>Task 2 - <code>DynamicArray</code></h4>
+			  <p class="card-text">
+				The <code>print()</code> function is already provided to you in the skeleton code. 
+				Implement all other member functions of the <code>DynamicArray</code> class. From this point on, try to reuse
+          the suitable parent class methods as much as possible.
+			  </p>
+			  <ul>
+				  <li><code>DynamicArray(int array[], int size)</code>: Initializes the dynamic array such that it contains the same contents as <code>array</code>.
+				  <li><code>int get(int index) const</code>: Returns the value of the <code>index</code>-th node.</li>
+				  <li><code>void set(int index, int data)</code>: Sets the value of the <code>index</code>-th node to
+            <code>data</code>.</li>
+          <li><code>void push_back(int data)</code>: Inserts new value <code>data</code> at the back.</li>
+          <!--
+          <li><code>void insert(int data, int index);</code>: Inserts new value <code>data</code> such that it becomes the <code>index</code>-th element.</li>
+				  <li><code>void remove(int index);</code>: Removes the <code>index</code>-th element.</li>
+				  <li><code>bool empty() const</code>: Returns whether the array is empty.</li>
+				  -->
+			  </ul>
+			  <br>
+			  
+			  <h4>Task 3 - <code>Deque</code></h4>
+			  <p class="card-text">
+				The <code>print()</code> function is already provided to you in the skeleton code. 
+				Implement all other member functions of the <code>Deque</code> class.
+			  </p>
+			  <ul>
+				<li><code>void push_front(int data)</code>: Inserts <code>data</code> at the front.</li>
+				<li><code>void push_back(int data)</code>: Inserts <code>data</code> at the back.</li>
+				<li><code>void pop_front()</code>: Removes the first item at the front.</li>
+				<li><code>void pop_back()</code>: Removes the last item at the back.</li>
+				<li><code>int peek_front() const</code>: Returns the first item, without changing the queue. If the queue is empty
+          already, prints <code>Empty!</code> and return 0.</li>
+				<li><code>int peek_back() const</code>: Returns the last item, without changing the queue. If the queue is empty
+          already, prints <code>Empty!</code> and return 0.</li>
+			  </ul>
+			  <br>
+			  
+			  <h4>Task 4 - <code>Stack</code></h4>
+			  <p class="card-text">
+				The <code>print()</code> function is already provided to you in the skeleton code. 
+				Implement all other member functions of the <code>Stack</code> class.
+			  </p>
+			  <ul>
+				<li><code>void push(int data)</code>: Inserts <code>data</code> at the front.</li>
+				<li><code>void pop()</code>: Removes the first item at the front.</li>
+				<li><code>int top() const</code>: Returns the first item, without changing the queue. If the queue is empty
+          already, prints <code>Empty!</code> and return 0.</li>
+			  </ul>
+			  <br>
+			  
+			  <h4>Task 5 - <code>Queue</code></h4>
+			  <p class="card-text">
+				The <code>print()</code> function is already provided to you in the skeleton code. 
+				Implement all other member functions of the <code>Queue</code> class.
+			  </p>
+			  <ul>
+				<li><code>void push(int data)</code>: Inserts <code>data</code> at the back.</li>
+				<li><code>void pop()</code>: Removes the first item at the front.</li>
+				<li><code>int peek() const</code>: Returns the first item, without changing the queue. If the queue is empty
+          already, prints <code>Empty!</code> and return 0.</li>
+			  </ul>
+			  <br>
+			  
+
+            </div>
+			<div class="card-footer text-muted">
+              End of Lab Work
+            </div>
+          </div>
+
+          <!-- Resources section -->
+		  <!-- ### Complete resources section for the lab ### -->
+          <div class="card mb-4">            
+            <div class="card-body" id="resources">
+              <h3 class="card-title">Resources &amp; Sample I/O</h3>
+			  <ul>
+			    <li>Skeleton code: <a href="../lab6_skeleton.zip">lab6_skeleton.zip</a></li>
+				<li>Demo program: (Available soon)
+				</li>
+			  </ul>
+			  <br>
+
+              <!--
+			  <h4>Run demo program on CS lab 2 machines</h4>
+				<p class="card-text">In case you cannot run demo program (on Mac), You can SSH to the CS lab2 machines and try the demo program for Linux. </p>
+<pre><code>ssh &lt;CSD_username&gt;@csl2wk01.cse.ust.hk    #'wk01' can be wk01-wk53
+wget https://course.cse.ust.hk/comp2012h/labs/lab6/code/linux/lab6_demo --http-user=&lt;CSD_username&gt; --http-password=&lt;CSD_password&gt;
+chmod +x lab6_demo
+./lab6_demo
+</code></pre>
+<br>-->
+              
+			  <h4>Sample I/O</h4>
+
+              <p>Note that in the program output, the data structures are always displayed from front to back.</p>
+<pre>
+Dynamic Array | Empty: N | Size: 4 | {1, 2, 3, 4}
+Nodes: 1 2 3 4
+Dynamic Array | Empty: N | Size: 4 | {1, 2, 3, 4}
+Dynamic Array | Empty: N | Size: 4 | {7, 2, 3, 4}
+Dynamic Array | Empty: N | Size: 4 | {7, 8, 3, 4}
+Dynamic Array | Empty: N | Size: 4 | {7, 8, 9, 4}
+Dynamic Array | Empty: N | Size: 4 | {7, 8, 9, 10}
+Dynamic Array | Empty: N | Size: 5 | {7, 8, 9, 10, 11}
+Dynamic Array | Empty: N | Size: 6 | {7, 8, 9, 10, 11, 12}
+Deque | Empty: N | Size: 6 | <1><2><3><4><5><6>
+Deque | Empty: N | Size: 5 | <2><3><4><5><6>
+Deque | Empty: N | Size: 4 | <2><3><4><5>
+Peek front: 2
+Peek back: 5
+Stack | Empty: Y | Size: 0 |
+Stack | Empty: N | Size: 1 | <0]
+Stack | Empty: N | Size: 2 | <1]<0]
+Stack | Empty: N | Size: 3 | <2]<1]<0]
+Stack | Empty: N | Size: 4 | <3]<2]<1]<0]
+Stack | Empty: N | Size: 5 | <4]<3]<2]<1]<0]
+Stack | Empty: N | Size: 4 | <3]<2]<1]<0]
+Stack | Empty: N | Size: 3 | <2]<1]<0]
+Stack | Empty: N | Size: 2 | <1]<0]
+Stack | Empty: N | Size: 1 | <0]
+Stack | Empty: Y | Size: 0 |
+Peek: Empty!
+0
+Queue | Empty: Y | Size: 0 |
+Queue | Empty: N | Size: 1 | <0]
+Queue | Empty: N | Size: 2 | <0]<1]
+Queue | Empty: N | Size: 3 | <0]<1]<2]
+Queue | Empty: N | Size: 4 | <0]<1]<2]<3]
+Queue | Empty: N | Size: 5 | <0]<1]<2]<3]<4]
+Queue | Empty: N | Size: 4 | <1]<2]<3]<4]
+Queue | Empty: N | Size: 3 | <2]<3]<4]
+Queue | Empty: N | Size: 2 | <3]<4]
+Queue | Empty: N | Size: 1 | <4]
+Queue | Empty: Y | Size: 0 |
+Peek: Empty!
+0
+End
+
+</pre>
+			  
+            </div>            
+			<div class="card-footer text-muted">
+              End of Resources and Sample I/O
+            </div>
+          </div>
+		  
+		  <!-- Grading scheme section -->
+		  <!-- ### Complete grading section for the lab ### -->
+          <div class="card mb-4">            
+            <div class="card-body" id="grading">
+              <h3 class="card-title">Submission &amp; Grading</h3> 
+			  <p class="card-text">
+				<strong>Deadline: 7 November 2021 Sunday 23:59 HKT.</strong> <br>
+				You may earn 1% course grade for this lab via Automated Grading on the <a href="https://zinc.cse.ust.hk/">ZINC Online Submission System</a>. <br>
+				Please compress and submit <code>List.cpp</code>, <code>DynamicArray.cpp</code>,
+          <code>Deque.cpp</code>, <code>Queue.cpp</code> and <code>Stack.cpp</code> as <code>lab6.zip</code> to ZINC.
+			  </p><p>
+          There will be two test cases for this lab. One of them is the same as the sample output above (see code in
+              <code>main.cpp</code>) and the other one a hidden test case. The public test case is available on ZINC
+              already and the hidden test case will be available ASAP.
+            </p>
+            </div>
+			<div class="card-footer text-muted">
+              End of Submission &amp; Grading
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-3">
+		  <div class="sticky-top">
+            <!-- Menu Widget -->
+            <div class="card my-12">
+              <h5 class="card-header">Menu</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="mb-0" style="padding-left:20px" type="circle">
+                      <li><a href="#review">Review</a></li>
+                      <li>
+                        <a href="#introduction">Introduction</a>
+                      </li>
+                      <li>
+                        <a href="#labwork">Lab Work</a>
+                      </li>
+                      <li>
+                        <a href="#resources">Resources &amp; Sample I/O</a>
+                      </li>
+			  		  <li>
+				  	    <a href="#grading">Submission &amp; Grading</a>
+					  </li>
+                    </ul>
+                  </div>                
+                </div>
+              </div>
+		    </div>
+          		  
+		    <!-- Maintainance widget -->
+            <div class="card my-4">
+              <h5 class="card-header">Page maintained by</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        Hong Wing PANG
+                      </li>
+                      <li>
+                        (<a href="mailto:hwpang@connect.ust.hk">hwpang@connect.ust.hk</a>)
+                      </li>
+					  <li>Last Modified: <script type="text/javascript">document.write(document.lastModified);</script></li>
+                    </ul>
+                  </div>				
+                </div>
+              </div>
+			</div>          
+		  		  
+		    <!-- Homepage widget -->
+            <div class="card my-4">
+              <h5 class="card-header">Homepage</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        <a href="http://course.cse.ust.hk/comp2012h">Course Homepage</a>
+                      </li>
+                    </ul>
+                  </div>				
+                </div>
+              </div>
+            </div>
+	      </div>
+        </div>
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Maintained by COMP 2012H Teaching Team &copy; 2021 HKUST Computer Science and Engineering</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="desc2_files/jquery.js"></script>
+    <script src="desc2_files/bootstrap.js"></script>	
+  
+
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<!-- ### Change lab number ### -->
+    <title>COMP 2012H Lab 3: Common Errors</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/blog-home.css" rel="stylesheet">
+	
+	<!-- Prism syntax highlighter -->
+	<link href="prism.css" rel="stylesheet" />
+
+	  <style>
+		  #review img {
+			  width: 600px;
+		  }
+	  </style>
+  </head>
+
+  <body>
+    <script src="prism.js"></script>
+	
+    <!-- Page Content -->	
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Entries Column -->
+        <div class="col-md-12">
+
+          <h2 class="my-4"><span style="color:darkblue">COMP 2012H</span>
+            <small>Honors Object-Oriented Programming and Data Structures</small>
+          </h2>
+		  
+		  <!-- ### Change lab number and title ### -->
+		  <h3 class="my-4">Lab 3
+            <span style="color:#660066">Structures, Pointers and Dynamic Memory Allocation of Arrays</span>
+          </h3>
+
+			<!-- setting up eclipse section -->
+			<!-- ### Complete introduction section for the lab ### -->
+			<div class="card mb-4">
+
+				<div class="card-body" id="eclipse">
+					<h3 class="card-title">Common Errors</h3>
+					<p class="card-text">
+					<ol>
+					  <li>Mixing up the usage of <code>queue_size</code> and <code>queue_capacity</code>. 
+					  <code>queue_size</code> refers to the number of valid <code>Person</code>s in the queue, while <code>queue_capacity</code> refers to the raw array capacity of <code>queue_array</code>.</li>
+					  <br/>
+					  <li>Not calling <code>new Person*[new_capacity]</code> and <code>delete[] queue_array</code> properly in <code>reallocate_queue_array()</code> and <code>destroy_queue()</code>.</li>
+					  <br/>
+					  <li>Forgetting to call <code>destroy_ticket()</code> in <code>destroy_person()</code>, causing a <code>Ticket</code> memory leak. 
+					  Similarly, forgetting to call <code>destroy_person()</code> in <code>queue_dequeue()</code> and <code>destroy_queue()</code>.</li>
+					  <br/>
+					  <li>In <code>destroy_queue()</code>, only calling <code>delete[] queue_array</code>, but forgetting to call <code>destroy_person()</code> for each valid element in <code>queue_array</code>, causing memory leak. 
+					  Also forgetting to reset <code>queue_array</code> to <code>nullptr</code>.</li>
+					  <br/>
+					  <li>Not properly handling the special cases of inserting the first node and deleting the last node in <code>queue_linked_list_enqueue()</code> and <code>queue_linked_list_dequeue()</code> respectively. 
+					  When inserting first node, both <code>front</code> and <code>back</code> should point to this node. When deleting the last node, <code>back</code> should also be updated to point to <code>nullptr</code>.</li>
+					  <br/>
+					  <li>Using <code>back = nullptr</code> to represent that the queue has only one element. This is inconsistent with the definition of <code>back</code>, which is to always point at the last element of the queue.</li>
+					</ol>
+				    </p>
+				</div>
+				<div class="card-footer text-muted">
+					End of Common Errors
+				</div>
+			</div>
+
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>	
+  </body>
+
+</html>

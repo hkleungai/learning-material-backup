@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<!-- ### Change lab number ### -->
+    <title>COMP 2012H Lab 1: Common Errors</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/blog-home.css" rel="stylesheet">
+	
+	<!-- Prism syntax highlighter -->
+	<link href="prism.css" rel="stylesheet" />
+
+	  <style>
+		  #review img {
+			  width: 600px;
+		  }
+	  </style>
+  </head>
+
+  <body>
+    <script src="prism.js"></script>
+	
+    <!-- Page Content -->	
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Entries Column -->
+        <div class="col-md-12">
+
+          <h2 class="my-4"><span style="color:darkblue">COMP 2012H</span>
+            <small>Honors Object-Oriented Programming and Data Structures</small>
+          </h2>
+		  
+		  <!-- ### Change lab number and title ### -->
+		  <h3 class="my-4">Lab 1
+            <span style="color:#660066">Eclipse, Fundamentals of C++, and Program Flow Control</span>
+          </h3>
+
+			<!-- setting up eclipse section -->
+			<!-- ### Complete introduction section for the lab ### -->
+			<div class="card mb-4">
+
+				<div class="card-body" id="eclipse">
+					<h3 class="card-title">Common Errors</h3>
+					<p class="card-text">
+					<ol>
+					  <li>Negative health, e.g. if Player 1 has only 2 health and then Player 2 uses 3 rockets to attack, the game ends with Player 1's health equal to -1 (should be 0). However, not a vital problem.</li>
+					  <br/>
+					  <li>If the program was run as a single executable program, upon the termination of the program, it exits immediately instead of pausing at the last output so that the user can not clearly see the result of the game. (Not a vital problem, just by using system("pause") or waiting for a dummy input can solve this issue.)</li>
+					  <br/>
+					  <li>Forgetting to ask the Player again when receiving an invalid input.</li>
+					  <br/>
+					  <li>Forgetting to ask the player to choose a different action if they tried to build too many barriers/rockets, or tried to launch zero rockets.</li>
+					  <br/>
+					  <li>Forgetting to play the Rock-Paper-Scissors game again after every round.</li>
+					  <br/>
+					  <li>Not correctly processing both players actions for each round (e.g. Only the winner of the Rock-Paper-Scissors game gets an action, or Player 1 always gets two actions).</li>
+					  <br/>
+					  <li>Forgetting to set the correct player turn sequence after Rock-Paper-Scissors game (e.g. Player 1 always goes first).</li>
+					  <br/>
+					  <li>Not ending the game immediately if the first player for that round won (e.g. Player 2 goes first and surrenders, but the game still asks for Player 1 action).</li>
+					  <br/>
+					  <li>Mixing up Barriers and Rockets variables (e.g. Choosing to build rockets incorrectly builds barriers instead).</li>
+					  <br/>
+					  <li>Incorrect or missing output messages, especially for the common cases of building too many barriers/rockets.</li>
+					  <br/>
+					  <li>Not realizing there is a skeleton code, and coding everything from scratch. Not exactly a coding error, but surprisingly common and also one of the main causes of not being able to finish and demo the lab without bugs on-time.</li>
+					  <br/>
+					  <li>Inconsistent coding style and indentation, hard to read the code, and more importantly hard to explain the code to others.</li>
+					  <br/>
+					  <li>Unnecessary use of recursion to do looping. This is particularly dangerous when asking again after invalid input, as theoretically we can use a script or keyboard macro to keep inputting invalid inputs and cause a function stack overflow.
+					  To explain, each function call has a memory overhead, and since in a recursive function every level of the recursive function call doesn't return until the lower levels return, an attacker can abuse this to crash the program/system by consuming too much memory via an infinite recursion.
+					  Therefore, only use recursion to solve problems with a well-defined limit to the recursion depth, not as a way to implement a while loop that depends on user input.</li>
+					</ol>
+				    </p>
+				</div>
+				<div class="card-footer text-muted">
+					End of Common Errors
+				</div>
+			</div>
+
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>	
+  </body>
+
+</html>
