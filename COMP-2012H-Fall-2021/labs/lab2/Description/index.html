@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- ### Change lab number ### -->
+    <title>COMP 2012H Lab 2: Functions and Arrays</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/blog-home.css" rel="stylesheet">
+
+    <!-- For code highlighting -->
+    <link href="prism.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <script src="prism.js"></script>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Entries Column -->
+        <div class="col-md-9">
+
+          <h2 class="my-4"><span style="color:darkblue">COMP 2012H</span>
+            <small>Honors Object-Oriented Programming and Data Structures</small>
+          </h2>
+
+          <!-- ### Change lab number and title ### -->
+          <h3 class="my-4">Lab 2
+            <span style="color:#660066">Functions and Arrays</span>
+          </h3>
+
+          <!-- Review section -->
+          <!-- ### Complete review section for the lab ### -->
+          <div class="card mb-4">
+            <div class="card-body" id="review">
+              <h3 class="card-title">Review</h3>
+              <h4>Functions</h4>
+              <p class="card-text">
+                A function is a group of statements that together perform a task. Every C++ program has at least
+                one function, which is <code>int main()</code>.
+              </p>
+              <ul>
+                <li>
+                  Basic Function Components:
+                  <br>
+                  <img style="width:75%;margin-left:auto;margin-right:auto;" src="images/function1.png">
+                </li>
+                <li>
+                  Parameter passing methods:
+                  <ul>
+                    <li>
+                      Pass-by-value: The formal parameter copies the value of the corresponding actual parameter.
+                    </li>
+                    <li>
+                      Pass-by-reference: The formal parameter becomes a reference variable or alias of the
+                      corresponding actual parameter.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>Function declaration</strong> - A function is declared by writing down its interface - its
+                  function prototype. This simply informs the compiler about the function's interface without
+                  generating any machine codes.
+                </li>
+                <li>
+                  <strong>Function definition</strong> - A function is defined by writing down its function header
+                  plus its function body. This will ask the compiler to generate machine codes according to the C++
+                  codes in its function body.
+                </li>
+                <li>
+                  <strong>Function overloading</strong> refers to multiple C++ functions sharing the same name, but
+                  with different signatures. Note that two C++ functions <em>cannot</em> have the same name and
+                  signature.
+                </li>
+                <li>
+                  The <strong>scope</strong> of some identifier is a region in the source code, in which the
+                  identifier declaration is active.
+                </li>
+              </ul>
+              <br>
+              <h4>Arrays</h4>
+              <p class="card-text">
+                An array is a collection of homogeneous objects.
+              </p>
+              <ul>
+                <li>
+                  1-Dimensional Array
+                  <br>
+                  <img style="width:75%;margin-left:auto;margin-right:auto;" src="images/array1.png">
+                </li>
+                <li>
+                  2-Dimensional Array
+                  <br>
+                  <img style="width:75%;margin-left:auto;margin-right:auto;" src="images/array2.png">
+                </li>
+              </ul>
+            </div>
+            <div class="card-footer text-muted">
+              End of Review
+            </div>
+          </div>
+
+          <!-- Introduction section -->
+          <!-- ### Complete introduction section for the lab ### -->
+          <div class="card mb-4">
+
+            <!-- ### Add an image representing the lab content here ### -->
+            <img class="card-img-top" src="images/Gospers_glider_gun.gif" alt="game of life illustration">
+            <div class="card-body" id="introduction">
+              <p class="card-text">
+                <small>
+                  <em>
+                    Source: <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway's Game of Life - Wikipedia</a>
+                  </em>
+                </small>
+              </p>
+
+              <h3 class="card-title">Introduction</h3>
+              <p class="card-text">
+                Animation above demonstrates an instance of the <em>Conway's Game of Life</em>, which is famous and
+                fascinating due to the exceptionally complex patterns it can create based on extremely simple rules.
+                If you haven't heard of it before, there are quite a lot of articles and fancy examples out there.
+                In fact, the <a href="https://www.google.com/search?q=conway%27s+game+of+life">Google search result
+                page</a> itself contains an interesting demo.
+              </p>
+              <p class="card-text">
+                <em>Conway's Game of Life</em> is just one example of <em>cellular automata</em>.
+                In this lab, you will simulate an
+                <a href="https://en.wikipedia.org/wiki/Elementary_cellular_automaton">elementary cellular automaton</a>.
+                It is a 1-D version of <em>Conway's Game of Life</em>, where you can specify your own rules.
+              </p>
+              <br/>
+
+              <h4>Rules</h4>
+              <p class="card-text">
+                An elementary cellular automaton (ECA) is a 1-D array of cells, with <strong>states</strong> that evolve
+                over time. Each state can be represented as an 1-D array containing 0 and 1s, where 0 represents a
+                <strong>dead cell</strong> and 1 a <strong>living cell</strong>. Each ECA is also associated with an
+                <strong>initial state</strong> and a <strong>rule</strong>. The rule determines how a cell will evolve
+                into the next state, given the states of the cell itself and its two neighbours.
+              </p>
+              <p class="card-text">
+                As an example, suppose we have the following initial state:
+              </p>
+              <pre>
+                <code class="language-markup">
+                  1 0 0 1 0 1 0 1 1
+                </code>
+              </pre>
+              with the following rule:
+              <pre>
+                  <code class="language-markup">
+                      current pattern:	       111 110 101 100 011 010 001 000
+                      new state for center cell:	1	0	0	0	1	0	0	1
+                  </code>
+              </pre>
+              <p class="card-text">
+                In order for a cell evolve to the next state, we check the state of the cell and its two neighbours,
+                lookup for the corresponding pattern in the rule, then update the cell to the new state. Note that the
+                state wraps around, i.e. the left neighbour of the leftmost cell is the rightmost cell, and vice versa.
+              </p>
+              <pre>
+                <code class="language-markup">
+                  initial state:   1   0   0   1   0   1   0   1   1
+                  patterns:       110 100 001 010 101 010 101 011 111
+                  next state:      0   0   0   0   0   0   0   1   1
+                </code>
+              </pre>
+              <br/>
+
+              <h4>Rule numbering system</h4>
+              <p class="card-text">
+                In order to describe different rules efficiently, we use the the <em>Wolfram code</em> system to
+                refer to different rules. Note that each rule has the following properties:
+              </p>
+              <ul>
+                <li>
+                  Each rule consists of one binary digit (0 or 1) for each pattern
+                </li>
+                <li>
+                  There is a total of 8 patterns, corresponding to the binary numbers 000<sub>2</sub> through
+                  111<sub>2</sub>
+                </li>
+              </ul>
+              <p class="card-text">
+                The Wolfram code of each rule is essentially a (decimal) number between 0 and 255 inclusive, such that
+                its <em>i</em>-th digit when written as a 8-digit binary number corresponds to the update value for
+                pattern <em>i</em>. For example, the rule above has a Wolfram code of 137 (equivalent to
+                10001001<sub>2</sub>).
+              </p>
+              <br>
+            </div>
+            <div class="card-footer text-muted">
+              End of Introduction
+            </div>
+          </div>
+
+          <!-- Lab work section -->
+          <!-- ### Complete the lab work section for the lab ### -->
+          <div class="card mb-4">
+            <div class="card-body" id="labwork">
+              <h3 class="card-title">Lab Work</h3>
+              <p class="card-text">
+                In this lab, we will implement a console ECA simulator that sets up an ECA under some rule and initial
+                state. After initialization, the user inputs a certain number N, and the program simulates the change of
+                states of the ECA up to step N, and displays the result. The program takes the following form:
+              </p>
+              <ul>
+                <li>
+                  Task 1 - Initialization
+                  <ul>
+                    <li>
+                      User inputs rule number (Task <a href="#task_1_1">1.1</a>)
+                    </li>
+                    <li>
+                      <em>User chooses to initialize ECA manually or randomly</em>
+                      <ul>
+                        <li>
+                          Initialize manually (Task <a href="#task_1_2">1.2</a>)
+                        </li>
+                        <li>
+                          Initialize randomly (Task <a href="#task_1_3">1.3</a>)
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <i>Displays initial state of ECA</i>
+                </li>
+                <li>
+                  Task 2 - Main program loop
+                </li>
+                <ul>
+                  <li>
+                    <em>Ask for iteration number N</em>
+                    <ul>
+                      <li>
+                        <em>Quits program if N = -1</em>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    Updates ECA state iteratively until iteration N (Tasks <a href="#task_2_1">2.1</a>,
+                    <a href="#task_2_2">2.2</a>, <a href="#task_2_3">2.3</a>)
+                  </li>
+                  <li>
+                    <em>Displays result</em>
+                  </li>
+                </ul>
+              </ul>
+              <p class="card-text">
+                The parts in <em>italics</em> has been implemented in the skeleton code already. Your job is to complete
+                the tasks to make the program function as intended. We will discuss the tasks in greater detail one
+                by one.
+              </p>
+
+              <br/>
+              <h4 id="task_1_1">Task 1.1 - Initialize rule</h4>
+              <p class="card-text">
+                Implement the <code class="language-cpp">initRule</code> function, which asks the user to enter the ECA
+                rule and store the rule number. The number is stored in binary digits, so that we can determine how to
+                update each ECA cell later on, depending on the pattern of the cell.
+              </p>
+              <p class="card-text">
+                <strong>Instructions</strong>
+              </p>
+              <ul>
+                <li>
+                  Print <code class="language-cpp">"Please enter the rule number:"</code>.
+                </li>
+                <li>
+                  Read user input. You can assume the input is an integer.
+                </li>
+                <li>
+                  Check whether the number input is within the range [0, 255].
+                  <ul>
+                    <li>
+                      If not, ask the user to retry by printing
+                      <code class="language-cpp">"Invalid rule number, please retry:"</code> and keep retrieving new
+                      input until the number is valid.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Convert the rule number to a 8-digit binary number, and store the bits in the predefined array
+                  <code class="language-cpp">rule[]</code>, such that <code class="language-cpp">rule[0]</code> stores
+                  the least-significant bit (i.e. value corresponding to the "000" pattern), and
+                  <code class="language-cpp">rule[7]</code> stores the most-significant bit (i.e. value corresponding to
+                  the "111" pattern).
+                </li>
+                <li>
+                  Store the (decimal) rule number in the predefined variable <code class="language-cpp">ruleNum</code>.
+                </li>
+              </ul>
+              <p class="card-text">
+                <strong>Notes</strong>
+              </p>
+              <ul>
+                <li>
+                  To convert a decimal number to its binary part, you can repeatedly perform the following:
+                  <ol>
+                    <li>
+                      Store the remainder of the number divided by 2, using <code class="language-cpp">%</code>.
+                    </li>
+                    <li>
+                      If the number is odd, subtract 1 from it.
+                    </li>
+                    <li>
+                      Divide the number by two.
+                    </li>
+                  </ol>
+                </li>
+                <li>
+                  Repeat the above procedure for 8 times. The sequence of digits collected in step 1 will be the
+                  digits of the corresponding binary number, from smallest to largest (i.e. right to left).
+                </li>
+                <li>
+                  <strong>Example</strong> - The following procedure shows how to convert 69<sub>10</sub> into a binary
+                  number:
+                </li>
+              </ul>
+              <pre>
+                <code class="language-markup">
+                  number:  69 -> 34 -> 17 -> 8 -> 4 -> 2 -> 1 -> 0
+                  digits:   1 ->  0 ->  1 -> 0 -> 0 -> 0 -> 1 -> 0
+                  binary number: 1000101
+                  contents of rule[]: [1, 0, 1, 0, 0, 0, 1, 0]
+                </code>
+              </pre>
+              <br/>
+
+              <h4 id="task_1_2">Task 1.2 - Initialize state from input</h4>
+              <p class="card-text">
+                Implement the <code class="language-cpp">initStateFromInput</code> function, which initializes the ECA
+                cells based on manual input. The user first enters the initial no. of alive cells, then enters the
+                column numbers of these cells one by one. In this function, the following data structures are to be
+                modified:
+              </p>
+              <ul>
+                <li>
+                  <code class="language-cpp">int grid[HEIGHT][WIDTH];</code> - This is a 2D array, with each row
+                  representing the ECA at a particular step. We initially set the top row to the initial state, then
+                  fills in the rows one-by-one as we update the ECA state again and again according to the rule. Thus,
+                  this is a 2D visualization of how the ECA state evolves over time.
+                  <ul>
+                    <li>
+                      <code class="language-cpp">WIDTH</code> is the number of cells in the ECA, and is by default
+                      set to 60.
+                    </li>
+                    <li>
+                      In practice, <code class="language-cpp">grid</code> has a finite number of rows, which is
+                      defined as <code class="language-cpp">HEIGHT</code> and set to 15 by default. Whenever the
+                      bottommost row is reached, we overwrite the top row with the the next state, and start again
+                      from the top.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <code class="language-cpp">int initialState[WIDTH];</code> - This is a 1D array holding the initial
+                  ECA state, which will be used when we have already run updates for multiple iterations and need to
+                  reset the ECA. As the contents of <code class="language-cpp">grid</code> will get overwritten
+                  constantly, we need a separate container to store the initial state.
+                </li>
+              </ul>
+              <p class="card-text">
+                <strong>Instructions</strong>
+              </p>
+              <ul>
+                <li>
+                  Print <code class="language-cpp">"Please enter the number of cells alive in the initial state:"</code>.
+                </li>
+                <li>
+                  Read user input. You can assume the input is an integer.
+                </li>
+                <li>
+                  Check whether the number input is within valid range. There must be at least one alive cell, and
+                  cannot be greater than <code class="language-cpp">WIDTH</code>.
+                  <ul>
+                    <li>
+                      If not, ask the user to retry by printing
+                      <code class="language-cpp">"Invalid number of living cells, please retry:"</code> and keep
+                      retrieving new input until the number is valid.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Print <code class="language-cpp">"Please enter the column at which the cells are alive:"</code>.
+                </li>
+                <li>
+                  Repeatedly read N integers, where N is the previously received number. You can expect that each of
+                  the input is an integer. After reading each integer, do the following checking procedure <strong>
+                  before</strong> reading the next one:
+                  <ul>
+                    <li>
+                      If the input is outside the range [0, <code class="language-cpp">(WIDTH - 1)</code>], print
+                      <code class="language-cpp">"Column out of bound"</code>.
+                    </li>
+                    <li>
+                      If the input is the same as a previous input column, print
+                      <code class="language-cpp">"Column duplicated"</code>.
+                    </li>
+                    <li>
+                      Keep on reading input, until it does not violate the above rules.
+                    </li>
+                    <li>
+                      If input <code class="language-cpp">col</code> is valid, set
+                      <code class="language-cpp">initialState[col]</code> and
+                      <code class="language-cpp">grid[0][col]</code> to 1.
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <p class="card-text">
+                <strong>Notes</strong>
+              </p>
+              <ul>
+                <li>
+                  For the test input used for grading, you can assume that each input sequence of column positions
+                  consists of exactly <em>N</em> valid integers, and possibly a few more invalid integers. For
+                  example, if <em>N</em> is 5, a potential sequence of input would be
+                  <code class="language-cpp">"4 15 -2 58 27 58 23"</code>, where <code class="language-cpp">-2</code>
+                  and the second <code class="language-cpp">58</code> are invalid and should be ignored.
+                </li>
+              </ul>
+              <br/>
+
+              <h4 id="task_1_3">Task 1.3 - Initialize state randomly</h4>
+              <p class="card-text">
+                Implement the <code class="language-cpp">initStateRandomly</code> function. In this function, the user
+                enters a probability value <em>p</em> between 0 and 1, and you should set the initial value of each ECA
+                cell to 1 with a probability of <em>p</em>.
+              </p>
+              <p class="card-text">
+                <strong>Instructions</strong>
+              </p>
+              <ul>
+                <li>
+                  Print <code class="language-cpp">"Please enter the fill rate:"</code>.
+                </li>
+                <li>
+                  Read user input. You can assume the input is a floating point number.
+                </li>
+                <li>
+                  Check whether the number input is within the range [0.0, 1.0].
+                  <ul>
+                    <li>
+                      If not, ask the user to retry by printing
+                      <code class="language-cpp">"Invalid probability, please retry:"</code> and keep retrieving new
+                      input until the number is valid.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Fill in <code class="language-cpp">grid[0][]</code> and
+                  <code class="language-cpp">initialState[]</code> by calling
+                  <code class="language-cpp">getRandNum(p)</code> for each element. This function will return a
+                  value in {0, 1}, sampled from a <em>Bernoulli distribution</em> with probability <em>p</em>.
+                </li>
+              </ul>
+              <p class="card-text">
+                <strong>Notes</strong>
+              </p>
+              <ul>
+                <li>
+                  We use a fixed random number generator <em>included in the skeleton code</em> with a fixed seed.
+                  Given that the value of <em>p</em> is the same, the sequence of 0 and 1s generated from
+                  <code class="language-cpp">getRandNum(p)</code> should always be the same every time the program is
+                  executed, regardless of the environment you compiled the program in.
+                </li>
+                <li>
+                  In order to ensure your program output is exactly the same as ours, please make sure to initialize the
+                  cells from left to right, and do not change the seed value.
+                </li>
+              </ul>
+              <br/>
+
+              <h4 id="task_2_1">Task 2.1 - Get neighbours' states</h4>
+              <p class="card-text">
+                Implement the <code class="language-cpp">getNeighbourState</code> function. Given a pair of row and
+                column, return the corresponding pattern for <code class="language-cpp">grid[row][col]</code>.
+              </p>
+              <p class="card-text">
+                <strong>Instructions</strong>
+              </p>
+              <ul>
+                <li>
+                  The decimal number of the pattern should be returned. For example, if the pattern is "011", the
+                  integer 3 should be returned.
+                </li>
+                <li>
+                  Remember that for the leftmost cell of a state, the rightmost cell should be used as its left neighbor
+                  when determining the pattern. Similarly, for the rightmost cell of a state, the leftmost cell
+                  should be used as the right neighbor.
+                </li>
+              </ul>
+              <br/>
+
+              <h4 id="task_2_2">Task 2.2 - Update next state</h4>
+              <p class="card-text">
+                Implement the <code class="language-cpp">update</code> function, which takes the current ECA state and
+                update it according to the rule. Two variables are used to store which state the ECA is currently in:
+              </p>
+              <ul>
+                <li>
+                  <code class="language-cpp">curStep</code> stores the current iteration number. It is a non-negative
+                  integer.
+                </li>
+                <li>
+                  <code class="language-cpp">curRow</code> stores the row number of
+                  <code class="language-cpp">grid</code> that corresponds to the current row. It is an integer within the
+                  range [0, <code class="language-cpp">(HEIGHT - 1)</code>]
+                </li>
+              </ul>
+              <p class="card-text">
+                <strong>Instructions</strong>
+              </p>
+              <ul>
+                <li>
+                  Based on the current state (<code class="language-cpp">grid[curRow]</code>), update the next state
+                  using <code class="language-cpp">getNeighbourState</code> and the rule. The next state should
+                  either be the next row, or the top row when <code class="language-cpp">curRow</code> has reached
+                  the bottommost row.
+                </li>
+                <li>
+                  Remember to update <code class="language-cpp">curRow</code> and
+                  <code class="language-cpp">curStep</code> accordingly.
+                </li>
+              </ul>
+              <br/>
+
+              <h4 id="task_2_3">Task 2.3 - Get the state after given step</h4>
+              <p class="card-text">
+                Implement the <code class="language-cpp">getState</code> function. This function is called every time
+                the user enters an iteration number, which is passed as the <code class="language-cpp">step</code>
+                parameter. You can assume <code class="language-cpp">step</code> to be a non-negative integer. In this
+                function, the program repeatedly updates the ECA until the specified iteration is reached.
+              </p>
+              <p class="card-text">
+                Note that the iteration numbers do not necessarily follow ascending order. If the input iteration number
+                is smaller than <code class="language-cpp">curStep</code>, the program should reset back to the initial
+                state (stored in <code class="language-cpp">initialState</code>), then start updating from the
+                beginning.
+              </p>
+              <p class="card-text">
+                <strong>Instructions</strong>
+              </p>
+              <ul>
+                <li>
+                  Run <code class="language-cpp">update()</code> until <code class="language-cpp">curStep</code>
+                  reaches <code class="language-cpp">step</code>.
+                  <ul>
+                    <li>
+                      If <code class="language-cpp">step < curStep</code>, you will need to first reset the ECA to the
+                      original state, i.e. <code class="language-cpp">curStep = curRow = 0</code>.
+                    </li>
+                    <li>
+                      Otherwise, you can start updating from the current <code class="language-cpp">curStep</code>
+                      directly, without restarting from the beginning.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  You can assume <code class="language-cpp">step</code> is valid (i.e. a non-negative integer).
+                </li>
+              </ul>
+              <br/>
+
+            </div>
+            <div class="card-footer text-muted">
+              End of Lab Work
+            </div>
+          </div>
+
+          <!-- Resources section -->
+          <!-- ### Complete resources section for the lab ### -->
+          <div class="card mb-4">
+            <div class="card-body" id="resources">
+              <h3 class="card-title">Resources &amp; Sample I/O</h3>
+              <ul>
+                <li>
+                  Skeleton code: <a href="../lab2_skeleton.zip">lab2_skeleton.zip</a>
+                </li>
+                <li>
+                  Demo program: <a href="../lab2_demo_windows.exe">Windows</a> /
+                  <a href="../lab2_demo_mac_intel">MacOS</a>
+                </li>
+              </ul>
+              <h4>Sample I/O</h4>
+              <p>
+                You may wish to compare your program output against the expected output using a
+                <a href="https://www.diffchecker.com/" target="_blank">diff checker</a>. Additionally, we will always
+                end our sample inputs during grading with -1 to terminate the program.
+              </p>
+
+              <h5>Rule 18</h5>
+              <p class="card-text">
+                Rule 18 generates a fractal pattern resembling the
+                <a href="https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle">Sierpiński triangle</a>.
+              </p>
+              <pre data-line="3,5,7,9,29,49,69,89" class="line-numbers">
+                <code class="language-text">
+                  Elementary Cellular Automaton
+                  Please enter the rule number:
+                  18
+                  Please specify the initial state. 'R' for random generation, 'M' for manual input.
+                  M
+                  Please enter the number of cells alive in the initial state:
+                  1
+                  Please enter the column at which the cells are alive:
+                  30
+                  State of rule 18 after 0 steps:
+                  ============================================================
+                                                @
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  ============================================================
+                  Please specify the number of steps
+                  14
+                  State of rule 18 after 14 steps:
+                  ============================================================
+                                                @
+                                               @ @
+                                              @   @
+                                             @ @ @ @
+                                            @       @
+                                           @ @     @ @
+                                          @   @   @   @
+                                         @ @ @ @ @ @ @ @
+                                        @               @
+                                       @ @             @ @
+                                      @   @           @   @
+                                     @ @ @ @         @ @ @ @
+                                    @       @       @       @
+                                   @ @     @ @     @ @     @ @
+                                  @   @   @   @   @   @   @   @
+                  ============================================================
+                  Please specify the number of steps
+                  30
+                  State of rule 18 after 30 steps:
+                  ============================================================
+                      @   @   @   @   @   @   @   @   @   @   @   @   @   @
+                                @                               @
+                               @ @                             @ @
+                              @   @                           @   @
+                             @ @ @ @                         @ @ @ @
+                            @       @                       @       @
+                           @ @     @ @                     @ @     @ @
+                          @   @   @   @                   @   @   @   @
+                         @ @ @ @ @ @ @ @                 @ @ @ @ @ @ @ @
+                        @               @               @               @
+                       @ @             @ @             @ @             @ @
+                      @   @           @   @           @   @           @   @
+                     @ @ @ @         @ @ @ @         @ @ @ @         @ @ @ @
+                    @       @       @       @       @       @       @       @
+                   @ @     @ @     @ @     @ @     @ @     @ @     @ @     @ @
+                  ============================================================
+                  Please specify the number of steps
+                  100
+                  State of rule 18 after 100 steps:
+                  ============================================================
+                      @   @   @   @   @   @   @   @   @   @   @   @   @   @
+                     @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @
+                    @                                                       @
+                   @ @                                                     @ @
+                      @                                                   @
+                     @ @                                                 @ @
+                    @   @                                               @   @
+                   @ @ @ @                                             @ @ @ @
+                          @                                           @
+                         @ @                                         @ @
+                        @   @                                       @   @
+                      @   @           @   @           @   @           @   @
+                     @ @ @ @         @ @ @ @         @ @ @ @         @ @ @ @
+                    @       @       @       @       @       @       @       @
+                   @ @     @ @     @ @     @ @     @ @     @ @     @ @     @ @
+                  ============================================================
+                  Please specify the number of steps
+                  -1
+                </code>
+              </pre>
+              <br>
+
+              <h5>Rule 30</h5>
+              <p class="card-text">
+                <a href="https://en.wikipedia.org/wiki/Rule_30">Rule 30</a> is also an interesting rule: the central
+                column displayed (i.e. the different states of the central cell over time) surprisingly exhibits
+                randomness. In fact, you can interpret this column as a bit stream and use it as a <em>pseudo-random
+                number generator</em>.
+              </p>
+              <pre data-line="3,5,7,9,29,49,69,89" class="line-numbers">
+                <code class="language-text">
+                  Elementary Cellular Automaton
+                  Please enter the rule number:
+                  30
+                  Please specify the initial state. 'R' for random generation, 'M' for manual input.
+                  M
+                  Please enter the number of cells alive in the initial state:
+                  1
+                  Please enter the column at which the cells are alive:
+                  30
+                  State of rule 30 after 0 steps:
+                  ============================================================
+                                                @
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  ============================================================
+                  Please specify the number of steps
+                  14
+                  State of rule 30 after 14 steps:
+                  ============================================================
+                                                @
+                                               @@@
+                                              @@  @
+                                             @@ @@@@
+                                            @@  @   @
+                                           @@ @@@@ @@@
+                                          @@  @    @  @
+                                         @@ @@@@  @@@@@@
+                                        @@  @   @@@     @
+                                       @@ @@@@ @@  @   @@@
+                                      @@  @    @ @@@@ @@  @
+                                     @@ @@@@  @@ @    @ @@@@
+                                    @@  @   @@@  @@  @@ @   @
+                                   @@ @@@@ @@  @@@ @@@  @@ @@@
+                                  @@  @    @ @@@   @  @@@  @  @
+                  ============================================================
+                  Please specify the number of steps
+                  30
+                  State of rule 30 after 30 steps:
+                  ============================================================
+                   @  @    @ @@@  @ @@ @ @  @@@@@ @  @@@@@@  @   @ @@   @  @
+                                @@  @   @@@  @@@@ @    @@@      @
+                               @@ @@@@ @@  @@@    @@  @@  @    @@@
+                              @@  @    @ @@@  @  @@ @@@ @@@@  @@  @
+                             @@ @@@@  @@ @  @@@@@@  @   @   @@@ @@@@
+                            @@  @   @@@  @@@@     @@@@ @@@ @@   @   @
+                           @@ @@@@ @@  @@@   @   @@    @   @ @ @@@ @@@
+                          @@  @    @ @@@  @ @@@ @@ @  @@@ @@ @ @   @  @
+                         @@ @@@@  @@ @  @@@ @   @  @@@@   @  @ @@ @@@@@@
+                        @@  @   @@@  @@@@   @@ @@@@@   @ @@@@@ @  @     @
+                       @@ @@@@ @@  @@@   @ @@  @    @ @@ @     @@@@@   @@@
+                      @@  @    @ @@@  @ @@ @ @@@@  @@ @  @@   @@    @ @@  @
+                     @@ @@@@  @@ @  @@@ @  @ @   @@@  @@@@ @ @@ @  @@ @ @@@@
+                    @@  @   @@@  @@@@   @@@@ @@ @@  @@@    @ @  @@@@  @ @   @
+                   @@ @@@@ @@  @@@   @ @@    @  @ @@@  @  @@ @@@@   @@@ @@ @@@
+                  ============================================================
+                  Please specify the number of steps
+                  100
+                  State of rule 30 after 100 steps:
+                  ============================================================
+                   @ @@@ @  @ @     @@@   @  @@@@@ @    @@@@  @@@@@@      @  @
+                   @ @   @@@@ @@   @@  @ @@@@@     @@  @@   @@@     @    @@@@@
+                   @ @@ @@    @ @ @@ @@@ @    @   @@ @@@ @ @@  @   @@@  @@
+                  @@ @  @ @  @@ @ @  @   @@  @@@ @@  @   @ @ @@@@ @@  @@@ @
+                  @  @@@@ @@@@  @ @@@@@ @@ @@@   @ @@@@ @@ @ @    @ @@@   @@ @
+                   @@@    @   @@@ @     @  @  @ @@ @    @  @ @@  @@ @  @ @@  @
+                   @  @  @@@ @@   @@   @@@@@@@@ @  @@  @@@@@ @ @@@  @@@@ @ @@@
+                   @@@@@@@   @ @ @@ @ @@        @@@@ @@@     @ @  @@@    @ @
+                  @@      @ @@ @ @  @ @ @      @@    @  @   @@ @@@@  @  @@ @@
+                  @ @    @@ @  @ @@@@ @ @@    @@ @  @@@@@@ @@  @   @@@@@@  @
+                  @ @@  @@  @@@@ @    @ @ @  @@  @@@@      @ @@@@ @@     @@@@@
+                   @@ @  @@@@  @@@@ @@  @@ @@@ @ @ @   @@@  @@ @  @@  @@@@@ @
+                  @@  @@@@   @@@    @ @@@  @   @ @ @@ @@  @@@  @@@@ @@@     @@
+                    @@@   @ @@  @  @@ @  @@@@ @@ @ @  @ @@@  @@@    @  @   @@
+                   @@  @ @@ @ @@@@@@  @@@@    @  @ @@@@ @  @@@  @  @@@@@@ @@ @
+                  ============================================================
+                  Please specify the number of steps
+                  -1
+                </code>
+              </pre>
+              <br>
+
+              <h5>Rule 110</h5>
+              <p class="card-text">
+                <a href="https://en.wikipedia.org/wiki/Rule_110">Rule 110</a> is the first rule proven to be
+                <em><a href="https://en.wikipedia.org/wiki/Turing_completeness">Turing-complete</a></em>, similar to
+                Conway's Game of Life. In other words, the patterns of 0s and 1s generated by rule 110 are in
+                principle able to simulate any type of calculation or computer program.
+              </p>
+              <pre data-line="3,5,7,9,29,49,69,89" class="line-numbers">
+                <code class="language-text">
+                  Elementary Cellular Automaton
+                  Please enter the rule number:
+                  110
+                  Please specify the initial state. 'R' for random generation, 'M' for manual input.
+                  M
+                  Please enter the number of cells alive in the initial state:
+                  1
+                  Please enter the column at which the cells are alive:
+                  30
+                  State of rule 110 after 0 steps:
+                  ============================================================
+                                                @
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  ============================================================
+                  Please specify the number of steps
+                  14
+                  State of rule 110 after 14 steps:
+                  ============================================================
+                                                @
+                                               @@
+                                              @@@
+                                             @@ @
+                                            @@@@@
+                                           @@   @
+                                          @@@  @@
+                                         @@ @ @@@
+                                        @@@@@@@ @
+                                       @@     @@@
+                                      @@@    @@ @
+                                     @@ @   @@@@@
+                                    @@@@@  @@   @
+                                   @@   @ @@@  @@
+                                  @@@  @@@@ @ @@@
+                  ============================================================
+                  Please specify the number of steps
+                  30
+                  State of rule 110 after 30 steps:
+                  ============================================================
+                  @@@  @@@@   @@@ @   @@      @@@
+                                @@@@@@@@ @@   @@@
+                               @@      @@@@  @@ @
+                              @@@     @@  @ @@@@@
+                             @@ @    @@@ @@@@   @
+                            @@@@@   @@ @@@  @  @@
+                           @@   @  @@@@@ @ @@ @@@
+                          @@@  @@ @@   @@@@@@@@ @
+                         @@ @ @@@@@@  @@      @@@
+                        @@@@@@@    @ @@@     @@ @
+                       @@     @   @@@@ @    @@@@@
+                      @@@    @@  @@  @@@   @@   @
+                     @@ @   @@@ @@@ @@ @  @@@  @@
+                    @@@@@  @@ @@@ @@@@@@ @@ @ @@@
+                   @@   @ @@@@@ @@@    @@@@@@@@ @
+                  ============================================================
+                  Please specify the number of steps
+                  100
+                  State of rule 110 after 100 steps:
+                  ============================================================
+                   @@@@@ @   @@@@@@@  @  @@ @@@@@   @@@ @@@@@ @  @@@@@   @@@
+                  @@   @@@  @@     @ @@ @@@@@   @  @@ @@@   @@@ @@   @  @@ @
+                  @@  @@ @ @@@    @@@@@@@   @  @@ @@@@@ @  @@ @@@@  @@ @@@@@ @
+                   @ @@@@@@@ @   @@     @  @@ @@@@@   @@@ @@@@@  @ @@@@@   @@@
+                  @@@@     @@@  @@@    @@ @@@@@   @  @@ @@@   @ @@@@   @  @@ @
+                     @    @@ @ @@ @   @@@@@   @  @@ @@@@@ @  @@@@  @  @@ @@@@@
+                    @@   @@@@@@@@@@  @@   @  @@ @@@@@   @@@ @@  @ @@ @@@@@   @
+                   @@@  @@        @ @@@  @@ @@@@@   @  @@ @@@@ @@@@@@@   @  @@
+                  @@ @ @@@       @@@@ @ @@@@@   @  @@ @@@@@  @@@     @  @@ @@@
+                   @@@@@ @      @@  @@@@@   @  @@ @@@@@   @ @@ @    @@ @@@@@
+                  @@   @@@     @@@ @@   @  @@ @@@@@   @  @@@@@@@   @@@@@   @
+                     @    @@ @ @@@ @@   @  @@ @@@@@   @   @@@@@ @@ @@@@@ @  @@
+                    @@   @@@@@@@ @@@@  @@ @@@@@   @  @@  @@   @@@@@@   @@@ @@@
+                   @@@  @@     @@@  @ @@@@@   @  @@ @@@ @@@  @@    @  @@ @@@ @
+                  @@ @ @@@    @@ @ @@@@   @  @@ @@@@@ @@@ @ @@@   @@ @@@@@ @@@
+                  ============================================================
+                  Please specify the number of steps
+                  -1
+                </code>
+              </pre>
+              <br>
+
+              <h5>Randomized example</h5>
+              <pre data-line="3,5,7,9,29,49,69" class="line-numbers">
+                <code class="language-text">
+                  Elementary Cellular Automaton
+                  Please enter the rule number:
+                  30
+                  Please specify the initial state. 'R' for random generation, 'M' for manual input.
+                  R
+                  Please enter the fill rate:
+                  1.2
+                  Invalid probability, please retry:
+                  0.7
+                  State of rule 30 after 0 steps:
+                  ============================================================
+                   @@@  @@@ @ @@@@@      @@  @  @@@@  @@@  @@@@ @ @@@@@@@@@ @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  ============================================================
+                  Please specify the number of steps
+                  1347
+                  State of rule 30 after 1347 steps:
+                  ============================================================
+                   @  @@@ @   @@@@  @@@   @      @ @   @    @@   @ @@@@@@ @@@@
+                   @@@@   @@ @@   @@@  @ @@@    @@ @@ @@@  @@ @ @@ @      @
+                  @@   @ @@  @ @ @@  @@@ @  @  @@  @  @  @@@  @ @  @@    @@@
+                  @ @ @@ @ @@@ @ @ @@@   @@@@@@@ @@@@@@@@@  @@@ @@@@ @  @@  @@
+                    @ @  @ @   @ @ @  @ @@       @        @@@   @    @@@@ @@@
+                   @@ @@@@ @@ @@ @ @@@@ @ @     @@@      @@  @ @@@  @@    @  @
+                   @  @    @  @  @ @    @ @@   @@  @    @@ @@@ @  @@@ @  @@@@@
+                   @@@@@  @@@@@@@@ @@  @@ @ @ @@ @@@@  @@  @   @@@@   @@@@
+                  @@    @@@        @ @@@  @ @ @  @   @@@ @@@@ @@   @ @@   @
+                  @ @  @@  @      @@ @  @@@ @ @@@@@ @@   @    @ @ @@ @ @ @@@ @
+                    @@@@ @@@@    @@  @@@@   @ @     @ @ @@@  @@ @ @  @ @ @   @
+                  @@@    @   @  @@ @@@   @ @@ @@   @@ @ @  @@@  @ @@@@ @ @@ @@
+                     @  @@@ @@@@@  @  @ @@ @  @ @ @@  @ @@@@  @@@ @    @ @  @
+                  @  @@ @@  @ @@@  @@@  @@  @  @ @@  @        @   @@ @@ @ @@ @
+                   @@@  @ @@@ @  @@@  @@@ @@@@@@ @ @@@@      @@@ @@  @  @ @  @
+                  ============================================================
+                  Please specify the number of steps
+                  42
+                  State of rule 30 after 42 steps:
+                  ============================================================
+                   @  @@     @@@ @@  @  @@ @@ @ @ @   @ @@ @ @@  @ @@ @@@@   @
+                   @@@@ @   @@   @ @@@@@@  @  @ @ @@ @@ @  @ @ @@@ @  @   @ @@
+                   @    @@ @@ @ @@ @     @@@@@@ @ @  @  @@@@ @ @   @@@@@ @@ @
+                  @@@  @@  @  @ @  @@   @@      @ @@@@@@@    @ @@ @@     @  @@
+                     @@@ @@@@@@ @@@@ @ @@ @    @@ @      @  @@ @  @ @   @@@@@
+                    @@   @      @    @ @  @@  @@  @@    @@@@@  @@@@ @@ @@    @
+                  @@@ @ @@@    @@@  @@ @@@@ @@@ @@@ @  @@    @@@    @  @ @  @@
+                      @ @  @  @@  @@@  @    @   @   @@@@ @  @@  @  @@@@@ @@@@
+                     @@ @@@@@@@ @@@  @@@@  @@@ @@@ @@    @@@@ @@@@@@     @   @
+                  @ @@  @       @  @@@   @@@   @   @ @  @@    @     @   @@@ @@
+                    @ @@@@     @@@@@  @ @@  @ @@@ @@ @@@@ @  @@@   @@@ @@   @
+                   @@ @   @   @@    @@@ @ @@@ @   @  @    @@@@  @ @@   @ @ @@@
+                   @  @@ @@@ @@ @  @@   @ @   @@ @@@@@@  @@   @@@ @ @ @@ @ @
+                    @ @@@@@@@ @@@ @   @ @@@ @ @ @@  @     @@@@  @@@ @ @@@  @@
+                   @@ @       @   @@ @@ @   @ @ @ @@@@   @@   @@@   @ @  @@@ @
+                  ============================================================
+                  Please specify the number of steps
+                  -1
+                </code>
+              </pre>
+              <br>
+
+              <h5>Multiple initial alive cells</h5>
+              <p class="card-text">
+                Note that multiple positions can be entered on the same line separated by space (see line 15 below),
+                instead of entering line by line.
+              </p>
+              <pre data-line="3,5,7,9,11,13,15,16,18,38,58,78" class="line-numbers">
+                <code class="language-text">
+                  Elementary Cellular Automaton
+                  Please enter the rule number:
+                  30
+                  Please specify the initial state. 'R' for random generation, 'M' for manual input.
+                  M
+                  Please enter the number of cells alive in the initial state:
+                  -1
+                  Invalid number of living cells, please retry:
+                  100
+                  Invalid number of living cells, please retry:
+                  10
+                  Please enter the column at which the cells are alive:
+                  -2
+                  Column out of bound
+                  1 23 24 17 3 9 10 49 56
+                  24
+                  Column duplicated
+                  39
+                  State of rule 30 after 0 steps:
+                  ============================================================
+                   @ @     @@      @     @@              @         @      @
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  ============================================================
+                  Please specify the number of steps
+                  100
+                  State of rule 30 after 100 steps:
+                  ============================================================
+                  @  @@ @@@@  @@  @@ @@@@   @@@@@@ @@  @@@@@ @@   @   @@@ @ @@
+                   @@@  @   @@@ @@@  @   @ @@      @ @@@     @ @ @@@ @@   @ @
+                  @@  @@@@ @@   @  @@@@ @@ @ @    @@ @  @   @@ @ @   @ @ @@ @@
+                    @@@    @ @ @@@@@    @  @ @@  @@  @@@@@ @@  @ @@ @@ @ @  @
+                   @@  @  @@ @ @    @  @@@@@ @ @@@ @@@     @ @@@ @  @  @ @@@@@
+                   @ @@@@@@  @ @@  @@@@@     @ @   @  @   @@ @   @@@@@@@ @
+                  @@ @     @@@ @ @@@    @   @@ @@ @@@@@@ @@  @@ @@       @@
+                  @  @@   @@   @ @  @  @@@ @@  @  @      @ @@@  @ @     @@ @ @
+                   @@@ @ @@ @ @@ @@@@@@@   @ @@@@@@@    @@ @  @@@ @@   @@  @ @
+                   @   @ @  @ @  @      @ @@ @      @  @@  @@@@   @ @ @@ @@@ @
+                   @@ @@ @@@@ @@@@@    @@ @  @@    @@@@@ @@@   @ @@ @ @  @   @
+                  @ @ @@@@@@@  @  @ @@@ @@ @    @  @     @@ @@@@ @   @  @@ @ @
+                    @ @      @@@@@@ @   @  @@  @@@@@@   @@  @    @@ @@@@@  @ @
+                  @@@ @@    @@      @@ @@@@@ @@@     @ @@ @@@@  @@  @    @@@ @
+                      @ @  @@ @    @@  @     @  @   @@ @  @   @@@ @@@@  @@   @
+                  ============================================================
+                  Please specify the number of steps
+                  7
+                  State of rule 30 after 7 steps:
+                  ============================================================
+                   @ @     @@      @     @@              @         @      @
+                  @@ @@   @@ @    @@@   @@ @            @@@       @@@    @@@
+                  @  @ @ @@  @@  @@  @ @@  @@          @@  @     @@  @  @@  @@
+                   @@@ @ @ @@@ @@@ @@@ @ @@@ @        @@ @@@@   @@ @@@@@@ @@@
+                  @@   @ @ @   @   @   @ @   @@      @@  @   @ @@  @      @  @
+                    @ @@ @ @@ @@@ @@@ @@ @@ @@ @    @@ @@@@ @@ @ @@@@    @@@@@
+                  @@@ @  @ @  @   @   @  @  @  @@  @@  @    @  @ @   @  @@
+                  @   @@@@ @@@@@ @@@ @@@@@@@@@@@ @@@ @@@@  @@@@@ @@ @@@@@ @  @
+
+
+
+
+
+
+
+                  ============================================================
+                  Please specify the number of steps
+                  -1
+                </code>
+              </pre>
+              <br>
+            </div>
+
+            <div class="card-footer text-muted">
+              End of Resources &amp; Sample I/O
+            </div>
+          </div>
+
+          <!-- Grading scheme section -->
+          <!-- ### Complete grading section for the lab ### -->
+          <div class="card mb-4">
+            <div class="card-body" id="grading">
+              <h3 class="card-title">Submission &amp; Grading</h3>
+              <ul>
+                <li><strong>Deadline: Friday, 1<sup>st</sup> October 2021 23:59.</strong></li>
+                <li>
+                  You may earn 1 point for each lab via Automated Grading on the
+                  <a href="https://zinc.cse.ust.hk/">ZINC Online Submission System</a>.
+                </li>
+                <li>
+                  Please check <a href="https://course.cse.ust.hk/comp2012h/zinc-submission/">here</a> for a usage
+                  overview of ZINC.</li>
+                <li>
+                  Rename your source file as <code class="language-text">lab2.cpp</code> and zip it as
+                  <code class="language-text">lab2.zip</code> for submission to ZINC.
+                  <ul>
+                    <li>
+                      You need to name your source file as <code class="language-text">lab2.cpp</code> otherwise ZINC
+                      cannot find the file.
+                    </li>
+                    <li>
+                      <a href="https://www.laptopmag.com/articles/how-to-zip-files-windows-10">How to create a zip
+                        file in Windows 10.</a>
+                    </li>
+                    <li>
+                      <a href="http://osxdaily.com/2012/01/10/how-to-zip-files-in-mac-os-x/">How to create a zip file
+                        in macOS.</a>
+                    </li>
+                    <li>
+                      <font color="red">Just zip <code class="language-text">lab2.cpp</code>, not a folder containing
+                        <code class="language-text">lab2.cpp</code>.</font>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <div class="card-footer text-muted">
+              End of Submission &amp; Grading
+            </div>
+          </div>
+
+          <!-- Frequently asked questions section -->
+          <!-- ### Complete frequently asked questions section for the lab ### -->
+          <!--<div class="card mb-4">
+            <div class="card-body" id="faq">
+              <h3 class="card-title">Frequently Asked Questions</h3>
+              <p class="card-text">
+                <span style="font-weight:bold">Q</span>:<br/>
+                <span style="font-weight:bold">A</span>:<br/>
+              </p>
+            </div>
+            <div class="card-footer text-muted">
+              End of Frequently Asked Questions
+            </div>
+          </div>-->
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-3">
+          <div class="sticky-top">
+            <!-- Menu Widget -->
+            <div class="card my-12">
+              <h5 class="card-header">Menu</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="mb-0" type="circle" style="padding-left:20px">
+                      <li>
+                        <a href="#review">Review</a>
+                      </li>
+                      <li>
+                        <a href="#introduction">Introduction</a>
+                      </li>
+                      <li>
+                        <a href="#labwork">Lab Work</a>
+                      </li>
+                      <li>
+                        <a href="#resources">Resources &amp; Sample I/O</a>
+                      </li>
+                      <li>
+                        <a href="#grading">Submission &amp; Grading</a>
+                      </li>
+                      <!--<li>
+                        <a href="#faq">FAQs</a>
+                      </li>-->
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Maintainance widget -->
+            <div class="card my-4">
+              <h5 class="card-header">Page maintained by</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        Hong Wing PANG
+                      </li>
+                      <li>
+                        (<a href="mailto:hwpang@connect.ust.hk">hwpang@connect.ust.hk</a>)
+                      </li>
+                      <li>
+                        Last Modified:
+                      </li>
+                      <li>
+                        <script type="text/javascript">document.write(document.lastModified);</script>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Homepage widget -->
+            <div class="card my-4">
+              <h5 class="card-header">Homepage</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        <a href="http://course.cse.ust.hk/comp2012h">Course Homepage</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Maintained by COMP 2012H Teaching Team &copy; 2021 HKUST Computer Science and Engineering</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  </body>
+
+</html>

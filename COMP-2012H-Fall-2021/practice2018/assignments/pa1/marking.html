@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- ### Change assignment number ### -->
+<title>COMP 2012H Assignment 1: Grade checking and appeal</title>
+
+<!-- Bootstrap core CSS -->
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="css/blog-home.css" rel="stylesheet">
+
+<!-- Prism syntax highlighter -->
+<link href="prism.css" rel="stylesheet" />	
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+</head>
+
+<body>
+<script src="prism.js"></script>
+
+<!-- Page Content -->	
+<div class="container">
+
+<div class="row">
+
+<!-- Entries Column -->
+<div class="col-md-9">
+
+<h2 class="my-4"><span style="color:darkblue">COMP 2012H</span>
+<small>Honors Object-Oriented Programming and Data Structures</small>
+</h2>
+
+<!-- ### Change assignment number and title ### -->
+<h3 class="my-4">Assignment 1
+<span style="color:#660066">Grade checking and appeal</span>
+</h3>
+
+<!-- Introduction section -->
+
+<div class="card mb-4">
+<div class="card-body" id="introduction">
+<h3 class="card-title">Introduction</h3>
+<p class="card-text">
+<ol>
+  <li>Check your assignment 1 grade and remarks <a href="https://course.cse.ust.hk/comp2012h/assignments/pa1/remarks.html">HERE</a>. It also shows you which test cases you failed and why marks were deducted.</li>
+  <li>If you want to appeal your grade, you MUST first read everything on this page, follow all the procedures, and try the test cases yourself. Your appeal will not be processed if you don't follow this rule.</li>
+  <li>Uninitialized variables will have garbage (random) values in C++. Sometimes it will be 0, sometimes it will not. In that case, your program may generate different results on different machines or different runs if your logic depend on an uninitialized value. If you assumed them to be 0 or something specific (e.g. a very large value), your code is faulty and will get random results.</li>
+  <li>If your function doesn't have a return statement for some cases, the returned value is undefined / can be random for those cases.</li>
+  <li>Retrieving values from deleted/unallocated dynamic memory block may not always crash your program but may give random values.</li>
+  <li>Runtime errors and crashes due to incorrect memory access / memory allocation / memory deallocation / missing variable initialization / missing return values / out-of-bound array access / etc. may not occur all the time on all machines. However, even you may not encounter the error/crash when you test your program, if your program crashes during any of our testing on some machine, the corresponding test cases will be considered as failed and will receive 0 marks as your code is indeed faulty.</li>
+  <li>If the remarks say that your test case output is empty ("") or a potential runtime error occurred, it is very likely that a runtime error happened when we tested your program for that test case in some machine. Refer to the previous comments for possible causes. Verify your code to make sure they aren't faulty and won't produce any runtime error before you appeal those cases. Compare your solution with the sample solution yourself if needed, but please understand that it is not feasible for us to review all the assignment code of everyone to point out where all the subtle bugs are. We can run the test cases again for you (after you have verified them yourself), but all grading shall be done objectively in an automatic and consistent way. However, if your program crashed or give unreliable results, it is guaranteed that the problem is somewhere in your code, and marks will be deducted.</li>
+  <li>If you passed zero test cases on some Task, it may well mean that I comment out the testing for this Task since it causes segmentation fault or gets stuck over several hours. Feel free to contact us to ensure what is your case.</li>
+  <li>Our official assignment compilation environment is Eclipse and it is mentioned in the assignment instruction that "It is required that your program can be compiled and run successfully in the pre-installed Eclipse environment on our lab machines.". Also it is explicitly mentioned that "When we do the grading, we will provide our header files, <code>grader.h</code>, and <code>main.cpp</code>. Therefore, it is very important for you to make sure that your program can compile with those files in their original unmodified states."</li>
+  <li>If you are certain that there is a grading mistake after reading this whole page and checking with the test cases, email to <a href="mailto:ghuac@connect.ust.hk">ghuac@connect.ust.hk</a> with the following information. <span style="font-weight:bold">Appeals with incomplete information will not be processed</span>.
+  <ul>
+    <li>Email subject needs to be "COMP 2012H PA1 Appeal"</li>
+	<li>Email body contains all of the following:
+		<ul>
+			<li>Your full name as shown on your student ID card</li>
+			<li>Your student ID number</li>
+			<li>Your CSD username</li>
+			<li>Test cases for which you want to appeal.</li>
+			<li>Justification and any information that is helpful for your appeal case:<br/>
+			e.g. I tried the test cases 1, 3, 5 in the official assignment compilation environment (the pre-installed Eclipse in L drive on a lab machine) and my program could successfully compile, produce the exact output as the model answer without any runtime error. I have also verified that my code doesn't have any uninitialized variables, out-of-bound array access, or improper use of dynamic memory.</li>
+		</ul>
+  </ul>
+  </li>
+  <li>Do not attach any .exe/executable file in the email.</li>
+  <!--<li>Appeal deadline is <span style="font-weight:bold">October 22 (Monday) 12:00noon. No late appeals 
+will be processed.</span></li>-->
+  <li>Appeal deadline is <span style="font-weight:bold">November 25 (Sunday) 1:00pm. No late appeals will be 
+processed.</li>
+  <li>Due to the large number of students that we have, please allow up to 48 hours for your appeal email to be processed and replied. If you do not receive a reply in 48 hours, please re-send your email.</li>
+  <li>Finalized scores will be uploaded to canvas after all appeals are processed.</li>
+</ol>
+</div>
+<div class="card-footer text-muted">
+End of Introduction
+</div>
+</div>
+
+
+
+<div class="card mb-4">
+<div class="card-body" id="scheme">
+<h3 class="card-title">Marking scheme</h3>
+<p class="card-text">
+There are total 130 test cases for 7 tasks. 
+<ol>
+<li>Task 1 has 10 tests in total.</li>
+<li>Task 2 has 20 tests in total.</li>
+<li>Task 3 has 20 tests in total.</li>
+<li>Task 4 has 20 tests in total for two subtasks.</li>
+<li>Task 5 has 20 tests in total.</li>
+<li>Task 6 has 20 tests in total.</li>
+<li>Task 7 has 20 tests in total.</li>
+</ol> 
+One typical test example is as follows：
+<pre style='color:#000000;background:#ffffff;'>
+<span style='color:#800000; font-weight:bold; '>
+Task 1: input_is_valid()
+------------------------
+10 tests, 10 passed.
+
+Task 2: edit_cell()
+------------------------
+20 tests, 18 passed.
+
+Task 3: remove_cell()
+------------------------
+20 tests, 20 passed.
+
+Task 4: gameover()
+------------------------
+Subtask 1: Gameover
+10 tests, 10 passed.
+
+Subtask 2: Game not over
+10 tests, 10 passed.
+
+Task 5: sudoku_solver()
+------------------------
+20 tests, 20 passed.
+
+Task 6: generate_board()
+------------------------
+20 tests, 20 passed.
+
+Task 7: generate_unique_puzzle() 
+------------------------
+20 tests, 20 passed.
+
+------------------------
+Total Score: 128 / 130 = 98.46 %
+</span>
+</pre>
+For exactly how each test case is performed, please refer to the testing main function which can be found in the next section together with the testing instructions.
+</p>
+</div>
+<div class="card-footer text-muted">
+End of Marking scheme
+</div>
+</div>
+
+
+
+
+<div class="card mb-4">
+<div class="card-body" id="cases">
+<h3 class="card-title">Trying the test cases</h3>
+<p class="card-text">
+<ul>
+<li>Use our official compilation environment (i.e. Windows Eclipse in the lab machines)</li>
+<li>Create a standard C++ project that uses the MinGW compiler</li>
+<li>Download and extract the files in <a href="test-package.zip">this TEST package (main.cpp,grader.h,grid.txt)</a>. </li>
+<li>Add all the extracted files to the project</li>
+<li>Add your own <code>todo.cpp </code> to the project</li>
+<li>Compile and run</li>
+<li>Check the output and read the code of each test case to understand what is being tested. You may find the expected output by printing out the result of the grader function for Task1-5. For Task 6-7, checking the functions <code>valid_grid</code> and <code>count_solution</code> respectively</a>.</li>
+</ul> 
+<p>
+Read all assignment instructions again before appeal if you disagree with any of the expected output.
+</div>
+<div class="card-footer text-muted">
+End of Trying the test cases
+</div>
+</div>
+
+
+
+<div class="card mb-4">
+<div class="card-body" id="solution">
+<h3 class="card-title">Sample solution</h3>
+<p class="card-text">
+A sample solution can be downloaded in the above <a href="test-package.zip">TEST package (see the grader.h)</a> for your reference.
+<p>
+</div>
+<div class="card-footer text-muted">
+End of Sample solution
+</div>
+</div>
+
+
+
+<div class="card mb-4">
+<div class="card-body" id="stats">
+<h3 class="card-title">Stats (for submitted works only)</h3>
+<p class="card-text">
+<!--Mean = 85.94; SD = 24.54-->
+Total = 130.00; Mean = 116.54; SD = 24.49<br/>
+Normalized to 100.0; Mean = 89.65; SD = 18.84
+
+
+<p>
+</div>
+<div class="card-footer text-muted">
+End of Stats
+</div>
+</div>
+
+
+<div class="card mb-4">
+<div class="card-body" id="note">
+<h3 class="card-title">Note</h3>
+<p class="card-text">
+<br/> We will perform plagiarism checking at a later time and marks could be adjusted for those who are caught.<p>
+</div>
+<div class="card-footer text-muted">
+End of Note
+</div>
+</div>
+
+
+
+
+</div>
+
+<!-- Sidebar Widgets Column -->
+<div class="col-md-3">
+<!-- Menu Widget -->
+<div class="card my-12">
+<h5 class="card-header">Menu</h5>
+<div class="card-body">
+<div class="row">
+<div class="col-lg-12">
+  <ul class="mb-0" type="circle" style="padding-left:20px">
+	<li>
+	  <a href="#introduction">Introduction</a>
+	</li>
+	<li>
+	  <a href="#scheme">Marking scheme </a>
+	</li>
+	<li>
+	  <a href="#cases">Trying the test cases</a>
+	</li>
+	<li>
+	  <a href="#solution">Sample solution</a>
+	</li>
+	<li>
+	  <a href="#stats">Stats (for submitted works only)</a>
+	</li>
+	<li>
+	  <a href="#note">Note</a>
+	</li>
+  </ul>
+</div>                
+</div>
+</div>
+</div>
+
+<!-- Maintainance widget -->
+<div class="card my-4">
+<h5 class="card-header">Page maintained by</h5>
+<div class="card-body">
+<div class="row">
+<div class="col-lg-12">
+  <ul class="list-unstyled mb-0">
+	<li>
+	  HU, Guangneng
+	</li>
+	<li>
+	  Email: <a href="mailto:ghuac@connect.ust.hk">ghuac@connect.ust.hk</a>
+	</li>
+	<li>Last Modified: <script type="text/javascript">document.write(document.lastModified);</script></li>
+  </ul>
+</div>				
+</div>
+</div>
+</div>
+
+
+<!-- Homepage widget -->
+<div class="card my-4">
+<h5 class="card-header">Homepage</h5>
+<div class="card-body">
+<div class="row">
+<div class="col-lg-12">
+  <ul class="list-unstyled mb-0">
+	<li>
+	  <a href="http://course.cse.ust.hk/comp2012h">Course Homepage</a>
+	</li>
+  </ul>
+</div>				
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+<div class="container">
+<p class="m-0 text-center text-white">Maintained by COMP 2012H Teaching Team &copy; 2018 HKUST Computer Science and Engineering</p>
+</div>
+<!-- /.container -->
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>	
+</body>
+
+</html>

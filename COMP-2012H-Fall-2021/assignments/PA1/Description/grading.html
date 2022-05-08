@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- ### Change assignment number ### -->
+    <title>COMP 2012H Assignment 1: Grade Appeal</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="comp2012h_pa1_files/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="comp2012h_pa1_files/blog-home.css" rel="stylesheet">
+	
+    <!-- Prism syntax highlighter -->
+    <link href="comp2012h_pa1_files/prism.css" rel="stylesheet">
+
+		<style>
+			pre {
+				background: #f4f4f4 !important;
+				border: 1px solid #ddd !important;
+				border-left: 3px solid #f36d33 !important;
+				color: #666 !important;
+				page-break-inside: avoid !important;
+				font-family: monospace !important;
+				font-size: 14px !important;
+				line-height: 1.6 !important;
+				margin-bottom: 1.6em !important;
+				max-width: 100% !important;
+				overflow: auto !important;
+				padding: 1em 1.5em !important;
+				display: block !important;
+				word-wrap: break-word !important;
+			}
+
+			table, th, td {
+				border: 1px solid black;
+			}
+			th, td {
+				padding: 5px;
+			}
+			th {
+				text-align: left;
+			}
+    </style>
+    <link rel="stylesheet" type="text/css" href="comp2012h_pa1_files/prettify.css">
+  	<script src="comp2012h_pa1_files/prompt.js"></script>
+	</head>
+
+  <body data-new-gr-c-s-check-loaded="8.880.0" data-gr-ext-installed="">
+    <script src="comp2012h_pa1_files/prism.js"></script>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Entries Column -->
+        <div class="col-md-9">
+
+          <h2 class="my-4">
+            <span style="color:darkblue">COMP 2012H</span>
+            <small>Honors Object-Oriented Programming and Data Structures</small>
+          </h2>
+
+          <!-- ### Change assignment number and title ### -->
+          <h3 class="my-4">
+            Assignment 1 
+            <span style="color:#660066">Grade Appeal</span>
+          </h3>
+
+					<!-- Introduction section -->
+					<!-- ### Complete introduction section for the assignment ### -->
+					<div class="card mb-4">
+						<div class="card-body" id="introduction">
+							<h3 class="card-title">Introduction</h3>
+							<p class="card-text">
+								Check the Assignment 1 grade on the <a href="https://zinc.cse.ust.hk/">ZINC Online Submission
+								System</a>. There are 20 test cases in total, each worth 5%. For example. a score of 20/20 on ZINC
+								means full marks for Assignment 1. Your submission record will state all test case failures (if any).
+							</p>
+							<p class="card-text">
+								While there are multiple grading records on ZINC, only the latest one will count as the score for
+								your submission; you can ignore other previous records.
+							</p>
+							<p class="card-text">
+								For grade appeals, please follow the listed procedure below. Appeals with incomplete information
+								and/or not following the listed procedure will not be processed:
+							</p>
+							<ol>
+								<li>
+									Read the list of common errors and appeal cases, and follow their sub-instructions (if applicable).
+								</li>
+								<li>
+									No partial credit within a test-case. Each test-case is only a binary 0% for failed or 5% for passed.
+								</li>
+								<li>
+									Send an email to the TA in-charge with the subject header "COMP2012H PA1 Grade Appeal".
+								</li>
+								<li>
+									State which test-case(s) you wish to appeal (refer to the list in the section below). Clearly state
+									your reasoning for why your code should have passed those test-case(s).
+								</li>
+								<li>
+									You may propose changes to your source code. Attach your code snippet with the proposed changes in
+									your email. However, such changes are subject to a grade deduction at the discretion of the TA
+									in-charge, proportional to the magnitude of change, with a 5% deduction being the minimum.
+								</li>
+								<li>
+									DO NOT attach any .exe/executable file(s) in your email.
+								</li>
+								<li>
+									Appeal deadline is <strong>14 October 2021 Thursday 23:59 HKT</strong>. No late appeals will be
+									processed.
+								</li>
+								<li>
+									Finalized scores will be uploaded to Canvas after all appeals are processed.
+								</li>
+							</ol>
+							<p class="card-text">
+								Below is a list of common errors and situations for COMP2012H assignments in general:
+							</p>
+							<ul>
+								<li>
+									Uninitialized variables will have garbage (random) values in C++. Sometimes it will be 0, sometimes
+									it will not. In that case, your program may generate different results on different machines or
+									different runs if your logic depend on an uninitialized value. If you have assumed them to be 0 or
+									something specific (e.g. a very large value), your code is faulty and will get random results.
+								</li>
+								<li>
+									Retrieving values from deleted/unallocated dynamic memory, or index out-of-bounds, may not always
+									crash your program but may give random values.
+								</li>
+								<li>
+									Compilation errors will result in 0 marks for this assignment. This should not occur as revealed
+									test cases were already provided to test your code on ZINC. Exceptions will only be given for
+									compilation errors that are the fault of the TA's testing code.
+								</li>
+								<li>
+									Runtime errors and crashes due to incorrect memory access, memory allocation, memory deallocation,
+									missing variable initialization, missing return values, out-of-bound array access, etc. may not
+									occur all the time on all machines. However, even though you may not encounter the error/crash when
+									you test your program, if your program crashes during any of the test cases on ZINC, the
+									corresponding test cases will be considered as incorrect and will receive 0 marks.
+								</li>
+								<li>
+									Runtime crashes due to the reasons above or due to timeouts (infinite loop / infinite recursion /
+									runtime taking too long) will only be regraded if you can debug, fix, and report it in your email
+									appeal with attached code snippet. The corresponding test-case(s) where the runtime crash occurred
+									will still be considered as incorrect and will receive 0 marks, but you can recover your marks for
+									the rest of the test-cases.
+								</li>
+							</ul>
+							<br>
+
+						</div>
+						<div class="card-footer text-muted">
+							End of Introduction
+						</div>
+					</div>
+
+          <div class="card mb-4">            
+            <div class="card-body" id="test-cases">
+              <h3 class="card-title">Solution & Test Cases</h3>
+							<p class="card-text">
+								Below are the solution code and test cases used for grading. Each test case checks the correctness of
+								one	of the five functions that you have implemented in the assignment. When testing with these cases,
+								you will need to edit your existing code to pass in the input parameters and run the target function
+								alone.
+							</p>
+							<ul>
+								<li>
+									<b>Solution code</b> - <a href="../Resources/PA1_Solution.zip">PA1_Solution.zip</a>
+								</li>
+								<li>
+									<b>Case 1</b> - <code>swapTiles</code> (<a href="../Resources/cases/01_map.txt">Map Input</a> /
+									<a href="../Resources/cases/01_in.json">Other Inputs</a> /
+									<a href="../Resources/cases/01_out.json">Output</a>)
+								</li>
+								<li>
+									<b>Case 2</b> - <code>swapTiles</code> (<a href="../Resources/cases/02_map.txt">Map Input</a> /
+									<a href="../Resources/cases/02_in.json">Other Inputs</a> /
+									<a href="../Resources/cases/02_out.json">Output</a>)
+								</li>
+								<li>
+									<b>Case 3</b> - <code>findMatches</code> (<a href="../Resources/cases/03_map.txt">Map Input</a> /
+									<a href="../Resources/cases/03_out.json">Output</a>)
+								</li>
+								<li>
+									<b>Case 4</b> - <code>findMatches</code> (<a href="../Resources/cases/04_map.txt">Map Input</a> /
+									<a href="../Resources/cases/04_out.json">Output</a>)
+								</li>
+								<li>
+									<b>Case 5</b> - <code>processMatches</code> (<a href="../Resources/cases/05_map.txt">Map Input</a> /
+									<a href="../Resources/cases/05_out.json">Output</a>)
+								</li>
+								<li>
+									<b>Case 6</b> - <code>processMatches</code> (<a href="../Resources/cases/06_map.txt">Map Input</a> /
+									<a href="../Resources/cases/06_out.json">Output</a>)
+								</li>
+								<li>
+									<b>Case 7</b> - <code>processMatches</code> (<a href="../Resources/cases/07_map.txt">Map Input</a> /
+									<a href="../Resources/cases/07_out.json">Output</a>)
+								</li>
+								<li>
+									<b>Case 8</b> - <code>processMatches</code> (<a href="../Resources/cases/08_map.txt">Map Input</a> /
+									<a href="../Resources/cases/08_out.json">Output</a>)
+								</li>
+								<li>
+									<b>Case 9</b> - <code>considerMoves</code> (<a href="../Resources/cases/09_map.txt">Map Input</a> /
+									<a href="../Resources/cases/09_out.json">Output</a>)
+								</li>
+								<li>
+									<b>Case 10</b> - <code>considerMoves</code> (<a href="../Resources/cases/10_map.txt">Map Input</a> /
+									<a href="../Resources/cases/10_out.json">Output</a>)
+								</li>
+								<li>
+									<b>Case 11</b> - <code>considerMoves</code> (<a href="../Resources/cases/11_map.txt">Map Input</a> /
+									<a href="../Resources/cases/11_out.json">Output</a>)
+								</li>
+								<li>
+									<b>Case 12</b> - <code>considerMoves</code> (<a href="../Resources/cases/12_map.txt">Map Input</a> /
+									<a href="../Resources/cases/12_out.json">Output</a>)
+								</li>
+								<li>
+									<b>Case 13</b> - <code>considerMoves</code> (<a href="../Resources/cases/13_map.txt">Map Input</a> /
+									<a href="../Resources/cases/13_out.json">Output</a>)
+								</li>
+								<li>
+									<b>Case 14</b> - <code>considerMoves</code> (<a href="../Resources/cases/14_map.txt">Map Input</a> /
+									<a href="../Resources/cases/14_out.json">Output</a>)
+								</li>
+								<li>
+									<b>Case 15</b> - <code>solver</code> (<a href="../Resources/cases/15_map.txt">Map Input</a> /
+									<a href="../Resources/cases/15_out.json">Output</a>)
+								</li>
+								<li>
+									<b>Case 16</b> - <code>solver</code> (<a href="../Resources/cases/16_map.txt">Map Input</a> /
+									<a href="../Resources/cases/16_out.json">Output</a>)
+								</li>
+								<li>
+									<b>Case 17</b> - <code>solver</code> (<a href="../Resources/cases/17_map.txt">Map Input</a> /
+									<a href="../Resources/cases/17_out.json">Output</a>)
+								</li>
+								<li>
+									<b>Case 18</b> - <code>solver</code> (<a href="../Resources/cases/18_map.txt">Map Input</a> /
+									<a href="../Resources/cases/18_out.json">Output</a>)
+								</li>
+								<li>
+									<b>Case 19</b> - <code>solver</code> (<a href="../Resources/cases/19_map.txt">Map Input</a> /
+									<a href="../Resources/cases/19_out.json">Output</a>)
+								</li>
+								<li>
+									<b>Case 20</b> - <code>solver</code> (<a href="../Resources/cases/20_map.txt">Map Input</a> /
+									<a href="../Resources/cases/20_out.json">Output</a>)
+								</li>
+							</ul>
+            </div>            
+						<div class="card-footer text-muted">
+              End of Solution & Test Cases
+            </div>
+          </div>
+				</div>
+				
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-3">
+		  		<div class="sticky-top">
+            <!-- Menu Widget -->
+            <div class="card my-12">
+              <h5 class="card-header">Menu</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="mb-0" style="padding-left:20px" type="circle">
+											<li>
+											<a href="#introduction">Introduction</a>
+											</li>
+											<li>
+												<a href="#test-cases">Solution & Test Cases</a>
+											</li>
+                    </ul>
+                  </div>                
+                </div>
+              </div>
+            </div>
+		  
+		    <!-- Maintenance widget -->
+            <div class="card my-4">
+              <h5 class="card-header">Page maintained by</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        Hong Wing PANG
+                      </li>
+                      <li>
+                        Email: <a href="mailto:hwpang@connect.ust.hk">hwpang@connect.ust.hk</a>
+                      </li>
+					  <li>Last Modified: <script type="text/javascript">document.write(document.lastModified);</script></li>
+                    </ul>
+                  </div>				
+                </div>
+              </div>
+            </div>
+		  
+		  
+		    <!-- Homepage widget -->
+            <div class="card my-4">
+              <h5 class="card-header">Homepage</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        <a href="http://course.cse.ust.hk/comp2012h">Course Homepage</a>
+                      </li>
+                    </ul>
+                  </div>				
+                </div>
+              </div>
+            </div>
+		  </div>
+        </div>
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Maintained by COMP 2012H Teaching Team © 2021 HKUST Computer Science
+					and Engineering</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="comp2012h_pa1_files/jquery.js"></script>
+    <script src="comp2012h_pa1_files/bootstrap.js"></script>	
+  
+
+
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>

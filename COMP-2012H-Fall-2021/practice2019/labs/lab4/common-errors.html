@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<!-- ### Change lab number ### -->
+    <title>COMP 2012H Lab 4: Common Errors</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/blog-home.css" rel="stylesheet">
+	
+	<!-- Prism syntax highlighter -->
+	<link href="prism.css" rel="stylesheet" />
+
+	  <style>
+		  #review img {
+			  width: 600px;
+		  }
+	  </style>
+  </head>
+
+  <body>
+    <script src="prism.js"></script>
+	
+    <!-- Page Content -->	
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Entries Column -->
+        <div class="col-md-12">
+
+          <h2 class="my-4"><span style="color:darkblue">COMP 2012H</span>
+            <small>Honors Object-Oriented Programming and Data Structures</small>
+          </h2>
+		  
+		  <!-- ### Change lab number and title ### -->
+		  <h3 class="my-4">Lab 4
+            <span style="color:#660066">Class, Object, Constructor, Destructor, and Linked List</span>
+          </h3>
+
+			<!-- setting up eclipse section -->
+			<!-- ### Complete introduction section for the lab ### -->
+			<div class="card mb-4">
+
+				<div class="card-body" id="eclipse">
+					<h3 class="card-title">Common Errors</h3>
+					<p class="card-text">
+					<ol>
+					  <li>Linked List traversal errors in <code>Course</code> member functions:
+						<ul>
+							<li><code>for (Node* curr = student_list.get_head(); curr != nullptr; … )</code> which means that the contents of sentinel is also checked.</li>
+							<li><code>for (Node* curr = student_list.get_head(); curr->next != nullptr; … ) </code> which means that the last value is omitted.</li>
+							<li><code>for (Node* curr = student_list.get_head(); curr != nullptr; … ) { if (curr->next->content == … ) }</code> which will dereference <code>nullptr</code> after the last node.</li>
+						</ul>
+					  </li>
+					  <br/>
+					  <li>Forgetting to increment/decrement <code>size</code>.</li>
+					  <br/>
+					  <li>Forgetting to update <code>tail</code> in <code>remove()</code> when removing the last node for the singly linked list.</li>
+					  <br/>
+					  <li>Technically correct but redundant code:
+						<ul>
+							<li>Traversing the linked list from <code>head</code> until finding the node with the same content as <code>del</code> or <code>prev</code>, instead of using the given nodes directly in the function arguments of <code>remove()</code> and <code>insert()</code>.</li>
+							<li>Traversing the linked list to count the number of nodes for <code>get_enrolled()</code> and <code>get_waitlisted()</code> instead of directly using <code>get_size()</code>.</li>
+							<li>Maintaining <code>tail</code> in the circular doubly linked list instead of just using <code>sentinel->prev</code>.</li>
+							<li>Not correctly using the sentinel in circular doubly linked list during <code>insert()</code> and <code>remove()</code>; still checking for special cases such as inserting first node and removing last node.</li>
+						</ul>
+					  </li>
+					  <br/>
+					  <li>Forgetting to make the linked list actually circular and doubly linked for the bonus task. 
+					  Especially, forgetting to initialize <code>sentinel</code> to circularly and doubly point to itself from the very beginning (<code>sentinel->prev = sentinel->next = sentinel;</code>).</li>
+					</ol>
+				    </p>
+				</div>
+				<div class="card-footer text-muted">
+					End of Common Errors
+				</div>
+			</div>
+
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>	
+  </body>
+
+</html>

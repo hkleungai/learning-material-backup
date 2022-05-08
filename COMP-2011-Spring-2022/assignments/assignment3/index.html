@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>COMP2011 Assignment 3: File system and command-line</title>
+<!-- Bootstrap core CSS -->
+<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="../css/simple-sidebar.css" rel="stylesheet">
+<!-- For code highlighting -->
+<script src="./js/prism.js" type="text/javascript"></script>
+<link href="./css/prism.css" rel="stylesheet" />
+<style>
+table {
+  width: 100%;
+  display: inline-block;
+  overflow-x: auto;
+}
+
+table caption {
+  font-size: medium;
+}
+
+table thead th {
+  background-color: #ddd;
+}
+
+table th,
+table td {
+  text-align: left;
+  padding: 3px 6px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #aaa #aaa;
+}
+
+table tr:nth-child(even) {
+  background-color: #eee;
+}
+
+blockquote {
+  border: 1px solid #b3b3b3;
+  border-left: 10px solid #b3b3b3;
+  border-radius: 0px;
+  background: #fafafa;
+  font-size: 18px;
+  font-family: Georgia, serif;
+  margin: 10px;
+  padding: 10px 20px;
+}
+ 
+blockquote p {
+  margin: 0;
+  line-height: 30px;
+  padding-bottom: 20px;
+}
+ 
+blockquote.small {
+  display: block;
+  font-size: 80%;
+  color: brown;
+  text-align: right;
+}
+
+img.limit {
+  max-width: 100%
+}
+
+span.input {
+    color: #99cc99;
+}
+
+span.highlight {
+    color: #279ed9;
+}
+
+pre {
+    background: #f5f2f0;
+    padding: 15px;
+}
+
+</style>
+</head>
+
+<!--
+# How to auto indent HTML in vim
+:filetype indent on
+:set filetype=html           # abbrev -  :set ft=html
+:set smartindent             # abbrev -  :set si
+gg=G
+  -->
+<body class="language-none">
+<div class="d-flex" id="wrapper">
+  <!-- Sidebar -->
+  <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sticky-top">
+      <div class="sidebar-heading">Assignment 3</div>
+      <div class="list-group list-group-flush">
+        <a href="#intro" class="list-group-item list-group-item-action bg-light">Introduction</a>
+        <a href="#download" class="list-group-item list-group-item-action bg-light">Downloads</a>
+        <a href="#file_sys" class="list-group-item list-group-item-action bg-light">The file system</a>
+        <a href="#important" class="list-group-item list-group-item-action bg-light">Important requirements</a>
+        <a href="#tasks" class="list-group-item list-group-item-action bg-light">File system tasks</a>
+        <a href="#cli" class="list-group-item list-group-item-action bg-light">The last task</a>
+        <a href="#leak" class="list-group-item list-group-item-action bg-light">Memory Leak</a>
+        <a href="#grading" class="list-group-item list-group-item-action bg-light">Grading scheme</a>
+        <a href="#submission" class="list-group-item list-group-item-action bg-light">Submission</a>
+        <a href="#change" class="list-group-item list-group-item-action bg-light">Change log</a>
+        <a href="#faq" class="list-group-item list-group-item-action bg-light">FAQ</a>
+        <span class="list-group-item list-group-item-action bg-light">Prepared by: <a href="mailto:ssongad@cse.ust.hk">SONG, Sizhe</a></span>
+      </div>
+    </div>
+  </div>
+  <!-- /#sidebar-wrapper -->
+  <!-- Page Content -->
+  <div id="page-content-wrapper">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+      <div class="col-sm-9">
+      <span class="navbar-toggler-icon" id="menu-toggle"></span>
+      </div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+        <li class="nav-item">
+        <a class="nav-link" href="https://course.cse.ust.hk/comp2011/">Course Webpage</a>
+        </li>
+        <!-- <li class="nav-item">
+        <a class="nav-link" href="https://course.cse.ust.hk/comp2011/forum.html">Online Forum</a>
+        </li> -->
+      </ul>
+      </div>
+    </nav>
+
+
+    <div class="container-fluid border-bottom my-5">
+      <div class="col-sm-12 col-lg-12 container">
+      <h1>COMP2011 Assignment 3: File System</h1>
+      </div>
+    </div>
+
+    <img src="img/cover.png" height="300px">
+
+    <div class="container-fluid border-bottom my-5" id="intro">
+      <h2 class="mt-4">Introduction</h2>
+
+      <p>
+        In this assignment, you will practice pointers and dynamic memory. It is challenging, so you are <b>highly recommended to start early</b>.
+        If you need clarification of the requirements, please feel free to post on the Piazza with the <u>pa3</u> tag. However, to avoid cluttering the forum with repeated/trivial questions, please do <b>read all the given code, webpage description, sample output, and <a href="#faq">latest FAQ</a> (refresh this page regularly) carefully before you post your questions</b>. Also please be reminded that <b>we won't debug any student's assignment</b> for the sake of fairness.
+      </p>
+
+      <h4>About academic integrity</h4>
+            <p>We value academic integrity very highly. Please read the <a href="https://course.cse.ust.hk/comp2011/web/code.html">Honor Code</a> section on our course webpage to make sure you understand what is considered as plagiarism and what the penalties are. The following are some of the highlights:</p>
+
+            <ul>
+              <li>Do NOT try your "luck" - we use sophisticated plagiarism detection software to find cheaters. We also review codes for potential cases manually.</li>
+              <li>The penalty (for <b>BOTH</b> the copier and the copiee) is not just getting a zero in your assignment. Please read the Honor Code thoroughly.</li>
+              <li>Serious offenders will fail the course immediately, and there may be additional disciplinary actions from the department and university, upto and including expulsion.</li>
+            </ul>
+
+    </div>
+
+    <div class="container-fluid border-bottom my-5" id="download">
+      <h2 class="mt-4">Downloads</h2>
+
+      <p>
+        <p>Download the skeleton codes <a href="pa3.zip">HERE</a>. Please download and open it now, as we will refer to it from time to time in the description below.</p>
+        <p>We had an introduction session on Apr 22. Here is the <a href="https://hkust.zoom.us/rec/share/t6XpvaFFfNWel1jb5-ND0zU8o9IBzOB5-gfxpBF-zJeNVMOc5IL6awcS_Rq7ZG0N.yZIT4M_HQD8L63NI?startTime=1650628255000">zoom recording</a> and the <a href="intro.pdf">slides</a>.</p>
+      </p>
+    </div>
+
+    <div class="container-fluid border-bottom my-5" id="file_sys">
+      <h2 class="mt-4">The file system</h2>
+      <p>In this assignment, you will implement a simple file system. Just like the one in your computer, our file system is a tree of directories and files, where a directory could contain other directories and files, but a file cannot. In <code>file_sys.h</code>, you can find the definition of two structures, <code>Dir</code> and <code>File</code>. These are the two structures that we use to represent directories and files in this assignment. Here are the meanings of their attributes: </p>
+      <p><code>Dir</code></p>
+      <ul>
+          <li><code>char name[MAX_NAME_LEN]</code>: the name of the directory, it's a C-string (character array) with a null character at the end.</li>
+          <li><code>Dir* parent</code>: a pointer to the parent directory.</li>
+          <li><code>Dir* subdir</code>: the head of a linked list that stores the sub-directories.</li>
+          <li><code>File* subfile</code>: the head of a linked list that stores the sub-files.</li>
+          <li><code>Dir* next</code>: a pointer to the next directory in the linked list.</li>
+      </ul>
+      <p><code>File</code></p>
+      <ul>
+          <li><code>char name[MAX_NAME_LEN]</code>: the name of the file, it's a C-string (character array) with a null character at the end.</li>
+          <li><code>Dir* parent</code>: a pointer to the parent directory.</li>
+          <li><code>unsigned int size</code>: the size of the file.</li>
+          <li><code>Tag tag</code>: the tag of the file (introduced below).</li>
+          <li><code>File* next</code>: a pointer to the next file in the linked list.</li>
+      </ul>
+      <p>You will also find an enumeration type <code>enum Tag{VIDEO, IMAGE, DOC, COMPRESSED, PROGRAM, MUSIC, OTHER}</code>. There are 7 different tags in this assignment, and each file will have <b>one and only one</b> tag.</p>
+
+      <p>Then we use an example to elaborate more on the pointers in <code>Dir</code> and <code>File</code>. The figure below shows a file system from a user's view (left side) and how it looks in this assignment (right side). We only show the pointers here for simplicity. In this example, the directory "/" has two sub-directories "A", "B" and one sub-file "C". Directory "A" is empty, and directory "B" has two sub-files "D" and "E".</p>
+      <img src="img/file_sys.png" height="500px">
+      <br><br>
+      <ul>
+        <li>The <code>parent</code> pointer of a directory or a file will always point to the directory which contains it, so here the <code>parent</code> pointers of "A", "B" and "C" are all pointing to "/", while the <code>parent</code> pointer of "D" and "E" is pointing to "B". However, directory "/" is a bit special, it is a root directory. The root directory doesn't have a parent, just like a root node in the tree doesn't have a parent node. In this assignment, we let the <code>parent</code> pointer of the root directory point to itself. This is only applicable to the root directory, any other directories' <code>parent</code> pointer must point to a different directory. In our file system, there will be <b>one and only one</b> root directory. For any files or directories, if you keep moving to the parent, you should always reach the root directory eventually. </li>
+        <br>
+        <li>The <code>subfile</code> pointer will point to the first sub-file in the linked list. If there is no sub-file, the pointer will be <code>null</code>. So here the <code>subfile</code> pointer of "/" points to "C", and the <code>subfile</code> pointer of "B" points to "D". Directory "A" doesn't have sub-files, so its <code>subfile</code> pointer is <code>null</code>. Why "D" is in front of "E" and "A" is in front of "B" in the linked list? This actually depends on how we insert into the linked list and will be introduced in that specific function later.</li>
+        <br>
+        <li>The <code>subdir</code> pointer is very similar to the <code>subfile</code> pointer. You can just take a look at the <code>subdir</code> pointer of "/", "A" and "B".</li>
+        <br>
+        <li>The <code>next</code> pointer points to the next file or the next directory in a linked list. For example, "A" points "B" and "D" points "E". If it is the last element in the linked list, the <code>next</code> pointer will naturally be <code>null</code> like "B", "C" and "E" here. It is also clear that the root directory could never have a sibling directory, so the <code>next</code> pointer of the root directory will always be <code>null</code>.</li>
+      </ul>
+
+      <p>Finally, you don't have to worry whether a name is too long, we won't test any cases with names beyond <code>MAX_NAME_LEN</code>. The name of the root directory is, by convention, always "/".</p>
+    </div>
+
+    <div class="container-fluid border-bottom my-5" id="important">
+      <h2 class="mt-4">Important requirements</h2>
+      <p>There are a few things you <b>CANNOT</b> do. Failure to observe these rules would potentially result in <b>ZERO</b> mark for your assignment. <b>Please carefully check your code before you submit it.</b></p>
+      <ul>
+        <li>You are NOT allowed to define any global variable, or static variable like <code>static int x</code>. You can only use those provided in the skeleton codes.</li>
+        <li>You are NOT allowed to include any additional libraries yourself. Everything you need is already included. However, feel free to implement any helper functions you need.</li>
+        <li>You are NOT allowed to modify any of the given function prototypes including the return types, function names, and parameter lists. (but you can overload them if you want)</li>
+    </div>
+
+    <div class="container-fluid border-bottom my-5" id="tasks">
+        <h2 class="mt-4">File system tasks</h2>
+        <p>There are 8 functions you need to implement in this section which are all file system operations. Implement these functions and your own helper functions in <code>file_sys.cpp</code>.</p>
+        
+        <h5><code class="language-cpp">int createFile(Dir* dir, char* name, unsigned int size, Tag tag)</code></h5>
+        This function creates new files. It returns an integer status code that indicates the status of running this function. 
+        <ul>
+          <li><code>Dir* dir</code>: the newly created file will be placed under this directory.</li>
+          <li><code>char* name</code>: the name of the file to be created.</li>
+          <li><code>unsigned int size</code>: the size of the file to be created.</li>
+          <li><code>Tag tag</code>: the tag of the file to be created.</li>
+        </ul>
+        The newly created file will be added to the head of the linked list. Plus, we have some extra requirements on <code>name</code> (which is also applicable to the next function):
+        <ol>
+          <li>the name of a file or directory should be <b>unique</b> under the same parent directory. This function won't create the file if parameter <code>name</code> is already taken by another file or another directory under <code>dir</code>.</li>
+          <li>the name cannot be empty, it should contain at least one character (not counting the null character). </li>
+          <li>the name should only contain these characters: <code>A-Z</code> (uppercase letter), <code>a-z</code> (lowercase letter), <code>0-9</code> (digit), <code>.</code> (dot), <code>-</code> (minus) and <code>_</code> (underscore). If the name contains any other characters, it is considered as an illegal name and this function won't create the file.</li>
+          <li>the name cannot be <code>.</code> (a single dot) or <code>..</code> (double dots). These two names are reserved for representing the current directory and the parent directory in the command line. If the parameter <code>name</code> is either of these two, it is considered as illegal.</li>
+          <li>the name cannot start with <code>-</code> (minus), it is considered as illegal.</li>
+        </ol>
+
+        It will return:
+        <ul>
+          <li><code>-1</code>: when the function is not yet implemented. The skeleton codes always return -1, remove that line after you finished this function.</li>
+          <li><code>1</code>: when parameter <code>dir</code> or <code>name</code> is <code>null</code>.</li>
+          <li><code>2</code>: when the name is illegal.</li>
+          <li><code>3</code>: when there is a name conflict with an existing file or directory.</li>
+          <li><code>0</code>: when nothing above happens and the file is successfully created.</li>
+        </ul>
+        <p>Except <code>0</code>, all other status codes indicate an error. When there are more than one error, always return the smallest status code. For example, if <code>dir</code> is <code>null</code> and at the same time <code>name</code> has a conflict, you should still return <code>1</code>. Functions you may need: <code>strcpy()</code>, <code>strcmp()</code>, <code>strlen()</code>.</p>
+
+        <h5><code class="language-cpp">int createDir(Dir* dir, char* name)</code></h5>
+        This function creates new directories. It returns an integer status code. 
+        <ul>
+          <li><code>Dir* dir</code>: the newly created directory will be placed under this directory.</li>
+          <li><code>char* name</code>: the name of the directory to be created.</li>
+        </ul>
+        You should check the name in this function as well by the criteria mentioned in last function (unique, non-empty, leagal, non-keyword, beginning-character). The newly created directory will be added to the head of the linked list. This function will return:
+        <ul>
+          <li><code>-1</code>: when the function is not yet implemented. The skeleton codes always return -1, remove that line after you finished this function.</li>
+          <li><code>1</code>: when parameter <code>dir</code> or <code>name</code> is <code>null</code>.</li>
+          <li><code>2</code>: when the name is illegal.</li>
+          <li><code>3</code>: when there is a name conflict with an existing file or directory.</li>
+          <li><code>0</code>: when nothing above happens and the directory is successfully created.</li>
+        </ul>
+        <p>Again, return the smallest one if there are multiple errors. Functions you may need: <code>strcpy()</code>, <code>strcmp()</code>, <code>strlen()</code>.</p>
+
+        <h5><code class="language-cpp">int deleteFile(Dir* dir, char* name)</code></h5>
+        This function deletes files. It returns an integer status code. 
+        <ul>
+          <li><code>Dir* dir</code>: the parent directory of the file to be deleted.</li>
+          <li><code>char* name</code>: the name of the file to be deleted.</li>
+        </ul>
+        The dynamic memory allocated for this file object should be released, and the linked list that contains this file object should be correctly updated. This function will return:
+        <ul>
+          <li><code>-1</code>: when the function is not yet implemented. The skeleton codes always return -1, remove that line after you finished this function.</li>
+          <li><code>1</code>: when parameter <code>dir</code> or <code>name</code> is <code>null</code>.</li>
+          <li><code>2</code>: when you cannot find a sub-file under <code>dir</code> with this <code>name</code>.</li>
+          <li><code>0</code>: when nothing above happens and the file is successfully deleted.</li>
+        </ul>
+        <p>Again, return the smallest one if there are multiple errors.</p>
+
+        <h5><code class="language-cpp">int deleteDir(Dir* dir, char* name, bool recursive)</code></h5>
+        This function deletes directories. We add one more parameter <code>recursive</code>. It works like this:
+        <ol>
+          <li>If the directory to be deleted is empty (no sub-file <b>and no sub-directory</b>), delete it no matter what <code>recursive</code> is.</li>
+          <li>Otherwise, only delete it when <code>recursive</code> is <code>true</code>.
+        </ol>
+        Parameters:
+        <ul>
+          <li><code>Dir* dir</code>: will search under this directory for the directory to be deleted.</li>
+          <li><code>char* name</code>: the name of the directory to be deleted.</li>
+          <li><code>bool recursive</code>: whether to recursively delete sub-files and sub-directories.</li>
+        </ul>
+        Like last function, you should correctly release dynamic memory and update the linked list. This function will return:
+        <ul>
+          <li><code>-1</code>: when the function is not yet implemented. The skeleton codes always return -1, remove that line after you finished this function.</li>
+          <li><code>1</code>: when parameter <code>dir</code> or <code>name</code> is <code>null</code>.</li>
+          <li><code>2</code>: when you cannot find a sub-directory under <code>dir</code> with this <code>name</code>.</li>
+          <li><code>3</code>: when the directory is not empty and <code>recursive</code> is <code>false</code>.</li>
+          <li><code>0</code>: when nothing above happens and the directory is successfully deleted.</li>
+        </ul>
+        <p>Again, return the smallest one if there are multiple errors.</p>
+
+        <h5><code class="language-cpp">unsigned int getSize(const Dir* dir)</code></h5>
+        This function computes and returns the size of a directory. The size of a directory is defined recursively as the sum of the size of all sub-files and sub-directories. The size of an empty directory is 0.
+        <ul>
+          <li><code>const Dir* dir</code>: the target directory.</li>
+        </ul>
+
+        <h5><code class="language-cpp">int moveFile(File* tgt, Dir* dest)</code></h5>
+        This function moves files. It returns an integer status code.
+        <ul>
+          <li><code>File* tgt</code>: the target file to be moved.</li>
+          <li><code>Dir* dest</code>: the destination directory.</li>
+        </ul>
+        The target file will be removed from the old linked list and added to the head of the new linked list. This function will return:
+        <ul>
+          <li><code>-1</code>: when the function is not yet implemented. The skeleton codes always return -1, remove that line after you finished this function.</li>
+          <li><code>1</code>: when parameter <code>tgt</code> or <code>dest</code> is <code>null</code>.</li>
+          <li><code>2</code>: when <code>dest</code> is the parent of <code>tgt</code>, then the moving operation is meaningless, the file should stay at its original position in the linked list.</li>
+          <li><code>3</code>: when there is a name conflict (the name of <code>tgt</code> is already taken by something under <code>dest</code>).</li>
+          <li><code>0</code>: when nothing above happens and the file is successfully moved.</li>
+        </ul>
+        <p>Again, return the smallest one if there are multiple errors.</p>
+
+        <h5><code class="language-cpp">int moveDir(Dir* tgt, Dir* dest)</code></h5>
+        This function moves directories. It returns an integer status code. 
+        <ul>
+          <li><code>Dir* tgt</code>: the target directory to be moved.</li>
+          <li><code>Dir* dest</code>: the destination directory.</li>
+        </ul>
+        Note that a directory cannot be moved to any of its descendants (a descendant is a sub-directory or a sub-sub-directory or sub-sub-sub ...). This is because the descendants will also be moved together with the target, so they cannot be the destination. The target directory will be added to the head of the new linked list. This function will return:
+        <ul>
+          <li><code>-1</code>: when the function is not yet implemented. The skeleton codes always return -1, remove that line after you finished this function.</li>
+          <li><code>1</code>: when parameter <code>tgt</code> or <code>dest</code> is <code>null</code>.</li>
+          <li><code>2</code>: when <code>dest</code> is the parent of <code>tgt</code>, then the moving operation is meaningless, the directory should stay at its original position in the linked list.</li>
+          <li><code>3</code>: when there is a name conflict (the name of <code>tgt</code> is already taken by something under <code>dest</code>).</li>
+          <li><code>4</code>: when <code>dest</code> is a descendant of <code>tgt</code>, or when <code>dest</code> is <code>tgt</code>.</li>
+          <li><code>0</code>: when nothing above happens and the directory is successfully moved.</li>
+        </ul>
+        <p>Again, return the smallest one if there are multiple errors.</p>
+
+        <h5><code class="language-cpp">const File** filesOfTag(const Dir* dir, Tag tag, unsigned int& length)</code></h5>
+        This function looks for all the files of a certain tag and returns them in a dynamic array.
+        <ul>
+          <li><code>const Dir* dir</code>: will search recursively under this directory.</li>
+          <li><code>Tag tag</code>: the target tag.</li>
+          <li><code>unsigned int& length</code>: an unsigned integer passed by reference. Its value should be the size of the returned dynamic array (number of elements) after this function returns.</li>
+        </ul>
+        This function returns a dynamic array of pointers. Each pointer here points to a file of the specified tag. Also remember to set <code>length</code> to the correct value. If <code>dir</code> is <code>null</code> or you cannot find any files of that tag, <code>length</code> should be set to 0 and the function should return <code>null</code>. <b>Don't create a dynamic array with size 0.</b> The order of the pointers doesn't matter, we will sort your array while grading.
+    </div>
+
+    <div class="container-fluid border-bottom my-5" id="cli">
+      <h2 class="mt-4">The last task</h2>
+        <p>Here is the last task of this assignment, which is to use the functions above to build a simple command line tool so that you can play with your file system interactively. It is also a tool to help you debug your code. Don't worry, you only need to finish a very small part, the skeleton codes will take care of the rest. A quick introduction to command line. A command line is a tool where you use commands to interact with your machine. A command is simply a string with certain syntax that asks the machine to do something. It usually starts with the command name followed by some parameters separated by whitespaces. </p>
+        
+        <pre><code>cmd param1 param2 param3 ...</code></pre>
+
+        <p>Besides, a command line usually has a status called "working directory", it is a directory that you are currently at. When you specify a file or a directory by its name, the command line will usually search for that under the working directory only.</p>
+
+        <p>If you don't modify <code>main.cpp</code>, you can compile and run the program, it will start the command line for you. You can type <code>help</code> and "enter", then it will show you all the commands and their usages. Please also check the <a href="https://hkust.zoom.us/rec/share/t6XpvaFFfNWel1jb5-ND0zU8o9IBzOB5-gfxpBF-zJeNVMOc5IL6awcS_Rq7ZG0N.yZIT4M_HQD8L63NI?startTime=1650628255000">zoom recording</a> of PA3 introduction (held on 22th) if you still have questions.</p>
+
+        <img src="img/cli-help.png" height="250px"><br><br>
+        
+        <p>Your task is to finish the function that handles such commands introduced above. It is in <code>cli.cpp</code>:</p>
+        <h5><code class="language-cpp">Dir *execute(Dir* wd, char* rest, bool& exit)</code></h5>
+        This function contains a lot of <code>if</code> blocks, each block handling one type of command. Some blocks are already implemented, you can regard them as examples to implement the remaining three blocks. In this task you only need the first two function parameters <code>Dir* wd</code> and <code>char* rest</code>, you don't need to deal with <code>bool& exit</code> and you don't need to write any <code>return</code> statements. Plus, please don't write any output statements in this task. You can add some while debugging, but remember to remove them before submission, the three blocks you implement should output nothing to the standard output while grading.
+        <br>
+        <ul>
+          <li><code>Dir* wd</code>: the working directory.</li>
+          <li><code>char* rest</code>: a string of command parameters, like <code>"param1 param2 param3 ..."</code></li>
+        </ul>
+
+        You will finish three commands: <code>mkdir</code>, <code>rm</code> and <code>mv</code>, they will be used like this:
+        <pre>
+          <code>
+            // mkdir &#60dirname&#62
+            mkdir images       // make a directory "images"
+
+            // rm [-r] &#60name&#62
+            // "-r" option should only matter when deleting dirs, it determines the "recursive" parameter of "deleteDir()"
+            rm main.cpp        // remove "main.cpp" (say it's a file)
+            rm -r main.cpp     // remove "main.cpp" (say it's a file)
+            rm images          // remove "images" (say it's a dir)
+            rm -r images       // remove "images" recursively (say it's a dir)
+
+            // mv &#60target&#62 &#60destination&#62
+            // &#60target&#62 can be either File or Dir 
+            mv lecture.pdf download   // move "lecture.pdf" (say it's a file) to "download"
+            mv comp2011 download      // move "comp2011" (say it's a dir) to "download"
+
+          </code>
+        </pre>
+        <p><code>.</code> and <code>..</code> will not appeared as input in the test cases, you don't need to handle them.</p>
+
+        We provide you a helper function <code>fetch</code> to easily extract parameters from <code>char* rest</code>. You do it like this:
+        <pre>
+          <code>
+            // rest == "hello world";
+
+            char param1[MAX_CMD_LEN] = "";  // define an empty string
+            fetch(rest, param1);            // fetch the next parameter into the string you just defined
+            
+            // rest == "world"
+            // param1 == "hello"
+
+            char param2[MAX_CMD_LEN] = "";  // do it again to fetch more parameters
+            fetch(rest, param2);
+
+            // rest == ""
+            // param2 == "world"
+
+            char param3[MAX_CMD_LEN] = ""; 
+            fetch(rest, param3);            // fetch from an empty string will give you an empty string
+
+            // rest == ""
+            // param1 == ""
+            ...
+          </code>
+        </pre>
+    </div>
+
+    <div class="container-fluid border-bottom my-5" id="leak">
+      <h2 class="mt-4">Memory Leak</h2>
+      <p>Since this assignment is about dynamic memory, it is also important that your program doesn't have any memory leak. Below is a table specifying the dynamic memory and by whom it should be created and released.</p>
+      <table>
+        <tbody>
+          <tr>
+            <th>Item</th>
+            <th>Created by</th>
+            <th>Released by</th>
+          </tr>
+          <tr>
+            <td>the root directory</td>
+            <td>skeleton codes</td>
+            <td>skeleton codes</td>
+          </tr>
+          <tr>
+            <td>other <code>Dir</code> objects</td>
+            <td>skeleton codes / you</td>
+            <td>skeleton codes calling your implemented <code>deleteDir</code></td>
+          </tr>
+          <tr>
+            <td><code>File</code> objects</td>
+            <td>skeleton codes / you</td>
+            <td>skeleton codes calling your implemented <code>deleteFile</code></td>
+          </tr>
+          <tr>
+            <td>dynamic array returned by <code>filesOfTag()</code></td>
+            <td>you</td>
+            <td>skeleton codes</td>
+          </tr>
+          <tr>
+            <td>anything else you use</code></td>
+            <td>you</td>
+            <td>you</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        Memory leak checking is done via the <code>-fsanitize=address,leak,undefined</code> option (<a href="https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html">related documentation here</a>) of a recent g++ compiler on Linux (it won't work on Windows for the versions we have tested). Check the "Errors" tab (next to "Your Output" tab in the test case details popup) for errors such as memory leak. Other errors/bugs such as out-of-bounds, use-after-free bugs, and some undefined-behavior-related bugs may also be detected. Note that if your program has no errors detected by the sanitizers, then the "Errors" tab may not appear. If you wish to check for memory leak yourself using the same options, you may follow our <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/leak-checking/">Checking for memory leak yourself</a> guide.
+      </p>
+      <p>If your program has any error reported by <code>-fsanitize</code>, you will receive a penalty of <b><font color="red">10%</font></b> of the total score. So, please pay attention to the relevant pre-deadline test cases in ZINC.
+    </div>
+
+    <div class="container-fluid border-bottom my-5" id="grading">
+      <h2 class="mt-4">Grading scheme</h2>
+      <p>ZINC will grade your submission on some pre-deadline test cases to help you debug. After the deadline, ZINC will release all the test cases and regrade your submission. Also note that each test case is only given at most <u>5 seconds</u> to run on ZINC. If your program takes more time than that to be done with a test case, <b>ZINC will give you 0 for that</b>.   Five seconds should be more than enough for any test cases in this assignment. If your program runs for more than 5 seconds, it is very likely that there is an infinite loop/recursion. For example, if your pointers are messed up, and there is a circular linked list, this could easily trigger an infinite loop/recursion.</p>
+
+      <p>The table below gives you a rough idea of the weights of the tasks:</p>
+      <table>
+        <tbody>
+          <tr>
+            <th>Task name</th>
+            <th>Number of pre-deadline test cases</th>
+            <th>Number of all test cases</th>
+            <th>Contribution to the total score</th>
+            <th>Weight of each case</th>
+          </tr>
+          <tr>
+            <td>createFile & createDir</td>
+            <td>14</td>
+            <td>28</td>
+            <td>10%</td>
+            <td>&#8776; 0.357%</td>
+          </tr>
+          <tr>
+            <td>deleteFile & deleteDir</td>
+            <td>12</td>
+            <td>22</td>
+            <td>15%</td>
+            <td>&#8776; 0.682%</td>
+          </tr>
+          <tr>
+            <td>getSize</td>
+            <td>2</td>
+            <td>6</td>
+            <td>15%</td>
+            <td>&#8776; 2.5%</td>
+          </tr>
+          <tr>
+            <td>moveFile & moveDir</td>
+            <td>7</td>
+            <td>22</td>
+            <td>20%</td>
+            <td>&#8776; 0.909%</td>
+          </tr>
+          <tr>
+            <td>filesOfTag</td>
+            <td>2</td>
+            <td>6</td>
+            <td>25%</td>
+            <td>&#8776; 4.167%</td>
+          </tr>
+          <tr>
+            <td>command line</td>
+            <td>5</td>
+            <td>9</td>
+            <td>15%</td>
+            <td>&#8776; 1.667%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>There are 42 pre-deadline test cases in total, but you will see 84 in ZINC. Test case #43~#84 is a duplicate of #1~#42. Test case #1~#42 ignores memory leak while #43~#84 checks memory leak with <code>-fsanitize</code>. Say if you pass #2 but fail #44, that means your program has some issues reported by <code>-fsanitize</code> in #2.</p>
+
+     <!--  <p>Each of the test cases is worth 4 marks, and there is no partial credit for each case. We will have other additional 15 test cases which are not released to you before the deadline. In total, all 25 test cases (10 given + 15 hidden) will contribute to the 100 total marks of the assignment.</p> -->
+
+    </div>
+
+    <div class="container-fluid border-bottom my-5" id="submission">
+      <h2 class="mt-4">Submission</h2>
+
+      <h4>Deadline</h4>
+      <p><font color="red"> 23:59:00, May 11 (Wed)</font></p>
+      
+      <p>Please submit a zip file containing <b>file_sys.cpp</b> and <b>cli.cpp</b> only to <a href="http://zinc.cse.ust.hk">ZINC</a>. ZINC usage instructions can be found <a href="https://zinc.cse.ust.hk/guide">here</a>. Friendly reminder: before you submit your code, <b>make sure it complies with all the rules in <a href="#important">important requirements</a></b>. No mark will be given if you violate the rules.</p>
+      <p>Notes:</p>
+      <ul>
+            <li>You may submit your file multiple times, but only the last submission will be graded. <b>You do NOT get to choose which version we grade.</b> If you submit after the deadline, late penalty will be applied according to the submission time of your last submission.</li>
+            <li>Submit early to avoid any last-minute problem. Only ZINC submissions will be accepted.</li>
+            <li>The ZINC server will be very busy on the last day especially in the last few hours, so you should expect you would get the grading result report not-very-quickly. However, as long as your submission is successful, we would grade your latest submission with all test cases after the deadline.</li>
+            <li>In the grading report, pay attention to various errors reported. For example, <b>under the "make" section, if you see a red cross, click on the STDERR tab to see the compilation errors.</b> You must fix those before you can see any program output for the test cases below.</li>
+            <img src="img/zinc-make.png">
+            <li>Make sure you submit the correct file yourself. You can download your own file back from ZINC to verify. Again, <b>we only grade what you uploaded last to ZINC</b>.</li>
+      </ul>
+
+      <h4>Compilation Requirement</h4>
+      <p>
+        It is <strong>required</strong> that your submissions can be compiled and run successfully in our online autograder ZINC. If we cannot even compile your work, it won't be graded. Therefore, for parts that you cannot finish, just put in dummy/empty implementation so that your whole program can be compiled for ZINC to grade the other parts that you have done.
+      </p>
+
+      <h4>Late submission policy</h4>
+      <p>
+        There will be a penalty of -1 point (out of a maximum 100 points) for every minute you are late. For instance, since the deadline of the assignment is 23:59:00 on May 11th, if you submit your solution at 1:00:00 on May 12th, there will be a penalty of -61 points for your assignment. However, the lowest grade you may get from an assignment is zero: any negative score after the deduction due to late penalty (and any other penalties) will be reset to zero.
+      </p>
+
+    </div>
+
+    <div class="container-fluid border-bottom my-5" id="change">
+      <h2 class="mt-4">Change log</h2>
+      <ul>
+        <li>[Explanation] In <code>moveDir()</code>, if <code>tgt</code> is <code>dest</code>, it should still return 4. Because the targets cannot be the destination. (May 6)</li>
+        <li><b>[Explanation]</b> Since many asked about the command line, more details are added to <a href="#cli">the last task</a>. (Apr 27)</li>
+        <li>[Explanation] <code>rm -r &#60filename&#62</code> is equivalent to <code>rm &#60filename&#62</code>. (Apr 27)</li>
+        <li>[Explanation] You are also allowed to write helper functions in <code>cli.cpp</code> as long as you don't modify the existing parts. Some comments in the skeleton codes tell you to write helper functions in <code>file_sys.cpp</code>, we will not update that, just remember that you can also put helper functions in <code>cli.cpp</code>. (Apr 25)</li>
+        <li>[Explanation] Any errors reported by <code>-fsanitize</code> will lead to the 10% penalty. Make sure you pass #43~#84 of the pre-deadline cases. (Apr 20)</li>
+        <li>[Explanation] In the last task, you don't need to handle <code>.</code> and <code>..</code> as input, they will not be in the test cases. (Apr 20)</li>
+        <li><b>[Requirement]</b> One additional requirement on names: names cannot begin with <code>-</code>. (Apr 19)</li>
+      </ul>
+    </div>
+
+    <div class="container-fluid border-bottom my-5" id="faq">
+      <h2 class="mt-4">FAQ</h2>
+
+      <p>
+        <ul>
+          <li>
+            Q: What is the meaning of <b>"under"</b>?
+          </li>
+          <li>
+            A: If A is under B, that means B is A's parent. For those operations that require actions on the sub-sub-dirs and sub-sub-files ...., instruction will explicitly tell you to do it recursively (<code>deleteDir()</code>, <code>getSize()</code>, <code>filesOfTag()</code>).  
+          </li>
+
+          <br><br>
+          <li>
+            Q: My code doesn't work / there is an error, here is the code, can you help me to fix it?
+          </li>
+          <li>
+            A: As the assignment is a major course assessment, to be fair, you are supposed to work on it on your own and we should not finish the tasks for you. We might provide some very general hints to you, but we shall not fix the problem or debug for you.
+          </li>
+          <br>
+          
+          <br>
+          <li>
+              Q: My code gives perfect results in my own computer, but it gives a different result on ZINC, why?
+          </li>
+          <li>
+              A: Usually inconsistent strange result (on different machines/platforms, or even different runs on the same machine) is due to relying on uninitialized hence garbage values, missing return statements, accessing out-of-bound array elements, etc.. You may see the explanations and debugging tips in the <a href="http://wallacem.people.ust.hk/notes/on-common-c-runtime-errors/">notes here</a>.
+          </li>
+
+        </ul>
+      </p>
+      <br><br>
+      <p style="color:#cccccc">Page last modified at <script type="text/javascript">document.write(document.lastModified);</script>.</p>
+
+    </div>
+  </div>
+</div>
+<!-- /#page-content-wrapper -->
+<!-- /#wrapper -->
+<!-- Bootstrap core JavaScript -->
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Menu Toggle Script -->
+<script>
+  $("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+    });
+
+  SyntaxHighlighter.highlight();
+</script>
+</body>
+</html>

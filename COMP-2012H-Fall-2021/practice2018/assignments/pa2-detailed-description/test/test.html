@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- ### Change assignment number ### -->
+    <title>COMP 2012H Assignment 2: Database System for Stock</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/blog-home.css" rel="stylesheet">
+
+    <!-- Prism syntax highlighter -->
+    <link href="../prism.css" rel="stylesheet" />
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+    <style>
+        .card-body img {
+            margin-bottom: 20px;
+            max-width: 600px;
+        }
+    </style>
+</head>
+
+<body>
+<script src="../prism.js"></script>
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+
+        <!-- Entries Column -->
+        <div class="col-md-9">
+
+            <h2 class="my-4"><span style="color:darkblue">COMP 2012H</span>
+                <small>Honors Object-Oriented Programming and Data Structures</small>
+            </h2>
+
+            <!-- ### Change assignment number and title ### -->
+            <h3 class="my-4">Assignment 2
+                <span style="color:#660066">Database System for Stock</span>
+            </h3>
+
+            <!-- Introduction section -->
+            <!-- ### Complete introduction section for the assignment ### -->
+            <div class="card mb-4">
+                <div class="card-body" id="test">
+                    <h3 class="card-title">Sample Test Cases</h3>
+                    <br/>
+                    <p class="card-text">
+                        We provide test cases for each task of this assignment.
+                        <br><br/>
+                        Download the <a href="test.h">header file</a> and the <a href="test.cpp">source file</a> <span style="color: red">(last update: 14:00, Oct 12)</span>
+                        <!--<ul>-->
+                          <!--<li><a href="mingw/libtest.a">Windows</a> (built on Windows10 1803, MinGW 6.3.0)</li>-->
+                          <!--<li><a href="macos/libtest.a">MacOS</a> (built on MacOS 10.14.0)</li>-->
+                          <!--<li><a href="centos/libtest.a">Linux</a> (built on CentOS on Lab2 machines, gcc 4.8.5)</li>-->
+                          <!--<li><a href="ubuntu/libtest.a">Linux</a> (built on Ubuntu 18.04, gcc 7.3.0)</li>-->
+                        <!--</ul>-->
+                    </p>
+                    <p class="card-text">
+                        For each taskx() function, the testing will continue only if the previous test case is passed. If
+                        <ul>
+                            <li>the whole program crash, you may need to check how you deal with the pointers. </li>
+                            <li>you see "wrong answer", the values of the variables are not as expected.</li>
+                            <li>you see "Task x pass", you pass all the test cases of this task.</li>
+                        </ul>
+                        Since we cannot isolate the testing for each
+                        function, you are expected to complete the whole task before
+                        testing it.
+                    </p>
+                    <br/>
+                    <!--<h4>How to use</h4><br/>-->
+                    <!--<img src="eclipse2.png">-->
+                    <!--<br/><br/>-->
+                    <!--<h5>eclipse</h5>-->
+                    <!--<ul>-->
+                    <!--<li>Put the header file and the library in the root of the project-->
+                    <!--directory.<br><br/>-->
+                    <!--<img src="eclipse1.png"></li>-->
+                    <!--<li>Go to build setting.<br><br/>-->
+                    <!--<img src="eclipse3.png" style="width: 300px"></li><br/>-->
+                    <!--<li>Set the linker flags. The library search path is the directory-->
+                    <!--where the lib file located.<br/><br/>-->
+                    <!--<img src="eclipse4.png"></li>-->
+                    <!--</ul>-->
+                    <!--<h5>Building by Command Line</h5>-->
+                    <!--Put the header file and the library in the root of the project-->
+                    <!--directory. Build the project by the following command. <br><br>-->
+                    <!--$ g++ *.cpp -o stock -L. -ltest &#45;&#45;std=c++11<br>-->
+                </div>
+                <div class="card-footer text-muted">
+                    End
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body" id="leak">
+                    <h3 class="card-title">Check Memory Leak</h3>
+                    <br/>
+                    <p class="card-text">
+                        You can use <a href="http://drmemory.org/">Dr. Memory</a>
+                        or <a href="http://valgrind.org/">Valgrind</a> to check memory
+                        leak. You need to disable compiler optimization (-O0).
+                    </p>
+                    <br/>
+                    <h4>Dr. Memory (For Windows, Mac and Linux)</h4>
+                    <p class="card-text">
+                        $ X:\path\to\drmemory\bin64\drmemory.exe X:\path\to\your\executable.exe<br><br>
+                        * You can ignore "UNINITIALIZED READ: reading register eax" errors.<br>
+                        * Some of the leak problems cannot be detected if your compiler is VS. <br>
+                        * If you are using Windows, download
+                        <a href="http://drmemory.org/syscalls_wow64.txt">this</a> and
+                        put it at X:\path\to\drmemory\bin
+                    </p>
+                    <br/>
+                    <h4>Valgrind (For Mac and Linux)</h4>
+                    <p class="card-text">
+                        $ valgrind --tool=memcheck --leak-check=full  path/to/your/executable<br><br>
+
+                        * Valgrind doesn't support Windows.
+                    </p>
+                </div>
+                <div class="card-footer text-muted">
+                    End
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-3">
+            <!-- Menu Widget -->
+            <div class="card my-12">
+                <h5 class="card-header">Menu</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <ul class="mb-0" type="circle" style="padding-left:20px">
+                                <li>
+                                    <a href="#test">Sample Test Cases</a>
+                                </li>
+                                <li>
+                                    <a href="#leak">Check Memory Leak</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Maintainance widget -->
+            <div class="card my-4">
+                <h5 class="card-header">Page maintained by</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    HU, Guangneng
+                                </li>
+                                <li>
+                                    Email: <a href="mailto:ghuac@connect.ust.hk">ghuac@connect.ust.hk</a>
+                                </li>
+                                <li>Last Modified: <script type="text/javascript">document.write(document.lastModified);</script></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Homepage widget -->
+            <div class="card my-4">
+                <h5 class="card-header">Homepage</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a href="http://course.cse.ust.hk/comp2012h">Course Homepage</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">Maintained by COMP 2012H Teaching Team &copy; 2018 HKUST Computer Science and Engineering</p>
+    </div>
+    <!-- /.container -->
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

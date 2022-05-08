@@ -1,0 +1,341 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>COMP2012H Self-test Web Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="keywords" content="" />
+<!--link rel="stylesheet" href="img/Underground.css" type="text/css" /-->
+<!-- Bubble tooltips: adopted from: http://www.web-graphics.com/mtarchive/bubbletooltips.html--><!-- For automatic tooltip: -->
+<script src="bubbletooltips/bubbletooltips.js" type=text/javascript></script>
+<!-- Example:  usage <a href="" title=""></a>  --><!-- For customize tooltip -->
+<link media=all href="bubbletooltips/bt.css" type=text/css rel=stylesheet>
+<script type="text/javascript" src="jquery/jquery.js"></script>
+
+<!-- JQuery Calender is located here... -->
+<style type="text/css">@import url(jquerycalendar/jquery-calendar.css);</style>
+<script type="text/javascript" src="jquerycalendar/jquery-calendar.js"></script>
+
+<script type="text/javascript" src="selftestmenu.js"></script>
+<link rel="stylesheet" type="text/css" href="selfteststyle.css" />
+<!-- highslide stuff: TESTING... -->
+<script type="text/javascript" src="highslide/highslide-with-html.js"></script>
+<script type="text/javascript">    
+    hs.graphicsDir = 'highslide/graphics/';
+    hs.outlineType = 'rounded-white';
+    hs.outlineWhileAnimating = true;
+</script>
+<style type="text/css">@import url(highslide/myslide.css);</style>
+<!-- END OF highslide stuff -->
+
+</head>
+
+<!-- Start of the main html body -->
+<body>
+
+<!-- wrap starts here -->
+<div id="main">
+<div id="wrap">
+        <!-- header -->
+        <div id="header">
+                <span id="slogan" ></span>
+                <!-- tabs -->
+                <ul>
+                  <li class="showall-solution"><a href="#" title="Show all solutions"><span>Show all solutions</span></a></li>
+                  <li class="hideall-solution"><a href="#" title="Hide all solutions"><span>Hide all solutions</span></a></li>
+                  <li id="tabShowNormalView"><a href="#" title="The normal webpage view"><span>Web view</span></a></li>
+                  <li id="tabShowAllOnePage"><a href="#" title="The view which is suitable for printing"><span>Printable view</span></a></li>
+                  <li id="tabIncFontSize"><a href="#" title="Increase the font size" ><span >++ Font size</span></a></li>
+                  <li id="tabDecFontSize"><a href="#" title="Decrease the font size" ><span >-- Font size</span></a></li>
+                </ul>
+        </div>
+        <!-- main block: right panel -->
+        <!--div id="main"-->
+
+        <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Test Content %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  -->
+        <div id='block2' style="display:block;">
+          <h1>Self-test 2:  <br /> <!-- [Sept. 21-25] --> Control Flow (If-then-else) </h1>
+              
+          <OL>
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              Consider the following two program segments.
+              <p>Code segment one:</p>
+<pre>
+int counter = 0;
+while (counter++ &lt; 10)
+{
+    cout &lt;&lt; counter &lt;&lt; " ";
+}
+</pre>
+
+ 
+              <p>Code segment two:</p>
+
+<pre>
+int counter = 0;
+while (++counter &lt; 10)
+{
+    cout &lt;&lt; counter &lt;&lt; " ";
+}
+</pre>
+
+              <p>What are their outputs? Why?</p>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p><b>Code segment one will give "1 2 3 4 5 6 7 8 9 10 " while code segment two will give "1 2 3 4 5 6 7 8 9 ".</b>
+              <br />
+              Thus, the output are not the same. In the above codes, counter++ will use the current value of counter for comparison first, and then add 1 to counter.
+              <br />
+              On the other hand, ++counter will add 1 to counter first, and use the new value of counter for comparison. 
+              <br />
+              Therefore, after printing the counter value 9, the logical expression (counter++ &lt; 10)  will be (9 &lt; 10) and is evaluated to true, and then counter becomes 10.  But when counter is 9, the logical expression (++counter &lt; 10) will become (10 &lt; 10) which is evaluated to false and the loop ends.
+              </p>
+            </div>
+            </div>
+            <hr />
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>Suppose x = 10 and y = 10. What is <b>x</b> after the expression <br /> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;(y &gt; 10) && (x++ &gt; 10)<br /> is evaluated? </p>
+              <ol type="A">
+                <li>11 </li>
+                <li>10</li>
+                <li>9</li>
+              </ol>
+            </div>
+
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p><b>B is correct.</b> It is because a logical expression is evaluated from left to right, and the sub-expression (y &gt; 10) is evaluated first. Since the result is false, then (x++ > 10) won't even be evaluated because C++ supports short-circuit evaluation (or lazy evaluation) which means that as soon as the truth value of a logical expression can be decided, any remaining sub-expressions in the logical expression are not evaluated.</p>
+              <p>In general:</p>
+<pre>
+Case 1: if ( false && stmt 1 && stmt 2 && .... && stmt N )
+Case 2: if ( true || stmt 1 || stmt 2 || .... || stmt N)
+        
+stmt 1, stmt 2,...., stmt N won't be evaluated.
+</pre>
+                
+              <p><b>Note:</b> This is <b><font color="#ff0000">NOT</font></b> mentioned on the lecture slides, and it will not appear in the midterm or final exam.</p>
+            </div>
+            </div>
+            <hr />
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p> Analyze the following code: </p>
+<pre>
+Code 1:
+
+bool even;
+if (number % 2 == 0)
+    even = true;
+else 
+    even = false;
+</pre>
+        
+<pre>
+Code 2:
+bool even = (number % 2 == 0);
+</pre>
+              <ol type="A">
+                <li>Code 2 has syntax errors. </li>
+                <li>Both Code 1 and Code 2 are correct. </li>
+                <li>Both Code 1 and Code 2 perform the same task. </li>
+                <li>Code 1 has syntax errors. </li>
+              </ol>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p><b>Both B and C are correct.</b> Recall again that a logical expression has a value  which may be directly assigned to a bool variable (c.f. the value of an arithmetic expression may be assigned to a variable. e.g., a = b+c;).</p>
+            </div>
+            </div>
+            <hr />
+            </LI>
+              
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>What is the value of <b>n</b> after execution of the following C++ code?</p>
+              <p><pre>int n = 22/8;</pre></p>
+            </div>
+
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p><b>n = 2.</b> (Integer division)</p>
+            </div>
+            </div>
+            <hr />              
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>What is the value of <b>n</b> after execution of the following C++ code?</p>
+              <p><pre>int n = 99/8 + 21/11*7;</pre></p>
+            </div>
+                
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p><b>n = 19. </b>Reason: </p>
+<pre>
+Step1: 99/8 = 12 
+Step2: 21/11*7 = 1*7 = 7
+Step3: 12+7 = 19
+</pre>
+            </div>
+            </div>
+            <hr />      
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>What is the value of <b>n</b> after execution of the following C++ code?</p>
+              <p><pre>int n = 11 + 7/4 + 98%6*3;</pre></p>
+            </div>
+                
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p><b>n = 18</b>. Reason: </p>
+<pre>
+Step1: 7/4 = 1
+Step2: 98%6 = 2
+Step3: 2*3 = 6
+Step4: 11 + 1 + 6 = 18
+</pre>
+            </div>
+            </div>
+            <hr />      
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>What is the value of <b>n</b> after execution of the following C++ code?</p>
+              <p><pre>int n = 11/31%8*5 - 12;</pre></p>
+            </div>
+
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p><b>n = -12</b>. Reason: </p>
+<pre>
+Step1: 11/31 = 0
+Step2: 0%8*5 = 0
+Step3: 0-12 = -12
+</pre>
+            </div>
+            </div>
+            <hr />      
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>What is the value of <b>n</b> after execution of the following C++ code?</p>
+<pre>
+int n = 1;
+if (n = 0)
+    n += 2;
+if (n > 0)
+    n *= 2;
+</pre>
+            </div>
+                
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p><b>n = 0</b>. Reason: </p>
+<pre>
+Step1: n = 1
+Step2: n = 0 // n is assigned to 0 here (probably the programmer mistypes == as =)!
+Step3: if (n = 0) means if (0), which is false (but n now has the value of 0), and the body of this if-statement will not be executed. 
+Step4: if (n > 0) means if (0 > 0), which is false, and the body of this if-statement will not be executed.
+Step5: So the final answer is n = 0.
+</pre>
+            </div>
+            </div>
+            <hr />      
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>What is the value of <b>n</b> after execution of the following C++ code?</p>
+<pre>
+int n = 0;
+int x = 2;
+if (n = (x == 2))
+    n++;
+</pre>
+            </div>
+
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p><b>n = 2</b>. Reason: </p>
+<pre>
+Step1: n = 0, x = 2.
+Step2: x == 2 which is true.
+Step3: "(n = (x == 2))" becomes "(n = true)" which assigns 1 to n (because the internal representation of true is 1).
+Step4: "if (n = true)" becomes "if (true)", which is always satisfied. 
+Step5: n++ is executed because the if-stmt is true, and n becomes 2.
+Step6: So the final answer is n = 2.
+</pre>
+            </div>
+            </div>
+            <hr />              
+            </LI>
+
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>What is the value of the variable <i>a</i> after execution of the following code?</p>          
+<pre>
+#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+    int a = 0;
+    a = false ? 1 : (true ? 2 : 0);
+    return 0;
+}
+</pre>
+              <ol type="A">
+                <li>0 </li>
+                <li>1 </li>
+                <li>2 </li>
+              </ol>
+            </div>      
+
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p> <b>C</b>. It is because the first condition is always false, so it goes to the else-part of the ?: operator. When it encounters the second if-else operator, the condition is always true. As a result, the value of a will be assigned 2. </p>
+            </div>              
+            </div>
+            <hr />
+            </LI>
+            
+          </OL>
+        </div>
+
+
+
+        
+
+
+
+        <!-- wrap ends here; don't delete this /div --> 
+        </div>
+
+</div>
+</div>
+
+</body>
+</html>

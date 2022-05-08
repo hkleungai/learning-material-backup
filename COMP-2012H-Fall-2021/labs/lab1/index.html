@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- ### Change lab number ### -->
+    <title>COMP 2012H Lab 1: VSCode, Fundamentals of C++, and Program Flow Control</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/blog-home.css" rel="stylesheet">
+    
+    <!-- Prism syntax highlighter -->
+    <link href="prism.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <script src="prism.js"></script>
+    
+    <!-- Page Content -->   
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Entries Column -->
+        <div class="col-md-9">
+
+          <h2 class="my-4">
+            <span style="color:darkblue">COMP 2012H</span>
+            <small>Honors Object-Oriented Programming and Data Structures</small>
+          </h2>
+
+          <!-- ### Change lab number and title ### -->
+          <h3 class="my-4">
+            Lab 1 
+            <span style="color:#660066">VSCode, Fundamentals of C++, and Program Flow Control</span>
+          </h3>
+
+          <!-- Registering for a CSD Account section -->
+          <div class="card mb-4">
+            <div class="card-body" id="csd">
+              <h3 class="card-title">Registering for a CSD Account</h3>
+              A CSD (Computer Science Department) account is required to:
+              <ul>
+                <li>Access the lab rooms (when they are open) and use the lab machines.</li>
+                <li>Access the official course website from an off-campus network.</li>
+                <li>SSH (Secure Shell) remote access lab machines or Linux servers (csl2wkXX@cse.ust.hk), where XX is a number from 01 to 52 (e.g. csl2wk44@cse.ust.hk).</li>
+              </ul>
+              <p class="card-text">
+                If you do not have a CSD account yet, you may create it with the instructions here. <strong>Please pay special attention to which two checkboxes you need to check.</strong>
+                You may already have it if you have studied some other COMP courses at HKUST.
+              </p>
+              <ol>
+                <li>Go to <a href="https://password.cse.ust.hk:8443/pass.html">this</a> webpage.</li>
+                <li>CSD Account Name: Enter your ITSC Username (HKUST Student Username), which is the same as your HKUST Email Username, e.g. cwingho.</li>
+                <li>Password is independent from your ITSC Password. Recommended to be different for security.</li>
+                <li>Check the <b>two</b> checkboxes of <b>"Unix account at UG domain"</b> and <b>"PC account at domain CSD"</b>.</li>
+                <li>Click on the "Go UPDATE" button.</li>
+              </ol>
+              <img style="width:75%;margin-left:auto;margin-right:auto;" src="images/csd.png">
+            </div>
+            <div class="card-footer text-muted">
+              End of Registering for a CSD Account
+            </div>
+          </div>          
+          
+          <!-- Setting Up VSCode section -->
+          <!-- ### Complete section for the lab ### -->
+          <div class="card mb-4">
+            <div class="card-body" id="vscode">
+              <h3 class="card-title">Setting Up VSCode</h3>
+              <p class="card-text">
+                VSCode will be used as the IDE (Integrated Development Environment) for COMP2011, COMP2012, and COMP2012H. Please check <a href="https://course.cse.ust.hk/comp2012h/labs/vscode/">here</a> for more information about setting up VSCode.
+              </p>
+            </div>
+            <div class="card-footer text-muted">
+              End of Setting Up VSCode
+            </div>
+          </div>
+
+          <!-- Review section -->
+          <!-- ### Complete review section for the lab ### -->
+          <div class="card mb-4">
+            <div class="card-body" id="review">
+              <h3 class="card-title">Review</h3>
+              <br>
+              <h4>Operators</h4>
+              <p class="card-text">
+                To express condition/s that we will use to control program flow, relational and logical operators can be used.
+              </p>
+              <ul>
+                <li>
+                  Relational Operators
+                  <br>
+                  <img style="width:75%;margin-left:auto;margin-right:auto;" src="images/operators1.png">
+                </li>
+                <li>
+                  Logical Operators
+                  <br>
+                  <img style="width:75%;margin-left:auto;margin-right:auto;" src="images/operators2.png">
+                </li>
+              </ul>
+              <br>
+              <h4>Selection/Branching</h4>
+              <p class="card-text">
+                To select or to branch according to certain condition/s, the following selection/branching statements can be used.
+              </p>
+              <ul>
+                <li>
+                  if Statement
+                  <br>
+                  <img style="width:75%;margin-left:auto;margin-right:auto;" src="images/selection1.png">
+                </li>
+                <li>
+                  if-else Statement
+                  <br>
+                  <img style="width:75%;margin-left:auto;margin-right:auto;" src="images/selection2.png">
+                </li>
+                <li>
+                  if-else-if Statement
+                  <br>
+                  <img style="width:75%;margin-left:auto;margin-right:auto;" src="images/selection3.png">
+                </li>
+                <li>
+                  switch Statement
+                  <br>
+                  <img style="width:75%;margin-left:auto;margin-right:auto;" src="images/selection4.png">
+                </li>
+              </ul>
+              <br>
+              <h4>Iteration/Looping</h4>
+              <p class="card-text">
+                To iterate or to loop according to certain condition/s, the following iteration/looping statements can be used. The break and continue statements provide additional control to these iteration/looping statements.
+              </p>
+              <ul>
+                <li>
+                  while Loop
+                  <br>
+                  <img style="width:75%;margin-left:auto;margin-right:auto;" src="images/iteration1.png">
+                </li>
+                <li>
+                  do-while Loop
+                  <br>
+                  <img style="width:75%;margin-left:auto;margin-right:auto;" src="images/iteration2.png">
+                </li>
+                <li>
+                  for Loop
+                  <br>
+                  <img style="width:75%;margin-left:auto;margin-right:auto;" src="images/iteration3.png">
+                </li>
+                <li>
+                  break and continue
+                  <br>
+                  <img style="width:75%;margin-left:auto;margin-right:auto;" src="images/iteration4.png">
+                </li>
+              </ul>
+            </div>
+            <div class="card-footer text-muted">
+              End of Review
+            </div>
+          </div>
+
+          <!-- Introduction section -->
+          <!-- ### Complete introduction section for the lab ### -->
+          <div class="card mb-4 language-cpp">
+            <!-- ### Add an image representing the lab content here ### -->
+            <img class="card-img-top" src="images/machine.jpg" alt="Vending machines">
+            <div class="card-body" id="introduction">
+              <h3 class="card-title">Introduction</h3>
+              <p class="card-text">
+                This is a lab on program flow control.
+              </p>
+              <p class="card-text">
+                In this lab, we are going to implement a simple vending machine. We assume the vending machine is one of the old ones where users insert coins in order to purchase items. So, a user can interact with the vending machine by performing one of three <em>actions</em>, until the user leaves:
+              </p>
+              <ul>
+                <li>
+                  <strong>Insert a coin: </strong>The user inserts one coin at a time. The <em>balance</em> of the vending machine is increased by the value of the inserted coin.
+                </li>
+                <li>
+                  <strong>Purchase an item: </strong>The user selects an item to purchase. If the balance is greater than or equal to the cost of the item and the item not yet sold out, then the item is purchased and is available for pickup. The balance is decreased by the cost of the item.
+                </li>
+                <li>
+                  <strong>Return coins: </strong>The user activates the "Coin return" lever. The vending machine attempts to clear the balance by returning the coins with equivalent value. This is done usually after the user had purchased something.
+                </li>
+              </ul>
+              <img class="card-img" src="images/control.jpg" alt="Vending machines">
+              <p class="card-text"></p>
+
+              <p class="card-text">
+                To support above operations, <em>internal states</em> are maintained in the vending machine:
+              </p>
+              <ul>
+                <li>
+                  <strong>Balance: </strong>This is the total value available to purchase items, from the coins that were inserted by the user.
+                </li>
+                <li>
+                  <strong>Cost and count of items: </strong>For simplicity, the vending machine only sells <em>two</em> kinds of items. Thus, the vending machine needs to know the cost and count (number of remaining) of each item:
+                  <ul>
+                    <li>Item A: $6. Initially, the vending machine has 3 Item A in stock.</li>
+                    <li>Item B: $4. Initially, the vending machine has 3 Item B in stock.</li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>Count of coins: </strong>For simplicity, the vending machine only accepts <em>three</em> kinds of coin: $5 coin, $2 coin, and $1 coin. Thus, the vending machine keeps track of the count of each kind of coin. Initially, the vending machine has the following stockpile of coins:
+                  <ul>
+                    <li>3 $5 coins</li>
+                    <li>3 $2 coins</li>
+                    <li>3 $1 coins</li>
+                  </ul>
+                </li>
+              </ul>
+
+              <p class="card-text">
+                Since this is a lab on program flow control, please complete the lab without the following features:
+              </p>
+              <ul>
+                <li>Functions</li>
+                <li>Arrays</li>
+                <li>Other topics that are not yet discussed in lectures</li>
+              </ul>
+
+            </div>
+            <div class="card-footer text-muted">
+              End of Introduction
+            </div>
+          </div>
+
+          <!-- Lab work section -->
+          <!-- ### Complete the lab work section for the lab ### -->
+          <div class="card mb-4">      
+            <div class="card-body" id="labwork">
+              <h3 class="card-title">Lab Work</h3>
+
+              <h4 class="card-title">Task 1 - Define Variables</h4>
+              <p class="card-text">
+                To represent internal states, define a variable for each internal state.
+              </p>
+              <p class="card-text">
+                For example, define an <code class="language-cpp">int</code> variable for balance. Also, define three <code class="language-cpp">int</code> variables, for the count of each kind of coin, and so on:
+              </p>
+              <pre><code class="language-cpp">
+                int balance = 0;
+
+                int coin_5_count = 3;
+                int coin_2_count = 3;
+                int coin_1_count = 3;
+
+                /* more... */
+              </code></pre>
+
+              <p class="card-text">
+                For best practice, avoid defining global variables. Please define the variables inside the main function.
+              </p>
+
+              <h4 class="card-title">Task 2 - Display Menu and Handle User Input</h4>
+              <p class="card-text">
+                When the program is started, display the following menu, including the balance, then prompt the user to provide input. This is repeated forever after taking each action until the user decides to leave. (<em>All menu text <code class="language-cpp">cout</code> statements are given in the program skeleton, see <a href="#resources">Resources &amp; Sample I/O</a></em>)
+              </p>
+              <pre><code class="language-text">
+                The balance is $0
+                Please choose an action:
+                1. Insert coin
+                2. Purchase
+                3. Return coins
+                4. Leave
+                Please enter 1-4:
+              </code></pre>
+              <p class="card-text">
+                The user input needs to be validated, though it can be assumed that the user always enters an integer. Suppose the user has entered 5, which is invalid. In this case, report invalid input to the user and prompt the user for input again:
+              </p>
+              <pre><code class="language-text">
+                Please enter 1-4: 5
+                Invalid choice
+                The balance is $0
+                Please choose an action:
+                1. Insert coin
+                2. Purchase
+                3. Return coins
+                4. Leave
+                Please enter 1-4:
+              </code></pre>
+
+              <h4 class="card-text">Task 3 - Handle "Insert coin"</h4>
+              <p class="card-text">
+                If the user decided to insert a coin, then prompt the user for the coin:
+              </p>
+              <pre><code class="language-text">
+                Please insert a coin: $
+              </code></pre>
+              <p class="card-text">
+                If the user did not supply a $5, $2 or a $1 coin, then report invalid input to the user and prompt the user for input again:
+              </p>
+              <pre><code class="language-text">
+                Please insert a coin: $3
+                Only $5, $2 and $1 coins are accepted
+                Please insert a coin: $
+              </code></pre>
+              <p class="card-text">
+                Otherwise, increase the balance and the count of the corresponding coin.
+              </p>
+
+              <h4 class="card-text">Task 4 - Handle "Purchase"</h4>
+              <p class="card-text">
+                If the user decided to purchase, then display the following submenu to show each item and the cost, also a menu option to go back without purchasing. If an item has been sold out (count of that item is zero), then display "SOLD OUT" for that item. Lastly, prompt the user for input:
+              </p>
+              <pre><code class="language-text">
+                Please select an item:
+                1. Item A - $6
+                2. Item B - SOLD OUT
+                3. Go back
+                Please enter 1-3:
+              </code></pre>
+              <p class="card-text">
+                If the chosen item has been sold out, report this to user and prompt the user for input again. If the balance is smaller than the cost of the chosen item, report insufficient balance to user and prompt the user for input again. Also, the input needs to be validated:
+              </p>
+
+              <pre><code class="language-text">
+                Please enter 1-3: 2
+                Item B has been sold out
+                Please select an item:
+                1. Item A - $6
+                2. Item B - SOLD OUT
+                3. Go back
+                Please enter 1-3: 1
+                Insufficient balance
+                Please select an item:
+                1. Item A - $6
+                2. Item B - SOLD OUT
+                3. Go back
+                Please enter 1-3: 4
+                Invalid choice
+                Please select an item:
+                1. Item A - $6
+                2. Item B - SOLD OUT
+                3. Go back
+                Please enter 1-3:
+              </code></pre>
+
+              <p class="card-text">
+                Otherwise, decrease the balance and the count of the corresponding item. Also, report to user the purchased item:
+              </p>
+
+              <pre><code class="language-text">
+                Please enter 1-3: 1
+                Purchased item A
+              </code></pre>
+
+              <h4 class="card-text">Task 5 - Handle "Return coins"</h4>
+              <p class="card-text">
+                If the user decided to return coins, then attempt to return an <em>available</em> coin with the <em>largest</em> value not exceeding the current balance, until the balance reaches zero or there are no available coins to return. Report to user for each returned coin. 
+              </p>
+
+              <p class="card-text">
+                Suppose the balance is $6,
+              </p>
+
+              <ul>
+                <li>
+                  If there are at least one $5 coin and at least one $1 coin, then a $5 coin and $1 coin are returned:
+                  <pre><code class="language-text">
+                    Returned a $5 coin
+                    Returned a $1 coin
+                  </code></pre>
+                </li>
+                <li>
+                  If there are no $5 coins, but at least 3 $2 coins are available, then 3 $2 coins are returned:
+                  <pre><code class="language-text">
+                    Returned a $2 coin
+                    Returned a $2 coin
+                    Returned a $2 coin
+                  </code></pre>
+                </li>
+                <li>
+                  If there are no $5 coins, but 2 $2 coins and at least 2 $1 coins are available, then 2 $2 coins and 2 $1 coins are returned:
+                  <pre><code class="language-text">
+                    Returned a $2 coin
+                    Returned a $2 coin
+                    Returned a $1 coin
+                    Returned a $1 coin
+                  </code></pre>
+                </li>
+                <li>
+                  If there are one $5 coin and at least 3 $2 coins, then only 1 $5 coin is returned. In this case, the remaining balance is not 0 but there are no available coins to return. Report to user for this:
+                  <pre><code class="language-text">
+                    Returned a $5 coin
+                    Oops... Not enough coins to return...
+                  </code></pre>
+                  The remaining balance is $1.
+                </li>
+                <li>
+                  Note: For simpliticy, coin return is <em>greedy</em>. The coin to return is the one that can reduce the most balance. It does not consider other options that can yield better results. For example, suppose there are 1 $5 coin and 3 $2 coins. Under the current greedy principle, a $5 coin is always returned, but the balance would not reach zero. An alternative exists which is to return 3 $2 coins, and that the balance would become zero. But this is never considered since the greedy action is always chosen.
+                </li>
+              </ul>
+
+              <h4 class="card-text">Task 6 - Handle "Leave"</h4>
+              <p class="card-text">
+                If the user decided to leave, then print the following message and terminate the program.
+              </p>
+              <pre><code class="language-text">
+                Bye
+              </code></pre>
+              
+            </div>
+            <div class="card-footer text-muted">
+              End of Lab Work
+            </div>
+          </div>
+
+          <!-- Resources section -->
+          <!-- ### Complete resources section for the lab ### -->
+          <div class="card mb-4">
+            <div class="card-body" id="resources">
+              <h3 class="card-title">Resources &amp; Sample I/O</h3>
+              <ul>
+                <li>Skeleton code: <a href="code/lab1_skeleton.cpp">lab1_skeleton.cpp</a></li>
+                <li>Demo program (executable for Windows): <a href="code/lab1_demo_win.exe">lab1_demo_win.exe</a></li>
+                <li>
+                  Demo program (executable for MacOS with Intel CPU): <a href="code/lab1_demo_mac_intel">lab1_demo_mac_intel</a>
+                  <ol>
+                    <li><a href="https://support.apple.com/guide/terminal/make-a-file-executable-apdd100908f-06b3-4e63-8a87-32e71241bab4/mac">Make the demo program executable</a></li>
+                    <li>In Finder, right click on the demo program while holding Control. Select Open With -> Terminal</li>
+                  </ol>
+                </li>
+                <li>(We do not have access to M1 Mac machines)</li>
+              </ul>
+              <h4>Sample I/O</h4>
+              <p class="card-text">
+                A sample I/O is given below, with the user input highlighted. You are encouraged to try the demo program to try more possible cases.
+              </p>
+              <pre data-line="7,8,15,20,28,36,37,44,49,57,65,66,73,78,86,94,95,102,103,110,115,123,131,132,139,147" class="line-numbers"><code class="language-text">
+                The balance is $0
+                Please choose an action:
+                1. Insert coin
+                2. Purchase
+                3. Return coins
+                4. Leave
+                Please enter 1-4: 1
+                Please insert a coin: $5
+                The balance is $5
+                Please choose an action:
+                1. Insert coin
+                2. Purchase
+                3. Return coins
+                4. Leave
+                Please enter 1-4: 2
+                Please select an item:
+                1. Item A - $6
+                2. Item B - $4
+                3. Go back
+                Please enter 1-3: 2
+                Purchased item B
+                The balance is $1
+                Please choose an action:
+                1. Insert coin
+                2. Purchase
+                3. Return coins
+                4. Leave
+                Please enter 1-4: 3
+                Returned a $1 coin
+                The balance is $0
+                Please choose an action:
+                1. Insert coin
+                2. Purchase
+                3. Return coins
+                4. Leave
+                Please enter 1-4: 1
+                Please insert a coin: $5
+                The balance is $5
+                Please choose an action:
+                1. Insert coin
+                2. Purchase
+                3. Return coins
+                4. Leave
+                Please enter 1-4: 2
+                Please select an item:
+                1. Item A - $6
+                2. Item B - $4
+                3. Go back
+                Please enter 1-3: 2
+                Purchased item B
+                The balance is $1
+                Please choose an action:
+                1. Insert coin
+                2. Purchase
+                3. Return coins
+                4. Leave
+                Please enter 1-4: 3
+                Returned a $1 coin
+                The balance is $0
+                Please choose an action:
+                1. Insert coin
+                2. Purchase
+                3. Return coins
+                4. Leave
+                Please enter 1-4: 1
+                Please insert a coin: $5
+                The balance is $5
+                Please choose an action:
+                1. Insert coin
+                2. Purchase
+                3. Return coins
+                4. Leave
+                Please enter 1-4: 2
+                Please select an item:
+                1. Item A - $6
+                2. Item B - $4
+                3. Go back
+                Please enter 1-3: 2
+                Purchased item B
+                The balance is $1
+                Please choose an action:
+                1. Insert coin
+                2. Purchase
+                3. Return coins
+                4. Leave
+                Please enter 1-4: 3
+                Returned a $1 coin
+                The balance is $0
+                Please choose an action:
+                1. Insert coin
+                2. Purchase
+                3. Return coins
+                4. Leave
+                Please enter 1-4: 1
+                Please insert a coin: $5
+                The balance is $5
+                Please choose an action:
+                1. Insert coin
+                2. Purchase
+                3. Return coins
+                4. Leave
+                Please enter 1-4: 1
+                Please insert a coin: $2
+                The balance is $7
+                Please choose an action:
+                1. Insert coin
+                2. Purchase
+                3. Return coins
+                4. Leave
+                Please enter 1-4: 2
+                Please select an item:
+                1. Item A - $6
+                2. Item B - SOLD OUT
+                3. Go back
+                Please enter 1-3: 1
+                Purchased item A
+                The balance is $1
+                Please choose an action:
+                1. Insert coin
+                2. Purchase
+                3. Return coins
+                4. Leave
+                Please enter 1-4: 3
+                Oops... Not enough coins to return...
+                The balance is $1
+                Please choose an action:
+                1. Insert coin
+                2. Purchase
+                3. Return coins
+                4. Leave
+                Please enter 1-4: 1
+                Please insert a coin: $1
+                The balance is $2
+                Please choose an action:
+                1. Insert coin
+                2. Purchase
+                3. Return coins
+                4. Leave
+                Please enter 1-4: 3
+                Returned a $2 coin
+                The balance is $0
+                Please choose an action:
+                1. Insert coin
+                2. Purchase
+                3. Return coins
+                4. Leave
+                Please enter 1-4: 4
+                Bye
+              </code></pre>
+            </div>
+            <div class="card-footer text-muted">
+              End of Resources &amp; Sample I/O
+            </div>
+          </div>
+
+          <!-- Grading section -->
+          <!-- ### Complete grading section for the lab ### -->
+          <div class="card mb-4">            
+            <div class="card-body" id="grading">
+              <h3 class="card-title">Submission &amp; Grading</h3>
+              <ul>
+                <li><strong>Deadline: Friday, 17 September 2021 23:59.</strong></li>
+                <li>
+                  You may earn 1 point for each lab via Automated Grading on the <a href="https://zinc.cse.ust.hk/">ZINC Online Submission System</a>.
+                </li>
+                <li>Please check <a href="https://course.cse.ust.hk/comp2012h/zinc-submission/">here</a> for a usage overview of ZINC.</li>
+                <li>
+                  Rename your source file as <code class="language-text">lab1.cpp</code> and zip it as <code class="language-text">lab1.zip</code> for submission to ZINC.
+                  <ul>
+                    <li>You need to name your source file as <code class="language-text">lab1.cpp</code> otherwise ZINC cannot find the file.</li>
+                    <li><a href="https://www.laptopmag.com/articles/how-to-zip-files-windows-10">How to create a zip file in Windows 10.</a></li>
+                    <li><a href="http://osxdaily.com/2012/01/10/how-to-zip-files-in-mac-os-x/">How to create a zip file in macOS.</a></li>
+                    <li><font color="red">Just zip <code class="language-text">lab1.cpp</code>, not a folder containing <code class="language-text">lab1.cpp</code>.</font></li>
+                  </ul>
+                </li>
+              </ul>
+              <h4>Test Cases</h4>
+              <p>
+                Here are the test cases used in ZINC:
+              </p>
+              <ol>
+                <li>4</li>
+                <li>0 5 4</li>
+                <li>1 5 1 2 1 1 4</li>
+                <li>1 3 4 0 1 4</li>
+                <li>2 3 4</li>
+                <li>2 0 4 3 4</li>
+                <li>1 5 1 5 2 1 2 2 4</li>
+                <li>1 1 3 4</li>
+                <li>1 2 3 4</li>
+                <li>1 5 3 4</li>
+                <li>1 5 1 5 1 2 1 1 3 4</li>
+                <li>2 1 2 3 1 2 2 1 2 3 1 2 2 1 2 4</li>
+                <li>1 5 1 5 1 5 1 5 2 1 2 1 2 1 2 1 3 4</li>
+                <li>1 5 1 5 1 5 2 2 2 2 2 2 2 2 3 4</li>
+                <li>1 5 1 5 2 1 3 1 5 1 5 2 1 3 1 5 1 5 2 1 3 4</li>
+                <li>1 5 2 2 3 1 5 2 2 3 1 5 2 2 3 1 5 1 2 2 1 3 4</li>
+              </ol>
+            </div>
+            <div class="card-footer text-muted">
+              End of Submission &amp; Grading
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-3">
+          <div class="sticky-top">
+            <!-- Menu Widget -->
+            <div class="card my-12">
+              <h5 class="card-header">Menu</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="mb-0" type="circle" style="padding-left:20px">
+                      <li>
+                        <a href="#csd">Registering for a CSD Account</a>
+                      </li>
+                      <li>
+                        <a href="#vscode">Setting Up VSCode</a>
+                      </li>
+                      <li>
+                        <a href="#review">Review</a>
+                      </li>
+                      <li>
+                        <a href="#introduction">Introduction</a>
+                      </li>
+                      <li>
+                        <a href="#labwork">Lab Work</a>
+                      </li>
+                      <li>
+                        <a href="#resources">Resources &amp; Sample I/O</a>
+                      </li>
+                      <li>
+                        <a href="#grading">Submission &amp; Grading</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Maintainance widget -->
+            <div class="card my-4">
+              <h5 class="card-header">Page maintained by</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        Kelvin CHIU
+                      </li>
+                      <li>
+                        Email: <a href="mailto:kelvinchiu@cse.ust.hk">kelvinchiu@cse.ust.hk</a>
+                      </li>
+                      <li>
+                        Last Modified: <script type="text/javascript">document.write(document.lastModified);</script>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Homepage widget -->
+            <div class="card my-4">
+              <h5 class="card-header">Homepage</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        <a href="https://course.cse.ust.hk/comp2012h/">Course Homepage</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Maintained by COMP 2012H Teaching Team &copy; 2021 HKUST Computer Science and Engineering</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> 
+  </body>
+
+</html>

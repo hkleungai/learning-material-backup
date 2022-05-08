@@ -1,0 +1,590 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>COMP2012H Self-test Web Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="keywords" content="" />
+<!--link rel="stylesheet" href="img/Underground.css" type="text/css" /-->
+<!-- Bubble tooltips: adopted from: http://www.web-graphics.com/mtarchive/BubbleTooltips.html--><!-- For automatic tooltip: -->
+<script src="bubbletooltips/bubbletooltips.js" type=text/javascript></script>
+<!-- Example:  usage <a href="" title=""></a>  --><!-- For customize tooltip -->
+<link media=all href="bubbletooltips/bt.css" type=text/css rel=stylesheet>
+<script type="text/javascript" src="jquery/jquery.js"></script>
+
+<!-- JQuery Calender is located here... -->
+<style type="text/css">@import url(jquerycalendar/jquery-calendar.css);</style>
+<script type="text/javascript" src="jquerycalendar/jquery-calendar.js"></script>
+
+<script type="text/javascript" src="selftestmenu.js"></script>
+<link rel="stylesheet" type="text/css" href="selfteststyle.css" />
+<!-- highslide stuff: TESTING... -->
+<script type="text/javascript" src="highslide/highslide-with-html.js"></script>
+<script type="text/javascript">    
+    hs.graphicsDir = 'highslide/graphics/';
+    hs.outlineType = 'rounded-white';
+    hs.outlineWhileAnimating = true;
+</script>
+<style type="text/css">@import url(highslide/myslide.css);</style>
+<!-- END OF highslide stuff -->
+
+</head>
+
+<!-- Start of the main html body -->
+<body>
+
+<!-- wrap starts here -->
+<div id="main">
+<div id="wrap">
+        <!-- header -->
+        <div id="header">
+                <span id="slogan" ></span>
+                <!-- tabs -->
+                <ul>
+                  <li class="showall-solution"><a href="#" title="Show all solutions"><span>Show all solutions</span></a></li>
+                  <li class="hideall-solution"><a href="#" title="Hide all solutions"><span>Hide all solutions</span></a></li>
+               
+                </ul>
+        </div>
+        <!-- main block: right panel -->
+        <!--div id="main"-->
+
+          <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Test 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  -->
+          <div id='block1' style="display:block;	clear:left;">
+            <h1>Self-test 20: <br /> Hashing  </h1>
+
+          <OL>
+			
+			
+			<!-- Start of question 1 -->
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <!-- Put the question here -->
+              <p>What is the disadvantage of using an array of even size as the basis for a hash table?</p>
+
+              <ol type="A">
+
+                <li>Takes more space.</li>
+
+                <li>Produces more collisions.</li>
+
+                <li>Quadratic probing takes more time.</li>
+
+                <li>Complicates item removal.</li>
+
+              </ol>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <!-- Put the solution here -->
+              <b>Answer is B.</b> If many keys share a divisor with the table size, then many keys can end up hashing to the same index. This can happen regardless of the hashing type, so prime numbers will be used instead of even numbers to avoid collisions.  
+            </div>              
+            </div>
+            <hr />
+            </LI>
+            <!-- End of question 1-->
+			
+			
+			
+			<!-- Start of question 2-->
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <!-- Put the question here -->
+              <p>Suppose we have b buckets and k keywords (k > b). Which of these properties should the hash function have?</p>
+
+              <ol type="A">
+
+                <li>Output a unique number betweek 0 and k-1</li>
+
+                <li>Map approximately k/b keywords to bucket 0</li>
+
+                <li>Map approximately k/b keywords to bucket b-1</li>
+				
+				<li>Map more keywords to bucket 0 than to bucket 1</li>
+
+              </ol>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <!-- Put the solution here -->
+              <b>B and C are correct.</b> Hash function is supposed to distribute the keys evenly. A critical statistic for a hash table is called the <b>load factor</b>. This is simply the number of input keys divided by the number of buckets, that is, n/k where n is the number of keys and k is the table size.
+            </div>              
+            </div>
+            <hr />
+            </LI>
+            <!-- End of question 2 -->
+			
+			
+			<!-- Start of question 3-->
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <!-- Put the question here -->
+              <p>The keys 12, 18, 13, 2, 3, 23, 5 and 15 are inserted into an initially empty hash table of length 10 using open addressing with hash function h(k) = k mod 10 and linear probing. What is the resultant hash table?</p>
+			  <img src="http://geeksforgeeks.org/wp-content/uploads/gate_2009_hash.GIF" width="533" height="236" class="aligncenter size-full wp-image-5737" />
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <!-- Put the solution here -->
+              <b>C is correct.</b> Open addressing, or closed hashing, is a method of collision resolution in hash tables. With this method a hash collision is resolved by probing, or searching through alternate locations in the array (the probe sequence) until either the target record is found, or an unused array slot is found, which indicates that there is no such key in the table. Well known probe sequences include: <b>linear probing</b> in which the interval between probes is fixed--often at 1. <b>quadratic probing</b> in which the interval between probes increases linearly (hence, the indices are described by a quadratic function). <b>double hashing</b> in which the interval between probes is fixed for each record but is computed by another hash function.
+            </div>              
+            </div>
+            <hr />
+            </LI>
+            <!-- End of question 3 -->
+			
+			
+            <!-- Start of question 4 -->
+            <LI>
+            
+              A hash table of length 10 uses open addressing with hash function h(k)=k mod 10, and linear probing. After inserting 6 values into an empty hash table, the table is as shown below.
+			  <img src="http://geeksforgeeks.org/wp-content/uploads/gate2010_1.GIF" width="129" height="222" class="alignnone" />
+			  <br><b>Answer questions (1) and (2).</b>
+			  
+			  <div class="question-wrapper">
+              <div class="question-content">
+              <!-- Put the question here -->
+			  <p>(1) Which one of the following choices gives a possible order in which the key values could have been inserted in the table?
+			  </p>
+
+              <ol type="A">
+
+                <li>34, 42, 23, 52, 33, 46</li>
+
+                <li>46, 42, 34, 52, 23, 33</li>
+
+                <li>42, 46, 33, 23, 34, 52</li>
+
+                <li>46, 34, 42, 23, 52, 33</li>
+
+              </ol>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <!-- Put the solution here -->
+              <b>D is correct.</b>
+			  <br>The sequence (A) doesn't create the hash table as the element 33 appears before 46 in this sequence.
+			  <br>The sequence (B) doesn't create the hash table as the element 52 appears before 23 in this sequence.
+			  <br>The sequence (C) doesn't create the hash table as the element 33 appears before 23 in this sequence.
+			  <br>The sequence (D) creates the hash table as 42, 23 and 34 appear before 52 and 33, and 46 appears before 33.
+            </div>              
+            </div>
+   
+            <div class="question-wrapper">
+            <div class="question-content">
+              <!-- Put the question here -->
+              <p>(2) How many different insertion sequences of the key values using the same hash function and linear probing will result in the hash table shown above?</p>
+
+              <ol type="A">
+
+                <li>10</li>
+
+                <li>20</li>
+
+                <li>30</li>
+
+                <li>40</li>
+
+              </ol>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <!-- Put the solution here -->
+              <b>C is correct.</b> 
+			  <br>In a valid insertion sequence, the elements 42, 23 and 34 must appear before 52 and 33, and 46 must appear before 33.
+			  <br>Total number of different sequences = 3! x 5 = 30
+              <br>In the above expression, 3! is for elements 42, 23 and 34 as they can appear in any order, and 5 is for element 46 as it can appear at 5 different places.
+            </div>              
+            </div>
+            <hr />
+            </LI>
+            <!-- End of question 4 -->
+			
+			
+			<!-- Start of question 5-->
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <!-- Put the question here -->
+              <p>Consider a hash table of size seven, with starting index zero, and a hash function (3x + 4)mod7. Assuming the hash table is initially empty, which of the following is the contents of the table when the sequence 1, 3, 8, 10 is inserted into the table using closed hashing (open addressing)? Note that '_' denotes an empty location in the table.</p>
+
+              <ol type="A">
+
+                <li>8, _, _, _, _, _, 10</li>
+
+                <li>1, 8, 10, _, _, _, 3</li>
+
+                <li>1, _, _, _, _, _,3</li>
+
+                <li>1, 10, 8, _, _, _, 3</li>
+
+              </ol>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <!-- Put the solution here -->
+              <b>B is correct.</b> 
+			  <br>Let us put values 1, 3, 8, 10 in the hash of size 7.
+			  <br>Initially, hash table is empty:
+			  <br>_, _, _, _, _, _, _
+			  <br>The value of function (3x + 4)mod 7 for 1 is 0, so let us put the value at location 0:
+			  <br>1, _, _, _, _, _, _
+			  <br>The value of function (3x + 4)mod 7 for 3 is 6, so let us put the value at location 6:
+			  <br>1, _, _, _, _, _, 3
+			  <br>The value of function (3x + 4)mod 7 for 8 is 0, but location 0 is already occupied, let us put the value 8 at next available space 1:
+			  <br>1, 8, _, _, _, _, 3
+			  <br>The value of function (3x + 4)mod 7 for 10 is 6, but location 6 is already occupied, let us put the value 10 at next available space 2:
+			  <br>1, 8, 10, _, _, _, 3
+            </div>              
+            </div>
+            <hr />
+            </LI>
+            <!-- End of question 5 -->
+			
+			
+			<!-- Start of question 6-->
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <!-- Put the question here -->
+              <p>* Which of the following statements <b>are false</b>? (Recall that load factor equals # Keys / TableSize)</p>
+
+              <ol type="A">
+				
+                <li>The complexity to insert n new elements into a hash table if there are no collisions is O(n).</li>
+				
+				<li>Suppose that a hash table with collisions resolved by chaining contains n items and has a
+					load factor of &#945 = 1/ lg n. Assuming simple uniform hashing, the expected time to search
+					for an item in the table is O(1/ lg n).</li>
+
+                <li>Suppose that a hash table of m slots contains a single element with key k and the rest of
+					the slots are empty. Suppose further that we search r times in the table for various other
+					keys not equal to k. Assuming simple uniform hashing, the probability is r/m that one of
+					the r searches probes the slot containing the single element stored in the table.</li>
+
+                <li>Let S be a set of n integers. One can create a data structure for S so that determining
+					whether an integer x belongs to S can be performed in O(1) time in the worst case.</li>
+
+              </ol>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <!-- Put the solution here -->
+              <b>B and C are false.</b> 
+			  <br>A is true. Each insertion takes O(1) time if no collision in the hash table.
+              <br>B is false. The expected time to search for an item in the table is O(1 + &#945) =
+					O(1 + 1/ lg n) = O(1). At least a constant running time O(1) is needed to search for an
+					item; subconstant running time O(1/ lg n) is not possible.
+			  <br>C is false. The probability p that one of the r searches collides with the single
+					element stored in the table is equal to 1 minus the probability that none of the r searches 
+					collides with the single element stored in the table. That is, p = 1 - (1 - 1 / m) <sup>r</sup>.
+			  <br>D is true. The definition of perfect hashing.
+
+			</div>              
+            </div>
+            <hr />
+            </LI>
+            <!-- End of question 6 -->
+			
+			
+			<!-- Start of question 7-->
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <!-- Put the question here -->
+              <p>Suppose we want to store names, or words, consisting of lower case of letters only. We will consider three hash functions, all hashing to a hash table with 26 entries:</p>
+			  
+<pre>
+unsigned int hash1(char *s) {
+	return s[0] - 'a';
+}
+
+unsigned int hash2(char *s) {
+	int h = 0, i;
+	for (i = 0; s[i] != '\0'; i++)
+		h = h + s[i];
+	return h % 26;
+}
+
+unsigned int hash3(char *s) {
+	int h = 0, i;
+	for (i = 0; s[i] != '\0'; i++)
+		h = h * 3 + s[i];
+	return h % 26;
+}
+</pre>
+			  <p>Suppose we wish to store the following words: <i>break, brake, dear, dare, bristol, bristle, not</i> and <i>ton</i>.
+			  <br>How many collisions will we have when using hash1, hash2 and hash3, respectively?</p>
+			  
+              <ol type="A">
+
+                <li>4, 4, 4</li>
+
+                <li>4, 3, 0</li>
+
+                <li>4, 3, 3</li>
+
+                <li>None of the above.</li>
+
+              </ol>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <!-- Put the solution here -->
+              <b>B is correct.</b> 
+			  <br>hash1 has 4 collisions (<i>brake, bristol</i> and <i>bristle</i> collide with <i>break</i>, and <i>dear</i> with <i>dare</i>). 
+			  <br>hash2 has 3 collisions (<i>brake</i> with <i>break</i>, <i>hear</i> with <i>hare</i>, and <i>ton</i> with <i>not</i>). 
+			  <br>hash3 computes a polynomial function (of 3) by use of Horner's rule and can generally be expected to distribute well.
+            </div>              
+            </div>
+            <hr />
+            </LI>
+            <!-- End of question 7 -->
+			
+			
+				<!-- Start of question 8-->
+            <LI>
+            
+              <p>* Suppose that 31 distinct integers are arranged in ascending order in an array named values. Suppose also that the following code is used in a method to locate an integer named key in the array.</p>
+			  
+<pre>
+int leftIndex = 0;
+int rightIndex = values.length() - 1;
+
+while (leftIndex <= rightIndex) {
+	int middleIndex = (leftIndex+rightIndex)/2;
+	if (values[middleIndex] == key) {
+		return true;
+	} else if (values[middleIndex] < key) {
+		leftIndex = middleIndex+1;
+	} else {
+		rightIndex = middleIndex-1;
+	}
+}
+return false;
+</pre>
+			  <p><b>Answer questions (1) and (2).</b>
+			<div class="question-wrapper">
+            <div class="question-content">
+              <!-- Put the question here -->
+			  <p>(1) Compute the total number of comparisons necessary to locate all 31 values in the array using the above loop. A comparison occurs in one of the lines</p>
+<pre>
+if (values[middleIndex] == key) { ...
+} else if (values[middleIndex] < key) { ...
+</pre>
+
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <!-- Put the solution here -->
+              <b>227.</b> 
+			  <br>Search for values[15], the middle element, requires one comparison; search for values[7] or values[23], the middle elements of the first 15 and last 15 elements respectively, requires three comparisons; four keys require five comparisons; and so on. Total comparisons to find all 31 keys is
+			  <br>1*1 + 2*3 + 4*5 + 8*7 + 16*9 = 1 + 6 + 20 + 56 + 144 = 227.
+            </div>              
+            </div>
+			
+			<div class="question-wrapper">
+            <div class="question-content">
+              <!-- Put the question here -->
+              <p>(2) Now suppose that the 31 integers are stored in a chained hash table with k chains, in which the hash function distributes the integers to chains as evenly as possible. What is the smallest value of k for which the total number of comparisons to find all 31 values in the hash table is less than the answer you computed for part a? (Recall that 1 + 2 + ... + n = n(n+1)/2.)</p>
+            <ol type="A">
+
+                <li>2</li>
+
+                <li>3</li>
+
+                <li>4</li>
+
+                <li>None of the above.</li>
+
+              </ol>
+			
+			</div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <!-- Put the solution here -->
+              <b>B is correct.</b> 
+			  <br>Try small values for the hash table size. If there are two chains, there are 15 keys in one chain and 16 in the other. The total number of comparisons to access the keys in the 15-key chain is 1+2+...+15 = 16*15/2 = 8*15 = 120. The corresponding figure for the 16-key chain is 17*16/2 = 17*8 = 136. The total is 256. If there are three chains, there are 10 keys in two chains and 11 in the other. Total comparisons is then 5*11 + 5*11 + 11*6 = 176. The desired value for k is thus 3.
+            </div>              
+            </div>
+			
+            <hr />
+            </LI>
+            <!-- End of question 8 -->
+
+			
+			
+		    <!-- Start of question 9-->
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <!-- Put the question here -->
+              <p>Suppose that a <a href="http://en.wikipedia.org/wiki/Tic-tac-toe" target="_blank">Tic-Tac-Toe</a> board is represented as an array of int arrays, in which values of 0 (for blank), 1 (for X), and 2 (for O) are stored. Consider the following hash function for Tic-Tac-Toe boards.</p>
+			  
+<pre>
+public int hashCode ( )
+	int sum = 0;
+	for (int row=0; row<3; row++) {
+		for (int col=0; col<3; col++) {
+			sum += row*col*myBoard[row][col];
+		}
+	}
+	return sum;
+}
+</pre>
+
+              <p>Is this a good hash function or a bad one, when used with a chained hash table of around 5000 chains? (There are 19,683 different boards.) Be specific.</p>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <!-- Put the solution here -->
+              <b>It's a bad hash function.</b> All boards that differ only by X's and O's in the first column or first row (there are 3<sup>5</sup> = 243 of these) map to the same hash location (because the index of the first column or first row equals zero), compared to a perfect distribution of around 4 boards per chain.
+            </div>              
+            </div>
+            <hr />
+            </LI>
+            <!-- End of question 9 -->
+			
+			
+			<!-- Start of question 10-->
+            <LI>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <!-- Put the question here -->
+              <p>Consider inserting the keys 10, 22, 31, 4, 15, 28, 17, 88, 59 into a hash table of length m = 11 using open addressing with the
+				auxiliary hash function h'(k) = k. Illustrate the result of inserting these keys using <b>linear probing</b>, using <b>quadratic probing</b> with
+				c1 = 1 and c2 = 3, and using <b>double hashing</b> with h'(k) = k and h2'(k) = 1 + (k mod (m - 1)).</p>
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <!-- Put the solution here -->
+              <b>Linear Probing</b> 
+			  <br>With linear probing, we use the hash function h(k, i) = (h'(k) + i) mod m = (k + i) mod m. Consider hashing each of the following keys:
+				<br>1) Hashing 10:
+				<br>&nbsp &nbsp &nbsp h(10, 0) = (10 + 0) mod 11= 10. Thus we have T[10] = 10.
+				<br>2) Hashing 22:
+				<br>&nbsp &nbsp &nbsp h(22, 0) = (22 + 0) mod 11 = 0. Thus we have T[0] = 22.
+				<br>3) Hashing 31:
+				<br>&nbsp &nbsp &nbsp h(31, 0) = (31 + 0) mod 11 = 9. Thus we have T[9] = 31.
+				<br>4) Hashing 4:
+				<br>&nbsp &nbsp &nbsp h(4, 0) = (4 + 0) mod 11 = 4. Thus we have T[4] = 4.
+				<br>5) Hashing 15:
+				<br>&nbsp &nbsp &nbsp h(15, 0) = (15 + 0) mod 11 = 4, collision!
+				<br>&nbsp &nbsp &nbsp h(15, 1) = (15 + 1) mod 11 = 5. Thus we have T[5] = 15.
+				<br>6) Hashing 28:
+				<br>&nbsp &nbsp &nbsp h(28, 0) = (28 + 0) mod 11 = 6. Thus we have T[6] = 28.
+				<br>7) Hashing 17:
+				<br>&nbsp &nbsp &nbsp h(17, 0) = (17 + 0) mod 11 = 6, collision!
+				<br>&nbsp &nbsp &nbsp h(17, 1) = (17 + 1) mod 11 = 7. Thus we have T[7] = 17.
+				<br>8) Hashing 88:
+				<br>&nbsp &nbsp &nbsp h(88, 0) = (88 + 0) mod 11 = 0, collision!
+				<br>&nbsp &nbsp &nbsp h(88, 1) = (88 + 1) mod 11 = 1. Thus we have T[1] = 88.
+				<br>9) Hashing 59:
+				<br>&nbsp &nbsp &nbsp h(59, 0) = (59 + 0) mod 11 = 4, collision!
+				<br>&nbsp &nbsp &nbsp h(59, 1) = (59 + 1) mod 11 = 5, collision!
+				<br>&nbsp &nbsp &nbsp h(59, 2) = (59 + 2) mod 11 = 6, collision!
+				<br>&nbsp &nbsp &nbsp h(59, 3) = (59 + 3) mod 11 = 7, collision!
+				<br>&nbsp &nbsp &nbsp h(59, 4) = (59 + 4) mod 11 = 8. Thus we have T[8] = 59. 
+				<br>The final hash table is shown as:
+				<br>22, 88, _, _, 4, 15, 28, 17, 59, 31, 10
+				
+			  <br><br><b>Quadratic Probing</b> 
+			  <br>With quadratic probing, and c1 = 1, c2 = 3, we use the hash function h(k, i) = (h'(k) + i + 3i<sup>2</sup>) mod m = (k + i + 3i<sup>2</sup>) mod m. Consider hashing each of the following keys:
+				<br>1) Hashing 10:
+				<br>&nbsp &nbsp &nbsp h(10, 0) = (10 + 0 + 0) mod 11 = 10. Thus we have T[10] = 10.
+				<br>2) Hashing 22:
+				<br>&nbsp &nbsp &nbsp h(22, 0) = (22 + 0 + 0) mod 11 = 0. Thus we have T[0] = 22.
+				<br>3) Hashing 31:
+				<br>&nbsp &nbsp &nbsp h(31, 0) = (31 + 0 + 0) mod 11 = 9. Thus we have T[9] = 31.
+				<br>4) Hashing 4:
+				<br>&nbsp &nbsp &nbsp h(4, 0) = (4 + 0 + 0) mod 11 = 4. Thus we have T[4] = 4.
+				<br>5) Hashing 15:
+				<br>&nbsp &nbsp &nbsp h(15, 0) = (15 + 0 + 0) mod 11 = 4, collision!
+				<br>&nbsp &nbsp &nbsp h(15, 1) = (15 + 1 + 3) mod 11 = 8. Thus we have T[8] = 15.
+				<br>6) Hashing 28:
+				<br>&nbsp &nbsp &nbsp h(28, 0) = (28 + 0 + 0) mod 11 = 6. Thus we have T[6] = 28.
+				<br>7) Hashing 17:
+				<br>&nbsp &nbsp &nbsp h(17, 0) = (17 + 0 + 0) mod 11 = 6, collision!
+				<br>&nbsp &nbsp &nbsp h(17, 1) = (17 + 1 + 3) mod 11 = 10, collision!
+				<br>&nbsp &nbsp &nbsp h(17, 2) = (17 + 2 + 12) mod 11 = 9, collision!
+				<br>&nbsp &nbsp &nbsp h(17, 3) = (17 + 3 + 27) mod 11 = 3. Thus we have T[3] = 17.
+				<br>8) Hashing 88:
+				<br>&nbsp &nbsp &nbsp h(88, 0) = (88 + 0 + 0) mod 11 = 0, collision!
+				<br>&nbsp &nbsp &nbsp h(88, 1) = (88 + 1 + 3) mod 11 = 4, collision!
+				<br>&nbsp &nbsp &nbsp h(88, 2) = (88 + 2 + 12) mod 11 = 3, collision!
+				<br>&nbsp &nbsp &nbsp h(88, 3) = (88 + 3 + 27) mod 11 = 8, collision!
+				<br>&nbsp &nbsp &nbsp h(88, 4) = (88 + 4 + 48) mod 11 = 8, collision!
+				<br>&nbsp &nbsp &nbsp h(88, 5) = (88 + 5 + 75) mod 11 = 3, collision!
+				<br>&nbsp &nbsp &nbsp h(88, 6) = (88 + 6 + 108) mod 11 = 4, collision!
+				<br>&nbsp &nbsp &nbsp h(88, 7) = (88 + 7 + 147) mod 11 = 0, collision!
+				<br>&nbsp &nbsp &nbsp h(88, 8) = (88 + 8 + 192) mod 11 = 2. Thus we have T[2] = 88.
+				<br>9) Hashing 59:
+				<br>&nbsp &nbsp &nbsp h(59, 0) = (59 + 0 + 0) mod 11 = 4, collision!
+				<br>&nbsp &nbsp &nbsp h(59, 1) = (59 + 1 + 3) mod 11 = 8, collision!
+				<br>&nbsp &nbsp &nbsp h(59, 2) = (59 + 2 + 12) mod 11 = 7. Thus we have T[7] = 59. 
+				<br>The final hash table is shown as:
+				<br>22, _, 88, 17, 4, _, 28, 59, 15, 31, 10
+			
+			  <br><br><b>Doubling Hashing</b> 
+			  <br>With double hashing, we use the hash function:
+					h(k, i) = (h'(k) + ih2'(k)) mod m = (k + i(1 + (k mod (m - 1)))) mod m.
+					Consider hashing each of the following keys:
+				<br>1) Hashing 10:
+				<br>&nbsp &nbsp &nbsp h(10, 0) = (10 + 0) mod 11 = 10. Thus we have T[10] = 10.
+				<br>2) Hashing 22:
+				<br>&nbsp &nbsp &nbsp h(22, 0) = (22 + 0) mod 11 = 0. Thus we have T[0] = 22.
+				<br>3) Hashing 31:
+				<br>&nbsp &nbsp &nbsp h(31, 0) = (31 + 0) mod 11 = 9. Thus we have T[9] = 31.
+				<br>4) Hashing 4:
+				<br>&nbsp &nbsp &nbsp h(4, 0) = (4 + 0) mod 11 = 4. Thus we have T[4] = 4.
+				<br>5) Hashing 15:
+				<br>&nbsp &nbsp &nbsp h(15, 0) = (15 + 0) mod 11 = 4, collision!
+				<br>&nbsp &nbsp &nbsp h(15, 1) = (15 + 1 * h2'(15)) mod 11 = 10, collision!
+				<br>&nbsp &nbsp &nbsp h(15, 2) = (15 + 2 * h2'(15)) mod 11 = 5. Thus we have T[5] = 15.
+				<br>6) Hashing 28:
+				<br>&nbsp &nbsp &nbsp h(28, 0) = (28 + 0) mod 11 = 6. Thus we have T[6] = 28.
+				<br>7) Hashing 17:
+				<br>&nbsp &nbsp &nbsp h(17, 0) = (17 + 0) mod 11 = 6, collision!
+				<br>&nbsp &nbsp &nbsp h(17, 1) = (17 + 1 * h2'(17)) mod 11 = 3. Thus we have T[3] = 17.
+				<br>8) Hashing 88:
+				<br>&nbsp &nbsp &nbsp h(88, 0) = (88 + 0) mod 11 = 0, collision!
+				<br>&nbsp &nbsp &nbsp h(88, 1) = (88 + 1 * h2'(88)) mod 11 = 9, collision!
+				<br>&nbsp &nbsp &nbsp h(88, 2) = (88 + 2 * h2'(88)) mod 11 = 7. Thus we have T[7] = 88.
+				<br>9) Hashing 59:
+				<br>&nbsp &nbsp &nbsp h(59, 0) = (59 + 0) mod 11 = 4, collision!
+				<br>&nbsp &nbsp &nbsp h(59, 1) = (59 + 1 * h2'(59)) mod 11 = 3, collision!
+				<br>&nbsp &nbsp &nbsp h(59, 2) = (59 + 2 * h2'(59)) mod 11 = 2. Thus we have T[2] = 59.
+				<br>The final hash table is shown as:
+				<br>22, _, 59, 17, 4, 15, 28, 88, _, 31, 10
+			</div>              
+            </div>
+            <hr />
+            </LI>
+            <!-- End of question 10 -->
+					
+
+          </OL>
+        </div>
+
+        <!-- wrap ends here; don't delete this /div --> 
+        </div>
+
+</div>
+</div>
+
+</body>
+</html>
+

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- ### Change assignment number ### -->
+  <title>VS Code Installation and Usage</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/blog-home.css" rel="stylesheet">
+
+  <!-- Prism syntax highlighter
+  <link href="prism.css" rel="stylesheet" /> -->
+
+  <!-- For code highlighting -->
+  <script src="vendor/prism/prism.js" type="text/javascript"></script>
+  <link href="vendor/prism/prism.css" rel="stylesheet" />
+
+  <style>
+    pre {
+      background: #f4f4f4;
+      border: 1px solid #ddd;
+      border-left: 3px solid #f36d33;
+      color: #666;
+      page-break-inside: avoid;
+      font-family: monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 1.6em;
+      max-width: 100%;
+      overflow: auto;
+      padding: 1em 1.5em;
+      display: block;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+
+<body>
+  <script src="prism.js"></script>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Entries Column -->
+      <div class="col-md-9">
+
+        <!-- ### Change assignment number and title ### -->
+        <h3 class="my-4">VS Code Installation and Usage
+        </h3>
+
+
+        <div class="card mb-4">
+          <div class="card-body" id="overview">
+            <h3 class="card-title">Overview</h3>
+            <p class="card-text">
+              
+              There are many compilers for C++. In COMP2011, COMP2012, 
+and COMP2012H 
+officially we use the g++ compiler. For IDE (integrated development environment), on Windows we recommend the use of the VS Code which is free and well-designed. Windows user may proceed to the <a href="#portable">Using the portable version for Windows (easiest way)</a> section now. If the portable version doesn't work for you, you may also find the instructions for the manual installation of VS Code from the menu on this page.
+
+
+            </p>
+
+          </div>
+          </div>
+
+
+          <div class="card mb-4">
+          <div class="card-body" id="mac">
+            <h3 class="card-title">Installing VS Code for MacOS</h3>
+
+            <!-- <p class="card-text">
+              On MacOS, feel free to use VS Code as well. For that you can follow our <a href="mac20200924.pdf">step-by-step guide on the VS Code installation on MacOS [last updated @ 20200924]</a> from page 1. It is modified from the VS Code <a href="https://code.visualstudio.com/docs/cpp/config-clang-mac">official instruction page</a>. Our guide, however, uses g++ instead of clang++ compiler. The g++ compiler is closer to the C++ standard we follow for this course. Our guide also uses the extension we use for our Windows VS Code for convenience. You are recommended to follow our guide.</li> -->
+
+           <p class="card-text">
+              On MacOS, feel free to use VS Code as well. For that you can run a script that is created by one of our staff by entering the command 
+              <code>curl https://cse.hkust.edu.hk/~wallacem/vscode/install.sh | bash</code> 
+              <!-- <code>curl https://course.cse.ust.hk/comp2011/labs/vscode/install.sh | bash</code>  -->
+              in your terminal (read <a href="https://www.idownloadblog.com/2019/04/19/ways-open-terminal-mac/">this</a> to see how to open a terminal). The command tries to automate the steps in the first 3 pages of the <a href="mac20200924.pdf">step-by-step guide on the VS Code installation on MacOS [last updated @ 20200924]</a> for you. Then you can try to create a simple program by following the page 4 and 5 of the guide (but skip the part where the setting is modified and saved in "Preferences: Open Settings (JSON)", as the script already does a similar change for you). If this approach doesn't work, you may close the VSCode and try to perform the full manual installation from page 1 then.</li> 
+
+
+
+<!-- <li>
+Or you can simply follow our <a href="mac20200924.pdf">step-by-step guide on the VS Code installation on MacOS [last updated @ 20200924]</a> from page 1. It is modified from the VS Code <a href="https://code.visualstudio.com/docs/cpp/config-clang-mac">official instruction page</a>. Our guide, however, uses g++ instead of clang++ compiler. The g++ compiler is closer to the C++ standard we follow for this course. Our guide also uses the extension we use for our Windows VS Code for convenience. You are recommended to follow our guide.
+</li>
+</ul> -->
+
+<br><br>
+This video shows you the steps for running the script and using VSCode: <a href="mac_install.mp4">download here</a>. (The video shows a slightly different curl command for downloading the script, don't mind that, you may just copy and paste the command you see on this webpage instead, i.e., <code>curl https://cse.hkust.edu.hk/~wallacem/vscode/install.sh | bash</code>  The overall process remains the same.)
+<br><br>
+If you are new to Mac, you may also find the following useful:
+<ul>
+    <!-- <li><a href="https://support.apple.com/en-hk/guide/terminal/apd5265185d-f365-44cb-8b09-71a064a42125/mac">How to open a terminal on MacOS</a></li> -->
+    <li><a href="https://www.idownloadblog.com/2019/04/19/ways-open-terminal-mac/">How to open a terminal on MacOS</a></li>
+    <!-- <li><a href="https://support.apple.com/en-hk/guide/mac-help/mh26885/mac">How to create a new folder on MacOS</a></li> -->
+    <li><a href="https://www.businessinsider.com/how-to-create-a-folder-on-mac">How to create a new folder on MacOS</a></li>
+</ul>
+After following our guide to build and run your first program with the Code Runner extension, if you want to create another program, you can simply add a new file, write your code, then use the "run code" command from command palette.
+<!-- After you have installed the Code Runner extension according to the last section of our MacOS guide, you actually don't have to do the steps in "Configure Default Build Task" anymore, you can just follow <a href="#compile">Compiling and running your first program</a> on this page if you want to create another new C++ program, i.e., just add a new file, then use the "run code" command. -->
+<br><br>
+For running custom commands in VS Code such as compiling multiple source files at the same time or using <code>make</code> for makefiles, steps should be similar to those on Windows as outlined in <a href="#terminal">Using the terminal for custom compilation commands</a> although the folder opening dialog may look different.
+<br><br>
+If you really cannot get VS Code running on your Mac, you may <a href="#virtualbarn">use VS Code in the Virtual Barn</a>.
+
+<!-- You are also recommended to use the settings from the 2nd <a href="#faq">FAQ</a>. They work in MacOS as well. -->
+
+<!-- Just follow carefully the "Prerequisites", "Create Hello World", and "Build helloworld.cpp" sections to setup your VS Code, and then compile and run your first C++ program on MacOS. "Reusing your C++ configuration" section may also be useful to save your time in the future. Some of the steps ask you to type some commands in the terminal which can be opened according to the instructions <a href="https://support.apple.com/en-hk/guide/terminal/apd5265185d-f365-44cb-8b09-71a064a42125/mac">here ("Open Terminal" section)</a>. For running custom commands in VS Code such as make for makefiles, steps should be similar to those on Windows as outlined in <a href="#terminal">Using the terminal for custom compilation commands</a>. (if you don't know how to create a folder on MacOS, you may refer to this <a href="https://support.apple.com/en-hk/guide/mac-help/mh26885/mac">Apple support page</a> or find some MacOS usage tutorials online.)</p> -->
+
+            </p>
+
+          </div>
+          </div>
+
+
+
+        <div class="card mb-4">
+          <div class="card-body" id="portable">
+            <h3 class="card-title">Using the portable version for Windows (easiest way)</h3>
+            <p class="card-text">
+
+              <p>The easiest way to get VS Code up and running on your Windows is to use the portable version prepared by us. We have bundled the correct compiler and extensions in it already so that you don't have to install them yourself.</p>
+
+              <p>Download the file here: <a href="VSCode (unzip and run RUN-VSCODE.bat in it).zip">VSCode (unzip and run RUN-VSCODE.bat in it).zip</a></p>
+
+              <p>After you download the file, you need to:</p>
+
+              <ol>
+                <li>Unzip/extract it. (You should not just double-click the file and run the files inside, you need to extract the files first)</li>                    
+                <img src="images/23.png" width="100%">
+                <img src="images/24.png" width="100%">
+                <li>Go into the folder extracted.</li>
+                <li><b><font color="red" style="font-size:2rem">Very important!</font></b> Run the <b><u>RUN-VSCODE.bat</u></b>, NOT the Code.exe. Otherwise, the compiler won't work. See the screenshot below. It may only show "RUN-VSCODE" on your computer, that is fine.
+                </li>
+                <img src="images/25.png" width="100%">
+              </ol>
+
+              <p>Note: When you first run the RUN-VSCODE.bat, you may see a warning as follows. Just click "More info" and "Run anyway".</p>
+              <img src="images/run-vscode-bat1.png" width="100%">
+              <img src="images/run-vscode-bat2.png" width="100%">
+
+              <p>Note: a black window (command prompt) may pop up. Don't worry about it. Just do NOT close it.</p>
+              <img src="images/26.png" width="100%">
+
+<br>
+              <p>You should see the VS Code running after clicking on RUN-VSCODE.bat</p>
+              <img src="images/27.png" width="100%">
+
+<br>
+        
+              <p>There may be some popup such as extension recommendations at the lower-right corner, just close them with the close button on them.</p>
+
+              <p>That would be the easiest way to run VS Code. <u>You can go to the <a href="#compile">Compiling and running your first program</a> section directly if you can get the portable version running.</u></p>
+              <p>However, if this portable version doesn't work for you for whatever reason, or that you want to install VS Code yourself, you can follow the instructions in the next section. You may <a href="#virtualbarn">use VS Code in the Virtual Barn</a> if you really cannot install/use it on your PC.</p>
+          </div>
+        </div>
+
+
+        <div class="card mb-4">
+          <div class="card-body" id="mingw">
+            <h3 class="card-title">Installing MinGW g++ compiler</h3>
+            <p class="card-text">
+              <p>Note: <b>if you can use the portable version of VS Code, you don't need to follow the manual installation below.</b></p>
+              <p>For manual setup of VS Code, let's first install the compiler.</p>
+              <p>Go to <a href="https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/installer/mingw-w64-install.exe/download">https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/installer/mingw-w64-install.exe/download</a> and download the setup file.</p>
+
+              <p>Run the setup. Click Next on the first dialog.</p>
+
+              <img src="images/1.png" width="100%">
+              <br><br>
+
+              <p>Choose <b>x86_64</b> as the Architecture. Click Next.</p>
+
+              <img src="images/2.png" width="100%">
+              <br><br>
+
+              <p>Note the Destination folder. For us, it is "C:\Program Files\mingw32-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0" but yours may be slightly different due to version difference. Copy down <b>your destination path</b> now. We will need it later.</p>
+              <p>Click Next and proceed to finish the installation.</p>
+
+              <img src="images/3.png" width="100%">
+              <br><br>
+
+              <p>Open the Start Menu (press the Windows button), type and search for "Settings".</p>
+
+              <img src="images/5.png" width="100%">
+              <br><br>
+
+              <p>On the "Settings" dialog, type and search for "Edit environment variables for your account".</p>
+
+              <img src="images/6.png" width="100%">
+              <br><br>
+
+              <p>On the dialog, choose the "Path" user variable as shown below, and click "Edit..."</p>
+
+              <img src="images/7.png" width="100%">
+              <br><br>
+
+              <p>On the new dialog, Click "New" to add a new path, the path should be what you noted down earlier appended with <b>\mingw64\bin</b></p>
+
+              <p>For example (again, yours may be different), since our destination path is C:\Program Files\mingw32-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0, so the new path we add should be <b>C:\Program Files\mingw32-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin</b></p>
+
+              <img src="images/8.png" width="100%">
+              <br><br>
+
+              <p>Click OK for all open dialogs and confirm the changes.
+
+
+            </p>
+
+          </div>
+        </div>
+
+
+
+
+         <div class="card mb-4">
+          <div class="card-body" id="vscode">
+            <h3 class="card-title">Installing VS Code</h3>
+            <p class="card-text">
+
+              <p>Now we install the VS Code.</p>
+              <p>Go to <a href="https://code.visualstudio.com/download">https://code.visualstudio.com/download</a> and download the <b>64 bit User Installer for Windows</b></p>
+
+              <img src="images/9.png" width="100%">
+              <br><br>
+
+              <p>Follow the screenshots and proceed to install the VS Code.</p>
+              <img src="images/10.png" width="100%">
+              <br><br>
+              <img src="images/11.png" width="100%">
+              <br><br>
+              <img src="images/12.png" width="100%">
+              <br><br>
+
+            </p>
+
+          </div>
+        </div>
+
+
+
+
+         <div class="card mb-4">
+          <div class="card-body" id="extensions">
+            <h3 class="card-title">Installing VS Code extensions</h3>
+            <p class="card-text">
+
+              <p>We can install some extensions to make our life with programming C++ easier in VS Code.</p>
+
+              <p>Let's launch VS Code first. It probably is on your Desktop if you have followed our installation procedures. If some popups appear on the bottom-right corner of VS Code, just close them with the close buttons just above them.</p>
+
+
+              <img src="images/13.png" width="100%">
+              <br><br>
+
+              <p>From the "View" menu, choose "Command palette" (you can also press F1 on your keyboard if you are using Windows). The command palette, in which you can search for and run various commands, appears. Search for and run "Extensions: Install Extensions".</p>
+
+              <img src="images/14.png" width="100%">
+              <br><br>
+
+              <p>On the extensions sidebar on the left, search for the extension "C/C++". Click "Install" to install it.</p>
+              <img src="images/15.png" width="100%">
+              <br><br>
+
+              <p>Similarly, search for and install "Code Runner".</p>
+              <img src="images/16.png" width="100%">
+              <br><br>
+
+              <p>Remember to click the install button for both extensions.</p>
+
+              <p>Now open the command palette, type and run "Preferences: Open Settings (JSON)". Put in the following and save the file:</p>
+
+              <pre><code>{
+    "update.mode": "none",
+    "code-runner.customCommand": "make",
+    "code-runner.runInTerminal": true,
+    "code-runner.saveFileBeforeRun": true,
+    "code-runner.saveAllFilesBeforeRun": true,
+    "code-runner.ignoreSelection": true,
+    "code-runner.clearPreviousOutput": true,
+    "terminal.integrated.scrollback": 10240,
+    "files.eol": "\n",
+}</code></pre>
+
+              <p>With both extensions installed, we will create our first C++ program in the next section.</p>
+
+              <p>Note: With the manual installation of VS Code, for those of you who want to use the "make" program for Makefiles, please note that you need to type <code>mingw32-make</code> instead of <code>make</code> in the terminal. With the portable version, just use <code>make</code> because we have renamed <code>mingw32-make.exe</code> to <code>make.exe</code> for you.</p>
+
+            </p>
+
+          </div>
+        </div>
+
+
+
+
+         <div class="card mb-4">
+          <div class="card-body" id="compile">
+            <h3 class="card-title">Compiling and running your first program</h3>
+            <p class="card-text">
+
+              <p>From the "File" menu, choose "New File", or simply use the keyboard hotkey Ctrl+N on Windows. Tips: you can also find it in the command palette (press F1 key on Windows and type "New File"; on MacOS, the command palette hotkey is different, you may find it from the "View" menu)
+
+              <img src="images/17.png" width="100%">
+              <br><br>
+
+              <p>Let's save the "untitled" file right away first. Choose "Save" from the "File" menu.</p>
+
+              <img src="images/18.png" width="100%">
+              <br><br>
+
+              <p>Choose a location, give it a proper name, and click "Save". Note: make sure the name is <i>something</i>.cpp which ends with .cpp to indicate that is a C++ source file.</p>
+
+              <img src="images/19.png" width="100%">
+              <br><br>
+
+              <p>Now go ahead and enjoy C++ programming in the code editor. :)</p>
+
+              <img src="images/20.png" width="100%">
+              <br><br>
+
+              <p>Press F1, and run "Run code" from the command palette. If you don't have this option, that means you didn't install the "Code Runner" extension. Revisit the previous sections for manual setup.</p>
+
+              <img src="images/21.png" width="100%">
+              <br><br>
+
+              <p>Viola! Here is your first C++ program running at the bottom! Congratulations!</p>
+
+              <img src="images/22.png" width="100%">
+              <br><br>
+
+              <p>If you are using our portable version, and you got an error like "g++" is not found/recognizedm, be reminded that you must run <b>RUN-VSCODE.bat</b> instead of code.exe. If you already did, you may try to manually setup VS Code yourself according to our instructions in previous sections.</p>
+
+              <p>Note that the steps above that compile and run the program with the Coderunner extension are only for programs that consist of a single cpp source file. If your program consists of more than 1 source cpp files (appear in the later part of COMP2011, and COMP2012/COMP2012H), you need to follow the next section instead to compile and run it in the terminal instead.</p>
+
+            </p>
+
+          </div>
+        </div>
+
+
+
+
+         <div class="card mb-4">
+          <div class="card-body" id="terminal">
+            <h3 class="card-title">Creating a project and using the terminal for custom compilation command</h3>
+            <p class="card-text">
+
+              <p>From the "File" menu, choose "Open Folder".</p>
+
+              <img src="images/28.png" width="100%">
+              <br><br>
+
+              <p>You may create a new folder here in this dialog as shown, or you can create a new folder externally in the Windows file explorer yourself first.</p>
+
+              <img src="images/29.png" width="100%">
+              <br><br>
+
+              <p>Go into the folder.</p>
+
+              <img src="images/30.png" width="100%">
+              <br><br>
+
+              <p>Select the folder.</p>
+
+              <img src="images/31.png" width="100%">
+              <br><br>
+
+              <p>Then you can just create the files you need for your project (Using "New File" as illustrated in a previous section). You can put multiple source files, header files, and a Makefile in the same folder, for example.</p>
+
+              <p>To run custom commands, such as <code>make</code> for using the Makefile utility for separate compilation (covered at the beginning of COMP2012), click "New Terminal" from the "Terminal" menu.</p>
+
+              <img src="images/32.png" width="100%">
+              <br><br>
+
+              <p>Then you can run any commands (we may cover some of those in COMP2011/2012/2012H) in the terminal at the bottom. If it is a blank at the bottom, try click on it and press enter a few times.</p>
+
+              <img src="images/33.png" width="100%">
+              <br><br>
+
+              <p>If you do not know about makefile, you may also use the command <code>g++ -std=c++11 *.cpp -o programName.exe</code> to compile all cpp source files in the current folder into a program named programName. You may use the command <code>./programName.exe</code> in terminal to run the program then.</p>
+
+              <p>Note: With the manual installation of VS Code, for those of you who want to use the "make" program for Makefiles, please note that you need to type <code>mingw32-make</code> instead of <code>make</code> in the terminal. With the portable version, just use <code>make</code> because we have renamed <code>mingw32-make.exe</code> to <code>make.exe</code> for you.</p>
+
+            </p>
+
+          </div>
+        </div>
+
+
+
+        <div class="card mb-4">
+          <div class="card-body" id="virtualbarn">
+            <h3 class="card-title">Using VS Code in Virtual Barn</h3>
+            <p class="card-text">
+               You may remote control a Windows machine in <a href="http://itsc.ust.hk/services/academic-teaching-support/facilities/virtual-barn/overview/">HKUST virtual barn</a>. After following the installation guide and user guide there to install the remote control client and connect to the HKUST network, choose the <b>Programming Software</b> server when you are offered a selection of different servers.<br> <br>
+               VS Code is not installed there. However, you can download our <a href="#portable">portable version</a> and use it there. It is very important for you to download it and extract the VSCode folder to C Drive as shown below, then just run the RUN-VSCODE.bat as instructed in our portable usage instructions (you should read that first). VS Code may not work if you extract it to other places such as the desktop or the downloads folder in the virtual barn.
+
+              <img src="images/vscode-on-virtual-barn-c-drive.png" width="100%">
+            </p>
+
+          </div>
+          </div>
+
+
+
+         <div class="card mb-4">
+          <div class="card-body" id="faq">
+            <h3 class="card-title">FAQ</h3>
+            <p class="card-text">
+
+              <p>Q: Compilation is taking a very long time. Sometimes, it won't even compile after waiting for a long time... :(</p>
+              <p>A: From our experience, it can be due to some Anti-Virus program heavily interfering the compilation process somehow, as a foreign executable (your program) is being generated. You may try to temporarily turn it off, and compile again.</p>
+
+               <br>
+
+               <p>Q: I cannot enter any input to my program after I run it, what should I do?</p>
+               <p>A: If you have downloaded our portable version before 2020-09-07 11:30am, you may download our latest version on this page again. Alternatively, you can open the command palette, type and run "Preferences: Open Settings (JSON)". Put in the following and save the file (remember to save it or changes won't apply):</p>
+<p>
+                            <pre><code>{
+    "update.mode": "none",
+    "code-runner.customCommand": "make",
+    "code-runner.runInTerminal": true,
+    "code-runner.saveFileBeforeRun": true,
+    "code-runner.saveAllFilesBeforeRun": true,
+    "code-runner.ignoreSelection": true,
+    "code-runner.clearPreviousOutput": true,
+    "terminal.integrated.scrollback": 10240,
+    "files.eol": "\n",
+}
+</code></pre></p>
+          
+
+              <br>
+               <p>Q: I ran my code once, and the program was stuck becasuse there was an infinite loop. So I fixed the problem in my code, but then I couldn't compile and run my code again. What should I do?</p>
+              <p>A: Your previous code (program) is still running, so the compilation of your updated code cannot take place. You may focus/select the terminal, and press Ctrl-C (hold down Ctrl key and press C then) to stop a currently running program in the terminal. Or you can try to kill the terminal (via the rubbish bin button on the top-right corner of the terminal window) and open a new one.</p>
+
+              <br>
+               <p>Q: I have updated/fixed my code, but when I try to compile it, the old errors still exist?</p>
+              <p>A: If you are sure you have updated your code properly (e.g. fixed the error in the code), you probably have forgotten to save your file before compiling it again. Save it first. You may also add convenient settings <code>code-runner.saveFileBeforeRun": true,</code> and <code>"code-runner.saveAllFilesBeforeRun": true,</code> to the JSON settings file (open the command palette, type and run "Preferences: Open Settings (JSON)"). Along with some other settings, your JSON settings file may look like the following:
+
+              <p><pre><code>{
+    "update.mode": "none",
+    "code-runner.customCommand": "make",
+    "code-runner.runInTerminal": true,
+    "code-runner.saveFileBeforeRun": true,
+    "code-runner.saveAllFilesBeforeRun": true,
+    "code-runner.ignoreSelection": true,
+    "code-runner.clearPreviousOutput": true,
+    "terminal.integrated.scrollback": 10240,
+    "files.eol": "\n",
+}</code></pre>(Keep the commas, and remember to save the settings file afterward)<br>(We have already added the settings above to the portable version on 20200912.)</p>
+            </p>
+
+
+            <br>
+               <p>Q: I couldn't compile my whole file with "Run code" it seems?</p>
+              <p>A: Make sure you don't have any active text selection (e.g. highlighting some of your code text) when you "Run code". If you have selected some of your code, only those selected may be compiled with the Coderunner extension. The <code>"code-runner.ignoreSelection": true</code> setting may help.  (see the previous FAQ on how to modify the settings)</p>
+
+          </div>
+        </div>
+
+
+       
+      </div>
+
+
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-3">
+        <div class="sticky-top">
+        <!-- Menu Widget -->
+        <div class="card my-12">
+          <h5 class="card-header">Menu</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <ul class="mb-0" type="circle" style="padding-left:20px">
+                  <li>
+                    <a href="#overview">Overview</a>
+                  </li>
+                  <li>
+                    <a href="#mac">Installing VS Code for MacOS</a>
+                  </li>
+                  <li>
+                    <a href="#portable">Using the portable version for Windows (easiest way)</a>
+                  </li>
+                  <li>Installing VS Code manually for Windows (alternative way)
+                    <ol>
+                    <li>
+                      <a href="#mingw">Installing MinGW g++ compiler</a>
+                    </li>
+                    <li>
+                      <a href="#vscode">Installing VS Code</a>
+                    </li>
+                    <li>
+                      <a href="#extensions">Installing VS Code extensions</a>
+                    </li>
+                  </ol>
+                  </li>
+                  <li>
+                    <a href="#compile">Compiling and running your first program</a>
+                  </li>
+                  <li>
+                    <a href="#terminal">Using the terminal for custom compilation commands</a>
+                  </li>
+                  <li>
+                    <a href="#virtualbarn">Using VS Code in Virtual Barn</a>
+                  </li>
+                  
+                  <li>
+                    <a href="#faq">FAQ</a>
+                  </li>
+                  
+                  
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Maintainance widget -->
+<!--         <div class="card my-4">
+          <h5 class="card-header">Page maintained by</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    Wallace Mak
+                  </li>
+                  <li>
+                    Email:
+                    <a href="mailto:wallacem@cse.ust.hk">wallacem@cse.ust.hk</a>
+                  </li>
+                  <li>Last Modified:
+                    <script type="text/javascript">document.write(document.lastModified);</script>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+
+        <!-- Homepage widget -->
+<!--         <div class="card my-4">
+          <h5 class="card-header">Homepage</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="http://course.cse.ust.hk/comp2012">Course Homepage</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+
+
+      </div>
+      </div>
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Maintained by COMP2011, COMP2012, and COMP2012H Teaching Team &copy; 2021 HKUST Computer Science
+        and Engineering</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>
+    SyntaxHighlighter.highlight();
+  </script>
+</body>
+
+</html>

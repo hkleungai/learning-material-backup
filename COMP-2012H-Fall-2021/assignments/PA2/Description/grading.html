@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- ### Change assignment number ### -->
+    <title>COMP 2012H Assignment 2: Grade Appeal</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/blog-home.css" rel="stylesheet">
+    
+    <!-- Prism syntax highlighter -->
+    <link href="vendor/prism/prism.css" rel="stylesheet" />
+
+    <style type="text/css">
+      img.limit {
+        max-width: 100%
+      }
+    </style>
+  </head>
+
+  <body>
+    <script src="vendor/prism/prism.js"></script>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Entries Column -->
+        <div class="col-md-9">
+
+          <h2 class="my-4">
+            <span style="color:darkblue">COMP 2012H</span>
+            <small>Honors Object-Oriented Programming and Data Structures</small>
+          </h2>
+
+          <!-- ### Change assignment number and title ### -->
+          <h3 class="my-4">
+            Assignment 2 
+            <span style="color:#660066">Grade Appeal</span>
+          </h3>
+
+          <!-- Introduction section -->
+          <!-- ### Complete introduction section for the assignment ### -->
+          <div class="card mb-4">
+            <div class="card-body" id="introduction">
+              <h3 class="card-title">Introduction</h3>
+              <p class="card-text">
+                Check the Assignment 2 grade on the <a href="https://zinc.cse.ust.hk/">ZINC Online Submission System</a>. Your submission record will state all test case failures (if any).
+              </p>
+              <p class="card-text">
+                While there are multiple grading records on ZINC, only the latest one will count as the score for your submission; you can ignore other previous records.
+              </p>
+              <p class="card-text">
+                Since we did not mention how late penalty is calculated, we gave a grace period of 5 minutes to late submission. Your latest submission before 23 October 2021, 00:04 HKT was graded. If there were no submissions before 23 October 2021, 00:04 HKT, your score will be discarded. This applies to the bonus part as well.
+              </p>
+              <p class="card-text">
+                To make an appeal for your grades, please follow the below procedure. Appeals with incomplete information and/or not following the procedure will not be processed:
+              </p>
+              <ol>
+                <li>
+                  Read the list of common errors (see below) and carefully understand the test cases and the solution.
+                </li>
+                <li>
+                  No partial credits were given for each test-case.
+                </li>
+                <li>
+                  Send an email to the TA in-charge with the subject header "COMP2012H PA2 Grade Appeal".
+                </li>
+                <li>
+                  State which test-case(s) you wish to appeal (refer to the list in the section below). Clearly state your reasoning for why your code should have passed those test-case(s).
+                </li>
+                <li>
+                  You may propose changes to your source code. Attach your code snippet with the proposed changes in your email. However, such changes are subject to a grade deduction at the discretion of the TA in-charge, proportional to the magnitude of change, with a 3% deduction being the minimum.
+                </li>
+                <li>
+                  DO NOT attach any .exe/executable file(s) in your email since we do not run your code outside ZINC.
+                </li>
+                <li>
+                  Appeal deadline is <strong>5 November 2021 Friday 23:59 HKT</strong>. No late appeals will be processed.
+                </li>
+                <li>
+                  Finalized scores will be uploaded to Canvas after all appeals are processed.
+                </li>
+              </ol>
+              <p class="card-text">
+                <strong>Your appeal will be processed slowly. Please be patient.</strong> If you do not receive any reply or acknowledgment after 72 hours, please send the email again.
+              </p>
+              <p class="card-text">
+                Below is a list of common errors and situations for COMP2012H assignments in general:
+              </p>
+              <ul>
+                <li>
+                  Uninitialized variables will have garbage (random) values in C++. Sometimes it will be 0, sometimes
+                  it will not. In that case, your program may generate different results on different machines or
+                  different runs if your logic depend on an uninitialized value. If you have assumed them to be 0 or
+                  something specific (e.g. a very large value), your code is faulty and will get random results.
+                </li>
+                <li>
+                  Retrieving values from deleted/unallocated dynamic memory, or index out-of-bounds, may not always
+                  crash your program but may give random values.
+                </li>
+                <li>
+                  Compilation errors will result in 0 marks for this assignment. This should not occur as revealed
+                  test cases were already provided to test your code on ZINC. Exceptions will only be given for
+                  compilation errors that are the fault of the TA's testing code.
+                </li>
+                <li>
+                  Runtime errors and crashes due to incorrect memory access, memory allocation, memory deallocation,
+                  missing variable initialization, missing return values, out-of-bound array access, etc. may not
+                  occur all the time on all machines. However, even though you may not encounter the error/crash when
+                  you test your program, if your program crashes during any of the test cases on ZINC, the
+                  corresponding test cases will be considered as incorrect and will receive 0 marks.
+                </li>
+                <li>
+                  Runtime crashes due to the reasons above or due to timeouts (infinite loop / infinite recursion /
+                  runtime taking too long) will only be regraded if you can debug, fix, and report it in your email
+                  appeal with attached code snippet. The corresponding test-case(s) where the runtime crash occurred
+                  will still be considered as incorrect and will receive 0 marks, but you can recover your marks for
+                  the rest of the test-cases.
+                </li>
+              </ul>
+              <br>
+
+            </div>
+            <div class="card-footer text-muted">
+              End of Introduction
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="resources">
+              <h3 class="card-title">Resources</h3>
+
+              <ul>
+                <li><strong>Solution code</strong>: <a href="./resources/solution/Commit.cpp">Commit.cpp</a>, <a href="./resources/solution/gitlite.cpp">gitlite.cpp</a></li>
+                <li>
+                  <strong>Grading package on ZINC</strong>: <a href="./resources/pa2-grading.zip">gitlite-grader.zip</a>
+                </li>
+              </ul>
+
+              Notes for grading package:
+              <ul>
+                <li>The main difference of Gitlite of the grading package compared to the one you obtained from the skeleton code is that all filesystem operations are replaced by in-memory operations (See <code>FilesystemStub.cpp</code>).</li>
+                <li>
+                  To test it with your submission, extract this zip and copy your <code>Commit.cpp</code> and <code>gitlite.cpp</code> to this directory. Then run make:
+                  <pre><code>
+                    make
+                  </code></pre>
+                  Two executables are produced:
+                  <ul>
+                    <li><code>gitlite-grader</code>: The grader version of Gitlite with all filesystem operations replaced by in-memory operations.</li>
+                    <li><code>gitlite-unit-testing</code>: Unit testing cases of individiual functions.</li>
+                  </ul>
+                </li>
+                <li>
+                  In this version, you need to run the test cases one-by-one (batch running is not available). For example,
+                  <pre><code>
+                    # For Windows
+                    .\gitlite-grader -t tests/init.in
+
+                    # For macOS and Linux
+                    ./gitlite-grader -t tests/init.in
+                  </code></pre>
+                </li>
+                <li>
+                  To run memory leak check, use <a href="./resources/grader-leak/Makefile">this Makefile</a> and follow the <a href="https://course.cse.ust.hk/comp2012h/assignments/PA2/Description/#memory-leak">instructions here</a>. The Makefile produces two additional executables:
+                  <ul>
+                    <li><code>gitlite-grader-leak</code>: The grader version of Gitlite with all filesystem operations replaced by in-memory operations. Also runs GCC sanitizer.</li>
+                    <li><code>gitlite-unit-testing-leak</code>: Unit testing cases of individiual functions. Also runs GCC sanitizer.</li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <div class="card-footer text-muted">
+              End of Resources
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="unit-testing">
+              <h3 class="card-title">Unit Testing (50+4 points)</h3>
+              <p class="card-text">
+                The following test cases of unit testing correspond to those listed in ZINC. You can run them by providing the test case number to <code>gitlite-unit-testing</code>. For example, this runs test case 10:
+                <pre><code>
+                  # For macOS and Linux
+                  ./gitlite-unit-testing 10
+
+                  # For Windows
+                  ..\gitlite-unit-testing.exe 10
+                </code></pre>
+              </p>
+
+              <h4>Part 1: Linked List Operations (20 points)</h4>
+
+              <ol>
+                <li>
+                  [0.5 points] <code>ListNew</code>: Calls <code class="language-cpp">list_new()</code> to create a list. The data fields in the sentinel are checked.
+                </li>
+
+                <li>
+                  [1 point] <code>ListPushBackOne</code>: Calls <code class="language-cpp">list_push_back()</code> to add one blob at the back. Both forward and backward orders of the linked list are checked.
+                </li>
+
+                <li>
+                  [1 point] <code>ListPushBackMultiple</code>: Calls <code class="language-cpp">list_push_back()</code> to add multiple blobs at the back. Both forward and backward orders of the linked list are checked.
+                </li>
+                
+                <li>
+                  [1 point] <code>ListFindNameFound</code>: Calls <code class="language-cpp">list_find_name()</code> to find a blob with the given name. The blob can be found. The return values are checked. 
+                </li>
+
+                <li>
+                  [1 point] <code>ListFindNameNotFound</code>: Calls <code class="language-cpp">list_find_name()</code> to find a blob with the given name. The blob cannot be found. The return values are checked. 
+                </li>
+
+                <li>
+                  [0.5 points] <code>ListPutNewOne</code>: Calls <code class="language-cpp">list_put()</code> to add a blob to the list. The return value is checked. Both forward and backward orders of the linked list are checked.
+                </li>
+
+                <li>
+                  [0.5 points] <code>ListPutNewMultiple</code>: Calls <code class="language-cpp">list_put()</code> to add multiple blobs to the list. The return values are checked. Both forward and backward orders of the linked list are checked.
+                </li>
+
+                <li>
+                  [0.5 points] <code>ListPutUpdateOne</code>: Calls <code class="language-cpp">list_put()</code> to update a blob in the list. The return value is checked. Both forward and backward orders of the linked list are checked.
+                </li>
+
+                <li>
+                  [0.5 points] <code>ListPutUpdateMultiple</code>: Calls <code class="language-cpp">list_put()</code> to update multiple blobs to the list. The return values are checked. Both forward and backward orders of the linked list are checked.
+                </li>
+
+                <li>
+                  [0.5 points] <code>ListPutNewMultipleCommit</code>: Same as <code>ListPutNewMultiple</code> but uses commits instead.
+                </li>
+
+                <li>
+                  [0.5 points] <code>ListPutUpdateMultipleCommit</code>: Same as <code>ListPutUpdateMultiple</code> but uses commits instead.
+                </li>
+
+                <li>
+                  [0.5 points] <code>ListRemoveNotFound</code>: Calls <code class="language-cpp">list_remove()</code> to remove a blob with the given name. The blob cannot be found. The return values are checked. Both forward and backward orders of the linked list are checked.
+                </li>
+
+                <li>
+                  [0.5 points]  <code>ListRemoveOne</code>: Calls <code class="language-cpp">list_remove()</code> to remove a blob with the given name. The blob can be found and removed. The return value is checked. Both forward and backward orders of the linked list are checked.
+                </li>
+
+                <li>
+                  [1 point] <code>ListRemoveAll</code>: Calls <code class="language-cpp">list_remove()</code> to remove all blobs from the list. The return values are checked. Both forward and backward orders of the linked list are checked.
+                </li>
+
+                <li>
+                  [0.5 points] <code>ListSize</code>: Calls <code class="language-cpp">list_size()</code> to get the size of several lists.
+                </li>
+
+                <li>
+                  [1 point] <code>ListClearEmpty</code>: Calls <code class="language-cpp">list_clear()</code> on an empty list. Both forward and backward orders of the linked list are checked.
+                </li>
+
+                <li>
+                  [1 point] <code>ListClearNonEmpty</code>: Calls <code class="language-cpp">list_clear()</code> on an non-empty list. Both forward and backward orders of the linked list are checked.
+                </li>
+
+                <li>
+                  [0.5 points] <code>ListReplaceEmptyByEmpty</code>: Calls <code class="language-cpp">list_replace()</code> to replace an empty list by an empty list. Both forward and backward orders of the linked list are checked.
+                </li>
+
+                <li>
+                  [0.5 points] <code>ListReplaceEmptyByNonEmpty</code>: Calls <code class="language-cpp">list_replace()</code> to replace an empty list by an non-empty list. Both forward and backward orders of the linked list are checked.
+                </li>
+
+                <li>
+                  [0.5 points] <code>ListReplaceNonEmptyByEmpty</code>: Calls <code class="language-cpp">list_replace()</code> to replace an non-empty list by an empty list. Both forward and backward orders of the linked list are checked.
+                </li>
+
+                <li>
+                  [0.5 points] <code>ListReplaceNonEmptyByNonEmpty</code>: Calls <code class="language-cpp">list_replace()</code> to replace an non-empty list by an non-empty list. Both forward and backward orders of the linked list are checked.
+                </li>
+
+                <li>
+                  [1 point] <code>ListCopyEmpty</code>: Calls <code class="language-cpp">list_copy()</code> to copy an empty list. Both forward and backward orders of the linked list are checked.
+                </li>
+
+                <li>
+                  [1 point] <code>ListCopyNonEmpty</code>: Calls <code class="language-cpp">list_copy()</code> to copy an non-empty list. Both forward and backward orders of the linked list are checked.
+                </li>
+
+                <li>
+                  [1 point] <code>ListDeleteEmpty</code>: Calls <code class="language-cpp">list_delete()</code> on an empty list.
+                </li>
+
+                <li>
+                  [0.5 points] <code>ListDeleteNonEmpty</code>: Calls <code class="language-cpp">list_delete()</code> on non-empty list.
+                </li>
+
+                <li>
+                  [0.5 points] <code>ListDeleteEmptyCommit</code>: Same as <code>ListDeleteNonEmpty</code> but the list contains branches that have a commit pointer.
+                </li>
+              </ol>
+
+              <h5>Memory Leak Check</h5>
+
+              <p>
+                The following test cases also run GCC sanitizer to check for memory leak.
+              </p>
+
+              <ol start="124">
+                <li>[1 point] Same as test case 24.</li>
+                <li>[0.5 points] Same as test case 25.</li>
+                <li>[0.5 points] Same as test case 26.</li>
+              </ol>
+
+              <h4>Part 2: Gitlite Commands (30 points)</h4>
+
+              <ol start="27">
+                <li>
+                  [1.5 points] <code>Init</code>: Calls <code class="language-cpp">init()</code> and verifies the data structures.
+                </li>
+
+                <li>
+                  [1 point] <code>AddUntrackedFiles</code>: Calls <code class="language-cpp">add()</code> to add untracked files.
+                </li>
+
+                <li>
+                  [1 point] <code>AddUpdatedFiles</code>: Calls <code class="language-cpp">add()</code> to add a tracked file with updated content.
+                </li>
+
+                <li>
+                  [1 point] <code>AddUnchangedFiles</code>: Calls <code class="language-cpp">add()</code> to add a tracked file with unchanged content.
+                </li>
+
+                <li>
+                  [1 point] <code>AddRemovedFiles</code>: Calls <code class="language-cpp">add()</code> to add a file that is staged for removal.
+                </li>
+
+                <li>
+                  [1 point] <code>CommitWithChanges</code>: Calls <code class="language-cpp">commit()</code> to make a commit with files staged for addition.
+                </li>
+
+                <li>
+                  [0.5 points] <code>CommitWithoutChanges</code>: Calls <code class="language-cpp">commit()</code> to make a commit without files staged for addition and removal.
+                </li>
+
+                <li>
+                  [1 point] <code>CommitWithRemovalOnly</code>: Calls <code class="language-cpp">commit()</code> to make a commit with files staged for removal only.
+                </li>
+
+                <li>
+                  [1 point] <code>RemoveStagedFiles</code>: Calls <code class="language-cpp">remove()</code> to remove a file that is staged for addition.
+                </li>
+
+                <li>
+                  [1 point] <code>RemoveHeadTrackedFiles</code>: Calls <code class="language-cpp">remove()</code> to remove a file that is tracked in the head commit of the repository.
+                </li>
+
+                <li>
+                  [0.5 points] <code>RemoveFilesNotExist</code>: Calls <code class="language-cpp">remove()</code> to remove a file that is neither staged for addition nor tracked in the head commit of the repository.
+                </li> 
+
+                <li>
+                  [1 point] <code>CheckoutFiles</code>: Calls <code class="language-cpp">checkout()</code> to checkout files from different commits.
+                </li>
+
+                <li>
+                  [0.5 points] <code>CheckoutFilesNotExist</code>: Calls <code class="language-cpp">checkout()</code> to checkout files that do not exist in commits.
+                </li>
+
+                <li>
+                  [0.5 points] <code>CheckoutCommitNotExist</code>: Calls <code class="language-cpp">checkout()</code> to checkout files from commits that do not exist.
+                </li>
+
+                <li>
+                  [1.5 points] <code>CheckoutBranch</code>: Calls <code class="language-cpp">checkout()</code> to checkout a branch.
+                </li>
+
+                <li>
+                  [0.5 points] <code>CheckoutBranchNotExists</code>: Calls <code class="language-cpp">checkout()</code> to checkout a branch that does not exist.
+                </li>
+
+                <li>
+                  [0.5 points] <code>CheckoutCurrentBranch</code>: Calls <code class="language-cpp">checkout()</code> to checkout the current branch.
+                </li>
+
+                <li>
+                  [0.5 points] <code>ResetToParent</code>: Calls <code class="language-cpp">reset()</code> to reset to the parent commit.
+                </li>
+
+                <li>
+                  [1 point] <code>ResetToSelf</code>: Calls <code class="language-cpp">reset()</code> to reset to the head commit of the repository.
+                </li>
+
+                <li>
+                  [0.5 points] <code>ResetToCommitNotExists</code>: Calls <code class="language-cpp">reset()</code> to reset to a commit that does not exist.
+                </li>
+
+                <li>
+                  [0.5 points] <code>CreateNewBranch</code>: Calls <code class="language-cpp">branch()</code> to create a new branch.
+                </li>
+
+                <li>
+                  [0.5 points] <code>CreateBranchWithDuplicateName</code>: Calls <code class="language-cpp">branch()</code> to create a branch with existing name.
+                </li>
+
+                <li>
+                  [0.5 points] <code>RemoveBranch</code>: Calls <code class="language-cpp">remove_branch()</code> to remove a branch.
+                </li>
+
+                <li>
+                  [0.5 points] <code>RemoveBranchNotExists</code>: Calls <code class="language-cpp">remove_branch()</code> to remove a branch that does not exist.
+                </li>
+
+                <li>
+                  [0.5 points] <code>RemoveCurrentBranch</code>: Calls <code class="language-cpp">remove_branch()</code> to remove the current branch.
+                </li>
+
+                <li>
+                  [1 point] <code>MergeAncestors</code>: Calls <code class="language-cpp">merge()</code> to merge an ancestor into the current branch.
+                </li>
+
+                <li>
+                  [1 point] <code>MergeHandlesFastForwading</code>: Calls <code class="language-cpp">merge()</code> to merge a branch with fast forward.
+                </li>
+
+                <li>
+                  [1 point] <code>MergeOverwritingUntrackedFiles</code>: Calls <code class="language-cpp">merge()</code> to merge a branch that would overwrite untracked files.
+                </li>
+
+                <li>
+                  [0.5 point] <code>MergeGeneralTest</code>: Calls <code class="language-cpp">merge()</code> to merge a branch into the current branch.
+                </li>
+
+                <li>
+                  [0.5 point] <code>MergeBranchNotExists</code>: Calls <code class="language-cpp">merge()</code> to merge a branch that does not exist.
+                </li>
+
+                <li>
+                  [0.5 point] <code>MergeCurrentBranch</code>: Calls <code class="language-cpp">merge()</code> to merge the current branch.
+                </li>
+
+                <li>
+                  [0.5 point] <code>MergeWithUncommitedChanges</code>: Calls <code class="language-cpp">merge()</code> with uncommitted changes.
+                </li>
+              </ol>
+
+              The following test cases test <code class="language-cpp">get_lca()</code>
+
+              <ol start="59">
+                <li>
+                  [0.5 points] <code>Same</code>: Calls <code class="language-cpp">get_lca()</code> with two identical commits.
+                </li>
+
+                <li>
+                  [0.5 points] <code>Ahead</code>: Calls <code class="language-cpp">get_lca()</code> with one commit is ahead of another.
+                </li>
+
+                <li>
+                  [0.5 points] <code>Diverged</code>: Calls <code class="language-cpp">get_lca()</code> with two commits whose history have diverged.
+                </li>
+              </ol>
+
+              <h5>Memory Leak Check</h5>
+
+              <p>The following test cases also run GCC sanitizer to check for memory leak.</p>
+
+              <ol>
+                <li value="127">[0.5 points] Same as test case 27.</li>
+                <li value="141">[0.5 points] Same as test case 41.</li>
+                <li value="144">[0.5 points] Same as test case 44.</li>
+                <li value="147">[0.5 points] Same as test case 47.</li>
+                <li value="149">[0.5 points] Same as test case 49.</li>
+                <li value="155">[0.5 points] Same as test case 55.</li>
+                <li value="160">[0.5 points] Same as test case 60.</li>
+                <li value="161">[0.5 points] Same as test case 61.</li>
+              </ol>
+
+              <h4>Bonus (4 points)</h4>
+
+              <ol>
+                <li value="62">[1 point] <code>Merged1</code>: Calls <code class="language-cpp">get_lca()</code> where the commit history contains second parent.</li>
+                <li value="63">[1 point] Calls <code class="language-cpp">get_lca()</code> where the commit history contains second parent.</li>
+                <li value="162">[1 point] Same as test case 62 also runs GCC sanitizer to check for memory leak.</li>
+                <li value="163">[1 point] Same as test case 63 also runs GCC sanitizer to check for memory leak.</li>
+              </ol>
+            </div>
+            <div class="card-footer text-muted">
+              End of Unit Testing
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="integrated-testing">
+              <h3 class="card-title">Integrated Testing (50+6 points)</h3>
+              <p class="card-text">
+                The following test cases run the automated testing module of Gitlite, with all filesystem operations replaced by in-memory operations. You can read the content of the files used in <code>auto-testing/src</code>.
+              </p>
+
+              <p>
+                To run the integrated testcases, first <strong>change the working directory to <code>auto-testing</code></strong>. If you are using VSCode, right click on <code>auto-testing</code> in the directory structure that appears on the left, click "Open in Integrated Terminal". Run the grading version of Gitlite, which is located in the parent directoy in the following way (this example runs the test case <code>init.in</code>):
+              </p>
+
+              <pre><code>
+                # For macOS and Linux
+                ../gitlite-grader -t tests/init.in
+
+                # For Windows
+                ..\gitlite-grader.exe -t tests\init.in
+              </code></pre>
+
+              <p>
+                You can read and understand the test cases in order to know what commands were being tested and the expected output.
+              </p>
+
+              <ol start="64">
+                <li>[2 points] <code>init.in</code></li>
+                <li>[2 points] <code>add-multi.in</code></li>
+                <li>[2 points] <code>add-remove.in</code></li>
+                <li>[2 points] <code>commit.in</code></li>
+                <li>[2 points] <code>rm.in</code></li>
+                <li>[2 points] <code>checkout-file.in</code></li>
+                <li>[3 points] <code>checkout-branch.in</code></li>
+                <li>[3 points] <code>reset.in</code></li>
+                <li>[4 points] <code>merge-simple.in</code></li>
+                <li>[2 points] <code>merge-case123.in</code></li>
+                <li>[1 points] <code>merge-case45.in</code></li>
+                <li>[1 points] <code>merge-case67.in</code></li>
+                <li>[1 points] <code>merge-case8a.in</code></li>
+                <li>[2 points] <code>merge-case8b.in</code></li>
+                <li>[1 points] <code>merge-case8c.in</code></li>
+                <li>[3 points] <code>merge-case-all.in</code></li>
+                <li>[4 points] <code>branch-and-rm.in</code></li>
+                <li>[2 points] <code>log.in</code></li>
+                <li>[2 points] <code>status-branch.in</code></li>
+                <li>[5 points] <code>status-files.in</code></li>
+              </ol>
+
+              <h5>Memory Leak Check</h5>
+
+              <p>The following test cases also run GCC sanitizer to check for memory leak.</p>
+
+              <ol>
+                <li value="170">[1 point] Same as test case 70.</li>
+                <li value="171">[1 point] Same as test case 71.</li>
+                <li value="179">[1 point] Same as test case 79.</li>
+                <li value="183">[1 point] Same as test case 83.</li>
+              </ol>
+
+              <h4>Bonus (6 points)</h4>
+
+              <ol>
+                <li value="84">[5 points] <code>merge-2nd-parent.in</code></li>
+                <li value="184">[1 point] Same as test case 84 also runs GCC sanitizer to check for memory leak.</li>
+              </ol>
+            </div>
+            <div class="card-footer text-muted">
+              End of Integrated Testing
+            </div>
+          </div>
+        </div>
+
+
+        
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-3">
+          <div class="sticky-top">
+            <!-- Menu Widget -->
+            <div class="card my-12">
+              <h5 class="card-header">Menu</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="mb-0" style="padding-left:20px" type="circle">
+                      <li>
+                      <a href="#introduction">Introduction</a>
+                      </li>
+                      <li>
+                        <a href="#resources">Resources</a>
+                      </li>
+                      <li>
+                        <a href="#unit-testing">Unit Testing</a>
+                      </li>
+                      <li>
+                        <a href="#integrated-testing">Integrated Testing</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+      
+            <!-- Maintenance widget -->
+            <div class="card my-4">
+              <h5 class="card-header">Page maintained by</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        Kelvin CHIU
+                      </li>
+                      <li>
+                        Email: <a href="mailto:kelvinchiu@cse.ust.hk">kelvinchiu@cse.ust.hk</a>
+                      </li>
+                      <li>Last Modified: <script type="text/javascript">document.write(document.lastModified);</script></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+      
+      
+            <!-- Homepage widget -->
+            <div class="card my-4">
+              <h5 class="card-header">Homepage</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        <a href="http://course.cse.ust.hk/comp2012h">Course Homepage</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Maintained by COMP 2012H Teaching Team © 2021 HKUST Computer Science
+          and Engineering</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  </body>
+
+</html>

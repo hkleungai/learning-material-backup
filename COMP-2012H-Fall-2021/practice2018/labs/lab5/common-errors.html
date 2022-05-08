@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<!-- ### Change lab number ### -->
+    <title>COMP 2012H Lab 4: Common Errors</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/blog-home.css" rel="stylesheet">
+	
+	<!-- Prism syntax highlighter -->
+	<link href="prism.css" rel="stylesheet" />
+
+	  <style>
+		  #review img {
+			  width: 600px;
+		  }
+	  </style>
+	  <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>	  
+  </head>
+
+  <body>
+    <script src="prism.js"></script>
+	
+    <!-- Page Content -->	
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Entries Column -->
+        <div class="col-md-12">
+
+          <h2 class="my-4"><span style="color:darkblue">COMP 2012H</span>
+            <small>Honors Object-Oriented Programming and Data Structures</small>
+          </h2>
+		  
+		  <!-- ### Change lab number and title ### -->
+		  <h3 class="my-4">Lab 5
+            <span style="color:#660066">Inheritance</span>
+          </h3>
+
+			<!-- setting up eclipse section -->
+			<!-- ### Complete introduction section for the lab ### -->
+			<div class="card mb-4">
+
+				<div class="card-body" id="eclipse">
+					<h3 class="card-title">Common Errors</h3>
+					<p class="card-text">
+					<ol>
+					  <li><code>ArrayDeque</code> derives from <code>ArrayAbstractQueue</code>. Instead can derive from <code>ArrayQueue</code> to reuse the functions.</li><br/>
+					  <li>Not implementing Copy-Constructor and Copy-Assignment Operator, because technically unused in the lab5_main.cpp</li><br/>
+					  <li>Most other errors relate to the circular array implementation.<br/><br/>
+					    <ul>
+					      <li>In ArrayAbstractQueue:<br/><br/>
+					      Copy-Constructor and Copy-Assignment Operator:<br/>
+						  <pre class="prettyprint" style="border:0">data[i] = arrayAbstractQueue.data[(arrayAbstractQueue.headIndex + i) % arrayAbstractQueue.getArraySize()];</pre>						  
+						  But in the MIL, also copied <code>headIndex</code>. Either reset <code>headIndex</code> to 0, or use <code>data[(headIndex + i) % getArraySize()]</code> while copying the elements. Otherwise the copied container has a corrupted circular array.
+						  </li><br/>
+						  <li>In ArrayStack:<br/><br/>
+						  Circular Array is completely unnecessary, if we do all operations at the tail of the array instead of the head. Then we don't need any shifting of the array at all.
+						  </li><br/>
+						  <li>In ArrayQueue and ArrayDeque:<br/><br/>
+						  "<code>headIndex - 1 + getArraySize()</code>" might cause an underflow. + and - are left-to-right associativity, so we will do "<code>headIndex - 1</code>" first, which might go negative, and unsigned int will cause it to underflow into the largest possible unsigned int value. Then, subsequent "<code>+ getArraySize()</code>" might overflow back to the correct number. Still, safer to use use "<code>headIndex + getArraySize() - 1</code>" instead to avoid underflow/overflow.</li>
+						</ul>
+					  </li>
+					</ol>
+				    </p>
+				</div>
+				<div class="card-footer text-muted">
+					End of Common Errors
+				</div>
+			</div>
+			
+			<!-- setting up eclipse section -->
+			<!-- ### Complete introduction section for the lab ### -->
+			<!--<div class="card mb-4">
+
+				<div class="card-body" id="eclipse">
+					<h3 class="card-title">Special Cases</h3>
+					<p class="card-text">
+					<ul>
+					  <li>The swap algorithm can actually be very compact, with only checking for head/tail, without extra checking for adjacent nodes.
+However, implementing in this compact way can be quite difficult, the order of operations matters very much, and it is very easy to make mistakes.
+This was the primary reason why the lab3 solution handled adjacent nodes separately.
+Still, there was one student who successfully managed to implement in this compact way. So as long as the swap output is correct, I think we can accept this compact implementation.
+</li>  
+</ul>
+</li>
+					</ol>
+				    </p>
+				</div>
+				<div class="card-footer text-muted">
+					End of Special Cases
+				</div>
+			</div>-->
+
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>	
+  </body>
+
+</html>

@@ -1,0 +1,2721 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- ### Change assignment number ### -->
+    <title>COMP 2012H Assignment 2: Gitlite</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/blog-home.css" rel="stylesheet">
+    
+    <!-- Prism syntax highlighter -->
+    <link href="vendor/prism/prism.css" rel="stylesheet" />
+
+    <style type="text/css">
+      img.limit {
+        max-width: 100%
+      }
+    </style>
+  </head>
+
+  <body>
+    <script src="vendor/prism/prism.js"></script>
+    
+    <!-- Page Content -->   
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Entries Column -->
+        <div class="col-md-9">
+
+          <h2 class="my-4">
+            <span style="color:darkblue">COMP 2012H</span>
+            <small>Honors Object-Oriented Programming and Data Structures</small>
+          </h2>
+
+          <!-- ### Change assignment number and title ### -->
+          <h3 class="my-4">
+            Assignment 2
+            <span style="color:#660066">Gitlite</span>
+          </h3>
+
+          <div class="alert alert-primary" role="alert">
+            This programming assignment requires Makefile to build. <strong>Makefile and separate compilation were taught during the lab session on September 29.</strong>
+          </div>
+
+          <div class="alert alert-danger" role="alert">
+            This programming assignment cannot be built using the bundled GCC (version 8.1.0) of our portable version of VSCode for Windows due to a bug. <strong>If you are using our portable version of VSCode for Windows, you are required to download the latest portable version of VSCode for Windows <a href="https://course.cse.ust.hk/comp2012h/labs/vscode/VSCode%20with%20GCC%2010.3.0%20%28unzip%20and%20run%20RUN-VSCODE.bat%20in%20it%29%20%5Blast%20updated%20%40%2020211004%5D.zip">here</a></strong>, which is bundled with the bug-fixed GCC (version 10.3.0).
+          </div>
+
+          <div class="alert alert-warning" role="alert">
+            We highly encourage you to participate on <a href="https://piazza.com/class/kte6bcbkbzn7gk">Piazza</a>. You can ask questions anonymously.
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="announcements">
+              <h3 class="card-title">Announcements</h3>
+              <ul>
+                <li>
+                  <strong>Updated October 15:</strong> Description for the <a href="#part2-branch">branch</a> command was updated. Description for the <a href="#part2-merge">merge</a> command was updated: Step 6 becomes Step 4.
+                </li>
+                <li>
+                  <strong>Updated October 15:</strong> Deadline was postponed to October 22. Two new test cases on the merge command were available on ZINC. See <a href="#testcases">Test Cases</a>. Download the latest skeleton files to obtain the new test cases. See <a href="resources">Resources</a>.
+                </li>
+                <li>
+                  <strong>Updated October 12:</strong> The failure check at <a href="#part2-merge">merge</a> step 6 was ambiguous and now the expected behavior is given explicitly.
+                </li>
+                <li>
+                  <strong>Updated October 11:</strong> Test cases of <code class="language-cpp">list_put()</code> using commits were added. See <a href="#testcases">Test Cases</a>.
+                </li>
+                <li>
+                  <strong>Updated October 10:</strong> A bug with case-sensitive filesystem was fixed for <code class="language-cpp">write_file()</code> in <code>Utils.cpp</code>. This affected WSL and Linux users only. A memory-leak bug was fixed for <code class="language-cpp">merge()</code> in <code>Repository.cpp</code>. As a result, program skeleton and demo programs were updated. See <a href="#resources">Resources</a> to download the latest version.
+                </li>
+                <li>
+                  <strong>Updated October 10:</strong> Page 17 (reset) of <code>pa2-diagrams.pdf</code> was updated. See <a href="#resources">Resources</a> to download the latest version.
+                </li>
+                <li>
+                  <strong>Updated October 8:</strong> A bug related to regular expression was fixed in <code>Tester.cpp</code>. A bug that prevents files in conflict from saving when doing merge was fixed in <code>Repository.cpp</code>. As a result, program skeleton and demo programs were updated. See <a href="#resources">Resources</a> to download the latest version.
+                </li>
+                <li>
+                  <strong>Updated October 8:</strong> A set of diagrams that illustrate object relationships was provided. See <a href="#resources">Resources</a>.
+                </li>
+                <li>
+                  <strong>Updated October 8:</strong> ZINC test cases for Part 2 have been released. See <a href="#testcases">Test Cases</a>.
+                </li>
+                <li>
+                  <strong>Updated October 8:</strong> Section on <a href="#memory-leak">Memory Leak</a> was updated, including the method to check for memory leak yourself. Some ZINC test cases for Part 1 now also check for memory leak. See <a href="#testcases">Test Cases</a>.
+                </li>
+                <li>
+                  <strong>Updated October 8:</strong> Descriptions for the test cases of the automated testing module were provided. See <a href="#automated-testing">Automated Testing</a> to learn how to make your own test cases.
+                </li>
+                <li>
+                  <strong>Updated October 3:</strong> Test cases for linked list operations are available on ZINC. See <a href="#submission">Submission &amp; Grading</a> and <a href="#testcases">Test Cases</a>.
+                </li>
+              </ul>
+            </div>
+            <div class="card-footer text-muted">
+              End of Announcements
+            </div>
+          </div>
+
+          <div class="card bg-light mb-4">
+            <div class="card-body" id="honor-code">
+              <h3 class="card-title">Honor Code</h3>
+              <p class="card-text">
+                We value academic integrity very highly. Please read the <a href="https://course.cse.ust.hk/comp2012h/#honorcode">Honor Code</a> section on our course webpage to make sure you understand what is considered as plagiarism and what the penalties are. The following are some of the highlights:
+              </p>
+
+              <ul>
+                <li>Do NOT try your &quot;luck&quot; - we use sophisticated plagiarism detection software to find cheaters. We also review codes for potential cases manually.</li>
+                <li>The penalty (for <strong>BOTH</strong> the copier and the copiee) is not just getting a zero in your assignment. Please read the <a href="https://course.cse.ust.hk/comp2012h/#honorcode">Honor Code</a> thoroughly.</li>
+                <li>Serious offenders will fail the course immediately, and there will be additional disciplinary actions from the department and university, upto and including expulsion.</li>
+              </ul>
+            </div>
+            <div class="card-footer text-muted">
+              End of Honor Code
+            </div>
+          </div>
+
+          <div class="card bg-light mb-4">
+            <div class="card-body" id="ilo">
+              <h3 class="card-title">Objectives &amp; Intended Learning Outcomes</h3>
+              <p class="card-text">
+                The objective of this assignment is to provide you with practice on structures, pointers, linked lists and dynamic memory allocation and deallocation. Upon completion of this assignment, you should be able to:
+              </p>
+
+              <ol>
+                <li>Define and use structure variables</li>
+                <li>Manipulate pointer variables</li>
+                <li>Implement a linked list</li>
+                <li>Manipulate dynamic memory objects</li>
+              </ol>
+            </div>
+            <div class="card-footer text-muted">
+              End of Objectives &amp; Intended Learning Outcomes
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <img class="card-img-top" src="images/branching-illustration@2x.png" alt="Git illustration">
+            
+            <div class="card-body">
+              <small>Source: <a href="https://git-scm.com/">https://git-scm.com</a></small>
+            </div>
+
+            <div class="card-body" id="introduction">
+              <h3 class="card-title">Introduction</h3>
+              <p class="card-text">
+                In this assignment, you are going to implement a version control system (VCS) that resembles <strong>Git</strong>. Our version is basically a simplified version of Git, and thus it is named <strong>Gitlite</strong> . You may have heard of <strong>GitHub</strong>, which is an web service that is based on Git. If you have submitted code to GitHub, then you must have used Git (although you may not be aware of this). 
+              </p>
+
+              <p class="card-text">
+                People use version control system to keep track of the changes of files they wish to maintain. Essentially, version control systems maintain different versions of the same file that exist at various time, or different versions of the same file that exist simultaneously. Version control systems are an integral part in software development. In the upcoming project of this course, you may want use Git (and GitHub) to facilitate collaboration and versioning. Watch this <a href="https://git-scm.com/video/what-is-version-control">video</a> to know more on version control systems.
+              </p>
+            </div>
+
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <h4>Git Concepts</h4>
+
+                <p>
+                  It would be helpful to be familiar with Git concepts before you start working on this assignment. You can refer to the <a href="https://git-scm.com/book/en/v2">official guide</a> from Git or any Git introduction online. But here we provide a brief introduction to essential concepts.
+                </p>
+
+                <p>
+                  A repository is the database of a version control system. A repository <strong>tracks</strong> a file if it maintains the version of the file. The <strong>tracked files</strong> of the repository are the files that are tracked by the repository. <strong>Untracked files</strong> are the files that are not maintained by the repository.
+                </p>
+
+                <p>
+                  A <strong>commit</strong> records a <em>snapshot</em>, or the <em>state</em> of the repository. Each commit therefore records the content of the <em>tracked files</em> of the repository <em>when the commit was made</em>. Initially, the repository is empty and hence there exists an initial commit that tracks no files.
+                </p>
+
+                <p>
+                  Files can be changed in three ways: a new file is added, the content of an existing file is modified, and a file is deleted. To record changes to the repository, the changes are <strong>staged</strong>: For adding a new file or modifying an existing file, the file is added to the <strong>staging area</strong>, where the current content is saved. Bear in mind that the staging area only contains the version of the file <em>when it was staged</em>. If a file is modified after staging, the changes are not recorded in the repository unless the file is staged again. For deleting a file, it is removed from the tracked files.
+                </p>
+
+                <p>
+                  When a <strong>new commit</strong> is made, only the staged changes are recorded. For other tracked files, they inherit from the <em>previous commit</em>. The previous commit becomes the <strong>parent commit</strong> of the new commit. As a result, the repository maintains a <em>history</em> of commits where files can be restored from, which is referred as <strong>checkout</strong>.
+                </p>
+
+                <p>
+                  A sequence of commits is referred as a <strong>branch</strong>. A branch is associated with a <strong>head commit</strong>. The commit sequence of the branch is obtained by following the <em>parent commits</em> starting from the head commit of the branch. A branch can be checked out. This restores all files from the head commit of that branch and change the tracked files to be those tracked by the head commit as well.
+                </p>
+
+                <p>
+                  The history of changes recorded by different branches can be <strong>merged</strong> together. This is essential in software development: Software developers work on the project by committing to their own branch. Ultimately, they would merge their work into the <em>master branch</em> which has the combined product of the developers.
+                </p>
+              </li>
+
+              <li class="list-group-item">
+                <h4>File Fingerprinting</h4>
+
+                <p>
+                  To support versioning, we need an efficient way to determine whether two versions are different. In other words, we wish to generate "fingerprints" for files such that we can check the fingerprints to determine whether two file versions are different.
+                </p>
+
+                <p>
+                  To achieve this, we compute the <strong>SHA-1 value</strong> of file contents. <strong>SHA-1</strong> is a cryptographic hash function that produces a <em>hash value</em> with 160 bits. Usually, we represent the hash values using 40-digit hex strings (since a hex digit represents 4-bit binary value):
+                </p>
+
+                <pre><code>
+                  SHA-1 for "Gitlite": 4ed6b233fe07f0b956e3460e9774f7bfd25d5b7c
+                  SHA-1 for "gitlite": ddf639cf894badea22b7b7370dc677dedd404ff7
+                </code></pre>
+
+                <p>
+                  <em>Cryptographic</em> hash functions have the property that it is difficult to generate two inputs that have the same hash value. So we can say that given two file versions, the probability that their hash values are equal is one divided by two to the power of 160, which is negligible. Thus, we can simply check whether two hex strings are the same to determine whether two files versions are identical. 
+                </p>
+
+                <p>
+                  A third-party library, <a href="https://github.com/mohaps/TinySHA1">TinySHA1</a>, is utilized to compute SHA-1 values. You don't need to understand and use this library as helper functions have been implemented to use this library (See <a href="#compilation">Compilation</a> to see how we can compile Gitlite with external libraries).
+                </p>
+              </li>
+
+              <li class="list-group-item">
+                <h4>Storing Persistent Data</h4>
+
+                <p>
+                  Gitlite requires some data structures representing the state of the repository to be maintained <em>persistently</em> across different executions of Gitlite. For example, one may use Gitlite to make a commit. When he runs Gitlite the next time, the commit should not be lost.
+                </p>
+
+                <p>
+                  To achieve this, Gitlite maintains a <code>.gitlite</code> directory which stores the data structures of Gitlite (See <a href="#linked-list">Appendix</a> for the structure of the <code>.gitlite</code> directory). Helper functions have been implemented to perform all filesystem operations which use the <code>filesystem</code> feature from C++17. A third-party library, <a href="https://uscilab.github.io/cereal/">cereal</a> is used for serializing objects upon filesystem operations (See <a href="#compilation">Compilation</a> to see the compilation requirements of Gitlite).
+                </p>
+              </li>
+
+              <li class="list-group-item">
+                <h4>Differences with Git</h4>
+
+                <p>
+                  Since Gitlite is a simplified version of Git, there exists many subtle difference with Git. These will be mentioned when the Gitlite commands to implemented are described. If you are a sophisticated Git user, pay attention to these differences and make sure you implement the expected behavior of Gitlite.
+                </p>
+              </li>
+            </ul>
+
+            <div class="card-footer text-muted">
+              End of Introduction
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="code-structure">
+              <h3 class="card-title">Code Structure</h3>
+
+              <h4>File Structure</h4>
+
+              Here is the file structure of the program skeleton (See <a href="#resources">Resources</a> to download the program skeleton).
+
+              <pre><code class="language-treeview">
+                pa2/
+                ├── auto-testing/
+                │   ├── src/
+                │   └── tests/
+                ├── include/
+                │   ├── TinySHA1.hpp*
+                │   └── cereal/
+                ├── Commit.cpp*
+                ├── Commit.h*
+                ├── Makefile
+                ├── Repository.cpp*
+                ├── Repository.h*
+                ├── Tester.cpp*
+                ├── Tester.h*
+                ├── Utils.cpp*
+                ├── Utils.h*
+                ├── gitlite.cpp*
+                ├── gitlite.h*
+                └── main.cpp*
+              </code></pre>
+
+              <ul>
+                <li>
+                  <code>Commit.h</code>: defines the data structure of Gitlite.
+                </li>
+                <li>
+                  <code>Commit.cpp</code>: contains the linked list operations to implement in <a href="#part1">Part 1</a>, and some helper functions for <a href="#part2">Part 2</a>.
+                </li>
+                <li>
+                  <code>gitlite.h/.cpp</code>: contains the Gitlite commands to implement in <a href="#part2">Part 2</a>.
+                </li>
+                <li>
+                  <code>Repository.h/.cpp</code>: contains the wrapper functions of the Gitlite commands that handle most filesystem operations, especially those that deal with the <code>.gitlite</code> directory.
+                </li>
+                <li>
+                  <code>Utils.h/.cpp</code>: contains general helper functions you may use.
+                </li>
+                <li>
+                  <code>Tester.h/.cpp</code>: the <a href="#automated-testing">automated testing module</a>.
+                </li>
+                <li>
+                  <code>auto-testing/</code>: the directory of the <a href="#automated-testing">automated testing environment</a>. Contains test cases and related files.
+                </li>
+                <li>
+                  <code>include/</code>: the directory that contains the two third-party libraries used in Gitlite. You do not need use them directly.
+                  <ul>
+                    <li>
+                      <code>TinySHA1</code> is employed to compute SHA-1 hash values for files and commits. Helper functions have been implemented in <code>Utils.cpp</code> that invokes functions from this library.
+                    </li>
+                    <li>
+                      <code>cereal</code> is employed to serialize objects when writing objects to file (and de-serialize objects when reading from file). 
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <code>Makefile</code>: the Makefile to build Gitlite (See <a href="#compilation">Compilation</a>).
+                </li>
+              </ul>
+
+              <p class="card-text">
+                You only need to submit <code>Commit.cpp</code> and <code>gitlite.cpp</code> (See <a href="#submission">Submission &amp; Grading</a>).
+              </p>
+            </div>
+
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <h4>Data Structure</h4>
+
+                <p>
+                  The following data data structures are defined in <code>Commit.h</code> and are essential in Gitlite.
+                </p>
+
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    Blob stands for Binary Large Object. We use <code>Blob</code> object as the <em>common</em> data structure to represent <strong>files</strong> and <strong>branches</strong>.
+
+                    <pre><code class="language-cpp">
+                      struct Blob {
+                          string name;
+
+                          string ref;
+
+                          Commit *commit = nullptr;
+
+                          Blob *prev = nullptr, *next = nullptr;
+                      };
+                    </code></pre>
+
+                    <ul>
+                      <li>
+                        When it represents a <em>file</em>, <code>name</code> stores the filename, <code>ref</code> stores the SHA-1 hash value in hex string. This hash value is used by the wrapper functions to refer to the saved copy of the file in the repository (See <a href="#gitlite-directory">Appendix</a> for the directory structure of <code>.gitlite</code>). <code>commit</code> is unused.
+                      </li>
+
+                      <li>
+                        When it represents a <em>branch</em>, <code>name</code> stores  the name of the branch, <code>commit</code> points to the head commit of the branch. <code>ref</code> is unused. <code>Blob</code> objects do not own commits, so no need to free the commit when freeing a Blob.
+                      </li>
+
+                      <li>
+                        <code>prev</code> and <code>next</code> are pointers to the previous and next element in the linked list.
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li class="list-group-item">
+                    <code>List</code> is a <strong>circular linked list with sentinel node</strong> of <code>Blob</code> objects. Implementation of linked list operations is the task of <a href="#part1">Part 1</a>.
+
+                    <pre><code class="language-cpp">
+                      struct List {
+                          Blob *head = nullptr;
+                      };
+                    </code></pre>
+
+                    <ul>
+                      <li>
+                        All <code>Blob</code> objects in a linked list are always either represents a file or a branch, but not both.
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li class="list-group-item">
+                    <code>Commit</code> objects are abstractions of commits.
+
+                    <pre><code class="language-cpp">
+                      struct Commit {
+                          string message;
+
+                          string time;
+
+                          string commit_id;
+
+                          Commit *parent = nullptr, *second_parent = nullptr;
+
+                          List *tracked_files = nullptr;
+                      };
+                    </code></pre>
+
+                    <ul>
+                      <li>
+                        <code>message</code> is the commit message.
+                      </li>
+                      <li>
+                        <code>time</code> is the time string of when the commit was made.
+                      </li>
+                      <li>
+                        <code>commit_id</code> is the commit id that uniquely identifies the commit. We compute the commit using the SHA-1 hash value of the commit message and time. This is done by a helper function.
+                      </li>
+                      <li>
+                        <code>parent</code> points to the parent commit. It is <code>nullptr</code> only if it is the first commit, referred as the <em>initial commit</em>, of the repository. 
+                      </li>
+                      <li>
+                        <code>second_parent</code> points to the second parent commit, which exists only for the commit created after <em>merging two branches</em>. Otherwise, it is <code>nullptr</code>.
+                      </li>
+                      <li>
+                        <code>tracked_files</code> is the linked list of <code>Blob</code> objects representing the files tracked by the repository when this commit was made. Different commits do not share same <code>Blob</code> objects. If a tracked file is identical in two commits, the two <code>Blob</code> objects in each of the commit have the same <code>ref</code> value.
+                      </li>
+                      <li>
+                        Note: Since commit id uses hash value, two different commits with the same message and the same time have the identical commit id. You can assume this never occurs in grading. Also, during testing, make sure you do not use the same commit message for commits that will be taken during a short interval.
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <div class="card-footer text-muted">
+              End of Code Structure
+            </div>
+          </div>
+
+          <div class="card mb-4">
+            <div class="card-body language-text" id="part1">
+              <h3 class="card-title">Part 1: Linked List Operations (20 points)</h3>
+              <p class="card-text">
+                Implement the following helper functions in <code>Commit.cpp</code> that operate on linked lists. Since linked list operations are essential in Gitlite, ZINC testcases are provided for you to check the correctness of linked list operations before proceeding to Part 2.
+              </p>
+            </div>
+
+            <ul class="list-group list-group-flush language-cpp">
+              <li id="part1-list-new" class="list-group-item">
+                <pre><code>
+                  List *list_new();
+                </code></pre>
+
+                <ul>
+                  <li>
+                    Create a new empty <strong>circular doubly linked list with sentinel node</strong> (See <a href="#linked-list">Appendix</a>).
+                  </li>
+                  <li>
+                    <strong>Return:</strong> The new empty linked list.
+                  </li>
+                  <li>
+                    <strong>All following helper functions operate on circular doubly linked list with sentinel node.</strong>
+                  </li>
+                </ul>
+              </li>
+
+              <li id="part1-list-push-back" class="list-group-item">
+                <pre><code>
+                  void list_push_back(List *list, Blob *blob);
+                </code></pre>
+
+                <ul>
+                  <li>
+                    Insert the given blob to the end of the linked list. (See <a href="#linked-list">Appendix</a> Example 2 for the expected result)
+                  </li>
+                  <li>
+                    The linked list owns the blob after insertion. (No deep copy is required)
+                  </li>
+                  <li>
+                    Both <code>list</code> and <code>blob</code> are not <code>nullptr</code>.
+                  </li>
+                </ul>
+                   
+              </li>
+
+              <li id="part1-list-find-name" class="list-group-item">
+                <pre><code>
+                  Blob *list_find_name(const List *list, const string &name);
+                </code></pre>
+
+                <ul>
+                  <li>
+                    Find the blob with the given name in the linked list.
+                  </li>
+                  <li>
+                    <strong>Return:</strong> A pointer to the found blob, or <code>nullptr</code> if no blobs were found.
+                  </li>
+                  <li>
+                    <code>list</code> is not <code>nullptr</code>.
+                  </li>
+                  <li>
+                    There is at most one blob with the given name in the linked list.
+                  </li>
+                </ul>
+              </li>
+
+              <li id="part1-list-put" class="list-group-item">
+                <pre><code>
+                  Blob *list_put(List *list, const string &name, const string &ref);
+                  Blob *list_put(List *list, const string &name, Commit *commit);
+                </code></pre>
+
+                <ul>
+                  <li>
+                    Put a blob with the given name and content (ref or commit) to the linked list.
+                    <ul>
+                      <li>
+                        If a blob with the same name exists in the linked list, update the blob by replacing the content (ref or commit) with the given content (ref or commit).
+                      </li>
+                      <li>
+                        If no blobs with the same name exists in the linked list, create a new blob with the given content (ref or commit) and insert it to the linked list with the name following <strong>ascending lexicographic order</strong>.
+                      </li>
+                      <li>
+                        Lexicographic order of two strings can be determined by the comparison operators <code><</code> and <code>></code>. Basically, if <code>a < b</code>, then <code>a</code> should appear before <code>b</code> in the linked list. (Blobs in Example 2 in <a href="#linked-list">Appendix</a> follow lexicographic order)
+                      </li>
+
+                      <li>
+                        The names of existing blobs in the linked list follow ascending lexicographic order.
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li>
+                    <strong>Return:</strong> A pointer to the new or updated blob.
+                  </li>
+
+                  <li>
+                    Recall that a blob is a shared data structure to represent either a file <strong>or</strong> a branch.
+                  </li>
+
+                  <li>
+                    The linked list owns the new blob after insertion. <strong>Updated October 3:</strong> The blob <strong>does not</strong> own the commit after creation or update. (No deep copy is required)
+                  </li>
+
+                  <li>
+                    Both <code>list</code> and <code>commit</code> are not <code>nullptr</code>.
+                  </li>
+
+                  <li>
+                    There is at most one blob with the given name in the linked list.
+                  </li>
+                </ul>
+              </li>
+
+              <li id="part1-list-remove" class="list-group-item">
+                <pre><code>
+                  bool list_remove(List *list, const string &target)
+                </code></pre>
+
+                <ul>
+                  <li>
+                    Remove the blob with the target name from the linked list (if found) and free its memory.
+                  </li>
+                  <li>
+                    <strong>Return:</strong> <code>true</code> if a blob with the target name was found and removed. <code>false</code> if no blobs with the target name were found.
+                  </li>
+                  <li>
+                    <code>list</code> is not <code>nullptr</code>.
+                  </li>
+                  <li>
+                    There is at most one blob with the target name in the linked list.
+                  </li>
+                </ul>
+              </li>
+
+              <li id="part1-list-size" class="list-group-item">
+                <pre><code>
+                  int list_size(const List *list);
+                </code></pre>
+
+                <ul>
+                  <li>
+                    <strong>Return:</strong> The number of blobs in the linked list, excluding the sentinel node.
+                  </li>
+
+                  <li>
+                    <code>list</code> is not <code>nullptr</code>.
+                  </li>
+                </ul>
+              </li>
+
+              <li id="part1-list-clear" class="list-group-item">
+                <pre><code>
+                  void list_clear(List *list);
+                </code></pre>
+
+                <ul>
+                  <li>
+                    Remove all blobs from the linked list and free their memory, except the sentinel node. (See <a href="#linked-list">Appendix</a> Example 1 for the expected result)
+                  </li>
+                  <li>
+                    <code>list</code> is not <code>nullptr</code>.
+                  </li>
+                </ul>
+              </li>
+
+              <li id="part1-list-delete" class="list-group-item">
+                <pre><code>
+                  void list_delete(List *list);
+                </code></pre>
+
+                <ul>
+                  <li>
+                    Delete the linked list and free all associated memory.
+                  </li>
+                  <li>
+                    <code>list</code> is not <code>nullptr</code>.
+                  </li>
+                  <li>
+                    <code>list</code> is guaranteed not be used in subsequent operations.
+                  </li>
+                </ul>
+              </li>
+
+              <li id="part1-list-replace" class="list-group-item">
+                <pre><code>
+                  void list_replace(List *list, const List *another);
+                </code></pre>
+
+                <ul>
+                  <li>
+                    Replace the linked list with the given another linked list, maintaining the order of blobs. Deep copy the blobs in the process.
+                  </li>
+                  <li>
+                    When removing blobs, free their memory.
+                  </li>
+                  <li>
+                    The two linked lists should not share the blobs with each other.
+                  </li>
+                  <li>
+                    No need to copy commits when copying blobs. (New and existing blob should share the same commit).
+                  </li>
+                  <li>
+                    Both <code>list</code> and <code>another</code> are not <code>nullptr</code>.
+                  </li>
+                  <li>
+                    <code>list</code> and <code>another</code> do not refer to the same linked list.
+                  </li>
+                </ul>
+              </li>
+
+              <li id="part1-list-copy" class="list-group-item">
+                <pre><code>
+                  List *list_copy(const List *list);
+                </code></pre>
+
+                <ul>
+                  <li>
+                    Deep copy the given linked list, maintaining the order of blobs.
+                  </li>
+                  <li>
+                    The new copy of the linked list should not share the blobs with the original linked list.
+                  </li>
+                  <li>
+                    <strong>Return:</strong> The new copy of the linked list.
+                  </li>
+                  <li>
+                    No need to copy commits when copying blobs. (New and existing blob should share the same commit).
+                  </li>
+                  <li>
+                    <code>list</code> is not <code>nullptr</code>.
+                  </li>
+                </ul>
+              </li>
+
+            </ul>
+
+            <div class="card-footer text-muted">
+              End of Linked List Operations
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="part2">
+              <h3 class="card-title">Part 2: Gitlite Commands (80 points)</h3>
+
+              <p>
+               Implement following Gitlite commands by completing the corresponding functions.
+              </p>
+
+              <p>
+                These functions are called by wrapper functions already implemented in <code>Repository.cpp</code>. Unless specified, the wrapper functions handle all filesystem operations to the <code>.gitlite</code> directory. For some commands, you need manipulate files in the current working directory. See <code>Utils.cpp</code> for related helper functions.
+              </p>
+
+              <p>
+                When Gitlite is started, the wrapper functions would <em>read</em> from the <code>.gitlite</code> directory and construct the following variables that are also passed as parameters to the functions you need to implement. When the functions return, wrapper functions would <em>write</em> the changes of these variables to the <code>.gitlite</code> directory. <strong>Therefore, a primary task of this part is to manipulate the following variables according to the Gitlite commands</strong>. The following variables, combined, can be considered as the <em>state</em> of the repository.
+              </p>
+
+              <ul class="language-cpp">
+                <li>
+                  <code>List *tracked_files</code>: The currently <em>tracked files</em> of the repository, and their <em>saved content</em>.
+                  <ul>
+                    <li>
+                      Each node in the linked list is a blob object representing a <em>file</em>. The <code>name</code> field holds the name of the file. The <code>ref</code> field records the hash of the saved file that is used by wrapper functions to retrieve the actual content of the saved file. The <code>commit</code> field is unused.
+                    </li>
+                    <li>
+                      A file is said to be <em>currently tracked by the repository</em> if and only if the filename exists in this list.
+                    </li>
+                    <li>
+                      When a change is staged (adding a file, updating a file or removing a file), the content of this linked list is updated.
+                    </li>
+                    <li>
+                      When a commit is made, it records a <em>snapshot</em> of the tracked files of the repository and their saved content.
+                    </li>
+                  </ul>
+                </li>
+
+                <li>
+                  <code>List *staged_files</code>: The <em>staging area</em> of the repository. Contains the saved content of <em>changed</em> tracked files <em>since the head commit of the repository</em>.
+                  <ul>
+                    <li>
+                      Each node in the linked list is a blob object representing a <em>file</em>. The <code>name</code> field holds the name of the file. The <code>ref</code> field records the hash of the saved file that is used by wrapper functions to retrieve the actual content of the saved file. The <code>commit</code> field is unused.
+                    </li>
+                    <li>
+                      When a change is staged for addition (adding a file or updating a file), the content of this linked list is updated.
+                    </li>
+                    <li>
+                      After making a commit, the staging area is cleared.
+                    </li>
+                  </ul>
+                </li>
+
+                <li>
+                  <code>List *branches</code>: The <em>branches</em> that exist in the repository.
+                  <ul>
+                    <li>
+                      Each node in the linked list is a blob object representing a <em>branch</em>. The <code>name</code> field holds the name of the branch. The <code>commit</code> field points to the head commit of the branch (the <em>latest</em> commit of the branch). The <code>ref</code> field is unused.
+                    </li>
+                  </ul>
+                </li>
+
+                <li>
+                  <code>Blob *current_branch</code>: The current branch of the repository.
+                  <ul>
+                    <li>
+                      This is a pointer to one of the nodes in <code>branches</code>.
+                    </li>
+                    <li>
+                      When a branch is <em>switched</em>, this pointer is updated.
+                    </li>
+                  </ul>
+                </li>
+
+                <li>
+                  <code>Commit *head_commit</code>: The head commit of the repository. Also the head commit of the current branch (Since Gitlite does not support detached head). Also the latest commit made on the current branch.
+                  <ul>
+                    <li>
+                      This is a pointer to the latest commit of the current branch.
+                    </li>
+                    <li>
+                      This is identical to <code>current_branch-&gt;commit</code>.
+                    </li>
+                    <li>
+                      When a new commit is made, this pointer is updated.
+                    </li>
+                    <li>
+                      When a branch is switched, this pointer is updated.
+                    </li>
+                    <li>
+                      <code>head_commit->tracked_files</code> contains the tracked files and their saved content at the head commit of the repository.
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+
+              <p>
+                The wrapper functions also read from the current working directory to construct the following variable. This variable is also passed as a parameter to the functions you need to implement. When the functions return, the content of this variable is ignored.
+              </p>
+
+              <ul class="language-cpp">
+                <li>
+                  <code>List *cwd_files</code>: The files in the current working directory (CWD).
+                  <ul>
+                    <li>Each node in the linked list is a blob object representing a <em>file</em> in the current working directory. The <code>name</code> field holds the name of the file.  The <code>ref</code> field and <code>commit</code> field are unused.</li>
+                  </ul>
+                </li>
+              </ul>
+
+              <p>
+                In particular, the wrapper functions use the linked list operations you have implemented in <a href="#part1">Part 1</a> to build linked lists. The above linked lists are created using <code class="language-cpp">list_new()</code>, and populated using <code class="language-cpp">list_put()</code>, such that names (filenames or branch names) are sorted in ascending lexicographic order. You may want to verify the linked list operations before you proceed.
+              </p>
+
+            </div>
+
+            <ul class="list-group list-group-flush">
+              <li id="part2-init" class="list-group-item">
+                <h4>init</h4>
+                <h6>Initialize a repository</h6>
+
+                <pre><code class="language-cpp">
+                  void init(Blob *&amp;current_branch,
+                            List *&amp;branches,
+                            List *&amp;staged_files,
+                            List *&amp;tracked_files,
+                            Commit *&amp;head_commit);
+                </code></pre>
+
+                <ul>
+                  <li><strong>Usage</strong>: <code>gitlite init</code></li>
+                  <li>
+                    <strong>Description</strong>:
+                    <ol>
+                      <li>
+                        Initialize the linked lists: <code>branches</code>, <code>staged_files</code>, <code>tracked_files</code>.
+                      </li>
+                      <li>
+                        Create the <em>initial commit</em> with message <code>initial commit</code>. Set the time string and compute the hash. This commit tracks no files (initialize <code>commit-&gt;tracked_files</code> as well) and has no parents.
+                      </li>
+                      <li>
+                        Create a branch called <code>master</code> and set it as the current branch. Add the initial commit to the branch. Set the head commit of the repository as well.
+                      </li>
+                    </ol>
+                  </li>
+                  <li>
+                    <strong>Hints:</strong>
+                    <ul>
+                      <li>
+                        Remember that you have already implemented linked list operations in Part 1. We expect you to use them in Part 2.
+                      </li>
+                      <li>
+                        See <code>Utils.cpp</code> for some useful functions.
+                      </li>
+                      <li>
+                        All output messages in Part 2 are available as constant strings in the top of <code>gitlite.cpp</code>.
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Notes:</strong>
+                    <ul>
+                      <li>Parameters are passed by <em>reference</em>. The changes in this function are visible by the wrapper function after this function returns.</li>
+                      <li>This function always succeed. When it returns, the wrapper function would add the commit pointed by <code>head_commit</code> to the global list of commits, create a <code>.gitlite</code> directory in the current working directory, and save the newly initialized data structures to this directory.</li>
+                      <li>Attempt to initialize in a directory with a <code>.gitlite</code> directory would fail with the message: <code>A Gitlite version-control system already exists in the current directory.</code> This is handled by the wrapper function.</li>
+                      <li>The rest of Gitlite commands requires an initialized <code>.gitlite</code> directory. If Gitlite cannot find an initialized <code>.gitlite</code> directory, it would print <code>Not in an initialized Gitlite directory.</code> and terminates immediately. This is handled by the wrapper function.</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Differences from Git:</strong>
+                    <ul>
+                      <li>
+                        Git does not explicitly create the initial commit.
+                      </li>
+                      <li>
+                        In Git, the name of the first branch is not fixed to <code>master</code>.
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+
+              </li>
+
+              <li id="part2-add" class="list-group-item">
+                <h4>add</h4>
+                <h6>Add content of a file to the repository</h6>
+
+                <pre><code class="language-cpp">
+                  bool add(const string &amp;filename,
+                           List *staged_files,
+                           List *tracked_files,
+                           const Commit *head_commit);
+                </code></pre>
+
+                <ul>
+                  <li><strong>Usage:</strong> <code>gitlite add [filename]</code></li>
+                  <li>
+                    <strong>Description:</strong>
+                    <ol>
+                      <li>
+                        Add content of the file to the repository by saving the content of the file to the currently <em>tracked files</em> of the repository.
+                      </li>
+                      <li>
+                        Perform one of the following:
+                        <ul>
+                          <li>
+                            In most cases, simply save the content of the file to the <em>staging area</em> as well. Return <code>true</code>.
+                          </li>
+                          <li>
+                            If the file is tracked in the head commit of the repository, with the <em>same content</em> as the current file, then remove the file from the staging area (if it is staged). Return <code>false</code>. (This happens when a modified file was added, then restored to original version, and added again. Since the file was restored, it should be removed from the staging area.)
+                          </li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </li>
+                  <li>
+                    <strong>Hints:</strong>
+                    <ul>
+                      <li><code>tracked_files</code> stores the currently tracked files of the repository and their saved content.</li>
+                      <li><code>head_commit-&gt;tracked_files</code> contains the tracked files of the repository and their saved content at the head commit of the repository.</li>
+                      <li>See <code>Utils.cpp</code> for some useful helper functions.</li>
+                      <li>Remember that you have already implemented linked list operations in Part 1. We expect you to use them in Part 2.</li>
+                      <li><strong>Added October 13:</strong> You should use <code class="language-cpp">list_put()</code> to add files to the list such that the name follows ascending lexicographic order.</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Notes:</strong>
+                    <ul>
+                      <li>This is known as staging the file for addition. The file is now <em>staged for addition</em>. Staging an already staged file overwrites previous results.</li>
+                      <li>Before this function is called, the wrapper function ensures the file specified by <code>filename</code> exists in the current directory. Otherwise, the wrapper function would report <code>File does not exist.</code></li>
+                      <li>When this function returns, the wrapper function would make filesystem operations to the <code>.gitlite</code> directory to save a copy of the file and update the index for staging area. The saved copies are identified by the hash value, such that only one copy is save for different file versions with the same content.</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Differences from Git:</strong>
+                    <ul>
+                      <li>
+                        Gitlite only tracks files in the current directory, while Git can track files in <em>sub-directories</em>. So the tracked files in Git forms a <em>tree</em>, while linked list is sufficient to represent tracked files in Gitlite.
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+
+              <li id="part2-commit" class="list-group-item">
+                <h4>commit</h4>
+                <h6>Take a snapshot the repository such that it can be restored later</h6>
+
+                <pre><code class="language-cpp">
+                  bool commit(const string &amp;message,
+                              Blob *current_branch,
+                              List *staged_files,
+                              List *tracked_files,
+                              Commit *&amp;head_commit);
+                </code></pre>
+
+                <ul>
+                  <li><strong>Usage:</strong> <code>gitlite commit [message]</code></li>
+                  <li>
+                    <strong>Description:</strong>
+                    <ol>
+                      <li>
+                        <strong>Failure check:</strong> If there are no files in the staging area, and no files <em>staged for removal</em>, print <code>No changes added to the commit.</code> and return <code>false</code>.
+                      </li>
+                      <li>
+                        Create a new commit. Save the message, time and commit id.
+                      </li>
+                      <li>
+                        Take a snapshot of the repository by <em>copying</em> the tracked files of the repository to the tracked files of this commit. These files become the files that are tracked by this commit.
+                      </li>
+                      <li>
+                        Add this commit to the current branch and update the head commit of the repository.
+                      </li>
+                      <li>
+                        Clear the staging area and return <code>true</code>.
+                      </li>
+                    </ol>
+                  </li>
+                  <li>
+                    <strong>Hints:</strong> 
+                    <ul>
+                      <li>See <code>Utils.cpp</code> for some useful helper functions.</li>
+                      <li>To make a snapshot, should you do shallow copy or deep copy?</li>
+                      <li>A file is <em>staged for removal</em> if it is tracked by the head commit of the repository but not currently tracked by the repository. (See <a href="#part2-remove">remove</a>).</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Notes:</strong>
+                    <ul>
+                      <li>The staging area is cleared because a new commit is made. Now there are no files that are changed since the head commit of the repository.</li>
+                      <li>For best practices, the commit message should describe the changes introduced in this commit.</li>
+                      <li>If this function returns <code>true</code>, the wrapper function would add the commit pointed by <code>head_commit</code> to the global list of commits, and make filesystem operations to the <code>.gitlite</code> directory to write changes to filesystem.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+
+              <li id="part2-remove" class="list-group-item">
+                <h4>remove</h4>
+                <h6>Remove a file from the current working directory and the repository</h6>
+
+                <pre><code class="language-cpp">
+                  bool remove(const string &amp;filename,
+                              List* staged_files,
+                              List *tracked_files,
+                              const Commit *head_commit);
+                </code></pre>
+
+                <ul>
+                  <li><strong>Usage:</strong> <code>gitlite rm [filename]</code></li>
+                  <li>
+                    <strong>Description:</strong>
+                    <ol>
+                      <li>
+                        If the file is tracked by the head commit of the repository, then remove it from the currently tracked files of the repository and remove the file from the current working directory (if it exists). The file is <em>staged for removal</em>.
+                      </li>
+                      <li>
+                        If the file was <em>staged for addition</em>, remove it from the tracked files of the repository and the staging area.
+                      </li>
+                      <li>
+                        If none of the above is satisfied, print <code>No reason to remove the file.</code> and return <code>false</code>. Otherwise, return <code>true</code>.
+                      </li>
+                    </ol>
+                  </li>
+                  <li><strong>Hints:</strong>
+                    <ul>
+                      <li>See <code class="language-cpp">restricted_delete(filename)</code> in <code>Utils.cpp</code> for deleting a file from filesystem.</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Notes:</strong>
+                    <ul>
+                      <li>
+                        This command may <strong>remove</strong> existing files.
+                      </li>
+                      <li>
+                        If this function returns <code>true</code>, the wrapper function would make filesystem operations to the <code>.gitlite</code> directory to remove index for staging area.
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+
+              </li>
+
+              <li id="part2-log" class="list-group-item">
+                <h4>log</h4>
+                <h6>Display the log of previous commits</h6>
+
+                <pre><code class="language-cpp">
+                  void log(const Commit *head_commit);
+                </code></pre>
+
+                <ul>
+                  <li><strong>Usage:</strong> <code>gitlite log</code></li>
+                  <li>
+                    <strong>Description:</strong>
+                    <ol>
+                      <li>Starting from the head commit of the repository, display information for each commit <em>backwards</em> until the initial commit, by following the parent commit (ignore second parents). </li>
+                      <li>Display the log in the following format:</li>
+                      <pre><code>
+                        ===
+                        commit fd0efd44873699357e2a452ec8f17e79ac965e4c
+                        Date: Thu Jul 22 22:23:56 2021
+
+                        Another commit message
+
+                        ===
+                        commit 61db0df36b222c7acc910b2dec40e5461e4041cb
+                        Date: Thu Jul 22 22:23:31 2021
+
+                        A commit message
+
+                        ===
+                        commit 0ed4cfc32f3478a10c755c5c8cca980b14c54f17
+                        Date: Thu Jul 22 22:22:50 2021
+
+                        initial commit
+                      </code></pre>
+                    </ol>
+                  <li>
+                    <strong>Hints:</strong>
+                    <ul>
+                      <li>
+                        See <code class="language-cpp">commit_print(commit)</code> in <code>Commit.cpp</code> for displaying information of a commit.
+                      </li>
+                    </ul>
+                  </li>
+                  <li><strong>Notes:</strong> 
+                  </li>
+                </ul>
+              </li>
+
+              <li id="part2-status" class="list-group-item">
+                <h4>status</h4>
+                <h6>Display the status of the repository</h6>
+
+                <pre><code class="language-cpp">
+                  void status(const Blob *current_branch,
+                              const List *branches,
+                              const List *staged_files,
+                              const List *tracked_files,
+                              const List *cwd_files,
+                              const Commit *head_commit);
+                </code></pre>
+
+                <ul>
+                  <li><strong>Usage:</strong> <code>gitlite status</code></li>
+                  <li>
+                    <strong>Description:</strong>
+                    Display the status according to the following format: <strong>(Example updated October 13)</strong>
+                    <pre><code>
+                      === Branches ===
+                      another-branch
+                      *master
+
+                      === Staged Files ===
+                      staged_file.txt
+
+                      === Removed Files ===
+                      gone.txt
+
+                      === Modifications Not Staged For Commit ===
+                      changed.txt (modified)
+                      file1.txt (modified)
+                      file2.txt (deleted)
+                      file3.txt (modified)
+                      file4.txt (deleted)
+                      missing.txt (deleted)
+
+                      === Untracked Files ===
+                      files.untracked
+                    </code></pre>
+                    <ul>
+                      <li>
+                        <strong>Branches:</strong> Display the names of all branches. Marks the current branch with <code>*</code>.
+                      </li>
+                      <li><strong>Staged Files:</strong> Display the filenames of all files that are staged for addition.</li>
+                      <li><strong>Removed Files:</strong> Display the filenames of all files that are staged for removal.</li>
+                      <li>
+                        <strong>Modifications Not Staged For Commit:</strong> Display the filenames for the following files. Append <code>(modified)</code> for case 1 and 2. Append <code>(deleted)</code> for case 3 and 4.
+                        <ol>
+                          <li>Unstaged files that are tracked in the head commit of the repository, but the content recorded in the commit is different with the content in the current working directory (CWD).</li>
+                          <li>Files that were staged for addition, but the content recorded in the staging area is different with the content in CWD.</li>
+                          <li>Files staged for addition  but deleted in CWD.</li>
+                          <li>Files not staged for removal but tracked in the head commit of the repository and deleted in CWD.</li>
+                        </ol>
+                      </li>
+                      <li><strong>Untracked Files:</strong> Files exist in CWD but not currently tracked by the repository.</li>
+                      <li>Entries in each group should be listed in ascending lexicographic order. The <code>*</code> of current branch does not count.</li>
+                    </ul>
+                 </li>
+                 <li>
+                    <strong>Hints (Updated October 13):</strong> 
+                    <ul>
+                      <li><code>cwd_files</code> stores the files located in the currently working directory. Use this to find out untracked files.</li>
+                      <li><code class="language-cpp">get_sha1(filename)</code> returns the hash of the file version in CWD.</li>
+                      <li><code class="language-cpp">is_file_exists(filename)</code> checks whether a file exists in CWD.</li>
+                      <li>A file is <em>staged for removal</em> if it is tracked by the head commit of the repository but not currently tracked by the repository. (See <a href="#part2-remove">remove</a>).</li>
+                      <li>For <strong>Modifications Not Staged For Commit</strong>, traverse <code>tracked_files</code> to see whether each file matches one of the 4 conditions.</li>
+                    </ul>
+                 </li>
+                 <li>
+                    <strong>Notes:</strong>
+                    <ul>
+                      <li>The linked list are created by the wrapper function using <code class="language-cpp">list_put()</code>. Filenames and branch names follow ascending lexicographic order if <code class="language-cpp">list_put()</code> is implemented correctly.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+
+              <li id="part2-checkout-file" class="list-group-item">
+                <h4>checkout file</h4>
+                <h6>Restore a file from a given commit (or the head commit of the repository)</h6>
+
+                <pre><code class="language-cpp">
+                  bool checkout(const string &amp;filename,
+                                Commit *commit);
+                </code></pre>
+
+                <ul>
+                  <li><strong>Usage:</strong> <code>gitlite checkout -- [filename]</code> or <code>gitlite checkout [commit_id] -- [filename]</code></li>
+                  <li>
+                    <strong>Description:</strong>
+                    <ol>
+                      <li>
+                        <strong>Failure check:</strong>
+                        <ul>
+                          <li>
+                            If <code>commit</code> is <code>nullptr</code>, then the wrapper function cannot find the commit with the commit id. Print <code>No commit with that id exists.</code> and return <code>false</code>.
+                          </li>
+                          <li>
+                            If the file is not tracked by the commit, print <code>File does not exist in that commit.</code> and return <code>false</code>.
+                          </li>
+                        </ul>
+                        </li>
+                      <li>Take the version of the file as it exists in the given commit and write the content to the current working directory. Overwrite any existing file.</li>
+                      <li>No need to update the currently tracked files of the repository and the staging area. Return <code>true</code>.</li>
+                    </ol>
+                 </li>
+                 <li>
+                    <strong>Hints:</strong> 
+                    <ul>
+                      <li>See <code class="language-cpp">write_file(filename, ref)</code> for writing the content referred by <code>ref</code> to the file in filesystem.</li>
+                    </ul>
+                 </li>
+                 <li>
+                    <strong>Notes:</strong> 
+                    <ul>
+                      <li>This command may <strong>overwrite</strong> existing files.</li>
+                      <li>The wrapper function <em>resolves</em> the given commit id into a commit and pass it to this function. Commit can be abbreviated given that it has unique prefix. For example, <code>61db0df36b222c7acc910b2dec40e5461e4041cb</code> can be abbreviated as <code>61db0df</code> or simply <code>61</code>, if no other commits with that same prefix exist. The shortest abbreviation has 2 characters.</li>
+                      <li>The wrapper function passes the head commit of the repository to this function if commit id was not specified in the command.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+
+              <li id="part2-checkout-branch" class="list-group-item">
+                <h4>checkout branch</h4>
+                <h6>Switch to a branch</h6>
+
+                <pre><code class="language-cpp">
+                  bool checkout(const string &amp;branch_name,
+                                Blob *&amp;current_branch,
+                                const List *branches,
+                                List *staged_files,
+                                List *tracked_files,
+                                const List *cwd_files,
+                                Commit *&amp;head_commit);
+                </code></pre>
+
+                <ul>
+                  <li><strong>Usage:</strong> <code>gitlite checkout [branch_name]</code> </li>
+                  <li>
+                    <strong>Description:</strong>
+                    <ol>
+                      <li>
+                        <strong>Failure check:</strong>
+                        <ul>
+                          <li>
+                            If the given branch does not exist, print <code>A branch with that name does not exist.</code> and return <code>false</code>.
+                          </li>
+                          <li>
+                            If the given branch is the current branch, print <code>No need to checkout the current branch.</code> and return <code>false</code>.
+                          </li>
+                          <li>
+                            If there exists untracked files in the current working directory that would be overwritten (see below for the files that would be overwritten), print <code>There is an untracked file in the way; delete it, or add and commit it first.</code> and return <code>false</code>.
+                          </li>
+                        </ul>
+                        </li>
+                      <li>
+                        Take all files in the head commit of the branch and write the content of them to the current working directory. Overwrite any existing files.
+                      </li>
+                      <li>
+                        Any files that are tracked in the head commit of the repository but not the head commit of the given branch are deleted.
+                      </li>
+                      <li>
+                        Set the currently tracked files of the repository to those that are tracked by the head commit of the given branch. Clear the staging area as well.
+                      </li>
+                      <li>The given branch becomes the current branch. Also update the head commit of the repository.</li>
+                      <li>Return <code>true</code>.</li>
+                    </ol>
+                  </li>
+                  <li>
+                    <strong>Hints:</strong> 
+                    <ul>
+                      <li>See <code class="language-cpp">restricted_delete(filename)</code> for deleting a file from filesystem. </li>
+                      <li>See <code class="language-cpp">write_file(filename, ref)</code> for writing the content referred by <code>ref</code> to the file in filesystem.</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Notes:</strong> 
+                    <ul>
+                      <li>This command may <strong>overwrite</strong> existing files.</li>
+                      <li>When this function returns, the wrapper function would make filesystem operations to the <code>.gitlite</code> directory to update the index for staging area and tracked files.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+
+              <li id="part2-reset" class="list-group-item">
+                <h4>reset</h4>
+                <h6>Reset the current state of the repository to a given commit</h6>
+
+                <pre><code class="language-cpp">
+                  bool reset(Commit *commit,
+                             Blob *current_branch,
+                             List *staged_files,
+                             List *tracked_files,
+                             const List *cwd_files,
+                             Commit *&amp;head_commit);
+                </code></pre>
+
+                <ul>
+                  <li><strong>Usage:</strong> <code>gitlite reset [commit_id]</code></li>
+                  <li>
+                    <strong>Description:</strong>
+                    <ol>
+                      <li>
+                        <strong>Failure check:</strong>
+                        <ul>
+                          <li>
+                            If <code>commit</code> is <code>nullptr</code>, then the wrapper cannot find the commit with the commit id. Print <code>No commit with that id exists.</code> and return <code>false</code>.
+                          </li>
+                          <li>
+                            If there exists untracked files in the current working directory that would be overwritten (see below for the files that would be overwritten), print <code>There is an untracked file in the way; delete it, or add and commit it first.</code> and return <code>false</code>.
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        Take all files in the given commit and write the content of them to the current working directory. Overwrite any existing files.
+                      </li>
+                      <li>
+                        Any files that are tracked in the head commit of the repository but not by the given commit are deleted.
+                      </li>
+                      <li>
+                        <strong>Updated October 8:</strong> Set the currently tracked files of the repository to those that are tracked by the <del>head commit of the given branch</del> <ins>given commit</ins>. Clear the staging area as well.
+                      </li>
+                      <li>
+                        The given commit becomes the head commit of the current branch. Also update the head commit of the repository.
+                      </li>
+                      <li>Return <code>true</code>.</li>
+                    </ol>
+                  </li>
+                  <li>
+                    <strong>Hints:</strong>
+                    <ul>
+                      <li>See <code class="language-cpp">restricted_delete(filename)</code> for deleting a file from filesystem. </li>
+                      <li>See <code class="language-cpp">write_file(filename, ref)</code> for writing the content referred by <code>ref</code> to the file in filesystem.</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Notes:</strong> 
+                    <ul>
+                      <li>This command may <strong>overwrite</strong> existing files.</li>
+                      <li>The wrapper function <em>resolves</em> the given commit id into a commit and pass it to this function.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+
+              <li id="part2-branch" class="list-group-item">
+                <h4>branch</h4>
+                <h6>Create a new branch</h6>
+
+                <pre><code class="language-cpp">
+                  Blob *branch(const string &amp;branch_name,
+                               List *branches,
+                               Commit *head_commit);
+                </code></pre>
+
+                <ul>
+                 <li><strong>Usage:</strong> <code>gitlite branch [branch_name]</code></li>
+                 <li>
+                    <strong>Description:</strong>
+                    <ol>
+                      <li><strong>Failure check:</strong> If a branch with the given name already exists, print <code>A branch with that name already exists.</code> and return <code>nullptr</code>.</li>
+                      <li>The head commit of the repository becomes the head commit of the new branch.</li>
+                      <li><strong>Added October 15:</strong> Add the new branch to <code>branches</code>.</li>
+                      <li>Return a pointer to the new branch.</li>
+                    </ol>
+                 </li>
+                 <li>
+                    <strong>Notes:</strong>
+                    <ul>
+                      <li>The default branch upon initializing the repository is the <code>master</code> branch.</li>
+                      <li>No need to checkout the new branch.</li>
+                      <li>If this function does not return <code>nullptr</code>, the wrapper function would make filesystem operations to the <code>.gitlite</code> directory to write the branch information.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+
+              <li id="part2-remove-branch" class="list-group-item">
+                <h4>remove branch</h4>
+                <h6>Delete an existing branch</h6>
+
+                <pre><code class="language-cpp">
+                  bool remove_branch(const string &amp;branch_name,
+                                     Blob *current_branch,
+                                     List *branches);
+                </code></pre>
+
+                <ul>
+                  <li><strong>Usage:</strong> <code>gitlite rm-branch [branch_name]</code></li>
+                  <li>
+                    <strong>Description:</strong>
+                    <ol>
+                      <li>
+                        <strong>Failure check:</strong>
+                        <ul>
+                          <li>
+                            If the given branch does not exist, print <code>A branch with that name does not exist.</code> and return <code>false</code>.
+                          </li>
+                          <li>
+                            If trying to remove the current branch, print <code>Cannot remove the current branch.</code> and return <code>false</code>.
+                          </li>
+                        </ul>
+                      </li>
+                      <li>Delete the branch from the repository. Do not delete any commits. <strong>Updated October 15:</strong> <ins>Return <code>true</code></ins>.</li>
+                    </ol>
+                  </li>
+                  <li>
+                    <strong>Notes:</strong>
+                    <ul>
+                      <li>If this function returns <code>true</code>, the wrapper function would make filesystem operations to the <code>.gitlite</code> directory to remove information of the branch.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+
+              <li id="part2-merge" class="list-group-item">
+                <h4>merge</h4>
+                <h6>Join the history of a given branch into the current branch</h6>
+
+                <pre><code class="language-cpp">
+                  bool merge(const string &amp;branch_name,
+                             Blob *&amp;current_branch,
+                             List *branches, List *staged_files,
+                             List *tracked_files,
+                             const List *cwd_files,
+                             Commit *&amp;head_commit);
+                </code></pre>
+
+                <ul>
+                  <li><strong>Usage:</strong> <code>gitlite merge [branch_name]</code></li>
+                  <li>
+                    <strong>Description:</strong>
+                    <ol>
+                      <li>
+                        <strong>Failure check:</strong>
+                        <ul>
+                          <li>
+                            If the given branch does not exist, print <code>A branch with that name does not exist.</code>, and return <code>false</code>.
+                          </li>
+                          <li>
+                            If trying to merge the current branch, print <code>Cannot merge a branch with itself.</code> and return <code>false</code>.
+                          </li>
+                          <li>
+                            If there exists uncommitted changes, print <code>You have uncommitted changes.</code> and return <code>false</code>.
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        Otherwise, proceed to compute the <em>split point</em> of the current branch and the given branch. The split point is a <em>latest common ancestor</em> of the head commit of the  current branch and the head commit of the given branch:
+                        <pre><code>
+                          initial commit --- c1 --- c2 --- c3 --- c4 (head of master)
+                                                      \
+                                                        --- n1 --- n2 (head of new)
+                        </code></pre>
+                        The split point of the <code>master</code> branch and the <code>new</code> branch is the commit <code>c2</code>.
+                        <ul>
+                          <li>
+                            The <em>ancestors</em> of a commit are the commits that are reachable by following parent pointers (<em>excluding</em> second parent). In the above example, ancestors of <code>c4</code> are <code>c3</code>, <code>c2</code>, <code>c1</code> and the initial commit.
+                          </li>
+                          <li>
+                            The <em>common ancestors</em> of two commits are the commits that are ancestors of both commits. In the above example, the common ancestors of <code>c4</code> and <code>n2</code> are <code>c2</code>, <code>c1</code> and the initial commit.
+                          </li>
+                          <li>
+                            A <em>latest common ancestor</em> is a common ancestor that is not an ancestor of any other common ancestors. In the above example, <code>c2</code> is the only latest common ancestor. Hence it is the split point of <code>master</code> and <code>new</code>.
+                          </li>
+                          <li>
+                            Since all branches can be traced back to the initial commit, the initial commit must be a common ancestor of any two commits. So there exists at least one latest common ancestor.
+                          </li>
+                          <li>
+                            In some cases, there can be more than one latest common ancestor. But we ignore these cases. We assume there is only <em>one</em> latest common ancestor.
+                          </li>
+                          <li>
+                            Thus, the split point determines the <em>latest common history</em> of two branches.
+                          </li>
+                          <li>
+                            <strong>Implement split point computation in the following function in <code>Commit.cpp</code>. This will be graded separately:</strong>
+                            <pre><code class="language-cpp">
+                              Commit *get_lca(Commit *c1, Commit *c2);
+                            </code></pre>
+                            For two given commits <code>c1</code> and <code>c2</code>, return the latest common ancestor.
+                          </li>
+                          <li>
+                            <strong>Bonus (10 points):</strong> Also consider second parents in the computation of split point.
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        If the split point is the head commit of the given branch, then all changes in the given branch exist in the current branch (the current branch is <em>ahead</em> of the given branch). So there is nothing to be done in the current branch. Simply print <code>Given branch is an ancestor of the current branch.</code> and return <code>true</code>.
+                      </li>
+                      <li>
+                        <strong>Updated October 15: Moved from Step 6.</strong> <ins><strong>Failure check:</strong> Traverse <code>cwd_files</code>, if there exists a file that is not tracked in the head commit of the current branch but tracked in the head commit of the given branch, print <code>There is an untracked file in the way; delete it, or add and commit it first.</code> and return <code>false</code>.</ins>
+                      </li>
+                      <li>
+                        If the split point is the head commit of the current branch, then all changes in the current branch exist in the given branch (the given branch is <em>ahead</em> of the current branch). Simply set the state of the repository to the head commit of the given branch (using one command above). If it succeeded, print <code>Current branch fast-forwarded.</code> and return <code>true</code>. If it failed, return <code>false</code>.
+                      </li>
+                      <li>
+                        Otherwise, the split point is neither the head commit of the current branch and the head commit of the given branch. Their history has <em>diverged</em>, like the above example. We need to incorporate the <em>latest</em> changes from <em>both</em> branches.
+                      </li>
+                      <strong>Updated October 15: Moved to Step 4.</strong> <del><strong>Failure check:</strong> <strong>Updated October 12:</strong> If there exists untracked files in the current working directory that would be overwritten by the merge (see below for the files that would be overwritten) Traverse <code>cwd_files</code>, if there exists a file that is not tracked in the head commit of the current branch but tracked in the head commit of the given branch, print <code>There is an untracked file in the way; delete it, or add and commit it first.</code> and return <code>false</code>.</del>
+                      <li id="merge-rules">
+                        Otherwise, proceed to <em>merge</em> the two branches with rules below. A general idea is to incorporate the <em>latest</em> changes from <em>both</em> branches.
+                        <ol>
+                          <li>
+                            Any files that have been modified in the given branch but not modified in the current branch since the split point should be changed to their versions in the given branch.
+                            <ul>
+                              <li>
+                                Checkout the files and stage the files for addition.
+                              </li>
+                              <li>
+                                In addition, you need to call <code class="language-cpp">stage_content(filename)</code> explicitly to modify the index in the <code>.gitlite</code> directory.
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            Any files that have been modified in the current branch but not modified in the given branch since the split point should remain unchanged.
+                          </li>
+                          <li>
+                            Any files that have been modified in both the current branch and the given branch in the same way (both modified with same content or both removed), should remain unchanged.
+                          </li>
+                          <li>
+                            Any files that were not present at the split point and are present only in the current branch should remained unchanged.
+                          </li>
+                          <li>
+                            Any files that were not present at the split point and are present only in the given branch should be added with their versions in the given branch.
+                            <ul>
+                              <li>
+                                Checkout the files and stage the files for addition.
+                              </li>
+                              <li>
+                                In addition, you need to call <code class="language-cpp">stage_content(filename)</code> explicitly to modify the index in the <code>.gitlite</code> directory.
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            Any files present at the split point, unmodified in the current branch, and absent in the given branch should be staged for removal.
+                          </li>
+                          <li>
+                            Any files present at the split point, unmodified in the given branch, and absent in the current branch should remain absent.
+                          </li>
+                          <li>
+                            Any files modified in <em>different ways</em> in the current branch and the given branch are in <strong>conflict</strong>. 
+                            <ul>
+                              <li>
+                                A file is <em>modified in different ways</em> if:
+                                <ol type="a">
+                                  <li>
+                                    It is changed in both branches with different content.
+                                  </li>
+                                  <li>
+                                    It is changed in one branch but deleted in another branch.
+                                  </li>
+                                  <li>
+                                    It was absent at the split point but present in both branches with different content.
+                                  </li>
+                                </ol>
+                              </li>
+                              <li>
+                                Replace the content of these files in the current working directory by the <em>conflict resolution marker</em>: (See <code>add_conflict_marker(filename, ref)</code> in <code>Utils.cpp</code>)
+                                <pre><code>
+                                  <<<<<<< HEAD
+                                  contents of the file in the current branch
+                                  =======
+                                  contents of the file in the given branch
+                                  >>>>>>>
+                                </code></pre>
+                              </li>
+                              <li>
+                                Stage these files for addition.
+                              </li>
+                              <li>
+                                In addition, you need to call <code class="language-cpp">stage_content(filename)</code> explicitly to modify the index in the <code>.gitlite</code> directory.
+                              </li>
+                            </ul>
+                          </li>
+                        </ol>
+                      </li>
+                      <li>
+                        After processing the files, create a merge commit with message <code>Merged [given branch name] into [current branch name].</code> <strong>Added October 15:</strong> Use <code>get_merge_commit_message()</code> to compose this message.
+                        <ul>
+                          <li>
+                            The first parent of the merge commit is the head commit of the current branch.
+                          </li>
+                          <li>
+                            The second parent of the merge commit is the head commit of the given branch.
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        If a conflict was ever encountered, print <code>Encountered a merge conflict.</code> (once is enough)
+                      </li>
+                      <li>
+                        Return <code>true</code>.
+                      </li>
+                      <li>
+                        If a commit error occurred, just print the error, ignore it and still return <code>true</code>.
+                      </li>
+                    </ol>
+                  </li>
+                  <li>
+                    <strong>Hints:</strong>
+                    <ul>
+                      <li><strong>Added October 15:</strong> For step 7, compare <code>tracked_files</code> of these three commits: split point, head commit of the current branch, head commit of the given branch.</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Notes:</strong>
+                    <ul>
+                      <li>
+                        In the above example, suppose we merge <code>new</code> into <code>master</code> which results the merge commit <code>m1</code>. The set of commit becomes:
+                        <pre><code>
+                          initial commit --- c1 --- c2 --- c3 --- c4 --- m1 (head of master)
+                                                      \                 /
+                                                        --- n1 ------ n2 (head of new)
+                        </code></pre>
+                        The split point (excluding second parents) of the <code>master</code> branch and the <code>new</code> branch is <code>c2</code>. <br>
+                        The split point (including second parents) of the <code>master</code> branch and the <code>new</code> branch is <code>n2</code>. This is the behavior of Git.
+                      </li>
+                      <li>This command may <strong>overwrite</strong> existing files.</li>
+
+                      <li>
+                        <strong>Updated October 9:</strong> for <code>add_conflict_marker()</code>,
+                        <ul>
+                          <li>If the file is deleted in the given branch, you provide an empty for <code>ref</code>, like this would do: <code>add_conflict_marker(filename, string())</code>.</li>
+                          <li>
+                            If the file is deleted in the current branch, you can still use the filename. If the file is not found in the CWD, then <code>add_conflict_marker()</code> would use an empty line for the current branch version.
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+            <div class="card-footer text-muted">
+              End of Gitlite Commands
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="compilation">
+              <h3 class="card-title">Compilation</h3>
+              <p class="card-text">
+                Since Gitlite employs the <code>filesystem</code> feature from C++17, it needs to be compiled with C++17 standard. Also, Gitlite needs to be compiled with the two third-party libraries.
+              </p>
+
+              <p class="card-text">
+                A <strong>Makefile</strong> is provided in the skeleton files to build Gitlite with C++17 standard and the third-party libraries. <strong>Makefile and separate compilation were taught during the lab session on September 29.</strong> To build Gitlite, simply run <code>make</code> in the directory that contains the <code>.cpp</code> files and <code>Makefile</code>.
+              </p>
+
+              <pre><code class="language-bash">
+                make
+              </code></pre>
+
+              <p class="card-text">
+                Gitlite cannot be built using the bundled GCC (version 8.1.0) with our portable version of VSCode for Windows because it has a bug with <code>filesystem</code>. <strong>If you are using our portable version of VSCode for Windows, you are required to download the latest portable version of VSCode for Windows <a href="https://course.cse.ust.hk/comp2012h/labs/vscode/VSCode%20with%20GCC%2010.3.0%20%28unzip%20and%20run%20RUN-VSCODE.bat%20in%20it%29%20%5Blast%20updated%20%40%2020211004%5D.zip">here</a></strong>, which is bundled with the bug-fixed GCC (version 10.3.0).
+              </p>
+
+              <p class="card-text">
+                To facilitate grading on ZINC, a <em>different</em> version of <code>Repository.cpp</code> and <code>Utils.cpp</code>, which substitute filesystem operations by memory operations, will be used to compile your ZINC submissions. As a result, <strong>your ZINC submissions are compiled with C++11 standard</strong>. So make sure you do not include any code that does not conform to C++11 standard.
+              </p>
+            </div>
+            <div class="card-footer text-muted">
+              End of Compilation
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="running">
+              <h3 class="card-title">Running and Testing Gitlite</h3>
+
+              <div class="alert alert-danger" role="alert">
+                Since Gitlite may overwrite or remove files from filesystem, <strong>always test Gitlite in a separate, dedicated directory</strong>.
+              </div>
+
+              <div class="alert alert-secondary">
+                Using <code>restricted_delete()</code> will make sure that Gitlite only removes a file if it is in a directory with a <code>.gitlite</code> directory.
+              </div>
+
+            </div>
+
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <h4>Running Gitlite</h4>
+
+                <p class="card-text">
+                  After successful compilation, you would find an executable file named <code>gitlite</code> (or <code>gitlite.exe</code> for Windows) in the current directory.
+                </p>
+
+                <p class="card-text">
+                  Gitlite process commands by reading the command line arguments <code>argv</code> that are passed to <code>main()</code>. When no command line arguments are given, <code>argc</code> is 1 and Gitlite terminates immediately. <strong>You may want to modify the if branch when <code>argc == 1</code> in <code>main()</code> to test the linked list implementation or something else</strong>.
+                </p>
+
+                <p class="card-text">
+                  Otherwise, Gitlite parses <code>argv</code> and dispatch the command by calling the wrapper function for the function you have implemented in Part 2.
+                </p>
+
+                <p class="card-text">
+                  To run a Gitlite command, enter <code>./gitlite</code> (or <code>.\gitlite.exe</code> for Windows) followed by the Gitlite command and optional arguments, separated by spaces. For arguments with spaces, wrap them in a pair of quotes:
+                </p>
+
+                <pre><code>
+                  # For macOS and Linux
+                  $ ./gitlite init
+                  $ ./gitlite commit "a commit message with spaces"
+
+                  # For Windows
+                  $ .\gitlite.exe init
+                  $ .\gitlite.exe commit "a commit message with spaces"
+                </code></pre>
+              </li>
+
+              <li class="list-group-item">
+                <h4>Setting Up a Dedicated Testing Directory</h4>
+
+                <p class="card-text">
+                  It is highly recommended to setup a dedicated directory for testing Gitlite.
+                </p>
+
+                <p class="card-text">
+                  Create a directory, say, <code>testing</code>:
+                </p>
+
+                <pre><code class="language-treeview">
+                  pa2/
+                  ├── testing/
+                  ├── Commit.cpp*
+                  ├── gitlite.cpp*
+                  ├── gitlite
+                  └── ...
+                </code></pre>
+
+                <p class="card-text">
+                  Then, <strong>change the working directory to <code>testing</code></strong>. If you are using VSCode, right click on <code>testing</code> in the directory structure that appears on the left, click "Open in Integrated Terminal". Run Gitlite, which is located in the parent directory, in the following way:
+                </p>
+
+                <pre><code class="language-bash">
+                  # For macOS and Linux
+                  $ ../gitlite
+
+                  # For Windows
+                  > ..\gitlite.exe
+                </code></pre>
+
+                <p class="card-text">
+                  Now you can place files in <code>testing</code> and run Gitlite commands to test it:
+                </p>
+
+                <pre><code class="language-treeview">
+                  pa2/
+                  ├── testing/
+                  │   ├── .gitlite/
+                  │   ├── file1.txt
+                  │   ├── file2.txt
+                  │   ├── file3.txt
+                  │   └── ...
+                  ├── Commit.cpp*
+                  ├── gitlite.cpp*
+                  ├── gitlite
+                  └── ...
+                </code></pre>
+
+                <pre><code class="language-bash">
+                  # For macOS and Linux
+                  $ ../gitlite init
+                  $ ../gitlite add file1.txt
+                  $ ../gitlite status
+                  $ ../gitlite commit "some message"
+                  $ ../gitlite log
+
+                  # For Windows
+                  > ..\gitlite.exe init
+                  > ..\gitlite.exe add file1.txt
+                  > ..\gitlite.exe status
+                  > ..\gitlite.exe commit "some message"
+                  > ..\gitlite.exe log
+                </code></pre>
+
+
+                <p>
+                  If you want to reset Gitlite, remove the <code>.gitlite</code> directory and run <code>gitlite init</code> again.
+                </p>
+
+                <p>
+                  You may want to setup <em>shell alias</em> to ease your testing.
+                </p>
+              </li>
+
+              <li class="list-group-item">
+                <h4>Extra Commands</h4>
+
+                <p class="card-text">
+                  Two commands have been implemented to facilitate debugging and testing:
+                </p>
+
+                <ul>
+                  <li>
+                    <code>gitlite find [commit message]</code>
+                    <ul>
+                      <li>Print the commit id of the commits with the given message.</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <code>gitlite global-log</code>
+                    <ul>
+                      <li>Display the log of all commits.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+            <div class="card-footer text-muted">
+              End of Running Gitlite
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="automated-testing">
+              <h3 class="card-title">Automated Testing</h3>
+              <p class="card-text">
+                Testing by manually manipulating files and typing commands can be dull and error-prone. To better facilitate testing, Gitlite comes with an <em>automated testing module</em>, implemented in <code>Tester.cpp</code>, which does the following:
+              </p>
+
+              <ul>
+                <li>Reads user-defined <em>test case</em> files.</li>
+                <li><em>Copies</em>, <em>updates</em> or <em>removes</em> files from the current working directory and <em>compares</em> file content..</li>
+                <li>Executes Gitlite commands from the provided test case file.</li>
+                <li><em>Compares</em> the output from <code>cout</code> with the expected output specified in the test case file.</li>
+              </ul>
+
+              <div class="alert alert-danger" role="alert">
+                The automated testing module attempts to remove all files and <code>.gitlite</code> directory from the current working directory before running a test case. <strong>Always run the automated testing module in a separate, dedicated directory</strong>.
+              </div>
+            </div>
+
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <h4>Automated Testing Environment</h4>
+
+                <p>
+                  In the skeleton files, there is a directory named <code>auto-testing</code>. This is the environment for the automated testing module. It consists of two directories:
+                </p>
+
+                <ul>
+                  <li>
+                    <code>src</code>: Stores all files accessible by the automated testing module. Depending on the running test case, files in this directory would be copied to or compared with the ones in <code>auto-testing</code>.
+                  </li>
+
+                  <li>
+                    <code>tests</code>: Stores all test cases files (with <code>.in</code> file extension) and optional include files (for example <code>definitions.inc</code>) that are used in test cases.
+                  </li>
+                </ul>
+
+                <pre><code class="language-treeview">
+                  pa2/
+                  ├── auto-testing/
+                  │   ├── src/
+                  │   │   ├── akari.c
+                  │   │   ├── img.png
+                  │   │   ├── text1.txt
+                  │   │   └── text2.txt
+                  │   └── tests/
+                  │       ├── basic-checkout.in
+                  │       ├── basic-operations.in
+                  │       ├── basic-status.in
+                  │       ├── definitions.inc
+                  │       └── init.in
+                  ├── Commit.cpp*
+                  ├── gitlite.cpp*
+                  ├── gitlite
+                  └── ...
+                </code></pre>
+
+                <p>
+                  To run a test case, <strong>make sure you first change the working directory to <code>auto-testing</code></strong>, then run the following command:
+                </p>
+
+                <pre><code class="language-bash">
+                  $ ../gitlite -t [path]
+                </code></pre>
+
+                <ul>
+                  <li>
+                    If the path points to a single file, then the test case will be run. For example:
+                    <pre><code class="language-bash">
+                      $ ../gitlite -t tests/init.in
+                    </code></pre>
+                    <code>init.in</code> will be run.
+                  </li>
+
+                  <li>
+                    If the path is a directory, then all test cases (with <code>.in</code> extension) will be run. For example:
+                    <pre><code class="language-bash">
+                      $ ../gitlite -t tests
+                    </code></pre>
+                    All test cases (with <code>.in</code> extension) in <code>tests</code> will be run.
+                  </li>
+                </ul>
+
+                <br>
+
+                <p class="card-text">
+                  A test case <em>passes</em> if all output matches the expected output. You would see the following message:
+                </p>
+
+                <pre><code>
+                  Running test: tests/init.in
+                  Test PASSED
+                </code></pre>
+
+                <p class="card-text">
+                  Otherwise, the test case <em>fails</em> and you would see the output and the expected output. The differences are highlighted in the following example:
+                </p>
+
+                <pre data-line="7,15"><code>
+                  Running test: tests/init.in
+                  Wrong output for command: log
+                  Expected: 
+                  ===
+                  commit ([a-f0-9]+)[ \t]*\n(?:Merge:\s+[0-9a-f]{7}\s+[0-9a-f]{7}[ ]*\n)?Date: \w\w\w \w\w\w  ?\d+ \d\d:\d\d:\d\d \d\d\d\d
+
+                  the initial commit
+
+
+                  Actual: 
+                  ===
+                  commit a22b278a25b176ab6da1c40eb1b26e638e54bcf9
+                  Date: Fri Oct  1 20:07:59 2021
+
+                  initial commit
+
+
+                  Test FAILED
+                </code></pre>
+
+                Notes:
+
+                <ul>
+                  <li>
+                    <em>Regular expression</em> is used to match variable text, such as the commit id <code>a22b...</code> and the date. You would see the regular expression <code>([a-f0-9]+)...</code> in the expected output. This is normal.
+                  </li>
+
+                  <li>
+                    To see more verbose output when testing, use the following command:
+
+                    <pre><code class="language-bash">
+                      $ ../gitlite -tv [path]
+                    </code></pre>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="list-group-item">
+                <h4>Test Case Format</h4>
+
+                <p class="card-text">
+                  Here are the set of statements avaliable to use in test cases. All paths are interpreted relative to the current working directory
+                </p>
+
+                <pre><code>
+                  I FILE
+                        Include a file. Replace this statement with the contents of FILE.
+
+                  + NAME F
+                        Copy the contents of src/F into a file named NAME.
+
+                  - NAME
+                        Delete the file named NAME.
+
+                  > COMMAND ARGUMENTS
+                  LINE1
+                  LINE2
+                  ...
+                  <<<
+                        Run Gitlite with COMMAND ARGUMENTS as its parameters.
+                        Compare its output with LINE1, LINE2, etc.,
+                        report error if any discrepancy is found.
+                        The end of output is denoted by the <<< delimiter.
+
+                  = NAME F
+                        Check whether the file named NAME is identical to src/F, and report an
+                        error if it does not.
+
+                  * NAME
+                        Check whether the file NAME does not exist, and report an error if it
+                        does exist.
+
+                  E NAME
+                        Check whether the file or directory named NAME exists, and report an error if it
+                        does not.
+
+                  D VAR "VALUE"
+                        Define the variable VAR to have the literal value VALUE.
+                        The variable can be used by ${VAR}.
+                </code></pre>
+
+                <ul>
+                  <li>
+                    Here is an example:
+
+                    <pre><code class="line-numbers">
+                      I tests/definitions.inc         # include provided definitions in ./tests/definitions.inc
+                      > init                          # run init command
+                      <<<                             # no expected output for init command
+                      + sample.txt sample_src.txt     # copy ./src/sample_src.txt to ./sample.txt
+                      > add sample.txt                # run add command
+                      <<<                             # no expected output for add command
+                      > commit "add sample"
+                      <<<
+                      > log          # run log command
+                      ===            # beginning of expected output of log command
+                      ${COMMIT_HEAD} # ${COMMIT_HEAD} will be replaced by the value of variable COMMIT_HEAD
+                      add sample
+
+                      ===
+                      ${COMMIT_HEAD}
+                      initial commit
+
+                      <<<            # end of expected output of log command
+                    </code></pre>
+
+                    <ul>
+                      <li>
+                        The first line will be replaced with the contents in <code>definitions.inc</code>, which contains some useful variable definitions of regular expressions:
+                        <ul>
+                          <li>
+                            <code>DATE</code> matches time strings in commit log. For example,
+                            <pre><code>Date: Wed Oct 16 23:26:06 2021</code></pre>
+                          </li>
+                          <li>
+                            <code>COMMIT_HEAD</code> matches commit log headers, including the date string. For example:
+                            <pre><code>
+                              commit cf992c00717703ae7c23e799c01e0c3467b2305e
+                              Date: Wed Oct  6 23:26:06 2021
+                            </code></pre>
+                            The <strong>commit id (<code>cf992c00...</code>) can be captured</strong> and reused as variables. <code>${1}</code> would be defined as the first commit id that appears in the output, <code>${2}</code> as the second commit id, and so on. This is useful for testing commands that requires commit ids. The results are available until the next command (which would discard all previous <code>${n}</code>). See below for an example.
+                          </li>
+                          <li>
+                            <code>ARBLINE</code> matches an arbitrary line (may be empty).
+                          </li>
+                          <li>
+                            <code>ARBLINES</code> matches any number of arbitrary lines (including no lines).
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        For example, the following text would match the expected output of the log command (lines 10-17):
+                        <pre><code>
+                          ===
+                          commit cf992c00717703ae7c23e799c01e0c3467b2305e
+                          Date: Wed Oct  6 23:26:06 2021
+
+                          add sample
+
+                          ===
+                          commit 3ee35c73c836a209ee0c4e3f4655431016a9163f
+                          Date: Wed Oct  6 23:24:58 2021
+
+                          initial commit
+
+                        </code></pre>
+                      </li>
+                      <li>You are not required to understand regular expressions to understand test cases. But you can learn more about them and test them <a href="https://regex101.com/">here</a>.</li>
+                    </ul>
+                  </li>
+
+                  <li>
+                    Here is another example:
+
+                    <pre><code class="line-numbers">
+                      ...                              # previous contents omitted
+                      > log
+                      ===
+                      ${COMMIT_HEAD}                   # first commit id in the output, saved to ${1}
+                      add sample
+
+                      ===
+                      ${COMMIT_HEAD}                   # second commit id in the output, saved to ${2}
+                      initial commit
+
+                      <<<
+                      D c2 "${1}"                      # c2 is the commit id of the commit "add sample"
+                      D c1 "${2}"                      # c1 is the commit id of the initial commit
+                      > checkout ${c2} -- sample.txt   # checkout sample.txt from the initial commit
+                      <<<
+                      > status
+                      === Branches ===
+                      \*master                         # escape '*'
+
+                      === Staged Files ===
+
+                      === Removed Files ===
+
+                      === Modifications Not Staged For Commit ===
+                      something_modified.txt \(modified\)    # escape '(' and ')'
+
+                      === Untracked Files ===
+                      ${ARBLINES}
+                      <<<
+                    </code></pre>
+
+                    <ul>
+                      <li>
+                        You need to escape the following characters: <code>*</code>, <code>(</code> and <code>)</code>, by adding <code>\</code> before them, since they are reserved characters in regular expressions.
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+            <div class="card-footer text-muted">
+              End of Automated Testing
+            </div>
+          </div>
+
+          <div class="card mb-4">
+            <div class="card-body" id="resources">
+              <h3 class="card-title">Resources</h3>
+
+              <div class="alert alert-danger" role="alert">
+                Since Gitlite may overwrite or remove files from filesystem, <strong>always run the demo Gitlite program in a separate, dedicated directory</strong>. See <a href="#running">Running Gitlite</a>.
+              </div>
+
+              <ul>
+                <li>
+                  <strong>Updated October 15:</strong> Skeleton code: <a href="./resources/pa2.zip">pa2.zip</a>
+                </li>
+
+                <li>
+                  <strong>Updated October 8:</strong> Demo program (executable for Windows): <a href="resources/gitlite_demo_windows.exe">gitlite_demo_windows.exe</a>
+                </li>
+
+                <li>
+                  <strong>Updated October 8:</strong> Demo program (executable for MacOS): <a href="resources/gitlite_demo_mac">gitlite_demo_mac</a>
+                  <ol>
+                    <li><a href="https://support.apple.com/guide/terminal/make-a-file-executable-apdd100908f-06b3-4e63-8a87-32e71241bab4/mac">Make the demo program executable</a></li>
+                    <li>In Finder, right click on the demo program while holding Control. Select Open With -> Terminal</li>
+                  </ol>
+                </li>
+                <li>
+                  Illustration of object relationships: <a href="resources/pa2-diagrams.pdf">pa2-diagrams.pdf</a>
+                </li>
+                <li>
+                  Makefile to use for checking memory leak in Linux machines in Lab 2: <a href="./resources/Makefile">Makefile</a>
+                </li>
+              </ul>
+            </div>
+            <div class="card-footer text-muted">
+              End of Resources
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="submission">
+              <h3 class="card-title">Submission &amp; Grading</h3>
+
+              <p class="card-text">
+                <strong>Deadline: 22 October 2021 Friday HKT 23:59.</strong>
+
+                <br>
+
+                You may earn 8% course grade for each PA via Automated Grading on the <a href="https://zinc.cse.ust.hk/">ZINC Online Submission System</a>. Please check <a href="https://course.cse.ust.hk/comp2012h/zinc-submission/">here</a> for a usage overview of ZINC. Compress <code>Commit.cpp</code> and <code>gitlite.cpp</code> into a zip file (the name of the zip file does not matter) for submission to ZINC.
+              </p>
+
+              <p class="card-text">
+                <strong>Updated October 3:</strong> Test cases for linked list operations are available in ZINC. See <a href="#testcases">Test Cases</a> for details. The test cases will be run when you submit on ZINC. 1 point is given for each test case. The current scores do not reflect what you will get. A different but similar set of test cases will be used in final grading.
+              </p>
+
+              <p class="card-text">
+                <strong>Updated October 8:</strong> Test cases for Part 2 are available in ZINC. Some test cases (including those for Part 1) also check for memory leak. See <a href="#testcases">Test Cases</a> for details.
+              </p>
+
+              <h4>Grading Scheme</h4>
+
+              <p>To be released.</p>
+              
+            </div>
+            <div class="card-footer text-muted">
+              End of Submission &amp; Grading
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="memory-leak">
+              <h3 class="card-title">Memory Leak</h3>
+              <p class="card-text">
+                Before the program terminates, you need to ensure you have deallocated all dynamic memory you have allocated in the entire execution of the program.
+              </p>
+
+              <p>
+                Memory leak is checked by using the sanitizer, invoked by the <code>-fsanitize=address,leak,undefined</code> option (See related documentation <a href="https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html">here</a>). Some revealed test cases on ZINC also check for memory leak (See <a href="#testcases">Test Cases</a>).
+              </p>
+
+              <h4>Checking Memory Leak Yourself</h4>
+
+              <p>
+                Although some test cases on ZINC already check for memory leak, you may still want to check for memory leak yourself. However, the above option does not work in Windows minGW g++. Instead, you can do so by remote connecting using SSH to the machines in the Linux Lab (Lab 2). The following shows you how to do so by using the Virtual Barn. You may want to adjust the steps accordingly if you are familiar with using SSH on your own computer.
+              </p>
+
+              <ol>
+                <li>
+                  Remote control a Windows machine in <a href="https://itsc.ust.hk/services/academic-teaching-support/facilities/virtual-barn/overview">HKUST virtual barn</a>. After following the installation guide and user guide there to install the remote control client and connect to the HKUST network, choose the Programming Software server when you are offered a selection of different servers.
+                </li>
+                <li>
+                  Copy your files to Virtual Barn. If you have no idea, you can email yourself the files and then download them there.
+                </li>
+                <li>
+                  Open <code>PuTTY</code>. There is a shortcut on your Desktop. Enter a lab 2 machine (<code>csl2wkXX.cse.ust.hk</code>, where <code>XX=[01 ... 53]</code>, for example <code>csl2wk13.cse.ust.hk</code>) as the Host Name. Note: If that server doesn't work, you may try other servers by changing <code>XX</code>.
+                  <br><img class="limit" src="images/putty1.png">
+                </li>
+                <li>
+                  Click Open. If a warning about the security key shows up, click Yes to dismiss it.
+                  <br><img class="limit" src="images/putty2.png">
+                </li>
+                <li>
+                  Enter your CSD login and password. (Register one if you haven't done so in lab 1 by following the lab 1 instructions.) It may not show what you type when you are typing in the password. Don't worry, just type your password and hit the Enter key. You should login to your <em>home</em> directory. Enter the command <code>pwd</code> (Print Working Directory) to verify this. It should show <code class=" language-none">/homes/your_login</code>
+                  <br><img class="limit" src="images/putty3.png"> 
+                </li>
+                <li>
+                  Open <code>FileZilla</code> from Start Menu. Click "File" -&gt; "Site Manager" -&gt; "New Site". Choose <strong>SFTP</strong> for protocol according to the screenshot below. Enter <code class=" language-none">csl2wk13.cse.ust.hk</code> (or the server you used in the previous step) as Host. Choose "Ask for password" for the Logon Type.
+                  <br><img class="limit" src="images/filezilla.png">
+                </li>
+                <li>
+                  Click Connect and then enter your CSD login and password.
+                </li>
+                <li>
+                  If the connection succeeds, the right side should show your home directory at Linux Lab. Copy all PA2 files including cpp files, header files, the include directory, by dragging them to the right side. <strong>Do NOT drag a folder containing all those files, instead, you should drag the files themselves only.</strong> That would upload the individual files (without any folder) to <code>/homes/your_login</code>. <strong>Also, you need to use this <a href="./resources/Makefile">Makefile</a> in the machines in Linux Lab</strong>. This Makefile includes the sanitizer option on compilation. You can close <code>FileZilla</code> after doing so.
+                </li>
+                <li>
+                  Go back to <code class=" language-none">PuTTY</code>, and compile your program using the <code>make</code> command:
+                  <pre><code>
+                    make
+                  </code></pre>
+                </li>
+                <li>
+                  If no compilation errors occurred, you should be able to run your program by:
+                  <pre><code>
+                    ./gitlite
+                  </code></pre>
+                </li>
+                <li>
+                  Note: Memory leak check is enabled along with other runtime errors check for your program. If there are any errors, some error messages (just like what you would see in the Error tab on Zinc) will appear in the terminal as you run your program.
+                </li>
+              </ol>
+
+              <p class="card-text">
+                Grading scheme on memory leak penalty will be released later.
+              </p>
+            </div>
+            <div class="card-footer text-muted">
+              End of Memory Leak
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="testcases">
+              <h3 class="card-title">Revealed Test Cases</h3>
+
+              <p>Here are some test cases that are available on ZINC.</p>
+              
+              <h4>Part 1: Linked List Operations</h4>
+
+              <p class="card-text">
+                The following test cases test implementations of linked list operations.
+              </p>
+                  
+              <ul>
+                <li>
+                  <code class="language-cpp">list_delete()</code> is <strong>not</strong> called for the following test cases.
+                  <ol>
+                    <li>
+                      <code>ListNew</code>: Calls <code class="language-cpp">list_new()</code> to create a list. The data fields in the sentinel are checked.
+                    </li>
+
+                    <li>
+                      <code>ListPushBackOne</code>: Calls <code class="language-cpp">list_push_back()</code> to add one blob at the back. Both forward and backward orders of the linked list are checked.
+                    </li>
+
+                    <li>
+                      <code>ListPushBackMultiple</code>: Calls <code class="language-cpp">list_push_back()</code> to add multiple blobs at the back. Both forward and backward orders of the linked list are checked.
+                    </li>
+                    
+                    <li>
+                      <code>ListFindNameFound</code>: Calls <code class="language-cpp">list_find_name()</code> to find a blob with the given name. The blob can be found. The return values are checked. 
+                    </li>
+
+                    <li>
+                      <code>ListFindNameNotFound</code>: Calls <code class="language-cpp">list_find_name()</code> to find a blob with the given name. The blob cannot be found. The return values are checked. 
+                    </li>
+
+                    <li>
+                      <code>ListPutNewOne</code>: Calls <code class="language-cpp">list_put()</code> to add a blob to the list. The return value is checked. Both forward and backward orders of the linked list are checked.
+                    </li>
+
+                    <li>
+                      <code>ListPutNewMultiple</code>: Calls <code class="language-cpp">list_put()</code> to add multiple blobs to the list. The return values are checked. Both forward and backward orders of the linked list are checked.
+                    </li>
+
+                    <li>
+                      <strong>Added October 11: </strong><code>ListPutNewMultipleCommit</code>: Same as <code>ListPutNewMultiple</code> but uses commits instead.
+                    </li>
+
+                    <li>
+                      <code>ListPutUpdateOne</code>: Calls <code class="language-cpp">list_put()</code> to update a blob in the list. The return value is checked. Both forward and backward orders of the linked list are checked.
+                    </li>
+
+                    <li>
+                      <code>ListPutUpdateMultiple</code>: Calls <code class="language-cpp">list_put()</code> to update multiple blobs to the list. The return values are checked. Both forward and backward orders of the linked list are checked.
+                    </li>
+
+                    <li>
+                      <strong>Added October 11: </strong><code>ListPutUpdateMultipleCommit</code>: Same as <code>ListPutUpdateMultiple</code> but uses commits instead.
+                    </li>
+
+                    <li>
+                      <code>ListRemoveNotFound</code>: Calls <code class="language-cpp">list_remove()</code> to remove a blob with the given name. The blob cannot be found. The return values are checked. Both forward and backward orders of the linked list are checked.
+                    </li>
+
+                    <li>
+                      <code>ListRemoveOne</code>: Calls <code class="language-cpp">list_remove()</code> to remove a blob with the given name. The blob can be found and removed. The return value is checked. Both forward and backward orders of the linked list are checked.
+                    </li>
+
+                    <li>
+                      <code>ListRemoveAll</code>: Calls <code class="language-cpp">list_remove()</code> to remove all blobs from the list. The return values are checked. Both forward and backward orders of the linked list are checked.
+                    </li>
+
+                    <li>
+                      <code>ListSize</code>: Calls <code class="language-cpp">list_size()</code> to get the size of several lists.
+                    </li>
+
+                    <li>
+                      <code>ListClearEmpty</code>: Calls <code class="language-cpp">list_clear()</code> on an empty list. Both forward and backward orders of the linked list are checked.
+                    </li>
+
+                    <li>
+                      <code>ListClearNonEmpty</code>: Calls <code class="language-cpp">list_clear()</code> on an non-empty list. Both forward and backward orders of the linked list are checked.
+                    </li>
+
+                    <li>
+                      <code>ListReplaceEmptyByEmpty</code>: Calls <code class="language-cpp">list_replace()</code> to replace an empty list by an empty list. Both forward and backward orders of the linked list are checked.
+                    </li>
+
+                    <li>
+                      <code>ListReplaceEmptyByNonEmpty</code>: Calls <code class="language-cpp">list_replace()</code> to replace an empty list by an non-empty list. Both forward and backward orders of the linked list are checked.
+                    </li>
+
+                    <li>
+                      <code>ListReplaceNonEmptyByEmpty</code>: Calls <code class="language-cpp">list_replace()</code> to replace an non-empty list by an empty list. Both forward and backward orders of the linked list are checked.
+                    </li>
+
+                    <li>
+                      <code>ListReplaceNonEmptyByNonEmpty</code>: Calls <code class="language-cpp">list_replace()</code> to replace an non-empty list by an non-empty list. Both forward and backward orders of the linked list are checked.
+                    </li>
+
+                    <li>
+                      <code>ListCopyEmpty</code>: Calls <code class="language-cpp">list_copy()</code> to copy an empty list. Both forward and backward orders of the linked list are checked.
+                    </li>
+
+                    <li>
+                      <code>ListCopyNonEmpty</code>: Calls <code class="language-cpp">list_copy()</code> to copy an non-empty list. Both forward and backward orders of the linked list are checked.
+                    </li>
+
+                    For the following test cases, they have the same behaviour as their above counterparts, except <code class="language-cpp">list_delete()</code> is called for every list created in each test case.
+                  </ol>
+                </li>
+
+                <li>
+                  For the following test cases, they have the same behaviour as their above counterparts, except <code class="language-cpp">list_delete()</code> is called for every list created in each test case. Memory leak is also checked for the following test cases (See <a href="#memory-leak">Memory Leak</a>).
+
+                  <ol start="24">
+                    <li><code>ListNew</code></li>
+                    <li><code>ListPushBackOne</code></li>
+                    <li><code>ListPushBackMultiple</code></li>
+                    <li><code>ListPutNewOne</code></li>
+                    <li><code>ListPutNewMultiple</code></li>
+                    <li><strong>Added October 11: </strong><code>ListPutNewMultipleCommit</code></li>
+                    <li><code>ListPutUpdateOne</code></li>
+                    <li><code>ListPutUpdateMultiple</code></li>
+                    <li><strong>Added October 11: </strong><code>ListPutUpdateMultipleCommit</code></li>
+                    <li><code>ListRemoveOne</code></li>
+                    <li><code>ListRemoveAll</code></li>
+                    <li><code>ListClearEmpty</code></li>
+                    <li><code>ListClearNonEmpty</code></li>
+                    <li><code>ListReplaceEmptyByEmpty</code></li>
+                    <li><code>ListReplaceEmptyByNonEmpty</code></li>
+                    <li><code>ListReplaceNonEmptyByEmpty</code></li>
+                    <li><code>ListReplaceNonEmptyByNonEmpty</code></li>
+                    <li><code>ListCopyEmpty</code></li>
+                    <li><code>ListCopyNonEmpty</code></li>
+                  </ol>
+                </li>
+              </ul>
+
+              <h4>Part 2: Gitlite Commands</h4>
+              The following test cases test implementations of Gitlite commands.
+              <ul>
+                <li>
+                  Computation of split point using the <code>get_lca()</code> function. Memory leak is also checked for the following test cases (See <a href="#memory-leak">Memory Leak</a>).
+                  <ol start="43">
+                    <li><code>Ahead</code>: One commit is ahead of another commit.</li>
+                    <li><code>Diverged</code>: The two commits have diverged.</li>
+                  </ol>
+                </li>
+
+                <li>
+                  Test cases of the automated testing module that comes with the program skeleton files.
+
+                  <ol start="45">
+                    <li>
+                      <code>init.in</code>: Tests the following commands:
+                      <ul>
+                        <li>init</li>
+                        <li>log</li>
+                        <li>status</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <code>basic-operations.in</code>: Tests the following commands:
+                      <ul>
+                        <li>init</li>
+                        <li>add</li>
+                        <li>commit</li>
+                        <li>checkout file</li>
+                        <li>remove</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <code>basic-status.in</code>: Tests the following commands:
+                      <ul>
+                        <li>init</li>
+                        <li>add</li>
+                        <li>remove</li>
+                        <li>commit</li>
+                        <li>status</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <code>basic-checkout.in</code>: Tests the following commands:
+                      <ul>
+                        <li>init</li>
+                        <li>add</li>
+                        <li>commit</li>
+                        <li>remove</li>
+                        <li>log</li>
+                        <li>checkout file</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <strong>Added October 15:</strong> <code>merge-simple.in</code>: Tests step 1-6 of the merge command.
+                    </li>
+                    <li>
+                      <strong>Added October 15:</strong> <code>merge-case123.in</code>: Tests step 7 cases 1-3 and the following steps of the merge command.
+                    </li>
+                  </ol>
+                </li>
+              </ul>
+            </div>
+            <div class="card-footer text-muted">
+              End of Revealed Test Cases
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="linked-list">
+              <h3 class="card-title">Appendix: Circular Doubly Linked List with Sentinel Node</h3>
+              <p class="card-text">
+                Nodes in a circular doubly linked list have <code>prev</code> and <code>next</code> pointers to the previous and next node of the linked list. Also, the head and the tail of the linked list are connected such that <code>prev</code> of the head points to the tail, and <code>next</code> of the tail points to the head.
+              </p>
+
+              <p class="card-text">
+                A <strong>sentinel node</strong> is a special dummy node in the linked list, such that the head of the linked list is always not a <code>nullptr</code>. This simplifies linked list operations. For <code>Blob</code> sentinel nodes, you should set <code>name</code> and <code>ref</code> to empty strings, and <code>commit</code> to <code>nullptr</code>.
+              </p>
+
+            </div>
+
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <strong>Example 1:</strong> An empty linked list newly created from <code class="language-cpp">list_new()</code>. This linked list only has the sentinel node (shown in grey): <br>
+                <img src="./images/linked-list1.svg" class="mx-auto d-block">
+              </li>
+
+              <li class="list-group-item">
+                <strong>Example 2:</strong> The above linked list after inserting 3 <code>Blob</code> objects by <code class="language-cpp">list_push_back()</code>, in the order of <code>file1.txt</code>, <code>file2.txt</code>, <code>file3.txt</code>. The sentinel node is not removed after inserting other nodes: <br>
+                <img src="./images/linked-list2.svg" class="mx-auto d-block">
+              </li>
+            </ul>
+
+            <div class="card-footer text-muted">
+              End of Circular Doubly Linked List with Sentinel Node
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="gitlite-directory">
+              <h3 class="card-title">Appendix: Gitlite Directory Structure</h3>
+              <p class="card-text">
+                Here is the directory structure of <code>.gitlite</code>
+              </p>
+              <pre><code class="language-treeview">
+                .gitlite/
+                ├── HEAD
+                ├── STAGE
+                ├── TREE
+                ├── blobs/
+                │   ├── 886f26a88c0101a50eacab8f1e46284b7e393165
+                │   ├── bce8ce9ce1a5b01048bee798b6aafb1fbbb082bb
+                │   └── c94d06a50f019d9179ae8fc7c05874a4151f0dc6
+                ├── commits/
+                │   ├── 23/
+                │   │   └── 2399af262814396b707396d7e15544a8c923758e
+                │   ├── 26/
+                │   │   └── 26b23b442c918e619c76cca053d0c5a07049d1e7
+                │   ├── 56/
+                │   │   └── 56719c4a6cc3e593f619750cb874354029c40347
+                │   ├── 5b/
+                │   │   └── 5b71d89dc20868d0a10992bd54aad6995a9ed21f
+                │   ├── 64/
+                │   │   └── 6402d3807e872b7ac020fed236da57890ac3e38f
+                │   ├── 79/
+                │   │   └── 79133e343b15efb900842de2278e3eaf9f09b619
+                │   ├── 7a/
+                │   │   └── 7abba4dee6325ab0e01ef92c0c1c776f1ecff2b1
+                │   └── ff/
+                │       └── ff6286141de2e6bf58c6cf314d3f8dffa7ddab96
+                ├── index/
+                └── refs/
+                    ├── master
+                    └── new
+              </code></pre>
+
+              <ul>
+                <li>
+                  <code>HEAD</code>: stores the name of the current branch.
+                </li>
+                <li>
+                  <code>STAGE</code>: stores the names and SHA-1 values of the staged files. This does not exist in real Git.
+                </li>
+                <li>
+                  <code>TREE</code>: stores the names and SHA-1 values of the tracked files. This name borrows from real Git, that allows tracking files in sub-directories. So the tracked files in real Git form a tree.
+                </li>
+                <li>
+                  <code>blobs/</code>: a directory storing all archived files. The filenames are the SHA-1 values of the files.
+                </li>
+                <li>
+                  <code>commits/</code>: a directory storing commit information. It contains some sub-directories used as a simple hash table (which you will learn later in this course). Commits go into these sub-directories according to the prefix of their SHA-1 values. And the commits themselves are also named after the SHA-1 values.
+                </li>
+                <li>
+                  <code>index/</code>: a directory storing all staged files with the filenames and content when they were staged.
+                </li>
+                <li>
+                  <code>refs/</code>: a directory storing the branch information. Each branch is associated with a file with the branch name as filename. The content is the commit id of the head commit of that branch.
+                </li>
+              </ul>
+            </div>
+            <div class="card-footer text-muted">
+              End of Gitlite Internal Structure
+            </div>
+          </div>
+
+          <div class="card mb-4 language-text">
+            <div class="card-body" id="acknowledgments">
+              <h3 class="card-title">Acknowledgments</h3>
+              <p class="card-text">
+                The design of the tasks and the automated tester is inspired by and adapted from <a href="https://inst.eecs.berkeley.edu/~cs61b/sp20/materials/proj/proj3/index.html">Gitlet</a>, a course project from <a href="https://inst.eecs.berkeley.edu/~cs61b/sp20/index.html">CS 61B from Berkeley</a>.
+              </p>
+
+              <p>
+                This assignment uses two third-party libraries: <a href="https://uscilab.github.io/cereal/">Cereal</a> for serialization, and <a href="https://github.com/mohaps/TinySHA1">TinySHA1</a> for SHA-1 computation. The licenses are included under <code>include/</code>.
+              </p>
+
+              <p>
+                This assignment was originally proposed and designed by Benran HU.
+              </p>
+            </div>
+            <div class="card-footer text-muted">
+              End of Acknowledgments
+            </div>
+          </div>
+
+          <!-- 
+          <div class="card mb-4">
+            <div class="card-body" id="stub">
+              <h3 class="card-title">Stub</h3>
+              <p class="card-text">
+                Blah blah blah
+              </p>
+            </div>
+            <div class="card-footer text-muted">
+              End of Stub
+            </div>
+          </div>
+          -->
+
+        </div>
+          
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-3">
+          <div class="sticky-top">
+            <!-- Menu Widget -->
+            <div id="menu" class="card my-12">
+              <h5 class="card-header">Menu</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="mb-0" type="circle" style="padding-left:20px">
+                      <li>
+                        <a href="#announcements">Announcements</a>
+                      </li>
+                      <li>
+                        <a href="#honor-code">Honor Code</a>
+                      </li>
+                      <li>
+                        <a href="#ilo">Objectives &amp; and ILOs</a>
+                      </li>
+                      <li>
+                        <a href="#introduction">Introduction</a>
+                      </li>
+                      <li>
+                        <a href="#code-structure">Code Structure</a>
+                      </li>
+                      <li>
+                        <a href="#part1">Part 1: Linked List Operations</a>
+                      </li>
+                      <li>
+                        <a href="#part2">Part 2: Gitlite Commands</a>
+                        <ul>
+                          <li>
+                            <a href="#part2-init">init</a>
+                          </li>
+                          <li>
+                            <a href="#part2-add">add</a>
+                          </li>
+                          <li>
+                            <a href="#part2-commit">commit</a>
+                          </li>
+                          <li>
+                            <a href="#part2-remove">remove</a>
+                          </li>
+                          <li>
+                            <a href="#part2-log">log</a>
+                          </li>
+                          <li>
+                            <a href="#part2-status">status</a>
+                          </li>
+                          <li>
+                            <a href="#part2-checkout-file">checkout file</a>
+                          </li>
+                          <li>
+                            <a href="#part2-checkout-branch">checkout branch</a>
+                          </li>
+                          <li>
+                            <a href="#part2-reset">reset</a>
+                          </li>
+                          <li>
+                            <a href="#part2-branch">branch</a>
+                          </li>
+                          <li>
+                            <a href="#part2-remove-branch">remove branch</a>
+                          </li>
+                          <li>
+                            <a href="#part2-merge">merge</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a href="#compilation">Compilation</a>
+                      </li>
+                      <li>
+                        <a href="#running">Running Gitlite</a>
+                      </li>
+                      <li>
+                        <a href="#automated-testing">Automated Testing</a>
+                      </li>
+                      <li>
+                        <a href="#resources">Resources</a>
+                      </li>
+                      <li>
+                        <a href="#submission">Submission &amp; Grading</a>
+                      </li>
+                      <li>
+                        <a href="#memory-leak">Memory Leak</a>
+                      </li>
+                      <li>
+                        <a href="#testcases">Test Cases</a>
+                      </li>
+                      <li>
+                        <a href="#linked-list">Appendix: Circular Doubly Linked List</a>
+                      </li>
+                      <li>
+                        <a href="#gitlite-directory">Appendix: Gitlite Directory Structure</a>
+                      </li>
+                      <li>
+                        <a href="#acknowledgments">Acknowledgments</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Maintainance widget -->
+            <div class="card my-4">
+              <h5 class="card-header">Page maintained by</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        Kelvin CHIU
+                      </li>
+                      <li>
+                        Email: <a href="mailto:kelvinchiu@cse.ust.hk">kelvinchiu@cse.ust.hk</a>
+                      </li>
+                      <li>
+                        Last Modified: <script type="text/javascript">document.write(document.lastModified);</script>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Homepage widget -->
+            <div class="card my-4">
+              <h5 class="card-header">Homepage</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        <a href="https://course.cse.ust.hk/comp2012h/">Course Homepage</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Maintained by COMP 2012H Teaching Team &copy; 2021 HKUST Computer Science and Engineering</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> 
+  </body>
+
+</html>

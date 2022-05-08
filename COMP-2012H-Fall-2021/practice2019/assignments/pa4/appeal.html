@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- ### Change assignment number ### -->
+    <title>COMP 2012H Assignment 3: Grade checking and appeal</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/blog-home.css" rel="stylesheet">
+
+    <!-- Prism syntax highlighter -->
+    <link href="prism.css" rel="stylesheet"/>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+</head>
+
+<body>
+<script src="prism.js"></script>
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+
+        <!-- Entries Column -->
+        <div class="col-md-9">
+
+            <h2 class="my-4"><span style="color:darkblue">COMP 2012H</span>
+                <small>Honors Object-Oriented Programming and Data Structures</small>
+            </h2>
+
+            <!-- ### Change assignment number and title ### -->
+            <h3 class="my-4">Assignment 4
+                <span style="color:#660066">Grade checking and appeal</span>
+            </h3>
+
+            <!-- Introduction section -->
+
+            <div class="card mb-4">
+                <div class="card-body" id="introduction">
+                    <h3 class="card-title">Introduction</h3>
+                    <p class="card-text">
+                    <ol>
+                        <li>
+                            Check the assignment 4 grade and remarks <a href="remarks.html">HERE</a>.
+                        </li>
+                        <li>If you want to appeal your grade, you MUST first read everything on this page, follow all
+                            the procedures, and try the test cases yourself. Your appeal will not be processed if you
+                            don't follow this rule.
+                        </li>
+                        <li>Uninitialized variables will have garbage (random) values in C++. Sometimes it will be 0,
+                            sometimes it will not. In that case, your program may generate different results on
+                            different machines or different runs if your logic depend on an uninitialized value. If you
+                            assumed them to be 0 or something specific (e.g. a very large value), your code is faulty
+                            and will get random results.
+                        </li>
+                        <li>If your function doesn't have a return statement for some cases, the returned value is
+                            undefined / can be random for those cases.
+                        </li>
+                        <li>Retrieving values from deleted/unallocated dynamic memory block may not always crash your
+                            program but
+                            may give
+                            random values.
+                        </li>
+                        <li>Runtime errors and crashes due to incorrect memory access / memory allocation / memory
+                            deallocation / missing
+                            variable initialization / missing return values / out-of-bound array access / etc. may not
+                            occur all the time on all machines. However, even you may not encounter the error/crash when
+                            you test your program, if your program crashes during any of our testing on some machine,
+                            the corresponding test cases will be considered as failed and will receive 0 marks as your
+                            code is indeed faulty.
+                        </li>
+                        <li>
+                            If there are minor compilation errors, TA will fix your program and do the grading with some marks deducted.
+                        </li>
+                        <li>If you are certain that there is a grading mistake after reading this whole page and
+                            checking with the test cases, email us with the
+                            following information. Appeals with incomplete information will not be processed.
+                        </li>
+                        <li>Do not attach any .exe/executable file in the email. The code snippet and results snapshot
+                            are fine.
+                        </li>
+                        <li>Appeal deadline is <span 
+style="font-weight:bold">December 30, 23:59</span>. No late appeals
+                            will be processed.
+                        </li>
+                        <li>Finalized scores will be uploaded to canvas after all appeals are processed.</li>
+                    </ol>
+                </div>
+                <div class="card-footer text-muted">
+                    End of Introduction
+                </div>
+            </div>
+
+
+            <div class="card mb-4">
+                <div class="card-body" id="scheme">
+                    <h3 class="card-title">Marking scheme</h3>
+					<br/>
+					For every submission, we randomly 
+generate a new graph of 10 vertices and 0.5 edge density with the demo, and 
+use that as the test case. We also read the source code, especially 
+for hash table and AVL tree implementation, as well as the items for 
+the bonus parts.<br/>
+					<br/>
+                    <table border=1 cellpadding=5px>
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Scores</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Click to Add Vertex</td>
+                                <td style="text-align:center">10</td>
+                            </tr>
+                            <tr>
+                                <td>Click to Add Edge</td>
+                                <td style="text-align:center">10</td>
+                            </tr>
+                            <tr>
+                                <td>Click to Remove Vertex</td>
+                                <td style="text-align:center">10</td>
+                            </tr>
+                            <tr>
+                                <td>Click to Remove Edge</td>
+                                <td style="text-align:center">10</td>
+                            </tr>
+                            <tr>
+                                <td>Click to Drag and Move Vertex (with connected Edges)</td>
+                                <td style="text-align:center">10</td>
+                            </tr>
+                            <tr>
+                                <td>Dijkstra <code>Unvisited Vertices Set</code> implemented with Hash Table</td>
+                                <td style="text-align:center">10</td>
+                            </tr>
+                            <tr>
+                                <td>Dijkstra <code>Priority Queue</code> implemented with AVL Tree</td>
+                                <td style="text-align:center">10</td>
+                            </tr>
+                            <tr>
+                                <td>Display Dijkstra Shortest Distances for each Vertex from selected Source Vertex</td>
+                                <td style="text-align:center">10</td>
+                            </tr>
+                            <tr>
+                                <td>Click any Vertex to select as Destination Vertex to display Dijkstra Shortest Path from Source Vertex</td>
+                                <td style="text-align:center">10</td>
+                            </tr>
+                            <tr>
+                                <td>Clear the Dijkstra results, and can choose another Source Vertex to recalculate Dijkstra</td>
+                                <td style="text-align:center">10</td>
+                            </tr>
+                            <tr>
+                                <td>Bonus: Dijkstra <code>Priority Queue</code> implemneted with Red-Black Tree</td>
+                                <td style="text-align:center">5</td>
+                            </tr>
+                            <tr>
+                                <td>Bonus: Random Generation of Vertices 
+and Edges</td>
+                                <td style="text-align:center">5</td>
+                            </tr>
+			    <tr>
+                                <td>Bonus: Step-by-step visualization of 
+Dijkstra's Shortest Path Algorithm</td>
+                                <td style="text-align:center">5</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer text-muted">
+                    End of Marking scheme
+                </div>
+            </div>
+
+
+            <!--            <div class="card mb-4">-->
+            <!--                <div class="card-body" id="solution">-->
+            <!--                    <h3 class="card-title">Sample solution</h3>-->
+            <!--                    <p class="card-text">-->
+            <!--                        Since the test cases are self-contained in the main function for each subtask cpp file (see <a-->
+            <!--                            href="test_wrapper.zip ">test_wrapper.zip</a>), there are no standard solutions to-->
+            <!--                        implement.-->
+            <!--                    <p>-->
+            <!--                </div>-->
+            <!--                <div class="card-footer text-muted">-->
+            <!--                    End of Sample solution-->
+            <!--                </div>-->
+            <!--            </div>-->
+
+
+            <div class="card mb-4">
+                <div class="card-body" id="stats">
+                    <h3 class="card-title">Stats (for submitted works only)</h3>
+                    <p class="card-text">
+                        Total = 100.00; Mean = 75.54; SD = 30.08
+                    <p>
+                </div>
+                <div class="card-footer text-muted">
+                    End of Stats
+                </div>
+            </div>
+
+
+            <!--            <div class="card mb-4">-->
+            <!--                <div class="card-body" id="note">-->
+            <!--                    <h3 class="card-title">Note</h3>-->
+            <!--                    <p class="card-text">-->
+            <!--                        <br/> We will perform plagiarism checking at a later time and marks could be adjusted for those-->
+            <!--                        who are caught.-->
+            <!--                    <p>-->
+            <!--                </div>-->
+            <!--                <div class="card-footer text-muted">-->
+            <!--                    End of Note-->
+            <!--                </div>-->
+            <!--            </div>-->
+
+
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-3">
+		<div class="sticky-top">
+            <!-- Menu Widget -->
+            <div class="card my-12">
+                <h5 class="card-header">Menu</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <ul class="mb-0" type="circle" style="padding-left:20px">
+                                <li>
+                                    <a href="#introduction">Introduction</a>
+                                </li>
+                                <li>
+                                    <a href="#scheme">Marking scheme </a>
+                                </li>
+                                <li>
+                                    <a href="#stats">Stats</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Maintainance widget -->
+            <div class="card my-4">
+                <h5 class="card-header">Page maintained by</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    CHANG Bing Yen
+                                </li>
+                                <li>
+                                    Email: <a href="mailto:bychang@connect.ust.hk">bychang@connect.ust.hk</a>
+                                </li>
+                                <li>Last Modified:
+                                    <script type="text/javascript">document.write(document.lastModified);</script>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Homepage widget -->
+            <div class="card my-4">
+                <h5 class="card-header">Homepage</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a href="http://course.cse.ust.hk/comp2012h">Course Homepage</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	    </div>
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">Maintained by COMP 2012H Teaching Team &copy; 2019 HKUST Computer Science
+            and Engineering</p>
+    </div>
+    <!-- /.container -->
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

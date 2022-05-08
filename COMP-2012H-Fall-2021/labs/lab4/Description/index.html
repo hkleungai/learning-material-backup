@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+		<!-- ### Change lab number ### -->
+		<title>COMP 2012H Lab 4: Linked Lists</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="css/blog-home.css" rel="stylesheet">
+
+		<!-- For code highlighting -->
+		<link href="prism.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<script src="prism.js"></script>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Entries Column -->
+        <div class="col-md-9">
+
+          <h2 class="my-4"><span style="color:darkblue">COMP 2012H</span>
+            <small>Honors Object-Oriented Programming and Data Structures</small>
+          </h2>
+
+					<!-- ### Change lab number and title ### -->
+					<h3 class="my-4">Lab 4
+						<span style="color:#660066">Linked Lists</span>
+					</h3>
+
+					<!-- Review section -->
+					<!-- ### Complete the review section for the lab ### -->
+          <div class="card mb-4">
+            <div class="card-body" id="review">
+              <h3 class="card-title">Review</h3>
+							<br/>
+							<h4>Linked List</h4>
+							<p class="card-text">
+								Linked lists are dynamic sequences of data, where each set of data contains the address to the
+								previous (or next, or both) set of data. Methods used in common are: finding the head / tail of the
+								sequence, inserting in between elements, removing a specific element from the list etc.
+							</p>
+            </div>
+						<div class="card-footer text-muted">
+              End of Review
+            </div>
+          </div>
+
+          <!-- Introduction section -->
+		  		<!-- ### Complete introduction section for the lab ### -->
+          <div class="card mb-4">
+
+		    		<!-- ### Add an image representing the lab content here ### -->
+            <img class="card-img-top" src="images/snake-game.jpg" alt="Card image cap">
+
+            <div class="card-body" id="introduction">
+              <h3 class="card-title">Introduction</h3>
+              <p class="card-text">
+			    			The objective of Lab 4 is to implement a console snake game using linked lists. If you are not
+								familiar of what snake games are, you can try out Google Map's snake game at
+								<a href="http://snake.googlemaps.com">snake.googlemaps.com</a>.
+							</p>
+							<br/>
+
+							<h4>Gameplay</h4>
+							<p>
+								The goal of the game is to grow the snake as much as possible. The snake grows whenever it eats a fruit.
+								The player has to navigate the snake to the fruits, while avoiding collisions against itself or the
+								walls, which would cause the snake to die.
+							</p>
+							<p>
+								In this lab, empty space, the body of the snake, and the fruits are labelled by '.', 'o', '*'
+								respectively. The walls are not printed onto the console - the snake going out of bounds is treated
+								as colliding with the wall.
+							</p>
+							<p>
+								Players control the snake using by keying in 'w', 'a', 's', 'd' on the console (and enter), which
+								corresponds to moving up, left, down, right respectively.
+							</p>
+							<br/>
+
+							<h4>Brief Overview of Program</h4>
+							<p>
+								The rendering of the map onto the console is provided in the skeleton code. It is only required to
+								implement the linked list methods (<code>Snake.h</code>), and the game logic of controlling the snake
+								(<code>SnakeGame.cpp</code>).
+							</p>
+							<p>
+								<code>Snake.h</code> contains a struct <code>Snake</code> which represents a doubly-linked list. It
+								contains these attributes:
+							</p>
+							<ul>
+								<li><code>next</code> - A pointer to the next element. Note that the tail has no next elements.</li>
+								<li><code>prev</code> - Pointer to the previous element. The head has no previous elements.</li>
+								<li><code>x,y</code> - Coordinates of the body of the snake on the grid.</li>
+							</ul>
+							<p>
+								You have to implement these functions in <code>Snake.h</code>, which are used to manipulate the
+								doubly-linked list:
+							</p>
+							<ul>
+								<li>
+									<code>get_head</code> - Returns the head of the linked list.
+								</li>
+								<li>
+									<code>get_tail</code> - Returns the tail of the linked list.
+								</li>
+								<li>
+									<code>get_next_body</code> - Retrieves the element which is <code>n</code> elements next of the
+									given element. If <code>n</code> is too large, returns the tail of the list.
+								</li>
+								<li>
+									<code>remove_self</code> - Removes the given element from the list, but does not deallocate the
+									element.
+								</li>
+								<li>
+									<code>insert_into_previous</code> - Inserts a new element into the previous of the given element.
+								</li>
+								<li>
+									<code>insert_into_next</code> - Inserts a new element into the next of the given element.
+								</li>
+							</ul>
+							<p>
+								<code>SnakeGame.cpp</code> already contains the code to render the grid onto the console in the
+								skeleton code. You only need to implement the following:
+							</p>
+							<ul>
+								<li>
+									<code>int update_game(char option)</code> - option is one of W, A, S, D (in capital letters)
+									corresponding to moving up, left, down, right.
+								</li>
+							</ul>
+							<img class="card-body" src="images/screenshot.png">
+							<br/>
+							<br/>
+							<p>
+								It is recommended that you complete the linked list methods before writing the game logic. Please
+								refer to the Lab Work section for the details of the implementation of the methods. To ease
+								debugging, you can compare your program with the demo program by running the Test mode, which
+								manipulates a linked list and prints the contents directly to the console.
+							</p>
+            </div>
+            <div class="card-footer text-muted">
+              End of Introduction
+            </div>
+          </div>
+
+          <!-- Lab work section -->
+		  		<!-- ### Complete the lab work section for the lab ### -->
+          <div class="card mb-4">
+            <div class="card-body" id="labwork">
+              <h3 class="card-title">Lab Work</h3>
+							<br/>
+							<h4>Task 1 - Implement linked list getter functions</h4>
+							<p class="card-text">
+								Given any element in the body of the snake, these two functions returns the (pointers to the) head
+								and the tail of the snake respectively.
+							</p>
+							<!-- For code -->
+							<pre><code class="language-cpp">SnakeBody* get_head(SnakeBody& body);</code><br/><code class="language-cpp">SnakeBody* get_tail(SnakeBody& body);</code></pre>
+							<br/>
+							<p class="card-text">
+								Obtains the n<sup>th</sup> next element starting from the given element. If n is too large, returns the
+								tail of the list. For example, if <code>n=3</code>, the linked list is <code>ABCDEFGH</code> with
+								head <code>A</code>, and given <code>body=C</code>, the function returns <code>F</code>.
+							</p>
+							<pre class="shadow-sm rounded"><code class="language-cpp">SnakeBody* get_next_body(SnakeBody& body, int n);</code></pre>
+							<br/>
+							<h4>Task 2 - Implement linked list insertion functions</h4>
+							<p class="card-text">
+								Both insertion functions contains two arguments, the current element (<code>B</code>, as reference)
+								and the new element (<code>N</code>, as pointer). <code>N</code> is to be inserted into the previous
+								/ next of <code>B</code>. It is assumed that <code>N</code> is not an element already in the list.
+								For example, take the list <code>ABC</code> with head <code>A</code>. Inserting <code>N</code>
+								previously into <code>B</code> gives <code>ANBC</code>, while inserting <code>N</code> to the next of
+								<code>B</code> gives <code>ABNC</code>.
+							</p>
+							<pre class="shadow-sm rounded"><code class="language-cpp">void insert_into_previous(SnakeBody& B, SnakeBody* N);</code><br/><code class="language-cpp">void insert_into_next(SnakeBody& B, SnakeBody* N);</code></pre>
+							<br/>
+							<h4>Task 3 - Implement linked list removal functions</h4>
+							<p class="card-text">
+								Removes itself from the list (think of the three cases, whether the body is at the head, tail, or the
+								interior of the list). Note that you should also set <code>body.next</code>, <code>body.prev</code> to
+								<code>nullptr</code>.
+							</p>
+							<pre class="shadow-sm rounded"><code class="language-cpp">void remove_self(SnakeBody& body);</code></pre>
+							<br/>
+							<h4>Task 4 - Complete game logic</h4>
+							<p class="card-text">
+								Complete the following function (in <code>SnakeGame.cpp</code>), which moves the snake according to
+								player input (W - Up, A - Left, S - Down, D - Right, in capital letters). The function returns
+								<code>-1</code> if the game continues, otherwise returns <code>0</code> if the snake hits the wall,
+								otherwise returns the position of the snake body the snake has collided with. (e.g.
+								<code>ABCDEFGH</code> is the snake with head <code>A</code>, the indices are respectively
+								<code>01234</code> etc.). This function should increase the snake length by one cell if it eats a fruit.
+							</p>
+							<pre class="shadow-sm rounded"><code class="language-cpp">int update_game(char option);</code></pre>
+							<br/>
+							<p>
+								The parameter <code>option</code> is a single character indicating the movement. You can assume it is
+								one of the following upper-case letters: 'W', 'A', 'S' and 'D'.
+							</p>
+							<p>
+								Throughout the function, you can access the head of the current snake with the pointer
+								<code>snake_head</code>. It is recommended that the function should proceed	in this fashion:
+							</p>
+							<ol>
+								<li>
+									Store the location of the tail. This is used if the snake grows by one cell.
+								</li>
+								<li>
+									Handle snake movement: remove the tail and place it on the front, and update <code>snake_head</code>.
+								</li>
+								<li>
+									If the snake head is out of bounds (collides with the wall), return 0. Note that the size of the
+									grid is stored at <code>GRID_SIZE</code>.
+								</li>
+								<li>
+									If the snake head hits its body, returns the index of the collision.
+								</li>
+								<li>
+									If the snake head hits a fruit, the snake grows, and the player gains one point. The player score
+									is stored in the variable <code>score</code>. The current position of fruits are stored in the 2D
+									array <code>fruits[FRUIT_SIZE][2]</code>.
+									<ol type="a">
+										<li>
+											A new element should be inserted to the tail, having the position of the coordinates stored in
+											step 1.
+										</li>
+										<li>
+											Afterwards, the coordinates of the eaten fruit has to be updated by calling
+											<code class="language-cpp">unique_coordinates(fruits[i][0], fruits[i][1]);</code>, where
+											<code>i</code> is the index of the eaten fruit. This regenerates the fruit at a new
+											pseudo-random position in the map.
+										</li>
+									</ol>
+								</li>
+								<li>
+									If the function has not returned a value at this point, then return -1 at the end to signify that
+									the game will continue.
+								</li>
+							</ol>
+							<p>
+							Note that the function should only call <code>unique_coordinates</code> at most once.
+							</p>
+            </div>
+						<div class="card-footer text-muted">
+              End of Lab Work
+            </div>
+          </div>
+
+          <!-- Resources section -->
+		  		<!-- ### Complete resources section for the lab ### -->
+          <div class="card mb-4">
+            <div class="card-body" id="resources">
+              <h3 class="card-title">Resources</h3>
+							<ul>
+								<li>
+									Skeleton code: <a href="../lab4_skeleton.zip">lab4_skeleton.zip</a>
+								</li>
+								<li>
+									Demo program: (<a href="../lab4_windows_demo.exe">Windows</a> / MacOS (available soon))
+								</li>
+							</ul>
+			  			<p>
+								We will grade your assignment based on whether it correctly handles the following situations. To
+								ensure correctness of your program, you can check the output of the demo program on the situations
+								below.
+							</p>
+							<ul>
+								<li>Hitting the top, bottom, left, right walls</li>
+								<li>Self-intersection of snake at different positions</li>
+								<li>Eating fruit and growing the snake</li>
+								<li>Score calculation</li>
+							</ul>
+            </div>
+						<div class="card-footer text-muted">
+              End of Resources
+            </div>
+          </div>
+
+					<!-- Grading scheme section -->
+					<!-- ### Complete grading section for the lab ### -->
+          <div class="card mb-4">
+            <div class="card-body" id="grading">
+              <h3 class="card-title">Submission &amp; Grading</h3>
+			  			<p class="card-text">
+								You may earn 1 point for each test case via Automated Grading on the
+								<a href="https://zinc.cse.ust.hk">ZINC Online Submission System</a>. The deadline is <strong>15th
+								October 2021, 23:59 HKT</strong>. Please check
+								<a href="https://course.cse.ust.hk/comp2012h/zinc-submission/">here</a> for a usage overview of
+								ZINC. Zip your source files <code>Snake.h</code>, <code>SnakeGame.cpp</code> as <code>lab4.zip</code>
+								for submission to ZINC.
+							</p>
+            </div>
+
+						<div class="card-footer text-muted">
+              End of Submission &amp; Grading
+            </div>
+          </div>
+				</div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-3">
+		  		<div class="sticky-top">
+            <!-- Menu Widget -->
+            <div class="card my-12">
+              <h5 class="card-header">Menu</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="mb-0" type="circle" style="padding-left:20px">
+										  <li>
+                        <a href="#review">Review</a>
+                      </li>
+                      <li>
+                        <a href="#introduction">Introduction</a>
+                      </li>
+                      <li>
+                        <a href="#labwork">Lab Work</a>
+                      </li>
+                      <li>
+                        <a href="#resources">Resources</a>
+                      </li>
+											<li>
+												<a 
+href="#grading">Submission &amp; Grading</a>
+											</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+		    		</div>
+
+						<!-- Maintainance widget -->
+						<div class="card my-4">
+							<h5 class="card-header">Page maintained by</h5>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-lg-12">
+										<ul class="list-unstyled mb-0">
+											<li>
+												Hong Wing PANG
+											</li>
+											<li>
+												(<a href="mailto:hwpang@connect.ust.hk">hwpang@connect.ust.hk</a>)
+											</li>
+											<li>
+												Last Modified:
+											</li>
+											<li>
+												<script type="text/javascript">document.write(document.lastModified);</script>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+
+		    		<!-- Homepage widget -->
+            <div class="card my-4">
+              <h5 class="card-header">Homepage</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        <a href="http://course.cse.ust.hk/comp2012h">Course Homepage</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+	      </div>
+        </div>
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Maintained by COMP 2012H Teaching Team &copy; 2021 HKUST Computer Science and Engineering</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  </body>
+
+</html>

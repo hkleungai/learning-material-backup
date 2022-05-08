@@ -1,0 +1,467 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>COMP2012H Self-test Web Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="keywords" content="" />
+<!--link rel="stylesheet" href="img/Underground.css" type="text/css" /-->
+<!-- Bubble tooltips: adopted from: http://www.web-graphics.com/mtarchive/BubbleTooltips.html--><!-- For automatic tooltip: -->
+<script src="bubbletooltips/bubbletooltips.js" type=text/javascript></script>
+<!-- Example:  usage <a href="" title=""></a>  --><!-- For customize tooltip -->
+<link media=all href="bubbletooltips/bt.css" type=text/css rel=stylesheet>
+<script type="text/javascript" src="jquery/jquery.js"></script>
+
+<!-- JQuery Calender is located here... -->
+<style type="text/css">@import url(jquerycalendar/jquery-calendar.css);</style>
+<script type="text/javascript" src="jquerycalendar/jquery-calendar.js"></script>
+
+<script type="text/javascript" src="selftestmenu.js"></script>
+<link rel="stylesheet" type="text/css" href="selfteststyle.css" />
+<!-- highslide stuff: TESTING... -->
+<script type="text/javascript" src="highslide/highslide-with-html.js"></script>
+<script type="text/javascript">    
+    hs.graphicsDir = 'highslide/graphics/';
+    hs.outlineType = 'rounded-white';
+    hs.outlineWhileAnimating = true;
+</script>
+<style type="text/css">@import url(highslide/myslide.css);</style>
+<!-- END OF highslide stuff -->
+
+</head>
+
+<!-- Start of the main html body -->
+<body>
+
+<!-- wrap starts here -->
+<div id="main">
+<div id="wrap">
+        <!-- header -->
+        <div id="header">
+                <span id="slogan" ></span>
+                <!-- tabs -->
+                <ul>
+                  <li class="showall-solution"><a href="#" title="Show all solutions"><span>Show all solutions</span></a></li>
+                  <li class="hideall-solution"><a href="#" title="Hide all solutions"><span>Hide all solutions</span></a></li>
+                  
+                </ul>
+        </div>
+        <!-- main block: right panel -->
+        <!--div id="main"-->
+
+          <!--  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Test 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  -->
+          <div id='block1' style="display:block;	clear:left;">
+            <h1>Self-test 17: <br /> Standard Template Library (STL) </h1>
+
+          <OL>
+
+                <li>
+            <div class="question-wrapper" style="position: static;">
+            <div class="question-content">
+              <p>What is the output of this program?</p>
+<pre>
+#include &lt;iostream&gt;
+#include &lt;deque&gt;
+#include &lt;algorithm&gt;
+#include &lt;iterator&gt;
+
+using namespace std;
+int main()
+{
+	deque&lt;int&gt; intDeq;
+	ostream_iterator&lt;int&gt; screen(cout," ");
+	
+	intDeq.push_back(13);
+	intDeq.push_back(75);
+	intDeq.push_back(28);
+	intDeq.push_back(35);
+	
+	copy(intDeq.begin(),intDeq.end(),screen);
+	cout&lt;&lt;endl;
+	
+	intDeq.push_front(0);
+	intDeq.push_back(100);
+	
+	copy(intDeq.begin(),intDeq.end(),screen);
+	cout&lt;&lt;endl;
+}
+</pre>
+          
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <b>13 75 28 35 <br>0 13 75 28 35 100</b> <br>
+			  </ul>
+            </div>              
+            </div>
+            <hr>
+            </li>
+
+            <li>
+            <div class="question-wrapper">
+            <div class="question-content">      
+              <p>Fill in the codes required into the [] </p>
+<pre>
+#include &lt;iostream&gt;
+#include &lt;list&gt;
+#include &lt;algorithm&gt;
+#include &lt;iterator&gt;
+
+using namespace std;
+int main()
+{
+
+	list &lt;int&gt; intList1,intList2;
+	...
+	//assume intList1 contain 23 58 58 58 36 15 93 98 58
+	
+	[1] // copy intList1 to intList2;
+	[2] // sort intList2
+	[3] // remove duplicates in the sorted  intList2 (use the unique function)
+	
+	
+	```
+}
+</pre>
+              
+            </div>
+          
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <b> [1]: intList2 = intList1;
+			  <br>[2]: intList2.sort()
+			  <br>[3]: intList2.unique();
+			  </b> 
+              
+              </ul>
+              <p></p>
+            </div>
+            </div>
+            <hr>
+            </li>
+
+
+            <li>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>What is meant by vector in the container library contains?</p>
+              <ol type="A">
+                <li>It is a sequence container that encapsulates dynamic size arrays</li>
+                <li>It is a sequence container that encapsulates static size arrays</li>
+                <li>It manages the memory</li>
+                <li>None of the mentioned</li>
+              </ol>
+            </div>
+            
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p><b>A</b> <br>vector in the container library contains sequence container that manipulates and encapsulates dynamic size arrays.</p>
+            </div>
+            </div>
+            <hr>
+            </li>
+
+
+            <li>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>Try to predict the output of the program</p>
+<pre>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+int main()
+{
+	vector&lt;int&gt; v;
+	v.assign( 10, 42 );
+	for (int i = 0; i &lt; v.size(); i++) 
+	{
+		cout &lt;&lt; v[i] &lt;&lt; " ";
+	}
+}
+</pre>
+			  
+              
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p><b>output 42 for 10 times</b>  </p>
+            </div>
+            </div>
+            
+            <hr>
+            </li>
+
+            <li>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>What is the output of this program?</p>
+			  
+<pre>			  
+    #include &lt;iostream&gt;
+    #include &lt;list&gt;
+    #include &lt;queue&gt;
+    using namespace std;
+    int main()
+    {
+        queue&lt;char&gt; q;
+        q.push('a');
+        q.push('b');
+        q.push('c');
+        cout &lt;&lt; q.front();
+        q.pop();
+        cout &lt;&lt; q.front();
+        q.pop();
+        cout &lt;&lt; q.front();
+        q.pop();
+    }			  
+</pre>
+              
+              
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p><b>abc</b> </p>
+            </div>
+            </div>
+            
+            <hr>
+            </li>
+
+            <li>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>What is the output of this program?
+             </p>
+<pre>		 
+    #include &lt;list&gt;
+    #include &lt;string&gt;
+    #include &lt;iostream&gt;
+    using namespace std ;
+    typedef list&lt;string&gt; LISTSTR; 
+    int main()
+    {
+        LISTSTR :: iterator i;
+        LISTSTR test;
+        test.insert(test.end(), "one");
+        test.insert(test.end(), "two");
+        LISTSTR test2(test);
+        LISTSTR test3(3, "three");
+        LISTSTR test4(++test3.begin(),
+        test3.end());
+        cout &lt;&lt; "test:";
+        for (i =  test.begin(); i != test.end(); ++i)
+            cout &lt;&lt; " " &lt;&lt; *i &lt;&lt; endl;
+        cout &lt;&lt; "test:";
+        for (i =  test2.begin(); i != test2.end(); ++i)
+            cout &lt;&lt; " " &lt;&lt; *i &lt;&lt; endl;
+        cout &lt;&lt; "test:";
+        for (i =  test3.begin(); i != test3.end(); ++i)
+            cout &lt;&lt; " " &lt;&lt; *i &lt;&lt; endl;
+        cout &lt;&lt; "test:";
+        for (i =  test4.begin(); i != test4.end(); ++i)
+            cout &lt;&lt; " " &lt;&lt; *i &lt;&lt; endl;
+    }
+</pre>	
+			
+            </div>
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p><b>test: one<br>
+two<br>
+test: one<br>
+two<br>
+test: three<br>
+three<br>
+three<br>
+test: three<br>
+three</b> </p>
+            </div>
+            </div>
+
+            <hr>
+            </li>
+
+
+            <li>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>Consider the following statements, can you tell which element is position pointed to in [1] and [2] and what is their position in charList?</p>
+             
+<pre>
+
+char cList[10]={'a','i','C','d','e','f','o','H','u','j'};
+vector&lt;char&gt; charList(cList,cList+10);
+vector&lt;char&gt;::iterator position;
+
+position = find(charList.begin(),charList.end(),'d'); //[1]
+
+position = find_if(charList.begin(),charList.end(),isupper); //[2]
+
+</pre>			  
+            </div>
+            
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p><b>[1]: 'd', position is 3,  [2]: 'C', position is 2</b> <br>[1] search charList for the first occurrence of 'd', [2]use function find_if to find first uppercase character </p>
+            </div>
+            </div>
+            <hr>
+            </li>
+
+
+            <li>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>Try to predict the output marked by []</p>
+<pre>
+int intList[15]={12,34,56,34,34,78,38,43,12,25,34,56,62,5,49};
+vector&lt;int&gt; vecList(intList,intList+15);
+
+int List[2]={34,56};
+
+vector&lt;int&gt;::iterator location;
+
+location = search(vecList.begin(),vecList.end(),List,List+2);
+
+cout&lt;&lt;(location-vecList.begin())&lt;&lt;endl; [1]
+
+
+sort(vecList.begin(),vecList.end());
+
+bool found;
+
+found = binary_search(vecList.begin(),vecList.end(),78);
+
+if (found) 
+	cout&lt;&lt;"found"&lt;&lt;endl; [2]
+else
+	cout&lt;&lt;"NA"&lt;&lt;endl; [2]
+
+
+</pre>	
+            </div>
+			
+			
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p><b>[1]: 1, [2]: found</b> <br> [1] use search to find the position of subsequence list occurs in vecList, [2] use binary_search to to search vecList and return bool value </p>
+            </div>
+            </div>
+            
+            <hr>
+            </li>
+
+            <li>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>Fill in codes required into the []</p>
+<pre>
+char cList[10]={'A','a','A','B','A','c','D','e','F','A'};
+vector&lt;char&gt; charList1(cList,cList+10);
+vector&lt;char&gt;::iterator lastElem;
+ostream_iterator&lt;int&gt; screen(cout," ");
+
+
+[1]//remove A from charList1
+
+copy(charList1.begin(),lastElem,screen); 
+       
+[2] //replace A with Z in charList1
+</pre>
+
+              
+            </div>
+        
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p><b>[1]: lastElem = remove(charList1.begin(),charList1.end(),'A'); <br> [2]: replace(charList1.begin(),charList1.end(),'A','Z');</b> </p>
+            </div>
+            </div>
+            
+            <hr>
+            </li>
+
+            <li>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p>What is the output of this program?
+              </p>
+			  
+<pre>
+stack&lt;int&gt; intstack;
+
+intStack.push(16);
+intStack.push(8);
+intStack.push(20);
+intStack.push(3);
+
+while (!intStack.empty())
+{
+	cout&lt;&lt;intstack.top()&lt;&lt;" ";
+	intstack.pop();
+}
+</pre>
+            </div>
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p><b>3 20 8 16</b> </p> 
+            </div>
+            </div>
+
+            <hr>
+            </li>
+			
+			  <li>
+            <div class="question-wrapper">
+            <div class="question-content">
+              <p> what is the output of the following program?
+              </p>
+<pre>				  
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+int main ()
+{
+  std::vector&lt;int&gt; myvector (5);  // 5 default-constructed ints
+
+  std::vector&lt;int&gt;::reverse_iterator rit = myvector.rbegin();
+
+  int i=0;
+  for (rit = myvector.rbegin(); rit!= myvector.rend(); ++rit)
+    *rit = ++i;
+
+  std::cout &lt;&lt; "myvector contains:";
+  for (std::vector&lt;int&gt;::iterator it = myvector.begin(); it != myvector.end(); ++it)
+    std::cout &lt;&lt; ' ' &lt;&lt; *it;
+  std::cout &lt;&lt; '\n';
+
+  return 0;
+  
+}
+</pre>	
+            </div>
+            <div class="toggle-solution">Solution</div>
+            <div class="solution-content">
+              <p><b>myvector contains: 5 4 3 2 1 </b> <br> The range between vector::rbegin and vector::rend contains all the elements of the vector (in reverse order).</p>
+            </div>
+            </div>
+
+            <hr>
+            </li>
+
+          </OL>
+        </div>
+
+        <!-- wrap ends here; don't delete this /div --> 
+        </div>
+
+</div>
+</div>
+
+</body>
+</html>
+

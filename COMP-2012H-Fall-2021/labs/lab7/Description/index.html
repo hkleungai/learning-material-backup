@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- ### Change assignment number ### -->
+<title>COMP 2012H Lab 7 - Generic Programming</title>
+
+<!-- Bootstrap core CSS -->
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="css/blog-home.css" rel="stylesheet">
+
+<!-- Prism syntax highlighter -->
+<link href="prism.css" rel="stylesheet" />	
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+</head>
+
+<body>
+<script src="prism.js"></script>
+
+<!-- Page Content -->	
+<div class="container">
+
+<div class="row">
+
+<!-- Entries Column -->
+<div class="col-md-9">
+
+<h2 class="my-4"><span style="color:darkblue">COMP 2012H</span>
+<small>Honors Object-Oriented Programming and Data Structures</small>
+</h2>
+
+<!-- ### Change assignment number and title ### -->
+<h3 class="my-4">Lab 7 
+<span style="color:#660066">- Generic Programming</span>
+</h3>
+
+<!-- Introduction section -->
+<!-- ### Complete introduction section for the assignment ### -->
+<!--<div class="card mb-4">-->
+<!-- ### Add an image representing the assignment content here ### -->
+<!--<img class="card-img-top" src="images/cupT.jpg" alt="Card image cap" 
+style="width:100%">
+<br/>
+<span 
+style="font-size:10pt; 
+text-align:center">https://blogs.msdn.microsoft.com/dotnet/2015/07/02/thank-you-for-your-contributions/</span> 
+</div>-->
+
+<!-- Review section -->
+<!-- ### Complete Review section for the assignment ### -->
+<div class="card mb-4">            
+<div class="card-body" id="review">
+<h3 class="card-title">Review</h3>
+<br/>
+<h5 style="color:darkblue">Generic Programming</h5>
+Generic Programming (GP) means programming with types as parameters. C++ supports GP through the template mechanism. 
+<br/><br/>
+<ul> 
+<li>Function templates allow you to create functions that work on
+different types of objects. For example, a max function template can be defined as 
+follows:<br/><br/>
+<pre class="prettyprint" style="border:0">
+template T my_max(const T& a, const T& b) { return (a > b) ? a : b; }</pre>
+<li>Class templates allow you to create classes that support different types of data. 
+For example, a general container class can be defined as follows:<br/><br/>
+<pre class="prettyprint" style="border:0">
+template &lt;typename T&gt;
+class List_Node
+{
+  public:
+    List_Node(const T& x) : data(x) { }
+    T data;
+};</pre>
+<li>Operator overloading further allows the generic operator function
+syntax to work for objects of user-defined new types.
+</ul>
+<br/>
+
+</div>    
+<div class="card-footer text-muted">
+End of Review
+</div>
+</div>
+
+
+<!-- Introduction section -->
+<!-- ### Complete Introduction section for the assignment ### -->
+<div class="card mb-4">
+<div class="card-body" id="introduction">
+<h3 class="card-title">Introduction and Background</h3>
+<p class="card-text">
+This lab is designed to give you some hands-on experience with simple Generic Programming using templates. This time, we will be implementing a Smart Pointer based on the STL.
+<br/><br/>
+There are several types of the Smart Pointers in the STL:
+<ul>
+  <li><code>std::auto_ptr</code> (has been removed in C++17)</li>
+  <li><code>std::unique_ptr</code></li>
+  <li><code>std::shared_ptr </code></li>
+  <li><code>std::weak_ptr </code></li>
+</ul>
+In this lab, we will be implementing a simplified version of <code>std::unique_ptr</code>. <br/>
+</p>
+<br/>
+
+<h4>Background: Smart pointers</h4>
+<p class="card-text">
+  Smart pointers are essentially raw pointers with extra features. One of the most notable features is <em>automatic
+  memory management</em>, which helps the user to avoid common dynamic memory issues such as dangling pointers and
+  memory leaks. With Smart Pointers, we no longer need to worry about managing our calls to <code>new</code> and
+  <code>delete</code>. Thus, using smart pointers are in a certain sense similar to the
+  <a href="https://web.stanford.edu/class/archive/cs/cs143/cs143.1128/lectures/18/Slides18.pdf">garbage
+    collection</a> functionality of Java.
+</p>
+<br/>
+
+<h4>std::unique_ptr</h4>
+<p class="card-text">
+  Unique pointers (<code class="language-cpp">std::unique_ptr</code>) are essentially pointers with one extra
+  assumption: there is only one pointer at a time pointing towards a particular object, hence "unique".
+</p>
+<p>
+  There are many cases where such an assumption would be useful. For example, suppose we have a raw pointer that is
+  the only reference towards a dynamically allocated object. If we reassign this pointer to somewhere else, we would
+  need to explicitly call delete on the original object to prevent memory leaks. This causes additionally trouble for
+  the programmer. However, if we replace the raw pointer with <code class="language-cpp">std::unique_ptr</code>, the
+  original object will automatically be deleted during the assignment operation, as the object has lost its only
+  pointer reference. Thus, we do not have to explicitly call <code class="language-cpp">delete</code> anymore.
+</p>
+<p>
+  There are also cases where it is desirable to have multiple pointers pointing towards the same object. In this case,
+  <em>shared pointers</em> (<code class="language-cpp">std::shared_ptr</code>) should be used instead.
+</p>
+
+<br/>
+<h4>References</h4>
+If you are interested in exploring more about smart pointers, take a look at the references below:
+<ul>
+  <li><a href="http://www.cplusplus.com/reference/memory/auto_ptr/">auto_ptr</a></li>
+  <li><a href="http://www.cplusplus.com/reference/memory/unique_ptr/">unique_ptr</a></li>
+  <li><a href="http://www.cplusplus.com/reference/memory/shared_ptr/">shared_ptr</a></li>
+  <li><a href="https://en.cppreference.com/w/cpp/memory/weak_ptr">weak_ptr</a></li>
+</ul>		  
+</div>
+<div class="card-footer text-muted">
+End of Introduction and Background
+</div>
+</div>
+
+<div class="card mb-4">	
+<div class="card-body" id="tasks">
+<h3 class="card-title">Tasks</h3>
+  Complete all the missing function definitions in <code>my_unique_ptr.h</code>. <br/>
+  <strong>Note:</strong> You are <strong>NOT</strong> allowed to define your own helper functions. <br/>
+<br/>
+
+<h4>Overview </h4>
+<p class="card-text">
+  In this lab, we implement a minimal version of <code class="language-cpp">std::unique_ptr</code> called
+  <code class="language-cpp">my_unique_ptr</code>. We use templating so that
+  <code class="language-cpp">my_unique_ptr</code> can store a raw pointer of any arbitrary type.<br/>
+<ul>
+  <li>
+    Each unique pointer of type <code class="language-cpp">T</code> has a single data member
+    <code class="language-cpp">T* p</code>, the raw pointer held by the unique pointer. The object pointed by
+    <code class="language-cpp">p</code> is referred as the object <em>owned</em> by the unique pointer.
+  </li>
+  <li>
+    Unique pointers can be <em>empty</em>, i.e. null pointers that do not point to any particular object. Empty
+    unique pointers have their <code class="language-cpp">p</code> set to <code class="language-cpp">nullptr</code>.
+  </li>
+  <li>
+    As explained previously, the implementation of unique pointers should maintain the assumption that there is only
+    one unique pointer owning a particular object. For example, suppose we have unique pointers <em>ptr1, ptr2</em>
+    pointing towards the objects <em>objA, objB</em> respectively. If we want <em>ptr1</em> to point to <em>objB</em>
+    instead, we need to perform the following:
+    <ul>
+      <li>
+        Destroy <em>objA</em>, since it has lost its only reference pointer.
+      </li>
+      <li>
+        Set <em>ptr2</em> as empty, since it cannot own <em>objB</em> together with <em>ptr1</em> at the same time.
+      </li>
+    </ul>
+  </li>
+  <li>
+    In the next section, we will explain how to implement the different class members / operators, such that this
+    unique pointer assumption is maintained.
+  </li>
+</ul>
+</p>
+<br/>
+
+<h4>Member Functions</h4>
+<p class="card-text">
+<h5><span style="color:#200080; font-weight:bold; ">Constructors</span></h5>
+<ul>
+  <li>
+    <code class="language-cpp">my_unique_ptr()</code>
+    <ul>
+      <li>
+        Default constructor. The unique pointer is initialized as empty.
+      </li>
+      <li>
+        <code class="language-cpp">p</code> should be set to <code class="language-cpp">nullptr</code>.
+      </li>
+    </ul>
+  </li>
+  
+  <li>
+    <code class="language-cpp">my_unique_ptr(T* p)</code>
+    <ul>
+      <li>
+        Parametrized constructor from an existing raw pointer <code class="language-cpp">p</code>.
+      </li>
+      <li>
+        The unique pointer should point to <code class="language-cpp">p</code>.
+      </li>
+      <li>
+        <strong>Note:</strong> For the purpose of this lab, you can assume that there exists no other unique pointers
+        that point to the same <code class="language-cpp">p</code> when this constructor is called.
+      </li>
+    </ul>
+  </li>
+  
+  <li>
+    <code class="language-cpp">my_unique_ptr(my_unique_ptr&lt;T&gt;&amp; x)</code>
+    <ul>
+      <li>
+        Copy constructor from another unique pointer <code class="language-cpp">x</code>. If
+        <code class="language-cpp">x</code> currently owns an object, the newly constructed unique pointer will take
+        over ownership of that object.
+      </li>
+      <li>
+        If <code class="language-cpp">x</code> is not empty, initialize the unique pointer such that it now points to
+        the object owned by <code class="language-cpp">x</code>. Then, set <code class="language-cpp">x</code> as empty.
+      </li>
+      <li>
+        Otherwise, initialize the unique pointer as an empty pointer.
+      </li>
+    </ul>
+  </li>
+</ul>
+  <br/>
+
+<h5><span style="color:#200080; font-weight:bold; ">Destructor</span></h5>
+<p class="card-text">
+<ul>
+  <li><code class="language-cpp">~my_unique_ptr()</code>
+    <ul>
+      <li>
+        If the pointer is non-empty, delete the owned object.
+      </li>
+      <li>
+        Otherwise, there is no need to deallocate anything.
+      </li>
+    </ul>
+  </li>
+</ul>
+<br/>
+
+<h5><span style="color:#200080; font-weight:bold; ">Operators</span></h5>
+<p class="card-text">
+<ul>
+  <li>
+    <code class="language-cpp">my_unique_ptr&amp; operator=(my_unique_ptr&lt;T&gt;&amp; x)</code>
+    <ul>
+      <li>
+        Copy assignment operator.
+      </li>
+      <li>
+        The procedure is similar to the copy constructor; take over ownership of the object owned by
+        <code class="language-cpp">x</code>, and set <code class="language-cpp">x</code> as empty.
+      </li>
+      <li>
+        Additionally, remember to destroy the previously owned object if the pointer is originally non-empty.
+      </li>
+    </ul>
+  </li>
+  <li>
+    <code class="language-cpp">T&amp; operator*() const</code>
+    <ul>
+      <li>
+        Returns the managed object (i.e. the result of dereferencing <code class="language-cpp">p</code>).
+      </li>
+      <li>
+        You can assume that the unique pointer is not empty.
+      </li>
+      <li>
+        For any non-empty unique pointer <code class="language-cpp">mptr</code>,
+        <code class="language-cpp">*mptr</code> should be equivalent to <code class="language-cpp">*p</code>.
+      </li>
+    </ul>
+  </li>
+  <li>
+    <code class="language-cpp">T* operator-&gt;() const</code>
+    <ul>
+      <li>
+        Returns the stored raw pointer <code class="language-cpp">p</code>.
+      </li>
+      <li>
+        For any non-empty unique pointer <code class="language-cpp">mptr</code>,
+        <code class="language-cpp">mptr-&gt;foo()</code> should be equivalent to
+        <code class="language-cpp">p-&gt;foo()</code>.
+      </li>
+    </ul>
+  </li>
+</ul>
+<br/>
+
+<h5><span style="color:#200080; font-weight:bold; ">Utility methods</span></h5>
+<p class="card-text">
+<ul>
+  <li>
+    <code class="language-cpp">T* get_pointer() const</code>
+    <ul>
+      <li>
+        Accessor for <code>p</code>.
+      </li>
+      <li>
+        <span style="color:red">This method is already implemented</span>.
+      </li>
+    </ul>
+  </li>
+  <li>
+    <code class="language-cpp">bool is_empty()</code>
+    <ul>
+      <li>
+        Returns whether the unique pointer is empty or not.
+      </li>
+      <li>
+        <span style="color:red">This method is already implemented</span>.
+      </li>
+    </ul>
+  </li>
+  <li>
+    <code class="language-cpp">T* release()</code>
+    <ul>
+      <li>
+        Releases ownership of the current owned object (if any), and returns the released pointer.
+      </li>
+      <li>
+        After calling this method, the unique pointer should be empty.
+      </li>
+    </ul>
+  </li>
+  <li>
+    <code class="language-cpp">void reset()</code>
+    <ul>
+      <li>
+        Resets the unique pointer to an empty pointer.
+      </li>
+      <li>
+        If the unique pointer is previously non-empty, release and deallocate the previously owned object.
+      </li>
+    </ul>
+  </li>
+  <li>
+    <code class="language-cpp">void reset(T* p)</code>
+    <ul>
+      <li>
+        Resets the unique pointer to a unique pointer owning <code class="language-cpp">p</code>.
+      </li>
+      <li>
+        If the unique pointer is previously non-empty, release and deallocate the previously owned object.
+      </li>
+    </ul>
+  </li>
+  <li>
+    <code class="language-cpp">void swap(my_unique_ptr&lt;T&gt;&amp; x)</code>
+    <ul>
+      <li>
+        Swaps the unique pointer with <code class="language-cpp">x</code>.
+      </li>
+      <li>
+        After swapping, the unique pointer should now own the object of <code class="language-cpp">x</code>, and vice
+        versa.
+      </li>
+    </ul>
+  </li>
+</ul>
+
+</div>
+<div class="card-footer text-muted">
+End of Tasks
+</div>
+</div>
+
+<!-- Download section -->
+<!-- ### Complete download section for the assignment ### -->
+<div class="card mb-4">            
+<div class="card-body" id="download">
+<h3 class="card-title">Resources</h3>
+  <ul>
+  <li>Skeleton code: <a href="../lab7_skeleton.zip">lab7_skeleton.zip</a></li>
+  </ul>
+  The output of the program is a series of test cases, that will test each member function, and print out "true" or
+  "false" depending on your successful implementation. Your submission will get full mark as long as the following
+  output is produced:
+<pre>
+<code class="language-text">
+Constructor Tests:
+Default Constructor... true
+Parameterized Constructor... true
+Copy Constructor and Sharing... true
+
+Operator=() Tests:
+Copy Assignment Operator... true
+
+Reset Tests:
+reset()... true
+reset(T* p)... true
+
+Swap Test:
+swap()... true
+
+Release Tests:
+release()... true
+
+Dereference and Pointer-to-Member Operator Tests:
+operator*()... true
+operator->()... true
+
+Destructor Tests:
+sw_temp should invoke destructors from sw_temp0 to sw_temp9.
+sw_temp0 is destroyed.
+sw_temp1 is destroyed.
+sw_temp2 is destroyed.
+sw_temp3 is destroyed.
+sw_temp4 is destroyed.
+sw_temp5 is destroyed.
+sw_temp6 is destroyed.
+sw_temp7 is destroyed.
+sw_temp8 is destroyed.
+sw_temp9 is destroyed.
+
+sw1 and sw2 should invoke their destructors only once when main() exits.
+
+sw2 is destroyed.
+sw1 is destroyed.
+</code>
+</pre>
+</div>            
+<div class="card-footer text-muted">
+End of Resources
+</div>
+</div>
+
+<!-- Grading section -->
+<!-- ### Complete Grading section for the assignment ### -->
+<div class="card mb-4">            
+<div class="card-body" id="grading">
+<h3 class="card-title">Submission &amp; Grading</h3>
+  <p class="card-text">
+    <strong>Deadline: 14 November 2021 Sunday 23:59 HKT.</strong> <br>
+    You may earn 1% course grade for this lab via Automated Grading on the
+    <a href="https://zinc.cse.ust.hk/">ZINC Online Submission System</a>. <br>
+    Please compress and submit <code>my_unique_ptr.h</code> as <code>lab7.zip</code> to ZINC.
+  </p>
+</div>
+<div class="card-footer text-muted">
+End of Submission &amp; Grading
+</div>          
+</div>
+</div>
+
+
+<!-- Sidebar Widgets Column -->
+<div class="col-md-3">
+<!-- Menu Widget -->
+<div class="card my-12">
+<h5 class="card-header">Menu</h5>
+<div class="card-body">
+<div class="row">
+<div class="col-lg-12">
+  <ul class="mb-0" type="circle" style="padding-left:20px">
+	<li>
+	  <a href="#review">Review</a>
+	</li>
+	<li>
+	  <a href="#introduction">Introduction and Background</a>
+	</li>
+	<li>
+	  <a href="#tasks">Tasks</a>
+	</li>
+	<li>
+	  <a href="#download">Resources</a>
+	</li>
+	<li>
+	  <a href="#grading">Submission &amp; Grading</a>
+	</li>
+  </ul>
+</div>                
+</div>
+</div>
+</div>
+
+<!-- Maintainance widget -->
+<div class="card my-4">
+<h5 class="card-header">Page maintained by</h5>
+<div class="card-body">
+<div class="row">
+<div class="col-lg-12">
+  <ul class="list-unstyled mb-0">
+	<li>
+	  Hong Wing PANG
+	</li>
+	<li>
+	  (<a href="mailto:bychang@connect.ust.hk">hwpang@connect.ust.hk</a>)
+	</li>
+	<li>Last Modified: <script type="text/javascript">document.write(document.lastModified);</script></li>
+  </ul>
+</div>				
+</div>
+</div>
+</div>
+
+
+<!-- Homepage widget -->
+<div class="card my-4">
+<h5 class="card-header">Homepage</h5>
+<div class="card-body">
+<div class="row">
+<div class="col-lg-12">
+  <ul class="list-unstyled mb-0">
+	<li>
+	  <a href="http://course.cse.ust.hk/comp2012h">Course Homepage</a>
+	</li>
+  </ul>
+</div>				
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+<div class="container">
+<p class="m-0 text-center text-white">Maintained by COMP 2012H Teaching Team &copy; 2021 HKUST Computer Science and Engineering</p>
+</div>
+<!-- /.container -->
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>	
+</body>
+
+</html>
