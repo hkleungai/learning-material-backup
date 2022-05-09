@@ -2,20 +2,38 @@ const buildSemesterCell = (code: string, semester: string) => {
   const link = `${code} ${semester}`.replace(/\s/g, '-');
   return (
     /* html */`
-    <td style="width: 20%">
+    <td class="course-semester">
       <a href="${link}">${semester}</a>
     </td>
     `
   );
-}
+};
 
-const buildCourseRow = ({ code, title, semesters }: Course): string => {
+const buildCourseRow = ({ code, description, semesters, title }: Course): string => {
   const [firstCell, ...extraCells] = semesters.map(semester => buildSemesterCell(code, semester));
   const firstRow = (
     /* html */`
     <tr>
-      <td style="width: 20%" rowSpan="${semesters.length}">${code}</td>
-      <td rowSpan="${semesters.length}">${title}</td>
+      <td
+        class="course-code"
+        rowSpan="${semesters.length}"
+      >
+        ${code}
+      </td>
+      <td
+        class="course-content"
+        rowSpan="${semesters.length}"
+      >
+        <div class="course-content">
+          <div class="course-title">
+            <div>${title}</div>
+            <div class="course-description-trigger">➕</div>
+          </div>
+          <div class="course-description">
+            ${description}
+          </div>
+        </div>
+      </td>
       ${firstCell}
     </tr>
     `
@@ -30,8 +48,8 @@ const buildCategoryTable = (category: string, courses: Course[]): string => (
     <h3 class="category">${category}</h3>
       <table class="course-list">
         <tr>
-          <th>Course Code</th>
-          <th>Course Title</th>
+          <th>Code</th>
+          <th>Title / Content</th>
           <th>Semester</th>
         </tr>
         ${courses.map(buildCourseRow).join('\n')}
@@ -41,9 +59,8 @@ const buildCategoryTable = (category: string, courses: Course[]): string => (
   `
 );
 
-const buildTable = (categorizedCourses: CategorizedCourses) => (
-  Object
-    .entries(categorizedCourses)
-    .map((props) => buildCategoryTable(...props))
+const buildTable = (categorizedCourses: CategorizedCourse[]) => (
+  categorizedCourses
+    .map(({ category, courses }) => buildCategoryTable(category, courses))
     .join('\n')
-)
+);
