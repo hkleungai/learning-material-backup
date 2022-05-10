@@ -7,16 +7,12 @@ courseContentCells.forEach(cell => {
   if (!descriptionDiv) {
     throw new Error('No course descriptionDivs can be found!!');
   }
-  const description = descriptionDiv.innerHTML;
-  descriptionDiv.innerHTML = '';
-
-  const triggerDiv = cell.querySelector('div.course-description-trigger');
-  if (!triggerDiv) {
-    throw new Error('No triggerDivs for course descriptionDivs can be found!!');
+  const toggleDiv = cell.querySelector('div.course-description-toggle');
+  if (!toggleDiv) {
+    throw new Error('No toggleDivs for course descriptionDivs can be found!!');
   }
-  triggerDiv.addEventListener('click', () => {
+  toggleDiv.addEventListener('click', () => {
     const isDescriptionActive = descriptionDiv.classList.toggle('active');
-    triggerDiv.innerHTML = isDescriptionActive ? '➖' : '➕';
-    descriptionDiv.innerHTML = isDescriptionActive ? description : '';
+    toggleDiv.innerHTML = isDescriptionActive ? '➖' : '➕';
   })
 });

@@ -51,13 +51,13 @@ blockquote {
   margin: 10px;
   padding: 10px 20px;
 }
- 
+
 blockquote p {
   margin: 0;
   line-height: 30px;
   padding-bottom: 20px;
 }
- 
+
 blockquote.small {
   display: block;
   font-size: 80%;
@@ -119,10 +119,10 @@ gg=G
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
         <li class="nav-item">
-        <a class="nav-link" href="https://course.cse.ust.hk/comp2011/">Course Webpage</a>
+        <a class="nav-link" href="../../index.html">Course Webpage</a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" href="https://course.cse.ust.hk/comp2011/forum.html">Online Forum</a>
+        <a class="nav-link" href="../../forum.html">Online Forum</a>
         </li>
       </ul>
       </div>
@@ -147,7 +147,7 @@ gg=G
         <br>
         <br>
       <h4>About academic integrity</h4>
-            <p>We value academic integrity very highly. Please read the <a href="https://course.cse.ust.hk/comp2011/web/code.html">Honor Code</a> section on our course webpage to make sure you understand what is considered as plagiarism and what the penalties are. The following are some of the highlights:</p>
+            <p>We value academic integrity very highly. Please read the <a href="../../web/code.html">Honor Code</a> section on our course webpage to make sure you understand what is considered as plagiarism and what the penalties are. The following are some of the highlights:</p>
 
             <ul>
               <li>Do NOT try your "luck" - we use sophisticated plagiarism detection software to find cheaters. We also review codes for potential cases manually.</li>
@@ -188,7 +188,7 @@ gg=G
       <pre><code class="language-cpp">
 struct TrainCar //a node in the doubly-linked list that represents the train - it is therefore a car in the train
 {
-    CarType type; 
+    CarType type;
     int maxLoad; //maximum possible load of cargo for this car; always 0 for HEAD
     int load; //current load of cargo for this car; always 0 for HEAD
     TrainCar* prev; //previous pointer
@@ -238,7 +238,7 @@ In reverse: [COAL:0/130] <- [SUGAR:120/200] <- [COAL:40/100] <- [HEAD]
 
 <p><h5><code class="language-cpp">bool addCar(TrainCar* head, int position, CarType cargoType, int maxLoad);</code></h5>
       Attempt to dynamically create and insert a new train car node of the specific <code>cargoType</code> with 0 current load and the specified <code>maxLoad</code> to an existing train headed by the specified <code>head</code> at the specified <code>position</code> (refer to the following examples to see how the position is used). It should return true if the addition is successful. The addition only fails when the given <code>cargoType</code> is HEAD because we would never add a train head with this function, or the given <code>position</code> is not larger than 0 because we won't be adding a new car before the train head, or the given <code>position</code> is larger than the length of the train (see examples below), or the given <code>maxLoad</code> is zero or negative. When it fails, do nothing to the train and simply return false.<br><br>
-      However, <b>in this and all other functions that you need to implement, you can assume the <code>head</code> parameter given always points to a valid train head node of a valid existing train</b> in all our test cases. 
+      However, <b>in this and all other functions that you need to implement, you can assume the <code>head</code> parameter given always points to a valid train head node of a valid existing train</b> in all our test cases.
       <br>
       <br>
       <p>Example 1:
@@ -286,7 +286,7 @@ In reverse: [OIL:0/100] <- [HEAD]
 </li>
 <li>After calling <code>addCar(train, 2, SUGAR, 200)</code> which returns true:
 <pre><code>
-[HEAD] -> [OIL:0/100] -> [SUGAR:0/200] 
+[HEAD] -> [OIL:0/100] -> [SUGAR:0/200]
 In reverse: [SUGAR:0/200] <- [OIL:0/100] <- [HEAD]
 </code></pre>
 </li>
@@ -301,7 +301,7 @@ In reverse: [SUGAR:0/200] <- [OIL:0/100] <- [HEAD]
       <ul>
         <li>Original train which has its train head node pointed by <code>train</code>:
 <pre><code>
-[HEAD] -> [OIL:0/100] -> [SUGAR:0/200] 
+[HEAD] -> [OIL:0/100] -> [SUGAR:0/200]
 In reverse: [SUGAR:0/200] <- [OIL:0/100] <- [HEAD]
 </code></pre>
 </li>
@@ -309,7 +309,7 @@ In reverse: [SUGAR:0/200] <- [OIL:0/100] <- [HEAD]
 <li><code>deleteCar(train, 3)</code> should simply return false. The length of the train is 3, so there is no node to delete at position 3.</li>
 <li>After calling <code>deleteCar(train, 1)</code> which returns true:
 <pre><code>
-[HEAD] -> [SUGAR:0/200] 
+[HEAD] -> [SUGAR:0/200]
 In reverse: [SUGAR:0/200] <- [HEAD]
 </code></pre>
 </li>
@@ -319,13 +319,13 @@ In reverse: [SUGAR:0/200] <- [HEAD]
       <ul>
         <li>Original train which has its train head node pointed by <code>train</code>:
 <pre><code>
-[HEAD] -> [OIL:0/100] -> [SUGAR:0/200] 
+[HEAD] -> [OIL:0/100] -> [SUGAR:0/200]
 In reverse: [SUGAR:0/200] <- [OIL:0/100] <- [HEAD]
 </code></pre>
 </li>
 <li>After calling <code>deleteCar(train, 2)</code> which returns true:
 <pre><code>
-[HEAD] -> [OIL:0/100] 
+[HEAD] -> [OIL:0/100]
 In reverse: [OIL:0/100] <- [HEAD]
 </code></pre>
 </li>
@@ -334,7 +334,7 @@ In reverse: [OIL:0/100] <- [HEAD]
       <br>
 
 <p><h5><code class="language-cpp">bool swapCar(TrainCar* head, int a, int b);</code></h5>
-      Swap train cars at the given positions <code>a</code> and <code>b</code>. It should return true if the swap is successful. The swap only fails when any of the given positions is invalid, just like the <code>deleteCar</code> function. When it fails, do nothing to the train and simply return false. 
+      Swap train cars at the given positions <code>a</code> and <code>b</code>. It should return true if the swap is successful. The swap only fails when any of the given positions is invalid, just like the <code>deleteCar</code> function. When it fails, do nothing to the train and simply return false.
       <br><br>
       Swap can also be successfully performed if <code>a</code> is the same as <code>b</code> as long as they are valid positions, although the train won't apparently change.<br><br>
 
@@ -342,7 +342,7 @@ In reverse: [OIL:0/100] <- [HEAD]
       <ul>
         <li>Original train which has its train head node pointed by <code>train</code>:
 <pre><code>
-[HEAD] -> [OIL:0/100] -> [SUGAR:0/200] 
+[HEAD] -> [OIL:0/100] -> [SUGAR:0/200]
 In reverse: [SUGAR:0/200] <- [OIL:0/100] <- [HEAD]
 </code></pre>
 </li>
@@ -781,7 +781,7 @@ Note that you should not assume the maximum number of cars the given train can h
 
       <p><font color="red"> 23:59:00, Nov 30th (Tue)</font></p>
 
-      
+
       <p>Please submit the <b>todo.cpp</b> only to <a href="http://zinc.cse.ust.hk">ZINC</a>. For assignment 3, we will check for memory leak in your program in some of the test cases. ZINC usage instructions can be found <a href="https://zinc.cse.ust.hk/guide">here</a>.
 
             <p>Notes:</p>
@@ -833,14 +833,14 @@ Note that you should not assume the maximum number of cars the given train can h
           <li>A: Usually inconsistent strange result (on different machines/platforms, or even different runs on the same machine) is due to relying on uninitialized hence garbage values, missing return statements, accessing out-of-bound array elements, improper use of dynamic memory, or relying on library functions that might be implemented differently on different platforms (such as pow() in cmath).<br>
             You may find a list of common causes and tips on debugging in the notes <a href="http://wallacem.people.ust.hk/notes/on-common-c-runtime-errors/">here</a>.<br>
             In this particular PA, it is probably related to misuse of dynamic memory. Good luck with bug hunting! </li>
-      
+
 <br>
 
           <li>
             Q: Will there be exactly 5 cargo types as described in the actual grading after deadline? And they are the same types as described, right?
           </li>
           <li>
-            A: Yes. Everything that has been described in our description won't change. 
+            A: Yes. Everything that has been described in our description won't change.
           </li>
 
 <br>
@@ -848,7 +848,7 @@ Note that you should not assume the maximum number of cars the given train can h
             Q: For <code>optimizeForMaximumPossibleCargos</code>, can I assume upperBound to be always positive? (>0)
           </li>
           <li>
-            A: Yes. 
+            A: Yes.
           </li>
 <br>
           <li>

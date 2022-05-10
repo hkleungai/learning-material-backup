@@ -39,27 +39,31 @@ div.main table td.course-content div.course-title {
   justify-content: space-between;
   gap: 12px;
 }
-div.main table td.course-content div.course-title div.course-description-trigger {
+div.main table td.course-content div.course-title div.course-description-toggle {
   padding-right: 4px;
   cursor: pointer;
   font-weight: lighter;
-  /* font-size: 20px; */
 }
 div.main table td.course-content div.course-description {
   font-style: italic;
   font-weight: lighter;
   font-size: 14px;
   color: purple;
-  visibility: hidden;
-  opacity: 0;
-  height: 0;
+  overflow: hidden;
+  max-height: 0;
+  -webkit-transition: max-height 0.5s ease-out;
+  -moz-transition: max-height 0.5s ease-out;
+  -o-transition: max-height 0.5s ease-out;
+  -ms-transition: max-height 0.5s ease-out;
+  transition: max-height 0.5s ease-out;
 }
 div.main table td.course-content div.course-description.active {
-  padding-top: 8px;
-  transition: opacity 1s;
-  visibility: visible;
-  opacity: 1;
-  height: 100%;
+  max-height: 500px;
+  -webkit-transition: max-height 1s ease-in;
+  -moz-transition: max-height 1s ease-in;
+  -o-transition: max-height 1s ease-in;
+  -ms-transition: max-height 1s ease-in;
+  transition: max-height 1s ease-in;
 }
 div.main table td.course-semester {
   width: 20%;

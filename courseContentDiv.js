@@ -7,15 +7,12 @@ courseContentCells.forEach(function (cell) {
     if (!descriptionDiv) {
         throw new Error('No course descriptionDivs can be found!!');
     }
-    var description = descriptionDiv.innerHTML;
-    descriptionDiv.innerHTML = '';
-    var triggerDiv = cell.querySelector('div.course-description-trigger');
-    if (!triggerDiv) {
-        throw new Error('No triggerDivs for course descriptionDivs can be found!!');
+    var toggleDiv = cell.querySelector('div.course-description-toggle');
+    if (!toggleDiv) {
+        throw new Error('No toggleDivs for course descriptionDivs can be found!!');
     }
-    triggerDiv.addEventListener('click', function () {
+    toggleDiv.addEventListener('click', function () {
         var isDescriptionActive = descriptionDiv.classList.toggle('active');
-        triggerDiv.innerHTML = isDescriptionActive ? '➖' : '➕';
-        descriptionDiv.innerHTML = isDescriptionActive ? description : '';
+        toggleDiv.innerHTML = isDescriptionActive ? '➖' : '➕';
     });
 });

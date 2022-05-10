@@ -51,13 +51,13 @@ blockquote {
   margin: 10px;
   padding: 10px 20px;
 }
- 
+
 blockquote p {
   margin: 0;
   line-height: 30px;
   padding-bottom: 20px;
 }
- 
+
 blockquote.small {
   display: block;
   font-size: 80%;
@@ -127,10 +127,10 @@ gg=G
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
         <li class="nav-item">
-        <a class="nav-link" href="https://course.cse.ust.hk/comp2011/">Course Webpage</a>
+        <a class="nav-link" href="../../index.html">Course Webpage</a>
         </li>
         <!-- <li class="nav-item">
-        <a class="nav-link" href="https://course.cse.ust.hk/comp2011/forum.html">Online Forum</a>
+        <a class="nav-link" href="../..//forum.html">Online Forum</a>
         </li> -->
       </ul>
       </div>
@@ -154,7 +154,7 @@ gg=G
       </p>
 
       <h4>About academic integrity</h4>
-            <p>We value academic integrity very highly. Please read the <a href="https://course.cse.ust.hk/comp2011/web/code.html">Honor Code</a> section on our course webpage to make sure you understand what is considered as plagiarism and what the penalties are. The following are some of the highlights:</p>
+            <p>We value academic integrity very highly. Please read the <a href="../../web/code.html">Honor Code</a> section on our course webpage to make sure you understand what is considered as plagiarism and what the penalties are. The following are some of the highlights:</p>
 
             <ul>
               <li>Do NOT try your "luck" - we use sophisticated plagiarism detection software to find cheaters. We also review codes for potential cases manually.</li>
@@ -222,9 +222,9 @@ gg=G
     <div class="container-fluid border-bottom my-5" id="tasks">
         <h2 class="mt-4">File system tasks</h2>
         <p>There are 8 functions you need to implement in this section which are all file system operations. Implement these functions and your own helper functions in <code>file_sys.cpp</code>.</p>
-        
+
         <h5><code class="language-cpp">int createFile(Dir* dir, char* name, unsigned int size, Tag tag)</code></h5>
-        This function creates new files. It returns an integer status code that indicates the status of running this function. 
+        This function creates new files. It returns an integer status code that indicates the status of running this function.
         <ul>
           <li><code>Dir* dir</code>: the newly created file will be placed under this directory.</li>
           <li><code>char* name</code>: the name of the file to be created.</li>
@@ -251,7 +251,7 @@ gg=G
         <p>Except <code>0</code>, all other status codes indicate an error. When there are more than one error, always return the smallest status code. For example, if <code>dir</code> is <code>null</code> and at the same time <code>name</code> has a conflict, you should still return <code>1</code>. Functions you may need: <code>strcpy()</code>, <code>strcmp()</code>, <code>strlen()</code>.</p>
 
         <h5><code class="language-cpp">int createDir(Dir* dir, char* name)</code></h5>
-        This function creates new directories. It returns an integer status code. 
+        This function creates new directories. It returns an integer status code.
         <ul>
           <li><code>Dir* dir</code>: the newly created directory will be placed under this directory.</li>
           <li><code>char* name</code>: the name of the directory to be created.</li>
@@ -267,7 +267,7 @@ gg=G
         <p>Again, return the smallest one if there are multiple errors. Functions you may need: <code>strcpy()</code>, <code>strcmp()</code>, <code>strlen()</code>.</p>
 
         <h5><code class="language-cpp">int deleteFile(Dir* dir, char* name)</code></h5>
-        This function deletes files. It returns an integer status code. 
+        This function deletes files. It returns an integer status code.
         <ul>
           <li><code>Dir* dir</code>: the parent directory of the file to be deleted.</li>
           <li><code>char* name</code>: the name of the file to be deleted.</li>
@@ -326,7 +326,7 @@ gg=G
         <p>Again, return the smallest one if there are multiple errors.</p>
 
         <h5><code class="language-cpp">int moveDir(Dir* tgt, Dir* dest)</code></h5>
-        This function moves directories. It returns an integer status code. 
+        This function moves directories. It returns an integer status code.
         <ul>
           <li><code>Dir* tgt</code>: the target directory to be moved.</li>
           <li><code>Dir* dest</code>: the destination directory.</li>
@@ -355,7 +355,7 @@ gg=G
     <div class="container-fluid border-bottom my-5" id="cli">
       <h2 class="mt-4">The last task</h2>
         <p>Here is the last task of this assignment, which is to use the functions above to build a simple command line tool so that you can play with your file system interactively. It is also a tool to help you debug your code. Don't worry, you only need to finish a very small part, the skeleton codes will take care of the rest. A quick introduction to command line. A command line is a tool where you use commands to interact with your machine. A command is simply a string with certain syntax that asks the machine to do something. It usually starts with the command name followed by some parameters separated by whitespaces. </p>
-        
+
         <pre><code>cmd param1 param2 param3 ...</code></pre>
 
         <p>Besides, a command line usually has a status called "working directory", it is a directory that you are currently at. When you specify a file or a directory by its name, the command line will usually search for that under the working directory only.</p>
@@ -363,7 +363,7 @@ gg=G
         <p>If you don't modify <code>main.cpp</code>, you can compile and run the program, it will start the command line for you. You can type <code>help</code> and "enter", then it will show you all the commands and their usages. Please also check the <a href="https://hkust.zoom.us/rec/share/t6XpvaFFfNWel1jb5-ND0zU8o9IBzOB5-gfxpBF-zJeNVMOc5IL6awcS_Rq7ZG0N.yZIT4M_HQD8L63NI?startTime=1650628255000">zoom recording</a> of PA3 introduction (held on 22th) if you still have questions.</p>
 
         <img src="img/cli-help.png" height="250px"><br><br>
-        
+
         <p>Your task is to finish the function that handles such commands introduced above. It is in <code>cli.cpp</code>:</p>
         <h5><code class="language-cpp">Dir *execute(Dir* wd, char* rest, bool& exit)</code></h5>
         This function contains a lot of <code>if</code> blocks, each block handling one type of command. Some blocks are already implemented, you can regard them as examples to implement the remaining three blocks. In this task you only need the first two function parameters <code>Dir* wd</code> and <code>char* rest</code>, you don't need to deal with <code>bool& exit</code> and you don't need to write any <code>return</code> statements. Plus, please don't write any output statements in this task. You can add some while debugging, but remember to remove them before submission, the three blocks you implement should output nothing to the standard output while grading.
@@ -387,7 +387,7 @@ gg=G
             rm -r images       // remove "images" recursively (say it's a dir)
 
             // mv &#60target&#62 &#60destination&#62
-            // &#60target&#62 can be either File or Dir 
+            // &#60target&#62 can be either File or Dir
             mv lecture.pdf download   // move "lecture.pdf" (say it's a file) to "download"
             mv comp2011 download      // move "comp2011" (say it's a dir) to "download"
 
@@ -402,7 +402,7 @@ gg=G
 
             char param1[MAX_CMD_LEN] = "";  // define an empty string
             fetch(rest, param1);            // fetch the next parameter into the string you just defined
-            
+
             // rest == "world"
             // param1 == "hello"
 
@@ -412,7 +412,7 @@ gg=G
             // rest == ""
             // param2 == "world"
 
-            char param3[MAX_CMD_LEN] = ""; 
+            char param3[MAX_CMD_LEN] = "";
             fetch(rest, param3);            // fetch from an empty string will give you an empty string
 
             // rest == ""
@@ -535,7 +535,7 @@ gg=G
 
       <h4>Deadline</h4>
       <p><font color="red"> 23:59:00, May 11 (Wed)</font></p>
-      
+
       <p>Please submit a zip file containing <b>file_sys.cpp</b> and <b>cli.cpp</b> only to <a href="http://zinc.cse.ust.hk">ZINC</a>. ZINC usage instructions can be found <a href="https://zinc.cse.ust.hk/guide">here</a>. Friendly reminder: before you submit your code, <b>make sure it complies with all the rules in <a href="#important">important requirements</a></b>. No mark will be given if you violate the rules.</p>
       <p>Notes:</p>
       <ul>
@@ -581,7 +581,7 @@ gg=G
             Q: What is the meaning of <b>"under"</b>?
           </li>
           <li>
-            A: If A is under B, that means B is A's parent. For those operations that require actions on the sub-sub-dirs and sub-sub-files ...., instruction will explicitly tell you to do it recursively (<code>deleteDir()</code>, <code>getSize()</code>, <code>filesOfTag()</code>).  
+            A: If A is under B, that means B is A's parent. For those operations that require actions on the sub-sub-dirs and sub-sub-files ...., instruction will explicitly tell you to do it recursively (<code>deleteDir()</code>, <code>getSize()</code>, <code>filesOfTag()</code>).
           </li>
 
           <br><br>
@@ -592,7 +592,7 @@ gg=G
             A: As the assignment is a major course assessment, to be fair, you are supposed to work on it on your own and we should not finish the tasks for you. We might provide some very general hints to you, but we shall not fix the problem or debug for you.
           </li>
           <br>
-          
+
           <br>
           <li>
               Q: My code gives perfect results in my own computer, but it gives a different result on ZINC, why?

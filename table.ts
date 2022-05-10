@@ -27,9 +27,10 @@ const buildCourseRow = ({ code, description, semesters, title }: Course): string
         <div class="course-content">
           <div class="course-title">
             <div>${title}</div>
-            <div class="course-description-trigger">➕</div>
+            <div class="course-description-toggle">➕</div>
           </div>
           <div class="course-description">
+            <br/>
             ${description}
           </div>
         </div>
