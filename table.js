@@ -1,5 +1,5 @@
 var buildSemesterCell = function (code, semester) {
-    var link = "".concat(code, " ").concat(semester).replace(/\s/g, '-');
+    var link = "./".concat(code, " ").concat(semester, "/index.html").replace(/\s/g, '-');
     return (
     /* html */ "\n    <td class=\"course-semester\">\n      <a href=\"".concat(link, "\">").concat(semester, "</a>\n    </td>\n    "));
 };
