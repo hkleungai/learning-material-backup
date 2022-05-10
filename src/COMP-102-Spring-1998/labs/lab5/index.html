@@ -1,0 +1,87 @@
+Lab5
+
+In this lab you will write a program that calls two functions in another 
+simple card game. The goal of the game is to accumulate 4 of a kind or 4 
+of the same suit (e.g., 4 kings or 4 clubs). 
+
+For simplicity, assume each card is drawn one at a time, noted down, 
+and then replaced before the next card is drawn. Initially, four cards 
+are drawn. After that, the user selects one card to discard and a new 
+card is drawn. Use pass-by-reference to call a supplied function drawcard(). 
+
+Use the following card numbers and suits:
+
+	 cardNumber:	cardType:		suit#:	suitType:
+		1	Ace		1	H (hearts)
+		2-10	2-10		2	D (diamonds)
+		11	Jack		3	C (clubs)
+		12	Queen		4	S (spades)
+		13	King
+
+Print the cards in the hand after each draw. Use the supplied printcard() 
+function to do this. 
+
+Count the number of draws needed before 4 of a kind/suit are held (not 
+counting the initial four cards), and report it to the user. 
+
+Here is a sample output:
+
+	hand: 7H 6C 4H 7C 
+	Which card to discard? 2
+	hand: 7H 5H 4H 7C 
+	Which card to discard? 4
+	hand: 7H 5H 4H 3C 
+	Which card to discard? 4
+	hand: 7H 5H 4H 7H 
+	4-of-a-kind/suit in 3 draws
+
+
+Hint: Be careful what you discard, or you could be playing for a long time!
+
+-------------------------------------------------------------------------
+#include <iostream.h>
+#include <stdlib.h>
+#include <time.h>
+
+void drawcard(int& cardnumber, int& cardsuit);
+void printcard(int cardnumber, int cardsuit);
+
+void main(){
+
+	// you supply main
+
+}
+
+
+void drawcard(int& cardnumber, int& cardsuit){
+	cardnumber = rand()%13 + 1;
+	cardsuit = rand()%4 + 1;
+}
+
+void printcard(int cardnumber, int cardsuit){
+
+	if(cardnumber == 1)
+		cout << "A";
+	else if(cardnumber <= 10)
+		cout << cardnumber;
+	else if(cardnumber == 11)
+		cout << "J";
+	else if(cardnumber == 12)
+		cout << "Q";
+	else if(cardnumber == 13)
+		cout << "K";
+	else
+		cout << "Illegal card number!";
+
+	if(cardsuit == 1)
+		cout << "H ";
+	else if(cardsuit == 2)
+		cout << "D ";
+	else if(cardsuit == 3)
+		cout << "C ";
+	else if(cardsuit == 4)
+		cout << "S ";
+	else
+		cout << "Illegal suit!";
+	cout << " ";
+}

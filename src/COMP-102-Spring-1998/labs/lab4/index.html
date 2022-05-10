@@ -1,0 +1,56 @@
+COMP 102: Computer & Programming Fundamentals I
+LAB 4:  Highest Card
+
+In this lab you will program a simple card game. This game uses 
+a special deck of cards with all the same suit, and one of each 
+kind of card. Use the following card numbers:
+
+	 cardNumber:	cardType:
+		1	Ace
+		2-10	2-10
+		11	Jack
+		12	Queen
+		13	King
+
+Your program will deal out a set of four cards to the user at 
+random. For simplicity, assume each card is drawn one at a time, 
+noted down, and then replaced before the next card is drawn. 
+Use the library function rand() to select the cards at random 
+(you'll need to #include <stdlib.h> and <time.h>):
+
+	#include <iostream.h>
+	#include <stdlib.h>
+	#include <time.h>
+
+	void main()
+	{
+		...  		
+  		srand(time(0));  // initialize random number generator
+		...
+		cardNumber = rand()%13 + 1;  // picks a random number between 1 and 13
+		...
+	}
+
+The score for each hand is the highest card number:
+
+	  Hand:		Score:
+	A A A A		1
+	A 2 3 4		4
+	2 4 7 J		11
+
+Display the cards drawn (use characters A, J, Q, K for Ace and 
+face cards), and the score for each hand. For example:
+
+	hand: J J A Q  score: 12
+
+After each hand is scored and displayed, prompt the user if they 
+want another hand by asking them to type 'C' or 'c' to continue, 
+or any other key to quit. 
+
+	hand: 9 2 3 Q  score: 12
+	Press 'C' or 'c' to continue, or any other key to quit: c
+	hand: 3 9 4 9  score: 9
+	Press 'C' or 'c' to continue, or any other key to quit: c
+	hand: 3 A K 6  score: 13
+	Press 'C' or 'c' to continue, or any other key to quit: q
+	

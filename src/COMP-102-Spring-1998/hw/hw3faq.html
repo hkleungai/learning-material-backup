@@ -1,0 +1,112 @@
+<HTML><HEAD>
+<TITLE>COMP 102--Assignment 3 FAQs</TITLE>
+</HEAD><BODY>
+<HR>
+<H2>COMP 102--Assignment 3 FAQs</H2>
+<p>This page answers the frequently asked questions (FAQs) about <A HREF="hw3.ps">Assignment 3</A>.
+
+<p><H2>LAST UPDATED:</H2> 11 May 1998
+<OL>
+
+
+<LI>How the homework be graded?
+<br><I>HW1 is worth 100 points total. The items will will look for are:
+<br>Documentation:	20%
+<br>&nbsp;&nbsp;&nbsp;	Good program overview
+<br>&nbsp;&nbsp;&nbsp;  	Reasonable algorithm
+<br>&nbsp;&nbsp;&nbsp;	Comments for each var. declaration
+<br>&nbsp;&nbsp;&nbsp;	Comments for each code segment
+<br>Indentation:  	10% 
+<br>&nbsp;&nbsp;&nbsp;  	We want good, clear, and consistent indentation
+<br>Output Formatting:	20%
+<br>&nbsp;&nbsp;&nbsp;	Make your output look like our example output
+<br>Program Correctness: 50%	
+<br>&nbsp;&nbsp;&nbsp;	Board should be implemented with 2D char array.  
+<br>&nbsp;&nbsp;&nbsp;	Program should place islands and cargo correctly.
+<br>&nbsp;&nbsp;&nbsp;	Number of icebergs, cargos, and islands should be twice the level. 
+<br>&nbsp;&nbsp;&nbsp;	Program should move icebergs correctly. 
+<br>&nbsp;&nbsp;&nbsp;	Icebergs should sink cargos.
+<br>&nbsp;&nbsp;&nbsp;	Program should allow the Titanic to move correctly.  
+<br>&nbsp;&nbsp;&nbsp;	After reaching New York, the level should advance automatically, and Titanic sail back to London. 
+<br>&nbsp;&nbsp;&nbsp;	Top 10 scores should be saved correctly.
+<br>&nbsp;&nbsp;&nbsp;	Bonus should be given for finishing level 10.
+</I>
+
+<LI>After the titanic reach New York, the level will increase atuomatically, then the volanic island will also increase by 2, but the position of volanic island randomize again or just add 2 new volanic island and the old volanic island do not change the position? 
+<br><I>Pick all new random volcano positions when the level changes. 
+</I>
+	
+<LI>I'd like to know the length of the name of player.
+<br><I>Allowing up to 80 characters is reasonable.
+</I>
+
+<LI>I want to ask what is the patten of cargos? That is, should two a pair? As an eg., what is your expextation in level 3 (6 cargos)? 1,1,1,4,7,9 OR 1,1,4,4,8,8 OR 1,2,3,5,6,8
+<br><I>The cargos should be picked as follows:
+<br>level	#cargos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cargoValues
+<br>1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;picked randomly between 1 and 9 (e.g., 2 9)
+<br>2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;picked randomly between 1 and 9 (e.g., 8 4 7 2)
+<br>3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;picked randomly between 1 and 9	(e.g., 4 9 2 3 2 1)
+<br>4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;picked randomly between 1 and 9
+<br>5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;picked randomly between 1 and 9
+<br>6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;picked randomly between 1 and 9
+<br>7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;picked randomly between 1 and 9
+<br>8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;picked randomly between 1 and 9
+<br>9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;picked randomly between 1 and 9
+<br>10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;picked randomly between 1 and 9
+</I>
+
+<LI>I want to ask if the player abandon ship, then the scores should put in the top10 or not if the score is higher than the position 10 in the list?
+<br><I>Sure, put it in the top10 if the player abondons ship if it is high enough. 
+</I>
+
+<LI>When I hand in the floppy, the file titanic.dat should be included in titanic.cpp, OR save separately.
+<br><I>No need to turn in titanic.dat. 
+</I>
+
+<LI>Should the arrangement of the top 10 according to the best level or score?
+<br><I>By score. 
+</I>
+
+<LI>What is the difference between &lt;fstream&gt; and &lt;fstream.h&gt;? Same to &lt;iostream&gt; and &lt;iostream.h&gt;.
+<br><I>The top of your program should look like this:
+<br>#include &lt;cstdlib&gt;
+<br>#include &lt;iostream&gt;
+<br>#include &lt;ctype.h&gt;
+<br>#include &lt;conio.h&gt;
+<br>#include &lt;time.h&gt;
+<br>#include &lt;fstream&gt;
+<br>#include &lt;string&gt;
+<br>using namespace std;
+<br>Why is &lt;fsteam&gt; ok, and &lt;fstream.h&gt; not ok? It is because there are some
+incompatibilities between the older libraries (the ones that end in .h,
+such as fstream.h), and the newer libraries (the ones that don't have the
+.h, such as fstream). The "using namespace std;" line says to use the
+newer libraries as default when the .h is not given. (This is specific to
+VC++, so probably it would work differently in Borland C++.) Libraries are
+always a bit tricky in C++, since they are not part of the language
+definition, but are added by the compiler builder (never trust Microsoft
+to add anything unless their competitors already have it :).
+</I>
+
+<LI>If the player had finished level 9 & failed at level 10( that means Titanic hit something at level 10), should I count it as level 9 or level 10?
+<br><I>Count it as level 10. 
+</I>
+
+<LI>Is the "Titanic.dat" file provided for us?
+<br><I>Assume it exists. Make sure to save it in your project directory before you run your program.  Fill it with place-holder lines (e.g., "-99 -9 xxx") to start with.    
+</I>
+
+<LI>If we need to create "Titanic.dat", did we need to store the -ve values in the file at the very beginning?
+<br><I>Yes, you need to store them in the file at the beginning before running your program.   
+</I>
+
+<LI>If a person has passed the a certain level, e.g. he has passed level 1 and reached New York, then, is it required to print out a message congratulating him for reaching New York and finished one level???  or it
+is just necessary to print a congratulations message when he finishes level 10?
+<br><I>Only print the message when they finish level 10.   
+</I>
+
+	
+</OL>
+<p><HR>
+</BODY>
+</HTML>

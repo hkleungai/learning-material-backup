@@ -64,6 +64,12 @@ const categorizedCourses: CategorizedCourse[] = [
     category: 'Introduction to Programming',
     courses: [
       {
+        code: 'COMP 102',
+        description: 'Introduction to computers and programming. Computer hardware and software. Problem solving. Program design. Procedural abstraction. Debugging and testing. Simple and structured data types. Recursive programming. Introduction to searching and sorting.',
+        title: 'Computer and Programming Fundamentals I',
+        semesters: ['Spring 1998'],
+      },
+      {
         code: 'COMP 1021',
         description: 'This course introduces students to the world of Computer Science. Students will experience a range of fun and interesting areas from the world of computing, such as game programming, web programming, user interface design and computer graphics. These will be explored largely by programming in the Python language.',
         title: 'Introduction to Computer Science',
