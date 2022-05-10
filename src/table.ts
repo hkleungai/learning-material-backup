@@ -1,5 +1,5 @@
 const buildSemesterCell = (code: string, semester: string) => {
-  const link = `${code} ${semester}`.replace(/\s/g, '-');
+  const link = `./${code} ${semester}/index.html`.replace(/\s/g, '-');
   return (
     /* html */`
     <td class="course-semester">
