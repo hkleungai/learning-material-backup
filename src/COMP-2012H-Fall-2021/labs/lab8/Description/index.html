@@ -75,28 +75,191 @@
         <!-- ### Change assignment number and title ### -->
         <h3 class="my-4">Lab 8
           <span style="color:#660066">Standard Template Library and Binary Search Tree</span>
-        </h3>				<div class="card mb-4">            <div class="card-body" id="review">              <h3 class="card-title">Review</h3>              <br/>			  <h5 style="color:darkblue">Standard Template Library</h5>              <p>                The Standard Template Library (STL) is a collection of powerful, template-based, reusable codes. It implements many general-purpose containers (data structures) together with algorithms that work on them.                <br/><br/>                The three pillars of STL are containers, iterators, and algorithms.                <ul>                  <li> A container class is a class template that holds a collection of homogeneous                    objects of the same type. For example, a <code>vector</code> container class (dynamic array with resizing handled by the STL) can be utilized as                    follows:<br/><br/><pre><code class="prettyprint">#include &lt;vector&gt;std::vector&lt;int&gt; myVector; // STL vector of ints.myVector.emplace_back(10); // Add int value "10" to the back of the vector.</code></pre></li>(See <a href="http://candcplusplus.com/c-difference-between-emplace_back-and-push_back-function">here</a> for the difference between push_back and emplace_back.)<br/><br/>                  <li>Iterators are generalized pointers. For example, the following shows how to scan through a list container using an iterator:                    <br/><br/><pre><code class="prettyprint">#include &lt;iostream&gt;#include &lt;list&gt;std::list&lt;int&gt; myList; // STL doubly linked list of ints.myList.emplace_back(10);myList.emplace_back(20);myList.emplace_back(30);// std::list&lt;int&gt;::iterator is STL list of ints iterator.for (std::list&lt;int&gt;::iterator it{myList.begin()}; it != myList.end(); ++it) {  std::cout &lt;&lt; *it &lt;&lt; std::endl;}</code></pre>Iterators allow us to separate algorithms from containers when they are used with templates.It can be tedious to specify the full and correct templated <code>typename</code> when declaring an iterator, so the <code>auto</code> keyword is typically used instead. <br/><br/><pre><code class="prettyprint">#include &lt;iostream&gt;#include &lt;list&gt;std::list&lt;int&gt; myList; // STL doubly linked list of ints.myList.emplace_back(10);myList.emplace_back(20);myList.emplace_back(30);for (auto it = myList.begin(); it != myList.end(); ++it) {  std::cout &lt;&lt; *it &lt;&lt; std::endl;}</code></pre></li><br/>                  <li> STL algorithms are implemented as global function templates.           For example, use STL find algorithm to find an element in a list (though most STL Containers have their own find function or similar, which is generally faster and better):<br/><br/><pre><code class="prettyprint">#include &lt;string&gt;#include &lt;list&gt;std::list&lt;string&gt; composers;composers.emplace_back("Bach");composers.emplace_back("Mozart");composers.emplace_back("Beethoven");auto it = std::find(composers.begin(), composers.end(), "Bach");</code></pre></li>                </ul><br/><h5 style="color:darkblue">Trees</h5>A tree T is a collection of nodes connected by edges.<ul>  <li>Base case: T is empty</li>  <li>Recursive case: If not empty, a tree T consists of    <ul>	  <li>A root node r, and</li>	  <li>zero or more non-empty sub-trees: T<sub>1</sub>, T<sub>2</sub>, ..., T<sub>k</sub></li>	</ul>  </li></ul><br/><h5 style="color:darkblue">Binary Tree</h5>A binary tree is a tree in which no node can have more than two children.A typical implementation of Binary Tree ADT is shown below.<br/><br/><pre><code class="prettyprint">#include &lt;iostream&gt;     /* File: btree.h */using namespace std;template &lt;typename T&gt;class BTnode{  public:    BTnode(const T& x, BTnode* L = nullptr, BTnode* R = nullptr)      : data(x), left(L), right(R) { }    ~BTnode()    {      delete left;      delete right;      cout << "delete the node with data = " << data << endl;    }    const T& get_data() const { return data; }    BTnode* get_left()  const { return left; }    BTnode* get_right() const { return right; }    void set_left(BTnode* left) { this->left = left; }    void set_right(BTnode* right) { this->right = right; }  private:    T data;             // Stored information    BTnode* left;       // Left child    BTnode* right;      // Right child};</code></pre><br/><h5 style="color:darkblue">Binary Search Tree</h5>A binary search tree is a binary tree such that for every node x:<ul>	<li>All the keys in its left sub-tree are smaller than the key value in node x.</li>	<li>All the keys in its right sub-tree are larger than the key value in node x.</li></ul>A typical implementation of Binary Search Tree is shown below.<br/><br/><pre><code class="prettyprint">#include &lt;iostream&gt;  /* File: bst.h */using namespace std;template&lt;typename T&lt; class BST{  private:    struct BSTnode // A node in a binary search tree    {      T value;      BST left; // Left sub-tree or called left child      BST right; // Right sub-tree or called right child      BSTnode(const T &x) : value(x), left(), right() { }        // Assume a copy constructor for T      BSTnode(const BSTnode &node) // Copy constructor        :value(node.value), left(node.left), right(node.right) { }      ~BSTnode() { cout &lt;&lt; "delete: " &lt;&lt; value &lt;&lt; endl; }    };    BSTnode *root = nullptr;  public:    BST() = default; // Empty BST    ~BST() { delete root; } // Actually recursive    // Shallow BST copy using move constructor    BST(BST &&bst) { root = bst.root; bst.root = nullptr; }    BST(const BST &bst) // Deep copy using copy constructor    {      if (bst.is_empty())        return;      root = new BSTnode(*bst.root); // Recursive    }    bool is_empty() const {      return root == nullptr;    }    bool contains(const T &x) const;    void print(int depth = 0) const;    const T& find_max() const; // Find the maximum value    const T& find_min() const; // Find the minimum value    void insert(const T&); // Insert an item with a policy    void remove(const T&); // Remove an item};</code></pre>              </div>               <div class="card-footer text-muted">                End of Review              </div>		</div>
+        </h3>
+
+		<div class="card mb-4">
+            <div class="card-body" id="review">
+              <h3 class="card-title">Review</h3>
+              <br/>
+			  <h5 style="color:darkblue">Standard Template Library</h5>
+              <p>
+                The Standard Template Library (STL) is a collection of powerful, template-based, reusable codes. It implements many general-purpose containers (data structures) together with algorithms that work on them.
+                <br/><br/>
+                The three pillars of STL are containers, iterators, and algorithms.
+                <ul>
+                  <li> A container class is a class template that holds a collection of homogeneous
+                    objects of the same type. For example, a <code>vector</code> container class (dynamic array with resizing handled by the STL) can be utilized as
+                    follows:<br/><br/>
+<pre><code class="prettyprint">#include &lt;vector&gt;
+std::vector&lt;int&gt; myVector; // STL vector of ints.
+myVector.emplace_back(10); // Add int value "10" to the back of the vector.</code></pre></li>
+(See <a href="http://candcplusplus.com/c-difference-between-emplace_back-and-push_back-function">here</a> for the difference between push_back and emplace_back.)
+<br/><br/>
+                  <li>Iterators are generalized pointers. For example, the following shows how to scan through a list container using an iterator:
+                    <br/><br/>
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;list&gt;
+std::list&lt;int&gt; myList; // STL doubly linked list of ints.
+myList.emplace_back(10);
+myList.emplace_back(20);
+myList.emplace_back(30);
+// std::list&lt;int&gt;::iterator is STL list of ints iterator.
+for (std::list&lt;int&gt;::iterator it{myList.begin()}; it != myList.end(); ++it) {
+  std::cout &lt;&lt; *it &lt;&lt; std::endl;
+}</code></pre>
+Iterators allow us to separate algorithms from containers when they are used with templates.
+It can be tedious to specify the full and correct templated <code>typename</code> when declaring an iterator, so the <code>auto</code> keyword is typically used instead. <br/><br/>
+<pre><code class="prettyprint">#include &lt;iostream&gt;
+#include &lt;list&gt;
+std::list&lt;int&gt; myList; // STL doubly linked list of ints.
+myList.emplace_back(10);
+myList.emplace_back(20);
+myList.emplace_back(30);
+for (auto it = myList.begin(); it != myList.end(); ++it) {
+  std::cout &lt;&lt; *it &lt;&lt; std::endl;
+}</code></pre>
+</li>
+<br/>
+                  <li> STL algorithms are implemented as global function templates.
+          For example, use STL find algorithm to find an element in a list (though most STL Containers have their own find function or similar, which is generally faster and better):
+<br/><br/>
+<pre><code class="prettyprint">#include &lt;string&gt;
+#include &lt;list&gt;
+std::list&lt;string&gt; composers;
+composers.emplace_back("Bach");
+composers.emplace_back("Mozart");
+composers.emplace_back("Beethoven");
+auto it = std::find(composers.begin(), composers.end(), "Bach");
+</code></pre></li>
+                </ul>
+<br/>
+<h5 style="color:darkblue">Trees</h5>
+A tree T is a collection of nodes connected by edges.
+<ul>
+  <li>Base case: T is empty</li>
+  <li>Recursive case: If not empty, a tree T consists of
+    <ul>
+	  <li>A root node r, and</li>
+	  <li>zero or more non-empty sub-trees: T<sub>1</sub>, T<sub>2</sub>, ..., T<sub>k</sub></li>
+	</ul>
+  </li>
+</ul>
+<br/>
+<h5 style="color:darkblue">Binary Tree</h5>
+A binary tree is a tree in which no node can have more than two children.
+A typical implementation of Binary Tree ADT is shown below.
+<br/><br/>
+<pre><code class="prettyprint">#include &lt;iostream&gt;     /* File: btree.h */
+using namespace std;
+
+template &lt;typename T&gt;
+class BTnode
+{
+  public:
+    BTnode(const T& x, BTnode* L = nullptr, BTnode* R = nullptr)
+      : data(x), left(L), right(R) { }
+
+    ~BTnode()
+    {
+      delete left;
+      delete right;
+      cout << "delete the node with data = " << data << endl;
+    }
+
+    const T& get_data() const { return data; }
+    BTnode* get_left()  const { return left; }
+    BTnode* get_right() const { return right; }
+    void set_left(BTnode* left) { this->left = left; }
+    void set_right(BTnode* right) { this->right = right; }
+
+  private:
+    T data;             // Stored information
+    BTnode* left;       // Left child
+    BTnode* right;      // Right child
+};</code></pre>
+<br/>
+<h5 style="color:darkblue">Binary Search Tree</h5>
+A binary search tree is a binary tree such that for every node x:
+<ul>
+	<li>All the keys in its left sub-tree are smaller than the key value in node x.</li>
+	<li>All the keys in its right sub-tree are larger than the key value in node x.</li>
+</ul>
+A typical implementation of Binary Search Tree is shown below.
+<br/><br/>
+<pre><code class="prettyprint">#include &lt;iostream&gt;  /* File: bst.h */
+using namespace std;
+
+template&lt;typename T&lt;
+class BST
+{
+  private:
+    struct BSTnode // A node in a binary search tree
+    {
+      T value;
+      BST left; // Left sub-tree or called left child      BST right; // Right sub-tree or called right child
+      BSTnode(const T &x) : value(x), left(), right() { }
+        // Assume a copy constructor for T
+      BSTnode(const BSTnode &node) // Copy constructor
+        :value(node.value), left(node.left), right(node.right) { }
+      ~BSTnode() { cout &lt;&lt; "delete: " &lt;&lt; value &lt;&lt; endl; }
+    };
+    BSTnode *root = nullptr;
+
+  public:
+    BST() = default; // Empty BST
+    ~BST() { delete root; } // Actually recursive
+    // Shallow BST copy using move constructor
+    BST(BST &&bst) { root = bst.root; bst.root = nullptr; }
+    BST(const BST &bst) // Deep copy using copy constructor
+    {
+      if (bst.is_empty())
+        return;
+
+      root = new BSTnode(*bst.root); // Recursive
+    }
+
+    bool is_empty() const {
+      return root == nullptr;
+    }
+    bool contains(const T &x) const;
+    void print(int depth = 0) const;
+    const T& find_max() const; // Find the maximum value
+    const T& find_min() const; // Find the minimum value
+    void insert(const T&); // Insert an item with a policy
+    void remove(const T&); // Remove an item
+};</code></pre>
+              </div>
+              <div class="card-footer text-muted">
+                End of Review
+              </div>
+		</div>
         <div class="mb-4">
             <img src="images/souvenir_shop.jpg" width=100%>
         </div>
         <!-- Introduction section -->
-        <!-- ### Complete introduction section for the assignment ### -->
+        <!-- ### Complete introduction section for the assignment ### -->
+
 
 
         <div class="card mb-4">
             <div class="card-body" id="introduction">
-                <h3 class="card-title">Book and Toy Store</h3><br/>
-                <h4 id="objective">Objective</h4>				
+                <h3 class="card-title">Book and Toy Store</h3>
+
+<br/>
+                <h4 id="objective">Objective</h4>
                 <p>
                   In this lab, you will get familiar with Standard Template Library (STL) and Binary Search Tree (BST) in C++.
-                </p><br/>
-                
+                </p>
+<br/>
+
                 <h4 id="description">Description</h4>
                 <p>The business of a Book and Toy Store is gaining traction. Joe, the owner of the store, is getting overwhelmed by the ever increasing workload to manage his store. In this lab, we will help Joe better manage the book and toy store, especially how to efficiently find a specific book or toy based on a query ID.
                 If we manage the information with an array, it will take <code>O(n)</code> (<code>n</code> is the input length) at the worst case to complete a query, which would be quite expensive considering the massive amout of books and toys.
                 However, if we utilize advanced data structures like Max Heap, whose basic structure is Binary Search Tree (BST), we can decrease the running time complexity to <code>O(logn)</code> significantly.
-                In this lab, your task is exactly to help Joe develop a manager system based on BST. 
-                   </p><br/>
+                In this lab, your task is exactly to help Joe develop a manager system based on BST.
+                   </p>
+
+<br/>
                 <h4 id="overview">Overview</h4>
 
                 <p>
@@ -111,7 +274,7 @@
                     </li>
                   <li>Manager<br/>
                   We use a STL map to manage the book section BST and toy section BST with the <code>getSection</code>, <code>registerSection</code>, <code>deleteSection</code> and <code>printStatus</code> operations.</li>
-                </ol>               
+                </ol>
             </div>
         </div>
 
@@ -125,7 +288,7 @@
                     <ol>
                        <li>Finish the TODOs in <code>BinarySearchTree.cpp</code> and <code>Manager.cpp</code>. </li>
                        <li>Compile the project.</li>
-                       <li>Run the executable to check with the expected output below: 
+                       <li>Run the executable to check with the expected output below:
                          <pre>
 /* test1.exe */
 Maneger has 1 sections: book
@@ -159,20 +322,21 @@ Maneger has 0 sections
                         <li> Try to construct the BSTs by hand first to review the <code>recursive</code> process of BST construction.</li>
                         <li> Observe <code>test1.cpp</code> and <code>test2.cpp</code> to understand how to achieve the expected output.
                         </li>
-                        <li> Search the Internet to find more information about the usage of STL <code>map</code> and <code>vector</code>.  
+                        <li> Search the Internet to find more information about the usage of STL <code>map</code> and <code>vector</code>.
                         </li>
                     </ol>
                     <h4 id="map">Introduction to C++ STL map</h4>
                     <ul>
                         <li> Definition </li>
-                            Maps are associative containers that store elements in a combination of <code>keys</code> and mapped <code>values</code> that follow a specific order. 
+                            Maps are associative containers that store elements in a combination of <code>keys</code> and mapped <code>values</code> that follow a specific order.
                             For C++ STL maps, no two mapped values are allowed to have the same key values.
                             To some extent, maps work quite similarly with special <code>hash</code> function which takes the <code>key</code> as input, and then output the corresponding <code>value</code>.
-<pre class="prettyprint">// If we have a map defined as below
+<pre class="prettyprint">
+// If we have a map defined as below
 demo_map = {apple: 3, banana: 1, watermelon: 3}
 // Then according to the definition of maps, we have
 demo_map[apple] = 3 & demo_map[banana] = 1 & demo_map[watermelon] = 3
-</pre>                   
+</pre>
                         <li> Syntax </li>
                         A map should be defined in the following way:
 <pre class="prettyprint">
@@ -180,10 +344,10 @@ demo_map[apple] = 3 & demo_map[banana] = 1 & demo_map[watermelon] = 3
 // value_datatype: the data type for values corresponding to the keys in the map
 // map_name: variable name of the map
 std::map&ltkey_datatype, value_datatype&gt map_name
-// An example to declare a map with string values as keys and 
+// An example to declare a map with string values as keys and
 // integers as their corresponding values would be:
 std::map&ltstring, int&gt sample_map;
-</pre>                      
+</pre>
                         <li> Interface </li>
                         <ul>
                           <li> <code>at(key)</code>: return the corresponding value of a given key;</li>
@@ -191,7 +355,7 @@ std::map&ltstring, int&gt sample_map;
                           <li> <code>erase(const g)</code>: remove the key value g from the map;</li>
                           <li> <code>begin()</code>: return an iterator to the first element in the map;</li>
                           <li> Have fun exploring different usages of STL maps!</li>
-                        </ul> 
+                        </ul>
                     </ul>
                 </p>
             </div>
@@ -210,8 +374,8 @@ std::map&ltstring, int&gt sample_map;
               <h3 class="card-title">Submission and Deadline</h3>
               <p class="card-text">
 		  <span style="font-weight:bold">Deadline: 22 November 2021 Monday 23:59 HKT.</span><br/>
-                  You may earn 1% course grade for this lab via Automated Grading on the 
-                  <a href="http://zinc.cse.ust.hk">ZINC Online Submission System</a>. Please compress and submit 
+                  You may earn 1% course grade for this lab via Automated Grading on the
+                  <a href="http://zinc.cse.ust.hk">ZINC Online Submission System</a>. Please compress and submit
 <code>BinarySearchTree.cpp</code> and <code>Manager.cpp</code>
 to ZINC. You can submit your codes multiple times by the deadline. Only the last submission will be graded.
 </div>
@@ -233,18 +397,21 @@ to ZINC. You can submit your codes multiple times by the deadline. Only the last
             <div class="card-body">
               <div class="row">
                 <div class="col-lg-12">
-                  <ul class="mb-0" type="circle" style="padding-left:20px">					<li>						<a href="#review">Review</a>					</li>
+                  <ul class="mb-0" type="circle" style="padding-left:20px">
+					<li>
+						<a href="#review">Review</a>
+					</li>
                     <li>
                       <a href="#description">Description</a>
                     </li>
-                    
+
                     <li>
                       <a href="#overview">Overview</a>
                     </li>
                     <li>
                       <a href="#labtask">Lab Tasks</a>
                     </li>
-                    
+
                     <li>
                       <a href="#hint">Hint</a>
                     </li>
@@ -255,7 +422,7 @@ to ZINC. You can submit your codes multiple times by the deadline. Only the last
                       <a href="#submission">Submission &amp; Deadline</a>
                     </li>
                     <li>
-                      <a href="https://course.cse.ust.hk/comp2012h/notes/14-stl-full.pdf">Lecture notes</a>
+                      <a href="../../../notes/14-stl-full.pdf">Lecture notes</a>
                     </li>
                   </ul>
                 </div>

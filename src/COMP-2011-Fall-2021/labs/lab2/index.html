@@ -66,10 +66,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/">Course Webpage</a>
+              <a class="nav-link" href="../../index.html">Course Webpage</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/forum.html">Online Forum</a>
+              <a class="nav-link" href="../../forum.html">Online Forum</a>
             </li>
             <!--li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -94,24 +94,24 @@
         </div>
 
       <div class="container-fluid border-bottom my-5" id="Intro">
-        
+
 
         <h2 class="mt-4">Introduction</h2>
 
-        <p>In this lab, you are going to implement the game Mastermind. It would be helpful to first review this set of lecture notes: <a href="https://course.cse.ust.hk/comp2011/notes/h.control1.pdf">Control Flow</a>, <a href="https://course.cse.ust.hk/comp2011/notes/h.basics2.pdf">Basics II</a>, <a href="https://course.cse.ust.hk/comp2011/notes/h.control2.pdf">Control II</a>.</p>
+        <p>In this lab, you are going to implement the game Mastermind. It would be helpful to first review this set of lecture notes: <a href="../../notes/h.control1.pdf">Control Flow</a>, <a href="../../notes/h.basics2.pdf">Basics II</a>, <a href="../../notes/h.control2.pdf">Control II</a>.</p>
 
-      
+
 	<p> A skeleton code has been provided <a href="./lab2.cpp">here</a> to help you get started. Feel free to start from scratch without the use of skeleton if you wish.</p>
 	</div>
 
 
       <div class="container-fluid border-bottom my-5" id="Description">
         <h2 class="mt-4">Game Description</h2>
-          <p>We will be following the standard rules for the Mastermind game. 
+          <p>We will be following the standard rules for the Mastermind game.
           </p>
 
           <p>
-            The game involves two parties, a codemaker and a code breaker. The codemaker sets a code consisting of 4 colored pins and it is the codebreakers objective to guess the code in 12 guesses or less, with the codemaker providing hints after each turn. 
+            The game involves two parties, a codemaker and a code breaker. The codemaker sets a code consisting of 4 colored pins and it is the codebreakers objective to guess the code in 12 guesses or less, with the codemaker providing hints after each turn.
           </p>
 
 
@@ -119,9 +119,9 @@
 
 
           <p>After each turn, the codemaker gives hints to the code breaker.</p>
-          
+
           <ul>
-          
+
             <li>For each poisition guessed, if the color is the same as the code, the codemaker shows a red pin as a response</li>
 
             <li>If the color at the position is wrong, but the color appears at another position in the code, then the codemaker shows a white pin. </li>
@@ -146,7 +146,7 @@
 
             Red pins: 4, White pins: 0
           </pre>
-	  
+
  <p> Explanation: The fourth number, 4, matches with the first/second/third position of the code. Because we only consider each pin once, the feedback is 1 white pin.</p>
           <pre class="shadow p-3 mb-5 bg-white rounded">
             Coder maker's colors:
@@ -157,7 +157,7 @@
 
             Red pins: 0, White pins: 1
           </pre>
-	 
+
 <p> Explanation: The second number, 4, matches with the first position of the code (p0). The third guess is also a 4, but we have already considered p0. The feedback is 1 white pin.</p>
           <pre class="shadow p-3 mb-5 bg-white rounded">
             Coder maker's colors:
@@ -168,7 +168,7 @@
 
             Red pins: 0, White pins: 1
           </pre>
-	
+
 <p> Explanation: The first number, 4, matches with the first position of the code (p0). The second, third, and fourth guess is also a 4, but we have already considered p0. The feedback is 1 red pin.</p>
           <pre class="shadow p-3 mb-5 bg-white rounded">
             Coder maker's colors:
@@ -179,7 +179,7 @@
 
             Red pins: 1, White pins: 0
           </pre>
-	
+
 <p> Explanation: The first number, 4, matches with the first position of the code (p0). The second guess is also a 4, but we have already considered p0, and match with p3 instead. The third guess is a 4, but p0 and p3 have already been considered. The feedback is 1 red pin, 1 white pin</p>
           <pre class="shadow p-3 mb-5 bg-white rounded">
             Coder maker's colors:
@@ -190,10 +190,10 @@
 
             Red pins: 1, White pins: 1
           </pre>
-	
+
 
       </div>
-      
+
       <div class="container-fluid border-bottom my-5" id="Implementation">
         <h2 class="mt-4">Implementation</h2>
 
@@ -201,7 +201,7 @@
           <li>We assume the code is randomly selected by the codemaker. The colors are represented by the values 1-6</li>
 
           <li>During the start of each round, we ask the codebreaker to guess the 4 pin code. The player enters 4 numbers between 1-6 and separated by a space. We assume the input is given correctly and do not perform input validation </li>
-            
+
             <li>The guess is evaluated and the feedback is automatically given by the codemaker. The total number of Red and White pins are shown. </li>
 
           <li>If the codebreaker reaches the end of 12 turns, or the codebreaker guesses the code correctly, the game ends. </li>
@@ -211,7 +211,7 @@
 
       <div class="container-fluid border-bottom my-5" id="Output">
         <h2 class="mt-4">Sample Output</h2>
-      
+
         <p>You may use the skeleton code <a href="./lab2.cpp">here</a> to help you. Below is a sample execution of the game. The user input is hightighted in green. </p>
 
         <p>
@@ -222,51 +222,51 @@
   ==============================
   Coder maker's colors:
   p0=2    p1=2    p2=4    p3=5
-  
+
   Code maker has made his choice.
   Code breaker, you have 12 attempts to crack his code.
   Game starts!
-  
+
   Attempt 1
   Please input your guess:
   <span class="input">1 2 3 4 </span>
   Red pins: 1, White pins: 1
-  
+
   Attempt 2
-  Please input your guess:  
+  Please input your guess:
   <span class="input">1 2 5 6 </span>
   Red pins: 1, White pins: 1
-  
+
   Attempt 3
-  Please input your guess:  
+  Please input your guess:
   <span class="input">1 3 2 5 </span>
   Red pins: 1, White pins: 1
-  
+
   Attempt 4
-  Please input your guess:  
+  Please input your guess:
   <span class="input">4 2 5 6 </span>
   Red pins: 1, White pins: 2
-  
+
   Attempt 5
   Please input your guess:
   <span class="input">3 2 6 5 </span>
   Red pins: 2, White pins: 0
-  
+
   Attempt 6
   Please input your guess:
   <span class="input">6 2 6 5</span>
   Red pins: 2, White pins: 0
-  
+
   Attempt 7
   Please input your guess:
   <span class="input">4 2 3 5 </span>
   Red pins: 2, White pins: 1
-  
+
   Attempt 8
   Please input your guess:
   <span class="input">2 2 4 5 </span>
   Red pins: 4, White pins: 0
-  
+
   Congratulations!
   Coder maker's colors:
   p0=2    p1=2    p2=4    p3=5
@@ -291,14 +291,14 @@
 
           <div class="container-fluid border-bottom my-5" id="Grade">
             <h2 class="mt-4">Grading Scheme</h2>
-            <p>Each lab carries 3 points in total. 
+            <p>Each lab carries 3 points in total.
       <UL>
       <LI>
-      By attending a lab, the student gets 1 point for attendance (but only if it is clear that the student does put in some effort). 
+      By attending a lab, the student gets 1 point for attendance (but only if it is clear that the student does put in some effort).
       </LI>
       <LI>
       By completing the lab exercise correctly and answering TAs' question (if there is a
-      question) correctly, the student gets the remaining 2 more points. 
+      question) correctly, the student gets the remaining 2 more points.
       </LI>
       <LI>
       Please turn on your camera when demonstrating your work to the TA.

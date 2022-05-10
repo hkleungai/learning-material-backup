@@ -65,10 +65,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/">Course Webpage</a>
+              <a class="nav-link" href="../../index.html">Course Webpage</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://course.cse.ust.hk/comp2011/forum.html">Online Forum</a>
+              <a class="nav-link" href="../../forum.html">Online Forum</a>
             </li>
             <!--li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -94,9 +94,9 @@
 
       <div class="container-fluid border-bottom my-5" id="Intro">
         <h2 class="mt-4">Introduction</h2>
-        In this lab, we will use class to design a library management system.  
+        In this lab, we will use class to design a library management system.
         <br/>
-        In the library management system, we defined a class called Book to store all the information of a book, including name, number of pages, number of authors and author names. 
+        In the library management system, we defined a class called Book to store all the information of a book, including name, number of pages, number of authors and author names.
         Also, since the books are stored by a <b>linked list</b>, there would a pointer next pointing to the next book.
         <br/>
         To simplify, we use a string without space to store the names of books and authors. For example, if a name is "Abc Def Ghi", we use "Abc_Def_Ghi" to represent it.
@@ -104,9 +104,9 @@
 
       <div class="container-fluid border-bottom my-5" id="Description">
         <h2 class="mt-4">Description</h2>
-        
+
         <p>
-          
+
 
         To finish this lab, you have to first download <a href="lab10_skeleton.zip">lab10_skeleton.zip</a>. It contains
 		<ul>
@@ -118,74 +118,74 @@
 		All you need to do is to implement the member functions  of <b>Book</b> in Book.cpp.
   </br>
 </br>
-Note: Book.cpp is updated on May 6. If you have already started before that, you can simply add one line code to the beginning of the destructor: 
+Note: Book.cpp is updated on May 6. If you have already started before that, you can simply add one line code to the beginning of the destructor:
 <code>cout << "Delete the book titled \"" << name << "\"" << endl; </code>  This is the only difference between the new version and the original version.
 </br>
 </br>
-		
-    There are totally six testcases in this lab. You can compare the output of your code with the expected output locally by following steps: 
+
+    There are totally six testcases in this lab. You can compare the output of your code with the expected output locally by following steps:
     <ul>
       <li>In terminal, run "g++ main.cpp Book.cpp ManagementSystem.cpp -o lab10.exe -g -Wall -lm -std=c++11" to compile.</li>
       <li>In terminal, run "lab10.exe > out.txt"(for Windows) or "./lab10.exe > out.txt"(for MacOS or Linux) to put the output of your code into a file named "out.txt".</li>
-      <li>Then, input the index of the test case you would like to test. (We take test case 1 for example here)</li>                
+      <li>Then, input the index of the test case you would like to test. (We take test case 1 for example here)</li>
       <li>In terminal, run "fc out.txt TestCaseOutput1.txt"(for Windows) or "diff out.txt TestCaseOutput1.txt"(for MacOS or Linux) to compare your output with the expected output.</li>
       </ul>
     There is another way to compare your output with the expected output: you can simply copy your own output and the expected output and use some online tool to compare them. <a href="https://www.diffchecker.com"> Here</a> is a website you can use. If you are not fimiliar with terminal, this is highly recommended.
 
   </br>
-		
+
   Run the program and try it out!
 
 		</p>
-		
-        
-         
+
+
+
       </div>
-      
+
       <div class="container-fluid border-bottom my-5" id="Tasks">
         <h2 class="mt-4">Tasks</h2>
-        
+
 		<p> There are 5 tasks in book.cpp. Descriptions of tasks are provided below, instructions and some examples are also provided via comments in the skeleton codes.
 		</p>
 		<ul>
           <li><b>Task 1</b>: Constructor of a new book. </li>
           <p>
             In this part, all the information of a book including numPages, numAuthor, authorList, name, next will be initialized.
-            Note that next would be initialized as nullptr in the constructor, and its value would be set in main.cpp after a book is constructed. 
+            Note that next would be initialized as nullptr in the constructor, and its value would be set in main.cpp after a book is constructed.
             Alao, remember to allocate memory for variable name, numAuthor, and each element in the array numAuthor.
           </p>
 
           <li><b>Task 2</b>: Destructor to delete an existing book.
-          </li>       
+          </li>
           <p>
             In this part, all the memory allocated previously in the constructor should be deallocated.
             Note that for an array (e.g., numAuthor), the array as a whole and each element in the array should be deallocated respectively.
           </p>
-          
+
           <li><b>Task 3</b>: Search for and print out information of book(s) with a given name.
-          </li>       
+          </li>
           <p>
             Note that the strcmp function can be used to compare two strings.
             The function printSingleBookInfo() can be used to print out the information of a given book.
-            Since the books are stored in a linked list, next is a pointer to the next book. And for the last book, next should be nullptr.          
+            Since the books are stored in a linked list, next is a pointer to the next book. And for the last book, next should be nullptr.
           </p>
-          
+
           <li><b>Task 4</b>: Search for and print out information of book(s) of a given author.
-          </li>       
+          </li>
           <p>
             Note that the strcmp function can be used to compare two strings.
             The function printSingleBookInfo() can be used to print out the information of a given book.
-            Since the books are stored in a linked list, next is a pointer to the next book. And for the last book, next should be nullptr.          
+            Since the books are stored in a linked list, next is a pointer to the next book. And for the last book, next should be nullptr.
           </p>
 
           <li><b>Task 5</b>: Search for and delete book(s) of a given name.
-          </li>       
+          </li>
           <p>
             Note that the strcmp function can be used to compare two strings.
-            Since the books are stored in a linked list, next is a pointer to the next book. And for the last book, next should be nullptr.          
+            Since the books are stored in a linked list, next is a pointer to the next book. And for the last book, next should be nullptr.
           </br>
-          To simplify, in the function <code>deleteBookByName</code>, we would start from the second book. 
-          The case that the first book is a book to be deleted are handled in <code> ManagementSystem.cpp </code>.    
+          To simplify, in the function <code>deleteBookByName</code>, we would start from the second book.
+          The case that the first book is a book to be deleted are handled in <code> ManagementSystem.cpp </code>.
         </p>
           <p>
 
@@ -219,8 +219,8 @@ Note: Book.cpp is updated on May 6. If you have already started before that, you
               <li>Do not hardcode your solution for the given test cases.</li>
 
           </ul>
-        
-        
+
+
 
       </div>
 
@@ -229,7 +229,7 @@ Note: Book.cpp is updated on May 6. If you have already started before that, you
 
 
 
-        <p>You are required to submit your solution to our auto-grading system <code>ZINC</code> (<a href="https://zinc.cse.ust.hk/assignments">ZINC</a >).</p > 
+        <p>You are required to submit your solution to our auto-grading system <code>ZINC</code> (<a href="https://zinc.cse.ust.hk/assignments">ZINC</a >).</p >
         <!-- (<b>The ZINC submission entry for Lab10 will be open sometime later as announced.</b> You may already start working on the assignment, but you may submit later.)<br><br> -->
 
           <!-- <p>You can also test your program on <code>ZINC</code>.</p > -->
@@ -238,7 +238,7 @@ Note: Book.cpp is updated on May 6. If you have already started before that, you
             <p>The deadline of submission is 12:00pm (<font style="color:red"><b>NOON</b></font>), 11th May 2022</p >
 
 
-              
+
           <ul>
               <li>You may submit your file multiple times, but only the latest version will be graded.</li>
               <li>Submit early to avoid any last-minute problem. Only <code>ZINC</code> submissions will be accepted.</li>
@@ -246,7 +246,7 @@ Note: Book.cpp is updated on May 6. If you have already started before that, you
               <!-- <li>You should check the grading report after each submission to make sure it can be compiled and gives correct output.</li> -->
           </ul>
 
-          
+
           <p>It is <strong>required</strong> that your submissions can be compiled and run successfully in our online auto-grader <code>ZINC</code>. If we cannot even compile your work, it won&apos;t be graded. Therefore, for parts that you cannot
               finish, just put in dummy/empty implementation so that your whole program can be compiled for <code>ZINC</code> to grade the other parts that you have done.<!--  <strong>Again, you should wait for and check the grading report after each submission to <code>ZINC</code>.</strong> --></p >
 <br><br><hr>
