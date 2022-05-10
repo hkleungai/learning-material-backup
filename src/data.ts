@@ -67,7 +67,7 @@ const categorizedCourses: CategorizedCourse[] = [
         code: 'COMP 102',
         description: 'Introduction to computers and programming. Computer hardware and software. Problem solving. Program design. Procedural abstraction. Debugging and testing. Simple and structured data types. Recursive programming. Introduction to searching and sorting.',
         title: 'Computer and Programming Fundamentals I',
-        semesters: ['Spring 1998'],
+        semesters: ['Summer 1996', 'Spring 1998'],
       },
       {
         code: 'COMP 1021',
