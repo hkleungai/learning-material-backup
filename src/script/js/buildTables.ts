@@ -46,9 +46,9 @@ const buildCourseRow = ({ code, description, semesters, title }: Course): string
 
 const buildCategoryTable = (category: string, courses: Course[]): string => (
   /* html */`
-  <div class="main-content">
-    <h3 class="category">${category}</h3>
-      <table class="course-list">
+  <div class="category">
+    <h3 class="category-title">${category}</h3>
+      <table class="courses">
         <tr>
           <th>Code</th>
           <th>Title / Content</th>
@@ -61,8 +61,15 @@ const buildCategoryTable = (category: string, courses: Course[]): string => (
   `
 );
 
-const buildTable = (categorizedCourses: CategorizedCourse[]) => (
-  categorizedCourses
-    .map(({ category, courses }) => buildCategoryTable(category, courses))
-    .join('\n')
-);
+const buildTables = (
+  categorizedPreCourses: Categorized<PreCourse>[],
+  fetchedCourses: Record<Course['code'], Omit<Course, 'semesters'>>,
+) => {
+  const buildCourse = (
+    ({ code, semesters }: PreCourse) => ({ ...fetchedCourses[code], semesters })
+  );
+  const tables = categorizedPreCourses.map(
+    ({ category, courses }) => buildCategoryTable(category, courses.map(buildCourse))
+  );
+  return tables.join('\n');
+};

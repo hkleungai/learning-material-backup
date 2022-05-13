@@ -1,3 +1,14 @@
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var buildSemesterCell = function (code, semester) {
     var link = "./".concat(code, " ").concat(semester, "/index.html").replace(/\s/g, '-');
     return (
@@ -13,10 +24,15 @@ var buildCourseRow = function (_a) {
     return rows.join('\n');
 };
 var buildCategoryTable = function (category, courses) { return (
-/* html */ "\n  <div class=\"main-content\">\n    <h3 class=\"category\">".concat(category, "</h3>\n      <table class=\"course-list\">\n        <tr>\n          <th>Code</th>\n          <th>Title / Content</th>\n          <th>Semester</th>\n        </tr>\n        ").concat(courses.map(buildCourseRow).join('\n'), "\n      </table>\n    </h3>\n  </div>\n  ")); };
-var buildTable = function (categorizedCourses) { return (categorizedCourses
-    .map(function (_a) {
-    var category = _a.category, courses = _a.courses;
-    return buildCategoryTable(category, courses);
-})
-    .join('\n')); };
+/* html */ "\n  <div class=\"category\">\n    <h3 class=\"category-title\">".concat(category, "</h3>\n      <table class=\"courses\">\n        <tr>\n          <th>Code</th>\n          <th>Title / Content</th>\n          <th>Semester</th>\n        </tr>\n        ").concat(courses.map(buildCourseRow).join('\n'), "\n      </table>\n    </h3>\n  </div>\n  ")); };
+var buildTables = function (categorizedPreCourses, fetchedCourses) {
+    var buildCourse = (function (_a) {
+        var code = _a.code, semesters = _a.semesters;
+        return (__assign(__assign({}, fetchedCourses[code]), { semesters: semesters }));
+    });
+    var tables = categorizedPreCourses.map(function (_a) {
+        var category = _a.category, courses = _a.courses;
+        return buildCategoryTable(category, courses.map(buildCourse));
+    });
+    return tables.join('\n');
+};
