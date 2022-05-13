@@ -1,0 +1,113 @@
+#include <iostream.h>
+#include <string.h>
+#include <fstream.h>
+#include <iomanip.h>
+#include <stdlib.h>
+
+#define MAX_SIZE 100
+#define in_file "class102.dat"
+
+struct Date {
+   int day;
+   int month;
+   int year;
+};
+struct Student {
+   char name[20];
+   Date birthdate;
+   int score[5];
+};
+struct Classlist {
+   Student clist[MAX_SIZE];
+   int no_tests;
+   int size;
+};
+
+int age (Date, int, Classlist);
+void in_class (ifstream&, Classlist&);
+double average (int, Classlist);
+
+void main ( ) {
+   Date today = {1, 5, 1997};
+   Classlist Class102;
+   ifstream ins;
+
+   cout << "Enter number of tests: ";
+   cin >> Class102.no_tests;
+   cout << "Enter number of students: ";
+   cin >> Class102.size;
+
+   ins.open(in_file);
+   if (ins.fail()) {
+     cout << "ERROR: Input file opening failed.\n";
+     exit(1);
+   }
+
+   // Input data from input file
+   in_class(ins, Class102);
+
+   // Output name, age and average test score for each student
+   // To be completed
+
+   ins.close();
+}
+
+int age(Date today, int i, Classlist Class) {
+
+   if (i < Class.size) {
+	 if (Class.clist[i].birthdate.month <= today.month) {
+	   if (Class.clist[i].birthdate.month == today.month &&
+	       Class.clist[i].birthdate.day > today.day)
+		return (today.year - Class.clist[i].birthdate.year - 1);
+	   else
+		return (today.year - Class.clist[i].birthdate.year);
+           }
+	 else
+		return (today.year - Class.clist[i].birthdate.year - 1);
+   }
+   else   {
+	 cout << "ERROR: Index out-of-range.\n";
+	 return 0;
+   }
+}
+
+void in_class(ifstream& ins, Classlist& Class) {
+   char temp, j;
+
+   for (int i=0; i<Class.size; i++) {
+      // Read student name from input file
+      ins.get(temp);
+      j = 0;
+      while (temp != '/' && j < 19) {
+	 Class.clist[i].name[j] = temp;
+	 ins.get(temp);
+	 j++;
+      }
+      Class.clist[i].name[j] = '\0';
+
+      // Read birthdate from input file
+      ins >> Class.clist[i].birthdate.day;
+      ins >> Class.clist[i].birthdate.month;
+      ins >> Class.clist[i].birthdate.year;
+
+      // Read test scores from input file
+      for (int k=0; k < Class.no_tests; k++)
+	 ins >> Class.clist[i].score[k];
+
+      ins.get(temp);
+   }
+}
+
+
+/* Data file
+Chan Tai Man/ 10 9 1975 60 70 80
+Cheng Hong Chung/ 5 8 1976 70 84 65
+Chung Lok Hang/ 12 7 1973 81 87 98
+Fung Kwok Kay/ 26 12 1972 100 100 100
+Lam Yuk Yee/ 8 5 1971 91 86 83
+Poon Wai Wah/ 7 8 1975 56 77 74
+Pang Wing Sum/ 30 8 1973 84 59 74
+Tam Ka Hung/ 19 11 1975 100 95 99
+Wong Tak Sun/ 20 3 1974 83 54 71
+Wong Siu Wing/ 1 5 1972 75 85 95
+*/

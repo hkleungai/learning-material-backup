@@ -8,8 +8,9 @@ var buildCourseRow = function (_a) {
     var _b = semesters.map(function (semester) { return buildSemesterCell(code, semester); }), firstCell = _b[0], extraCells = _b.slice(1);
     var firstRow = (
     /* html */ "\n    <tr>\n      <td\n        class=\"course-code\"\n        rowSpan=\"".concat(semesters.length, "\"\n      >\n        ").concat(code, "\n      </td>\n      <td\n        class=\"course-content\"\n        rowSpan=\"").concat(semesters.length, "\"\n      >\n        <div class=\"course-content\">\n          <div class=\"course-title\">\n            <div>").concat(title, "</div>\n            <div class=\"course-description-toggle\">\u2795</div>\n          </div>\n          <div class=\"course-description\">\n            <br/>\n            ").concat(description, "\n          </div>\n        </div>\n      </td>\n      ").concat(firstCell, "\n    </tr>\n    "));
-    var extraRows = extraCells.map(function (semester) { /* html */ return "<tr>".concat(semester, "</tr>"); });
-    return "".concat(firstRow, "\n").concat(extraRows);
+    var rows = extraCells.map(function (semester) { /* html */ return "<tr>".concat(semester, "</tr>"); });
+    rows.unshift(firstRow);
+    return rows.join('\n');
 };
 var buildCategoryTable = function (category, courses) { return (
 /* html */ "\n  <div class=\"main-content\">\n    <h3 class=\"category\">".concat(category, "</h3>\n      <table class=\"course-list\">\n        <tr>\n          <th>Code</th>\n          <th>Title / Content</th>\n          <th>Semester</th>\n        </tr>\n        ").concat(courses.map(buildCourseRow).join('\n'), "\n      </table>\n    </h3>\n  </div>\n  ")); };

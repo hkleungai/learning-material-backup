@@ -39,8 +39,9 @@ const buildCourseRow = ({ code, description, semesters, title }: Course): string
     </tr>
     `
   );
-  const extraRows = extraCells.map(semester => /* html */`<tr>${semester}</tr>`);
-  return `${firstRow}\n${extraRows}`
+  const rows = extraCells.map(semester => /* html */`<tr>${semester}</tr>`);
+  rows.unshift(firstRow);
+  return rows.join('\n');
 };
 
 const buildCategoryTable = (category: string, courses: Course[]): string => (
