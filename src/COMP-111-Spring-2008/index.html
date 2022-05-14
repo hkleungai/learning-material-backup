@@ -1,0 +1,1831 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:st1="urn:schemas-microsoft-com:office:smarttags"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 11">
+<meta name=Originator content="Microsoft Word 11">
+<link rel=File-List href="index_files/filelist.xml">
+<link rel=Edit-Time-Data href="index_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>COMP111 Unix and Script Programming</title>
+<o:SmartTagType namespaceuri="urn:schemas-microsoft-com:office:smarttags"
+ name="place"/>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Qiang Yang</o:Author>
+  <o:Template>Normal</o:Template>
+  <o:LastAuthor>Huamin Qu</o:LastAuthor>
+  <o:Revision>47</o:Revision>
+  <o:TotalTime>2024</o:TotalTime>
+  <o:Created>2007-01-26T14:33:00Z</o:Created>
+  <o:LastSaved>2008-04-24T15:43:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>1428</o:Words>
+  <o:Characters>8144</o:Characters>
+  <o:Company>HKUST</o:Company>
+  <o:Lines>67</o:Lines>
+  <o:Paragraphs>19</o:Paragraphs>
+  <o:CharactersWithSpaces>9553</o:CharactersWithSpaces>
+  <o:Version>11.9999</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Zoom>BestFit</w:Zoom>
+  <w:PunctuationKerning/>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:Compatibility>
+   <w:BreakWrappedTables/>
+   <w:SnapToGridInCell/>
+   <w:WrapTextWithPunct/>
+   <w:UseAsianBreakRules/>
+   <w:DontGrowAutofit/>
+   <w:UseFELayout/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" LatentStyleCount="156">
+ </w:LatentStyles>
+</xml><![endif]--><!--[if !mso]><object
+ classid="clsid:38481807-CA0E-42D2-BF39-B33AF135CC4D" id=ieooui></object>
+<style>
+st1\:*{behavior:url(#ieooui) }
+</style>
+<![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:����;
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-alt:SimSun;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 135135232 16 0 262145 0;}
+@font-face
+	{font-family:"Arial Black";
+	panose-1:2 11 10 4 2 1 2 2 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:647 0 0 0 159 0;}
+@font-face
+	{font-family:"\@����";
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 135135232 16 0 262145 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:����;}
+h3
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:3;
+	font-size:13.0pt;
+	font-family:Arial;
+	font-weight:bold;}
+h4
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:4;
+	font-size:14.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:����;}
+p.style11, li.style11, div.style11
+	{mso-style-name:style11;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:����;}
+span.style14
+	{mso-style-name:style14;
+	mso-ansi-font-size:10.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:Arial;
+	mso-ascii-font-family:Arial;
+	mso-hansi-font-family:Arial;
+	mso-bidi-font-family:Arial;}
+span.style21
+	{mso-style-name:style21;
+	color:fuchsia;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:264964358;
+	mso-list-template-ids:-832519818;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l0:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1
+	{mso-list-id:1004236790;
+	mso-list-template-ids:-513743400;}
+@list l1:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l1:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2
+	{mso-list-id:1074814625;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-62244806 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l2:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l2:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3
+	{mso-list-id:1692802492;
+	mso-list-template-ids:-1113425028;}
+@list l3:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l3:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4
+	{mso-list-id:2007711359;
+	mso-list-template-ids:-1672308990;}
+@list l4:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l4:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+table.MsoTableGrid
+	{mso-style-name:"Table Grid";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	border:solid windowtext 1.0pt;
+	mso-border-alt:solid windowtext .5pt;
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-border-insideh:.5pt solid windowtext;
+	mso-border-insidev:.5pt solid windowtext;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="23554"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body lang=EN-US link=blue vlink=purple style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0 width="100%"
+ style='width:100.0%;border-collapse:collapse;mso-yfti-tbllook:480;mso-padding-alt:
+ 0in 5.4pt 0in 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width="100%" valign=top style='width:100.0%;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  style='font-size:24.0pt'>COMP111 Unix and Script Programming<span
+  style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></b></p>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-size:18.0pt;mso-bidi-font-weight:bold'>Spring 2008<o:p></o:p></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-size:18.0pt;mso-bidi-font-weight:bold'><o:p>&nbsp;</o:p></span></p>
+  <p class=MsoNormal align=center style='text-align:center'>Lectures: Monday
+  &amp; Wednesday 9:00 �C 9:50<span style='mso-spacerun:yes'>&nbsp; </span>Rm
+  2502</p>
+  <p class=MsoNormal align=center style='text-align:center'>Office Hours:
+  Tuesday &amp; Thursday 16:30 �C 17:30<span style='mso-spacerun:yes'>&nbsp;
+  </span>Rm 3508</p>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=FR
+  style='mso-ansi-language:FR'><a href="http://www.cs.ust.hk/~huamin">Huamin Qu</a>
+  (Email: </span><a href="mailto:huamin@cs.ust.hk"><span lang=FR
+  style='mso-ansi-language:FR'>huamin (at) cs dot ust dot hk</span></a><span
+  style='mso-ansi-language:FR'> </span>)</p>
+  <p class=MsoNormal align=center style='text-align:center'><o:p>&nbsp;</o:p></p>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-family:"Arial Black"'>| <a
+  href="#schedule">Schedule &amp;
+  Notes</a><span style='mso-spacerun:yes'>&nbsp; </span>| <span
+  style='mso-bidi-font-weight:bold'><a
+  href="http://www.ust.hk/cgi-bin/ccst/dnews/dnewsweb?cmd=xover&amp;group=hkust.cs.class.111&amp;from=&amp;utag=&#8834;=y">Newsgroup</a></span>
+  | </span></p>
+  <p class=MsoNormal><o:p>&nbsp;</o:p></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width="100%" valign=top style='width:100.0%;padding:0in 5.4pt 0in 5.4pt'>
+  <h3 align=center style='text-align:center'>
+  <hr size=2 width="100%" align=center>
+  </h3>
+  <h3 style='mso-outline-level:3'>Announcements:<span style='mso-fareast-font-family:
+  "Times New Roman"'><o:p></o:p></span></h3>
+  <ul type=disc>
+   <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+       auto;mso-list:l0 level1 lfo1;tab-stops:list .5in'>The final project
+       presentation schedule is available now. Please check the lecture schedule
+       for the last few weeks. </li>
+   <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+       auto;mso-list:l0 level1 lfo1;tab-stops:list .5in'>The final project is
+       due at 23:59pm, Apr. 27 (Sunday).</li>
+   <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+       auto;mso-list:l0 level1 lfo1;tab-stops:list .5in'>The midterm exam of
+       COMP111 is scheduled at 7pm �C 9pm on Apr. 18 (Fri).<span
+       style='mso-spacerun:yes'>&nbsp;&nbsp; </span>The venue is LTJ<span
+       style='font-size:10.0pt'>.</span></li>
+   <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+       auto;mso-list:l0 level1 lfo1;tab-stops:list .5in'>No labs<span
+       style='mso-spacerun:yes'>&nbsp; </span>on 1 Feb and 8 Feb</li>
+   <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+       auto;mso-list:l0 level1 lfo1;tab-stops:list .5in'>Welcome!</li>
+  </ul>
+  <h3>Schedule:<a name=schedule></a></h3>
+  <p class=MsoNormal><o:p>&nbsp;</o:p></p>
+  <table class=MsoNormalTable border=1 cellspacing=3 cellpadding=0 width=1176
+   style='width:705.45pt;mso-cellspacing:1.5pt;margin-left:35.75pt;border:outset 3.0pt;
+   mso-padding-alt:0in 5.4pt 0in 5.4pt'>
+   <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:12.0pt'>
+    <td width=78 style='width:.65in;padding:.75pt .75pt .75pt .75pt;height:
+    12.0pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>Week</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=76 style='width:45.4pt;padding:.75pt .75pt .75pt .75pt;
+    height:12.0pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>Lect.</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=104 style='width:62.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:12.0pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>Date</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=277 style='width:166.0pt;padding:.75pt .75pt .75pt .75pt;
+    height:12.0pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>Topic/Notes</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=103 style='width:61.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:12.0pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>Book</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=73 style='width:43.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:12.0pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>Quiz</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=148 style='width:88.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:12.0pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>Lab</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=296 valign=top style='width:177.75pt;padding:0in 5.4pt 0in 5.4pt;
+    height:12.0pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>Links<o:p></o:p></span></b></p>
+    </td>
+   </tr>
+   <tr style='mso-yfti-irow:1;height:26.35pt'>
+    <td width=78 valign=top style='width:.65in;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>1</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=76 valign=top style='width:45.4pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>1<br>
+    2</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=104 valign=top style='width:62.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>&nbsp;4 Feb<br>
+    &nbsp;6 Feb</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=277 valign=top style='width:166.0pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:Arial'><a
+    href="./notes/unixIntro.ppt">Intro to Unix</a><br>
+    <a href="./notes/unixUtilities.ppt">Unix
+    utilities</a></span></b><a
+    href="./notes/unixUtilities.ppt"><b><span
+    style='font-size:10.0pt;font-family:Arial'> </span></b></a><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=103 valign=top style='width:61.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>U1,2<br>
+    U3</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=73 valign=top style='width:43.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><a href="quiz/q1.txt">Q1</a></span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=148 valign=top style='width:88.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>Holiday<br>
+    No lab</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=296 valign=top style='width:177.75pt;padding:0in 5.4pt 0in 5.4pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><a
+    href="http://www.levenez.com/unix">Unix History</a><o:p></o:p></span></b></p>
+    </td>
+   </tr>
+   <tr style='mso-yfti-irow:2;height:26.35pt'>
+    <td width=78 valign=top style='width:.65in;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>2</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=76 valign=top style='width:45.4pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>3<br>
+    4 </span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=104 valign=top style='width:62.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>11 Feb<br>
+    13 Feb</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=277 valign=top style='width:166.0pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:Arial'><a
+    href="./notes/unixFiles.ppt">Unix file
+    system</a></span></b><br>
+    <a href="./notes/shell.ppt"></a><b><span
+    style='font-size:10.0pt;font-family:Arial'><a
+    href="./notes/links.ppt">Links</a>, <a
+    href="./notes/shell.ppt">Shell</a></span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=103 valign=top style='width:61.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>U4<br>
+    U4,5 </span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=73 valign=top style='width:43.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='margin-bottom:12.0pt;text-align:
+    center'><b><span style='font-size:10.0pt;font-family:Arial'><a
+    href="quiz/q2.txt">Q2</a></span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=148 valign=top style='width:88.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><a
+    href="http://www.cse.ust.hk/~chuckjee/comp111labs/lab2.html"><span
+    style='mso-spacerun:yes'>&nbsp;</span>Lab 1 &amp; 2</a> <br
+    style='mso-special-character:line-break'>
+    <![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+    <![endif]></span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=296 valign=top style='width:177.75pt;padding:0in 5.4pt 0in 5.4pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><a
+    href="http://www-personal.umich.edu/~rmutt/doc/pronunciation-guide.html">Pronunciation
+    Guide</a><o:p></o:p></span></b></p>
+    </td>
+   </tr>
+   <tr style='mso-yfti-irow:3;height:26.35pt'>
+    <td width=78 valign=top style='width:.65in;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>3</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=76 valign=top style='width:45.4pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>5<br>
+    6</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=104 valign=top style='width:62.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>18 Feb<br>
+    20 Feb</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=277 valign=top style='width:166.0pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:Arial'><a
+    href="./notes/shellProg.ppt">Shell
+    programming</a></span></b><br>
+    <b><span style='font-size:10.0pt;font-family:Arial'><a
+    href="./notes/shellProg2.ppt">Shell
+    programming</a></span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=103 valign=top style='width:61.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>U10<br>
+    U10 </span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=73 valign=top style='width:43.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><a href="quiz/q3.txt">Q3</a></span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=148 valign=top style='width:88.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><a
+    href="http://www.cse.ust.hk/~chuckjee/comp111labs/lab3.html">Lab 3</a><br
+    style='mso-special-character:line-break'>
+    <![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+    <![endif]></span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=296 valign=top style='width:177.75pt;padding:0in 5.4pt 0in 5.4pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><a
+    href="http://cfaj.freeshell.org/shell/resources.shtml">Shell Resources</a><o:p></o:p></span></b></p>
+    </td>
+   </tr>
+   <tr style='mso-yfti-irow:4;height:38.35pt'>
+    <td width=78 valign=top style='width:.65in;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>4</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=76 valign=top style='width:45.4pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='margin-bottom:12.0pt;text-align:
+    center'><b><span style='font-size:10.0pt;font-family:Arial'>7<br>
+    8</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=104 valign=top style='width:62.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>25 Feb<br>
+    27 Feb</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=277 valign=top style='width:166.0pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:Arial'><a
+    href="./notes/perlIntro.ppt">Into to Perl</a>,
+    </span></b><a href="./notes/perlIntro.ppt"></a><b><span
+    style='font-size:10.0pt;font-family:Arial'><a
+    href="./notes/perlBasics.ppt"></a></span></b><br>
+    <b><span style='font-size:10.0pt;font-family:Arial'><a
+    href="./notes/perlBasics.ppt">Perl Basics</a></span></b><a
+    href="./notes/shellProg2.ppt"><span
+    style='color:fuchsia'><br>
+    </span></a><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=103 valign=top style='width:61.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='margin-bottom:12.0pt;text-align:
+    center'><b><span style='font-size:10.0pt;font-family:Arial'>P1<br>
+    P2<o:p></o:p></span></b></p>
+    </td>
+    <td width=73 valign=top style='width:43.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><a href="quiz/q4.txt">Q4</a></span></b><a
+    href="./quiz/q6.txt"></a><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=148 valign=top style='width:88.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><a
+    href="http://www.cse.ust.hk/~chuckjee/comp111labs/lab4.html">Lab 4</a></span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=296 valign=top style='width:177.75pt;padding:0in 5.4pt 0in 5.4pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><o:p>&nbsp;</o:p></span></b></p>
+    </td>
+   </tr>
+   <tr style='mso-yfti-irow:5;height:38.35pt'>
+    <td width=78 valign=top style='width:.65in;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>5</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=76 valign=top style='width:45.4pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>9<br>
+    10<br style='mso-special-character:line-break'>
+    <![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+    <![endif]></span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=104 valign=top style='width:62.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>&nbsp;3 Mar<br>
+    &nbsp;5 Mar</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=277 valign=top style='width:166.0pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:Arial'><a
+    href="./notes/perlArrays.ppt">Perl arrays
+    and lists</a><br>
+    <a href="./notes/perlControl.ppt">Perl
+    control flow</a></span></b><a
+    href="./notes/perlArrays.ppt"><span
+    style='color:fuchsia'><br>
+    </span></a><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=103 valign=top style='width:61.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>P3</span></b><br>
+    <b><span style='font-size:10.0pt;font-family:Arial'>P4,9<br
+    style='mso-special-character:line-break'>
+    <![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+    <![endif]></span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=73 valign=top style='width:43.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><a href="quiz/q5.txt">Q5</a></span></b><br>
+    <b><span style='font-size:10.0pt;font-family:Arial'><a
+    href="./quiz/q7.txt"><span
+    style='color:fuchsia'><br>
+    </span></a></span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=148 valign=top style='width:88.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><a
+    href="http://www.cse.ust.hk/~chuckjee/comp111labs/lab5.html">Lab 5</a><br
+    style='mso-special-character:line-break'>
+    <![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+    <![endif]></span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=296 valign=top style='width:177.75pt;padding:0in 5.4pt 0in 5.4pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><o:p>&nbsp;</o:p></span></b></p>
+    </td>
+   </tr>
+   <tr style='mso-yfti-irow:6;height:38.35pt'>
+    <td width=78 valign=top style='width:.65in;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>6</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=76 valign=top style='width:45.4pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>11<br>
+    12</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=104 valign=top style='width:62.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>&nbsp;10 Mar<br>
+    12 Mar</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=277 valign=top style='width:166.0pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:Arial'><a
+    href="./notes/perlIO.ppt">Perl i/o</a>, <a
+    href="./notes/perlFiles.ppt">Perl file i/o</a></span></b><br>
+    <a href="./notes/perlHashes.ppt"></a><a
+    href="./notes/perlIO.ppt"></a><b><span
+    style='font-size:10.0pt;font-family:Arial'><a
+    href="./notes/perlFunctions.ppt">Perl
+    functions</a>, <a href="./notes/make.ppt">Makefiles</a>,</span></b><br>
+    <b><span style='font-size:10.0pt;font-family:Arial'><a
+    href="./notes/perlFiles.ppt"></a></span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=103 valign=top style='width:61.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>P6,10<br>
+    P8</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=73 valign=top style='width:43.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><a href="quiz/q6.txt">Q6</a></span></b><br>
+    <b><span style='font-size:10.0pt;font-family:Arial'><a
+    href="./quiz/q6.txt"><span
+    style='color:fuchsia'><br>
+    </span></a></span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=148 valign=top style='width:88.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><br>
+    <a href="http://www.cse.ust.hk/~chuckjee/comp111labs/lab6.html">Lab 6</a></span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=296 valign=top style='width:177.75pt;padding:0in 5.4pt 0in 5.4pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><o:p>&nbsp;</o:p></span></b></p>
+    </td>
+   </tr>
+   <tr style='mso-yfti-irow:7;height:26.35pt'>
+    <td width=78 valign=top style='width:.65in;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>7</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=76 valign=top style='width:45.4pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>13<br>
+    14</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=104 valign=top style='width:62.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>17 Mar<br>
+    19 Mar</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=277 valign=top style='width:166.0pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:Arial'><a
+    href="./notes/perlHashes.ppt">Perl hashes, </a></span></b><br>
+    <a href="./notes/perlHashes.ppt"></a><b><span
+    style='font-size:10.0pt;font-family:Arial'><a
+    href="./notes/regExp.ppt">Regular
+    expressions</a></span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=103 valign=top style='width:61.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>P5<br>
+    P7</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=73 valign=top style='width:43.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><a href="quiz/q7.txt">Q7</a></span></b><a
+    href="./quiz/q9.txt"></a><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=148 valign=top style='width:88.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:Arial'><span
+    style='mso-spacerun:yes'>&nbsp;&nbsp; </span>Study Break<span
+    style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></b></p>
+    <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:Arial'><span
+    style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </span>No lab</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=296 valign=top style='width:177.75pt;padding:0in 5.4pt 0in 5.4pt;
+    height:26.35pt'>
+    <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:Arial'><o:p>&nbsp;</o:p></span></b></p>
+    </td>
+   </tr>
+   <tr style='mso-yfti-irow:8;height:38.35pt'>
+    <td width=78 valign=top style='width:.65in;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>7</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=76 valign=top style='width:45.4pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:aqua'><o:p>&nbsp;</o:p></span></p>
+    </td>
+    <td width=104 valign=top style='width:62.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>24 Mar<br>
+    26 Mar</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=277 valign=top style='width:166.0pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:Arial'>No
+    class (Mid-Semester Break)<o:p></o:p></span></b></p>
+    <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:Arial'>No
+    class (Mid-Semester Break)</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=103 valign=top style='width:61.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:aqua'><o:p>&nbsp;</o:p></span></p>
+    </td>
+    <td width=73 valign=top style='width:43.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><br>
+    <b><span style='font-size:10.0pt;font-family:Arial'><a
+    href="./quiz/q8.txt"><span
+    style='color:fuchsia'><br>
+    </span></a></span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=148 valign=top style='width:88.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><o:p>&nbsp;</o:p></span></b></p>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><a
+    href="http://www.cse.ust.hk/~chuckjee/comp111labs/lab7.html">Lab 7</a></span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=296 valign=top style='width:177.75pt;padding:0in 5.4pt 0in 5.4pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><o:p>&nbsp;</o:p></span></b></p>
+    </td>
+   </tr>
+   <tr style='mso-yfti-irow:9;height:50.45pt'>
+    <td width=78 valign=top style='width:.65in;padding:.75pt .75pt .75pt .75pt;
+    height:50.45pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>8</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=76 valign=top style='width:45.4pt;padding:.75pt .75pt .75pt .75pt;
+    height:50.45pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>15<br>
+    16</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=104 valign=top style='width:62.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:50.45pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>31 Mar<br>
+    <span style='mso-spacerun:yes'>&nbsp;</span>2 Apr</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=277 valign=top style='width:166.0pt;padding:.75pt .75pt .75pt .75pt;
+    height:50.45pt'>
+    <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:Arial'>Regular
+    expressions</span></b><br>
+    <b><span style='font-size:10.0pt;font-family:Arial'><a
+    href="./notes/perlDir.ppt">Perl directory
+    access</a>, <a
+    href="./notes/perlProcMgt.ppt">Perl process
+    management</a></span></b><a
+    href="./notes/perlIO.ppt"><span
+    style='color:fuchsia'><br>
+    </span></a><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=103 valign=top style='width:61.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:50.45pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>P7<br>
+    P12-13,14</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=73 valign=top style='width:43.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:50.45pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><a href="quiz/q8.txt">Q8</a></span></b><br>
+    <b><span style='font-size:10.0pt;font-family:Arial'><a
+    href="./quiz/q9.txt"><span
+    style='color:fuchsia'><br>
+    </span></a></span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=148 valign=top style='width:88.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:50.45pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>Holiday<br>
+    No lab</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=296 valign=top style='width:177.75pt;padding:0in 5.4pt 0in 5.4pt;
+    height:50.45pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><o:p>&nbsp;</o:p></span></b></p>
+    </td>
+   </tr>
+   <tr style='mso-yfti-irow:10;height:38.35pt'>
+    <td width=78 valign=top style='width:.65in;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>9</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=76 valign=top style='width:45.4pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>17<br>
+    18</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=104 valign=top style='width:62.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>&nbsp;7 Apr<br>
+    &nbsp;9 Apr</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=277 valign=top style='width:166.0pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:Arial'><a
+    href="./notes/HTML/index.html">HTML</a></span></b><br>
+    <b><span style='font-size:10.0pt;font-family:Arial'><a
+    href="./notes/perlCGI.ppt">CGI in Perl</a>,
+    <a href="./notes/perlCGI2.ppt">CGI2</a></span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=103 valign=top style='width:61.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>P19<br>
+    P19</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=73 valign=top style='width:43.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><br>
+    <b><span style='font-size:10.0pt;font-family:Arial'><a
+    href="./quiz/q11.txt"><span
+    style='color:fuchsia'><br>
+    </span></a></span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=148 valign=top style='width:88.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><a
+    href="http://www.cse.ust.hk/~chuckjee/comp111labs/lab8.html">Lab 8</a></span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=296 valign=top style='width:177.75pt;padding:0in 5.4pt 0in 5.4pt;
+    height:38.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><o:p>&nbsp;</o:p></span></b></p>
+    </td>
+   </tr>
+   <tr style='mso-yfti-irow:11;height:48.2pt'>
+    <td width=78 valign=top style='width:.65in;padding:.75pt .75pt .75pt .75pt;
+    height:48.2pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>10</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=76 valign=top style='width:45.4pt;padding:.75pt .75pt .75pt .75pt;
+    height:48.2pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>19<br>
+    <br>
+    <br>
+    20</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=104 valign=top style='width:62.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:48.2pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>14 Apr<o:p></o:p></span></b></p>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><br>
+    16 Apr<o:p></o:p></span></b></p>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><o:p>&nbsp;</o:p></span></b></p>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>18 Apr<o:p></o:p></span></b></p>
+    </td>
+    <td width=277 valign=top style='width:166.0pt;padding:.75pt .75pt .75pt .75pt;
+    height:48.2pt'>
+    <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:Arial'><a
+    href="./notes/serverPush.ppt">Server Push
+    &amp; Client Pull</a>, <o:p></o:p></span></b></p>
+    <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:Arial'><o:p>&nbsp;</o:p></span></b></p>
+    <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:Arial'>Review
+    </span></b><a href="./notes/serverPush.ppt"><b><span
+    style='font-size:10.0pt;font-family:Arial'>(</span></b></a><b><span
+    style='font-size:10.0pt;font-family:Arial'><a
+    href="./exams/midterm-Fall2006.doc">old
+    midterm</a>, <a
+    href="./exams/final-Fall2006.doc">old final</a></span></b><a
+    href="./notes/serverPush.ppt"><b><span
+    style='font-size:10.0pt;font-family:Arial'>)</span></b></a></p>
+    <p class=MsoNormal><o:p>&nbsp;</o:p></p>
+    <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:Arial'>Midterm
+    </span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=103 valign=top style='width:61.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:48.2pt'>
+    <p class=MsoNormal align=center style='margin-bottom:12.0pt;text-align:
+    center'><b><span style='font-size:10.0pt;font-family:Arial'>P19</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=73 valign=top style='width:43.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:48.2pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><a
+    href="./quiz/q13.txt"><span
+    style='color:fuchsia'><br>
+    </span></a></span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=148 valign=top style='width:88.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:48.2pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><a
+    href="./labs/lab9/lab9.html"><span
+    style='color:fuchsia'><br>
+    </span></a>Lab9<br style='mso-special-character:line-break'>
+    <![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+    <![endif]></span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=296 valign=top style='width:177.75pt;padding:0in 5.4pt 0in 5.4pt;
+    height:48.2pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><o:p>&nbsp;</o:p></span></b></p>
+    </td>
+   </tr>
+   <tr style='mso-yfti-irow:12;height:26.35pt'>
+    <td width=78 valign=top style='width:.65in;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>11</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=76 valign=top style='width:45.4pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>21<br>
+    22</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=104 valign=top style='width:62.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>21 Apr<br>
+    23 Apr</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=277 valign=top style='width:166.0pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:Arial'>Go
+    over midterm<o:p></o:p></span></b></p>
+    <p class=MsoNormal><b><span style='font-size:10.0pt;font-family:Arial'>Review</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=103 valign=top style='width:61.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:aqua'><o:p>&nbsp;</o:p></span></p>
+    </td>
+    <td width=73 valign=top style='width:43.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><a
+    href="./quiz/q12.txt"><span
+    style='color:fuchsia'><br>
+    </span></a></span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=148 valign=top style='width:88.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><span
+    style='mso-spacerun:yes'>&nbsp;</span>Lab10<a
+    href="./labs/lab10/lab10.html"><span
+    style='color:fuchsia'><br>
+    </span></a></span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=296 valign=top style='width:177.75pt;padding:0in 5.4pt 0in 5.4pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><o:p>&nbsp;</o:p></span></b></p>
+    </td>
+   </tr>
+   <tr style='mso-yfti-irow:13;height:26.35pt'>
+    <td width=78 valign=top style='width:.65in;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>12</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=76 valign=top style='width:45.4pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>23<br>
+    24</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=104 valign=top style='width:62.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>28 Apr<o:p></o:p></span></b></p>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><br>
+    30 Apr</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=277 valign=top style='width:166.0pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><b><span
+    style='font-size:10.0pt;font-family:Arial'>Presentations (</span></b><span
+    style='font-size:10.0pt;font-family:Arial;mso-bidi-font-weight:bold'>Group<b>
+    </b></span><span style='font-size:10.0pt;font-family:Arial'>3, 16, 6, 12,
+    18, 1)<o:p></o:p></span></p>
+    <p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><b
+    style='mso-bidi-font-weight:normal'><span style='font-size:10.0pt;
+    font-family:Arial'>Presentations</span></b><span style='font-size:10.0pt;
+    font-family:Arial'> (Group 25, 23, 9, 20, 4, 19)<o:p></o:p></span></p>
+    </td>
+    <td width=103 valign=top style='width:61.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:aqua'><o:p>&nbsp;</o:p></span></p>
+    </td>
+    <td width=73 valign=top style='width:43.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><a
+    href="./quiz/q13.txt"><span
+    style='color:fuchsia'><br>
+    </span></a></span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=148 valign=top style='width:88.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><a
+    href="./labs/lab11/lab11.html"><span
+    style='color:fuchsia'><br>
+    </span></a></span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=296 valign=top style='width:177.75pt;padding:0in 5.4pt 0in 5.4pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><o:p>&nbsp;</o:p></span></b></p>
+    </td>
+   </tr>
+   <tr style='mso-yfti-irow:14;height:26.35pt'>
+    <td width=78 valign=top style='width:.65in;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>13</span></b><span
+    style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=76 valign=top style='width:45.4pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>25<br>
+    26</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=104 valign=top style='width:62.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>&nbsp;5 May<o:p></o:p></span></b></p>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><br>
+    &nbsp;7 May</span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=277 valign=top style='width:166.0pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><b><span
+    style='font-size:10.0pt;font-family:Arial'>Presentations (</span></b><span
+    style='font-size:10.0pt;font-family:Arial'>Group 17, 5, 2, 7, 26, 15)<o:p></o:p></span></p>
+    <p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><b
+    style='mso-bidi-font-weight:normal'><span style='font-size:10.0pt;
+    font-family:Arial'>Presentations </span></b><span style='font-size:10.0pt;
+    font-family:Arial'>(Group 14, 11, 8, 13, 21, 24)<o:p></o:p></span></p>
+    </td>
+    <td width=103 valign=top style='width:61.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:aqua'><o:p>&nbsp;</o:p></span></p>
+    </td>
+    <td width=73 valign=top style='width:43.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:aqua'><o:p>&nbsp;</o:p></span></p>
+    </td>
+    <td width=148 valign=top style='width:88.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><a
+    href="./labs/lab12/lab12.html"><span
+    style='color:fuchsia'><br>
+    </span></a></span></b><span style='color:aqua'><o:p></o:p></span></p>
+    </td>
+    <td width=296 valign=top style='width:177.75pt;padding:0in 5.4pt 0in 5.4pt;
+    height:26.35pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><o:p>&nbsp;</o:p></span></b></p>
+    </td>
+   </tr>
+   <tr style='mso-yfti-irow:15;mso-yfti-lastrow:yes;height:24.1pt'>
+    <td width=78 valign=top style='width:.65in;padding:.75pt .75pt .75pt .75pt;
+    height:24.1pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>14<o:p></o:p></span></b></p>
+    </td>
+    <td width=76 valign=top style='width:45.4pt;padding:.75pt .75pt .75pt .75pt;
+    height:24.1pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><o:p>&nbsp;</o:p></span></b></p>
+    </td>
+    <td width=104 valign=top style='width:62.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:24.1pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>12 May<o:p></o:p></span></b></p>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'>14 May<o:p></o:p></span></b></p>
+    </td>
+    <td width=277 valign=top style='width:166.0pt;padding:.75pt .75pt .75pt .75pt;
+    height:24.1pt'>
+    <p class=MsoNormal><st1:place w:st="on"><b><span style='font-size:10.0pt;
+     font-family:Arial'>Holiday</span></b></st1:place><b><span
+    style='font-size:10.0pt;font-family:Arial'><o:p></o:p></span></b></p>
+    <p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><b><span
+    style='font-size:10.0pt;font-family:Arial'>Presentations (</span></b><span
+    style='font-size:10.0pt;font-family:Arial;mso-bidi-font-weight:bold'>Group<b>
+    </b></span><span style='font-size:10.0pt;font-family:Arial'>22, 10)<o:p></o:p></span></p>
+    </td>
+    <td width=103 valign=top style='width:61.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:24.1pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:aqua'><o:p>&nbsp;</o:p></span></p>
+    </td>
+    <td width=73 valign=top style='width:43.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:24.1pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:aqua'><o:p>&nbsp;</o:p></span></p>
+    </td>
+    <td width=148 valign=top style='width:88.5pt;padding:.75pt .75pt .75pt .75pt;
+    height:24.1pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><o:p>&nbsp;</o:p></span></b></p>
+    </td>
+    <td width=296 valign=top style='width:177.75pt;padding:0in 5.4pt 0in 5.4pt;
+    height:24.1pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='font-size:10.0pt;font-family:Arial'><o:p>&nbsp;</o:p></span></b></p>
+    </td>
+   </tr>
+  </table>
+  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span
+  style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=ZH-CN style='font-family:����;mso-ascii-font-family:"Times New Roman";
+  mso-hansi-font-family:"Times New Roman"'></span>Slides are courtesy of<span
+  style='mso-spacerun:yes'>&nbsp; </span>Prof. Andrew Horner<span lang=ZH-CN
+  style='font-family:����;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'></span></p>
+  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><o:p>&nbsp;</o:p></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width="100%" valign=top style='width:100.0%;padding:0in 5.4pt 0in 5.4pt'>
+  <h3><span style='mso-fareast-font-family:"Times New Roman"'>Contacts: <o:p></o:p></span></h3>
+  <p class=MsoNormal><o:p>&nbsp;</o:p></p>
+  <table class=MsoNormalTable border=1 cellspacing=1 cellpadding=0 width=960
+   style='width:8.0in;mso-cellspacing:.6pt;margin-left:21.45pt;mso-padding-alt:
+   0in 5.4pt 0in 5.4pt'>
+   <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+    <td width="12%" valign=top style='width:12.54%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'><o:p>&nbsp;</o:p></span></p>
+    </td>
+    <td width="18%" valign=top style='width:18.94%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='color:black'>Name</span></b><span style='color:black'><o:p></o:p></span></p>
+    </td>
+    <td width="22%" valign=top style='width:22.12%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='color:black'>Email</span></b><span style='color:black'><o:p></o:p></span></p>
+    </td>
+    <td width="12%" valign=top style='width:12.58%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='color:black'>Room</span></b><span style='color:black'><o:p></o:p></span></p>
+    </td>
+    <td width="33%" valign=top style='width:33.18%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b><span
+    style='color:black'>Office Hour</span></b><span style='color:black'><o:p></o:p></span></p>
+    </td>
+   </tr>
+   <tr style='mso-yfti-irow:1'>
+    <td width="12%" valign=top style='width:12.54%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>Professor<o:p></o:p></span></p>
+    </td>
+    <td width="18%" valign=top style='width:18.94%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>Huamin QU<o:p></o:p></span></p>
+    </td>
+    <td width="22%" valign=top style='width:22.12%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>huamin@cse.ust.hk<o:p></o:p></span></p>
+    </td>
+    <td width="12%" valign=top style='width:12.58%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>3508<o:p></o:p></span></p>
+    </td>
+    <td width="33%" valign=top style='width:33.18%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>Tuesday &amp; Thursday 16:30 �C 17:30<o:p></o:p></span></p>
+    </td>
+   </tr>
+   <tr style='mso-yfti-irow:2'>
+    <td width="12%" valign=top style='width:12.54%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>TA<o:p></o:p></span></p>
+    </td>
+    <td width="18%" valign=top style='width:18.94%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>Chuck-Jee CHAU<o:p></o:p></span></p>
+    </td>
+    <td width="22%" valign=top style='width:22.12%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal><span lang=ZH-CN style='color:black;mso-ansi-language:
+    ZH-CN'><span
+    style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </span>cscjchau@ust.hk</span><span style='color:black'><o:p></o:p></span></p>
+    </td>
+    <td width="12%" valign=top style='width:12.58%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>TBA<o:p></o:p></span></p>
+    </td>
+    <td width="33%" valign=top style='width:33.18%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>TBA<o:p></o:p></span></p>
+    </td>
+   </tr>
+   <tr style='mso-yfti-irow:3'>
+    <td width="12%" valign=top style='width:12.54%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>TA<o:p></o:p></span></p>
+    </td>
+    <td width="18%" valign=top style='width:18.94%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>Wing-Yi CHAN<o:p></o:p></span></p>
+    </td>
+    <td width="22%" valign=top style='width:22.12%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span lang=ZH-CN
+    style='font-size:10.0pt;font-family:Arial;mso-ansi-language:ZH-CN'>winchan@cse.ust.hk</span><span
+    style='color:black'><o:p></o:p></span></p>
+    </td>
+    <td width="12%" valign=top style='width:12.58%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>4204<o:p></o:p></span></p>
+    </td>
+    <td width="33%" valign=top style='width:33.18%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>TBA<o:p></o:p></span></p>
+    </td>
+   </tr>
+   <tr style='mso-yfti-irow:4'>
+    <td width="12%" valign=top style='width:12.54%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>TA<o:p></o:p></span></p>
+    </td>
+    <td width="18%" valign=top style='width:18.94%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>Ka-Kei CHUNG<o:p></o:p></span></p>
+    </td>
+    <td width="22%" valign=top style='width:22.12%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span lang=ZH-CN
+    style='color:black;mso-ansi-language:ZH-CN'>kkchung@cse.ust.hk</span><span
+    style='color:black'><o:p></o:p></span></p>
+    </td>
+    <td width="12%" valign=top style='width:12.58%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>4204<o:p></o:p></span></p>
+    </td>
+    <td width="33%" valign=top style='width:33.18%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>TBA<o:p></o:p></span></p>
+    </td>
+   </tr>
+   <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+    <td width="12%" valign=top style='width:12.54%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>TA<o:p></o:p></span></p>
+    </td>
+    <td width="18%" valign=top style='width:18.94%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>Haomian WANG<o:p></o:p></span></p>
+    </td>
+    <td width="22%" valign=top style='width:22.12%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span lang=ZH-CN
+    style='color:black;mso-ansi-language:ZH-CN'>whaomian@cse.ust.hk<o:p></o:p></span></p>
+    </td>
+    <td width="12%" valign=top style='width:12.58%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>4204<o:p></o:p></span></p>
+    </td>
+    <td width="33%" valign=top style='width:33.18%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>TBA<o:p></o:p></span></p>
+    </td>
+   </tr>
+  </table>
+  <h3><o:p></o:p></h3>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width="100%" valign=top style='width:100.0%;padding:0in 5.4pt 0in 5.4pt'>
+  <h3 align=center style='text-align:center'>
+  <hr size=2 width="100%" align=center>
+  </h3>
+  <h3 style='mso-outline-level:3'>Labs:&nbsp; </h3>
+  <table class=MsoNormalTable border=1 cellspacing=1 cellpadding=0 width=840
+   style='width:7.0in;mso-cellspacing:.6pt;margin-left:21.45pt;mso-padding-alt:
+   0in 5.4pt 0in 5.4pt'>
+   <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+    <td width="14%" style='width:14.36%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b
+    style='mso-bidi-font-weight:normal'>Section<span style='color:black'><o:p></o:p></span></b></p>
+    </td>
+    <td width="21%" style='width:21.7%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b
+    style='mso-bidi-font-weight:normal'>&nbsp;&nbsp; Day<span style='color:
+    black'><o:p></o:p></span></b></p>
+    </td>
+    <td width="25%" style='width:25.34%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b
+    style='mso-bidi-font-weight:normal'>Time<span style='color:black'><o:p></o:p></span></b></p>
+    </td>
+    <td width="14%" style='width:14.42%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b
+    style='mso-bidi-font-weight:normal'>Room<span style='color:black'><o:p></o:p></span></b></p>
+    </td>
+    <td width="23%" valign=top style='width:23.46%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><b
+    style='mso-bidi-font-weight:normal'>TA<o:p></o:p></b></p>
+    </td>
+   </tr>
+   <tr style='mso-yfti-irow:1'>
+    <td width="14%" style='width:14.36%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'>1A<span
+    style='color:black'><o:p></o:p></span></p>
+    </td>
+    <td width="21%" style='width:21.7%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'>Friday<span
+    style='color:black'><o:p></o:p></span></p>
+    </td>
+    <td width="25%" style='width:25.34%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'>13:00 �C 14:50<span
+    style='color:black'><o:p></o:p></span></p>
+    </td>
+    <td width="14%" style='width:14.42%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>4214<o:p></o:p></span></p>
+    </td>
+    <td width="23%" valign=top style='width:23.46%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>Haomian Wang <o:p></o:p></span></p>
+    </td>
+   </tr>
+   <tr style='mso-yfti-irow:2'>
+    <td width="14%" style='width:14.36%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'>1B<span
+    style='color:black'><o:p></o:p></span></p>
+    </td>
+    <td width="21%" style='width:21.7%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'>Friday<span
+    style='color:black'><o:p></o:p></span></p>
+    </td>
+    <td width="25%" style='width:25.34%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'>15:00 �C 16:50<span
+    style='color:black'><o:p></o:p></span></p>
+    </td>
+    <td width="14%" style='width:14.42%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>4214<o:p></o:p></span></p>
+    </td>
+    <td width="23%" valign=top style='width:23.46%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal><span style='color:black'><span
+    style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </span>Ka-Kei Chung<o:p></o:p></span></p>
+    </td>
+   </tr>
+   <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+    <td width="14%" style='width:14.36%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'>1C<span
+    style='color:black'><o:p></o:p></span></p>
+    </td>
+    <td width="21%" style='width:21.7%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'>Friday<span
+    style='color:black'><o:p></o:p></span></p>
+    </td>
+    <td width="25%" style='width:25.34%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'>17:00 �C 18:50<span
+    style='color:black'><o:p></o:p></span></p>
+    </td>
+    <td width="14%" style='width:14.42%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>4214<o:p></o:p></span></p>
+    </td>
+    <td width="23%" valign=top style='width:23.46%;padding:.75pt .75pt .75pt .75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><span
+    style='color:black'>Wing-Yi Chan<o:p></o:p></span></p>
+    </td>
+   </tr>
+  </table>
+  <p class=MsoNormal><o:p>&nbsp;</o:p></p>
+  <p class=MsoNormal align=center style='text-align:center;mso-outline-level:
+  3'><b><o:p>&nbsp;</o:p></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width="100%" valign=top style='width:100.0%;padding:0in 5.4pt 0in 5.4pt'>
+  <h3 align=center style='text-align:center'>
+  <hr size=2 width="100%" align=center>
+  </h3>
+  <h3 style='mso-outline-level:3'><span style='mso-fareast-font-family:"Times New Roman"'>Course
+  Description: (</span>From the HKUST course catalog)<span style='mso-fareast-font-family:
+  "Times New Roman"'><o:p></o:p></span></h3>
+  <p>UNIX is popular alternative to the Windows environment, especially in high-performance
+  PC Linux servers and other UNIX-based web servers. Topics include: Unix
+  utilities and file structure, Links and symbolic links, Data processing and
+  process control in the Unix shell, Shell programming, Regular expressions,
+  Perl programming in the Unix environment. Laboratory exercises are designed
+  to give hands-on practice with software tools and to increase programmer
+  productivity. </p>
+  <p><o:p>&nbsp;</o:p></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;height:115.65pt'>
+  <td width="100%" valign=top style='width:100.0%;padding:0in 5.4pt 0in 5.4pt;
+  height:115.65pt'>
+  <h3 align=center style='text-align:center'>
+  <hr size=2 width="100%" align=center>
+  </h3>
+  <h3 style='mso-outline-level:3'><span style='mso-fareast-font-family:"Times New Roman"'>Textbook
+  (available at the HKUST bookstore and on reserve in the library):<o:p></o:p></span></h3>
+  <ul type=disc>
+   <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+       auto;mso-list:l1 level1 lfo2;tab-stops:list .5in'><i>[U]: Unix System V:
+       A Practical Guide, Sobell, Add-Wes., 3rd Ed. '95.<span
+       style='mso-spacerun:yes'>&nbsp; </span></i></li>
+   <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+       auto;mso-list:l1 level1 lfo2;tab-stops:list .5in'><i>[P]: Learning Perl,
+       Schwartz &amp; Christiansen, O'Reilly, 2nd Ed. '97. </i><span
+       style='color:black'><span style='mso-spacerun:yes'>&nbsp;</span></span><b
+       style='mso-bidi-font-weight:normal'><span style='font-family:Arial'><o:p></o:p></span></b></li>
+  </ul>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;height:11.25pt'>
+  <td width="100%" valign=top style='width:100.0%;padding:0in 5.4pt 0in 5.4pt;
+  height:11.25pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt'><o:p>&nbsp;</o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width="100%" valign=top style='width:100.0%;padding:0in 5.4pt 0in 5.4pt'>
+  <h3 align=center style='text-align:center'>
+  <hr size=2 width="100%" align=center>
+  </h3>
+  <h3 style='mso-outline-level:3'><span style='mso-fareast-font-family:"Times New Roman"'>Grading
+  Scheme:<a name=policy></a><o:p></o:p></span></h3>
+  <ul type=disc>
+   <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+       auto;mso-list:l4 level1 lfo3;tab-stops:list .5in'>10 Lab assignments 20%
+       (2% each) </li>
+   <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+       auto;mso-list:l4 level1 lfo3;tab-stops:list .5in'>Midterm Exam 50% </li>
+   <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+       auto;mso-list:l4 level1 lfo3;tab-stops:list .5in'>Project and
+       Presentation 30% (schedule: to be announced)</li>
+  </ul>
+  <h3>Midterm Exam Schedule:</h3>
+  <ul type=disc>
+   <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+       auto;mso-list:l2 level1 lfo4;tab-stops:list .5in'>Date: Apr. 18 (Fri)</li>
+   <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+       auto;mso-list:l2 level1 lfo4;tab-stops:list .5in'>Time: 1900 �C 2100</li>
+   <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+       auto;mso-list:l2 level1 lfo4;tab-stops:list .5in'>Venue: LTJ</li>
+  </ul>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td width="100%" valign=top style='width:100.0%;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center'><o:p>&nbsp;</o:p></p>
+  <div class=MsoNormal align=center style='text-align:center'>
+  <hr size=2 width="100%" align=center>
+  </div>
+  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><b><span
+  style='font-family:Arial;color:black'>Illness:</span></b><span
+  style='color:black'> If you have a medical reason for handing in your
+  assignment late or for missing an examination, you should let us know as soon
+  as possible. <o:p></o:p></span></p>
+  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><b><span
+  style='font-family:Arial;color:black'>Midterm and Final:</span></b><span
+  style='color:black'> No make-ups will be given unless prior approval is
+  granted by the instructor, or you are in unfavorable medical condition with
+  physician's documentation on the day of the examination. <o:p></o:p></span></p>
+  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><b><span
+  style='font-family:Arial;color:black'>Collaboration:</span></b><span
+  style='font-family:Arial;color:black'> </span><span style='color:black'>You
+  are encouraged to collaborate in study groups. However, you must write up
+  solutions on your own for written assignments, and write your own programs
+  for programming assignments. You must also acknowledge your collaborators in
+  your submitted assignment for each problem, whether or not they are
+  classmates. Other cases will be dealt with as plagiarism. <o:p></o:p></span></p>
+  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><b><span
+  style='font-family:Arial;color:black'>Plagiarism:</span></b><span
+  style='color:black'> If you cheat on an assignment, both you and the person
+  who helped you will receive a lower grade or the fail grade F. Please refer
+  to the class notes for details. <o:p></o:p></span></p>
+  <h3><span style='font-size:12.0pt;mso-fareast-font-family:"Times New Roman"'>University
+  Policy:<o:p></o:p></span></h3>
+  <ul type=disc>
+   <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+       auto;mso-list:l3 level1 lfo5;tab-stops:list .5in'><a
+       href="http://www.ust.hk/vpaao/integrity/">Academic Integrity</a> </li>
+   <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+       auto;mso-list:l3 level1 lfo5;tab-stops:list .5in'><a
+       href="http://www.ust.hk/vpaao/integrity/honor.html">The HKUST Academic
+       Honor Code</a> </li>
+   <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+       auto;mso-list:l3 level1 lfo5;tab-stops:list .5in'><a
+       href="http://www.ust.hk/vpaao/conduct/good_learning_experience.pps">A
+       good learning experience</a> </li>
+   <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+       auto;mso-list:l3 level1 lfo5;tab-stops:list .5in'><a
+       href="http://www.angoya.net/comp660i/con_classroom.ppt">Conduct in the
+       classroom</a> </li>
+  </ul>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9;mso-yfti-lastrow:yes'>
+  <td width="100%" valign=top style='width:100.0%;padding:0in 5.4pt 0in 5.4pt'>
+  <h3 align=center style='text-align:center'>
+  <hr size=2 width="100%" align=center>
+  </h3>
+  <h3 align=center style='text-align:center'></h3>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+</div>
+
+</body>
+
+</html>

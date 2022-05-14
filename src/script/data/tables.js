@@ -57,7 +57,7 @@ var categorizedPreCourses = [
             },
             {
                 code: 'COMP 111',
-                semesters: ['Fall 1998']
+                semesters: ['Fall 1998', 'Spring 2008']
             },
             {
                 code: 'COMP 1021',

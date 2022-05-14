@@ -1,0 +1,153 @@
+COMP111 : Quiz 6
+Perl Programming
+
+
+-----------------------------------------------------------
+1) What is the value of @a after the following Perl statements are executed?
+
+	$n = 4;
+	@a = (5,6,7);
+	@b = (1,2,0);
+	@a = @a[@b];
+
+
+Answer:  6 7 5
+
+-----------------------------------------------------------
+2) What is the value of @a after the following Perl statements are executed?
+
+	$n = 4;
+	@a = (5,6,7);
+	@b = (1,2,0);
+	@a = @a[@b];
+	@a = @a + $n;
+
+
+Answer:  7
+
+-----------------------------------------------------------
+3) What is the value of @a after the following Perl statements are executed?
+
+	$n = 5;
+	@a = 9;
+	@b = ($n,7,@a,4);
+	$n = @b;
+	($n,@a) = (@b[3,2,1],$n);
+
+
+Answer:  9 7 4
+
+-----------------------------------------------------------
+4) What is the value of @a after the following Perl statements are executed?
+
+	$n = 5;
+	@a = 2;
+	@b = ($n,@a, 1);
+	push(@a, 4);
+	push(@a, @b);
+	$n = pop(@a);
+
+
+Answer:  2 4 5 2
+
+
+-----------------------------------------------------------
+5) What is the value of @a after the following Perl statements are executed?
+
+	$n = 5;
+	@a = 2;
+	@b = ($n,@a, 1);
+	unshift(@a, 4);
+	$n = pop(@a);
+	unshift(@a, @b);
+	push(@a, @b);
+	$n = shift(@a);
+	$n = shift(@a);
+	$n = shift(@a);
+
+
+Answer:  4 5 2 1
+
+
+
+-----------------------------------------------------------
+6) What is the value of $n after the following Perl statements are executed?
+
+	$n = 0;
+	unless($n){
+		$n = $n + 1;
+	}
+	if($n){
+		$n = -$n;
+	}
+	$n = $n + 1;
+
+
+Answer:  0
+
+
+-----------------------------------------------------------
+7) What is the value of $n after the following Perl statements are executed?
+
+	$n = 0;
+	until($n > 5){
+		unless($n%2){
+			$n += 2;
+		}
+		if($n%2){
+			$n += 3;
+		}
+		$n++;
+	}
+
+
+Answer:  7
+
+
+-----------------------------------------------------------
+8) What is the value of @a after the following Perl statements are executed?
+
+	@a = (5,6,7);
+	foreach $n (reverse @a){
+		do{
+			$n--;
+		}until($n==4);
+	}
+
+
+Answer:  4 4 4
+
+-----------------------------------------------------------
+9) What is the value of $n after the following Perl statements are exectued?
+
+	$n = 3;
+	while($n < 10){
+		$n++;
+		do{
+			$n += 2;
+			unless($n <= 6){
+				last;
+			}
+		}while($n < 8);
+		$n += 3;
+	}
+
+
+Answer:  8
+
+
+-----------------------------------------------------------
+10) What is the value of $n after the following Perl statements are exectued?
+
+	$n = 1;
+	while($n++){
+		if($n < 4){ next;}
+		$n += 2;
+		if($n <= 6){ redo;}
+		$n += 3;
+		if($n > 10){ last; }
+	}
+
+
+Answer:  11
+

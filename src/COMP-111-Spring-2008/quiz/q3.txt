@@ -1,0 +1,145 @@
+COMP111 : Quiz 3
+Shell Programming
+
+-----------------------------------------------------------
+1) What is wrong with the following shell program? 
+
+# /bin/sh
+echo "Enter name: "
+read $name
+echo "How many girlfriends do you have? "
+read $number
+echo "$name has ***$number*** girlfriends:)"
+
+
+
+Answers: 
+1) Delete "$" in "read $name" and "read $number"
+2) # /bin/sh
+should be:
+#!/bin/sh
+
+-----------------------------------------------------------
+2) What is wrong with the following shell program? 
+
+#!/bin/sh
+echo "Enter height of parallelogram: "
+read height
+echo "Enter width of parallelogram: "
+read width
+area = 'expr $height * $width'
+echo "The area of the parallelogram is $area"
+
+
+
+Answers: 
+1) Need backslash before star in multiplication:
+expr $height \* $width
+2) Cannot have spaces in "area = ", 
+should be: "area="
+3) area = 'expr $height \* $width'
+should be with backquotes:
+area = `expr $height \* $width`
+
+-----------------------------------------------------------
+3) What is wrong with the following shell program? 
+
+#!/bin/sh
+user=`whoami`
+if[$user = "gates"] 
+	echo "Hi Bill!"
+else
+	echo "Hi user!"
+fi
+
+
+Answers: 
+1) echo "Hi user!" should be:
+	echo "Hi $user!"
+2) Need spaces in if: 
+	if [ $user = "clinton" ] 
+3) Need then after if:
+	#!/bin/sh
+	user=`whoami`
+	if [ $user = "clinton" ] 
+	then
+		echo "Hi Bill!"
+	else
+		echo "Hi $user!"
+	fi
+
+-----------------------------------------------------------
+4) What is wrong with the following shell program? 
+
+#!/bin/sh
+echo -n "Enter full name and student ID: "
+read name id
+echo "$name has id#$id"
+
+
+
+Answer: 
+read will only put first name into $name 
+(and rest into $id). Instead:
+#!/bin/sh
+echo -n "Enter full name: "
+read name
+echo -n "Enter student id: "
+read id
+echo "$name has id#$id"
+
+-----------------------------------------------------------
+5) What is wrong with the following shell program? 
+
+#!/bin/sh
+users=`who | wc -l`
+if [ $users >= 4 ] 
+then
+	echo "Heavy load!"
+elif[ $users > 1 ]
+	echo "Medium load"
+else
+	echo 'Just me!'
+fi
+
+Answers: 
+1) Need space after elif:   elif [ $users > 1 ] 
+2) No ">=" and ">". Should be: 
+	if [ $users -ge 4 ]
+3) Need then after elif:
+	#!/bin/sh
+	users=`who | wc -l`
+	if [ $users -ge 4 ] 
+	then
+		echo "Heavy load!"
+	elif [ $users -gt 1 ]
+	then
+		echo "Medium load"
+	else
+		echo 'Just me!'
+	fi
+-----------------------------------------------------------
+6) What is wrong with the following shell program? 
+
+#!/bin/sh
+resp="no"
+while [ $resp -ne "yes" ]
+	echo -n "Wakeup [yes/no]? "
+	read resp
+endwhile
+
+
+Answers: 
+1) while [ $resp -ne "yes" ]
+only works for numerical comparisons, use:
+while [ $resp != "yes" ]
+2) endwhile should be done
+3) Need do after while:
+	#!/bin/sh
+	resp="no"
+	while [ $resp != "yes" ]
+	do
+		echo -n "Wakeup [yes/no]? "
+		read resp
+	done
+

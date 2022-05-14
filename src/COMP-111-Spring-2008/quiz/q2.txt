@@ -1,0 +1,105 @@
+COMP111 : Quiz 2
+UNIX Files
+
+
+-----------------------------------------------------------
+1) What is wrong with the following group of commands? 
+
+$ pwd
+/homes/horner/111
+$ ls
+letter1 names secret/
+$ cp /../.plan .
+
+
+Answer: "cp /../.plan ."  is trying to look in the parent 
+directory of root! (Does not exist!)
+
+-----------------------------------------------------------
+2) What is wrong with the following group of commands? 
+
+$ whoami
+horner
+$ pwd
+/homes/horner/111
+$ ls -l
+   2 --w-r--r-- 1 horner cs 154 Feb 4 16:38 letter1
+   2 --w-r--r-- 1 horner cs  64 Feb 4 15:00 names
+   2 drwxr-xr-x 2 horner cs 512 Feb 8 18:01 secret/
+$ cp letter1 secret
+
+
+
+Answer: We can't copy letter1 because owner (horner) 
+does not have read permission for this file. 
+
+-----------------------------------------------------------
+3) What is wrong with the following group of commands? 
+
+$ whoami
+horner
+$ pwd
+/homes/horner/111
+$ ls -l
+   -rw-r--r-- 1 horner cs 154 Feb 4 16:38 letter1
+   -rw-r--r-- 1 horner cs  64 Feb 4 15:00 names
+   dr-xr-xr-x 2 horner cs 512 Feb 8 18:01 secret/
+$ ls -l secret
+   -rw-r--r-- 1 horner cs 154 Feb 9 17:32 letter1
+$ cp names secret
+
+
+Answer: We can't copy names into secret, because owner 
+(horner) does not have write permission to secret. 
+Gives error:
+"cp: cannot create secret/names: Permission denied"
+
+-----------------------------------------------------------
+
+Shell
+
+-----------------------------------------------------------
+1)  A file called 'drinks' contains the following text.
+	 water
+	 tea
+	 coffee
+	 orange juice
+	 coke
+	 pineapple juice
+
+What is displayed on the screen after executing the following pipeline?
+
+$ cat drinks | grep juice | grep o 
+
+
+Answer:
+	 orange juice
+-----------------------------------------------------------
+2) The command:
+
+	$ (who; date) | tee whodate.txt
+
+is equivalent to which of the following? 
+
+a)who | tee whodate.txt; date >> whodate.txt
+b)who | tee whodate.txt; date | tee whodate.txt
+c)who | tee whodate.txt; date; date >> whodate.txt
+d)who; date | tee whodate.txt 
+e)none of the above
+
+
+
+Answer:
+	 c
+
+-----------------------------------------------------------
+3) What is the working directory after executing the following commands?
+
+$ cd /usr/bin; ((cd /usr; cd local/bin); \
+(cd ..; (cd ../etc)));  cd ./..;
+
+
+
+Answer: 
+	/usr
+

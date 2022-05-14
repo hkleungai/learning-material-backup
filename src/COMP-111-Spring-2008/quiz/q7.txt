@@ -1,0 +1,59 @@
+COMP111 : Quiz 7
+Perl Programming
+Perl I/O
+
+-----------------------------------------------------------
+1) What is wrong?
+
+	#!/usr/local/bin/perl5 -w
+	while(defined(@line = <STDIN>)){
+		# process line
+		chomp($line);
+		print "$line\n";
+	}
+
+
+Answer:  
+Should be: defined($line...
+
+
+-----------------------------------------------------------
+2) The following program is supposed to read in all the lines, 
+and print them out exactly as read. What is wrong?
+
+	#!/usr/local/bin/perl5 -w
+	while(STDIN){
+		# process line
+		chomp;
+		print;
+	}
+
+
+Answer:  
+1) STDIN  should be <STDIN>
+2) Lines printed out in one big line, without newlines. 
+
+
+
+-----------------------------------------------------------
+3) What is the output?
+
+#!/usr/local/bin/perl5 -w
+@students = qw(BillClinton Mr.Bill TungCheeHwa BillGates);
+@marks = (77, 98, 57, -23);
+$i=0;
+print "Comp111 Midterm scores:\n";
+foreach $stud (@students){
+	printf "%15s: %3d\n", $stud, $marks[$i];
+	$i++;
+}
+
+
+
+Answer:  
+Comp111 Midterm scores:
+    BillClinton:  77
+        Mr.Bill:  98
+    TungCheeHwa:  57
+      BillGates: -23
+
