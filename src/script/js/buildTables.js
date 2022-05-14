@@ -28,7 +28,7 @@ var buildCategoryTable = function (category, courses) { return (
 var buildTables = function (categorizedPreCourses, fetchedCourses) {
     var buildCourse = (function (_a) {
         var code = _a.code, semesters = _a.semesters;
-        return (__assign(__assign({}, fetchedCourses[code]), { semesters: semesters }));
+        return (__assign(__assign({}, fetchedCourses[code]), { code: code, semesters: semesters }));
     });
     var tables = categorizedPreCourses.map(function (_a) {
         var category = _a.category, courses = _a.courses;
