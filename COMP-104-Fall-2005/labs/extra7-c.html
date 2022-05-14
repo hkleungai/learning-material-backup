@@ -1,0 +1,585 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="Author" content="dom">
+  <meta name="GENERATOR"
+ content="Mozilla/4.73 [en] (Windows NT 5.0; U) [Netscape]">
+  <title>Extra Programming Exercise 14</title>
+</head>
+<body>
+<b><font face="Arial,Helvetica">COMP 104 : Programming</font></b>
+<p><b><font face="Arial,Helvetica">Week 7 : Extra Programming Exercise
+(Answer)</font></b>
+<br>
+</p>
+<hr width="100%"><br>
+<font face="Courier New,Courier"><font size="-1">// extra7-1.cpp</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">// Program to
+demonstrate
+the recursive function for linear search</font></font>
+<p><font face="Courier New,Courier"><font size="-1">#include
+&lt;iostream&gt;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">#include
+&lt;fstream&gt;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">using namespace std;</font></font>
+</p>
+<p><font face="Courier New,Courier"><font size="-1">const int
+Array_Size
+= 10;</font></font>
+</p>
+<p><font face="Courier New,Courier"><font size="-1">void search(const
+int
+A[], int start, int size, int key, bool&amp; found, int&amp; location);</font></font>
+</p>
+<p><font face="Courier New,Courier"><font size="-1">int main(){</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; int
+A[Array_Size];</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+const
+int final_index = Array_Size -1;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+ifstream
+in;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+in.open("data.dat");</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+for(int
+i=0; i&lt; Array_Size; i++)</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+in &gt;&gt; A[i];</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+in.close();</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; int
+key, location;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+bool
+found = false;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+cout
+&lt;&lt; "Enter number to be located: ";</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; cin
+&gt;&gt; key;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+search(A,
+0, final_index, key, found, location);</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; if
+(found)</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+cout &lt;&lt; key &lt;&lt; " is in index location " &lt;&lt; location +
+1 &lt;&lt; endl;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; else</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+cout &lt;&lt; key &lt;&lt; " is not in the array." &lt;&lt; endl;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+return
+0;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">}</font></font>
+</p>
+<p><font face="Courier New,Courier"><font size="-1">void search(const
+int
+A[], int start, int size, int key, bool&amp; found, int&amp; location){</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+if(start&lt;=size)</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; {</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if (key == A[start])</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+found = true;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+location = start;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+else</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+search(A, start+1, size, key, found, location);</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; }</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">}</font></font>
+</p>
+<p></p>
+<hr width="100%"><font face="Courier New,Courier"><font size="-1">//
+extra7-2.cpp</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">// Find the Greatest
+Common Divisor for two number</font></font>
+<p><font face="Courier New,Courier"><font size="-1">#include
+&lt;iostream&gt;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">using namespace std;</font></font>
+</p>
+<p><font face="Courier New,Courier"><font size="-1">int gcd(int m, int
+n);</font></font>
+</p>
+<p><font face="Courier New,Courier"><font size="-1">void main(){</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; int
+m, n, ans;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+cout
+&lt;&lt; "Input the two integers: \n";</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; cin
+&gt;&gt; m &gt;&gt; n;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; if
+(m &lt; n)</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; {</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+int temp;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+temp = n;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+n = m;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+m = temp;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; }</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; ans
+= gcd(m,n);</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+cout
+&lt;&lt; "The GCD of " &lt;&lt; m &lt;&lt; " and " &lt;&lt; n &lt;&lt;
+" is " &lt;&lt; ans &lt;&lt; endl;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">}</font></font>
+</p>
+<p><font face="Courier New,Courier"><font size="-1">int gcd(int m, int
+n)</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">{</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+if(m%n
+==
+0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// Terminate Condition that m is divisible by n</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+return n;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; else</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+return gcd(m, m%n);</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">}</font></font>
+</p>
+<p></p>
+<hr width="100%"><br>
+<font face="Courier New,Courier"><font size="-1">// extra7-3.cpp</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">// Program to
+demonstrate
+the recursive function for binary search</font></font>
+<p><font face="Courier New,Courier"><font size="-1">#include
+&lt;iostream&gt;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">#include
+&lt;fstream&gt;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">using namespace std;</font></font>
+</p>
+<p><font face="Courier New,Courier"><font size="-1">const int
+Array_Size
+= 10;</font></font>
+</p>
+<p><font face="Courier New,Courier"><font size="-1">void search(const
+int
+A[], int first, int last, int key, bool&amp; found, int&amp; location);</font></font>
+</p>
+<p><font face="Courier New,Courier"><font size="-1">int main(){</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; int
+A[Array_Size];</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+const
+int final_index = Array_Size -1;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+ifstream
+in;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+in.open("sort_data.dat");</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+for(int
+i=0; i&lt; Array_Size; i++)</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+in &gt;&gt; A[i];</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+in.close();</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; int
+key, location;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+bool
+found;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+cout
+&lt;&lt; "Enter number to be located: ";</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; cin
+&gt;&gt; key;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+search(A,
+0, final_index, key, found, location);</font></font>
+</p>
+<p><font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+if
+(found)</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+cout &lt;&lt; key &lt;&lt; " is in index location " &lt;&lt; location +
+1 &lt;&lt; endl;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; else</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+cout &lt;&lt; key &lt;&lt; " is not in the array." &lt;&lt; endl;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+return
+0;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">}</font></font>
+</p>
+<p><font face="Courier New,Courier"><font size="-1">void search(const
+int
+A[], int first, int last, int key, bool&amp; found, int&amp; location){</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; int
+mid;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; if
+(first &gt;
+last)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// Terminate condition</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+found = false;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+else
+{</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+mid = (first + last) / 2;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if (key == A[mid])</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+found = true;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+location = mid;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+else if (key &lt;
+A[mid])&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// If the value smaller than the mid value,</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// it must lay on the front of the list.</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+search(A, first, mid-1, key, found, location);</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+else if (key &gt;
+A[mid])&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// If the value larger that the mid value,</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// it must lay on the back of the list.</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+search(A, mid+1, last, key, found, location);</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; }</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">}</font></font>
+</p>
+<p></p>
+<hr width="100%"><font face="Courier New,Courier"><font size="-1">//
+extra7-4.cpp</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">// Program to
+demonstrate
+the recursive function for selection sort</font></font>
+<p><font face="Courier New,Courier"><font size="-1">#include
+&lt;iostream&gt;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">#include
+&lt;fstream&gt;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">using namespace std;</font></font>
+</p>
+<p><font face="Courier New,Courier"><font size="-1">int select(int
+number[],
+int size);</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">int number[10];</font></font>
+</p>
+<p><font face="Courier New,Courier"><font size="-1">void main(){</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+ifstream
+in;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+in.open("data.dat");</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; for
+(int i = 0; i&lt; 10; i++)</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+in &gt;&gt; number[i];</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+in.close();</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+select(number,
+10);</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; for
+(int j = 0; j&lt; 10; j++)</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+cout &lt;&lt; number [j] &lt;&lt; " ";</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+cout
+&lt;&lt; endl;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">}</font></font>
+</p>
+<p><font face="Courier New,Courier"><font size="-1">int select(int
+number[],
+int size)</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">{</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; int
+temp;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; int
+max_index;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+if(size
+&lt;= 0)</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+return -1;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; else</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; {</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+max_index = 0;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+for (int i = 1; i&lt;=size-1; i++)</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if (number[i] &gt; number[max_index])</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+max_index = i;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// Swap two number</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if (number[max_index] &gt; number[size-1]){</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+temp = number[max_index];</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+number[max_index] = number[size-1];</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+number[size-1] = temp;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+return (select(number, size-1));</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; }</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">}</font></font><font
+ face="Courier New,Courier"><font size="-1"></font></font>
+</p>
+<p></p>
+<hr width="100%"><font face="Courier New,Courier"><font size="-1">//
+extra7-5.cpp</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">// Program to
+demonstrate
+the recursive function for bubble sort</font></font><font
+ face="Courier New,Courier"><font size="-1"></font></font>
+<p><font face="Courier New,Courier"><font size="-1">#include
+&lt;iostream&gt;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">#include
+&lt;fstream&gt;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">using namespace std;</font></font>
+</p>
+<p><font face="Courier New,Courier"><font size="-1">int bubble(int
+number[],
+int size);</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">int number[10];</font></font>
+</p>
+<p><font face="Courier New,Courier"><font size="-1">void main(){</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+ifstream
+in;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+in.open("data.dat");</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; for
+(int i = 0; i&lt; 10; i++)</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+in &gt;&gt; number[i];</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+in.close();</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+bubble(number,
+10);</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; for
+(int j = 0; j&lt; 10; j++)</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+cout &lt;&lt; number [j] &lt;&lt; " ";</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+cout
+&lt;&lt; endl;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">}</font></font>
+</p>
+<p><font face="Courier New,Courier"><font size="-1">int bubble(int
+number[],
+int size)</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">{</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; int
+temp;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;
+if(size
+&lt;= 0)</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+return -1;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; else</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp; {</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+for (int i = 0; i&lt;size-1; i++){</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if (number[i] &gt; number[i+1]){</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+temp = number[i];</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+number[i] = number[i+1];</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+number[i+1] = temp;</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+return (bubble(number, size-1));</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">&nbsp;&nbsp; }</font></font>
+<br>
+<font face="Courier New,Courier"><font size="-1">}</font></font><font
+ face="Courier New,Courier"><font size="-1"></font></font>
+</p>
+<p></p>
+<hr width="100%"><br>
+&nbsp;
+</body>
+</html>

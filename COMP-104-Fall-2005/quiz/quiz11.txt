@@ -1,0 +1,65 @@
+COMP104 : Quiz 11
+
+Linked Lists
+
+1.	The following function is supposed to delete the first node in an integer linked list. What is wrong?
+
+	void delHead(NodePtr Head){
+        	Head = Head->next;
+	}
+
+
+
+2. 	The following function is supposed to delete an element deldata in an unsorted integer linked list. What is wrong?
+
+	void del(NodePtr Head, int deldata){
+        	NodePtr prev, cur = Head;
+        	while(cur!=NULL  &&  deldata != cur->data){
+			prev = cur;
+			cur = cur->next;
+        	}
+        	prev->next = cur->next;
+        	delete cur;
+	}
+
+
+
+Answer 1:	
+	1. If Head is NULL, then "Head->next" will be illegal memory access.
+	2. Need to use pass by reference to change Head
+	3. Need to call delete on the deleted node
+
+	void delHead(NodePtr& Head){
+        	NodePtr cur = Head;
+        	if(Head!=NULL){
+			Head = Head->next;
+			delete cur;
+        	}
+	}
+
+Answer 2:	
+	1. Need to pass Head by reference in case it is changed. 
+	2. Need to test if list is NULL
+	3. Need to see if deldata was not found.
+	4. Need to add special code if deleted node is Head node:
+
+	void del(NodePtr& Head, int deldata){
+        	ptrType prev, cur = Head;
+        	while(cur!=NULL  &&  deldata != cur->data){
+			prev = cur;
+			cur = cur->next;
+        	}
+        	if(cur==NULL){
+			cout << "Error: " << deldata << " not in list!" << endl;
+			return;
+        	}
+        	if(cur==Head)
+			Head = Head->next;
+		else
+			prev->next = cur->next;
+        	delete cur;
+	}
+
+
+
+

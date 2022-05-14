@@ -1,0 +1,2 @@
+appendElements();
+attachEvents();

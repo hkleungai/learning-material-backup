@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="Author" content="Andrew Horner">
+  <meta name="GENERATOR"
+ content="Mozilla/4.78 [en] (Windows NT 5.0; U) [Netscape]">
+  <title>COMP104 Extra 15</title>
+<!-- saved from url=(0040)file://D:\Users\comp104\Labs01\lab10.htm --><!-- saved from url=(0070)http://www.cs.ust.hk/~horner/comp104old/comp104f00/labs/lab8/lab8.html -->
+</head>
+<body style="color: rgb(0, 0, 0); background-image: url(bgrock.jpg);"
+ alink="#ff0000" link="#cc66cc" vlink="#551a8b">
+<h2>
+<b><font face="Algerian"><font color="#66ffff"><font size="+3">COMP104:
+Programming</font></font></font></b></h2>
+<h2>
+<b><font face="Algerian"><font color="#66ffff"><font size="+3">Extra
+15:
+The Lord of the Rings with Classes</font></font></font></b></h2>
+<center>
+<hr width="100%"><img src="banner.jpg" border="0" height="136"
+ width="65%"></center>
+<p><font color="#66ffff"><font size="+1"><font face="Arial,Helvetica">Re-write
+Extra14 using dynamic class, and set the number of BlackRiders equal to
+three times
+the stage (e.g., on stage 4, there will be 12 BlackRiders). All active
+units in the game should be modeled as objects.&nbsp; So, you should
+use
+separate classes for <i>Frodo</i> and <i>Black Riders.</i> The
+current
+position of&nbsp; <i>Frodo</i> and
+<i>Black Riders</i> should be stored
+in private data members.&nbsp; Also construct a class </font><tt>BlackRiderArray
+</tt><font face="Arial,Helvetica">(see
+below) that contains a dynamic array of individual <i>Black Riders </i>(</font><tt>BlackRiderArray</tt><font
+ face="Arial,Helvetica">
+should have a data member </font><tt>BlackRider *BlackRiderptr</tt><font
+ face="Arial,Helvetica">).
+When <i>Frodo</i> reaches a new stage, delete the old <i>Black Rider</i>
+dynamic array and allocate a new dynamic array whose size is three
+times
+the stage number. This will cause the <i>Black Riders</i> to shift to
+new
+random locations at the start of each stage with 3*stage <i>Black
+Riders
+</i>on
+the board. Include a copy constructor and destructor in your class
+</font><tt>BlackRiderArray</tt><font face="Arial,Helvetica">
+to avoid dangling pointers and memory leaks.The game board should also
+be modeled as a class.</font></font></font>
+</p>
+<p><tt><font color="#66ffff"><font size="+1">class BlackRider{</font></font></tt>
+<br>
+<tt><font color="#66ffff"><font size="+1">public:</font></font></tt>
+<br>
+<tt><font color="#66ffff"><font size="+1">&nbsp;&nbsp;&nbsp;
+BlackRider();
+// constructor</font></font></tt>
+<br>
+<tt><font color="#66ffff"><font size="+1">&nbsp;&nbsp;&nbsp; void
+move();
+// BlackRider makes a move</font></font></tt>
+<br>
+<tt><font color="#66ffff"><font size="+1">&nbsp;&nbsp;&nbsp; int
+getrow()
+const; // return the row number of BlackRider's position</font></font></tt>
+<br>
+<tt><font color="#66ffff"><font size="+1">&nbsp;&nbsp;&nbsp; int
+getcol()
+const; // return the column number of BlackRider's position</font></font></tt>
+<br>
+<tt><font color="#66ffff"><font size="+1">private:</font></font></tt>
+<br>
+<tt><font color="#66ffff"><font size="+1">&nbsp;&nbsp;&nbsp; int row;</font></font></tt>
+<br>
+<tt><font color="#66ffff"><font size="+1">&nbsp;&nbsp;&nbsp; int col;</font></font></tt>
+<br>
+<tt><font color="#66ffff"><font size="+1">};</font></font></tt>
+</p>
+<p><tt><font color="#66ffff"><font size="+1">class BlackRiderArray{</font></font></tt>
+<br>
+<tt><font color="#66ffff"><font size="+1">public:</font></font></tt>
+<br>
+<tt><font color="#66ffff"><font size="+1">&nbsp;&nbsp;&nbsp;
+BlackRiderArray();
+// constructor</font></font></tt>
+<br>
+<tt><font color="#66ffff"><font size="+1">&nbsp;&nbsp;&nbsp;
+BlackRiderArray(const
+BlackRiderArray &amp;A); // copy constructor</font></font></tt>
+<br>
+<tt><font color="#66ffff"><font size="+1">&nbsp;&nbsp;&nbsp;
+~BlackRiderArray();
+// destructor</font></font></tt>
+<br>
+<tt><font color="#66ffff"><font size="+1">&nbsp;&nbsp;&nbsp; void
+move()
+const; // all BlackRiders make a move</font></font></tt>
+<br>
+<tt><font color="#66ffff"><font size="+1">&nbsp;&nbsp;&nbsp; bool
+attackFrodo(Frodo
+f) const; // check if BlackRider attacks Frodo</font></font></tt>
+<br>
+<tt><font color="#66ffff"><font size="+1">&nbsp;&nbsp;&nbsp; void
+incrementLevel();
+// increase the number of BlackRider when the level is increased by 1</font></font></tt>
+<br>
+<tt><font color="#66ffff"><font size="+1">&nbsp;&nbsp;&nbsp; bool
+anyBlackRidersHere(int
+r, int c) const;// check if a BlackRider located at (r,c)</font></font></tt>
+</p>
+<p><tt><font color="#66ffff"><font size="+1">private:</font></font></tt>
+<br>
+<tt><font color="#66ffff"><font size="+1">&nbsp;&nbsp;&nbsp; BlackRider
+*BlackRiderptr;</font></font></tt>
+<br>
+<tt><font color="#66ffff"><font size="+1">&nbsp;&nbsp;&nbsp; int
+numBlackRiders;</font></font></tt>
+<br>
+<tt><font color="#66ffff"><font size="+1">};</font></font></tt>
+</p>
+<center><img src="pic8.jpg" align="middle" border="0" height="198"
+ width="250"></center>
+<p>
+</p>
+<hr width="100%"><br>
+&nbsp;
+</body>
+</html>

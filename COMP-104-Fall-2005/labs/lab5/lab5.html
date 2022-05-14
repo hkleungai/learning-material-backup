@@ -1,0 +1,644 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="Author" content="Nicole Chan">
+  <meta name="GENERATOR"
+ content="Mozilla/4.78 [en] (Windows NT 5.0; U) [Netscape]">
+  <title>Lab 5 : Poker Game</title>
+</head>
+<body alink="#ff0000" bgcolor="#33ccff" link="#0000ee" text="#000000"
+ vlink="#551a8b">
+<b><font face="Arial,Helvetica"><font size="+2">COMP 104
+: Programming</font></font></b>
+<p><b><font face="Arial,Helvetica"><font color="#cc0000"><font size="+2">Lab
+5 : </font></font></font><font color="#cc0000" face="Arial,Helvetica"
+ size="+2">
+Baccarat Gambling Game</font></b>
+<br>
+</p>
+<hr width="100%">
+<p align="center"><img src="pic/baccarat.bmp" align="right" border="0"
+ height="130" width="187"></p>
+<p><font face="Arial,Helvetica">In Lab 5 you will implement a UST
+version of the popular gambling game Baccarat&nbsp; (well, you are
+running your own casino now).
+You must use <b>Arrays</b> and <b>Functions</b> in your program.</font>
+</p>
+<div id="main">
+<p align="justify"><font face="Arial,Helvetica">There are <b>two hands
+dealt in the game</b>: one hand for the <b><i>banker</i></b> and
+another for the <i><b>player</b></i>. A <i><b>user</b></i> initially
+has $1000 on entering the UST Baccarat game. In each round, he may bet
+$100 that&nbsp; the player will win, or the banker will win or there
+will be a tie. In general, if the bet is correct, the user gets back
+his $100 bet plus a $100 bonus. A special case is when the user bet a
+tie and it happens. Since a tie seldom appears, his courage earns him a
+$500 bonus instead. But if the bet wrong, the user loses his $100 bet.
+The user leaves the game when he wants to,&nbsp; or when he loses all
+his money and is kicked out by the casino.</font></p>
+<p align="justify"><u><b><font face="Arial,Helvetica" size="4">Baccarat
+Hand Values</font></b></u></p>
+<p align="justify"><font face="Arial,Helvetica">All Tens and face cards
+(jack, queen, and king) are worth zero. The ace is worth "1" and the
+Two through Nine are worth their face value.</font></p>
+</div>
+<div id="main0">
+<table id="table1" border="0" cellpadding="3" cellspacing="1">
+  <tbody>
+    <tr bgcolor="#d6d6d6">
+      <td>
+      <div align="left"> <font face="Arial"><b>1</b></font></div>
+      </td>
+      <td>
+      <div align="left"> <font face="Arial"><b>Face value</b></font></div>
+      </td>
+      <td>
+      <div align="left"> <font face="Arial"><b>0</b></font></div>
+      </td>
+    </tr>
+    <tr>
+      <td><img src="pic/ca.gif" border="0" height="72" width="52"></td>
+      <td><b><img src="pic/c2.gif" border="0" height="72" width="52">
+... <img src="pic/c9.gif" border="0" height="72" width="52"></b></td>
+      <td with="100%"> <img src="pic/c10.gif" border="0" height="72"
+ width="52"><img src="pic/cj.gif" border="0" height="72" width="52"><img
+ src="pic/cq.gif" border="0" height="72" width="52"><img
+ src="pic/ck.gif" border="0" height="72" width="52"></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p><font face="Arial,Helvetica">In one round of the Baccarat
+game,&nbsp; the cards are drawn randomly. Then we determine the <b>card
+total of the hand</b>, which is calculated by summing the values of the
+cards.<br>
+<br>
+When the card total is 10 or more, 10 must be subtracted repetitively
+until the remaining card total is less than 10. &nbsp; For example, if
+the first two cards dealt are Jack and 4, the total is four. With cards
+of 6, 6 and 2, although totaling 14, it would count as 4 after
+subtracting 10.</font></p>
+<div id="main1"> <br>
+<font face="Arial,Helvetica"><b>The highest card total any baccarat
+hand can have is nine. </b>A two-card total of nine is called a "<b>natural</b>"
+and cannot lose. An eight is the second-best hand and is also called a
+natural. If both player and banker are dealt identical hands, it is a
+standoff (a <b>tie</b>).</font>
+<p> <u><b><font face="Arial,Helvetica" size="4">Baccarat Rules</font></b></u></p>
+<p> <font face="Arial,Helvetica">In the Baccarat game, both banker and
+player have at least two cards. Each may be given a third card when it
+is necessary. </font></p>
+<p><font face="Arial,Helvetica"><b>1.</b> Banker and player are first
+assigned two cards each. </font></p>
+<blockquote>
+  <p><font face="Arial,Helvetica">The game then checks whether the
+banker or player have a "natural".&nbsp; If only one hand has&nbsp; a
+"natural", that hand wins. If both hands have a "natural", the one with
+larger card total wins (i.e., a 9-point natural beats an&nbsp; 8-point
+natural). If both "naturals" are of the same card count, it is a tie.</font></p>
+</blockquote>
+<p><font face="Arial,Helvetica"><b>2.</b> If neither hands have a
+"natural", both hands may be given a third card. </font></p>
+<blockquote>
+  <p><font face="Arial,Helvetica"><b>2.1</b> The game checks the
+two-card total of the player first. If the player has a card total of 6
+or 7, the player <b>stands</b> (meaning he cannot have the third
+card); otherwise, the player <b>hits</b> (has a total of 0 to 5 and a
+random third card will be given).&nbsp; In summary,</font></p>
+  <p><font face="Arial,Helvetica"><b>Player rules</b><br>
+Card total for the first two cards of
+player&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Action of player<br>
+0, 1, 2, 3, 4,
+5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Hits, given a third card<br>
+6,
+7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Stands<br>
+8,
+9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Stands (natural)</font></p>
+  <p><font face="Arial,Helvetica"><b>2.2</b> Now it is turn to check
+the banker. </font></p>
+  <blockquote>
+    <p><font face="Arial,Helvetica"><b>2.2.1</b> When the player stands
+(has a total of 6 or 7), the banker hits on a card total of 5 or less,
+or stands on 6 or 7. In summary:</font></p>
+    <p><font face="Arial,Helvetica"><b>Banker rules (when player stands)<br>
+    </b>Card total for the first two cards of
+banker&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Action of banker<br>
+0, 1, 2, 3, 4,
+5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hits,
+given third card<br>
+6,
+7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stands<br>
+8,
+9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stands
+(natural)</font></p>
+    <p><font face="Arial,Helvetica"><b>2.2.2</b> If the player gets the
+third cards, the banker rules are more complex, as shown in the
+following chart:</font></p>
+    <p><font face="Arial,Helvetica"><b>Banker rules (when player hits) </b>
+(hint: you should use a 2D array to implement the following table)</font></p>
+    <div id="main3"><font face="Arial,Helvetica">H - hit, S - stand.</font>
+    <table class="art" id="table2" border="0" cellpadding="3"
+ cellspacing="1" width="46%">
+      <tbody>
+        <tr>
+          <td rowspan="2" align="center" bgcolor="#d6d6d6" width="18%">
+          <div align="center"><font face="Arial,Helvetica">Banker's</font></div>
+          <div align="center"><font face="Arial,Helvetica">Two-card<br>
+Total</font></div>
+          </td>
+          <td colspan="10" align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">Player's
+Third Card</font></div>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">0</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">1</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">2</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">3</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">4</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">5</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">6</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">7</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">8</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">9</font></div>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#d6d6d6" width="18%">
+          <div align="center"><font face="Arial,Helvetica">7</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#d6d6d6" width="18%">
+          <div align="center"><font face="Arial,Helvetica">6</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#d6d6d6" width="18%">
+          <div align="center"><font face="Arial,Helvetica">5</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#d6d6d6" width="18%">
+          <div align="center"><font face="Arial,Helvetica">4</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#d6d6d6" width="18%">
+          <div align="center"><font face="Arial,Helvetica">3</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td>
+          <div align="center"><font face="Arial,Helvetica">S</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#d6d6d6" width="18%">
+          <div align="center"><font face="Arial,Helvetica">2</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#d6d6d6" width="18%">
+          <div align="center"><font face="Arial,Helvetica">1</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#d6d6d6" width="18%">
+          <div align="center"><font face="Arial,Helvetica">0</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+          <td align="center" bgcolor="#d6d6d6">
+          <div align="center"><font face="Arial,Helvetica">H</font></div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </blockquote>
+  <p><font face="Arial,Helvetica"><b>2.3</b> Once the final cards are
+dealt, the score of the player and banker are compared. The winning
+hand is the one with the bigger card total.</font></p>
+</blockquote>
+<p><b><font face="Arial,Helvetica">You may refer this<a
+ href="lab5_flow.pdf"> flow chart</a> to have a&nbsp; better
+understanding on how the Baccarat game runs.</font></b></p>
+<p><u><b><font face="Arial,Helvetica" size="4">Program Instruction</font></b></u></p>
+</div>
+<p><font face="Arial,Helvetica">Use the library function </font><font
+ face="Courier New,Courier">rand()</font><font face="Arial,Helvetica">
+to select the cards at random (you'll need to </font><font
+ face="Courier New,Courier">#include
+&lt;cstdlib&gt;</font><font face="Arial,Helvetica"> and </font><font
+ face="Courier New,Courier">&lt;ctime&gt;</font><font
+ face="Arial,Helvetica">):</font>
+</p>
+<p><b><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#include &lt;iostream&gt;</font></b>
+<br>
+<b><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#include &lt;cstdlib&gt;</font></b>
+<br>
+<b><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#include &lt;ctime&gt;</font></b>
+<br>
+<b><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+using namespace std;</font></b>
+</p>
+<p><b><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+int main()</font></b>
+<br>
+<b><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{</font></b>
+<br>
+<b><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+...</font></b>
+<br>
+<b><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+srand(time(0));&nbsp; // initialize random number generator</font></b>
+<br>
+<b><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+...</font></b>
+<br>
+<b><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// picks a random card number between 1 and 13</font></b>
+<br>
+<b><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+cardNumber = rand()%13 + 1;</font></b>
+<br>
+<b><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+...</font></b>
+<br>
+<b><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}</font></b>
+</p>
+<p><font face="Arial,Helvetica">Display the cards drawn (use characters
+A, J, Q, K for Ace and face cards). At the beginning of each
+round,&nbsp; show how much money the user has. If the user doesn't have
+any money left, kick him out. The game shows the first card of the
+player and banker, then asks the user to make a bet.&nbsp; Illegal bet
+should be rejected. Example output should look like this:</font>
+</p>
+<p><b><font face="Courier New,Courier">Baccarat Gambling Game</font></b>
+<br>
+<b><font face="Courier New,Courier">-----------------------</font></b>
+<br>
+<b><font face="Courier New">User's money: $1000<br>
+Player 1st card: 1, banker 1st card: 9<br>
+Make your bet on who wins ('b' for banker, 'p' for player, 't' for tie)
+: b</font><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></b>
+<br>
+<b><font face="Courier New,Courier">Player cards :&nbsp;&nbsp; 1 3
+(two-card total: 4)&nbsp;&nbsp;<br>
+Banker cards :&nbsp;&nbsp; 9 K (two-card total: 9)&nbsp;&nbsp;<br>
+Player total: 4, banker total: 9</font></b><br>
+<b><font face="Courier New,Courier">Banker wins!</font></b> <br>
+<b><font face="Courier New,Courier">Good bet! $100 is added to your
+account!</font></b><br>
+<b><font face="Courier New">Continue? (Press 'c' to continue) : c<br>
+&nbsp;</font></b></p>
+<p><b><font face="Courier New,Courier">Baccarat Gambling Game</font></b>
+<br>
+<b><font face="Courier New,Courier">-----------------------</font></b>
+<br>
+<b><font face="Courier New">User's money: $1100<br>
+Player 1st card: 3, banker 1st card: 1<br>
+Make your bet on who wins ('b' for banker, 'p' for player, 't' for tie)
+: q<br>
+Wrong bet! Input bet again!<br>
+Make your bet on who wins ('b' for banker, 'p' for player, 't' for tie)
+: t</font></b><br>
+<b><font face="Courier New,Courier">Player cards :&nbsp;&nbsp; 3
+3&nbsp;(two-card total: 6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Banker cards :&nbsp;&nbsp; 1 2&nbsp;(two-card total:
+3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; </font></b>
+<br>
+<b><font face="Courier New,Courier">Player Stands.<br>
+Banker Hits. Banker 3rd card: </font><font face="Courier New">3<br>
+Player total: 6, banker total: 6<br>
+Tie!</font></b><br>
+<b><font face="Courier New,Courier">Good bet! $500 is added to your
+account!</font></b><br>
+<b><font face="Courier New">Continue? (Press 'c' to continue) : c</font></b></p>
+<p><b><font face="Courier New,Courier">Baccarat Gambling Game</font></b>
+<br>
+<b><font face="Courier New,Courier">-----------------------</font></b>
+<br>
+<b><font face="Courier New">User's money: $1600<br>
+Player 1st card: 4, banker 1st card: 1<br>
+Make your bet on who wins ('b' for banker, 'p' for player, 't' for tie)
+: b</font></b><br>
+<b><font face="Courier New,Courier">Player cards :&nbsp;&nbsp; 4 1
+(two-card total: 5)&nbsp;&nbsp;<br>
+Banker cards :&nbsp;&nbsp; 1 3 (two-card total: 4)&nbsp;&nbsp;</font></b><br>
+<b><font face="Courier New,Courier">Player Hits.
+Player 3rd card: J<br>
+Banker Stands.<br>
+Player total: 5, banker total: 4</font><font face="Courier New"><br>
+Player Wins!</font></b><br>
+<b><font face="Courier New,Courier">Bad bet! $100 is deducted from your
+account!</font></b><br>
+<b><font face="Courier New">Continue? (Press 'c' to continue) : c</font></b></p>
+<p><b><font face="Courier New">......</font></b></p>
+<p><b><font face="Courier New,Courier">Baccarat Gambling Game</font></b>
+<br>
+<b><font face="Courier New,Courier">-----------------------</font></b>
+<br>
+<b><font face="Courier New">User's money: $100<br>
+Player 1st card: A, banker 1st card: 5<br>
+Make your bet on who wins ('b' for banker, 'p' for player, 't' for tie)
+: p</font></b><br>
+<b><font face="Courier New,Courier">Player cards :&nbsp;&nbsp; A Q
+(two-card total: 1)&nbsp;&nbsp;<br>
+Banker cards :&nbsp;&nbsp; 5 K&nbsp;(two-card total:
+5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font></b>
+<br>
+<b><font face="Courier New,Courier">Player Hits.
+Player 3rd card: 7<br>
+Banker Hits.
+Banker 3rd card: 4 <br>
+Player total: 8, banker total: 9</font><font face="Courier New"><br>
+Banker Wins!</font></b><br>
+<b><font face="Courier New,Courier">Bad bet! $100 is deducted from your
+account!</font></b><br>
+<b><font face="Courier New">Continue? (Press 'c' to continue) : c</font></b></p>
+<p><b><font face="Courier New,Courier">Baccarat Gambling Game</font></b>
+<br>
+<b><font face="Courier New,Courier">-----------------------</font></b>
+<br>
+<b><font face="Courier New">User's money: $0<br>
+You don't have money! Game over!<br>
+<br>
+&nbsp;</font></b></p>
+<p></p>
+<hr width="100%"><br>
+<font face="Arial,Helvetica">Demo your working program for your TA.
+The TA will check your source code to make sure you made reasonable use
+of arrays and functions. If for some reason you cannot finish before
+the
+end of the lab period, email your program to your TA by <b>Sunday 23
+October
+5PM</b> (please include your name and lab section as a comment on line
+1 of
+your program).</font>
+</body>
+</html>

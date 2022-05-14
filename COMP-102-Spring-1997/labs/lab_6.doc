@@ -1,0 +1,87 @@
+#include <iostream.h>
+#include <fstream.h>
+#include <iomanip.h>
+#include <stdlib.h>
+
+#define in_file "INFILE.DAT"
+#define out_file "OUTFILE.DAT"
+
+void process_line(ifstream&, ofstream&, int&, int&);
+
+void main() {
+  int nwords=0, nchars=0, nlines=0, total_nwords=0, total_nchars=0;
+  float average=0.0;
+  ifstream ins;
+  ofstream outs;
+
+  ins.open(in_file);
+  if (ins.fail()) {
+     cout << "Input file opening failed.\n";
+     exit(1);
+  }
+
+  outs.open(out_file);
+  if (outs.fail()) {
+     cout << "Output file opening failed.\n";
+     exit(1);
+  }
+
+  do {
+     process_line(ins, outs, nwords, nchars);
+     nlines++;
+     total_nwords = total_nwords + nwords;
+     total_nchars = total_nchars + nchars;
+  } while ( ! ins.eof() );
+
+  if (total_nwords > 0) average = float(total_nchars)/total_nwords;
+
+  cout.precision(2);
+  cout.setf(ios::showpoint);
+  cout.setf(ios::fixed);
+  cout.setf(ios::left);
+  cout << setw(35) << "Number of lines:"
+       << setw(5) << setiosflags(ios::right) << nlines << endl;
+  cout.setf(ios::left);
+  cout << setw(35) << "Number of words:"
+       << setw(5) << setiosflags(ios::right) << total_nwords << endl;
+  cout.setf(ios::left);
+  cout << setw(35) << "Number of non-blank characters:"
+       << setw(5) << setiosflags(ios::right) << total_nchars << endl;
+  cout.setf(ios::left);
+  cout << setw(35) << "Average Number of characters:"
+       << setw(5) << setiosflags(ios::right) << average << endl;
+
+  ins.close();
+  outs.close();
+}
+
+void process_line(ifstream& ins, ofstream& outs, int& nwords, int& nchars) {
+   char next_ch;
+   int  count=0;
+   nwords = 0;
+   nchars = 0;
+
+   ins.get(next_ch);
+   while ((next_ch != '\n') && ! ins.eof()) {
+     if ( next_ch != ' ' ) {
+       outs.put(next_ch);
+       count++;
+       }
+     else {
+       if (count > 0) {
+	  outs << setw(3) << setiosflags(ios::right) << count << endl;
+	  nwords++;
+	  nchars = nchars + count;
+	  count = 0;
+       }
+     }
+     ins.get(next_ch);
+   }
+
+   // Take care of the last word in the line
+   if (count > 0) {
+	  outs << setw(3) << setiosflags(ios::right) << count << endl;
+	  nwords++;
+	  nchars = nchars + count;
+       }
+}

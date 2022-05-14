@@ -1,0 +1,290 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="Author" content="Nicole Chan">
+  <meta name="GENERATOR"
+ content="Mozilla/4.78 [en] (Windows NT 5.0; U) [Netscape]">
+  <title>Lab 7 : Tower of Fruitcake</title>
+</head>
+<body alink="#ff0000" bgcolor="#33ccff" link="#0000ee" text="#000000"
+ vlink="#551a8b">
+<b><font face="Arial,Helvetica"><font size="+2">COMP 104 : Programming</font></font></b>
+<p><b><font face="Arial,Helvetica"><font color="#cc0000"><font size="+2">Lab
+7 : </font></font></font><font color="#cc0000" face="Arial,Helvetica"
+ size="+2">Tower of Fruitcake</font></b><br>
+</p>
+<hr width="100%">
+<p>In this lab, you are going to help Artificial Intelligence
+researchers solve their famous "Tower of Fruitcake" problem.<br>
+<br>
+There are nine letters: 'f', 'r', 'u', 'i', 't','c','a','k', and 'e',
+and three towers, A, B, and C. Initially, the nine letters can be in
+any position in any of the three towers. For instance, one possible
+initial state can be:<br>
+<br>
+</p>
+<table border="1" cellpadding="2" cellspacing="2" width="100%">
+  <tbody>
+    <tr>
+      <td align="center" valign="top"><br>
+      </td>
+      <td align="center" valign="top">t<br>
+      </td>
+      <td align="center" valign="top"><br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="top">f<br>
+      </td>
+      <td align="center" valign="top">c<br>
+      </td>
+      <td align="center" valign="top"><br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="top">r<br>
+      </td>
+      <td align="center" valign="top">i<br>
+      </td>
+      <td align="center" valign="top">e<br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="top">k<br>
+      </td>
+      <td align="center" valign="top">u<br>
+      </td>
+      <td align="center" valign="top">a<br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="top">Tower A<br>
+      </td>
+      <td align="center" valign="top">Tower B<br>
+      </td>
+      <td align="center" valign="top">Tower C<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p><br>
+The goal is to get from the given initial state to the following final
+state:<br>
+&nbsp; </p>
+<table border="1" cellpadding="2" cellspacing="2" width="100%">
+  <tbody>
+    <tr>
+      <td align="center" valign="top">e<br>
+      </td>
+      <td align="center" valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="top">k<br>
+      </td>
+      <td align="center" valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="top">a<br>
+      </td>
+      <td align="center" valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="top">c<br>
+      </td>
+      <td align="center" valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="top">t<br>
+      </td>
+      <td align="center" valign="top"><br>
+      </td>
+      <td valign="top"><br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="top">i<br>
+      </td>
+      <td align="center" valign="top"><br>
+      </td>
+      <td align="center" valign="top"><br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="top">u<br>
+      </td>
+      <td align="center" valign="top"><br>
+      </td>
+      <td align="center" valign="top"><br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="top">r<br>
+      </td>
+      <td align="center" valign="top"><br>
+      </td>
+      <td align="center" valign="top"><br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="top">f<br>
+      </td>
+      <td align="center" valign="top"><br>
+      </td>
+      <td align="center" valign="top"><br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="top">Tower A<br>
+      </td>
+      <td align="center" valign="top">Tower B<br>
+      </td>
+      <td align="center" valign="top">Tower C<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p><br>
+There is only one type of actions (operators) that you are allowed to
+use for achieving this task:<br>
+<br style="font-family: monospace;">
+<span style="font-family: monospace;">&nbsp;&nbsp;&nbsp; move(X,Y)</span>
+- move the top letter from tower X to tower Y<br>
+<br>
+(If tower X is empty, then this action has no effect.) For instance,
+for the above initial state, the new state after performing the action <span
+ style="font-family: monospace;">move(A,B)</span> is:<br>
+<br>
+</p>
+<table border="1" cellpadding="2" cellspacing="2" width="100%">
+  <tbody>
+    <tr>
+      <td valign="top"><br>
+      </td>
+      <td align="center" valign="top">f<br>
+      </td>
+      <td valign="top"><br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><br>
+      </td>
+      <td align="center" valign="top">t<br>
+      </td>
+      <td align="center" valign="top"><br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><br>
+      </td>
+      <td align="center" valign="top">c<br>
+      </td>
+      <td align="center" valign="top"><br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="top">r<br>
+      </td>
+      <td align="center" valign="top">i<br>
+      </td>
+      <td align="center" valign="top">e<br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="top">k<br>
+      </td>
+      <td align="center" valign="top">u<br>
+      </td>
+      <td align="center" valign="top">a<br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="top">Tower A<br>
+      </td>
+      <td align="center" valign="top">Tower B<br>
+      </td>
+      <td align="center" valign="top">Tower C<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<p><br>
+<span style="font-weight: bold;"> Input/Output specification</span><br
+ style="font-weight: bold;">
+<br>
+The initial state will be given to you by a file named
+"initial_state.txt"
+that contains three non-empty lines of strings. The first non-empty
+line is the contents of tower A, starting from the bottom. Similarly,
+the next two non-empty lines are the contents of towers B and C.
+&nbsp;For example, the contents of "initial_state.txt" for the above
+example is:<br>
+<br>
+krf<br>
+uict<br>
+ae<br>
+<br>
+Your solution needs to be written into another file called
+"solution.txt".
+It starts with the initial state, followed by the action to be
+performed, and then the new state that results from performing the
+action, and so on until the goal state is achieved. For instance,&nbsp;<a
+ href="example_solution.txt">this</a> contains one possible solution to
+the goal given the above initial state. While you are encouraged to
+find an efficient solution, reaching the goal state is sufficient for
+full marks.<br>
+</p>
+<p>As in Lab6, use separate files for the main program, the function
+prototypes, and the function definitions. Here is <a href="main.cpp"><span
+ style="font-family: monospace;">main.cpp</span></a> with the main
+program, and here is <a href="lab7.h"><span
+ style="font-family: monospace;">lab7.h</span></a> with the function
+prototypes. Your job is to create another
+file <span style="font-family: monospace;">lab7.cpp</span> with the
+function definitions. <br>
+<br>
+</p>
+<span style="font-weight: bold;">HINTS</span><br
+ style="font-weight: bold;">
+(1) Note that to pass a <span style="font-family: monospace;">fstream </span>variable
+into a function, you must use
+pass-by-reference. Thus for example, the following is okay: <br>
+<span style="font-family: monospace;">&nbsp;&nbsp;&nbsp; void
+my_function(int, ofstream&amp;)</span><br>
+but not the following<br>
+<span style="font-family: monospace;">&nbsp;&nbsp;&nbsp; void
+my_function(int, ofstream)</span><br style="font-family: monospace;">
+<br>
+(2) The string function <span style="font-family: monospace;">length </span>will
+be useful for this lab. Here is an example:<br>
+<span style="font-family: monospace;">&nbsp;&nbsp;&nbsp; string s =
+"fruitcake";</span><span style="font-family: monospace;"><br>
+&nbsp;&nbsp;&nbsp; cout &lt;&lt; s.length();&nbsp;&nbsp; // outputs 9
+when s="fruitcake"</span><br>
+<hr width="100%"><br>
+<font face="Arial,Helvetica">Demo your working program for your TA. The
+TA will check your source code to make sure you made reasonable use of
+strings, file I/O, and functions. If for some reason you cannot finish
+before the end
+of the lab period, email your program to your TA by <b>Sunday 6
+November 5PM</b>
+(please include your name and lab section as a comment on line 1 of
+your
+program).</font> <br>
+<br>
+</body>
+</html>

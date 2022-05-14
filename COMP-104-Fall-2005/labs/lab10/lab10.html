@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="Author" content="Andrew Horner">
+  <meta name="GENERATOR"
+ content="Microsoft FrontPage 6.0">
+  <title>Lab 10 : star war movie with doubly linked list</title>
+</head>
+<body alink="#ff0000" bgcolor="#33ccff" link="#cc66cc" text="#000000"
+ vlink="#551a8b">
+<b><font face="Arial,Helvetica"><font size="+2">COMP 104 : Programming</font></font></b>
+<p><b><font face="Arial,Helvetica"><font color="#cc0000"><font size="+2">Lab
+10: <span style="font-style: italic;">Star Wars</span> movie player<br>
+</font></font></font></b></p>
+<hr width="100%">
+<center>
+<table align="center" border="1">
+  <tbody>
+    <tr>
+      <td><img src="pic2.jpg" alt="" height="149" width="189"></td>
+      <td><img name="" src="pic1.jpg" alt="" height="147" width="216"></td>
+    </tr>
+  </tbody>
+</table>
+</center>
+<p><font face="Arial, Helvetica, sans-serif">In Lab10, you will write a program 
+  that simulates a movie player. Your program will read in a text file containing 
+  ascii frames from the movie <span
+ style="font-style: italic;">Star Wars</span>, and store the frames in a doubly 
+  linked list. <br>
+  <br>
+  Here are some text files you can use to test your movie player: <a
+ href="scene1.ani">scene1.ani</a>, <a href="scene2.ani">scene2.ani</a>, <a href="scene3.ani">scene3.ani</a>, 
+  <a href="starwar.ani">starwar.ani</a> (1.8Mb, just for fun if you have finished 
+  the lab assignment)</font> </p>
+<p><font face="Arial, Helvetica, sans-serif">Each text file should end with a 
+  new line.</font></p>
+<p align="justify"><font face="Arial, Helvetica, sans-serif">Your
+program must implement the following functions: <br>
+</font><font face="Arial, Helvetica, sans-serif">&nbsp;&nbsp;&nbsp; 1.
+play forward<br>
+&nbsp;&nbsp;&nbsp; 2. play backward<br>
+&nbsp;&nbsp;&nbsp; 3. pause<br>
+&nbsp;&nbsp;&nbsp; 4. stop<br>
+&nbsp;&nbsp;&nbsp; 5. delete current frame<br>
+&nbsp;&nbsp;&nbsp; 6. duplicate current frame </font></p>
+<p align="justify"><font face="Arial, Helvetica, sans-serif">The file
+i/o, player menu, and player control functions are given to you, so
+that you can focus on the doubly linked list part. You may modify the
+given functions. Here is the <a href="skeleton.txt">skeleton</a> of
+the program. You may modify the skeleton, but it's always good to build
+up a large program from small pieces.</font></p>
+<!-- requirements -->
+<p><font face="Arial, Helvetica, sans-serif"><b>Requirements:</b></font></p>
+<ol>
+  <li><font face="Arial, Helvetica, sans-serif"> Except for constants,
+your program should not use global variables.</font></li>
+  <li><font face="Arial, Helvetica, sans-serif"> You should use a
+doubly linked list to store the frames.</font></li>
+  <li><font face="Arial, Helvetica, sans-serif"> Your program must not
+have any memory leaks or dangling pointers.</font></li>
+  <font face="Arial, Helvetica, sans-serif">Use the following
+structure (note that it is a user-defined data type, not a variable): <br>
+  </font><span style="font-family: monospace;"> struct Node{</span><br
+ style="font-family: monospace;">
+  <font style="font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;string
+frame;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Node* next; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;Node* prev; <br>
+}</font><br style="font-family: monospace;">
+  <span style="font-family: monospace;">typedef Node* NodePtr;</span><br
+ style="font-family: monospace;">
+  <br>
+  <font face="Arial, Helvetica, sans-serif">Each frame is a string in
+this <a href="frame_example.txt">form</a>.</font></>
+<p><br>
+<!-- Game play section --> <font face="Arial, Helvetica, sans-serif"><b>Function
+explanation:</b></font> </p>
+<p><font face="Arial, Helvetica, sans-serif">To start the program, the
+user must first input the full file name.</font></p>
+<p><font face="Arial, Helvetica, sans-serif">There are totally 7
+functions you must implement in the skeleton.</font></p>
+<ol>
+  <li><span style="font-family: monospace;">void append_frame(NodePtr
+&amp;Head, NodePtr &amp;Rear, string nframe);</span><br>
+This function allocates a new node with its <span
+ style="font-family: monospace;">frame</span> set to <span
+ style="font-family: monospace;">nframe</span>, and appends the new
+node to the end of the doubly linked list. <span
+ style="font-family: monospace;">Head </span>points to the first node
+in the linked list, <span style="font-family: monospace;">Rear </span>points
+to the last node in the linked list, and <span
+ style="font-family: monospace;">frame </span>is the data frame to be
+appended. (This function is called in the <span
+ style="font-family: monospace;">load_tape()</span> function.)</li>
+  <li><span style="font-family: monospace;">void play_forward(NodePtr
+&amp;ptr);</span><br>
+	If ptr is NULL, just output &quot;no more forward&quot;. Otherwise, move ptr one step 
+	forward if there is a node and display the frame. Otherwise, leave <span
+ style="font-family: monospace;">ptr</span> unchanged, display the frame and output the
+message "no more forward". <a href="foward_example.jpg">example</a>.</li>
+  <li><span style="font-family: monospace;">void play_backward(NodePtr
+&amp;ptr);</span><br>
+	If ptr is NULL, just output &quot;no more backward&quot;. Otherwise, move ptr one step 
+	backward if there is a node and display the frame. Otherwise, leave <span
+ style="font-family: monospace;">ptr</span> unchanged, display the frame and output the
+message "no more backward". <a href="backward_example.JPG">example</a>.</li>
+  <li><span style="font-family: monospace;">void copy_frame(NodePtr
+&amp;ptr);</span><br>
+Copy the frame pointed to by&nbsp;<span style="font-family: monospace;">ptr</span>
+(if <span style="font-family: monospace;">ptr</span> is not NULL) into
+a new node and insert it as the next node after <span
+ style="font-family: monospace;">ptr</span>. Do not change the value of
+    <span style="font-family: monospace;">ptr</span>.</li>
+  <li><span style="font-family: monospace;">void delete_frame(NodePtr
+&amp;Head, NodePtr &amp;ptr);</span><br>
+Delete the frame pointed to by <span style="font-family: monospace;">ptr</span>
+(if&nbsp;<span style="font-family: monospace;">ptr</span> is not NULL).
+Then if there is a node after it move <span
+ style="font-family: monospace;">ptr</span> one step forward, otherwise
+if there is a node before it move <span style="font-family: monospace;">ptr</span>
+one step backward, otherwise simply output the message "no more
+delete". After moving <span style="font-family: monospace;">ptr</span>,
+output the frame it points to if it exists. <a
+ href="delete_example.JPG">example</a>.</li>
+  <li><span style="font-family: monospace;">void stop(NodePtr
+&amp;Head, NodePtr &amp;ptr);</span><br>
+Set <span style="font-family: monospace;">ptr</span> to Head and
+output the first frame.</li>
+  <li><span style="font-family: monospace;">void erase_tape(NodePtr
+&amp;Head);</span><br>
+Remove the entire doubly linked list to free up the memory.</li>
+</ol>
+<p>&nbsp;</p>
+<!--hints section -->
+<p><font face="Arial, Helvetica, sans-serif"><b>Hints</b></font>:</p>
+<p>Implement the <span style="font-family: monospace;">append_frame()</span>,
+<span style="font-family: monospace;">play_forward()</span>, and <span
+ style="font-family: monospace;">play_backward()</span> functions first
+to ensure the movie playback has no problems.</p>
+<p>Be careful to avoid dangling pointers, always check to see if a
+pointer is NULL or not before accessing the element it points to. It is
+good to set the pointer to NULL if it has nothing to point to.</p>
+<hr size="3" width="100%">
+<p>Demo your working program for your TA. If for some reason you cannot finish before the end of the lab period, email your program to your TA by Sunday 27 November 5PM (please include your name and lab section as a comment on line 1 of your program).</p>
+</>
+</ol></html>
+

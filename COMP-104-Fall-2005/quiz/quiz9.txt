@@ -1,0 +1,303 @@
+COMP104 : Quiz 9
+
+File I/O
+
+1. 	The following program is supposed to print out the contents of the file "data.dat" to the screen. 
+	What is wrong? 
+
+	#include <iostream>
+	#include <fstream>
+	using namespace std;
+	void main( ){
+		ifstream fin;
+		char next;
+		fin.get(next);
+		while(!fin.eof()){
+			cout << next;
+			fin.get(next);
+		}
+	}
+
+
+
+2.	The following program is supposed to print out the contents of the file "data.dat to the file "output.dat".
+	Correct any bugs.
+
+	#include <iostream>
+	#include <fstream>
+	using namespace std;
+	int main( ){
+		ifstream fin;
+		ofstream fout;
+		int first, second, third;
+	
+		fin.open("data.dat");	
+		cin >> first >> second >> third;
+		cout << "The sum of the first 3 numbers in data.dat \n"
+		       << " is " << (first + second + third) << endl;
+		fin.close();
+		return 0;
+	}
+
+
+
+
+Answer 1:	Open file "data.dat" before trying to read it, close file then
+	#include <iostream>
+	#include <fstream>
+	using namespace std;
+	void main( ){
+		ifstream fin;
+		char next;
+		fin.open("data.dat");
+		fin.get(next);
+		while(!fin.eof()){
+			cout << next;
+			fin.get(next);
+		}
+		fin.close();
+	}
+
+Answer 2:	Need to open the output file and close it
+		cin should be fin
+		cout should be fout
+
+	int main( ){
+		ifstream fin;
+		ofstream fout;
+		int first, second, third;
+		
+		fin.open("data.dat");
+		fout.open("output.data");	
+		fin >> first >> second >> third;
+		fout << "The sum of the first 3 numbers in data.dat \n"
+		       << " is " << (first + second + third) << endl;
+		fin.close();
+		fout.close();
+		return 0;
+	}
+
+
+Pointers 
+
+1. 	What is wrong in the following code? 
+
+	#include <iostream>
+	using namespace std;
+	void main( ){
+        	int i=1, j=2, k=3, n=4, m=5;
+        	int *x, *y, *z;
+        	*x = &i;
+        	cout << "x: " << x << endl; 
+        	cout << "*x: " << *x << endl; 
+        	cout << "&x: " << &x << endl; 
+        	cout << "i: " << i << endl; 
+        	cout << "*i: " << *i << endl; 
+        	cout << "&i: " << &i << endl; 
+	}
+
+
+
+Revised Question 1:
+
+	#include <iostream>
+	using namespace std;
+	void main( ){
+        	int i=1, j=2, k=3, n=4, m=5; 
+		int *x, *y, *z;
+        	x = &i;
+        	cout << "x: " << x << endl; 
+        	cout << "*x: " << *x << endl; 
+        	cout << "&x: " << &x << endl; 
+        	cout << "i: " << i << endl; 
+        	cout << "&i: " << &i << endl; 
+	}
+
+
+
+
+2. 	What is wrong in the following code? 
+
+	#include <iostream>
+	using namespace std;
+	void main(){
+        	int i=1, j=5, k=7, n=9, m=18;
+        	int *x, *y, *z;
+        	x = &i;
+        	y = z = &j;
+        	z = x;
+        	*z = 8;
+        	y = &k;
+        	x = &y;
+        	n = 5;
+        	*x = 4;
+        	cout << "i: " << i << endl;
+        	cout << "j: " << j << endl;
+        	cout << "k: " << k << endl;
+        	cout << "n: " << n << endl;
+        	cout << "m: " << m << endl;
+        	cout << "*x: " << *x << endl;
+        	cout << "*y: " << *y << endl;
+        	cout << "*z: " << *z << endl;
+	}
+
+
+
+Revised Question 2:	
+
+	#include <iostream>
+	using namespace std;
+	void main(){
+        	int i=1, j=5, k=7, n=9, m=18;
+        	int *x, *y, *z;
+        	x = &i;
+        	y = z = &j;
+        	z = x;
+        	*z = 8;
+        	y = &k;
+        	x = y;
+        	n = 5;
+        	*x = 4;
+		*y = *z;
+        	cout << "i: " << i << endl;
+        	cout << "j: " << j << endl;
+        	cout << "k: " << k << endl;
+        	cout << "n: " << n << endl;
+        	cout << "m: " << m << endl;
+        	cout << "*x: " << *x << endl;
+        	cout << "*y: " << *y << endl;
+        	cout << "*z: " << *z << endl;
+	}
+
+
+
+3. 	What is wrong in the following code? 
+
+	#include <iostream>
+	using namespace std;
+	void main(){
+        	int i=1, j=2, k=3, n=4, m=5;
+        	int *x, *y, *z;
+        	x = &i;
+        	y = z = &j;
+        	z = x;
+        	char c = 'c';
+        	const char d = 'd';
+        	char * const ptr1 = &c;
+        	ptr1 = &d;
+        	const char *ptr2 = &d;
+        	*ptr2 = 'e'; 
+	}
+
+
+
+Revised Question 3:
+
+	#include <iostream>
+	using namespace std;
+	void main(){
+        	int i=1, j=2, k=3, n=4, m=5;
+        	int *x, *y, *z;
+        	x = &i;
+        	y = z = &j;
+        	z = x;
+        	char c = 'c';
+        	const char d = 'd';
+        	char * const ptr1 = &c;
+        	const char *ptr2 = &d;
+	
+		cout << "*x: " << *x << endl;
+		cout << "*y: " << *y << endl;
+		cout << "*z: " << *z << endl;
+		cout << "*ptr1: " << *ptr1 << endl;
+		cout << "*ptr2: " << *ptr2 << endl;
+	}
+
+
+
+4. 	What is the output of the following code? 
+
+	#include <iostream>
+	using namespace std;
+	int main(){
+        	int a = 5, b = 8, c = 10;
+		int *x = &a;
+		int *y;
+		int *z = &b;
+
+		*x = 12;
+		++(*x);
+		y = x = &c;
+		c++;
+		z = &a;
+		--a;
+		(*z)++;
+		*y = 6;
+		
+		cout << a << " " << b << " " << c << endl;
+		cout << *x << " " << *y << " " << *z << endl;
+		return 0;
+	}
+
+
+
+5. 	What is the output of the following code? 
+
+	#include <iostream>
+	using namespace std;
+	int *F1(int  *x){
+        	*x *= 2;
+        	*x += 1;
+        	return x;
+	}
+	int main(){
+        	int m, n=10;
+        	int *p;
+        	int *q = &n;
+        
+		++(*q);
+        	m = *q;
+		m++;
+		p = F1(q);
+        	*p -= 5;
+        	*q += 5;
+        	cout << n << " " << m << endl; 
+        	cout << *p << " " << *q << endl; 
+        	return 0;
+	}
+
+
+
+
+
+Answer 1:	Cannot use *i.
+	Should be: x = &i;
+Suggested answer for revised question 1:	x: 0012FF7C
+			*x: 1
+			&x: 0012FF68
+			i: 1
+			&i: 0012FF7C
+Answer 2:  	x = &y; // illegal: x is pointer to int (not pointer to "int pointer")
+Answer rev2:	
+			i: 8
+			j: 5
+			k: 8
+			n: 5
+			m: 18
+			*x: 8
+			*y: 8
+			*z: 8
+Answer 3: 	ptr1 = &d; // illegal because ptr1 is a constant pointer (and cannot be changed)
+	*ptr2 = 'e'; // illegal: cannot change constant d indirectly through ptr2
+Answer rev3:	
+			*x: 1
+			*y: 2
+			*z: 1
+			*ptr1: c
+			*ptr2: d
+Answer 4:	13 8 6
+		6 6 13
+Answer 5:	23 12
+		23 23
+
+

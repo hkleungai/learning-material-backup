@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+       
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+       
+  <meta name="Author" content="Fangzhen Lin">
+       
+  <meta name="GENERATOR"
+ content="Mozilla/4.78 [en] (Windows NT 5.0; U) [Netscape]">
+  <title>Lab 6</title>
+   
+</head>
+  <body alink="#ff0000" bgcolor="#33ccff" link="#0000ee" text="#000000"
+ vlink="#551a8b">
+  <b><font face="Arial,Helvetica"><font size="+2">COMP 104 : Programming</font></font></b>
+ 
+<p><b><font face="Arial,Helvetica"><font color="#cc0000"><font size="+2">Lab 
+6 : </font></font></font><font color="#cc0000" face="Arial,Helvetica"
+ size="+2">Parasite Simulation</font></b><br>
+  </p>
+   
+<hr width="100%"> In this lab, you are going to simulate a forest plagued 
+by a parasite.<br>
+ <br>
+ A parasite plagues a forest by infecting the trees and causing<br>
+ them to defoliate (lose their leaves). Defoliated trees are removed from 
+the forest and new trees are planted in their places, which in turn may become 
+infected by the parasite. The following three rules define a simple model 
+of the forest environment:<br>
+ <br>
+ 1. An infected area becomes defoliated the following year;<br>
+ 2. A defoliated area becomes green the following year;<br>
+ 3. An infected area infects its neighbors to the north, south, east and
+west the following year, if they are currently green.<br>
+ <br>
+ A biologist requires a computer program that will use the rules given above 
+to simulate the <br>
+ changes in the forest over a number of generations (one generation = one 
+year). <br>
+ The program should represent the state of the forest by a grid of 25 letters. 
+For example, the state<br>
+ <br>
+ GGGGG<br>
+ GGIGG<br>
+ GGDDG<br>
+ GGGGG<br>
+ GGGGG<br>
+ <br>
+ indicates that most of the forest is green (G), with<br>
+ only one infected area (I) and two defoliated areas (D). <br>
+ The user of the program should be able to specify the initial state of the 
+forest, and to enter the number of generations for which the simulation will 
+run.<br>
+ <br>
+ There are two parts for this lab.<br>
+ <br>
+ Part 1. Design and implement necessary functions for the following<br>
+ main() function to run properly:<br>
+ <br>
+ void main() {<br>
+ &nbsp; char stateOfForest[5][5]; // the state of the forest array<br>
+ &nbsp; int generation; // the number of generations to simulate the forest<br>
+ <br>
+ &nbsp; get_initial_state(stateOfForest); <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // get the initial state of the 
+forest<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // from the user, and save it 
+in stateOfForest<br>
+ &nbsp; get_generation(generation); <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // get the number of generations 
+to simulate from the user<br>
+ &nbsp; for(int i=1; i&lt;= generation; i++) {<br>
+ &nbsp;&nbsp;&nbsp; print_state(stateOfForest); cout &lt;&lt; endl;<br>
+ &nbsp;&nbsp;&nbsp; //print out the state at each generation - good for debugging 
+your program<br>
+ &nbsp;&nbsp;&nbsp; update_state(stateOfForest);&nbsp; //update the state 
+using the three rules above<br>
+ &nbsp; }<br>
+ &nbsp; print_state(stateOfForest);<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // print out the final state<br>
+ }<br>
+ <br>
+ Part 2. One problem with the simulation program above is that it runs<br>
+ for a fixed number of generations regardless whether the state of<br>
+ the forest is stable or not. For instance, if the initial state of<br>
+ the forest is all green, then it stays that way for ever. Modify<br>
+ the above simulation program so that it stops as soon as the state<br>
+ becomes stable.<br>
+ <br>
+ You should submit the following files for evaluation:<br>
+ <br>
+ 1. YourFirstName_YourLastName_Comp104_Lab6_Part1.cpp<br>
+ <br>
+ This file should contain only the main() function above, plus<br>
+ appropriate #include and using directives. In particular, it should<br>
+ include your header file for the lab (see below).<br>
+ <br>
+ 2. YourFirstName_YourLastName_Comp104_Lab6_Part2.cpp<br>
+ <br>
+ This file should contain your modified main() function as required<br>
+ in part 2 of the lab.<br>
+ <br>
+ 3. YourFirstName_YourLastName_Comp104_Lab6_Forest.h<br>
+ <br>
+ This header file should contain the prototypes of all the functions that<br>
+ you introduce and use in your C++ source codes for the lab, that is,<br>
+ those functions that are not in the standard library but needed<br>
+ in order to run your programs.<br>
+ <br>
+ 4. YourFirstName_YourLastName_Comp104_Lab6_Forest.cpp<br>
+ <br>
+ This file should contain the implementations of the functions in<br>
+ the above header file.<br>
+ <br>
+ For example, if your name is "Cindy Li", then you need to submit<br>
+ the following four files:<br>
+ Cindy_Li_Comp104_Lab6_Part1.cpp, Cindy_Li_Comp104_Lab6_Part2.cpp,<br>
+ Cindy_Li_Comp104_Lab6_Forest.h, Cindy_Li_Comp104_Lab6_Forest.cpp.<br>
+ <br>
+ <br>
+ Hints: This is not a hard problem, but it is easy to get a messy<br>
+ program if you are not careful. So don't rush into writing the codes,<br>
+ think about how to solve the problem in the cleanest possible way.<br>
+ To see the difference between Part 1 and Part 2, try the following<br>
+ initial state, and simulate it for 30 generations:<br>
+ <br>
+ GGIGD<br>
+ GGGGG<br>
+ GGGGG<br>
+ GGGGG<br>
+ GGGGG<br>
+ <br>
+    
+<hr width="100%"><br>
+  <font face="Arial,Helvetica">Demo your working program for your TA. The 
+TA will check your source code to make sure you made reasonable use of arrays 
+and functions. If for some reason you cannot finish before the end of the 
+lab period, email your program to your TA by <b>Sunday 30 October 5PM</b> 
+(please include your name and lab section as a comment on line 1 of your program).</font>
+<br>
+ 
+</body>
+</html>

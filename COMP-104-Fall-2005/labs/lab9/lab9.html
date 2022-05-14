@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="Author" content="Andrew Horner">
+  <meta name="GENERATOR"
+ content="Mozilla/4.78 [en] (Windows NT 5.0; U) [Netscape]">
+  <title>Lab 9 : Falling Money with Linked List</title>
+</head>
+<body alink="#ff0000" bgcolor="#33ccff" link="#cc66cc" text="#000000"
+ vlink="#551a8b">
+<b><font face="Arial,Helvetica"><font size="+2">COMP 104 : Programming</font></font></b>
+<p><b><font face="Arial,Helvetica"><font color="#cc0000"><font size="+2">Lab
+9: Falling Money</font></font></font></b></p>
+<hr width="100%">
+<center>
+<table align="center" border="1">
+  <tbody>
+    <tr>
+      <td><img src="money_bag.jpg" alt="" height="250" width="196"></td>
+      <td><img name="" src="rubbish_bag.jpg" alt="" height="250"
+ width="198"></td>
+    </tr>
+  </tbody>
+</table>
+</center>
+<p><font face="Arial, Helvetica, sans-serif">In lab 9, you will write a
+program where the player controls a basket for collecting </font><font
+ face="Arial, Helvetica, sans-serif">falling </font><font
+ face="Arial, Helvetica, sans-serif">money from the sky. But, rubbish
+will fall from the sky as well. The goal of this game is to collect the
+money and avoid the rubbish.</font></p>
+<!-- requirements -->
+<p><font face="Arial, Helvetica, sans-serif"><b>Requirements:</b></font></p>
+<ol>
+  <li><font face="Arial, Helvetica, sans-serif"> Except for constants,
+your program should not use global variables.<br>
+    </font></li>
+  <li><font face="Arial, Helvetica, sans-serif">You should use a linked
+list to store each line of the sky.</font></li>
+  <font face="Arial, Helvetica, sans-serif"> <li> Your program must
+not have any memory leaks or dangling pointers.</li>
+  <li>Use the following structure (note that it is a user-defined data
+type, not a variable): <br>
+    <span style="font-family: monospace;"> &nbsp;&nbsp;&nbsp;struct
+Node{ </span><br style="font-family: monospace;">
+    <span style="font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string
+data;</span><br style="font-family: monospace;">
+    <span style="font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Node*
+next;</span><br style="font-family: monospace;">
+    <span style="font-family: monospace;"> &nbsp;&nbsp;&nbsp;};</span><br
+ style="font-family: monospace;">
+    <span style="font-family: monospace;"> &nbsp;&nbsp;&nbsp;typedef
+Node* NodePtr;</span></li>
+  </font>
+</ol>
+<p><b><font face="Arial, Helvetica, sans-serif">The sky:</font></b></p>
+<ol>
+  <li><font face="Arial, Helvetica, sans-serif"> You will create a sky
+of 40 characters in width and 20 lines in height. Outside the sky,
+there is a title, two barriers and a line showing the score. Therefore,
+there are totally 42 characters x 22 lines in this game. </font></li>
+  <li><font face="Arial, Helvetica, sans-serif">&#8216;U&#8217; will be used to
+represent the basket. Put it in the middle bottom of the sky when the
+game begins. The player can use arrow keys to move teh basket from left
+to right.</font></li>
+  <li><font face="Arial, Helvetica, sans-serif">Use &#8216;$&#8217; to represent
+money and &#8216;.&#8217; (a fullstop) to represent rubbish.</font></li>
+  <span style="font-family: arial,helvetica,sans-serif;"></span><li><font
+ face="Arial, Helvetica, sans-serif">Put two items on each line. The
+items can be either &#8216;$&#8217; or &#8216;.&#8217;. </font></li>
+</ol>
+<font face="Arial, Helvetica, sans-serif">Here is the sample layout: <a
+ href="sample.txt" target="_blank">sample.txt</a></font><br>
+<br>
+<!-- Game play section -->
+<font face="Arial, Helvetica, sans-serif"><b>Game play:</b></font>
+<ol>
+  <li><font face="Arial, Helvetica, sans-serif"> <font color="#ff0000">The
+sky itself is a linked list of strings. Each line is a Node in the
+linked list.</font> You can add a line to the top and remove a line
+from the bottom to make the money look like it is falling from the sky.
+Here is the explanation: <a href="explain.ppt">explain.ppt</a></font></li>
+  <li><font face="Arial, Helvetica, sans-serif"> You will have 50 marks
+at the beginning. Collecting each &#8216;$&#8217; will add 10 marks, and each &#8216;.&#8217;
+will cost you 15 marks. If you get 100 marks or more, you win. If you
+get 0 marks or less, you lose.</font></li>
+</ol>
+<!--hints section -->
+<p><font face="Arial, Helvetica, sans-serif"><b>Hints:</b></font></p>
+<ol>
+  <font face="Arial, Helvetica, sans-serif">Use the following code
+to get the input when user presses a key:<br>
+  </font><span style="font-family: monospace;">if
+(kbhit()) input = getch();</span><br style="font-family: monospace;">
+  <span style="font-family: monospace;">// kbhit(): if someone hits the
+keyboard, it returns true.</span><br style="font-family: monospace;">
+  <span style="font-family: monospace;">// getch(): gets a char
+immediately from the input
+(no need to press
+enter) </span><br style="font-family: monospace;">
+  <font face="Arial, Helvetica, sans-serif">You should include </font><span
+ style="font-family: monospace;">&lt;conio.h&gt;</span><font
+ face="Arial, Helvetica, sans-serif"> in order to use these two
+functions.<br>
+  <br>
+  </font> <li><font face="Arial, Helvetica, sans-serif"> Then you
+can check
+which key the user pressed (left or right arrow):<br>
+    </font>
+    <p style="font-family: monospace;">const char CPPKEYLEFT = 75;
+&nbsp;&nbsp;&nbsp;//left arrow<br>
+const char CPPKEYRIGHT = 77; &nbsp;&nbsp;&nbsp;//right arrow</p>
+    <p style="font-family: monospace;">if (input == CPPKEYLEFT) {&#8230;}<br>
+else if (input == CPPKEYRIGHT) {&#8230;}</p>
+  </li>
+  <li><font face="Arial, Helvetica, sans-serif">You can use the
+following code to generate a string with 40 characters:<br>
+    </font>
+    <p style="font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;string
+temp(40, 'x');</p>
+    <font face="Arial, Helvetica, sans-serif"> &#8220;temp&#8221; is the variable
+name, the first parameter is the number of characters, the second
+parameter is the character to be filled in.<br>
+That is the same as<br>
+    </font>
+    <p style="font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;string
+temp = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";</p>
+  </li>
+  <li><font face="Arial, Helvetica, sans-serif"> Then you can use
+strings like an array:<br>
+    </font>
+    <p style="font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;temp[9]
+= 'y';</p>
+    <font face="Arial, Helvetica, sans-serif"> This will change the
+character at index 9 to &#8216;y&#8217;.</font></li>
+  <span style="font-family: arial,helvetica,sans-serif;"><br>
+  </span> <li><font face="Arial, Helvetica, sans-serif">You can use
+this
+command to control the speed of the game:<br>
+    </font>
+    <p style="font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;Sleep(10);</p>
+    <font face="Arial, Helvetica, sans-serif"> It will stop the program
+for 10 milliseconds.<br>
+You should include </font><span style="font-family: monospace;">&lt;Windows.h&gt;</span><font
+ face="Arial, Helvetica, sans-serif"> in order to use this function. </font></li>
+</ol>
+<font face="Arial, Helvetica, sans-serif">
+<p>This is a sample of first 10 steps: <a href="first_10_lines.txt"
+ target="_blank">first_10_lines.txt</a></p>
+</font>
+<hr size="3" width="100%"><font face="Arial,Helvetica">Demo your
+working program for your TA. If for some
+reason you cannot finish before the end of the lab period, email your
+program
+to your TA by Sunday 20 November 5PM </font><font color="#ff0000"
+ face="Arial,Helvetica">(please
+include your name and lab section as a comment on line 1 of your
+program)</font>.
+</body>
+</html>

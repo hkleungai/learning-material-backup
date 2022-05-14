@@ -1,0 +1,479 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="Author" content="Andrew Horner">
+  <meta name="GENERATOR"
+ content="Mozilla/4.78 [en] (Windows NT 5.0; U) [Netscape]">
+  <title>COMP104 Extra 14</title>
+<!-- saved from url=(0040)file://D:\Users\comp104\Labs01\lab10.htm --><!-- saved from url=(0070)http://www.cs.ust.hk/~horner/comp104old/comp104f00/labs/lab8/lab8.html -->
+</head>
+<body style="color: rgb(0, 0, 0); background-image: url(bgrock.jpg);"
+ alink="#ff0000" link="#cc66cc" vlink="#551a8b">
+<h2>
+<b><font face="Algerian"><font color="#ff870f"><font size="+3">COMP104:
+Programming</font></font></font></b></h2>
+<h2>
+<b><font face="Algerian"><font color="#ff870f"><font size="+3">EXTRA14:
+The
+Lord of the Rings</font></font></font></b></h2>
+<center>
+<hr width="100%"><img src="banner.jpg" border="0" height="136"
+ width="65%"></center>
+<font face="Arial,Helvetica"><font color="#ff870f"><font size="+1">Implement
+a maze game base on the movie <i>The Lord of the
+Rings</i>.
+In the game, the hero <i>Frodo</i> must safely cross the <i>Black
+Forest</i>
+without being caught by the <i>Black Riders</i>. To reach the exit of
+the
+forest, he must cross 8 different stages of the trail. <i>Frodo</i>
+must
+race against the clock too, he must cross the <i>Black Forest </i>in
+less
+than 80 seconds.</font></font></font>
+<center><img src="darkrider.jpg" align="middle" border="0" height="200"
+ width="176"><img src="dragon.jpg" align="middle" border="0"
+ height="201" width="162"><img src="dragon02.jpg" align="middle"
+ border="0" height="202" width="306"></center>
+<font face="Arial,Helvetica"><font color="#ff870f"><font size="+1">Below
+is a representation of the board.&nbsp; You begin your journey as <i>Frodo</i>
+from the upper-left corner of the board (represented by "F"). You must
+reach the exit at the lower-right corner (represented by "E" unless the
+square is occupied by a <i>Black Rider</i>). After you reach the exit,
+you will advance to stage 2. <i>Frodo</i> also begins stage 2 from the
+upper-left corner, with the exit in the lower-right corner. Then you
+must
+successfully cross this to stage 3. The player&nbsp; must complete 8
+stages
+to exit the Black Forest and win the game. On each level, the evil <i>Black
+Riders</i> (represented by "B") start from random locations (but not
+from
+the upper-left where Frodo starts) and move about at random, ready to
+attack
+<i>Frodo</i>. After each level, the <i>Black Riders</i> should start
+from
+different random locations. The number of <i>BlackRiders</i> is equal
+to
+3 times the stage number: 3 <i>BlackRiders</i> on stage 1, 6 on stage
+2,
+9 on stage 3, ... . Finally, there will be 24
+<i>BlackRiders</i> on stage
+8! (Impossible!!!)</font></font></font>
+<center><img src="pic1.jpg" border="0" height="124" width="186"><img
+ src="pic2.jpg" border="0" height="124" width="195"><img src="pic5.jpg"
+ border="0" height="124" width="186"></center>
+<tt><font color="#ff870f"><font size="+1">The Lord of the Rings</font></font></tt>
+<br>
+<b><tt><font color="#ff870f"><font size="+1">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</font></font></tt></b>
+<br>
+<b><tt><font color="#ff870f"><font size="+1">|F| | | | | | | | | | |
+| | | | |</font></font></tt></b>
+<br>
+<b><tt><font color="#ff870f"><font size="+1">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</font></font></tt></b>
+<br>
+<b><tt><font color="#ff870f"><font size="+1">| | | | | | | | | | | |
+| | | | |</font></font></tt></b>
+<br>
+<b><tt><font color="#ff870f"><font size="+1">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</font></font></tt></b>
+<br>
+<b><tt><font color="#ff870f"><font size="+1">| | | | | | | | | | | |
+| | | | |</font></font></tt></b>
+<br>
+<b><tt><font color="#ff870f"><font size="+1">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</font></font></tt></b>
+<br>
+<b><tt><font color="#ff870f"><font size="+1">| | | | | | | | | | | |
+| | | | |</font></font></tt></b>
+<br>
+<b><tt><font color="#ff870f"><font size="+1">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</font></font></tt></b>
+<br>
+<b><tt><font color="#ff870f"><font size="+1">| | | | | | | | | | | |B|
+| | | |</font></font></tt></b>
+<br>
+<b><tt><font color="#ff870f"><font size="+1">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</font></font></tt></b>
+<br>
+<b><tt><font color="#ff870f"><font size="+1">| | | | | | | | | | | |
+| | | | |</font></font></tt></b>
+<br>
+<b><tt><font color="#ff870f"><font size="+1">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</font></font></tt></b>
+<br>
+<b><tt><font color="#ff870f"><font size="+1">| | | | | | | | | | | |
+| | | | |</font></font></tt></b>
+<br>
+<b><tt><font color="#ff870f"><font size="+1">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</font></font></tt></b>
+<br>
+<b><tt><font color="#ff870f"><font size="+1">| | | | | | | | | | | |
+| | | |E|</font></font></tt></b>
+<br>
+<b><tt><font color="#ff870f"><font size="+1">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</font></font></tt></b>
+<br>
+<tt><font color="#ff870f"><font size="+1">Stage 1</font></font></tt>
+<br>
+<tt><font color="#ff870f"><font size="+1">Time remaining: 80</font></font></tt>
+<br>
+<tt><font color="#ff870f"><font size="+1">Which way to move (1-9)?
+Press
+x to exit:</font></font></tt>
+<p><font face="Arial,Helvetica"><font color="#ff870f"><font size="+1">In
+every step, the user can press one of the keypad numbers to move <i>Frodo</i>
+left, right, up, down, or diagonally. Use the keypad numbers to
+determine
+which direction to move <i>Frodo</i> (e.g., 1 means move downward to
+the
+left, 2 means move downward, 3 means move downward to the right, ...).
+[When you are playing, enable the keypad with the "Num Lock" key above
+the keypad numbers.] For each move of<i> Frodo, </i>the <i>Black
+Riders</i>
+move one square in a random direction. If two <i>Black Riders</i> move
+into the same square, only display one "B", and afterwards they should
+continue their movement. If a <i>Black Rider</i> moves into the same
+square
+as <i>Frodo</i>, only display a "B" and show the message "Frodo
+attacked
+by Black RIder!" and the program should end. Do not allow <i>Black
+Riders</i>
+to move off the board. If
+<i>Frodo</i> moves off the board, GAME OVER!,
+he dies. The user can also press ' x' to exit the program. <i>Frodo</i>
+has 80 seconds to complete all 8 stages. After each move, display the
+stage
+and the number of remaining seconds. If the time remaining reaches
+zero,
+GAME OVER!, the user loses (update the time only after each move). If
+the
+player finishes stage 8, print a special congratulations message
+because
+<i>Frodo</i> has finally left the Black Forest and wins.</font></font></font>
+</p>
+<center><img src="wa1.jpg" border="0" height="82" width="142"><img
+ src="wa2.jpg" border="0" height="82" width="142"><img src="wa3.jpg"
+ border="0" height="82" width="142"></center>
+<font color="#ff870f"><font size="+1"><font face="Arial,Helvetica">Implement
+the game using a linked list of <i>Black Riders</i>. Each time a new
+level
+is reached, allocate new <i>Black Riders </i>and attach them to the
+list
+(so, the fields of <i>BlackRider</i> will include the current row,
+current
+column, and a pointer to another <i>BlackRider</i>). For displaying
+the
+board, follow the linked list of <i>Black Riders</i>, displaying each
+of
+them on the board. You should also have a </font><font
+ face="Courier New,Courier">Board</font><font face="Arial,Helvetica">
+struct that contains the stage, <i>Frodo's</i> position, and a pointer
+to the first <i>Black RIder</i>.</font></font></font>
+<p><font color="#ff870f"><font size="+1"><font face="Arial,Helvetica">To
+make the game more fun to play, include the library &lt;conio.h&gt;,
+and use
+the
+</font><tt>getch() </tt><font face="Arial,Helvetica">function to read
+the input. It does not wait for the user to press the enter key, but
+gets
+one character immediately.</font></font></font>
+<br>
+<tt><font color="#ff870f"><font size="+1">#include
+&lt;conio.h&gt;&nbsp;
+// contains getch()</font></font></tt>
+<br>
+<tt><font color="#ff870f"><font size="+1">&nbsp;...</font></font></tt>
+<br>
+<tt><font color="#ff870f"><font size="+1">char dir =
+getch();&nbsp;&nbsp;&nbsp;&nbsp;
+// get a character from keyboard without waiting for enter key</font></font></tt>
+</p>
+<p><font face="Arial,Helvetica"><font color="#ff870f"><font size="+1">Another
+way to make the game more fun to play is to use the function:</font></font></font>
+<br>
+<font color="#ff870f"><font size="+1"><font face="Arial,Helvetica">&nbsp;</font><tt>&nbsp;&nbsp;
+system("cls");</tt></font></font>
+<br>
+<font color="#ff870f"><font size="+1"><font face="Arial,Helvetica">to
+clear the screen. It is in the </font><tt>&lt;cstdlib&gt;</tt><font
+ face="Arial,Helvetica">
+library.</font></font></font>
+</p>
+<center><img src="pic8.jpg" align="middle" border="0" height="198"
+ width="250"></center>
+<font face="Arial,Helvetica"><font color="#ff870f"><font size="+1">Below
+is a template of the game. Fill in the missing functions.</font></font></font>
+<p><tt><font color="#ff870f">//--------------------------------------------------------------------------</font></tt>
+<br>
+<tt><font color="#ff870f">// yourName yourLabSection</font></tt>
+<br>
+<tt><font color="#ff870f">// lab10.cpp (model answer)</font></tt>
+<br>
+<tt><font color="#ff870f">// The Lord of the Rings</font></tt>
+<br>
+<tt><font color="#ff870f">#include &lt;iostream&gt; // contains cout
+and
+cin</font></tt>
+<br>
+<tt><font color="#ff870f">#include &lt;cstdlib&gt;&nbsp; // contains
+the
+random number generator rand()</font></tt>
+<br>
+<tt><font color="#ff870f">#include &lt;ctime&gt;&nbsp;&nbsp;&nbsp; //
+contains time() to seed random number</font></tt>
+<br>
+<tt><font color="#ff870f">#include &lt;conio.h&gt;&nbsp; // contains
+getch()</font></tt>
+<br>
+<tt><font color="#ff870f">using namespace std;</font></tt>
+</p>
+<p><tt><font color="#ff870f">struct BlackRider{</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; int
+row;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// current row number of Black Rider</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; int
+col;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// current col number of Black Rider</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; BlackRider*
+next;&nbsp;&nbsp;
+// pointer to next Black Rider</font></tt>
+<br>
+<tt><font color="#ff870f">};</font></tt>
+</p>
+<p><tt><font color="#ff870f">struct Board{</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; int
+stage;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// current stage number</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; int
+frodoRow;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// current row number of Frodo</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; int
+frodoCol;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// current col number of Frodo</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; BlackRider*
+bhead;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// pointer to Black Rider linked list</font></tt>
+<br>
+<tt><font color="#ff870f">};</font></tt>
+</p>
+<p><tt><font color="#ff870f">// initialize the game board with stage=1,
+Frodo at upper-left, and 3 BlackRiders at random</font></tt>
+<br>
+<tt><font color="#ff870f">void initGame(Board&amp; board);</font></tt>
+</p>
+<p><tt><font color="#ff870f">// game logic</font></tt>
+<br>
+<tt><font color="#ff870f">void playGame(Board&amp; board);</font></tt>
+</p>
+<p><tt><font color="#ff870f">// display the game information</font></tt>
+<br>
+<tt><font color="#ff870f">void display(Board board, int timeRemaining);</font></tt>
+</p>
+<p><tt><font color="#ff870f">// Frodo makes a move(left, right, up,
+down
+or diagonal)</font></tt>
+<br>
+<tt><font color="#ff870f">void moveFrodo(Board&amp; board);</font></tt>
+</p>
+<p><tt><font color="#ff870f">//BlackRider makes a move (left, right,
+up,
+down or diagonal)</font></tt>
+<br>
+<tt><font color="#ff870f">void moveBlackRiders(Board&amp; board);</font></tt>
+</p>
+<p><tt><font color="#ff870f">// check if game ends</font></tt>
+<br>
+<tt><font color="#ff870f">bool gameEnd(Board board, int timeRemaining);</font></tt>
+</p>
+<p><tt><font color="#ff870f">// check to see if Frodo at exit</font></tt>
+<br>
+<tt><font color="#ff870f">bool FrodoAtExit(Board board);</font></tt>
+</p>
+<p><tt><font color="#ff870f">// check if any BlackRider and Frodo
+located
+in the same position</font></tt>
+<br>
+<tt><font color="#ff870f">bool blackRiderAttackFrodo(Board board);</font></tt>
+</p>
+<p><tt><font color="#ff870f">// increment the stage of game</font></tt>
+<br>
+<tt><font color="#ff870f">void incrementStage(Board&amp; stage, int
+timeremain);</font></tt>
+</p>
+<p><tt><font color="#ff870f">// set the number of Black Riders to
+3*stage
+number</font></tt>
+<br>
+<tt><font color="#ff870f">void addBlackRiders(Board&amp; board);</font></tt>
+</p>
+<p><tt><font color="#ff870f">// delete linked list of Black Riders</font></tt>
+<br>
+<tt><font color="#ff870f">void deleteBlackRiders(Board&amp; board);</font></tt>
+<br>
+&nbsp;
+</p>
+<p><tt><font color="#ff870f">void main(){</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; Board board;</font></tt>
+</p>
+<p><tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; srand(time(0));</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; initGame(board);</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; playGame(board);</font></tt>
+<br>
+<tt><font color="#ff870f">}</font></tt>
+</p>
+<p><tt><font color="#ff9900">// game logic</font></tt>
+<br>
+<tt><font color="#ff9900">void playGame(Board&amp; board){</font></tt>
+<br>
+<tt><font color="#ff9900">&nbsp;&nbsp;&nbsp; int startTime;</font></tt>
+<br>
+<tt><font color="#ff9900">&nbsp;&nbsp;&nbsp; int timeRemaining = 80;
+// start with 80 seconds to play game</font></tt>
+</p>
+<p><tt><font color="#ff9900">&nbsp;&nbsp;&nbsp; startTime = time(0);</font></tt>
+<br>
+<tt><font color="#ff9900">&nbsp;&nbsp;&nbsp; display(board,
+timeRemaining);</font></tt>
+<br>
+<tt><font color="#ff9900">&nbsp;&nbsp;&nbsp; while(true){</font></tt>
+<br>
+<tt><font color="#ff9900">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+//move Frodo and Black Riders</font></tt>
+<br>
+<tt><font color="#ff9900">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+moveFrodo(board);</font></tt>
+<br>
+<tt><font color="#ff9900">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+moveBlackRiders(board);</font></tt>
+</p>
+<p><tt><font color="#ff9900">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+//check if game ends. If yes, return to the caller function</font></tt>
+<br>
+<tt><font color="#ff9900">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+timeRemaining = 80 - (time(0) - startTime);</font></tt>
+<br>
+<tt><font color="#ff9900">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if(gameEnd(board, timeRemaining)){</font></tt>
+<br>
+<tt><font color="#ff9900">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+deleteBlackRiders(board);</font></tt>
+<br>
+<tt><font color="#ff9900">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+return;</font></tt>
+<br>
+<tt><font color="#ff9900">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}</font></tt>
+</p>
+<p><tt><font color="#ff9900">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+//advance to next stage</font></tt>
+<br>
+<tt><font color="#ff9900">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+display(board, timeRemaining);</font></tt>
+<br>
+<tt><font color="#ff9900">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if(FrodoAtExit(board)){</font></tt>
+<br>
+<tt><font color="#ff9900">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+deleteBlackRiders(board);</font></tt>
+<br>
+<tt><font color="#ff9900">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+addBlackRiders(board);</font></tt>
+<br>
+<tt><font color="#ff9900">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+incrementStage(board, timeRemaining);</font></tt>
+<br>
+<tt><font color="#ff9900">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}</font></tt>
+<br>
+<tt><font color="#ff9900">&nbsp;&nbsp;&nbsp; }</font></tt>
+<br>
+<tt><font color="#ff9900">}</font></tt>
+</p>
+<p><tt><font color="#ff870f">// Frodo makes a move(left, right, up,
+down
+or diagonal)</font></tt>
+<br>
+<tt><font color="#ff870f">void moveFrodo(Board&amp; board){</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; char dir;</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; cout &lt;&lt; "Which way
+to move (1-9)? Press x to exit: ";</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; dir = getch();</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp;
+if&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(dir == '1'){ board.frodoRow++; board.frodoCol--; }</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; else if (dir == '2'){
+board.frodoRow++;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; else if (dir == '3'){
+board.frodoRow++; board.frodoCol++; }</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; else if (dir ==
+'4'){&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+board.frodoCol--; }</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; else if (dir ==
+'5'){&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; else if (dir ==
+'6'){&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+board.frodoCol++; }</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; else if (dir == '7'){
+board.frodoRow--; board.frodoCol--; }</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; else if (dir == '8'){
+board.frodoRow--;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; else if (dir == '9'){
+board.frodoRow--; board.frodoCol++; }</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; else if (dir == 'x'){</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+cout &lt;&lt; endl &lt;&lt; "Exiting!" &lt;&lt; endl &lt;&lt; "GAME
+OVER!"
+&lt;&lt; endl;</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+deleteBlackRiders(board);</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+exit(0);</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; }</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; if(board.frodoRow&lt;0
+|| board.frodoRow&gt;7 || board.frodoCol&lt;0 || board.frodoCol&gt;15){</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+cout &lt;&lt; endl &lt;&lt; "Frodo falls off the board!!" &lt;&lt; endl
+&lt;&lt; "GAME OVER!" &lt;&lt; endl;</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+deleteBlackRiders(board);</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+exit(0);</font></tt>
+<br>
+<tt><font color="#ff870f">&nbsp;&nbsp;&nbsp; }</font></tt>
+<br>
+<tt><font color="#ff870f">}</font></tt>
+</p>
+<hr width="100%"><br>
+<br>
+&nbsp;
+</body>
+</html>
