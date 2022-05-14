@@ -1,0 +1,237 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>COMP111 Lab Session 3</TITLE>
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (X11; I; SunOS 4.1.4 sun4m) [Netscape]">
+</HEAD>
+<BODY>
+
+<H2 ALIGN=CENTER>COMP111 Lab Session 3</H2>
+
+<P>There are two parts for this lab. Part 1 deals with file and directory
+permissions. Part 2 deals with pipes.</P>
+
+<P>For this lab, create a file called `lab3.out' which contains your input
+and the system output at each stage of the lab. At the end of the lab,
+you will have to send this file to the lab TA.</P>
+
+<H3>I/O Redirection</H3>
+
+<ul>
+<li> 'command > file' will destroy the original contents of 'file'
+while 'command >> file' will append the output from 'command' to the
+end of 'file'
+To compare '>' versus '>>', try the following commands:
+<ol>
+<li> <tt>echo "This is Lab 3" > lab3.out
+<br>
+     cat lab3.out
+</tt>
+<li> <tt>echo "This is not lab 3" > lab3.out
+<br>
+     cat lab3.out
+</tt>
+<li> <tt>echo "This is lab 3 again" >> lab3.out
+<br>
+     cat lab3.out
+</tt>
+</ol>
+</ul>
+
+<H3>File permission basics</H3>
+
+<ul>
+<li> What is a user, a group, and 'other' mean?
+<ul>
+<li> If you create a file, you are the 'user' of the file.
+<li> A number of users can be put into a group, e.g., 'cs'
+is the name of the group which contains all the computer science
+users. Membership of a group is set by system staff.
+<li> 'other' is anyone who is not the 'user' and a member
+of the 'group' owner of the file.
+</ul>
+<li> What do permissions for user, group and other mean?
+<ul>
+<li> Three types of permissions: read, write and execute.
+<li> You can set the permission of a file so that
+someone can read, write and/or execute the file.
+</ul>
+<li> How to set permission?
+<ul>
+<li> <tt>'man chmod'</tt> to find out the options.
+<li> <tt>'chmod u+r'</tt> to give read permission to the 'user' (i.e., owner of the file)
+<li> <tt>'chmod u-r'</tt> to remove read permission from the 'user'
+<li> <tt>'chmod u+w'</tt> to give write permission to the 'user'
+<li> <tt>'chmod u-w'</tt> to remove write permission from the 'user'
+<li> <tt>'chmod u+x'</tt> to give execute permission to the 'user'
+<li> <tt>'chmod u-x'</tt> to remove execute permission from the 'user'
+<hr>
+<li> <tt>'chmod g+r'</tt> to give read permission to the 'group' 
+<li> <tt>'chmod g-r'</tt> to remove read permission from the 'group'
+<li> <tt>'chmod g+w'</tt> to give write permission to the 'group'
+<li> <tt>'chmod g-w'</tt> to remove write permission from the 'group'
+<li> <tt>'chmod g+x'</tt> to give execute permission to the 'group'
+<li> <tt>'chmod g-x'</tt> to remove execute permission from the 'group'
+<hr>
+<li> <tt>'chmod o+r'</tt> to give read permission to the 'other'  people
+<li> <tt>'chmod o-r'</tt> to remove read permission from the 'other' people
+<li> <tt>'chmod o+w'</tt> to give write permission to the 'other' people
+<li> <tt>'chmod o-w'</tt> to remove write permission from the 'other' people
+<li> <tt>'chmod o+x'</tt> to give execute permission to the 'other' people
+<li> <tt>'chmod o-x'</tt> to remove execute permission from the 'other' people
+<hr>
+<li> You can combine the operations, e.g., <tt>'chmod go-rwx filename'</tt>
+</ul>
+</ul>
+
+<H3>File and directory permissions</H3>
+
+<OL>
+<LI>Create the subdirectory &quot;lab3&quot; under your home directory
+and create another subdirectory &quot;part1&quot; under &quot;lab3&quot;.
+</LI>
+
+<LI>Change your working directory to &quot;lab3&quot;. Throughout this
+lab, &quot;lab3&quot; should be your current working directory. </LI>
+
+<LI>Create a textfile named as &quot;part1.txt&quot; and save it under
+&quot;part1&quot;. The content of &quot;part1.txt&quot; should be: <BR>
+<TT>Unix is interesting!</TT></LI>
+
+<LI>Execute <BR>
+<TT>% ls -lR ../lab3 <BR>
+</TT>to check the permissions of &quot;part1&quot; and &quot;part1.txt&quot;.
+</LI>
+
+<LI>Set the permission of &quot;part1.txt&quot; to: <BR>
+<TT>r--r--r-- <BR>
+</TT>Verify that you've set it correctly with the command &quot;ls -l part1&quot;.
+Save the output to a file, call it &quot;lab3.out&quot;. </LI>
+
+<LI>Set the permission of &quot;part1&quot; to: <BR>
+<TT>rw-r--r-- <BR>
+</TT>Verify that you've set it correctly with the command &quot;ls -ld
+part1&quot;. </LI>
+
+<LI>Execute the following commands and take note of the system's response.
+The output should also be appended to &quot;lab3.out&quot;. <BR>
+<TT>% ls part1 <BR>
+% cat part1/part1.txt </TT></LI>
+
+<LI>Set the permission of &quot;part1&quot; to <BR>
+-wx--x--x <BR>
+Verify that you've set it correctly with the command &quot;ls -ld part1&quot;.
+</LI>
+
+<LI>Execute the following commands and take note of the system's response.
+The output should also be appended to &quot;lab3.out&quot;. <BR>
+<TT>% ls part1 <BR>
+% cat part1/part1.txt </TT></LI>
+
+<LI>Change your working directory to &quot;part1&quot;. </LI>
+
+<LI>WITHOUT changing the permissions of &quot;part1&quot; and &quot;part1.txt&quot;,
+modify the content of &quot;part1.txt&quot; as follows. 
+<!--
+[Hint: see section
+23.11, textbook] 
+-->
+<BR>
+<BR>
+<TT>This file was made as read-only. However, I'm still able to overwrite
+it. Hah! <BR>
+<BR>
+</TT>As at each step, you should include the commands used in the &quot;lab3.out&quot;
+file.</LI>
+</OL>
+
+<H3>Pipes</H3>
+
+<P>Please work out the following in the subdirectory &quot;lab3&quot;.
+</P>
+
+<OL>
+<LI>Create three files as follows (you can use cut-and-paste):</LI>
+
+<OL>
+<LI><I>First filename:</I> <TT>La1 <BR>
+</TT><I>Content: <BR>
+</I><TT>
+Zhang Kar Chan:9403058<br>
+Yuen Chung Chung:9426048<br>
+Zhang Kwan Ki:9522397<br>
+Zhang Kwok Wang:9420568<br>
+Yuen Ching Chik:9500251<br>
+</TT><BR>
+</LI>
+
+<LI><I>Second filename: </I><TT>La2 <BR>
+</TT><I>Content: <BR>
+</I><TT>
+Zhang Kwok Wang:9420561<br>
+Chang Yuen Yip:9407008<br>
+Chang Fai Ting:9910737<br>
+Wu Oi Lin Annie:9915368<br>
+Chang Koon Ming:9235339<br>
+</TT><BR>
+</LI>
+
+<LI><I>Third filename:</I> <TT>La3 <BR>
+</TT><I>Content: <BR>
+</I><TT>
+Yeung Chung Yiu:9403057<br>
+Yeung Sun Wah:9437208<br>
+Chang Koon Ming:9235338<br>
+Wu Oi Lin Annie:9915364<br>
+Yeung Wai Pun:9426655<br>
+Wu Siu Man Bonnie:9607558<br>
+</TT><BR>
+</LI>
+</OL>
+<ul>
+<li> Observe that each line consists of 2 fields separated
+by a colon ':'
+<li> Use 'man sort' to find out how to tell <tt>sort</tt>
+to use <tt>:</tt> instead of space as the field delimiter.
+<li> Use 'man sort' to find out how to tell <tt>sort</tt>
+to sort based on the second field only and use 'numeric' ordering.
+</ul>
+
+<LI>With a pipeline of commands <I>using one single command line only</I>,
+do the following :<BR>
+</LI>
+
+<OL>
+<LI>combine these three files together<BR>
+</LI>
+
+<LI>sort the resulting file based on student names<BR>
+</LI>
+
+<LI>redirect the result to a file named &quot;student_list&quot;. </LI>
+</OL>
+
+<P>Include the commands in &quot;lab3.out&quot;. </P>
+
+<LI>With the file &quot;student_list&quot;: </LI>
+
+<UL>
+<LI>
+Sort the file based on student numbers.
+</LI>
+<LI>
+Include the commands used in lab3.out
+</LI>
+</UL>
+
+<P><B>Finally, mail &quot;lab3.out&quot; to the lab TA. </B></P>
+</OL>
+
+<P>
+<HR WIDTH="100%"></P>
+
+<P>Click <A HREF="../labs.html">here</A> to go back to the COMP111 lab
+page. </P>
+
+</BODY>
+</HTML>

@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>COMP111 Lab Session 4</TITLE>
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (X11; I; SunOS 4.1.4 sun4m) [Netscape]">
+</HEAD>
+<BODY>
+
+<H2 ALIGN=CENTER>COMP111 Lab Session 4</H2>
+
+<P> This lab consists of two parts. The first part lets you practice more
+on the UNIX file system, in particular, moving around the file hierarchy
+and the use of symbolic and hard links. The second part
+provides you further exercises on the use of cut, sort, grep and uniq for
+data processing tasks.
+</P>
+
+<P>For this lab, create a file called `lab4.out' which contains your input
+and the system output at each stage of the lab. At the end of the lab,
+you will have to send this file to the lab TA.</P>
+
+<H3>UNIX File Hierarchy</H3>
+
+<ul>
+<li> <strong>Hard versus Symbolic Links:</strong>
+<p>
+In the lecture, we discussed the concept of hard
+link. There is another type of links called <i>symbolic links</i>.
+In a hard link, the <i>physical location</i> of the source file is kept so
+that the source file can be directly accessed with the link.
+<p>
+In a symbolic link, however, the <i>pathname</i> of the source file
+is kept. The process to access the source file is as follows. First,
+from the symbolic link, get the pathname of the source file; then from
+the pathname, look up the location of the source file from the file
+system.
+<ul>
+<li> The terms 'source' and 'target' may be confusing.
+Make sure you understand what they are referring to; don't mix them up.
+<li> In the following exercises, the lesson to learn is that hard links
+can be moved to other places while symbolic links may be moved around
+if the absolute path is used as the target but not when the relative path
+is used.
+
+</ul>
+<li> Under you home directory, create a directory called lab4.
+Within lab4, create the following file hierarchy:
+<p>
+<pre>
+lab4 --- a --- b --- W
+  |      |     |
+  |      |     | --- X
+  |      |
+  |      c --- Y
+  |
+  d --- Z
+</pre>
+<p>
+Note that I draw the tree horizontally (consider it a tree after
+typhoon :-); lab4 is the root of the subtree; a, b, c, d are subdirectories;
+and W, X, Y, Z are regular files. Assuming your working directory is
+lab4, do the following: (Your TA will explain what does the semicolon do.)
+
+<ol>
+<li> For each file W, X, Y, Z, insert a line 'This is file xxx' where xxx
+is the name of the file (i.e., W, X, Y, or Z)
+<li> <tt>cd a/b; pwd</tt>
+<li> <tt>cd ../../d; pwd</tt>
+<li> <tt>cd ../a; pwd</tt>
+<li> <tt>cd b/../c; pwd</tt>
+<li> <tt>cd ~/.; pwd</tt>
+</ol>
+
+<li> Put the following into lab4.out
+<ol>
+<li> the command
+<li> the corresponding output
+<li> a written description of the meaning of the pathname; I'll answer for you
+the first two pathnames: for a/b, write 
+'<i>go to subdirectory a, and then go to subdirectory b within a</i>';
+for ../../d, write
+'<i>go to the parent directory, then go the parent directory of the parent
+directory, then go to directory d.</i>'
+</ol>
+
+<li> Go to directory lab4/a/b, do the following:
+<ol>
+<li> create a symbolic link 'slink1' pointing to ./X
+<li> create a symbolic link 'slink2' pointing to $HOME/lab4/a/b/X
+<li> create a hard link 'hlink1' pointing to ./X
+<li> create a hard link 'hlink2' pointing to $HOME/lab4/a/b/X
+<li> do <tt>ls -l</tt> and save the output into lab4.out
+<li> mv slink1, slink2, hlink1, hlink2 to $HOME/lab4/d
+<li> go to $HOME/lab4/d, save the command and the corresponding output
+into lab4.out:
+<li> cat slink1
+<li> cat slink2
+<li> cat hlink1
+<li> cat hlink2
+</ol>
+
+</ul>
+
+
+<H3>Data Processing with grep, sort and uniq</H3>
+
+<P>Please work out the following in the subdirectory &quot;lab4&quot;.
+</P>
+
+<OL>
+<LI>You are given the following data file (you can use cut-and-paste):</LI>
+
+<pre>
+Zhang Kar Chan*9403053*ma_akl@home.ust.hk
+Zhang Kwan Ki*9522394*ph_akk@home.ust.hk
+Yuen Fai Ho*9435303*cs_cchac@home.ust.hk
+Chang Yuen Yip*9407009*cs_ccyad@home.ust.hk
+Chang Fai Ting*9917940*cs_cctaq@cs.ust.hk
+Chang Koon Ming*9235339*ph_ckmaq@cs.ust.hk
+Wu Oi Lin Annie*9915364*ph_col@cs.ust.hk
+Wu Siu Man Bonnie*9607553*ma_csm@cs.ust.hk
+Yuen Chung Chun*9912360*ph_cccac@cs.ust.hk
+Yim Sze Lok*9436078*cs_ysl@ismt.ust.hk
+Yim Yiu Keung*9436000*cs_yyk@ismt.ust.hk
+Chung Chung Yan*9503463*ph_ccyab@cs.ust.hk
+Chung Ka Sing*9915036*ph_cksaq@cs.ust.hk
+Lai Yiu Man*9230535*cs_lymab@cs.ust.hk
+Lai Yuet Lung*9917940*cs_lyl@cs.ust.hk
+Chu Chung Yuen*9915003*cs_lccaq@cs.ust.hk
+Chan Yiu Chor*9439073*cs_lycab@cs.ust.hk
+Chan Hoi Lam*9464324*cs_xhl@stu.ust.hk
+Chan Shing Yung*9464946*bi_xsy@stu.ust.hk
+Zhang Kwok Wang*9420566*ma_akw@home.ust.hk
+Zhang Yan Ngan*9405694*ma_ayn@home.ust.hk
+Zhang Yea Wan Anna*9500957*mk_aywaq@home.ust.hk
+Yuen Chung Chung*9426040*ma_cccad@home.ust.hk
+Yuen Ching Chik*9500294*im_cccaq@home.ust.hk
+Chan So Ying*9464362*bi_xsyaq@stu.ust.hk
+Chan Wai Man*9432306*bi_xwm@stu.ust.hk
+Chan Yim Kwong*9422393*bi_xykaq@stu.ust.hk
+Yeung Chung Yiu*9403050*bi_ycy@ismt.ust.hk
+Yeung Sun Wah*9437208*cs_ysw@ismt.ust.hk
+Yeung Wai Pun*9426659*cs_ywp@ismt.ust.hk
+</pre>
+
+<p>
+Observe that each line consists of three fields separated
+by a star '*' Notice that * has a special meaning to UNIX shells.
+It basically matches everything. E.g.,
+<ul>
+<li> <tt>ls *</tt> lists all files, i.e., same as <tt>ls</tt>
+<li> <tt>ls abc.*</tt> lists all files starting with <tt>abc.</tt>
+following by anything.
+<li> Now try <tt>sort -t * file</tt> where <tt>file</tt> is the
+data file given above; what do you get? How do you fix it?
+</ul>
+<p>
+The the notes above in mind, give the commands,
+using cut, grep, sort, and uniq to
+answer the following questions:
+
+<p>
+<li> Sort the file in ascending order
+according to the year of entry of the students.
+<p>
+<li> Output student IDs which are duplicated in the file, as in the
+following:
+<p>
+<pre>
+9917940
+</pre>
+
+<li> List the most popular last name and the number of students using
+that last name, as in the following:
+<p>
+<pre>
+   6 Chan
+</pre>
+<li> How many domain names are used in the email addresses (the part after
+the @ sign). Generate the output as in the following:
+<p>
+<pre>
+  11 cs.ust.hk
+   9 home.ust.hk
+   5 ismt.ust.hk
+   5 stu.ust.hk
+</pre>
+
+<p>
+<li> Put the commands and the output into lab4.out.
+
+</OL>
+
+<P><B>Finally, mail &quot;lab4.out&quot; to the lab TA. </B></P>
+</OL>
+
+<P>
+<HR WIDTH="100%"></P>
+
+<P>Click <A HREF="../labs.html">here</A> to go back to the COMP111 lab
+page. </P>
+
+</BODY>
+</HTML>

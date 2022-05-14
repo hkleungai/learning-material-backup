@@ -1,0 +1,2044 @@
+%!PS-Adobe-2.0
+%%BoundingBox: 7 -5 600 749
+%%Title: /tmp_mnt/homes/rossiter/rossiter/111/08_regexps_extra.ps
+%%CreationDate: 10:06 AM July 23, 1997
+%%Pages: 3
+%%EndComments
+%%BeginProlog
+%%BeginResource ShowcaseResource
+1 setlinejoin
+/M  { moveto } bind def /S { show  } bind def
+/R { rmoveto } bind def /L { lineto } bind def
+/B { newpath 0 0 M 0 1 L 1 1 L 1 0 L closepath } bind def
+/CS { closepath stroke } bind def
+/S {
+    /fixwidth exch def
+    dup length /nchars exch def
+    dup stringwidth pop
+    fixwidth exch sub nchars div
+    exch 0 exch ashow
+} def
+/bwproc {
+	rgbproc
+	dup length 3 idiv string 0 3 0
+	5 -1 roll {
+	add 2 1 roll 1 sub dup 0 eq
+	{ pop 3 idiv 3 -1 roll dup 4 -1 roll dup
+	  3 1 roll 5 -1 roll put 1 add 3 0 }
+	{ 2 1 roll } ifelse
+	} forall
+	pop pop pop
+} def
+systemdict /colorimage known not {
+	/colorimage {
+		pop
+		pop
+		/rgbproc exch def
+		{ bwproc } image
+	} def
+} if
+1 1 scale
+0 setlinewidth
+/drawtri {
+/y3 exch def
+/x3 exch def
+/y2 exch def
+/x2 exch def
+/y1 exch def
+/x1 exch def
+0 setgray
+newpath
+x1 y1 moveto
+x2 y2 lineto
+x3 y3 lineto
+closepath
+stroke
+} bind def
+/filltri {
+/y3 exch def
+/x3 exch def
+/y2 exch def
+/x2 exch def
+/y1 exch def
+/x1 exch def
+newpath
+x1 y1 moveto
+x2 y2 lineto
+x3 y3 lineto
+closepath
+fill
+} bind def
+/cliptri {
+/y3 exch def
+/x3 exch def
+/y2 exch def
+/x2 exch def
+/y1 exch def
+/x1 exch def
+0 setgray
+newpath
+x1 y1 moveto
+x2 y2 lineto
+x3 y3 lineto
+closepath
+clip
+} bind def
+/imgscanrgb {
+gsave
+translate
+/scandy exch def
+/scandx exch def
+/istr scandx 3 mul string def
+scandx scandy scale
+scandx scandy 8
+[scandx 0 0 scandy neg 0 scandy]
+{currentfile istr readhexstring pop}
+false 3
+colorimage
+grestore
+} bind def
+/imgscanbw {
+gsave
+translate
+/scandy exch def
+/scandx exch def
+/istr scandx string def
+scandx scandy scale
+scandx scandy 8
+[scandx 0 0 scandy neg 0 scandy]
+{currentfile istr readhexstring pop}
+image
+grestore
+} bind def
+/showcaseisoencoding [
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/space /exclam /quotedbl /numbersign
+/dollar /percent /ampersand /quoteright
+/parenleft /parenright /asterisk /plus
+/comma /minus /period /slash
+/zero /one /two /three /four /five /six /seven
+/eight /nine /colon /semicolon
+/less /equal /greater /question
+/at /A /B /C /D /E /F /G
+/H /I /J /K /L /M /N /O
+/P /Q /R /S /T /U /V /W
+/X /Y /Z /bracketleft
+/backslash /bracketright /asciicircum /underscore
+/quoteleft /a /b /c /d /e /f /g
+/h /i /j /k /l /m /n /o
+/p /q /r /s /t /u /v /w
+/x /y /z /braceleft
+/bar /braceright /asciitilde /guilsinglright
+/fraction /florin /quotesingle /quotedblleft
+/guilsinglleft /fi /fl /endash
+/dagger /daggerdbl /bullet /quotesinglbase
+/quotedblbase /quotedblright /ellipsis /trademark
+/dotlessi /grave /acute /circumflex
+/tilde /macron /breve /dotaccent
+/dieresis /perthousand /ring /cedilla
+/Ydieresis /hungarumlaut /ogonek /caron
+/emdash /exclamdown /cent /sterling
+/currency /yen /brokenbar /section
+/dieresis /copyright /ordfeminine /guillemotleft
+/logicalnot /hyphen /registered /macron
+/degree /plusminus /twosuperior /threesuperior
+/acute /mu /paragraph /periodcentered
+/cedilla /onesuperior /ordmasculine /guillemotright
+/onequarter /onehalf /threequarters /questiondown
+/Agrave /Aacute /Acircumflex /Atilde
+/Adieresis /Aring /AE /Ccedilla
+/Egrave /Eacute /Ecircumflex /Edieresis
+/Igrave /Iacute /Icircumflex /Idieresis
+/Eth /Ntilde /Ograve /Oacute
+/Ocircumflex /Otilde /Odieresis /multiply
+/Oslash /Ugrave /Uacute /Ucircumflex
+/Udieresis /Yacute /Thorn /germandbls
+/agrave /aacute /acircumflex /atilde
+/adieresis /aring /ae /ccedilla
+/egrave /eacute /ecircumflex /edieresis
+/igrave /iacute /icircumflex /idieresis
+/eth /ntilde /ograve /oacute
+/ocircumflex /otilde /odieresis /divide
+/oslash /ugrave /uacute /ucircumflex
+/udieresis /yacute /thorn /ydieresis ] def
+/showcasedingbatencoding [
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /a1 /a2 /a202 /a3 /a4 /a5 /a119 /a118 /a117
+/a11 /a12 /a13 /a14 /a15 /a16 /a105 /a17 /a18 /a19
+/a20 /a21 /a22 /a23 /a24 /a25 /a26 /a27 /a28 /a6 /a7
+/a8 /a9 /a10 /a29
+/a30 /a31 /a32 /a33 /a34 /a35 /a36 /a37 /a38 /a39
+/a40 /a41 /a42 /a43 /a44 /a45 /a46 /a47 /a48 /a49
+/a50 /a51 /a52 /a53 /a54 /a55 /a56 /a57 /a58 /a59
+/a60 /a61 /a62 /a63 /a64 /a65 /a66 /a67 /a68 /a69
+/a70 /a71 /a72 /a73 /a74 /a203 /a75 /a204 /a76 /a77 /a78
+/a79 /a81 /a82 /a83 /a84 /a97 /a98 /a99 /a100 /.notdef
+/a205 /a85 /a206 /a86 /a87 /a88 /a89 /a90 /a91 /a92 /a93
+/a94 /a95 /a96
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /a101 /a102 /a103 /a104 /a106 /a107 /a108
+/a112 /a111 /a110 /a109
+/a120 /a121 /a122 /a123 /a124 /a125 /a126 /a127 /a128 /a129
+/a130 /a131 /a132 /a133 /a134 /a135 /a136 /a137 /a138 /a139
+/a140 /a141 /a142 /a143 /a144 /a145 /a146 /a147 /a148 /a149
+/a150 /a151 /a152 /a153 /a154 /a155 /a156 /a157 /a158 /a159
+/a160 /a161 /a163 /a164 /a196 /a165 /a192 /a166 /a167 /a168
+/a169 /a170 /a171 /a172 /a173 /a162 /a174 /a175 /a176 /a177
+/a178 /a179 /a193 /a180 /a199 /a181 /a200 /a182 /.notdef
+/a201 /a183 /a184 /a197 /a185 /a194 /a198 /a186 /a195 /a187
+/a188 /a189 /a190 /a191 /.notdef
+] def
+/Courier-Bold findfont
+dup length dict begin
+  {1 index /FID ne {def} {pop pop} ifelse} forall
+  /Encoding showcaseisoencoding def
+  currentdict
+end
+/Courier-Bold-SHOWISO exch definefont pop
+/Times-Bold findfont
+dup length dict begin
+  {1 index /FID ne {def} {pop pop} ifelse} forall
+  /Encoding showcaseisoencoding def
+  currentdict
+end
+/Times-Bold-SHOWISO exch definefont pop
+/Times-Roman findfont
+dup length dict begin
+  {1 index /FID ne {def} {pop pop} ifelse} forall
+  /Encoding showcaseisoencoding def
+  currentdict
+end
+/Times-Roman-SHOWISO exch definefont pop
+/Courier findfont
+dup length dict begin
+  {1 index /FID ne {def} {pop pop} ifelse} forall
+  /Encoding showcaseisoencoding def
+  currentdict
+end
+/Courier-SHOWISO exch definefont pop
+/Times-Italic findfont
+dup length dict begin
+  {1 index /FID ne {def} {pop pop} ifelse} forall
+  /Encoding showcaseisoencoding def
+  currentdict
+end
+/Times-Italic-SHOWISO exch definefont pop
+/Times-BoldItalic findfont
+dup length dict begin
+  {1 index /FID ne {def} {pop pop} ifelse} forall
+  /Encoding showcaseisoencoding def
+  currentdict
+end
+/Times-BoldItalic-SHOWISO exch definefont pop
+/newfont 10 dict def
+newfont begin
+
+ /FontType 3 def
+ /FontMatrix [1 0 0 1 0 0] def
+ /FontBBox [0 0 1 1] def
+ /Encoding 256 array def
+ 0 1 255 {Encoding exch /.notdef put} for
+
+ /CharProcs 1 dict def
+ CharProcs begin
+ /.notdef {} def
+
+end
+
+ /BuildChar {
+  1 0
+  0 0 1 1
+  setcachedevice
+  exch begin
+  Encoding exch get
+  CharProcs exch get
+  end
+  exec
+ } def
+end
+/PatternFont newfont definefont pop
+
+%%EndResource
+%%EndProlog
+%%BeginSetup
+%%EndSetup
+%%Page: label 1
+gsave
+newpath clippath pathbbox
+/URy exch def
+/URx exch def
+/LLy exch def
+/LLx exch def
+/Width  URx LLx sub 0.005 sub def
+/Height URy LLy sub 0.005 sub def
+LLx LLy translate
+Width 612 div Height 792 div gt
+    { /Y_size Height def
+      /X_size 612 792 div Y_size mul def
+      /Scale Height 792 div def }
+    { /X_size Width def
+      /Y_size 792 612 div X_size mul def
+      /Scale Width 612 div def } ifelse
+Width  X_size sub 2 div
+Height Y_size sub 2 div translate
+Scale Scale scale
+/saveit save def
+gsave
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 33 35] concat
+newpath
+0 0 M 0 720 L 540 720 L 540 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+31 33 M 31 757.429 L 575 757.429 L 575 33 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 33 35] concat
+44.505 687.429 M /Times-Bold-SHOWISO findfont 18 scalefont setfont
+0 0 0 setrgbcolor
+44.505 687.429 M (Further Explanation) 159.516 S
+204.021 687.429 M ( for ) 31.986 S
+/Times-BoldItalic-SHOWISO findfont 18 scalefont setfont
+236.007 687.429 M (Regular Expres) 116.514 S
+352.521 687.429 M (sion) 31.014 S
+/Times-Bold-SHOWISO findfont 18 scalefont setfont
+383.535 687.429 M ( Lecture Notes) 111.96 S
+/Times-Roman-SHOWISO findfont 14 scalefont setfont
+10 626.471 M (This document conta) 117.432 S
+127.432 626.471 M (ins further explana) 104.972 S
+232.404 626.471 M (tion of some of the) 105.77 S
+338.174 626.471 M ( examples used in t) 107.324 S
+445.498 626.471 M (he COMP111 ) 80.892 S
+526.39 626.471 M 10 612.471 M (notes.) 33.054 S
+/Times-Italic-SHOWISO findfont 14 scalefont setfont
+10 557.294 M (David Rossiter July) 110.432 S
+120.432 557.294 M ( 1997) 31.5 S
+setmatrix
+grestore
+grestore
+showpage
+saveit restore
+grestore
+%%Page: label 2
+gsave
+newpath clippath pathbbox
+/URy exch def
+/URx exch def
+/LLy exch def
+/LLx exch def
+/Width  URx LLx sub 0.005 sub def
+/Height URy LLy sub 0.005 sub def
+LLx LLy translate
+Width 612 div Height 792 div gt
+    { /Y_size Height def
+      /X_size 612 792 div Y_size mul def
+      /Scale Height 792 div def }
+    { /X_size Width def
+      /Y_size 792 612 div X_size mul def
+      /Scale Width 612 div def } ifelse
+Width  X_size sub 2 div
+Height Y_size sub 2 div translate
+Scale Scale scale
+/saveit save def
+gsave
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 80 133.5] concat
+newpath
+0 0 M 0 360 L 333.2 360 L 333.2 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+78 131.5 M 78 495.5 L 415.2 495.5 L 415.2 131.5 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 80 133.5] concat
+/Courier-Bold-SHOWISO findfont 24 scalefont setfont
+0 0 0 setrgbcolor
+0 340.8 M (ypcat passwd | ) 216 S
+0 172.8 M (sed -n '/^cs_/s/:.*) 273.6 S
+273.6 172.8 M (//p') 57.6 S
+0 124.8 M ( ) 14.4 S
+0 4.79999 M (| sort) 86.4 S
+setmatrix
+grestore
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 37 304] concat
+newpath
+0 0 M 0 102 L 221 102 L 221 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+35 302 M 35 408.471 L 260 408.471 L 260 302 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 37 304] concat
+/Times-Roman-SHOWISO findfont 14 scalefont setfont
+0 0 0 setrgbcolor
+0 90.4706 M (Do not reproduce ea) 113.904 S
+113.904 90.4706 M (ch line from ) 71.932 S
+0 76.4706 M (standa) 35.77 S
+35.77 76.4706 M (rd input on the sta) 101.108 S
+136.878 76.4706 M (ndard output) 71.162 S
+setmatrix
+grestore
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 64 479] concat
+newpath
+0 0 M 0 108 L 512 108 L 512 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+62 477 M 62 589.471 L 578 589.471 L 578 477 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 64 479] concat
+/Times-Roman-SHOWISO findfont 14 scalefont setfont
+0 0 0 setrgbcolor
+0 96.4706 M (Display the passswo) 114.324 S
+114.324 96.4706 M (rd file for all peo) 94.864 S
+209.188 96.4706 M (ple on the system. ) 104.608 S
+313.796 96.4706 M (Two example lines a) 116.256 S
+430.052 96.4706 M (re) 10.878 S
+/Courier-SHOWISO findfont 10 scalefont setfont
+0 65.8182 M (cskwfung:tQ3WDOQ6iN) 114 S
+114 65.8182 M (NeI:40085:10010:Fun) 114 S
+228 65.8182 M (g Kin Wai,,ce96_yr3) 114 S
+342 65.8182 M (:/homes/cskwfung:/b) 114 S
+456 65.8182 M (in/tcsh) 42 S
+0 55.8182 M (cs_kenef:AQQQBIVh6x) 114 S
+114 55.8182 M (xsw:12395:10001:Kwo) 114 S
+228 55.8182 M (k Ka Chun,,cs96_yr3) 114 S
+342 55.8182 M (:/homes/cs_kenef:/b) 114 S
+456 55.8182 M (in/tcsh) 42 S
+setmatrix
+grestore
+gsave
+0 0 0 setrgbcolor
+2.000000 setlinewidth
+[12 4] 0 setdash
+newpath
+68.0685 457 M
+62.8816 457.729 L
+59.321 459.916 L
+57.3866 463.561 L
+57 466.923 L
+57 466.923 L
+57 467.657 L
+57 469.265 L
+57 471.547 L
+57 474.303 L
+57 477.334 L
+57 480.439 L
+57 483.42 L
+57 486.076 L
+57 488.208 L
+57 489.616 L
+57 490.077 L
+57 490.077 L
+57.8131 494.727 L
+60.2525 497.919 L
+64.3181 499.653 L
+68.0685 500 L
+68.0685 500 L
+68.6683 500 L
+70.2506 500 L
+72.7497 500 L
+76.0997 500 L
+80.2346 500 L
+85.0888 500 L
+90.5961 500 L
+96.6909 500 L
+103.307 500 L
+110.379 500 L
+117.841 500 L
+125.627 500 L
+133.671 500 L
+141.907 500 L
+150.269 500 L
+158.692 500 L
+167.109 500 L
+175.455 500 L
+183.664 500 L
+191.67 500 L
+199.407 500 L
+206.81 500 L
+213.812 500 L
+220.347 500 L
+226.35 500 L
+231.754 500 L
+236.495 500 L
+240.506 500 L
+243.721 500 L
+246.074 500 L
+247.499 500 L
+247.932 500 L
+247.932 500 L
+253.118 499.271 L
+256.679 497.084 L
+258.613 493.439 L
+259 490.077 L
+259 490.077 L
+259 489.343 L
+259 487.735 L
+259 485.453 L
+259 482.697 L
+259 479.666 L
+259 476.561 L
+259 473.58 L
+259 470.924 L
+259 468.792 L
+259 467.384 L
+259 466.923 L
+259 466.923 L
+258.187 462.273 L
+255.748 459.081 L
+251.682 457.347 L
+247.932 457 L
+247.932 457 L
+247.337 457 L
+245.77 457 L
+243.294 457 L
+239.976 457 L
+235.879 457 L
+231.069 457 L
+225.611 457 L
+219.569 457 L
+213.007 457 L
+205.992 457 L
+198.588 457 L
+190.86 457 L
+182.872 457 L
+174.689 457 L
+166.377 457 L
+158 457 L
+149.623 457 L
+141.311 457 L
+133.128 457 L
+125.14 457 L
+117.412 457 L
+110.008 457 L
+102.993 457 L
+96.4315 457 L
+90.3893 457 L
+84.9307 457 L
+80.1206 457 L
+76.024 457 L
+72.7056 457 L
+70.2303 457 L
+68.663 457 L
+68.0685 457 L
+closepath
+stroke
+grestore
+gsave
+0 0 0 setrgbcolor
+gsave
+0 setlinejoin
+72.8176 502.328 translate
+-42.2073 rotate
+1.1 1.1 scale
+newpath 0 0 M -20 -5 L -20 5 L closepath fill
+grestore
+1.000000 setlinewidth
+newpath
+58.744 515.093 M
+39 533 L
+39 583 L
+57 583 L
+stroke
+grestore
+gsave
+0 0 0 setrgbcolor
+2.000000 setlinewidth
+[12 4] 0 setdash
+newpath
+111.032 123 M
+107.081 123.75 L
+104.258 126 L
+102.565 129.75 L
+102 135 L
+102 135 L
+102 135.832 L
+102 137.576 L
+102 140.004 L
+102 142.888 L
+102 146 L
+102 149.112 L
+102 151.996 L
+102 154.424 L
+102 156.168 L
+102 157 L
+102 157 L
+102.565 162.25 L
+104.258 166 L
+107.081 168.25 L
+111.032 169 L
+111.032 169 L
+111.748 169 L
+113.511 169 L
+116.169 169 L
+119.571 169 L
+123.563 169 L
+127.994 169 L
+132.712 169 L
+137.565 169 L
+142.399 169 L
+147.064 169 L
+151.407 169 L
+155.276 169 L
+158.519 169 L
+160.983 169 L
+162.517 169 L
+162.968 169 L
+162.968 169 L
+166.919 168.25 L
+169.742 166 L
+171.435 162.25 L
+172 157 L
+172 157 L
+172 156.168 L
+172 154.424 L
+172 151.996 L
+172 149.112 L
+172 146 L
+172 142.888 L
+172 140.004 L
+172 137.576 L
+172 135.832 L
+172 135 L
+172 135 L
+171.435 129.75 L
+169.742 126 L
+166.919 123.75 L
+162.968 123 L
+162.968 123 L
+162.269 123 L
+160.551 123 L
+157.96 123 L
+154.641 123 L
+150.74 123 L
+146.403 123 L
+141.774 123 L
+137 123 L
+132.226 123 L
+127.597 123 L
+123.26 123 L
+119.359 123 L
+116.04 123 L
+113.449 123 L
+111.731 123 L
+111.032 123 L
+closepath
+stroke
+grestore
+gsave
+0 0 0 setrgbcolor
+gsave
+0 setlinejoin
+101.688 118.725 translate
+46.5057 rotate
+1.1 1.1 scale
+newpath 0 0 M -20 -5 L -20 5 L closepath fill
+grestore
+1.000000 setlinewidth
+newpath
+88.6109 104.942 M
+73 88.4883 L
+stroke
+grestore
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 48 46] concat
+newpath
+0 0 M 0 36 L 512 36 L 512 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+46 44 M 46 84.4706 L 562 84.4706 L 562 44 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 48 46] concat
+/Times-Roman-SHOWISO findfont 14 scalefont setfont
+0 0 0 setrgbcolor
+0 24.4706 M (Finally, sort the r) 96.446 S
+96.446 24.4706 M (esulting output in ) 101.514 S
+197.96 24.4706 M (alphanumeric order) 109.242 S
+setmatrix
+grestore
+gsave
+0 0 0 setrgbcolor
+2.000000 setlinewidth
+[12 4] 0 setdash
+newpath
+141 284 M
+135.75 284.75 L
+132 287 L
+129.75 290.75 L
+129 296 L
+129 296 L
+129 296.676 L
+129 298.127 L
+129 300.204 L
+129 302.76 L
+129 305.648 L
+129 308.72 L
+129 311.83 L
+129 314.828 L
+129 317.569 L
+129 319.904 L
+129 321.686 L
+129 322.768 L
+129 323 L
+129 323 L
+129.75 328.25 L
+132 332 L
+135.75 334.25 L
+141 335 L
+141 335 L
+141.701 335 L
+143.194 335 L
+145.312 335 L
+147.889 335 L
+150.757 335 L
+153.75 335 L
+156.701 335 L
+159.444 335 L
+161.812 335 L
+163.639 335 L
+164.757 335 L
+165 335 L
+165 335 L
+170.25 334.25 L
+174 332 L
+176.25 328.25 L
+177 323 L
+177 323 L
+177 322.324 L
+177 320.873 L
+177 318.796 L
+177 316.24 L
+177 313.352 L
+177 310.28 L
+177 307.17 L
+177 304.172 L
+177 301.431 L
+177 299.096 L
+177 297.314 L
+177 296.232 L
+177 296 L
+177 296 L
+176.25 290.75 L
+174 287 L
+170.25 284.75 L
+165 284 L
+165 284 L
+164.238 284 L
+162.624 284 L
+160.348 284 L
+157.598 284 L
+154.564 284 L
+151.436 284 L
+148.402 284 L
+145.652 284 L
+143.376 284 L
+141.762 284 L
+141 284 L
+closepath
+stroke
+grestore
+gsave
+0 0 0 setrgbcolor
+gsave
+0 setlinejoin
+154.963 338.095 translate
+-64.8742 rotate
+1.1 1.1 scale
+newpath 0 0 M -20 -5 L -20 5 L closepath fill
+grestore
+1.000000 setlinewidth
+newpath
+146.896 355.297 M
+140 370 L
+stroke
+grestore
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 15 613] concat
+newpath
+0 0 M 0 147 L 592 147 L 592 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+13 611 M 13 763.143 L 609 763.143 L 609 611 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 15 613] concat
+/Times-Bold-SHOWISO findfont 24 scalefont setfont
+0 0 0 setrgbcolor
+43.3281 128.143 M (COMP111 Section 8 ) 213.984 S
+/Times-BoldItalic-SHOWISO findfont 24 scalefont setfont
+257.312 128.143 M (Regular Expressions) 206.04 S
+/Times-Bold-SHOWISO findfont 24 scalefont setfont
+463.352 128.143 M ( Page 12) 85.32 S
+/Times-Roman-SHOWISO findfont 18 scalefont setfont
+187.757 84.4286 M (Question : What doe) 148.482 S
+336.239 84.4286 M (s this do?) 68.004 S
+0 48.4286 M ( ) 4.5 S
+/Courier-SHOWISO findfont 18 scalefont setfont
+4.5 48.4286 M ( ypcat passwd | sed) 205.2 S
+209.7 48.4286 M ( -n '/^cs_/s/:.*//p) 205.2 S
+414.9 48.4286 M (' | sort) 86.4 S
+/Times-Roman-SHOWISO findfont 18 scalefont setfont
+263.258 12.4286 M (Answer :) 65.484 S
+setmatrix
+grestore
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 175 114] concat
+newpath
+0 0 M 0 135 L 288 135 L 288 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+173 112 M 173 251.471 L 465 251.471 L 465 112 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 175 114] concat
+/Times-Bold-SHOWISO findfont 14 scalefont setfont
+0 0 0 setrgbcolor
+0 123.471 M (Search expression) 107.716 S
+/Times-Roman-SHOWISO findfont 14 scalefont setfont
+0 109.471 M (Search for lines wh) 108.472 S
+108.472 109.471 M (ich match:) 58.716 S
+/Times-Italic-SHOWISO findfont 14 scalefont setfont
+82 95.4706 M (Start of line) 66.122 S
+82 82.2941 M (The character `c') 97.972 S
+82 68.2941 M (The character `s') 97.202 S
+82 54.2941 M (The character `_') 98.756 S
+setmatrix
+grestore
+gsave
+0 0 0 setrgbcolor
+1.000000 setlinewidth
+newpath
+209 294.645 M
+209 282 L
+238 282 L
+238.117 254 L
+238.117 282.452 L
+268 282.452 L
+268 296 L
+stroke
+grestore
+gsave
+0 0 0 setrgbcolor
+1.000000 setlinewidth
+newpath
+282 324 M
+282 332.864 L
+291.377 332.864 L
+291 402 L
+291.377 333 L
+301 333 L
+301 323 L
+stroke
+grestore
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 289 376] concat
+newpath
+0 0 M 0 78 L 288 78 L 288 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+287 374 M 287 456.471 L 579 456.471 L 579 374 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 289 376] concat
+/Times-Bold-SHOWISO findfont 14 scalefont setfont
+0 0 0 setrgbcolor
+0 66.4706 M (Substitute) 60.676 S
+/Times-Roman-SHOWISO findfont 14 scalefont setfont
+0 52.4706 M (For the lines which) 107.716 S
+107.716 52.4706 M ( are picked out by ) 103.81 S
+211.526 52.4706 M (the search ) 59.864 S
+0 38.4706 M (expressi) 45.878 S
+45.878 38.4706 M (on, replace) 61.418 S
+setmatrix
+grestore
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 334 330] concat
+newpath
+0 0 M 0 55 L 262 55 L 262 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+332 328 M 332 387.471 L 598 387.471 L 598 328 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 334 330] concat
+/Times-Roman-SHOWISO findfont 14 scalefont setfont
+0 0 0 setrgbcolor
+0 43.4706 M (anything after the ) 102.256 S
+102.256 43.4706 M (\(first\) `:' charact) 92.512 S
+194.768 43.4706 M (er) 10.878 S
+setmatrix
+grestore
+gsave
+0 0 0 setrgbcolor
+1.000000 setlinewidth
+newpath
+313 325 M
+313 333.864 L
+334.714 333.864 L
+335 365 L
+334.714 334 L
+357 334 L
+357 324 L
+stroke
+grestore
+gsave
+0 0 0 setrgbcolor
+1.000000 setlinewidth
+newpath
+370 324.95 M
+370 333.37 L
+374.524 333.371 L
+403 343 L
+374.524 333.5 L
+379.167 333.5 L
+379.167 324 L
+stroke
+grestore
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 409 317] concat
+newpath
+0 0 M 0 38 L 161 38 L 161 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+407 315 M 407 357.471 L 572 357.471 L 572 315 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 409 317] concat
+/Times-Roman-SHOWISO findfont 14 scalefont setfont
+0 0 0 setrgbcolor
+0 26.4706 M (with nothing at all) 102.284 S
+setmatrix
+grestore
+gsave
+0 0 0 setrgbcolor
+1.000000 setlinewidth
+newpath
+383 291.85 M
+383 281.657 L
+390.266 281.657 L
+418 256 L
+390.266 281.5 L
+397.722 281.5 L
+397.722 293 L
+stroke
+grestore
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 423 208] concat
+newpath
+0 0 M 0 60 L 150 60 L 150 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+421 206 M 421 270.471 L 575 270.471 L 575 206 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 423 208] concat
+/Times-Roman-SHOWISO findfont 14 scalefont setfont
+0 0 0 setrgbcolor
+0 48.4706 M (and then print the ) 101.878 S
+101.878 48.4706 M (result) 31.108 S
+setmatrix
+grestore
+grestore
+showpage
+saveit restore
+grestore
+%%Page: label 3
+gsave
+newpath clippath pathbbox
+/URy exch def
+/URx exch def
+/LLy exch def
+/LLx exch def
+/Width  URx LLx sub 0.005 sub def
+/Height URy LLy sub 0.005 sub def
+LLx LLy translate
+Width 612 div Height 792 div gt
+    { /Y_size Height def
+      /X_size 612 792 div Y_size mul def
+      /Scale Height 792 div def }
+    { /X_size Width def
+      /Y_size 792 612 div X_size mul def
+      /Scale Width 612 div def } ifelse
+Width  X_size sub 2 div
+Height Y_size sub 2 div translate
+Scale Scale scale
+/saveit save def
+gsave
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 7 705.5] concat
+newpath
+0 0 M 0 43 L 592 43 L 592 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+5 703.5 M 5 751.643 L 601 751.643 L 601 703.5 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 7 705.5] concat
+/Times-Bold-SHOWISO findfont 24 scalefont setfont
+0 0 0 setrgbcolor
+43.3281 24.1429 M (COMP111 Section 8 ) 213.984 S
+/Times-BoldItalic-SHOWISO findfont 24 scalefont setfont
+257.312 24.1429 M (Regular Expressions) 206.04 S
+/Times-Bold-SHOWISO findfont 24 scalefont setfont
+463.352 24.1429 M ( Page 14) 85.32 S
+setmatrix
+grestore
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 57 139] concat
+newpath
+0 0 M 0 494 L 413 494 L 413 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+54.5 136.5 M 54.5 635.5 L 472.5 635.5 L 472.5 136.5 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 57 139] concat
+/Courier-Bold-SHOWISO findfont 18 scalefont setfont
+0 0 0 setrgbcolor
+0 480.5 M (#!/bin/sh) 97.2 S
+0 444.5 M (cat /etc/shells |) 183.6 S
+0 408.5 M (while read shell) 172.8 S
+0 372.5 M (do) 21.6 S
+0 336.5 M (shell=`basename $sh) 205.2 S
+205.2 336.5 M (ell`) 43.2 S
+0 300.5 M (ypcat passwd |) 151.2 S
+0 210.5 M (sed -n "/$shell\\$/s) 205.2 S
+205.2 210.5 M (/:.*/ $shell/p" |) 183.6 S
+0 120.5 M (sort | uniq -c > $s) 205.2 S
+205.2 120.5 M (hell.count) 108 S
+0 84.5 M (echo $shell done) 172.8 S
+0 48.5 M (done) 43.2 S
+setmatrix
+grestore
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 352 583] concat
+newpath
+0 0 M 0 96 L 213 96 L 213 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+350 581 M 350 681.471 L 567 681.471 L 567 581 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 352 583] concat
+/Times-Roman-SHOWISO findfont 14 scalefont setfont
+0 0 0 setrgbcolor
+0 84.4706 M (The file contains t) 101.486 S
+101.486 84.4706 M (he following :) 78.554 S
+/Courier-SHOWISO findfont 10 scalefont setfont
+0 73.8182 M (/bin/sh) 42 S
+0 63.8182 M (/bin/zsh) 48 S
+0 53.8182 M (/bin/csh) 48 S
+0 43.8182 M (/bin/tcsh) 54 S
+0 33.8182 M (/bin/bash) 54 S
+0 23.8182 M (/bin/ksh) 48 S
+setmatrix
+grestore
+gsave
+0 0 0 setrgbcolor
+2.000000 setlinewidth
+[12 4] 0 setdash
+newpath
+102.068 570 M
+97.4919 571.219 L
+95.2485 574.875 L
+95 577.385 L
+95 577.385 L
+95 578.276 L
+95 580.25 L
+95 582.945 L
+95 586 L
+95 589.055 L
+95 591.75 L
+95 593.723 L
+95 594.615 L
+95 594.615 L
+96.1666 599.397 L
+99.6663 601.74 L
+102.068 602 L
+102.068 602 L
+103.462 602 L
+107.197 602 L
+112.938 602 L
+120.347 602 L
+129.089 602 L
+138.826 602 L
+149.223 602 L
+159.942 602 L
+170.647 602 L
+181.002 602 L
+190.671 602 L
+199.316 602 L
+206.601 602 L
+212.189 602 L
+215.745 602 L
+216.932 602 L
+216.932 602 L
+221.508 600.781 L
+223.751 597.125 L
+224 594.615 L
+224 594.615 L
+224 593.724 L
+224 591.75 L
+224 589.055 L
+224 586 L
+224 582.945 L
+224 580.25 L
+224 578.276 L
+224 577.385 L
+224 577.385 L
+222.833 572.603 L
+219.334 570.26 L
+216.932 570 L
+216.932 570 L
+215.551 570 L
+211.851 570 L
+206.163 570 L
+198.819 570 L
+190.149 570 L
+180.485 570 L
+170.158 570 L
+159.5 570 L
+148.842 570 L
+138.515 570 L
+128.851 570 L
+120.182 570 L
+112.837 570 L
+107.149 570 L
+103.449 570 L
+102.068 570 L
+closepath
+stroke
+grestore
+gsave
+0 0 0 setrgbcolor
+gsave
+0 setlinejoin
+225.587 608.692 translate
+-162.073 rotate
+1.1 1.1 scale
+newpath 0 0 M -20 -5 L -20 5 L closepath fill
+grestore
+1.000000 setlinewidth
+newpath
+243.665 614.54 M
+344 647 L
+stroke
+grestore
+gsave
+0 0 0 setrgbcolor
+gsave
+0 setlinejoin
+233.03 550.756 translate
+-165.888 rotate
+1.1 1.1 scale
+newpath 0 0 M -20 -5 L -20 5 L closepath fill
+grestore
+1.000000 setlinewidth
+newpath
+251.457 555.389 M
+329.461 575 L
+stroke
+grestore
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 337 498] concat
+newpath
+0 0 M 0 96 L 173 96 L 173 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+335 496 M 335 596.471 L 512 596.471 L 512 496 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 337 498] concat
+/Times-Roman-SHOWISO findfont 14 scalefont setfont
+0 0 0 setrgbcolor
+0 84.4706 M (Reads one line from) 113.148 S
+113.148 84.4706 M ( the file at ) 59.878 S
+0 70.4706 M (a time) 34.608 S
+setmatrix
+grestore
+gsave
+0 0 0 setrgbcolor
+2.000000 setlinewidth
+[12 4] 0 setdash
+newpath
+139.986 464 M
+134.988 464.823 L
+131.992 467.292 L
+131 471.385 L
+131 471.385 L
+131 472.276 L
+131 474.25 L
+131 476.945 L
+131 480 L
+131 483.055 L
+131 485.75 L
+131 487.724 L
+131 488.615 L
+131 488.615 L
+132.002 492.723 L
+135.006 495.184 L
+139.986 496 L
+139.986 496 L
+140.473 496 L
+141.758 496 L
+143.787 496 L
+146.507 496 L
+149.864 496 L
+153.805 496 L
+158.276 496 L
+163.224 496 L
+168.596 496 L
+174.338 496 L
+180.396 496 L
+186.717 496 L
+193.247 496 L
+199.934 496 L
+206.723 496 L
+213.562 496 L
+220.396 496 L
+227.172 496 L
+233.836 496 L
+240.336 496 L
+246.618 496 L
+252.628 496 L
+258.312 496 L
+263.618 496 L
+268.492 496 L
+272.88 496 L
+276.729 496 L
+279.985 496 L
+282.595 496 L
+284.505 496 L
+285.663 496 L
+286.014 496 L
+286.014 496 L
+291.012 495.177 L
+294.008 492.708 L
+295 488.615 L
+295 488.615 L
+295 487.724 L
+295 485.75 L
+295 483.055 L
+295 480 L
+295 476.945 L
+295 474.25 L
+295 472.276 L
+295 471.385 L
+295 471.385 L
+293.999 467.277 L
+290.994 464.816 L
+286.014 464 L
+286.014 464 L
+285.531 464 L
+284.259 464 L
+282.249 464 L
+279.555 464 L
+276.229 464 L
+272.324 464 L
+267.892 464 L
+262.986 464 L
+257.659 464 L
+251.964 464 L
+245.953 464 L
+239.678 464 L
+233.193 464 L
+226.55 464 L
+219.801 464 L
+213 464 L
+206.199 464 L
+199.45 464 L
+192.807 464 L
+186.322 464 L
+180.047 464 L
+174.036 464 L
+168.341 464 L
+163.014 464 L
+158.108 464 L
+153.676 464 L
+149.771 464 L
+146.445 464 L
+143.751 464 L
+141.741 464 L
+140.469 464 L
+139.986 464 L
+closepath
+stroke
+grestore
+gsave
+0 0 0 setrgbcolor
+gsave
+0 setlinejoin
+289.059 500.663 translate
+-160.292 rotate
+1.1 1.1 scale
+newpath 0 0 M -20 -5 L -20 5 L closepath fill
+grestore
+1.000000 setlinewidth
+newpath
+306.946 507.07 M
+357 525 L
+stroke
+grestore
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 361 419] concat
+newpath
+0 0 M 0 121 L 204 121 L 204 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+359 417 M 359 542.471 L 567 542.471 L 567 417 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 361 419] concat
+/Times-Roman-SHOWISO findfont 14 scalefont setfont
+0 0 0 setrgbcolor
+0 109.471 M (Strips off the dire) 98.378 S
+98.378 109.471 M (ctory information. ) 105.378 S
+203.756 109.471 M 0 95.4706 M (For example, ) 77.378 S
+/Courier-SHOWISO findfont 14 scalefont setfont
+0 81.8 M (/bin/sh) 58.8 S
+/Times-Roman-SHOWISO findfont 14 scalefont setfont
+0 67.4706 M (is changed to ) 77.378 S
+/Courier-SHOWISO findfont 14 scalefont setfont
+0 53.8 M (sh) 16.8 S
+setmatrix
+grestore
+gsave
+0 0 0 setrgbcolor
+2.000000 setlinewidth
+[12 4] 0 setdash
+newpath
+244.438 247 M
+239.505 247.817 L
+236.705 250.267 L
+236 253.462 L
+236 253.462 L
+236 254.438 L
+236 256.592 L
+236 259.452 L
+236 262.548 L
+236 265.408 L
+236 267.562 L
+236 268.538 L
+236 268.538 L
+237.067 272.316 L
+240.266 274.46 L
+244.438 275 L
+244.438 275 L
+244.896 275 L
+246.102 275 L
+248.007 275 L
+250.561 275 L
+253.714 275 L
+257.414 275 L
+261.613 275 L
+266.259 275 L
+271.304 275 L
+276.695 275 L
+282.384 275 L
+288.319 275 L
+294.452 275 L
+300.731 275 L
+307.106 275 L
+313.527 275 L
+319.945 275 L
+326.307 275 L
+332.566 275 L
+338.669 275 L
+344.568 275 L
+350.211 275 L
+355.549 275 L
+360.532 275 L
+365.108 275 L
+369.229 275 L
+372.843 275 L
+375.9 275 L
+378.351 275 L
+380.145 275 L
+381.232 275 L
+381.562 275 L
+381.562 275 L
+386.495 274.183 L
+389.295 271.733 L
+390 268.538 L
+390 268.538 L
+390 267.562 L
+390 265.408 L
+390 262.548 L
+390 259.452 L
+390 256.592 L
+390 254.438 L
+390 253.462 L
+390 253.462 L
+388.933 249.684 L
+385.734 247.54 L
+381.562 247 L
+381.562 247 L
+381.108 247 L
+379.914 247 L
+378.026 247 L
+375.497 247 L
+372.373 247 L
+368.706 247 L
+364.545 247 L
+359.938 247 L
+354.936 247 L
+349.588 247 L
+343.943 247 L
+338.051 247 L
+331.962 247 L
+325.723 247 L
+319.386 247 L
+313 247 L
+306.614 247 L
+300.277 247 L
+294.038 247 L
+287.949 247 L
+282.057 247 L
+276.412 247 L
+271.064 247 L
+266.062 247 L
+261.455 247 L
+257.294 247 L
+253.627 247 L
+250.503 247 L
+247.974 247 L
+246.086 247 L
+244.892 247 L
+244.438 247 L
+closepath
+stroke
+grestore
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 350 117] concat
+newpath
+0 0 M 0 49 L 226 49 L 226 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+348 115 M 348 168.471 L 578 168.471 L 578 115 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 350 117] concat
+/Times-Roman-SHOWISO findfont 14 scalefont setfont
+0 0 0 setrgbcolor
+0 37.4706 M (Create a file calle) 98.35 S
+98.35 37.4706 M (d, for example, ) 88.256 S
+186.606 37.4706 M /Courier-SHOWISO findfont 14 scalefont setfont
+0 23.8 M (sh.count) 67.2 S
+setmatrix
+grestore
+gsave
+0 0 0 setrgbcolor
+gsave
+0 setlinejoin
+290.315 237.729 translate
+133.229 rotate
+1.1 1.1 scale
+newpath 0 0 M -20 -5 L -20 5 L closepath fill
+grestore
+1.000000 setlinewidth
+newpath
+303.329 223.885 M
+346.461 178 L
+stroke
+grestore
+gsave
+0 0 0 setrgbcolor
+2.000000 setlinewidth
+[12 4] 0 setdash
+newpath
+61.3562 213 M
+56.2252 213.484 L
+52.8324 214.936 L
+51.1776 217.357 L
+51 218.769 L
+51 218.769 L
+51 219.825 L
+51 222.135 L
+51 225.111 L
+51 228.16 L
+51 230.692 L
+51 232.117 L
+51 232.231 L
+51 232.231 L
+51.869 235.089 L
+54.4762 236.979 L
+58.8214 237.901 L
+61.3562 238 L
+61.3562 238 L
+61.9173 238 L
+63.3978 238 L
+65.7361 238 L
+68.8704 238 L
+72.7393 238 L
+77.281 238 L
+82.434 238 L
+88.1366 238 L
+94.3271 238 L
+100.944 238 L
+107.926 238 L
+115.21 238 L
+122.736 238 L
+130.442 238 L
+138.267 238 L
+146.147 238 L
+154.023 238 L
+161.832 238 L
+169.513 238 L
+177.003 238 L
+184.243 238 L
+191.169 238 L
+197.72 238 L
+203.834 238 L
+209.451 238 L
+214.508 238 L
+218.943 238 L
+222.696 238 L
+225.704 238 L
+227.906 238 L
+229.239 238 L
+229.644 238 L
+229.644 238 L
+234.775 237.516 L
+238.168 236.063 L
+239.822 233.643 L
+240 232.231 L
+240 232.231 L
+240 231.175 L
+240 228.865 L
+240 225.889 L
+240 222.84 L
+240 220.308 L
+240 218.883 L
+240 218.769 L
+240 218.769 L
+239.131 215.911 L
+236.524 214.021 L
+232.179 213.099 L
+229.644 213 L
+229.644 213 L
+229.088 213 L
+227.621 213 L
+225.305 213 L
+222.2 213 L
+218.367 213 L
+213.867 213 L
+208.76 213 L
+203.106 213 L
+196.967 213 L
+190.404 213 L
+183.476 213 L
+176.245 213 L
+168.771 213 L
+161.115 213 L
+153.338 213 L
+145.5 213 L
+137.662 213 L
+129.885 213 L
+122.229 213 L
+114.755 213 L
+107.524 213 L
+100.596 213 L
+94.0327 213 L
+87.8938 213 L
+82.2404 213 L
+77.1331 213 L
+72.6326 213 L
+68.7997 213 L
+65.6948 213 L
+63.3788 213 L
+61.9124 213 L
+61.3562 213 L
+closepath
+stroke
+grestore
+gsave
+0 0 0 setrgbcolor
+gsave
+0 setlinejoin
+137.816 208.692 translate
+136.238 rotate
+1.1 1.1 scale
+newpath 0 0 M -20 -5 L -20 5 L closepath fill
+grestore
+1.000000 setlinewidth
+newpath
+151.539 195.55 M
+244 107 L
+stroke
+grestore
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 252 -5] concat
+newpath
+0 0 M 0 121 L 204 121 L 204 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+250 -7 M 250 118.471 L 458 118.471 L 458 -7 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 252 -5] concat
+/Times-Roman-SHOWISO findfont 14 scalefont setfont
+0 0 0 setrgbcolor
+0 109.471 M (Display a quick mes) 113.932 S
+113.932 109.471 M (sage) 24.878 S
+0 95.4706 M (stating that one of) 100.716 S
+100.716 95.4706 M ( the shell names ) 93.324 S
+0 81.4706 M (ha) 13.216 S
+13.216 81.4706 M (s been processed) 94.08 S
+setmatrix
+grestore
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 42 352] concat
+newpath
+0 0 M 0 66 L 201 66 L 201 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+40 350 M 40 420.471 L 245 420.471 L 245 350 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 42 352] concat
+/Times-Roman-SHOWISO findfont 14 scalefont setfont
+0 0 0 setrgbcolor
+0 54.4706 M (Do not reproduce ea) 113.904 S
+113.904 54.4706 M (ch line from ) 71.932 S
+0 40.4706 M (standa) 35.77 S
+35.77 40.4706 M (rd input on the sta) 101.108 S
+136.878 40.4706 M (ndard ) 35.378 S
+0 26.4706 M (output) 35.784 S
+setmatrix
+grestore
+gsave
+0 0 0 setrgbcolor
+2.000000 setlinewidth
+[12 4] 0 setdash
+newpath
+104.5 339 M
+99.7 339.941 L
+97.3 342.765 L
+97 344.882 L
+97 344.882 L
+97 345.96 L
+97 348.304 L
+97 351.301 L
+97 354.337 L
+97 356.799 L
+97 358.072 L
+97 358.118 L
+97 358.118 L
+98.2 361.882 L
+101.8 363.765 L
+104.5 364 L
+104.5 364 L
+105.446 364 L
+107.498 364 L
+110.23 364 L
+113.216 364 L
+116.028 364 L
+118.24 364 L
+119.426 364 L
+119.5 364 L
+119.5 364 L
+124.3 363.059 L
+126.7 360.235 L
+127 358.118 L
+127 358.118 L
+127 357.04 L
+127 354.696 L
+127 351.699 L
+127 348.663 L
+127 346.201 L
+127 344.928 L
+127 344.882 L
+127 344.882 L
+125.8 341.118 L
+122.2 339.235 L
+119.5 339 L
+119.5 339 L
+118.475 339 L
+116.269 339 L
+113.365 339 L
+110.25 339 L
+107.408 339 L
+105.322 339 L
+104.5 339 L
+closepath
+stroke
+grestore
+gsave
+0 0 0 setrgbcolor
+gsave
+0 setlinejoin
+104.337 364.398 translate
+-37.026 rotate
+1.1 1.1 scale
+newpath 0 0 M -20 -5 L -20 5 L closepath fill
+grestore
+1.000000 setlinewidth
+newpath
+89.1679 375.839 M
+81 382 L
+stroke
+grestore
+gsave
+0 0 0 setrgbcolor
+1.000000 setlinewidth
+newpath
+253 363.753 M
+253 370.429 L
+258.922 370.429 L
+259 397 L
+258.922 370.532 L
+265 370.532 L
+265 363 L
+stroke
+grestore
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 245 375] concat
+newpath
+0 0 M 0 67 L 200 67 L 200 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+243 373 M 243 444.471 L 447 444.471 L 447 373 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 245 375] concat
+/Times-Bold-SHOWISO findfont 14 scalefont setfont
+0 0 0 setrgbcolor
+0 55.4706 M (Substitute) 60.676 S
+/Times-Roman-SHOWISO findfont 14 scalefont setfont
+0 41.4706 M (For the lines which) 107.716 S
+107.716 41.4706 M ( are picked out ) 86.31 S
+0 27.4706 M (by ) 17.5 S
+17.5 27.4706 M (the search expressi) 105.742 S
+123.242 27.4706 M (on, replace) 61.418 S
+setmatrix
+grestore
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 313 342] concat
+newpath
+0 0 M 0 55 L 262 55 L 262 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+311 340 M 311 399.471 L 577 399.471 L 577 340 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 313 342] concat
+/Times-Roman-SHOWISO findfont 14 scalefont setfont
+0 0 0 setrgbcolor
+0 43.4706 M (anything after the ) 102.256 S
+102.256 43.4706 M (\(first\) `:' charact) 92.512 S
+194.768 43.4706 M (er) 10.878 S
+setmatrix
+grestore
+gsave
+0 0 0 setrgbcolor
+1.000000 setlinewidth
+newpath
+275 361 M
+275 369.864 L
+290.299 369.864 L
+309 388 L
+290.299 370 L
+306 370 L
+306 360 L
+stroke
+grestore
+gsave
+0 0 0 setrgbcolor
+1.000000 setlinewidth
+newpath
+319 359.95 M
+319 368.37 L
+354.505 368.371 L
+422 375 L
+470 365 L
+423 375 L
+354.505 368.5 L
+390.945 368.5 L
+390.945 359 L
+stroke
+grestore
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 475 298] concat
+newpath
+0 0 M 0 78 L 98.0001 78 L 98.0001 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+473 296 M 473 378.471 L 575 378.471 L 575 296 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 475 298] concat
+/Times-Roman-SHOWISO findfont 14 scalefont setfont
+0 0 0 setrgbcolor
+0 66.4706 M (with a space and ) 96.418 S
+0 52.4706 M (th) 10.892 S
+10.892 52.4706 M (en the name of ) 86.31 S
+0 38.4706 M (the ) 20.608 S
+20.608 38.4706 M (shell which is ) 80.5 S
+0 24.4706 M (curr) 22.54 S
+22.54 24.4706 M (ently being ) 66.108 S
+0 10.4706 M (process) 41.986 S
+41.986 10.4706 M (ed) 13.216 S
+setmatrix
+grestore
+gsave
+0 0 0 setrgbcolor
+1.000000 setlinewidth
+newpath
+401 338.85 M
+401 328.657 L
+408.266 328.657 L
+444 294 L
+408.266 328.5 L
+415.722 328.5 L
+415.722 340 L
+stroke
+grestore
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 452 232] concat
+newpath
+0 0 M 0 60 L 102 60 L 102 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+450 230 M 450 294.471 L 556 294.471 L 556 230 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 452 232] concat
+/Times-Roman-SHOWISO findfont 14 scalefont setfont
+0 0 0 setrgbcolor
+0 48.4706 M (and then print the ) 101.878 S
+101.878 48.4706 M 0 34.4706 M (result) 31.108 S
+setmatrix
+grestore
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 54 58] concat
+newpath
+0 0 M 0 68 L 151 68 L 151 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+52 56 M 52 128.471 L 207 128.471 L 207 56 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 54 58] concat
+/Times-Roman-SHOWISO findfont 14 scalefont setfont
+0 0 0 setrgbcolor
+0 56.4706 M (Use sort and then u) 108.094 S
+108.094 56.4706 M (niq to ) 35.784 S
+0 42.4706 M (remove multi) 75.054 S
+75.054 42.4706 M (ple entries ) 61.432 S
+0 28.4706 M (and als) 39.27 S
+39.27 28.4706 M (o count \(-c\)  the ) 96.152 S
+0 14.4706 M (n) 7 S
+7 14.4706 M (umber of occurences) 116.62 S
+setmatrix
+grestore
+gsave
+0 0 0 setrgbcolor
+1.000000 setlinewidth
+newpath
+54 267.792 M
+54 274.809 L
+131.582 274.809 L
+131.582 274.917 L
+211.206 274.917 L
+211.206 267 L
+stroke
+grestore
+gsave
+0 0 0 setrgbcolor
+1.000000 setlinewidth
+newpath
+151 344.428 M
+151 339.364 L
+183.847 339.364 L
+320 324 L
+425 281 L
+437 247 L
+425 281 L
+320 324 L
+183.847 339.286 L
+239 339 L
+239 345 L
+stroke
+grestore
+gsave
+gsave
+matrix currentmatrix
+[1 0 0 1 421 153] concat
+newpath
+0 0 M 0 84 L 162 84 L 162 0 L
+closepath setmatrix
+0 0 0 setrgbcolor
+grestore
+newpath
+419 151 M 419 239.471 L 585 239.471 L 585 151 L
+closepath clip newpath
+0 0 0 setrgbcolor
+matrix currentmatrix
+[1 0 0 1 421 153] concat
+/Times-Bold-SHOWISO findfont 14 scalefont setfont
+0 0 0 setrgbcolor
+0 72.4706 M (Search expression) 107.716 S
+/Times-Roman-SHOWISO findfont 14 scalefont setfont
+0 58.4706 M (Search for any line) 106.134 S
+106.134 58.4706 M ( which ) 41.216 S
+0 44.4706 M (ends in the ) 64.162 S
+64.162 44.4706 M (name of the ) 69.594 S
+0 30.4706 M (current) 39.648 S
+39.648 30.4706 M ( shell) 29.946 S
+setmatrix
+grestore
+gsave
+0 0 0 setrgbcolor
+1.000000 setlinewidth
+newpath
+54 273 M
+44 273 L
+44 127.971 L
+48.6667 120 L
+stroke
+grestore
+grestore
+showpage
+saveit restore
+grestore
+%%EOF

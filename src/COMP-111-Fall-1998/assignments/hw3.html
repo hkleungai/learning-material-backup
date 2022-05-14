@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=big5">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.5b2 [en] (X11; I; SunOS 5.6 sun4m) [Netscape]">
+</HEAD>
+<BODY>
+
+<CENTER><B><FONT COLOR="#3333FF"><FONT SIZE=+2>COMP 111 Homework 3</FONT></FONT></B>
+<P><B><FONT COLOR="#3333FF"><FONT SIZE=+2>Due: 5pm&nbsp; December 7, Monday</FONT></FONT></B></CENTER>
+
+<P><FONT COLOR="#CC0000">Note: This homework is to be submitted electronically.
+The TAs will send out an instruction for submission soon.</FONT>
+<P><FONT COLOR="#CC0000">Even though awk will not be covered until the
+lecture on Nov 26, you are advised to read the questions to make sure you
+understand them clearly. Question 3 doesn't really require any knowledge
+on the web but if you do want find out what it mean by URLs (beyond what
+is in the lecture notes), you are advised to consult the TAs.</FONT>
+<P><B>1) [25 marks]</B>
+<P><TT>sed</TT> doesn't have built-in command to allow you to print out
+the even lines in a file (e.g., line 2, 4, 6, etc.). One way to do this
+is use a program to generate the script file for SED to print out the even
+lines. E.g., the script file will look like:
+<P><TT>$ cat hw3-sed-script</TT>
+<BR><TT>2p</TT>
+<BR><TT>4p</TT>
+<BR><TT>6p</TT>
+<BR><TT>... etc ...</TT>
+<BR><TT>... etc ...</TT>
+<BR><TT>$</TT>
+<P>Of course, you need to know how many lines of the 'p' command should
+be put in the script file. Write a shell script <TT>list-even </TT>to take
+in a file as an input argument and list all the even lines in the file.
+E.g.,
+<P><TT>$ list-even datafile1</TT>
+<BR><TT>This is the second line.</TT>
+<BR><TT>This is the fourth line.</TT>
+<BR><TT>$ list-even datafile2</TT>
+<BR><TT>This is the second line</TT>
+<BR><TT>$</TT>
+<P>You can try out your program with <TT><A HREF="datafile1">datafile1</A></TT>
+and <TT><A HREF="datafile2">datafile2</A></TT> but your program must be
+general enough to take in any file containing any text and output the even
+lines. Use only SED and built-in Bourne shell commands .
+<P><B>2) [ 25 marks]</B>
+<P><TT><A HREF="url.data">url.data </A></TT>contains a list of URLs from
+the Hong Kong Institute of Education (i<TT>ed.hk</TT>). The file contains
+2 kinds of records:
+<BR>1) full URL names which contain explicitly the file names; e.g., <TT>http://ied.edu.hk/acd_pargs/ece/ece.htm</TT>
+<BR>includes the file name <TT>ece.htm</TT> explicitly at the end of the
+URL
+<BR>2) default URL names which contain only the directory names; e.g.,
+<BR><TT>http://ied.edu.hk/has/bio/</TT>
+<BR>specifies up to the last directory name <TT>bio</TT> with the file
+name defaulted to <TT>index.htm</TT>
+<BR>That is, the URL is automatically transformed into <TT>http://ied.edu.hk/has/bio/index.htm
+</TT>when
+it is accessed.
+<P>I am intersted in finding out exactly how many files can be found for
+each file suffix (including those unspecified <TT>index.htm</TT>&nbsp;
+files). Write a shell script using ONLY <TT>sed</TT>, <TT>sort</TT> and
+<TT>uniq</TT>
+to count the number of files with the same suffix. For example,
+<P><TT>$ count-urls url.data</TT>
+<BR><TT>&nbsp; 18 HTM</TT>
+<BR><TT>&nbsp; 74 doc</TT>
+<BR><TT>1882 htm</TT>
+<BR><TT>1115 html</TT>
+<BR><TT>&nbsp;&nbsp; 4 ppt</TT>
+<BR><TT>&nbsp; 10 rtf</TT>
+<BR><TT>&nbsp; 29 txt</TT>
+<BR><TT>&nbsp; 15 xls</TT>
+<BR><TT>$</TT>
+<P>Hint: use <TT>sed</TT> to transform the records to the desirable form
+before passing them to <TT>sort</TT> and <TT>uniq</TT> for counting.
+<P><B>3) [ 25 marks]</B>
+<BR>Use AWK (and only AWK) to print out the even lines of a file. At the
+end, print a summary of the number of even lines printed and the number
+of words contained in the lines (a word is defined by a string of characters
+separated by spaces).
+<BR><TT>$ awk -f yourprogram datafile1</TT>
+<BR><TT>This is the second line.</TT>
+<BR><TT>This is the fourth line.</TT>
+<BR><TT>Number of even lines: 2</TT>
+<BR><TT>Number of words in even lines: 10</TT>
+<BR><TT>$ awk -f yourprogram datafile2</TT>
+<BR><TT>This is the second line.</TT>
+<BR><TT>Number of even lines: 1</TT>
+<BR><TT>Number of words in even lines: 5</TT>
+<BR><TT>$</TT>
+<P><B>4) [ 25 marks]</B>
+<BR>Write an&nbsp; <TT>awk</TT> program that gives you a report on the
+files created under your current directory, except the script itself.&nbsp;
+Call your script <TT>fsize</TT>. The following is a sample output.
+<P><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; File&nbsp;&nbsp;&nbsp;
+Size</TT>
+<BR><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ----&nbsp;&nbsp;&nbsp;
+----</TT>
+<BR><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lab.ex1 1204</TT>
+<BR><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lab.ex2 2103</TT>
+<BR><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ====&nbsp;&nbsp;&nbsp;
+====</TT>
+<BR><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total&nbsp;&nbsp; 3307</TT>
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+</BODY>
+</HTML>

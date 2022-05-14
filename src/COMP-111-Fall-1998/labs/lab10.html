@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=big5">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.5b2 [en] (X11; I; SunOS 5.6 sun4m) [Netscape]">
+   <TITLE>COMP111 Lab Session 9</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#3366FF" VLINK="#FF6666" ALINK="#FF0000">
+
+<CENTER>
+<H1>
+<FONT COLOR="#3333FF"><FONT SIZE=+3>COMP 111 Lab Session 10<BR>
+Using Awk</FONT></FONT></H1></CENTER>
+
+<H4>
+1. Associative Array in AWK</H4>
+Given the data file containing the names of fruits and the quantities in
+stock. The fields are separated by a space.
+<P><TT>orange 100</TT>
+<BR><TT>apple 200</TT>
+<BR><TT>grapes 30</TT>
+<BR><TT>pineapple 10</TT>
+<P>Write an awk program to store the records in an associative array and
+print the records for fruits with more than 50 units in stock. Assign 13
+character spaces to the first field and 3 digits to the last field.
+<P><TT>orange&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 100</TT>
+<BR><TT>apple&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 200</TT>
+<H4>
+2. Slightly more complicated AWK example:</H4>
+Write a script using awk to input records interactively from the terminal.
+Each record consists of two field, the first is the name of a fruit and
+the second is the quantity ordered. For each input record, your script
+should print out the fruit name input and the accumulative quantity ordered.
+At the end, print out a summary.
+<P><TT>$ count-fruit</TT>
+<BR><TT>apple 100</TT>
+<BR><B><TT>We have 100 apple</TT></B>
+<BR><TT>orange 200</TT>
+<BR><B><TT>We have 200 orange</TT></B>
+<BR><TT>apple 3</TT>
+<BR><B><TT>We have 103 apple</TT></B>
+<BR><TT>orange 5</TT>
+<BR><B><TT>We have 205 orange</TT></B>
+<BR><TT>orange 5</TT>
+<BR><B><TT>We have 210 orange</TT></B>
+<BR><B><TT>Summary:</TT></B>
+<BR><B><TT>apple 103</TT></B>
+<BR><B><TT>orange 210</TT></B><TT></TT>
+<P>In the above, output from the program is in bold, user input is unbold.
+<H4>
+3. More complex use of associative array and output formatting</H4>
+In this exercise, you are given a data file which contains some personal
+information of members in a student society. Each line in the file has
+5 fields, i.e., name, ID, gender, department and year. What you are required
+to do is to write an <B>awk</B> program to split the original data into
+3 sub-groups according to the studying year. Note that only 3 fields are
+needed in the new data file. Finally, at the end of the output, you need
+to display some statistics about the numbers of male and female students
+in the society.
+<P>The following is the contents of a sample input file:
+<UL>
+<PRE>Chan Tai Man:96145464:M:MATH:1
+Chan Kwok Keung:95057311:M:MATH:2&nbsp;
+Cheng Hung:96169965:M:COMP:1
+Chu Mei Ping:96028305:F:CPEG:1
+Kwok Ching:94308634:F:ECON:3
+Lee Tai Lung Jason:96147943:M:PHYS:1&nbsp;
+Li May:95137733:F:MATH:2
+Tang Hong Kong:94105953:M:FINA:3
+Yu Ki Fun:96233273:F:PHYS:1</PRE>
+</UL>
+The corresponding output is as follows:
+<UL>
+<PRE>Year 1
+
+Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dept
+--------------------&nbsp; --------&nbsp; ----
+Chan Tai Man&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 96145464&nbsp; MATH
+Cheng Hung&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 96169965&nbsp; COMP
+Chu Mei Ping&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 96028305&nbsp; CPEG
+Lee Tai Lung Jason&nbsp;&nbsp;&nbsp; 96147943&nbsp; PHYS
+Yu Ki Fun&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 96233273&nbsp; PHYS
+
+========================================
+
+Year 2
+
+Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dept
+--------------------&nbsp; --------&nbsp; ----
+Chan Kwok Keung&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 95057311&nbsp; MATH
+Li May&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 95137733&nbsp; MATH
+
+========================================
+
+Year 3
+
+Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dept
+--------------------&nbsp; --------&nbsp; ----
+Kwok Ching&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 94308634&nbsp; ECON
+Tang Hong Kong&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 94105953&nbsp; FINA
+
+========================================
+
+Some Statistics:
+
+Number of male students : 5
+Number of female students : 4</PRE>
+</UL>
+Mail your program to your TA by the end of the lab session.
+<P>
+<HR WIDTH="100%">
+<P>Click <A HREF="../labs.html">here</A> to go back to the COMP111 lab
+page.
+<BR>
+<HR WIDTH="100%">
+<H6>
+Page prepared by Chan Kam Fai</H6>
+
+</BODY>
+</HTML>

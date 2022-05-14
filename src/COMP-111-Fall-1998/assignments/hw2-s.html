@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=big5">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.5b2 [en] (X11; I; SunOS 5.6 sun4m) [Netscape]">
+</HEAD>
+<BODY>
+
+<CENTER><B><FONT SIZE=+1>COMP 111</FONT></B>
+<BR><B><FONT SIZE=+1>Homework 2 Solution</FONT></B></CENTER>
+
+<P><B>Question 1) [20 marks]</B>
+<PRE>#!/bin/sh
+
+# Script for creating random number sequence
+# for COMP111 Lab session
+#
+# By Tommy Ng and others
+
+# determine the filename where the seed is stored
+seedfile=/tmp/random$USER
+
+# handle the arguments according to four different cases
+if [ $# -eq 1 ]
+then
+&nbsp;&nbsp;&nbsp; if [ $1 -le 0 -o $1 -gt 31104 ]
+&nbsp;&nbsp;&nbsp; then
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; seed=10000
+&nbsp;&nbsp;&nbsp; else
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; seed=$1
+&nbsp;&nbsp;&nbsp; fi
+else
+&nbsp;&nbsp;&nbsp; if [ -f $seedfile ]
+&nbsp;&nbsp;&nbsp; then
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; seed=`cat $seedfile`
+&nbsp;&nbsp;&nbsp; else
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; seed=10000
+&nbsp;&nbsp;&nbsp; fi
+fi
+
+# generate the random number
+random=`expr \( 625 \* $seed + 6571 \) \% 31104`
+
+# display the random number and save it in the seed file
+echo $random | tee $seedfile</PRE>
+<B>Question 2) [40 marks]</B>
+<PRE>#!/bin/sh
+</PRE>
+
+<PRE># build the argument for ps from the input arguments
+num=1
+
+if [ $# -eq 0 ]
+then
+	echo "Error : You should give at least one argument"
+	exit 1
+fi
+
+for i
+do
+&nbsp;&nbsp;&nbsp; $i 2> /dev/null &amp;
+&nbsp;&nbsp;&nbsp; arg=$arg" -p $! "
+&nbsp;&nbsp;&nbsp; num=`expr $num + 1`
+done
+
+sleep 1
+# continuously check the status of the processes until
+# all processes have finished
+while [ `/usr/bin/ps $arg | wc -l` -ne 1 ]
+do
+   /usr/bin/ps $arg
+   sleep 30
+done
+
+echo Commands finished
+exit
+</PRE>
+<B>Question 3) [40 marks]</B>
+<PRE>#!/bin/sh
+
+# Notice in the following all single quotes are back-quotes
+# meaning that these are command substitutions. Somehow I can't
+# output the back-quotes on the web page.
+</PRE>
+
+<PRE># find out all IDs from nn.data and loop through these IDs</PRE>
+
+<PRE>
+for i in `cut -d":" -f2 nn.data`
+do
+&nbsp;&nbsp;&nbsp; # from an ID, obtain the NAME and EMAIL
+&nbsp;&nbsp;&nbsp; cname=`cut -d":" -f1,2 nn.data | grep -w $i | cut -d":" -f1`
+&nbsp;&nbsp;&nbsp; email=`cut -d":" -f2,3 nn.data | grep -w $i | cut -d":" -f2`
+&nbsp;&nbsp;&nbsp; echo "$cname," > temp
+&nbsp;&nbsp;&nbsp; cat header >> temp
+&nbsp;&nbsp;&nbsp; # find the interview time record using the ID
+&nbsp;&nbsp;&nbsp; time=`grep $i time.data`
+&nbsp;&nbsp;&nbsp; duplicate=`echo "$time" | wc -l`
+&nbsp;&nbsp;&nbsp; if [ "$time" = "" ]
+&nbsp;&nbsp;&nbsp; then
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "Time for "$cname" not found"
+&nbsp;&nbsp;&nbsp; else
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # there is at least one record found
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if [ $duplicate = "1" ]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; then
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "$time" >> temp
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cat footer >> temp
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mail $email &lt; temp
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "Mail to $cname sent"
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "Duplicated records for "$cname
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fi
+&nbsp;&nbsp;&nbsp; fi
+done</PRE>
+
+</BODY>
+</HTML>
