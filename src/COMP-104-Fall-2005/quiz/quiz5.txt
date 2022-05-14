@@ -1,0 +1,151 @@
+------------------------------------------------------------------------------
+COMP104 : Quiz 5
+ 
+Arrays
+
+1.	What is wrong? 
+        	int A[2][3] = {{2,8,1}, {4,3, 9}};
+        	int B[4] = {3, 6, 4, 2, 10, 9};
+     
+
+
+2.	What is wrong? 
+        	int A[6];
+        	for (int i=1; i<=6; i++)
+		{
+			cout << "Enter number: ";
+                	cin >> A[i];
+        	}
+
+
+
+3.	What is wrong?
+        	int meals;
+		cout << "Enter the number of meals you eat everyday: ";
+		cin >>meals;
+      	        if(meals = 1)
+		     cout << "You eat too little.";
+		else if(meals = 2)
+	             cout << "You should eat more.";
+		else if(meals = 3)
+	             cout << "You have a healthy habit.";
+		else if(meals > 3)
+	             cout << "You eat too much.";
+
+
+
+4.    int A[9] = {5, 3, 6, 2, 1, 0, 4, 5, 6};
+    	int n, i=4;
+	n = A[A[A[i+1]]-1];
+
+
+5. 	What will the array data[] contain after executing the following code?
+
+        	int data[5] = {2, 8, 3, 1, 7};
+        	int temp;
+        	for(int i=0; i<5; i++){
+                	  for(int j=0; j<5; j++){
+                       	if(data[j] > data[i]){
+                               temp = data[j];
+                               data[j] = data[i];
+                               data[i] = temp;
+                        }
+                    }       
+         	}
+
+
+
+6. 	What is the content of the array A[] upon completion of the for loop? 
+
+    	int A[9] = {5, 3, 21, 33, 21, 9, 10, 80, 12};
+    	int count, temp;
+
+	for (count = 1; count <= 8; count++) 
+        	if (A[count-1] > A[count]) {
+		   temp = A[count-1]; 
+		   A[count-1] = A[count];
+        	   A[count] = temp;
+	}
+
+
+
+
+
+Answer 1:	Too many elements in the initialization of B   
+Answer 2:	A[6] beyond end of array 
+   		Use for(int i=0; i<6; i++) instead
+Answer 3:	Comparison
+		if(meals = 1) should be if (meals == 1) etc.
+Answer 4:   1
+Answer 5:	1 2 3 7 8
+Answer 6:	3 5 21 21 9 10 33 12 80
+
+
+
+
+Array Searching and Sorting
+
+1.      	Why can't you use binary search on the following array?
+                	int A[10] = {4, 5, 6, 2, 8, 1, -1, 17};
+
+
+2.      	What is wrong with this binary search algorithm?
+
+        	Set index to zero
+        	If there are no more elements, return -1 
+        	If the element at position index is equal to the search 
+                	element, return index 
+        	If the element at position index is lower than the search 
+                	element, eliminate the first half of the array
+        	If the element at position index is greater than the search 
+                	element, eliminate the second half of the array
+
+
+
+3.    When searching for an element in an array, binary search needs to 
+	compare the search key with elements in the array.
+	i.   What comparisons does it make when searching for 6 in the following array?  
+	     In what order?
+	ii.  How about when searching for 32?
+        	int A[10] = {2, 5, 6, 10, 15, 18, 24, 28, 31, 35} 
+
+
+
+4.	What is wrong for the following program using selection sort to sort A[10]?
+
+	#include <iostream>
+	using namespace std;
+	
+	void swap(int x, int y){
+		int temp;
+		temp = x;
+		x = y;
+		y = temp;	
+	}
+	int main( ){
+		int A[10] = {13, 2, 4, 1, 7, 1, 9, 10, 8 ,11};
+		for (int i = 0; i <= 10; i++) {
+		int ithMinSpot = i;
+		for (int j = i+1; j<=10; j++){
+			if (A[j] < A[ithMinSpot])
+				ithMinSpot = j;	
+		}
+		if (i != ithMinSpot)
+			swap(A[ithMinSpot], A[i]);
+		}
+		for (int i=0; i<=10; i++)
+			cout << A[i] << " " ;
+		return 0;
+
+
+Answers:
+
+1. Binary search can be applied for a sorted array only
+
+2. Don't set index to zero! Should set index to the middle element
+
+3.	i.	15, 5, 6
+		ii.	15, 28, 31, 35
+
+4. Parameters in Swap should be reference parameters
+In the three for statements, the termination condition should be < 10.	

@@ -82,6 +82,10 @@ const categorizedPreCourses: Categorized<PreCourse>[] = [
     category: 'Object-oriented Programming',
     courses: [
       {
+        code: 'COMP 104',
+        semesters: ['Fall 2005'],
+      },
+      {
         code: 'COMP 2011',
         semesters: ['Fall 2021', 'Spring 2022'],
       },

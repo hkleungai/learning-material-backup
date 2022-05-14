@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="Author" content="Andrew Horner">
+  <meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+  <title>Lab 11 : star war movie with doubly linked list using class</title>
+</head>
+<body alink="#ff0000" bgcolor="#33ccff" link="#cc66cc" text="#000000"
+ vlink="#551a8b">
+<b><font face="Arial,Helvetica"><font size="+2">COMP 104 : Programming</font></font></b>
+<p><b><font face="Arial,Helvetica"><font color="#cc0000"><font size="+2">Lab
+11: <span style="font-style: italic;">Star Wars</span> movie player
+(using class)<br>
+</font></font></font></b></p>
+<hr width="100%">
+<center>
+<table align="center" border="1">
+  <tbody>
+    <tr>
+      <td><img src="pic2.jpg" alt="" height="149" width="189"></td>
+      <td><img name="" src="pic1.jpg" alt="" height="147" width="216"></td>
+    </tr>
+  </tbody>
+</table>
+</center>
+<font face="Arial, Helvetica, sans-serif">In Lab11, you will redo lab
+10 using a class with the name </font><span
+ style="font-family: monospace; font-weight: bold;">player</span><font
+ face="Arial, Helvetica, sans-serif">. </font><strong
+ style="font-family: monospace;"><em></em></strong><span
+ style="font-family: monospace;"> </span><font
+ face="Arial, Helvetica, sans-serif"><br>
+<br>
+Here are some text files you can use to test your movie player: <a
+ href="scene1.ani">scene1.ani</a>, <a href="scene2.ani">scene2.ani</a>,
+<a href="scene3.ani">scene3.ani</a>, <a href="starwar.ani">starwar.ani</a>
+(1.8Mb, just for fun if you have finished the lab assignment)</font>
+<p align="justify"><font face="Arial, Helvetica, sans-serif">Your
+program still have the following functions: <br>
+</font><font face="Arial, Helvetica, sans-serif">&nbsp;&nbsp;&nbsp; 1.
+play forward<br>
+&nbsp;&nbsp;&nbsp; 2. play backward<br>
+&nbsp;&nbsp;&nbsp; 3. pause<br>
+&nbsp;&nbsp;&nbsp; 4. stop<br>
+&nbsp;&nbsp;&nbsp; 5. delete current frame<br>
+&nbsp;&nbsp;&nbsp; 6. duplicate current frame</font></p>
+<p align="justify"><font face="Arial, Helvetica, sans-serif">You must <font
+ color="#ff0000">hand in 3 files</font>: lab11.h which has the class
+player defintion and Node defintion, lab11.cpp which implements the
+member functions of the class, main.cpp which has the main function.</font></p>
+<p align="justify"><font face="Arial, Helvetica, sans-serif">Here is
+the skeleton of <a href="skeleton.txt">main.cpp</a> and you <span
+ style="font-weight: bold;">cannot </span>modify it.</font></p>
+<p align="justify"><!-- requirements --> </p>
+<p><font face="Arial, Helvetica, sans-serif"><b>Requirements:</b></font></p>
+<li><font face="Arial, Helvetica, sans-serif">For</font> <font
+ face="Arial, Helvetica, sans-serif">all member functions in class </font><span
+ style="font-family: monospace;">player</span><font
+ face="Arial, Helvetica, sans-serif">, <font color="#ff0000">you are
+not allowed to pass pointers&nbsp; <font color="#000000">(e.g., </font></font></font><font
+ color="#ff0000"><font color="#000000"><span
+ style="font-family: monospace;">void play_forward(NodePtr &amp;ptr)</span></font></font><font
+ face="Arial, Helvetica, sans-serif"><font color="#ff0000"><font
+ color="#000000"> is not allowed), so you may need to store a private
+data member instead (e.g.,&nbsp; </font></font></font><font
+ color="#ff0000"><font color="#000000"><font
+ style="font-family: monospace;" color="#ff0000">NodePtr Cur</font></font></font><font
+ face="Arial, Helvetica, sans-serif"><font color="#ff0000"><font
+ color="#000000">). Therefore functions in lab10 have to be changed.</font></font></font></li>
+<font color="#000000" face="Arial, Helvetica, sans-serif">The class
+definition should be something like:</font><font color="#000000"><span
+ style="font-family: monospace;"><br>
+<br>
+class player{</span><br style="font-family: monospace;">
+<span style="font-family: monospace;"> public:</span><br
+ style="font-family: monospace;">
+<span style="font-family: monospace;"> //member functions</span><br
+ style="font-family: monospace;">
+<span style="font-family: monospace;"> private:</span><br
+ style="font-family: monospace;">
+<span style="font-family: monospace;"> &nbsp;&nbsp;&nbsp;&nbsp;NodePtr
+Head;</span><br style="font-family: monospace;">
+<span style="font-family: monospace;"> &nbsp;&nbsp;&nbsp;&nbsp;NodePtr
+Cur;</span><br style="font-family: monospace;">
+<span style="font-family: monospace;"> };<br>
+<br>
+</span></font><li><font color="#000000"
+ face="Arial, Helvetica, sans-serif">Note that Head and Cur must be <font
+ color="#ff0000">private</font>.</font></li>
+<li><font color="#000000" face="Arial, Helvetica, sans-serif">You must
+write the constructor for the class.&nbsp; <font color="#ff0000">Default
+constructors are not
+allowed</font>.</font></li>
+<li><font face="Arial, Helvetica, sans-serif">Except for constants,
+your program should not use global variables.</font></li>
+<li><font face="Arial, Helvetica, sans-serif"> You should use a
+doubly linked list to store the frames.</font></li>
+<li><font face="Arial, Helvetica, sans-serif"> Your program must not
+have any memory leaks or dangling pointers.</font></li>
+<font face="Arial, Helvetica, sans-serif">Use the following structure
+(note that it is a user-defined data type, not a variable): <br>
+<br>
+</font><span style="font-family: monospace;"> struct Node{</span><font
+ style="font-family: monospace;"><br>
+<font>&nbsp;&nbsp;&nbsp;&nbsp;string frame;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Node* next; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;Node* prev; <br>
+}</font><br>
+typedef Node* NodePtr;</font><br style="font-family: monospace;">
+<br>
+<hr size="3" width="100%">
+<p>Demo your working program for your TA. If for some reason you cannot
+finish before the end of the lab period, email your program to your TA
+by Sunday 4 December 5PM (please include your name and lab section as a
+comment on line 1 of your program).</p>
+</body>
+</html>

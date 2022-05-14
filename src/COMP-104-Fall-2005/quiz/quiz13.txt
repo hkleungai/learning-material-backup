@@ -1,0 +1,130 @@
+COMP104 : Quiz 13
+
+Doubly Linked Lists
+
+1.	The following function is supposed to create a dummy head node for a doubly linked list. What is wrong?
+
+void createHead(NodePtr Head){
+        Head = new Node;
+        Head->next = NULL;
+        Head->prev = NULL;
+}
+
+Answer:	(1) Need to pass Head by reference, (2) set pointers to Head not NULL
+
+Should be:
+void createHead(NodePtr Head){
+        Head = new Node;
+        Head->next = Head;
+        Head->prev = Head;
+}
+
+
+2.	The following function is supposed to search for a node in an unordered doubly linked list. What is wrong?
+
+NodePtr searchNode(NodePtr Head, int item){
+        NodePtr Cur = Head;
+        while(Cur != NULL){
+                if(Cur->data == item)
+                        return Cur;
+                if(Cur->data < item)
+                        Cur = Cur->next;
+                else
+                        break;
+        }
+}
+
+Answer:	(1) Don't start from dummy head node, start from first node after it
+			NodePtr Cur = Head  should be: NodePtr Cur = Head->next
+		(2) Stop when reached dummy head not, not NULL 
+			while(Cur != NULL)  should be: while(Cur != Head)
+		(3) This code is for searching an *ordered* list
+		(4) Return NULL if item not found and loop completes 
+
+Should be:
+NodePtr searchNode(NodePtr Head, int item){
+        NodePtr Cur = Head->next;		//(1)
+        while(Cur != Head){			//(2)
+                if(Cur->data == item)
+                        return Cur;
+                Cur = Cur->next;		//(3)
+        }
+        return NULL;				//(4)
+}
+
+
+3.	The following function is supposed to delete a node in an ordered doubly linked list. What is wrong?
+
+void deleteNode(NodePtr& Head, int item){
+        NodePtr Cur;
+        Cur = searchNode(Head, item);
+        while(Cur != NULL){
+                Cur->prev->next = Cur->prev;
+                Cur->next->prev = Cur->next;
+                Cur = Cur->next;		
+        }
+}       
+Answer:	(1) You have already found node with searchNode(), no need for loop. Should be "if" not "while"
+		(2) Revision of pointers incorrect. Should be:
+               	 Cur->prev->next = Cur->next;
+               	 Cur->next->prev = Cur->prev;
+		(3) Need to "delete Cur" to avoid memory leak
+		(4) Delete this line: Cur = Cur->next;		
+
+Should be:
+void deleteNode(NodePtr& Head, int item){
+        NodePtr Cur;
+        Cur = searchNode(Head, item);
+        if(Cur != NULL){				//(1)
+                Cur->prev->next = Cur->next;	//(2)
+                Cur->next->prev = Cur->prev;
+                delete Cur;				//(3)(4)
+        }
+}       
+
+
+4.	The following function is supposed to insert a node in an ascending-ordered doubly linked list. What is wrong?
+
+void insertNode(NodePtr& Head, int item){ 
+        NodePtr New, Cur;                        
+        New = new Node;
+        New->data = item;
+        
+        Cur = Head->prev;
+        while(Cur != Head){     //position Cur for insertion 
+                if(Cur->data > item)
+                        Cur = Cur->next;
+                else    
+                        break;
+        }
+        Cur->prev = New;
+        New->prev->next = New;
+}
+
+Answer:	(1) Initially set Cur to Head->next, not Head->prev
+				Cur = Head->next;
+		(2) Should be:
+				if(Cur->data < item)
+		(3) Need to connect New node to prev and next as well:
+				New->next = Cur;
+				New->prev = Cur->prev;
+
+Should be:
+void insertNode(NodePtr& Head, int item){ 
+        NodePtr New, Cur;                        
+        New = new Node;
+        New->data = item;
+        
+        Cur = Head->next;			//(1)
+        while(Cur != Head){		
+                if(Cur->data < item)	//(2)
+                        Cur = Cur->next;
+                else    
+                        break;
+        }
+        New->next = Cur;			//(3)
+        New->prev = Cur->prev;		//(3)
+        Cur->prev = New;
+        New->prev->next = New;
+}
+

@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="Author" content="Andrew Horner">
+  <meta name="GENERATOR"
+ content="Mozilla/4.78 [en] (Windows NT 5.0; U) [Netscape]">
+  <title>COMP104 Lab3</title>
+</head>
+<body alink="#ff0000" bgcolor="#33ccff" link="#0000ee" text="#000000"
+ vlink="#551a8b">
+<h2>
+<b><font size="+3">COMP104: Programming</font></b></h2>
+<h2>
+<b><font color="#990000"><font size="+3">Lab 3: Mastermind</font></font></b></h2>
+<hr size="3" width="100%">
+<center>
+<p><img src="puz_mastermi_screen01.jpg" height="116" width="160"><img
+ src="puz_mastermi_screen02.jpg" height="115" width="160"><img
+ src="puz_mastermi_screen03.jpg" height="114" width="160"></p>
+</center>
+<p><font face="Arial,Helvetica">In Lab3, you will implement the game
+MasterMind.&nbsp;
+Your task is to crack a code which has been randomly created by the
+computer.
+To crack the code, you make guesses and the computer responds with
+clues.</font>
+</p>
+<p><b><font face="Arial,Helvetica">Making Guesses</font></b>
+</p>
+<p><font face="Arial,Helvetica">To make a guess, simply fill in a row
+with
+4 digits between 1 - 6 separated by a space</font>
+</p>
+<p><b><font face="Arial,Helvetica">Using the Clues</font></b>
+</p>
+<p><font face="Arial,Helvetica">A "O" symbol means "Right value, right
+position." That is, one of your digits has the right value in the right
+position.</font>
+</p>
+<p><font face="Arial,Helvetica">A "#" symbol means "Right value, wrong
+position." That is, one of your digits has the right value, but is in
+the
+wrong position.</font>
+</p>
+<p><font face="Arial,Helvetica">If the computer responds with no pegs,
+that means everything is wrong.</font>
+</p>
+<p><font face="Arial,Helvetica">Note: The code may have repetition.</font>
+</p>
+<p><font face="Arial,Helvetica">Example output should look like this:</font>
+</p>
+<p><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+MasterMind</font>
+<br>
+<font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Enter four digits (1 - 6) separated by a space</font>
+<br>
+<font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------------------------------------</font>
+<br>
+<font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Round 1</font>
+<br>
+<font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Enter Guess: 1 2 3 4</font>
+<br>
+<font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+O #</font>
+<br>
+<font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------------------------------------</font>
+<br>
+<font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Round 2</font>
+<br>
+<font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Enter Guess: 6 5 3 1</font>
+<br>
+<font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+O O</font>
+<br>
+<font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+------------------------------------------------</font>
+<br>
+<font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+.........</font>
+<br>
+<font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+.........</font>
+<br>
+<font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+.........</font>
+<br>
+<font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+------------------------------------------------</font>
+<br>
+<font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Round 10</font>
+<br>
+<font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Enter Guess: 6 3 3 2</font>
+<br>
+<font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+O O O O</font>
+<br>
+<font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+------------------------------------------------</font>
+<br>
+<font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Congratulations! You win in 10 steps!</font>
+</p>
+<p><b><font face="Arial,Helvetica">Programming</font></b>
+</p>
+<p><font face="Arial,Helvetica">You will need to use a random number
+generator
+to generate the computer's digits. The following program skeleton
+initializes
+the random number generator, and uses it to pick the computer's digits.</font>
+</p>
+<p><tt>//-----------------------------------------------------------------------------------------</tt>
+<br>
+<tt>#include
+&lt;iostream&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// contains cout and cin</tt>
+<br>
+<tt>#include
+&lt;cstdlib&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// contains the random number generator rand()</tt>
+<br>
+<tt>#include
+&lt;ctime&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// contains time() to seed the random number</tt>
+<br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// generator to gives a different answer each time</tt>
+<br>
+<tt>using namespace std;</tt>
+</p>
+<p><tt>int main(){</tt>
+<br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int c1, c2, c3,
+c4;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// computer's digits</tt>
+<br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+srand(time(0));&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// initialize random number generator</tt>
+</p>
+<p><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; c1 = rand()%6 +
+1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// picks random value between 1 and 6</tt>
+<br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; c2 = rand()%6 +
+1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// picks random value between 1 and 6</tt>
+<br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; c3 = rand()%6 +
+1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// picks random value between 1 and 6</tt>
+<br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; c4 = rand()%6 +
+1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// picks random value between 1 and 6</tt>
+</p>
+<p><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // rest of program</tt>
+<br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;</tt>
+<br>
+<tt>}</tt>
+<br>
+<tt>//-----------------------------------------------------------------------------------------</tt>
+</p>
+<p></p>
+<hr align="left" width="100%"><br>
+<font face="Arial,Helvetica">Demo your working programs for your TA.
+If for some reason you cannot finish before the end of the lab period,
+email your program to your TA by Sunday 2 October 5PM (please include
+your name and lab section as a comment on line 1 of your program).</font>
+<br>
+&nbsp;
+</body>
+</html>

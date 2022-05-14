@@ -1,0 +1,263 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Nicole Chan">
+   <meta name="GENERATOR" content="Mozilla/4.78 [en] (Windows NT 5.0; U) [Netscape]">
+   <title>Extra Programming Exercise 4</title>
+</head>
+<body text="#000000" bgcolor="#33CCFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<b><font face="Arial,Helvetica"><font color="#000000"><font size=+1>COMP
+104 : Programming</font></font></font></b>
+<p><b><font face="Arial,Helvetica"><font color="#CC0000"><font size=+1>Week
+4 : Extra Programming Exercise (not marked or handed in)</font></font></font></b>
+<br>
+<hr SIZE=3 WIDTH="100%">
+<br><b><i><font face="Arial,Helvetica"><font color="#000099">Basic difficulty</font></font></i></b>
+<p><b><font face="Arial,Helvetica">Question 1:</font></b>
+<p><font face="Arial,Helvetica">In this lab you will program a simple card
+game. This game uses a special deck of cards with all the same suit, and
+one of each kind of card. Use the following card numbers:</font>
+<br>&nbsp;
+<center><table BORDER COLS=2 WIDTH="400" BGCOLOR="#CCFFFF" >
+<tr>
+<td>
+<center><b><font face="Arial,Helvetica">Card Type</font></b></center>
+</td>
+
+<td>
+<center><b><font face="Arial,Helvetica">Card Value</font></b></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center><b><font face="Arial,Helvetica">Ace</font></b></center>
+</td>
+
+<td>
+<center><b><font face="Arial,Helvetica">1</font></b></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center><b><font face="Arial,Helvetica">2 - 10</font></b></center>
+</td>
+
+<td>
+<center><b><font face="Arial,Helvetica">2 - 10</font></b></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center><b><font face="Arial,Helvetica">Jack</font></b></center>
+</td>
+
+<td>
+<center><b><font face="Arial,Helvetica">10&nbsp;</font></b></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center><b><font face="Arial,Helvetica">Queen</font></b></center>
+</td>
+
+<td>
+<center><b><font face="Arial,Helvetica">10</font></b></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center><b><font face="Arial,Helvetica">King</font></b></center>
+</td>
+
+<td>
+<center><b><font face="Arial,Helvetica">10</font></b></center>
+</td>
+</tr>
+</table></center>
+
+<p><font face="Arial,Helvetica">Your program will deal out a set of three
+cards to the user and computer at random. For simplicity, assume each card
+is drawn one at a time, noted down, and then replaced before the next card
+is drawn. Use the library function </font><font face="Courier New,Courier">rand()</font><font face="Arial,Helvetica">
+to select the cards at random (you'll need to </font><font face="Courier New,Courier">#include
+&lt;cstdlib></font><font face="Arial,Helvetica"> and </font><font face="Courier New,Courier">&lt;ctime></font><font face="Arial,Helvetica">).</font>
+<p><font face="Arial,Helvetica">Use arrays to store the cards.</font>
+<p><font face="Arial,Helvetica">Sum the values of the three cards, but
+only keep the last digit of the sum as the score for the hand:</font>
+<br>&nbsp;
+<center><table BORDER COLS=3 WIDTH="400" BGCOLOR="#CCFFFF" >
+<tr>
+<td>
+<center><b><font face="Arial,Helvetica">Hand</font></b></center>
+</td>
+
+<td>
+<center><b><font face="Arial,Helvetica">Sum</font></b></center>
+</td>
+
+<td>
+<center><b><font face="Arial,Helvetica">Score</font></b></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center><b><font face="Arial,Helvetica">A J 2</font></b></center>
+</td>
+
+<td>
+<center><b><font face="Arial,Helvetica">13</font></b></center>
+</td>
+
+<td>
+<center><b><font face="Arial,Helvetica">3</font></b></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center><b><font face="Arial,Helvetica">4 8 9</font></b></center>
+</td>
+
+<td>
+<center><b><font face="Arial,Helvetica">21</font></b></center>
+</td>
+
+<td>
+<center><b><font face="Arial,Helvetica">1</font></b></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center><b><font face="Arial,Helvetica">9 J K</font></b></center>
+</td>
+
+<td>
+<center><b><font face="Arial,Helvetica">29</font></b></center>
+</td>
+
+<td>
+<center><b><font face="Arial,Helvetica">9</font></b></center>
+</td>
+</tr>
+</table></center>
+
+<p><font face="Arial,Helvetica">Display the score for the computer and
+the user and determine the winner of the game:</font>
+<p><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Simple Card Game</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+----------------</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Computer cards: Q 8 7</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Computer score: 5</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+User cards: 2 10 7</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+User score: 9</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+User wins!</font>
+<br>&nbsp;
+<p><b><i><font face="Arial,Helvetica"><font color="#000099">Basic difficulty</font></font></i></b>
+<p><b><font face="Arial,Helvetica">Question 2:</font></b>
+<p><font face="Arial,Helvetica">Modify your answer to Question #1 to allow
+the user to play the game as many times as they like. Also, count the total
+number of times the user and computer win the game, and report these statistics
+at the end of the program.</font>
+<p><font face="Arial,Helvetica">For example, here is how the output should
+look:</font>
+<p><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Simple Card Game</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+----------------</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Computer cards: Q 8 7</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Computer score: 5</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+User cards: 2 10 7</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+User score: 9</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+User wins!</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Another game? (Y/N): Y</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Computer cards: 3 8 9</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Computer score: 0</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+User cards: 8 10 J</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+User score: 8</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+User wins!</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Another game? (Y/N): Y</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Computer cards: 9 8 2</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Computer score: 9</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+User cards: A J 3</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+User score: 4</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Computer wins!</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Another game? (Y/N): N</font>
+<p><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Total user wins: 2</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Total computer wins: 1</font>
+<br>&nbsp;
+<p><b><i><font face="Arial,Helvetica"><font color="#000099">Advanced difficulty</font></font></i></b>
+<p><b><font face="Arial,Helvetica">Question 3: 15 Coins</font></b>
+<p><font face="Arial,Helvetica">In this lab you will program a simple coin
+game where the user plays against the computer. The game begins with 15
+coins on the table. Each turn a player can take 1, 2 or 3 coins away from
+the pile. The player who takes the last coin loses.</font>
+<p><font face="Arial,Helvetica">Assume the computer always begins first.
+Your task is to design a way to make sure computer always wins the game,
+no matter what the user chooses.</font>
+<p><font face="Arial,Helvetica">Here is a sample game:</font>
+<p><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Starting with 15 coins</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Computer takes 2, 13 coins remaining</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+How many coins do you want: 3</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+User takes 3, 10 coins remaining</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Computer takes 1, 9 coins remaining</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+How many coins do you want: 3</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+User takes 3, 6 coins remaining</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Computer takes 1, 5 coins remaining</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+How many coins do you want: 3</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+User takes 3, 2 coins remaining</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Computer takes 1, 1 coins remaining</font>
+<br><font face="Courier New,Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+User is left with final coin, user loses</font>
+<p><font face="Arial,Helvetica">(Hint: Getting the right idea to solve
+this problem is a bit tricky. Implementing the idea as a program is not
+difficult.)</font>
+<p>
+<hr SIZE=3 WIDTH="100%">
+<br>&nbsp;
+</body>
+</html>

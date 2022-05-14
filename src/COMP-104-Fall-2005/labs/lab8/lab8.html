@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="Author" content="Andrew Horner">
+  <meta name="GENERATOR"
+ content="Mozilla/4.78 [en] (Windows NT 5.0; U) [Netscape]">
+  <title>Lab 8 : Comp104 Rally! with Dynamic Arays and Pointer Indexing</title>
+</head>
+<body alink="#ff0000" bgcolor="#33ccff" link="#cc66cc" text="#000000"
+ vlink="#551a8b">
+<b><font face="Arial,Helvetica"><font size="+2">COMP
+104 : Programming</font></font></b>
+<p><b><font face="Arial,Helvetica"><font color="#cc0000"><font size="+2">Lab
+8 : Comp104 Rally!</font></font></font></b>
+</p>
+<hr width="100%">
+<center> <img src="rally01.jpg" alt="" name="rally_02" id="rally_02"
+ height="225" width="300"><img name="rally_03" src="rally02.jpg" alt=""
+ height="225" width="300"></center>
+<p><font face="Arial, Helvetica, sans-serif">In lab 8, you will write a
+Car Racing game. A car will start from the top-middle of a map and then
+run towards the bottom. User has to guess which column the car will
+reach at the end of its journey.</font>
+</p>
+<p><font face="Arial, Helvetica, sans-serif"><b>Requirements:</b></font></p>
+<font face="Arial, Helvetica, sans-serif">
+<ol>
+  <li><font><font face="Arial, Helvetica, sans-serif">The size of the
+map is determined by the user at the beginning of the game. <br>
+    </font></font></li>
+  <li><font face="Arial, Helvetica, sans-serif"><font
+ face="Arial, Helvetica, sans-serif"><font><font
+ face="Arial, Helvetica, sans-serif">All arrays must be dynamic arrays
+in this lab (i.e., no static arrays). </font></font></font></font><font
+ face="Arial, Helvetica, sans-serif">Use a simulated 2D array
+with an overall dimension of <span style="font-family: monospace;">[SIZE*SIZE]</span>.<font><font
+ face="Arial, Helvetica, sans-serif"> <br>
+    </font></font><font><span style="font-family: monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+map = new int [SIZE*SIZE];&nbsp;&nbsp;&nbsp; // where SIZE is the
+number of rows/columns</span></font> </font></li>
+  <li><font face="Arial, Helvetica, sans-serif"><font><font
+ face="Arial, Helvetica, sans-serif">All array indexing must be with
+pointer arithmetic rather than
+subscripts.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For example, to access row <span
+ style="font-family: monospace;">r</span> and column <span
+ style="font-family: monospace;">c</span> of the simulated 2D array <span
+ style="font-family: monospace;">map[SIZE][SIZE]</span>, use <span
+ style="font-family: monospace;">*(map+r*SIZE+c)</span> rather than <span
+ style="font-family: monospace;">map[r][c]</span>.</font></font></font></li>
+  <font face="Arial, Helvetica, sans-serif"> </font> <li><font><font
+ face="Arial, Helvetica, sans-serif">Your program
+must not have any memory leaks or dangling pointers.&nbsp;</font></font>
+  </li>
+  <li><font><font face="Arial, Helvetica, sans-serif">All variables
+must be local variables (i.e., no global variables).</font></font></li>
+  <li><font><font face="Arial, Helvetica, sans-serif">The density of
+'+' should be around 25%.</font></font><br>
+  </li>
+</ol>
+</font>
+<!-- car moving rules --><font face="Arial, Helvetica, sans-serif"></font>
+<p><font face="Arial, Helvetica, sans-serif"><b>Rules for the car&#8217;s
+movement:</b></font></p>
+<ol>
+  <font face="Arial, Helvetica, sans-serif"> <li>Car will go to next
+row if there is no obstacle in front of it.</li>
+  <li>If there is an obstacle in front of the car, it will randomly
+move left or right. If the obstacle is on the car's left or right side,
+the car's movement will not be affected, .</li>
+  <li>If the car goes off the map, it will crash and user will lose the
+game.</li>
+  <br>
+Here are some examples:<br>
+  <br>
+  <span style="font-weight: bold;">Example 1:</span><br
+ style="font-weight: bold;">
+  </font><span style="font-family: monospace;"><br>
+| +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +&nbsp;&nbsp; |</span><br
+ style="font-family: monospace;">
+  <span style="font-family: monospace;">| +&nbsp;&nbsp; +&nbsp;&nbsp;
++&nbsp;&nbsp;&nbsp;&nbsp; |</span><br style="font-family: monospace;">
+  <span style="font-family: monospace;">|
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + |</span><br
+ style="font-family: monospace;">
+  <span style="font-family: monospace;">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++&nbsp;&nbsp; |</span><br style="font-family: monospace;">
+  <span style="font-family: monospace;">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++&nbsp;&nbsp; +&nbsp;&nbsp; |</span><br style="font-family: monospace;">
+  <span style="font-family: monospace;">|&nbsp;&nbsp; + @
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span><br
+ style="font-family: monospace;">
+  <span style="font-family: monospace;">|&nbsp;&nbsp;&nbsp;&nbsp;
++&nbsp;&nbsp; +&nbsp;&nbsp; + |</span><br
+ style="font-family: monospace;">
+  <span style="font-family: monospace;">| 1 2 3 4 5 6 7 |</span><br
+ style="font-family: monospace;">
+  <br style="font-family: monospace;">
+  <span style="font-family: monospace;">1. The car meets a '+', it
+turns left.</span><br style="font-family: monospace;">
+  <br style="font-family: monospace;">
+  <span style="font-family: monospace;">|
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +&nbsp;&nbsp; |</span><br
+ style="font-family: monospace;">
+  <span style="font-family: monospace;">| +&nbsp;&nbsp; +&nbsp;&nbsp;
++&nbsp;&nbsp;&nbsp;&nbsp; |</span><br style="font-family: monospace;">
+  <span style="font-family: monospace;">|
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + |</span><br
+ style="font-family: monospace;">
+  <span style="font-family: monospace;">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++&nbsp;&nbsp; |</span><br style="font-family: monospace;">
+  <span style="font-family: monospace;">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++&nbsp;&nbsp; +&nbsp;&nbsp; |</span><br style="font-family: monospace;">
+  <span style="font-family: monospace;">|&nbsp;&nbsp; @&nbsp;&nbsp;
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span><br
+ style="font-family: monospace;">
+  <span style="font-family: monospace;">|&nbsp;&nbsp;&nbsp;&nbsp;
++&nbsp;&nbsp; +&nbsp;&nbsp; + |</span><br
+ style="font-family: monospace;">
+  <span style="font-family: monospace;">| 1 2 3 4 5 6 7 |</span><br
+ style="font-family: monospace;">
+  <br style="font-family: monospace;">
+  <span style="font-family: monospace;">2. The car will cover the '+'
+on its left side.</span><br style="font-family: monospace;">
+  <br style="font-family: monospace;">
+  <span style="font-family: monospace;">|
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +&nbsp;&nbsp; |</span><br
+ style="font-family: monospace;">
+  <span style="font-family: monospace;">| +&nbsp;&nbsp; +&nbsp;&nbsp;
++&nbsp;&nbsp;&nbsp;&nbsp; |</span><br style="font-family: monospace;">
+  <span style="font-family: monospace;">|
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + |</span><br
+ style="font-family: monospace;">
+  <span style="font-family: monospace;">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++&nbsp;&nbsp; |</span><br style="font-family: monospace;">
+  <span style="font-family: monospace;">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++&nbsp;&nbsp; +&nbsp;&nbsp; |</span><br style="font-family: monospace;">
+  <span style="font-family: monospace;">|&nbsp;&nbsp; +&nbsp;&nbsp;
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</span><br
+ style="font-family: monospace;">
+  <span style="font-family: monospace;">|&nbsp;&nbsp; @ +&nbsp;&nbsp;
++&nbsp;&nbsp; + |</span><br style="font-family: monospace;">
+  <span style="font-family: monospace;">| 1 2 3 4 5 6 7 |</span><br
+ style="font-family: monospace;">
+  <br style="font-family: monospace;">
+  <span style="font-family: monospace;">3. After the car leaves, '+'
+will appear again.<br>
+  <br>
+  <br>
+  </span><span style="font-weight: bold;">Example 2:</span><br
+ style="font-weight: bold;">
+</ol>
+<font style="font-weight: bold;"></font>
+<ol>
+  <span style="font-family: monospace;">| @&nbsp;&nbsp;&nbsp;&nbsp; |</span><br
+ style="font-family: monospace;">
+  <span style="font-family: monospace;">|&nbsp;&nbsp; +&nbsp;&nbsp; |</span><br
+ style="font-family: monospace;">
+  <span style="font-family: monospace;">| +&nbsp;&nbsp;&nbsp;&nbsp; |</span><br
+ style="font-family: monospace;">
+  <span style="font-family: monospace;">| 1 2 3 |</span><br
+ style="font-family: monospace;">
+  <br style="font-family: monospace;">
+  <span style="font-family: monospace;">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|</span><br style="font-family: monospace;">
+  <span style="font-family: monospace;">| @ +&nbsp;&nbsp; |</span><br
+ style="font-family: monospace;">
+  <span style="font-family: monospace;">| +&nbsp;&nbsp;&nbsp;&nbsp; |</span><br
+ style="font-family: monospace;">
+  <span style="font-family: monospace;">| 1 2 3 |</span><br
+ style="font-family: monospace;">
+  <span style="font-family: monospace;">Car crashed!!!</span><br
+ style="font-family: monospace;">
+  <br style="font-family: monospace;">
+  <span style="font-family: monospace;">1. In the second step, the car
+decides to turn left.</span><br style="font-family: monospace;">
+  <span style="font-family: monospace;">2. It hits the wall and is then
+crashed.</span><br style="font-family: monospace;">
+  <br>
+  <p></p>
+  <font face="Arial, Helvetica, sans-serif"> </font>
+</ol>
+<p><font face="Arial, Helvetica, sans-serif"><b>Remarks:</b></font></p>
+<p><font face="Arial, Helvetica, sans-serif">You must check the range
+of input. The size of map should range from 3 to 19, and the range of
+the guess should be from 1 to the size of map. Obstacles should be </font><font
+ face="Arial, Helvetica, sans-serif">randomly </font><font
+ face="Arial, Helvetica, sans-serif">assigned to the map and you should
+put at least one space between any two obstacles.</font></p>
+<p><font face="Arial, Helvetica, sans-serif">Here is the sample of a
+map with size 19:</font></p>
+<pre>|   +   +   +     <b>@</b>     +   +   +     + |<br>|       +       +           +     +     |<br>|   +   +   +   +     +     +       +   |<br>| +   +   +         +   +   +     +     |<br>|   +     +   +   +             +       |<br>|     +       +   +       +         +   |<br>| +       +   +   +               +   + |<br>|     +     +   +     +       +     +   |<br>|   +       +                           |<br>| +     +         +       +       +     |<br>|   +   +           +   +     +     +   |<br>|     +   +       +                   + |<br>|     +     +     +     +       +       |<br>|     +     +           +       +     + |<br>|               +   +           +     + |<br>|   +       +   +                     + |<br>|     +     +   +   +               +   |<br>|     +   +     +   +           +   +   |<br>| +     +   +   +       +             + |<br>| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 |</pre>
+<p><font face="Arial, Helvetica, sans-serif">Below the map is the
+column number, from 1 to the size of map. In order to produce a tidy
+output, for all numbers above 9, just output its rightmost digit,
+therefore:</font></p>
+<p style="font-family: monospace;"> &nbsp;&nbsp;&nbsp;1 2 3 4 5 6 7 8 9
+10 11 12 13 14 15 16 17 18 19</p>
+<p><font face="Arial, Helvetica, sans-serif"> will be displayed as</font></p>
+<p style="font-family: monospace;"> &nbsp;&nbsp;&nbsp;1 2 3 4 5 6 7 8 9
+0 1 2 3 4 5 6 7 8 9</p>
+<font face="Arial, Helvetica, sans-serif">
+<p>Note that this replacement affects the output only. So, if the user
+enters 3, that represents only the 3rd column and not the 13th column,
+although they are both represented as 3 in the map. If user wants to
+choose column 13, he must enter 13.</p>
+<p><font face="Arial, Helvetica, sans-serif"> In order to create the
+illusion of the car moving, use the following command to clear the
+screen and output the map again: </font> </p>
+</font>
+<p style="font-family: monospace;">&nbsp;&nbsp;&nbsp;system("cls");
+</p>
+<p><font face="Arial, Helvetica, sans-serif">I</font><font
+ face="Arial, Helvetica, sans-serif">t is defined in </font><span
+ style="font-family: monospace;">&lt;cstdlib&gt;</span><font
+ face="Arial, Helvetica, sans-serif">.</font>
+</p>
+<p><font face="Arial, Helvetica, sans-serif">Here are some sample
+output: <a href="output_win.txt" target="_blank">output_win.txt</a>, <a
+ href="output_lose.txt" target="_blank">output_lose.txt</a> and <a
+ href="output_crash.txt" target="_blank">output_crash.txt</a><b>.</b></font></p>
+<hr size="3" width="100%">
+<font face="Arial,Helvetica">Demo your working program for your TA. If
+for some
+reason you cannot finish before the end of the lab period, email your
+program
+to your TA by Sunday 13 November 5PM (please include your name and lab
+section
+as a comment on line 1 of your program).</font>
+</body>
+</html>

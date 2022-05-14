@@ -1,0 +1,104 @@
+COMP104 : Quiz 8
+
+Strings
+
+What is wrong? 
+
+1.		#include <iostream>
+        	#include <string>
+        	using namespace std;
+        	void main(){
+                		char c = 'y';
+                		string s = 'cat Bob!';
+         	       	cout << c  << s << endl;
+        	}
+
+
+
+2.      	#include <iostream>
+        	#include <string>
+        	using namespace std;
+        	void main(){
+                		char c = 'y';
+                		string s = "cat Bob!";
+                		if(c=="y")
+                        		cout << c << s << endl;
+                		else
+                        		cout << s << endl;
+        	}
+
+
+
+3.      	What is the output?
+		#include <iostream>
+        	#include <string>
+        	using namespace std;
+        	void main(){
+                		char c = 'y';
+                		string s = "Hello!";
+                		s = c;
+                		cout << c  << s << endl;
+        	}
+
+
+
+	
+
+
+4.	What is the output of the following program after it is executed?
+
+	#include <iostream>
+	#include <string>
+	using namespace std;
+	void main(){
+		string s1 = "Hello", s2 = "Hi", s3 = "Heh";
+		s1 = s2;
+		if (s3 > s2)
+			s1 += s3;
+		if (s2 == s3)
+			s1 += s2;
+		else
+			s1 += s2+s3;
+		cout << s1 << " " << s2 << endl;
+	}
+
+
+5.	What is the output of the following program after executed?
+
+	#include <iostream>
+	#include <string>
+	using namespace std;
+
+	int main(){
+		string w("John ");
+		string x("Mary likes apple ");
+		string y("juice ");
+		string z;
+
+		if (w < x){
+			z = x.substr(5,6);
+			z += y;
+			w += z;
+		}
+		else
+			x += y;
+		cout << w << endl;
+		cout << x << endl;
+		cout << (x+y).find(z.substr(6,5)) << endl;
+		return 0;
+	}
+
+
+
+
+
+Answer 1:	string s = 'cat Bob!' should be:  string s = "cat Bob!";
+Answer 2:	if(c=="y") should be: if(c=='y')
+Answer 3:	yy
+Answer 4:	HiHiHeh Hi
+Answer 5:	John likes juice
+		Mary likes apple
+		17
+
+
+

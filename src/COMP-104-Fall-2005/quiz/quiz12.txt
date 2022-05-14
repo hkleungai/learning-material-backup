@@ -1,0 +1,218 @@
+COMP104 : Quiz 12
+
+Linked List Algorithms 
+
+1.	The following function is supposed to return the length of a linked list. What is wrong?
+
+int length(NodePtr Head) {
+	int size = 0;
+	NodePtr cur;	        
+	while(cur != NULL){
+		size++;
+		cur = cur->next;	
+	}
+}
+
+
+2. 	The following function is supposed to recursively return the length of a linked list. What is wrong?
+
+int lengthRec(NodePtr Head) {
+	if(Head) 
+		return 0;
+	return length(Head);
+}
+
+
+3. 	The following function is supposed to merge two linked lists. What is wrong?
+
+NodePtr mergeLists(NodePtr Head1, NodePtr Head2){
+	NodePtr Union, Cur;
+	
+	Union = Head1;
+	Cur = Head2;
+	while(Cur != NULL){
+		if(searchNode(Union, Cur->data)) 
+			insertNode(Union, Cur->data);
+		Cur = Cur->next;
+	}
+	return Head1;
+}
+
+
+Answer 1:	
+a) cur never set to Head
+b) Need to return size
+
+Answer 2:	
+a) should be: if(Head==NULL) 
+b) should be: return length(Head->next) + 1;
+
+Answer 3:
+a) At beginning, add:
+	if(Head1==NULL) 
+		return Head2;
+	else if(Head2==NULL) 
+		return Head1;
+b) Should be: 	if(searchNode(Union, Cur->data)==NULL) 
+c) Should return Union
+
+
+
+
+Circular Linked Lists
+
+1. 	The following function is supposed to print a Circular linked list. What is wrong?
+
+void print(NodePtr Rear){
+	NodePtr Cur;
+	Cur = Rear;
+	while(Cur!=NULL){
+		cout << Cur->data << " ";
+		Cur = Cur->next;
+	}
+	cout << endl;
+}
+
+
+2. 	The following function is supposed to insert a node in an ordered Circular linked list. What is wrong?
+
+void insertNode(NodePtr Rear, int item){
+	NodePtr  New, Cur, Prev;
+	New = new Node;
+	New->data = item;                 
+	if(Rear == NULL){	// insert into empty list
+		Rear = New;
+		return;
+	}
+	Prev = NULL;
+	Cur = Rear;
+	do{
+		if(item <= Cur->data)
+			break;
+		Prev = Cur;
+		Cur = Cur->next;
+	}while(Cur != Rear);
+	New->next = Cur;
+	Prev->next = New;
+}
+
+3.  	The following function is supposed to delete a node in an ordered Circular linked list. What is wrong?
+
+void deleteNode(NodePtr& Rear, int item){
+	NodePtr Cur, Prev;                
+	Prev = Rear;
+	Cur = Rear->next;		
+	do{				// find Prev and Cur
+		if(item <= Cur->data)  
+			break;
+		Prev = Cur;
+		Cur = Cur->next;
+	}while(Cur != Rear->next);
+	if(Cur->data != item){	// data does not exist
+		cout << "Data Not Found" << endl;
+		return;
+	}
+	if(Cur == Rear)		// revise Rear pointer if deleting end
+		Rear = Prev;
+	Prev->next = Cur->next;	// revise pointers
+	delete Cur;
+}
+
+
+
+Answer 1: 
+a) Print head first, not Rear
+b) Need to detect when reached end of list (pointer will not be NULL)
+
+Should be:
+void print(NodePtr Rear){
+	NodePtr Cur;
+	if(Rear != NULL){
+		Cur = Rear->next;
+		do{
+			cout << Cur->data << " ";
+			Cur = Cur->next;
+		}while(Cur != Rear->next);
+		cout << endl;
+	}
+}
+
+
+Answer 2:
+a) Use pass by reference: void insertNode(NodePtr& Rear, int item){
+b) If list empty, need to also set: Rear->next = Rear;
+c) Start Cur from head and prev from Rear
+	Prev = Rear;
+	Cur = Rear->next;
+d) Should be: 	}while(Cur != Rear->next);
+e) Need to revise end node pointer if adding to end
+	if(item > Rear->data)	//revise end node pointer if adding to end
+		Rear = New;
+
+Should be:
+void insertNode(NodePtr& Rear, int item){
+	NodePtr  New, Cur, Prev;
+	New = new Node;
+	New->data = item;                 
+	if(Rear == NULL){	// insert into empty list
+		Rear = New;
+		Rear->next = Rear;
+		return;
+	}
+	Prev = Rear;
+	Cur = Rear->next;
+	do{
+		if(item <= Cur->data)
+			break;
+		Prev = Cur;
+		Cur = Cur->next;
+	}while(Cur != Rear->next);
+	New->next = Cur;
+	Prev->next = New;
+	if(item > Rear->data)	//revise end node pointer if adding to end
+		Rear = New;
+}
+
+
+Answer 3:
+a) Check if list empty:
+	if(Rear == NULL){       
+		cout << "Trying to delete empty list" << endl;
+		return;
+	}     
+b) Need to handle case of single-node list
+	if(Cur == Prev){		// delete single-node list
+		Rear = NULL;
+		delete Cur;
+		return;
+	}
+
+Should be:
+void deleteNode(NodePtr& Rear, int item){
+	NodePtr Cur, Prev;                
+	if(Rear == NULL){       
+		cout << "Trying to delete empty list" << endl;
+		return;
+	}     
+	Prev = Rear;
+	Cur = Rear->next;		
+	do{				// find Prev and Cur
+		if(item <= Cur->data)  break;
+		Prev = Cur;
+		Cur = Cur->next;
+	}while(Cur != Rear->next);
+	if(Cur->data != item){	// data does not exist
+		cout << "Data Not Found" << endl;
+		return;
+	}
+	if(Cur == Prev){		// delete single-node list
+		Rear = NULL;
+		delete Cur;
+		return;
+	}
+	if(Cur == Rear)		// revise Rear pointer if deleting end
+		Rear = Prev;
+	Prev->next = Cur->next;	// revise pointers
+	delete Cur;
+}
+

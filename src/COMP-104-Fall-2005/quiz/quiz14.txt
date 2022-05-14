@@ -1,0 +1,206 @@
+COMP104 : Quiz 14
+
+Classes
+
+1. 	What is wrong with the class definition? 
+
+	class Card{
+        	public:
+                	Card();
+                	Card(int initialNumber, char initialSuit);
+                	int getNumber() const;
+                	char getSuit() const;
+                	void set(int newNumber, char newSuit);
+                	void read() const;
+                	void print() const;
+       	private:
+			int num;
+                	char suit;
+	}
+
+Answer:	Missing semicolon after the class definition
+		void read() should not be a constant function
+
+
+2.	The following program is supposed to use the Card class. What is wrong? 
+
+	void main(){
+        	char resp;
+        	Card temp;
+        	do{
+			cout << "Enter Card (e.g., 6H): "; 
+			cin >> temp.num;
+			cin >> temp.suit;
+			cout << "card: ";
+			temp.print();
+			cout << endl;
+			cout << "Another card? ";
+			cin >> resp;
+		}while(resp == 'y' || resp == 'Y');
+	}
+
+Answer:	Cannot access the private data directly
+
+
+3. 	The following program is supposed to use the Card class. What is wrong? 
+
+	void main(){
+       	char resp;
+        	Card temp;
+        	do{
+               	cout << "Enter Card (e.g., 6H): "; 
+                	temp.read();
+                	cout << "card: " << temp.print() << endl;
+                	cout << "Another card? ";
+                	cin >> resp;
+        	}while(resp == 'y' || resp == 'Y');
+	}
+
+Answer:	temp.print() is a void function, so it should not be in cout
+			cout << "card: ";
+			temp.print();
+			cout << endl;
+
+
+4. 	The following program is supposed to use the Card class. 
+	If the user types in: "QH" as input to this program, what could go wrong? 
+
+	class Card{
+        	public:
+                	Card();
+                	Card(int initialNumber, char initialSuit);
+                	int getNumber() const;
+                	char getSuit() const;
+                	void set(int newNumber, char newSuit);
+                	void read();
+                	void print() const;
+        	private:
+                	int num;
+                	char suit;
+	};
+	void Card::read(){
+        	cin >> num >> suit;
+	}
+	void main(){
+        	char resp;
+        	Card temp;
+        	do{
+                	cout << "Enter Card (e.g., 6H): "; 
+                	temp.read();
+                	cout << "card: ";
+                	temp.print();
+                	cout << endl;
+                	cout << "Another card? ";
+                	cin >> resp;
+        	}while(resp == 'y' || resp == 'Y');
+	}
+
+Answer:	Expecting an integer for the cardnumber
+	To correctly read "QH":
+	void Card::read(){
+        	char c1, c2, c3;
+        	cin >> c1;
+        	c1 = toupper(c1);
+        	if(c1=='A')
+                	num = 1;
+        	else if(c1=='J')
+                	num = 11;
+        	else if(c1=='Q')
+                	num = 12;
+        	else if(c1=='K')
+                	num = 13;
+        	else if(c1>='2' && c1<='9')
+                	num = int(c1) - '0';
+        	else if(c1=='1'){
+			cin >> c2;
+                	if(c2=='0')
+				num = 10;
+                	else{
+				cout << "Bad Card number " << endl;
+                        exit(1);
+                	}
+        	}
+		else{
+			cout << "Bad Card number " << endl;
+			exit(1);
+        	}
+       	cin >> suit;
+		suit = toupper(suit);
+        	if(suit!='S' && suit!='C' && suit!='H' && suit!='D'){
+			cout << "Bad Card suit: " << suit << endl;
+			exit(1);
+		}
+	}
+
+
+
+
+ADTs
+
+1.	The following Rational class definition has some bugs. What are they?
+
+class Rational{
+        public:
+                        // default-value constructor
+                Rational();
+                        // explicit-value constructor
+                Rational(int numer=0, int denom = 1);
+                        // arithmetic functions
+                Rational Add(const Rational r) const;
+                Rational Subtract(const Rational r) const;
+                Rational Multiply(const Rational r) const;
+                Rational Divide(const Rational r) const;
+                        // relational functions
+                bool Equal(const Rational r) const;
+                bool LessThan(const Rational r) const;
+                        // i/o functions
+                void Display() const;
+                void Get() const;
+                int Numerator;
+                int Denominator;
+};
+
+Answer:	
+	Has two constructors with zero parameters. Should be:
+		Rational(int numer, int denom = 1);
+	The read member function Get() cannot be a const member function:
+		void Get();
+	Data members Numerator and Denominator should be private:
+        	private:        // data members
+                int Numerator;
+                int Denominator;
+
+
+2. 	The following member function is supposed to add two Rational numbers (without changeing them) and return the result. What is wrong?
+
+Rational::Add(Rational r){
+        int a = Numerator;
+        int b = Denominator;
+        int c = r.Numerator;
+        int d = r.Denominator;
+        Rational result;
+	  Numerator = a*d + b*c;
+	  Denominator = b*d;
+}
+
+Answer: 
+	Need a Rational return type:
+		Rational Rational::Add(Rational r){
+	Need to change result, not object itself:
+		result.Numerator = a*d + b*c;
+		result.Denominator = b*d;
+	Should return result
+
+Should be:
+
+Rational Rational::Add(const Rational r) const{
+        int a = Numerator;
+        int b = Denominator;
+        int c = r.Numerator;
+        int d = r.Denominator;
+        Rational result;
+	  result.Numerator = a*d + b*c;
+	  result.Denominator = b*d;
+        return result;
+}
+
