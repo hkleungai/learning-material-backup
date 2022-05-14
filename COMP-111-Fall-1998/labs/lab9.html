@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=big5">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.5b2 [en] (X11; I; SunOS 5.6 sun4m) [Netscape]">
+   <TITLE>COMP111 Lab Session 9</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#3366FF" VLINK="#FF6666" ALINK="#FF0000">
+
+<CENTER>
+<H2>
+<FONT COLOR="#3333FF">COMP111 Lab Session 9 - Using Sed</FONT></H2></CENTER>
+
+<H3>
+<FONT COLOR="#3333FF">1. Homework 2 Solution</FONT></H3>
+Continuation of Homework 2 discussion which was not completed in the last
+lab.
+<H3>
+<FONT COLOR="#3333FF">2. Simple use of sed</FONT></H3>
+Suppose you always name your homework assignments in the following format:
+<P><TT>hw1.html</TT>
+<BR><TT>hw2.html</TT>
+<BR><TT>hw3.html</TT>
+<BR><TT>...</TT>
+<BR>Assume that you may have more than 10 homework assignments.
+<OL>
+<LI>
+Give the <TT>ls</TT> command that would list all homework assignments you
+have created in your current directory.</LI>
+
+<LI>
+Write a shell programto rename your homework files so that the suffixes
+<TT>html</TT>
+are replaced with <TT>txt </TT>For example, <TT>hw2.html</TT> will be renamed
+as <TT>hw2.txt</TT></LI>
+</OL>
+
+<H3>
+<FONT COLOR="#3333FF">3. Exercises on AWK</FONT></H3>
+An <TT>AWK</TT> program consists of three main parts:
+<P><TT><FONT SIZE=-1>ypcat passwd | head -10 | awk '</FONT></TT>
+<BR><TT><FONT SIZE=-1>BEGIN{ print "This message is printed before any
+record is processed"}</FONT></TT>
+<BR><TT><FONT SIZE=-1>{ print "Record", NR, ": ", $0}</FONT></TT>
+<BR><TT><FONT SIZE=-1>END{ print "This is message is printed after all
+records are processed"}'</FONT></TT>
+<P>See the <A HREF="09_awk_diagram.ps">notes.</A>
+<P><FONT SIZE=-1><FONT COLOR="#3333FF">3.1</FONT> What does NR mean?</FONT>
+<P><FONT SIZE=-1><FONT COLOR="#3333FF">3.2</FONT> What does $0 mean?</FONT>
+<P><FONT SIZE=-1><FONT COLOR="#3333FF">3.3</FONT> How do you change the
+field delimiter to ":" ?</FONT>
+<P><FONT SIZE=-1><FONT COLOR="#3333FF">3.4</FONT> Modify the above program
+to print out&nbsp; the username of the first 10 users in the password file,
+and at the end print out the total number of lines processed.</FONT>
+<P><FONT COLOR="#3333FF">3.5</FONT> The length function returns the length
+of a string. E.g.,
+<P><TT><FONT COLOR="#330000">awk '</FONT></TT>
+<BR><TT><FONT COLOR="#330000">BEGIN {sum=0}</FONT></TT>
+<BR><TT><FONT COLOR="#330000">{sum += length($1)}</FONT></TT>
+<BR><TT><FONT COLOR="#330000">END{print sum/NR}' /usr/dict/words</FONT></TT>
+<P>What does the above program do?
+<P><FONT COLOR="#3333FF">3.6</FONT> Use awk to find out all words in /usr/dict/words
+that have the same length as given in the parameter.
+<P><TT>$ list-length 18</TT>
+<BR><TT>arteriolosclerosis</TT>
+<BR><TT>diethylstilbestrol</TT>
+<BR><TT>electrocardiograph</TT>
+<BR><TT>triphenylphosphine</TT>
+<BR><TT>$ list-length</TT>
+<BR><TT>usage: list-length length</TT>
+<BR><TT>$</TT>
+<BR>Pay attention to how the <TT>length</TT> parameter is passed to the
+AWK program.
+<P><FONT COLOR="#3333FF">3.7</FONT> <FONT COLOR="#FF0000">[Optional Question
+for this lab]</FONT> Given a pattern (as a string of characters), write
+a script using AWK to find&nbsp; all the words in /usr/dict/words that
+contain the pattern, print out the word, the index position of the word
+and the length of the word in the following format.
+<P><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; word&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+index&nbsp;&nbsp; length</TT>
+<BR><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -------&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----&nbsp;&nbsp; ------</TT>
+<BR><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; zoology&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7</TT>
+<BR><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; zoo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3</TT>
+<BR><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ========&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+=====&nbsp;&nbsp; ======</TT>
+<BR><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 word&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+total&nbsp;&nbsp; 10</TT>
+<P>If the pattern doesn't appear in any words, output <TT>"word not found"</TT>.
+<BR>
+<HR>
+<P>Please email your <I>vc</I> script to the TA when you have completed
+it.
+<P>
+<HR>
+<P><I>Click <A HREF="../labs.html">here</A>
+to go back to the COMP111 lab page.</I>
+</BODY>
+</HTML>

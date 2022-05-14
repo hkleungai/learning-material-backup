@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=big5">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.5b2 [en] (X11; I; SunOS 5.6 sun4m) [Netscape]">
+</HEAD>
+<BODY>
+
+<CENTER><B><FONT COLOR="#3333FF"><FONT SIZE=+2>COMP 111 Homework 2</FONT></FONT></B><FONT COLOR="#3333FF"></FONT>
+<P><B><FONT COLOR="#3333FF"><FONT SIZE=+2>Due: 9am&nbsp; November 16, Monday</FONT></FONT></B></CENTER>
+
+<P><FONT COLOR="#CC0000">Note: This homework is to be submitted electronically.
+The TAs will send out an instruction for submission soon.</FONT>
+<P><B>1) [20 marks]</B>
+<P>Compelte the last question in Lab 7.
+<P><B>2) [ 40 marks]</B>
+<P>Write a script in Bourne shell called <TT>Run</TT> with the following
+syntax:
+<P><TT>Run [command1] [command2] ... [commandn]</TT>
+<P>The script will execute the commands in the arguments in the background
+and report their status using the ps command every 30 seconds. When all
+the commands are completed, it reports a message on the screen:
+<P><TT>Commands finished</TT>
+<P>The following is a sample script:
+<P><TT>$ Run "sleep 60" "sleep 120"</TT>
+<BR><TT>&nbsp;&nbsp; PID TTY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TIME CMD</TT>
+<BR><TT>&nbsp;13850 pts/4&nbsp;&nbsp;&nbsp; 0:00 sleep</TT>
+<BR><TT>&nbsp;13848 pts/4&nbsp;&nbsp;&nbsp; 0:00 sleep</TT>
+<BR><TT>&nbsp;&nbsp; PID TTY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TIME CMD</TT>
+<BR><TT>&nbsp;13850 pts/4&nbsp;&nbsp;&nbsp; 0:00 sleep</TT>
+<BR><TT>&nbsp;13848 pts/4&nbsp;&nbsp;&nbsp; 0:00 sleep</TT>
+<BR><TT>&nbsp;&nbsp; PID TTY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TIME CMD</TT>
+<BR><TT>&nbsp;13850 pts/4&nbsp;&nbsp;&nbsp; 0:00 sleep</TT>
+<BR><TT>&nbsp;&nbsp; PID TTY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TIME CMD</TT>
+<BR><TT>&nbsp;13850 pts/4&nbsp;&nbsp;&nbsp; 0:00 sleep</TT>
+<BR><TT>Commands finished</TT>
+<P>You can see that process 13848 corresponds to "sleep 60" which finishes
+earlier than process 13850 which corresponds to "sleep 120". Your script
+cannot hardcode the number of arguments and/or the anticipated commands
+given in the arguments. As a hint, the actual command that generate the
+above output is:<TT></TT>
+<P><TT>ps -p 13848 -p 13850</TT>
+<P><B>3) [40 marks]</B>
+<P>The personel department of a trading company needs to send emails to
+the candidates who have applied for a position in the company. The email
+includes the candidate's name, personal ID and the time
+<BR>for the interviewing.
+<P>Here is a sample of the mail
+<P><TT>---------------------BEGIN OF SAMPLE---------------------------</TT>
+<BR><TT>Chan Tak Man,</TT>
+<P><TT>With reference to your application for a position in our company,
+I am</TT>
+<BR><TT>pleased to invite you to an interview.</TT>
+<P><TT>&nbsp;&nbsp;&nbsp; The interview detail is as follows.</TT>
+<P><TT>Candidate Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Candidate
+PID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Time</TT>
+<BR><TT>Chan Tak Man&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+00000001&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6th
+Nov 1998&nbsp;&nbsp; 15:00</TT>
+<P><TT>Looking forward to meeting you.</TT>
+<P><TT>Yours faithfully</TT>
+<P><TT>Mr. Paul Chu</TT>
+<BR><TT>Personel Manager</TT>
+<BR><TT>----------------------END OF SAMPLE------------------------------</TT>
+<P>You are given two files:
+<P>1.&nbsp;&nbsp; <TT>nn.data</TT>, which contains the names, personal
+IDs, and email addresses of the candidates in the following format:
+<P>&nbsp;&nbsp;&nbsp;&nbsp; <TT>&lt;name>:&lt;PID>:&lt;email></TT>
+<P><TT>eg.&nbsp;&nbsp; Chan Tak Man:00000001:ctm@ust.hk</TT>
+<BR><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Cheung Siu Man:00000002:csm@hku.hk</TT>
+<BR><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Cheung Siu Bo:00000009:csb@cs.ust.hk</TT>
+<P>2.&nbsp;&nbsp; <TT>time.data</TT>, which contains the names, PIDs, data
+and time of the interview, exactly the same format as the in the letter.
+<P><TT>eg.</TT>
+<BR><TT>Chan Tak Man&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+00000001&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6th
+Nov 1998&nbsp;&nbsp; 15:00</TT>
+<BR><TT>Cheung Siu Man&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+00000002&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7th
+Nov 1998&nbsp;&nbsp; 10:00</TT>
+<BR><TT>Cheung Siu Man&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+00000002&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7th
+Nov 2000&nbsp;&nbsp; 10:00</TT>
+<BR><TT>Cheung Siu Bo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+00000004&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7th
+Nov 1998&nbsp;&nbsp; 10:00</TT>
+<P>There are two more files provided:
+<P>1. <TT>header</TT>, which contains the following passage:
+<P><TT>In reference to your application for the post in our company, I
+am</TT>
+<BR><TT>pleased to invite you to an interview.</TT>
+<P><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The interview detail
+is as follows</TT>
+<P><TT>Candidate Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Candidate
+PID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Time</TT>
+<P>2. <TT>footer</TT>, which contains the following passage:
+<P><TT>Looking forward to meeting with you.</TT>
+<P><TT>Yours faithfully</TT>
+<P><TT>Mr. Peter Chan</TT>
+<BR><TT>Personel Manager</TT>
+<P>Your task is to write a shell script which will generate the letters
+and automatically send them out to the candidates.
+<P>Note:
+<P>1) Use only commands covered in the lectures and labs (i.e., don't use
+awk, sed, etc).
+<P>2) PIDs are unique while Candidate Names are not (i.e., no two persons
+have the same PID, but they may have the same name).
+<P>3) You may NOT assume every candidate found in nn.data can be found
+in time.data. If the corresponding record is not found, output an error
+message <TT>"Time for &lt;name> not found"</TT>. For example, given the
+data files above, the following message will be output:
+<P><TT>Time for Cheung Siu Bo not found</TT>
+<P>4) If more than one records in time.data is found for the same PID,
+report an error message. For example, given the data files above, the following
+message will be output:
+<P><TT>Duplicated records for Cheung Siu Man</TT>
+<P>5) In testing your program, you can replace the email addresses in nn.data
+with your own email address so that the emails will be sent to you.
+<P>6) The sample data <TT><A HREF="nn.data">nn.data</A></TT> and <TT><A HREF="time.data">time.data</A></TT>
+are provided as a reference, but your script must work for general cases.
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+</BODY>
+</HTML>

@@ -1,0 +1,106 @@
+COMP111 : Quiz 5
+Perl Programming
+
+
+-----------------------------------------------------------
+1) What is the value of $n after the following Perl statements are executed?
+ 
+	$n = 0;
+	if(!$n){
+		$n = $n + 1;
+	}
+	if($n){
+		$n = -$n;
+	}
+	$n = $n + 1;
+
+
+Answer:  0
+
+
+
+-----------------------------------------------------------
+2) What is the value of $n after the following Perl statements are executed?
+
+ 	$n = 1; $a=4; $b=8; $c=19;
+	if($b>10 && $c<4 || $a==0){
+		$n = $n + 2;
+	}
+	if($a < 10 || $b>5 && $c<9){
+		$n = $n + 3;
+	}
+	if($c>11 && $a<2 || $b==8){
+		$n = $n + 4;
+	}
+
+
+Answer:  8
+
+
+-----------------------------------------------------------
+3) What is the value of $n after the following Perl statements are executed?
+
+	$n = 4;
+	@a = (1,2,3);
+	while ( $n <= 13 ){
+		$n += $a[$n%3];
+	}
+
+
+Answer:  15
+
+
+-----------------------------------------------------------
+4) What is the value of $n after the following Perl statements are executed?
+
+	$n = 4;
+	@a = (1 ..3);
+	for($i=1; $i<=$#a; $i++){
+		$n += $a[$i-1];
+	}
+
+
+Answer:  10
+Because for(i=0; i<=2; i++)
+indices a[-1] a[0] a[1]
+
+
+-----------------------------------------------------------
+5) What is the value of @a after the following Perl statements are executed?
+
+	$n = 4;
+	@a = 2;
+	for($i=1; $i<=3; $i++){
+		$a[$i] = $n;
+		$n--;
+	}
+
+
+Answer:  2 4 3 2
+
+
+-----------------------------------------------------------
+6) What is the value of @a after the following Perl statements are executed?
+
+	$n = 4;
+	@a = 2;
+	@b = (5,$n,7,@a);
+	($n,@a) = @b;
+
+
+Answer:  4 7 2
+
+
+
+-----------------------------------------------------------
+7) What is the value of @a after the following Perl statements are executed?
+
+	$n = 5;
+	@a = 9;
+	@b = ($n,7,@a,4);
+	($n,@a) = (@b[3,2,1],$n);
+
+
+Answer:  9 7 5
+
+

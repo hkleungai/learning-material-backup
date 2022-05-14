@@ -1,0 +1,74 @@
+<html>
+<body>
+<center>
+<strong>COMP 111 Homework 1 <br>
+Solution</strong>
+</center>
+
+<pre>
+Q1.
+
+csl3su7:candy:1> ftp
+ftp> open uststu1.ust.hk
+Connected to uststu1.ust.hk.
+Name (csl3su7:candy): <username>
+Password: <password>
+ftp> cd COMP111
+ftp> lcd /tmp
+Local directory now /tmp
+ftp> put comp111
+ftp> close
+ftp> open ftp.cs.geeku.edu.au
+Connected to ftp.cs.geeku.edu.au.
+Name (csl3su7:candy): anonymous
+Password: <email as password>
+ftp> cd /pub/gif
+ftp> lcd COMP111
+Local directory now /tmp_mnt/homes/candy/candy/COMP111
+ftp> binary
+ftp> prompt
+ftp> mget *
+ftp> bye
+
+Q2.
+
+a)1/	setenv DISPLAY csl2su4.cs.ust.hk:0.0	
+  2/	csl2su5.cs.ust.hk
+
+b)1/	xterm -display csl2su5.cs.ust.hk:0.0
+  2/	csl2su4.cs.ust.hk
+
+c)1/	xterm 
+  2/	csl2su5.cs.ust.hk
+
+d)1/	xhost -csl2su5.cs.ust.hk		
+  2/	csl2su4.cs.ust.hk
+
+e)1/	xhost +cspeter@csl2su5.cs.ust.hk
+  2/	csl2su4.cs.ust.hk
+</pre>
+
+<p>
+*NOTE* Due to a bug in the system, for b2), you might be able to start xterm
+from csl2su5.cs.ust.hk, on the 1 or 2 days before the deadline of the hw. This
+bug gives all the users on the machine, not only the console login user, the
+permission to display to the console, even after issuing xhost -. Although
+starting xterm from csl2su5.cs.ust.hk is not a correct answer, marks will also
+be given for this hw.
+
+<pre>
+Q3.
+
+a) sort -t';' +3nr mark | head -60 | tail -21 | grep -v "MATH" | \
+   cut -d';' -f1,2 > result
+
+OR
+
+sort -t';' +3nr mark | tail +40 | head -21 | grep -v "MATH" | \
+cut -d';' -f1,2 > result
+
+b) cut -d';' -f3 mark | sort | uniq -c
+
+</pre>
+</body>
+</html>

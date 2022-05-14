@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>COMP111 Lab Session 6</TITLE>
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (X11; I; SunOS 4.1.4 sun4m) [Netscape]">
+</HEAD>
+<BODY>
+
+<H2 ALIGN=CENTER>COMP111 Lab Session 6</H2>
+
+<P>One powerful feature of Unix is its filter and pipe mechanism: the output
+of one command can be piped into another, and so on through a long chain
+of filters until the desired result emerges on the standard output or redirected
+to a file. You will go through a real problem in this exercise to gain
+a first hand experience on the mindset that you need to develop to fully
+exploit this feature. </P>
+
+<P>Given a text file, how to determine the frequency of all the words that
+appear in the file? Consider the following text: </P>
+
+<P><TT>What is Life?&lt;tab&gt;Perhaps,we will never know what life is!
+</TT></P>
+
+<P>We would like to obtain the following output: </P>
+
+<P><TT>2 is <BR>
+2 life <BR>
+2 what <BR>
+1 know <BR>
+1 never <BR>
+1 perhaps <BR>
+1 we <BR>
+1 will </TT></P>
+
+<P>You may think of writing a C/C++ program to solve this problem. We will
+guide you to write a pipeline of Unix commands that can achieve the same
+result. </P>
+
+<P>1. Create the file &quot;lab6.dat&quot; with the following content:
+</P>
+
+<P><TT>What is Life?&lt;tab&gt;Perhaps,we will never know what life is!
+</TT></P>
+
+<P>2. The first step is to keep each word in &quot;lab6.dat&quot; on one
+line. That is, we need to convert any sequence of nonletters, such as spaces,
+tabs, and punctuation marks, into a single newline. The &quot;tr&quot;
+command serves this purpose. Since we did not cover this command in class,
+we will give you the answer. Your duty is to understand the answer by checking
+the manpage of &quot;tr&quot;. </P>
+
+<P><TT>tr -sc '[A-Z][a-z]' '\012' &lt; lab6.dat &gt; lab6.out1 </TT></P>
+
+<P>3. The output in &quot;lab6.out1&quot; contains words such as &quot;What&quot;
+and &quot;what&quot;, and &quot;Life&quot; and &quot;life&quot;. We consider
+words in different cases as identical. What command can you use to convert
+all capital letters to small letters? Save your output to the file &quot;lab6.out2&quot;.
+</P>
+
+<P>4. The content of &quot;lab6.out2&quot; should be: </P>
+
+<P><TT>what <BR>
+is <BR>
+life <BR>
+perhaps <BR>
+we <BR>
+will <BR>
+never <BR>
+know <BR>
+what <BR>
+life <BR>
+is </TT></P>
+
+<P>Two commands that we've covered in class can be used to produce the
+following output from &quot;lab6.out2&quot;. </P>
+
+<P><TT>2 is <BR>
+1 know <BR>
+2 life <BR>
+1 never <BR>
+1 perhaps <BR>
+1 we <BR>
+2 what <BR>
+1 will </TT></P>
+
+<P>The first field of each line is the frequency of occurrence of the second
+field. Determine what these two commands are, execute them, and save your
+output as &quot;lab6.out3&quot;. </P>
+
+<P>5. You should now sort the output of &quot;lab6.out3&quot; in descending
+order based on the frequency field. Your final result is: </P>
+
+<P><TT>2 is <BR>
+2 life <BR>
+2 what <BR>
+1 know <BR>
+1 never <BR>
+1 perhaps <BR>
+1 we <BR>
+1 will </TT></P>
+
+<P>6. Combine the commands from step 2 to 5 inclusive into a pipeline.
+You should save the final result to the file &quot;lab6.ans&quot;. At the
+same time, the final result should be displayed to the standard output.
+</P>
+
+<P>7. Include the pipeline of commands used in step 6 to the file &quot;lab6.ans&quot;
+and mail it to the TA. </P>
+
+<P>
+<HR WIDTH="100%"></P>
+
+<P>Click <A HREF="../labs.html">here</A> to go back to the COMP111 lab
+page. </P>
+
+</BODY>
+</HTML>

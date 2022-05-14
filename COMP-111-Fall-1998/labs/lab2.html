@@ -1,0 +1,290 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>COMP111 Lab Session 4</TITLE>
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (X11; I; SunOS 4.1.4 sun4m) [Netscape]">
+</HEAD>
+<BODY>
+
+<H1 ALIGN=CENTER>COMP111 Lab Session 2<BR>Configuring X Windows</H1>
+
+<H3>Overview </H3>
+
+<P>In this lab session, the following will be covered:</P>
+
+<UL>
+<LI>Playing with some X programs</LI>
+
+<LI>Executing X applications on another display</LI>
+
+<LI>Changing the behaviours of X applications by command line options</LI>
+
+<LI>Setting up default behaviours by .Xdefaults</LI>
+
+<LI>Customizing your fvwm95  by .fvwm2rc95 </LI>
+
+<LI>Starting up other window managers (mwm, fvwm)</LI>
+
+<LI>Setting up chinese xterm</LI>
+</UL>
+
+<H3>Playing with some X programs</H3>
+
+<P>Try some programs that use the X display. When you type the command,
+put an ampersand (&) after it :
+<BR>
+<OL>
+<LI>xeyes
+<LI>xterm
+<LI>xclock
+<LI>xmag
+<LI>xcalc
+<LI>xfontsel
+<LI>xman
+</OL>
+<P>
+
+
+<H3>Executing X applications on another display</H3>
+
+<P>Through the X protocol, X applications can be run on one machine
+and displayed to another machine by setting up parameters in both of them.</P>
+
+<P>Suppose you are using machine B and you want to run <TT>xeyes</TT> on
+machine A and display the <TT>xeyes</TT> window
+on your own machine (machine B), you need
+to:
+</P>
+
+<OL>
+<LI>Use the <TT>xhost</TT> command in machine B to include machine A into
+the access list. For example, if machine A is csl3su1, the following command
+should be used in machine B<BR>
+<TT>xhost +csl3su1<BR>
+</TT>Note that each machine in CS lab has been assigned a hostname in the
+form of cslXsuXX.</LI>
+
+<LI>You can then telnet into machine A and
+execute <TT>xeyes</TT> on machine A by the following command (assume
+that machine B is csl3su2):<BR>
+<TT>xeyes -display csl3su2:0.0<BR>
+</TT>The xeyes window should then appear on the display of machine B.</LI>
+
+<LI>Alternatively, you could do the following in machine A instead of the
+above<BR>
+<TT>setenv DISPLAY csl3su2:0.0<BR>
+xeyes<BR>
+</TT>The difference is that not only <TT>xeyes</TT> but all X applications
+executed after the command <TT>setenv </TT>will be displayed on csl3su2,
+i.e. machine B.</LI>
+
+</OL>
+
+<H3>Using command line options of X applications</H3>
+
+<P>Command line options are options which are provided to set the behaviour
+of the application being invoked. Let's take xterm as an example, if you
+don't like a white background, you could change it to black by typing</P>
+
+<P><TT>xterm -background black</TT></P>
+
+<P>A black xterm will then appear. However, you discover that the foreground
+and background are the same in color. You could then type</P>
+
+<P><TT>xterm -background black -foreground white</TT></P>
+
+<P>to change the background and foreground colors simultaneously.</P>
+
+<P>You could also use command line options to set the following properties:</P>
+
+<UL>
+<LI>Font<BR>
+<TT>xterm -font 12x24 </TT>(use command <TT>xlsfonts</TT> to display available
+fonts)</LI>
+
+<LI>Size and position<BR>
+<TT>xterm -geometry 80x25+10+10</TT> (80 columns x 25 rows and located
+in (10, 10) of the display)</LI>
+
+<LI>Window title<BR>
+<TT>xterm -title &quot;Hi! I'm Mr. Xterm&quot;</TT></LI>
+</UL>
+
+<P>The complete list of options available can be retrieved from the manpage
+of the corresponding application (in this case, `xterm').</P>
+
+<H3>Setting default behaviour by .Xdefaults</H3>
+
+<P>It would be troublesome if one had to specify a list of command line
+options everytime. Therefore, a file called <TT>.Xdefaults </TT>is used
+to set up default behaviours of your X applications.</P>
+
+<P>The common format of lines in <TT>.Xdefaults</TT> is like the following:<BR>
+<TT>&lt;application name&gt;*&lt;resource name&gt;: &lt;required value&gt;</TT></P>
+
+<P>For example, if you want to have your xterm opened as<BR>
+<TT>xterm -title &quot;Hello&quot; -geometry 80x25 -foreground white -background
+black<BR>
+</TT>everytime, then your .Xdefaults will look like this:</P>
+
+<P><TT>xterm*title: Hello<BR>
+xterm*geometry: 80x25<BR>
+xterm*foreground: white<BR>
+xterm*background: black</TT></P>
+
+<P>You could see the manpages for lists of available resources.</P>
+
+<H3>Customizing fvwm95 by .fvwm2rc95</H3>
+
+<P>This section deals with changing the attributes of the window manager
+called fvwm.</P>
+
+<P>Each time you want to see the result of an alteration, you will need to
+stop the window manager and start it again. To do this, log out and then
+log in again.</P>
+
+<P>To have the ability to change the appearance and functions of your fvwm,
+you should first create a file called <TT>.fvwm2rc95</TT> in your home directory.
+</P>
+
+<P>To do this, an easy way is to copy the file which is already available,
+and then alter it. So first you need to copy </P>
+
+<P><B>/usr/local/software/fvwm95/lib/system.fvwm2rc95 <BR>
+
+<BR>
+</B>to <BR>
+<BR>
+<B>~/.fvwm2rc95 <BR>
+<BR>
+</B>by typing <BR>
+<BR>
+<TT>cp /usr/local/software/fvwm95/lib/system.fvwm2rc95 .fvwm2rc95<br>
+chmod u+rw .fvwm2rc95 <BR>
+<BR>
+
+
+<H3>Starting X window with other window managers</H3>
+
+<P>There are many window managers which can be used with X windows, such
+as twm and mwm. The following steps explain how to start a window manager
+from your CS account.</P>
+
+<OL>
+<LI>Copy the file <TT>xinitrc </TT>to your home directory by<BR>
+<TT>cp /usr/lib/X11/xinit/xinitrc ~/.xinitrc</TT></LI>
+
+<LI>Edit the file <TT>.xinitrc</TT> with <TT>pico </TT>and change the last
+few lines from<BR>
+<BR>
+<TT># start some nice programs<BR>
+<BR>
+xclock -geometry 50x50-1+1 &amp;<BR>
+xterm -geometry 80x50+494+51 &amp;<BR>
+xterm -geometry 80x20+494-0 &amp;<BR>
+xterm -geometry 80x66+0+0 -name login &amp;<BR>
+exec twm<BR>
+<BR>
+</TT>to<BR>
+<BR>
+<TT># start some nice programs<BR>
+<BR>
+xclock -geometry 50x50-1+1 &amp;<BR>
+xterm -geometry 80x50+494+51 &amp;<BR>
+xterm -geometry 80x20+494-0 &amp;<BR>
+xterm -geometry 80x66+0+0 -name login &amp;<BR>
+exec &lt;your window manager&gt;<BR>
+<BR>
+</TT>The first four applications correspond to the xterms and xclock on
+your display. You may also change these applications to anything you want,
+e.g. xeyes, xload, etc.. The window manager would be any one of these:
+twm, mwm and fvwm.</LI>
+
+<LI>Copy the corresponding rc file as follows:<BR>
+<BR>
+twm:<TT> /usr/lib/X11/twm/system.twmrc -&gt; ~/.twmrc<BR>
+</TT>mwm:<TT> /usr/lib/X11/system.mwmrc -&gt; ~/.mwmrc<BR>
+</TT>fvwm:<TT> /usr/local/share/X11R5/virtual_desktop/system.fvwmrc -&gt;
+~/.fvwmrc<BR>
+</TT>and edit them just like when customizing your twm.<BR>
+<BR>
+Note that the formats of these rc files are different for different window
+managers. You should consult the manpages of these window managers on how
+to customize them.</LI>
+
+<LI>Restart your window manager by logging out and logging in again.</LI>
+</OL>
+
+<H3><BR>
+Setting up chinese xterm</H3>
+
+<P>Each chinese character uses 2 bytes for its representation, which is
+different from the English character (uses 1 byte only for each letter).
+For example, the following are six Chinese characters which show the Chinese
+name of our university: </P>
+
+<PRE>        &shy;&raquo;&acute;&auml;&not;&igrave;&sect;&THORN;&curren;j&frac34;&Ccedil;
+</PRE>
+
+<P>When you do not use a Chinese window, you will just see some funny characters
+instead of the actual Chinese ones. </P>
+
+<P>Following are the steps on how to set up cxterm. Cxterm is the chinese
+version of xterm, which can display and input chinese character so that
+you can read chinese emails and news. After setting up the chinese xfonts,
+you would be able to browse chinese homepages as well.</P>
+
+<UL>
+<P>The steps below are described in <TT>/usr/local/CHINESE/SETUP/README</TT>.</P>
+</UL>
+
+<OL>
+<LI>Add these lines to your <TT>.cshrc_user</TT> just before starting up
+X window, i.e. the line <TT>&quot;Start X11 if login at sun console&quot;.<BR>
+</TT>Your <TT>.cshrc_user</TT> must be altered to include the following
+:<BR>
+<TT>...<BR>
+setenv MANPATH &quot;/usr/openwin/share/man:${MANPATH}:/usr/local/share/man&quot;<BR>
+<BR>
+### cxterm (chinese xterm) and other utility<BR>
+# for cxterm<BR>
+setenv ChinDir /usr/local/CHINESE<BR>
+setenv HZINPUTDIR ${ChinDir}/Dict<BR>
+# for hz2ps (hanzi to PostScript converter)<BR>
+setenv HZDIR ${ChinDir}/hz2ps<BR>
+setenv HZFONTDIR ${ChinDir}/hz2ps<BR>
+#<BR>
+setenv PATH  "${ChinDir}/bin:${PATH}"<BR>
+setenv MANPATH ${MANPATH}:${ChinDir}/man<BR>
+### various alias for cxterm and hz2ps<BR>
+<BR>
+&quot;Start X11 if login at sun console&quot;<BR>
+...</TT></LI>
+
+<LI>Add this line to the end of your .<TT>Xdefaults </TT>if it exists.
+Otherwise, create .<TT>Xdefaults </TT>and enter<TT> </TT>the line.<BR>
+<TT>#include &quot;/usr/local/CHINESE/SETUP/CXterm.ad&quot;</TT></LI>
+
+<LI>Finally, add these lines to your .xinitrc before the line <TT>&quot;#
+start some nice programs&quot;<BR>
+### Add font path for cxterm<BR>
+/usr/bin/X11/xset fp+ $ChinDir/xfonts<BR>
+/usr/bin/X11/xset fp rehash</TT></LI>
+
+<LI>Restart your X window by logging out and logging in again.</LI>
+</OL>
+
+<P>Run your cxterm by the command <TT>cxterm-b5 </TT><BR>
+
+<HR WIDTH="100%"></P>
+
+<P>Click <A HREF="../labs.html">here</A>
+to go back to the COMP111 main lab page.</P>
+
+<P>
+<HR WIDTH="100%"></P>
+
+<H6>Page prepared by Gibson Lam, modified by Cyril Kwok.</H6>
+
+</BODY>
+</HTML>

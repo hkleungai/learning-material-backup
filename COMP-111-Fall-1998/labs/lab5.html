@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>COMP111 Lab Session 6</TITLE>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=big5">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (X11; I; SunOS 5.6 sun4m) [Netscape]">
+</HEAD>
+<BODY bgcolor=ffffff>
+
+<H2 ALIGN=CENTER>COMP111 Lab Session 5</H2>
+
+<P>This lab consists of two parts: </P>
+
+<OL>
+<LI>Overview of the solution for homework 1.</LI>
+
+<LI>Further exercises on data processing.</LI>
+</OL>
+
+<H3><FONT COLOR="#3333FF">Discussion of Homework 1</FONT></H3>
+
+<P>Pay attention to: </P>
+
+<UL>
+<LI>Open and close several connections, one at a time, within the same
+ftp session.</LI>
+
+<LI>Bugs in xhost on several Solaris machines in lab 2.</LI>
+
+<LI>Use a combination of <TT>head</TT> and <TT>tail</TT> to extract lines
+from a file.</LI>
+</UL>
+
+<H3><FONT COLOR="#3333FF">Small Exercises on Shell Variables, cut and grep</FONT></H3>
+
+<UL>
+<LI><TT>ypcat passwd</TT> will list the password file from the system's
+network information system; but DON't do it now because it is a very large
+file!</LI>
+
+<LI>Use <TT>ypcat</TT> and other UNIX commands to list all records that
+contains <TT>Ho</TT> as an individual word in the fifth field. List only
+the fifth field.</LI>
+
+<LI>Repeat above but do not show names with <TT>Ho</TT> as a middle name.
+</LI>
+
+<LI>Define a variable <TT>FIRST</TT> with value <TT>Dik</TT> and a variable
+<TT>LAST</TT> with value <TT>Lee</TT></LI>
+
+<LI>Use <TT>ypcat</TT>, <TT>grep</TT> and the two variables to find out
+all records containing <TT>Dik Lee</TT></LI>
+
+<LI>Define a variable <TT>ALEX</TT> with value <TT>Alex Kean's Project</TT></LI>
+
+<LI>Find out the userid of that project from the <TT>passwd</TT> file.</LI>
+</UL>
+
+<P><FONT COLOR="#FF0000">Note: While attempting these short questions,
+don't just do it by trial-and-error. Try to understand why things don't
+work. </FONT></P>
+
+<H3><FONT COLOR="#3333FF">Analysis of Word Frequencies in a Passage</FONT></H3>
+
+<P>One powerful feature of Unix is its filter and pipe mechanism: the output
+of one command can be piped into another, and so on through a long chain
+of filters until the desired result emerges on the standard output or redirected
+to a file. You will go through a real problem in this exercise to gain
+a first hand experience on the mindset that you need to develop to fully
+exploit this feature. </P>
+
+<P><B><FONT COLOR="#FF0000">New command in this lab: tr</FONT></B> </P>
+
+<UL>
+<LI>Notice that there are two versions of <TT>tr</TT>: one stored in <TT>/usr/ucb/tr</TT>
+and the other in <TT>/usr/bin/tr</TT>; another copy identical to <TT>/usr/bin/tr</TT>
+may be stored in <TT>/bin/tr</TT> as well (so there may actually be more
+than 2 copies!).</LI>
+
+<LI>Which command can be used to find out which copy of <TT>tr</TT> you
+would use if you just type <TT>tr</TT> on the unix prompt?</LI>
+
+<LI>If you want <TT>tr</TT> to refer to <TT>/usr/ucb/tr</TT> by default,
+what would you have to do? (Note: you don't need to� make any change on
+your shell, just give the answer in words)?</LI>
+</UL>
+
+<P>Given a text file, how to determine the frequency of all the words that
+appear in the file? Consider the following text: </P>
+
+<P><TT>What is Life?&lt;tab&gt;Perhaps,we will never know what life is!</TT>
+</P>
+
+<P>We would like to obtain the following output: </P>
+
+<P><TT>2 is</TT> <BR>
+<TT>2 life</TT> <BR>
+<TT>2 what</TT> <BR>
+<TT>1 know</TT> <BR>
+<TT>1 never</TT> <BR>
+<TT>1 perhaps</TT> <BR>
+<TT>1 we</TT> <BR>
+<TT>1 will</TT> </P>
+
+<P>You may think of writing a C/C++ program to solve this problem. We will
+guide you to write a pipeline of Unix commands that can achieve the same
+result. </P>
+
+<P>1. Create the file &quot;lab5.dat&quot; with the following content:
+</P>
+
+<P><TT>What is Life?&lt;tab&gt;Perhaps,we will never know what life is!</TT>
+</P>
+
+<P>2. The first step is to keep each word in &quot;lab5.dat&quot; on one
+line. That is, we need to convert any sequence of nonletters, such as spaces,
+tabs, and punctuation marks, into a single newline. The &quot;tr&quot;
+command serves this purpose. Since we did not cover this command in class,
+we will give you the answer. Your duty is to understand the answer by checking
+the manpage of &quot;tr&quot;. To get the manpage for <TT>/usr/ucb/tr</TT>,
+use the command <TT>man -s 1b tr</TT> </P>
+
+<P><TT>/usr/ucb/tr -sc '[A-Z][a-z]' '\012' &lt; lab5.dat &gt; lab5.out1</TT>
+</P>
+
+<P>3. The output in &quot;lab5.out1&quot; contains words such as &quot;What&quot;
+and &quot;what&quot;, and &quot;Life&quot; and &quot;life&quot;. We consider
+words in different cases as identical. What command can you use to convert
+all capital letters to small letters? Save your output to the file &quot;lab5.out2&quot;.
+</P>
+
+<P>4. The content of &quot;lab5.out2&quot; should be: </P>
+
+<P><TT>what</TT> <BR>
+<TT>is</TT> <BR>
+<TT>life</TT> <BR>
+<TT>perhaps</TT> <BR>
+<TT>we</TT> <BR>
+<TT>will</TT> <BR>
+<TT>never</TT> <BR>
+<TT>know</TT> <BR>
+<TT>what</TT> <BR>
+<TT>life</TT> <BR>
+<TT>is</TT> </P>
+
+<P>Two commands that we've covered in class can be used to produce the
+following output from &quot;lab5.out2&quot;. </P>
+
+<P><TT>2 is</TT> <BR>
+<TT>1 know</TT> <BR>
+<TT>2 life</TT> <BR>
+<TT>1 never</TT> <BR>
+<TT>1 perhaps</TT> <BR>
+<TT>1 we</TT> <BR>
+<TT>2 what</TT> <BR>
+<TT>1 will</TT> </P>
+
+<P>The first field of each line is the frequency of occurrence of the second
+field. Determine what these two commands are, execute them, and save your
+output as &quot;lab5.out3&quot;. </P>
+
+<P>5. You should now sort the output of &quot;lab5.out3&quot; in descending
+order based on the frequency field. Your final result is: </P>
+
+<P><TT>2 is</TT> <BR>
+<TT>2 life</TT> <BR>
+<TT>2 what</TT> <BR>
+<TT>1 know</TT> <BR>
+<TT>1 never</TT> <BR>
+<TT>1 perhaps</TT> <BR>
+<TT>1 we</TT> <BR>
+<TT>1 will</TT> </P>
+
+<P>6. Combine the commands from step 2 to 5 inclusive into a pipeline.
+You should save the final result to the file &quot;lab5.ans&quot;. At the
+same time, the final result should be displayed to the standard output.
+</P>
+
+<P>7. Include the pipeline of commands used in step 6 to the file &quot;lab5.ans&quot;
+and mail it to the TA. </P>
+
+<P>
+<HR WIDTH="100%"></P>
+
+<P>Click <A HREF="../labs.html">here</A> to go back to the COMP111 lab
+page. </P>
+
+</BODY>
+</HTML>

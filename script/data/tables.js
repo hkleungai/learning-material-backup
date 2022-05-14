@@ -56,6 +56,10 @@ var categorizedPreCourses = [
                 semesters: ['Summer 1996', 'Spring 1997', 'Spring 1998']
             },
             {
+                code: 'COMP 111',
+                semesters: ['Fall 1998', 'Summer 2003', 'Spring 2008']
+            },
+            {
                 code: 'COMP 1021',
                 semesters: ['Spring 2022']
             },

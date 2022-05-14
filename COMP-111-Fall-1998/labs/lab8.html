@@ -1,0 +1,102 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=big5">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (X11; I; SunOS 5.6 sun4u) [Netscape]">
+   <title>COMP111 Lab Session 8</title>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#3366FF" vlink="#FF6666" alink="#FF0000">
+
+<center>
+<h2>
+COMP111 Lab Session 8</h2></center>
+
+<center>
+<h2>
+Homework 2 discussion and</h2></center>
+
+<center>
+<h2>
+More Exercises on Shell Programming<br>
+- An `Incoming Mail' Script -</h2></center>
+
+<h3>
+Incoming Mail Alert Script</h3>
+In this lab session, you will create a Bourne shell script called <i>mailalert</i>
+which will monitor incoming email, and cause different events to happen
+depending on the incoming email.
+<h3>
+Some relevant information</h3>
+<b>Incoming email</b> - Your incoming email is placed in a particular file,
+called <tt>$MAIL</tt>. Do a
+<p><tt>echo $MAIL</tt>
+<p>to see the file name. You could do a <tt>ls -l $MAIL </tt>and a <tt>cat
+$MAIL</tt> to see the file, etc.
+<p>When you receive a new email, it is concatenated to the end of this
+file.
+<h3>
+Step 1</h3>
+Write a script which outputs a message <i>NEW EMAIL RECEIVED</i> on the
+screen when a new email is received.
+<p>To work out when a new email is received, one way is create an infinite
+loop. Within the loop, compare the current size of the <tt>$MAIL</tt> file
+with the previous size. If it is bigger, you have received a new email.
+<p>To test your script, run the script in one window. Then run <i>pine
+</i>in
+another window, and send yourself an email.
+<h3>
+<br>
+Step 2</h3>
+You may notice that your computer seems a bit slow when your script is
+running. That is because it is taking up much of the power of the computer,
+because of the infinte loop.
+<p>To fix this problem, take less computation power from the computer by
+causing the infinite loop to run only once every 5 seconds. You may like
+to do a "man sleep" to find out more about the sleep command.
+<p>Make sure that the <i>NEW EMAIL RECEIVED</i> message is only shown
+<i>once
+</i>each
+time there is a change in the length of the file.
+<h3>
+Step 3</h3>
+Use <i>wc</i> to determine the number of lines for both the `old' version
+of
+<tt>$MAIL</tt> and also the `current' version. By subtracting one from
+the other, you know how many extra lines have been added to the <tt>$MAIL</tt>
+file.
+<p>You could then use <i>tail </i>to show those lines on the screen.
+<p>Extend your script to show the new lines on the screen after you display
+the <i>NEW EMAIL RECEIVED</i> message.
+<br>&nbsp;
+<h3>
+Step 4</h3>
+EMail your final script to the lab TA.
+<h3>
+Homework 2</h3>
+The TA will discuss the solutions of homework 2. Notice that the answers
+are provided as a model only. There are more than one way of answering
+the questions.
+<br>
+<hr WIDTH="100%">
+<h3>
+Before Logging Out</h3>
+Please check carefully that all your <i>mailalert </i>processes are dead
+(use <i>ps </i>and <i>kill</i>) so that the computer is not slowed down
+for other people.
+<h3>
+
+<hr><br>
+Some links that may be of help</h3>
+<a href="http://medic.bgu.ac.il/comp/uhelp/scrpt_scrpt2.html">Here</a>
+is a good guide to Bourne shell programming.
+<p><a href="http://www.cs.rmit.edu.au/~steveh/tns/shell/shell.html">Here</a>
+is a good guide to Bourne (and Korn) shell programming.
+<p>
+<hr WIDTH="100%">
+<p>Click <a href="../labs.html">here</a> to go back to the COMP111 lab
+page.
+<h6>
+Page created by David Rossiter; modified by Gan Kok Wee</h6>
+
+</body>
+</html>

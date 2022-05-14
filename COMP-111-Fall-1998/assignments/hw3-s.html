@@ -1,0 +1,100 @@
+<html>
+<body>
+<pre>
+# Notice that this answers sketch the general approach
+# of solving the problems. It doesn't include all the
+# necessary codes for error checking. There may be other
+# correct answers.
+
+[1]
+
+#!/bin/sh
+# answer using wc
+
+/bin/rm -f hw3-sed-script
+count=`wc -l $1`
+i=2
+while [ $i -le $count ]
+do
+    echo ${i}p >> hw3-sed-script
+    i=`expr $i + 2 `
+done
+sed -n -f hw3-sed-script $1
+
+# answer without using wc
+
+/bin/rm -f hw3-sed-script
+even=0
+lineno=1
+while read line
+do
+    if [ $even -ne 0 ]
+    then
+         echo ${lineno}p >> hw3-sed-script
+         even=0
+    else
+         even=1
+    fi
+    lineno=`expr $lineno + 1`
+done < $1
+sed -n -f hw3-sed-script $1
+
+[2]
+
+#!/bin/sh
+sed -e '/\/$/s/$/index.htm/' -e 's/.*\.//' $1 | sort | uniq -c
+
+[3]
+
+#!/bin/sh
+awk 'BEGIN{count=0; word=0; even=0}
+{
+   if ( even == 1 ) {
+      print $0;
+      word += NF;
+      count += 1;
+      even = 0;
+   } else {
+      even = 1;
+   }
+}
+END{
+print "Number of even lines:", count;
+print "Number of words in even lines:", word
+} ' $1
+
+[4]
+
+#!/bin/sh
+# This is a pure awk program, which is required by the question
+ls -l . |
+awk 'BEGIN{OFS="\t";print "File\tSize\n----\t----"}
+{
+if ($8 != filename) {
+total += $4;print $8,$4
+}
+}
+END{
+print "\n====\t===="
+print "total",total }' filename=$0
+
+If you are allowed to use grep, the following can be used
+
+#!/bin/sh
+ls -l . | grep -v -w "fsize" |
+awk 'BEGIN{OFS="\t";print "File\tSize\n----\t----"}
+{
+total += $4;print $9,$5
+}
+END{
+print "\n====\t===="
+print "total",total }'
+
+Note that, in order not to hardcode "fsize" in your program,
+you can use
+
+grep -v -w $0
+
+</pre>
+</body>
+</html>

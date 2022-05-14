@@ -1,0 +1,205 @@
+COMP111 : Quiz 8
+Perl Programming
+Hashes
+
+-----------------------------------------------------------
+1) What is wrong? 
+
+	#!/usr/local/bin/perl5 -w
+	$bill{"Gates"} = "rich and famous";
+	$bill{"Mr."} = "too excited";
+	$bill{3} = 67;
+	print "bill: $bill{"Gates"}\n";
+
+
+Answer:  
+Has double-quotes inside double-quotes in print statement. Should be:
+	print "bill: ",$bill{"Gates"},"\n";
+
+
+-----------------------------------------------------------
+2) What is the output? 
+
+	#!/usr/local/bin/perl5 -w
+	$bill{"Gates"} = "rich and famous";
+	$bill{"Mr."} = "too excited";
+	$bill{3} = 67;
+	@a = (3,2,1);
+	print "bill: $bill{@a}\n";
+
+
+Answer:  
+bill: 67
+
+(@a is scalar context (array size) in $bill{@a}.)
+
+
+-----------------------------------------------------------
+3) What is the output? 
+
+	#!/usr/local/bin/perl5 -w
+	$bill{"Gates"} = "rich and famous";
+	$bill{"Mr. Bill"} = 1;
+	@bill{1..4} = qw(very famous + nervous);
+	@a = (3,4,2,1);
+	print "bill: @bill{@a}\n";
+
+
+Answer:  
+bill: + nervous famous very
+
+
+
+-----------------------------------------------------------
+4) What is the output? 
+
+	#!/usr/local/bin/perl5 -w
+	$bill{"Gates"} = "rich and famous";
+	@bill{1..4} = qw(very famous + nervous);
+	$bill{"Mr. Bill"} = 2;
+	%bill = reverse %bill;
+	@a = qw(very famous 2 nervous);
+	print "bill: @bill{@a}\n";
+
+
+Answer:  
+bill: 1 2 Mr. Bill 4
+
+
+
+-----------------------------------------------------------
+5) What is the output? 
+
+#!/usr/local/bin/perl5 -w
+$bill{"Gates"} = "rich and famous";
+@bill{"Clinton","Mr."} = qw(very nervous);
+@a = keys %bill;
+print "bill: @bill{sort @a}\n";
+
+
+Answer:  
+bill: very rich and famous nervous
+
+
+-----------------------------------------------------------
+6) What is the output? 
+
+#!/usr/local/bin/perl5 -w
+$bill{"Gates"} = "rich and famous";
+@bill{"Clinton","Mr."} = qw(very nervous);
+@bill{4..7} = qw(very famous + nervous);
+@a = values %bill;
+print "bill: $bill{keys %bill}\n";
+
+
+Answer:  
+bill: nervous
+
+(Because keys %bill returns the size of the hash.)
+
+-----------------------------------------------------------
+7) What is the output? 
+
+#!/usr/local/bin/perl5 -w
+$bill{"Gates"} = "famous";
+@bill{"Clinton","Mr. Bill"} = qw(excitable excitable);
+while(($k,$v) = each(%bill)){
+	print "$k: $v\n";
+}
+
+
+Answer:  
+Mr. Bill: excitable
+Gates: famous
+Clinton: excitable
+
+(The order of the lines is random)
+
+
+-----------------------------------------------------------
+8) What is the output? 
+
+#!/usr/local/bin/perl5 -w
+$bill{"Gates"} = "rich";
+@bill{"Clinton","Mr."} = qw(very nervous);
+@bob{qw(Bob Gates)} = qw(slow lazy);
+@bill{keys %bob} = values %bob;
+@a = sort keys %bill;
+print "bill: @a\n";
+
+
+Answer:  
+bill: Bob Clinton Gates Mr.
+
+
+
+--------------------------------------------------------
+
+Regular Expressions
+
+--------------------------------------------------------
+1a) What regular expression would match
+at least one x followed by zero or one y, followed by any 
+number of z's?
+
+
+Answer:  
+	/x+y?z*/
+
+
+
+1b) What is the simplest way to describe (in English) what 
+is matched by the regular expression in 1a?
+
+
+Answer:  
+Matches anything with an "x"
+--------------------------------------------------------
+2a) What regular expression would match
+any number of * followed by any number of backslashes?
+
+
+Answer:  
+	/\**\\*/
+
+
+
+2b) What is the simplest way to describe (in English) 
+what is matched by the regular expression in 2a?
+
+
+Answer:  
+Matches everything
+(even matches empty string/blank line)
+--------------------------------------------------------
+3) What regular expression would match
+any five characters, including newline?
+
+
+Answer:  
+/(.|\n)(.|\n)(.|\n)(.|\n)(.|\n)/
+/(.|\n){5}/
+
+
+--------------------------------------------------------
+4) What regular expression would match
+a line that contains "Bill" twice?
+Examples:
+BillBill
+Bill Bill
+BillGates Bill
+ABillGatesBill Clinton
+
+
+Answer:  
+/Bill.*Bill/
+
+
+--------------------------------------------------------
+5) How would you write a subsitution the deletes all 
+occurances of the string "Bill" in $_?
+
+Answer:  
+s/Bill//;
+
+

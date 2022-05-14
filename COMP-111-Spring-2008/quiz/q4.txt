@@ -1,0 +1,88 @@
+COMP111 : Quiz 4
+Perl Programming
+
+-----------------------------------------------------------
+1) What is wrong with the following Perl program? 
+
+#!/bin/sh
+print "Enter name: ";
+name=<STDIN>;
+print "How many girlfriends do you have? ";
+number=<STDIN>;
+print "$name has ***$number*** girlfriends:)"\n;
+
+
+Answers: 
+1) Line 1 should be: 
+#!/usr/local/bin/perl5 -w
+2) Use $name=<STDIN> and $number=<STDIN>
+3) Need to use: chomp($name); and chomp($number); to make output look good. 
+4) Line 6: \n needs to be inside the double quotes
+
+
+#1 Revised:
+
+#!/usr/local/bin/perl5 -w
+print "Enter name: ";
+$name=<STDIN>;
+chomp($name);
+print "How many girlfriends do you have? ";
+$number=<STDIN>;
+chomp($number);
+print "$name has ***$number*** girlfriends:)\n";
+
+
+-----------------------------------------------------------
+2) What is wrong with the following Perl program? 
+
+ #!/usr/local/bin/perl5 -w
+echo ("Enter height of parallelogram: ")
+$height = <STDIN>
+ echo "Enter width of parallelogram: "
+ $width =<STDIN>
+  $area = $height *$Width
+ echo("The area of the parallelogram is $area")
+
+
+Answers: 
+1) Need semicolons at end of lines 2-7
+2) Should be print instead of echo
+3) Line 1 must start in column 1
+4) $width and $Width are different variable names.
+5) Output will look better with a newline in the last line: print("The area of the parallelogram is $area\n");
+
+
+#2 Revised:
+
+#!/usr/local/bin/perl5 -w
+print ("Enter height of parallelogram: ");
+$height = <STDIN>;
+print "Enter width of parallelogram: ";
+$width =<STDIN>;
+$area = $height *$width;
+print("The area of the parallelogram is $area\n");
+
+
+-----------------------------------------------------------
+3) What is wrong with the following Perl program? 
+
+#!/usr/bin/perl5 -w
+$user-name ='whoami';
+print 'Hi $user-name! How is it going?\n';
+
+
+Answers: 
+1) Need backquotes around whoami, not single quotes
+2) Need chomp($user-name); to remove newline after command substitution
+3) Use double quotes on line 3 (single quotes will cause "Hi $user-name" to be printed out without printing the value of $user-name)
+4) Line 1 should be: 
+#!/usr/local/bin/perl5 -w
+5) $user-name is illegal variable name. Can't have "-". 
+
+
+#3 Revised:
+
+#!/usr/local/bin/perl5 -w
+$user_name =`whoami`;
+chomp($user_name);
+print "Hi $user_name! How is it going?\n";

@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>COMP111 Lab Session 7</TITLE>
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (X11; I; SunOS 5.6 sun4m) [Netscape]">
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+
+<H2 ALIGN=CENTER><FONT COLOR="#0000FF">COMP111 Lab Session 8- Generating
+Random Numbers</FONT></H2>
+
+<P>You will learn from this lab:</P>
+
+<UL>
+<LI>writing loops in a shell script</LI>
+
+<LI>passing arguments into a shell script</LI>
+
+<LI>conditional statements</LI>
+</UL>
+
+<P><B><FONT SIZE=+1>Exercise 0: Sorting part of a field</FONT></B></P>
+
+<P>Given the following data file<TT><FONT COLOR="#B22222"> input-data</FONT></TT></P>
+
+<P><TT>Lee Dik Lun:98001<BR>
+Kwok Yat Fat:97094<BR>
+Lau Yan Nam:98180<BR>
+Chan Tai Man:97201<BR>
+Chan Siu Man:99008</TT></P>
+
+<P>In the second file, the first two digits are the year of employment
+and the last three digits is a serial number sequentially assigned to employees
+hired within a year.</P>
+
+<P>Use the <TT><FONT COLOR="#B22222">sort </FONT></TT>command to sort the
+data file by year in descending order and by sequence number in ascending
+order within the year.</P>
+
+<P>(Note that the <TT><FONT COLOR="#B22222">-k</FONT></TT> option of <TT><FONT COLOR="#B22222">sort
+</FONT></TT>doesn't work on partial fields, use the <TT><FONT COLOR="#B22222">+/-</FONT></TT>
+option.)</P>
+
+<P><B><FONT SIZE=+1>Exercise 1: Use of for loop</FONT></B></P>
+
+<P>Given the following user names:</P>
+
+<P><TT>dlee<BR>
+cyril<BR>
+candy<BR>
+gankw<BR>
+rossiter</TT></P>
+
+<P>Write a shell script called <TT><FONT COLOR="#B22222">get-group</FONT>
+</TT>to take in these five names as arguments and generate the following
+output:</P>
+
+<P><TT>dlee:1501<BR>
+cyril:1501<BR>
+candy:1501<BR>
+gankw:1501<BR>
+rossiter:1501</TT></P>
+
+<P><B><FONT SIZE=+1>Exercise 2: Use of command substitution in a for loop</FONT></B></P>
+
+<P>Now, suppose the five user names are stored in the file <TT><FONT COLOR="#B22222">/tmp/usernames</FONT></TT>
+Modify your shell script in Exercise 1 so that <TT><FONT COLOR="#B22222">get-group
+</FONT></TT>doesn't take in any argument but outputs the user group information
+of the user names stored in <TT><FONT COLOR="#B22222">/tmp/usernames </FONT></TT><FONT COLOR="#000000">in
+the same format as in Exercise 1.</FONT></P>
+
+<P><B><FONT SIZE=+1>Exercise 3: Use of command substitution in setting
+shell variables</FONT></B></P>
+
+<P>Given the user name <TT><FONT COLOR="#B22222">cs_kcc</FONT></TT> write
+a script to print out all user names with the same group id as <TT><FONT COLOR="#B22222">cs_kcc
+</FONT></TT>(notice that you have to find out the group id of <TT><FONT COLOR="#B22222">cs_kcc
+</FONT></TT>from the passwd file).</P>
+
+<P><B><FONT SIZE=+1>Exercise 4: Control flow statements</FONT></B></P>
+
+<P>Write a shell script called dumb-calc which does the following:</P>
+
+<UL>
+<LI>if no argument, return an error message &quot;usage: dumb_calc integer
+[integer]&quot;</LI>
+
+<LI>if one integer argument is supplied, return the square of the argument</LI>
+
+<LI>if two integer argument are supplied, return the product of the two
+arguments</LI>
+</UL>
+
+<P>You may assume the supplied arguments are integers.</P>
+
+<P><FONT COLOR="#FF0000">Submit the answers for Exercises 1-4 to your TA
+via email before you attempt Exercise 5.</FONT></P>
+
+<P><B><FONT SIZE=+1>Question 1 of Homework 2: Putting it all together</FONT></B></P>
+
+<P>Create a shell script called <TT><FONT COLOR="#B22222">random </FONT></TT>which
+will return a different random number between 0 and 31104 each time it
+is called. </P>
+
+<P>If it is called with an argument, use the argument to re-seed the random
+number generator (if the argument is greater than 31104 or less than or
+equal to zero, use 10000 as the seed). </P>
+
+<P>If there is no argument when the script is called, use the last value
+returned by the script as the seed (store this value in the file <FONT COLOR="#B22222"><TT>/tmp/random$USER</TT>,</FONT>
+where <TT><FONT COLOR="#B22222">$USER</FONT></TT> is your username). </P>
+
+<P>Use 10000 as the seed if <FONT COLOR="#B22222"><TT>/tmp/random$USER</TT>
+</FONT>does not exist and the seed is not specified as an argument. </P>
+
+<P>Use the following formula for generating pseudo-random numbers: </P>
+
+<P><TT><FONT COLOR="#0000FF">randomnumber = (625*seed + 6571) % 31104 </FONT></TT></P>
+
+<P>where the <TT>%</TT> operator is the remainder operator. </P>
+
+<P>Don't mail your script for this question to your TA even if you can
+finish it during the lab. Submit your answer to your TA as the answer of
+question 1 of Homework 2 together with the answers of the other questions
+in Homework 2.</P>
+
+<P>
+<HR></P>
+
+<P>
+<HR></P>
+
+<P><A HREF="http://medic.bgu.ac.il/comp/uhelp/scrpt_scrpt2.html">Here</A>
+is a good guide to Bourne shell programming. </P>
+
+<P><A HREF="http://www.cs.rmit.edu.au/~steveh/tns/shell/shell.html">Here</A>
+is a good guide to Bourne (and Korn) shell programming. </P>
+
+<P>
+<HR WIDTH="100%"></P>
+
+<P>Click <A HREF="../labs.html">here</A> to go back to the COMP111 lab
+page. </P>
+
+</BODY>
+</HTML>
