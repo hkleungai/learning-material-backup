@@ -1,0 +1,1391 @@
+<!DOCTYPE html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title>COMP 151-251 - Spring-Fall 2007</title>
+  <link rel="stylesheet" type="text/css" media="print"
+  href="dekaiprint.css">
+  <link rel="stylesheet" type="text/css" media="screen"
+  href="dekaisite.css">
+</head>
+
+<body>
+<body lang="en">
+
+<div id="navigation" class="xhtml">
+<br>
+<a href="http://www.cs.ust.hk/~dekai/151/">Course Home</a> <a
+href="#announcements">Announcements</a> <a
+href="#orientation">Orientation</a> <a href="#books">Textbooks</a> <a
+href="#honor">Honor Policy</a> <a href="#grading">Grading</a> <a
+href="#schedule">Schedule</a></div>
+
+<div id="content">
+<h2>COMP 151-251 Spring-Fall 2007</h2>
+
+<p><b>Spring 2007, COMP 151 Object-Oriented Programming [3-0-2:3]</b> <br>
+Lecture 2, MWF 15:00-15:50, Rm 2464 <br>
+<b><a href="http://www.cs.ust.hk/~dekai">Prof. Dekai WU</a></b>, Rm 3539,
+2358-6989, <a href="mailto:dekai@cs.ust.hk">dekai@cs.ust.hk</a></p>
+
+<p>Lab 2A TA: <b><a href="http://www.cs.ust.hk/~shenyh">Zhifeng LAI</a></b>,
+Tu 13:00-14:50, Rm 4214, <a
+href="mailto:shenyh@cs.ust.hk">zflai@cs.ust.hk</a> <br>
+Lab 2B TA: <b><a href="http://www.cs.ust.hk/~jackielo">Jackie LO Chi
+Kiu</a></b>, Tu 15:00-16:50, Rm 4214, <a
+href="mailto:jackielo@cs.ust.hk">jackielo@cs.ust.hk</a> <br>
+Lab 2C TA: <b><a href="http://www.cs.ust.hk/~lars">Lars SONG Chengqi</a></b>,
+Tu 17:00-18:50, Rm 4214, <a href="mailto:lars@cs.ust.hk">lars@cs.ust.hk</a>
+<br>
+Support TA: <b><a href="http://www.cs.ust.hk/~shenyh">Yihai SHEN</a></b>, <a
+href="mailto:shenyh@cs.ust.hk">shenyh@cs.ust.hk</a></p>
+
+<p><b>Fall 2007, COMP 251 Programming Languages [3-0-1:3]</b> <br>
+TBA</p>
+
+<p>You are welcome to knock on the door of the instructor any time. The TAs'
+office hours are posted at <a
+href="./labs/">http://course.cs.ust.hk/comp151/labs/</a>.</p>
+
+<h3><a id="announcements">ANNOUNCEMENTS</a></h3>
+
+<p><b>Always</b> check <a
+href="index.html">http://www.cs.ust.hk/~dekai/151/</a>
+for up-to-the-minute announcements.<br>
+<b>Lab info</b> is at <a
+href="./labs/">http://course.cs.ust.hk/comp151/labs/</a>.<br>
+<b>Newsgroup</b> is <a
+href="http://www.ust.hk/cgi-bin/ccst/dnews/dnewsweb?cmd=xover&amp;group=hkust.cs.class.151&amp;from=&amp;utag=&amp;sub=y">hkust.cs.class.151</a>.
+Always read before asking/posting/emailing your question.</p>
+
+<p><strong>2007.05.01:</strong> <a href="assignments/a4/html/">Assignment 4
+will be due Tue 15 May 2007 at 23:00 via CASS.</a> To finish in time, you
+must start immediately and aim to finish by 11 May. Remember again, in this
+class you are learning to engineer a complete software project, and future
+COMP251 assignments depend on successfully completing A4.</p>
+
+<p><strong>2007.04.18:</strong> <a href="midterm_grades.html">Midterm grades
+are released.</a> If you wish to inspect your midterm, please come to Rm 2578
+on Mon 24 Apr from 15:00-16:30.</p>
+
+<p><strong>2007.04.13:</strong> Two makeup lectures will be held Tue 17 Apr
+19:00-21:00 in Rm TBA (following your vote in lecture).</p>
+
+<p><strong>2007.04.12:</strong> <a href="assignments/a3/html/">Assignment 3
+will be due Fri 27 Apr 2007 at 23:00 via CASS.</a> Remember again, in this
+class you are learning to engineer a complete software project, and all
+future assignments depend on successfully completing A3. To help you check
+your project's current level of correctness, we're giving you all the
+Assignment 2 test cases together with the correct outputs. <a
+href="assignments/a2_dev_set.tar.gz">a2_dev_set.tar.gz</a> contains the same
+test cases we already previously released to assist you while you were still
+developing A2. <a
+href="assignments/a2_test_set.tar.gz">a2_test_set.tar.gz</a> contains the new
+test cases that were used to grade the final A2 versions you submitted.</p>
+
+<p><strong>2007.03.12:</strong> <a href="assignments/a2/html/">Assignment 2
+will be due Wed 28 Mar 2007 at 23:00 via CASS.</a> To finish in time, you
+must start immediately and aim to finish by 21 Mar. Remember again, in this
+class you are learning to engineer a complete software project, and all
+future assignments depend on successfully completing A2. Use the newsgroup <a
+href="http://www.ust.hk/cgi-bin/ccst/dnews/dnewsweb?cmd=xover&amp;group=hkust.cs.class.151&amp;from=&amp;utag=&amp;sub=y">hkust.cs.class.151</a>
+for questions and answers. You are responsible for reading the newsgroup
+daily.</p>
+
+<p><strong>2007.02.14:</strong> <a href="assignments/a1/html/">Assignment 1
+will be due Tues 6 Mar 2007 at 23:00 via CASS.</a> To finish in time, you
+must start immediately and aim to finish by 1 Mar. Remember, in this class
+you are learning to engineer a complete software project, and all future
+assignments depend on successfully completing A1. Use the newsgroup <a
+href="http://www.ust.hk/cgi-bin/ccst/dnews/dnewsweb?cmd=xover&amp;group=hkust.cs.class.151&amp;from=&amp;utag=&amp;sub=y">hkust.cs.class.151</a>
+for questions and answers.</p>
+
+<p><strong>2007.02.09:</strong> Two makeup lectures will be held Mon 12 Feb
+19:00-21:00 in Rm 2407 (following your vote in lecture).</p>
+
+<p><strong>2007.01.28:</strong> Welcome to COMP151 L2! Labs will begin Tues 6
+Feb, in Week 2.</p>
+
+<h3><a id="orientation">ORIENTATION</a></h3>
+
+<p>Welcome to this integrated COMP 151-251 yearlong sequence, which takes
+over where COMP 104 left off. This sequence is designed to give you the solid
+software engineering experience necessary to build, extend, and maintain a
+realistically sized non-toy program, using both traditional and up-to-date
+techniques that you will need on the job. Most students find that C++ and
+other modern languages offer a huge, confusing variety of different and
+often-contradictory complexities. In this sequence you will untangle the
+confusion by gaining an enhanced holistic theoretical perspective, comparing
+and contrasting the most important paradigms of programming languages.</p>
+
+<p><strong>Understand by doing.</strong> The only way to learn languages is
+through serious practice. The only way to appreciate software engineering is
+to engineer some serious software. And by far the best way to understand
+programming languages is to implement one.</p>
+
+<p>So, through a yearlong series of programming assignments, you will use C++
+to gradually implement your own complete interpreter for a real programming
+language that is a small but fully operational version of Scheme (or
+Lisp).</p>
+
+<p>Beginning in 151, you will learn the most important procedural, static and
+dynamic object-oriented, and generic programming paradigms of C++
+programming, through hands-on practice with building the basic pieces of your
+Scheme interpreter. Then in 251, you will continue deepening the C++ and
+Scheme concepts you have learned, and further transition to better understand
+their functional and generic programming roots and foundations. We will also
+learn about the syntactic description and analysis of programming languages,
+and their runtime environments. Toward the end we will extend our learning to
+logic programming, which is a powerful paradigm that has yet to become widely
+exploited in typical C++ environments. Throughout the entire series, you will
+focus on developing adequate software engineering habits, so that you can
+continue to build, extend, and maintain the code you have built so far.</p>
+
+<h4>Academic Calendar Description</h4>
+
+<p><strong>151.</strong> Object-oriented programming concepts and techniques.
+Software reuse. Classes, objects, and methods. Abstract data types. Object
+creation and initialization. Message passing. Class hierarchies and
+inheritance. Polymorphism. Templates and algorithm abstraction.
+<strong>Prerequisite:</strong> COMP 103 or COMP 104</p>
+
+<p><strong>251.</strong> Comparative studies of programming languages,
+programming language concepts and constructs. Non-imperative programming
+paradigms: object-oriented, functional, logic, concurrent programming. Basic
+concepts of program translation and interpretation. Storage allocation and
+run-time organization. <strong>Prerequisite:</strong> COMP151/151H and
+COMP171/171H</p>
+
+<h3><a id="books">TEXTBOOKS</a></h3>
+<ul>
+  <li><em>Thinking in C++, Volume One: Introduction to Standard C++</em> (2nd
+    Edition), by <strong>Bruce ECKEL</strong>. Prentice-Hall, 2000. ISBN:
+    0-13-979809-9.</li>
+  <li><em>Thinking in C++, Volume Two: Practical Programming</em>, by
+    <strong>Bruce ECKEL</strong> and <strong>Chuck ALLISON</strong>.
+    Prentice-Hall, 2004. ISBN: 0-13-035313-2.</li>
+</ul>
+<ul>
+  <li><em>Programming Languages: Concepts and Constructs</em> (2nd Edition),
+    by <strong>Ravi SETHI</strong>. Addison-Wesley, 1996.</li>
+  <li><em>Structure and Interpretation of Computer Programs</em> (2nd
+    edition), by <strong>Harold ABELSON</strong> and <strong>Gerald Jay
+    SUSSMAN</strong>, with <strong>Julie SUSSMAN</strong>. MIT Press, 1984.
+    ISBN: 0-262-01077-1. <br>
+    <br>
+    <strong>Full text and code are available online at no cost</strong> for
+    both <em>Thinking in C++</em> volumes at <a
+    href="http://www.BruceEckel.com">http://www.BruceEckel.com</a>.<br>
+    An official Hong Kong mirror site for fast downloading is at <a
+    href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/">http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/</a>.
+    <br>
+    <br>
+    <strong>Full text and code are available online at no cost</strong> for
+    the Scheme book (<em>Structure and Interpretation of Computer
+    Programs</em>) at <a
+    href="http://mitpress.mit.edu/sicp/">http://mitpress.mit.edu/sicp/</a>.</li>
+</ul>
+
+<h4>Reference Books</h4>
+<ul>
+  <li><em>Programming in C++: Lessons and Applications</em>, by <b>Timothy B.
+    D'ORAZIO </b>. McGraw Hill, 2003. ISBN: 978-0072424126. Your COMP 104
+    textbook.</li>
+  <li><em>The C++ Programming Language</em> (3rd Edition), by <b>Bjarne
+    STROUSTRUP</b>. Addison-Wesley, 1997. ISBN: 0-201-88954-4. This classic
+    reference (by the designer of C++) is a must-have for every serious C++
+    programmer, covering details often omitted in textbooks.</li>
+  <li><em>C++ Primer</em> (4th Edition), by <b>Stanley B. LIPPMAN and Josee
+    LaJOIE</b>. Addison-Wesley, 2005. ISBN: 978-0201721485. This traditional
+    text can be used as a first book for learning C++ but assumes that the
+    reader is familiar with programming, and more insightful textbooks have
+    now appeared since it was first written.</li>
+  <li><em>Problem Solving with C++: The Object of Programming</em> (6th
+    Edition), <b>Walter SAVITCH</b>. Addison-Wesley, 2006. ISBN:
+    978-0321412690. This book gives an introduction to C++ and introduces
+    basic programming techniques.</li>
+  <li><em>C++: Effective Object-Oriented Software Construction: Concepts,
+    Principles, Industrial Strategies, and Practices</em> (2nd Edition), by
+    <b>Kayshav DATTATRI</b>. Prentice Hall, 1999. ISBN: 978-0130867698. This
+    book is good provided that you are fluent with C++ and it emphasizes more
+    on the design, programming techniques, and why C++ is designed as it is
+    now.</li>
+</ul>
+<ul>
+  <li><em>Elements of ML Programming</em> (2nd Edition), by <strong>Jeffrey
+    D. ULLMAN</strong>. Prentice-Hall, 1998. ISBN: 0-13-790387-1.</li>
+  <li><em>Programming in Prolog</em> (5th Edition), by <strong>William F.
+    CLOCKSIN</strong> and <strong>Christopher S. MELLISH</strong>.
+    Springer-Verlag, 2003. ISBN: 3-54-000678-8.</li>
+</ul>
+
+<h3><a id="honor">HONOR POLICY</a></h3>
+To receive a passing grade, you are required to sign an <a
+href="honor.pdf">honor statement</a> acknowledging that you understand and
+will uphold all policies on plagiarism and collaboration.
+
+<h4>Plagiarism</h4>
+
+<p>All materials submitted for grading must be your own work. You are advised
+against being involved in any form of copying (either copying other people's
+work or <b>allowing others to copy yours</b>). If you are found to be
+involved in an incident of plagiarism, <b>you will receive a failing grade
+for the course and the incident will be reported for appropriate disciplinary
+actions</b>.</p>
+
+<p><a href="http://www.ust.hk/vpaao/integrity/student-1.html">University
+policy requires that students who cheat more than once be expelled</a>.
+Please review the <a
+href="http://www.ust.hk/orientation/studies/academic5.html">cheating topic
+from your UST Student Orientation</a>.</p>
+
+<p>Warning: sophisticated plagiarism detection systems are in operation!</p>
+
+<h4>Collaboration</h4>
+You are encouraged to collaborate in study groups. However, you must write up
+solutions on your own. <b>You must also acknowledge your collaborators in the
+write-up for each problem, whether or not they are classmates.</b> Other
+cases will be dealt with as plagiarism.
+
+<h3><a id="grading">GRADING</a></h3>
+
+<p>The course will be graded on a curve, but no matter what the curve is, I
+guarantee you the following.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>If you achieve</td>
+      <td><strong>85%</strong></td>
+      <td>you will receive at least a</td>
+      <td><strong>A</strong></td>
+      <td>grade.</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><strong>75%</strong></td>
+      <td></td>
+      <td><strong>B</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><strong>65%</strong></td>
+      <td></td>
+      <td><strong>C</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><strong>55%</strong></td>
+      <td></td>
+      <td><strong>D</strong></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Your grade will be determined by a combination of factors:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Midterm exam</td>
+      <td>~20%</td>
+    </tr>
+    <tr>
+      <td>Final exam</td>
+      <td>~25%</td>
+    </tr>
+    <tr>
+      <td>Participation</td>
+      <td>~5%</td>
+    </tr>
+    <tr>
+      <td>Homework</td>
+      <td>~40%</td>
+    </tr>
+    <tr>
+      <td>Labs</td>
+      <td>~10%</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Examinations</h4>
+No reading material is allowed during the examinations. No make-ups will be
+given unless prior approval is granted by the instructor, or you are in
+unfavorable medical condition with physician's documentation on the day of
+the examination. In addition, being absent at the final examination results
+in automatic failure of the course according to university regulations,
+unless prior approval is obtained from the department head.
+
+<p>There will be one midterm worth approximately 20%, and one final exam
+worth approximately 25%.</p>
+
+<h4>Participation</h4>
+
+<p>Software engineering is about communication between people. Good
+participation in class and/or the online forum will count for approximately
+5%.</p>
+
+<h4>Homework</h4>
+
+<p>All programming assignments must be submitted by <b>23:00</b> on the due
+date. C++ programming assignments must be compiled using <b>g++</b> on
+<b>Unix</b> and will be collected electronically using the automated CASS
+assignment collection system. Late assignments cannot be accepted. Sorry, in
+the interest of fairness, exceptions cannot be made.</p>
+
+<p>Programming assignments will account for a total of approximately 40%.</p>
+
+<h4>Labs</h4>
+
+<p>All information for laboratory assignments is at <a
+href="./labs/">http://course.cs.ust.hk/comp151/labs/</a>.</p>
+
+<p>Laboratory assignments will be announced at the end of each week, and will
+be due on the following Friday at 23:00. Laboratory assignments must be in
+<b>C++</b> on <b>Unix</b> and will be collected electronically using the
+automated CASS assignment collection system. Late assignments cannot be
+accepted. Sorry, in the interest of fairness, exceptions cannot be made.</p>
+
+<p>You will also have the option to turn in your laboratory assignments
+<strong>in lab</strong> by demonstrating to the TA. This will also give you
+an opportunity to get an early indication of whether your assignment is
+correct. If not, you may still decide to fix it, and then wait until the
+Friday 23:00 CASS collection to turn in your assignment.</p>
+
+<p>There will be up to 10 laboratory assignments, which in total will count
+for approximately 10%.</p>
+
+<h3><a id="schedule">SCHEDULE</a></h3>
+
+<table border="0" width="100%">
+  <tbody>
+    <tr bgcolor="#000000">
+      <td><b><font color="#FFFFFF">Date</font></b></td>
+      <td><b><font color="#FFFFFF">Wk</font></b></td>
+      <td><b><font color="#FFFFFF">Event</font></b></td>
+      <td><b><font color="#FFFFFF">Paradigm</font></b></td>
+      <td><b><font color="#FFFFFF">Topic Notes</font></b></td>
+      <td><b><font color="#FFFFFF">Reading</font></b></td>
+      <td><b><font color="#FFFFFF">Assignments</font></b></td>
+    </tr>
+    <tr>
+      <td>�</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td bgcolor="#777777"><b><font color="#FFFFFF">COMP151</font></b></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.01.29</td>
+      <td>1</td>
+      <td>Lecture</td>
+      <td></td>
+      <td>Administrivia (<a href="honor.pdf">honor statement</a>, <a
+        href="con_classroom_Aug04.ppt">HKUST classroom conduct</a>)</td>
+      <td><a
+        href="http://www.businessweek.com/magazine/content/06_04/b3968001.htm">Business
+        Week</a>, <a
+        href="http://www.joelonsoftware.com/articles/ThePerilsofJavaSchools.html">The
+        Perils of JavaSchools</a></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.01.31</td>
+      <td>1</td>
+      <td>Lecture</td>
+      <td>SwEngr</td>
+      <td><a href="lectures/l01_intro.pdf">Introduction: C++ and software
+        engineering</a> (doxygen notes: <a
+        href="http://www.cs.ust.hk/~marine/comp151/comp151.html">Marine's</a>,
+        <a href="Comp151_Using_Doxygen.pdf">Adam's</a>)</td>
+      <td>V1.<a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter01.html">Ch1</a></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.02.05</td>
+      <td>2</td>
+      <td>Lecture</td>
+      <td>Procedural</td>
+      <td>Introduction (cont) (self-review: <a
+        href="lectures/l06_references.pdf">References</a>, <a
+        href="lectures/l07_const.pdf">Const</a>)</td>
+      <td>V1.<a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter03.html">Ch3</a>,<br>
+        V1.<a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter08.html">Ch8</a></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.02.07</td>
+      <td>2</td>
+      <td>Lecture</td>
+      <td>SwEngr</td>
+      <td><a href="lectures/l02_classes.pdf">Introduction: Data
+        abstraction</a></td>
+      <td>V1.<a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter02.html">Ch2</a></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.02.09</td>
+      <td>2</td>
+      <td>Lecture</td>
+      <td>SwEngr</td>
+      <td>Introduction: Data abstraction (cont) (<a
+        href="examples/classes/YourPets2a.cpp">YourPets2a.cpp</a>, <a
+        href="examples/classes/YourPets2b.cpp">YourPets2b.cpp</a>)</td>
+      <td>V1.<a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter04.html">Ch4</a></td>
+      <td></td>
+    </tr>
+    <!--
+    <tr>
+    <td></td>
+    <td>2</td>
+    <td>Lecture</td>
+    <td>SwEngr</td>
+    <td><a href="lectures/l03_separate_compilation.pdf">Separate
+    compilation</a> (<a
+    href="examples/separate_compilation/CheckDate.cpp">CheckDate.cpp</a>,
+    <a href="examples/separate_compilation/Date.cpp">Date.cpp</a>, <a
+    href="examples/separate_compilation/Date.hpp">Date.hpp</a>)</td>
+    <td>V1.<a
+    href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter03.html">Ch3</a>
+    (p202-210)</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td></td>
+    <td>3</td>
+    <td>Lecture</td>
+    <td>SwEngr</td>
+    <td>Separate compilation (cont) (<a
+    href="examples/separate_compilation/UseSqrt.cpp">UseSqrt.cpp</a>, <a
+    href="examples/separate_compilation/CheckDate2.cpp">CheckDate2.cpp</a>,
+    <a href="examples/separate_compilation/Date2.cpp">Date2.cpp</a>, <a
+    href="examples/separate_compilation/Date2.hpp">Date2.hpp</a>, <a
+    href="examples/separate_compilation/DayOfWeek.cpp">DayOfWeek.cpp</a>,
+    <a
+    href="examples/separate_compilation/DayOfWeek.hpp">DayOfWeek.hpp</a>,
+    <a href="examples/separate_compilation/Lang.cpp">Lang.cpp</a>, <a
+    href="examples/separate_compilation/Lang.hpp">Lang.hpp</a>)</td>
+    <td></td>
+    <td></td>
+    </tr>
+    -->
+    <tr>
+      <td>2007.02.12</td>
+      <td>3</td>
+      <td>Lecture</td>
+      <td>Procedural</td>
+      <td><a href="lectures/l04_declaration_definition.pdf">Declaration and
+        definition</a> (<a
+        href="examples/declaration_definition/reverse_print.cpp">reverse_print.cpp</a>,
+        <a
+        href="examples/declaration_definition/use_reverse_print.cpp">use_reverse_print.cpp</a>,
+        <a
+        href="examples/declaration_definition/reverse_print.hpp">reverse_print.hpp</a>)</td>
+      <td>V1.<a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter05.html">Ch5</a></td>
+      <td></td>
+    </tr>
+    <!--
+    <tr>
+    <td>2006.02.20</td>
+    <td>4</td>
+    <td>Lecture</td>
+    <td>Procedural</td>
+    <td><a href="lectures/l05_pointers.pdf">Pointers</a></td>
+    <td>V1.<a
+    href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter03.html">Ch3</a>,
+    ref V1.<a
+    href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter13.html">Ch13</a></td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>2006.02.22</td>
+    <td>4</td>
+    <td>Lecture</td>
+    <td>Procedural</td>
+    <td>Pointers (cont)</td>
+    <td></td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>2004.09.29</td>
+    <td>5</td>
+    <td>Holiday</td>
+    <td></td>
+    <td>Autumn Moon Festival</td>
+    <td></td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>2004.10.01</td>
+    <td>5</td>
+    <td>Holiday</td>
+    <td></td>
+    <td>National Day</td>
+    <td></td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>2006.02.22</td>
+    <td>4</td>
+    <td>Lecture</td>
+    <td>Procedural</td>
+    <td>Pointers (cont), <a href="lectures/Bpointers.ps">allocating 2D
+    arrays</a> (<a href="lectures/bpointers_4.ps">4-up</a>)</td>
+    <td></td>
+    <td></td>
+    </tr>
+    -->
+    <tr>
+      <td>2007.02.12</td>
+      <td>3</td>
+      <td>Lecture</td>
+      <td>StaticOO</td>
+      <td><a href="lectures/l08_constructors.pdf">Overloading and
+        constructors</a> (Makeup lecture Rm 2407 19:00-20:00)</td>
+      <td>V1.<a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter06.html">Ch6</a></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.02.12</td>
+      <td>3</td>
+      <td>Lecture</td>
+      <td>StaticOO</td>
+      <td><a href="lectures/l09_destructors.pdf">Destructors</a> (Makeup
+        lecture Rm 2407 20:00-21:00)</td>
+      <td>V1.<a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter06.html">Ch6</a></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.02.14</td>
+      <td>3</td>
+      <td>Lecture</td>
+      <td>StaticOO</td>
+      <td><a href="lectures/l10_order.pdf">Order of
+        construction/destruction</a>, <a
+        href="examples/constructors_destructors/po.zip">Post Office
+        example</a>, <a href="lectures/argc.ps">argc &amp; argv</a></td>
+      <td>V1.<a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter06.html">Ch6</a></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.02.16</td>
+      <td>3</td>
+      <td>Holiday</td>
+      <td></td>
+      <td>Lunar New Year</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.02.19</td>
+      <td>3</td>
+      <td>Holiday</td>
+      <td></td>
+      <td>Lunar New Year</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.02.21</td>
+      <td>3</td>
+      <td>Holiday</td>
+      <td></td>
+      <td>Lunar New Year</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.02.23</td>
+      <td>3</td>
+      <td>Lecture</td>
+      <td>StaticOO</td>
+      <td><a href="lectures/l11_inheritance.pdf">Inheritance:
+      Introduction</a></td>
+      <td>V1.<a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter14.html">Ch14</a></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.02.26</td>
+      <td>4</td>
+      <td>Lecture</td>
+      <td>StaticOO</td>
+      <td><a href="lectures/l12_substitution.pdf">Inheritance: Substitution
+        principle</a></td>
+      <td>V1.<a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter14.html">Ch14</a></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.02.28</td>
+      <td>4</td>
+      <td>Lecture</td>
+      <td>Functional</td>
+      <td><a href="assignments/a1/html/">Project (Assignment 1):
+        Encapsulation, s-expressions, cons lists, tagged unions, eval</a></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.03.02</td>
+      <td>4</td>
+      <td>Lecture</td>
+      <td>StaticOO</td>
+      <td><a href="lectures/l13_access.pdf">Inheritance: Access control:
+        public, protected, private</a></td>
+      <td>V1.<a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter14.html">Ch14</a></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.03.05</td>
+      <td>5</td>
+      <td>Lecture</td>
+      <td>DynamicOO</td>
+      <td><a href="lectures/l14_virtual.pdf">Inheritance: Virtual
+        functions</a></td>
+      <td>V1.<a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter15.html">Ch15</a></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.03.06</td>
+      <td>5</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><a href="assignments/a1/html/">A1 due</a> </td>
+    </tr>
+    <tr>
+      <td>2007.03.07</td>
+      <td>5</td>
+      <td>Lecture</td>
+      <td>DynamicOO</td>
+      <td><a href="lectures/l15_overriding.pdf">Inheritance: Overriding vs
+        overloading</a></td>
+      <td>V1.<a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter15.html">Ch15</a></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.03.09</td>
+      <td>5</td>
+      <td>Lecture</td>
+      <td>DynamicOO</td>
+      <td><a href="lectures/l16_abc.pdf">Inheritance: Abstract base
+        classes</a>, <a
+        href="examples/abstract_base_classes/abstract1.cpp">ex1</a>, <a
+        href="examples/abstract_base_classes/abstract2.cpp">ex2</a>, <a
+        href="examples/abstract_base_classes/abstract3.cpp">ex3</a>, <a
+        href="examples/abstract_base_classes/abstract4.cpp">ex4</a></td>
+      <td>V1.<a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter15.html">Ch15</a></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.03.12</td>
+      <td>6</td>
+      <td>Lecture</td>
+      <td>Functional</td>
+      <td><a href="assignments/a2/html/">Project (Assignment 2): Polymorphic
+        reimplementation, exposing car/cdr/cons/nullp</a></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.03.14</td>
+      <td>6</td>
+      <td>Lecture</td>
+      <td>StaticOO</td>
+      <td><a href="lectures/l17_thispointer.pdf">The "this" pointer</a></td>
+      <td>V1.<a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter04.html">Ch4</a></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.03.16</td>
+      <td>6</td>
+      <td>Lecture</td>
+      <td>StaticOO</td>
+      <td><a href="lectures/l18_privateinher.pdf">Inheritance: Public,
+        private, protected inheritance</a></td>
+      <td>V1.<a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter14.html">Ch14</a></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.03.19</td>
+      <td>7</td>
+      <td>Lecture</td>
+      <td>SwEngr</td>
+      <td><a href="lectures/l30_exceptions.pdf">Exceptions</a></td>
+      <td><a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-two.zip">V2</a>.Ch1</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.03.21</td>
+      <td>7</td>
+      <td></td>
+      <td></td>
+      <td>No lecture</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.03.23</td>
+      <td>7</td>
+      <td></td>
+      <td></td>
+      <td>No lecture</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.03.26</td>
+      <td>8</td>
+      <td></td>
+      <td></td>
+      <td>No lecture</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.03.28</td>
+      <td>8</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><a href="assignments/a2/html/">A2 due</a> </td>
+    </tr>
+    <tr>
+      <td>2007.03.30</td>
+      <td>8</td>
+      <td>Exam</td>
+      <td></td>
+      <td>Midterm (LTA 19:00-21:00; <a href="practice/mid2002.pdf">sample
+        exam for your practice</a>)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.04.02</td>
+      <td>9</td>
+      <td></td>
+      <td></td>
+      <td>No lecture due to Midterm</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.04.04</td>
+      <td>9</td>
+      <td>Holiday</td>
+      <td></td>
+      <td>Mid-Semester Break</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.04.06</td>
+      <td>9</td>
+      <td>Holiday</td>
+      <td></td>
+      <td>Mid-Semester Break</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.04.09</td>
+      <td>9</td>
+      <td>Holiday</td>
+      <td></td>
+      <td>Mid-Semester Break</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.04.11</td>
+      <td>9</td>
+      <td>Lecture</td>
+      <td>Generic</td>
+      <td><a href="lectures/l20_generic.pdf">Introduction to generic
+        programming</a></td>
+      <td>V1.<a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter16.html">Ch16</a></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.04.13</td>
+      <td>9</td>
+      <td>Lecture</td>
+      <td>Generic</td>
+      <td><a href="lectures/l21_templates.pdf">Function and class
+        templates</a></td>
+      <td>V1.<a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter16.html">Ch16</a></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.04.16</td>
+      <td>10</td>
+      <td>Lecture</td>
+      <td>Generic</td>
+      <td><a href="lectures/l22_opoverload.pdf">Overloading operators</a></td>
+      <td>V1.<a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter12.html">Ch12</a></td>
+      <td></td>
+    </tr>
+    <!--
+    <tr>
+    <td>2004.11.19</td>
+    <td>12</td>
+    <td>Lecture</td>
+    <td>Generic</td>
+    <td>Overloading operators (cont)</td>
+    <td>V1.<a
+    href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter12.html">Ch12</a></td>
+    <td><a href="http://course.cs.ust.hk/comp151/assignments/">A2 due</a></td>
+    </tr>
+    -->
+    <tr>
+      <td>2007.04.17</td>
+      <td>10</td>
+      <td>Lecture</td>
+      <td>Functional</td>
+      <td><a href="assignments/a3/html/">Project (Assignment 3): Exceptions,
+        boolean operators, exposing eval &amp; print</a> (Makeup lecture Rm
+        4619 19:00-22:00)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.04.17</td>
+      <td>10</td>
+      <td>Lecture</td>
+      <td>Functional</td>
+      <td><a href="assignments/a3/html/">Project (Assignment 3): Symbol
+        tables, the define operator, STL map</a> (Makeup lecture Rm 4619
+        20:00-21:00)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.04.18</td>
+      <td>10</td>
+      <td>Lecture</td>
+      <td>Generic</td>
+      <td><a href="lectures/l23_containers.pdf">Container classes</a></td>
+      <td><a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-two.zip">V2</a>.Ch7</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.04.20</td>
+      <td>10</td>
+      <td>Lecture</td>
+      <td>Generic</td>
+      <td><a href="lectures/l24_sequences_iterators.pdf">STL: Sequences &amp;
+        Iterators</a></td>
+      <td><a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-two.zip">V2</a>.Ch6</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.04.23</td>
+      <td>11</td>
+      <td></td>
+      <td></td>
+      <td>No lecture</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.04.25</td>
+      <td>11</td>
+      <td></td>
+      <td></td>
+      <td>No lecture</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.04.27</td>
+      <td>11</td>
+      <td></td>
+      <td></td>
+      <td>No lecture</td>
+      <td></td>
+      <td><a href="assignments/a3/html/">A3 due</a> </td>
+    </tr>
+    <tr>
+      <td>2007.04.30</td>
+      <td>12</td>
+      <td>Lecture</td>
+      <td>Generic</td>
+      <td><a href="lectures/l25_algorithms_intro.pdf">STL: Introduction to
+        algorithms</a></td>
+      <td><a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-two.zip">V2</a>.Ch6</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.05.02</td>
+      <td>12</td>
+      <td>Lecture</td>
+      <td>Generic</td>
+      <td><a href="lectures/l26_function_pointers.pdf">STL: Function
+        pointers</a></td>
+      <td><a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-two.zip">V2</a>.Ch6,
+        ref V1.<a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter03.html">Ch3</a></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.05.04</td>
+      <td>12</td>
+      <td>Lecture</td>
+      <td>Generic</td>
+      <td><a href="lectures/l27_functors.pdf">STL: Function objects or
+        functors</a></td>
+      <td><a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-two.zip">V2</a>.Ch6</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.05.07</td>
+      <td>13</td>
+      <td>Lecture</td>
+      <td>Generic</td>
+      <td><a href="lectures/l28_algorithms_more.pdf">STL: More
+      algorithms</a></td>
+      <td><a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-two.zip">V2</a>.Ch6</td>
+      <td></td>
+    </tr>
+    <tr valign="top">
+      <td>2007.05.09</td>
+      <td>13</td>
+      <td>Lecture</td>
+      <td>Functional</td>
+      <td><a href="lectures/ip-procedure/h.ip-procedure.pdf">Scope
+        and Parameter Passing</a></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr valign="top">
+      <td>2007.05.11</td>
+      <td>13</td>
+      <td>Lecture</td>
+      <td>Functional</td>
+      <td><a href="lectures/ip-procedure/h.ip-procedure.pdf">Activation Records</a></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.05.14</td>
+      <td>14</td>
+      <td>Lecture</td>
+      <td>SwEngr</td>
+      <td><a href="lectures/l19_namespaces.pdf">Namespaces</a></td>
+      <td>V1.<a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter10.html">Ch10</a></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2007.05.15</td>
+      <td>14</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><a href="assignments/a4/html/">A4 due</a> </td>
+    </tr>
+    <tr>
+      <td>2007.05.16</td>
+      <td>14</td>
+      <td>Lecture</td>
+      <td>SwEngr</td>
+      <td><a href="lectures/l29_static.pdf">Static</a></td>
+      <td>V1.<a
+        href="http://www.cs.ust.hk/~dekai/library/ECKEL_Bruce/TICPP-2nd-ed-Vol-one/TICPP-2nd-ed-Vol-one-html/Chapter02.html">Ch2</a></td>
+      <td></td>
+    </tr>
+    <!--
+    <tr>
+    <td></td>
+    <td>13</td>
+    <td>Holiday</td>
+    <td></td>
+    <td>The Birthday of the Buddha</td>
+    <td></td>
+    <td></td>
+    </tr>
+    -->
+    <tr>
+      <td>2007.05.21</td>
+      <td>15</td>
+      <td>Exam</td>
+      <td></td>
+      <td>Final (S H Ho Sports Hall 16:30-19:30; <a
+        href="practice/final_s2005.pdf">sample final exam</a> plus a <a
+        href="practice/midterm_s2004.pdf">sample midterm</a> and <a
+        href="practice/midterm_s2005.pdf">another sample midterm</a> for your
+        practice)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>�</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td bgcolor="#777777"><b><font color="#FFFFFF">COMP251</font></b></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><em>(tentative)</em></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr valign="top">
+      <td></td>
+      <td>2</td>
+      <td>Lecture</td>
+      <td></td>
+      <td><a href="lectures/intro/h.intro.pdf">Introduction</a>,
+        Administrivia (<a href="honor.pdf">honor statement</a>, <a
+        href="con_classroom_Aug04.ppt">HKUST classroom conduct</a>)</td>
+      <td>Ch1</td>
+      <td></td>
+    </tr>
+    <tr valign="top">
+      <td></td>
+      <td>2</td>
+      <td>Lecture</td>
+      <td>Syntax</td>
+      <td><a href="lectures/syntax-grammar/h.syntax.pdf">Language
+        Description</a></td>
+      <td>Ch2.1 - Ch2.3</td>
+      <td></td>
+    </tr>
+    <tr valign="top">
+      <td></td>
+      <td>3</td>
+      <td>Lecture</td>
+      <td>Syntax</td>
+      <td><a href="lectures/syntax-grammar/h.grammar.pdf">Grammar</a></td>
+      <td>Ch2.4 - Ch2.5</td>
+      <td></td>
+    </tr>
+    <tr valign="top">
+      <td></td>
+      <td>3</td>
+      <td>Lecture</td>
+      <td>Syntax</td>
+      <td>Grammar, cont'd</td>
+      <td>�</td>
+      <td></td>
+    </tr>
+    <tr valign="top">
+      <td></td>
+      <td>4</td>
+      <td>Lecture</td>
+      <td>Syntax</td>
+      <td><a href="lectures/syntax-grammar/h.regular.pdf">Regular
+      Grammars</a></td>
+      <td>�</td>
+      <td></td>
+    </tr>
+    <tr valign="top">
+      <td></td>
+      <td>4</td>
+      <td>Lecture</td>
+      <td>Syntax</td>
+      <td><a href="lectures/cfg-tools/h.flex.pdf">Lex (GNU Flex)</a></td>
+      <td><a href="http://www.gnu.org/software/flex/manual/">Flex user
+        manual</a></td>
+      <td></td>
+    </tr>
+    <tr valign="top">
+      <td></td>
+      <td>5</td>
+      <td>Lecture</td>
+      <td>Syntax</td>
+      <td><a href="lectures/cfg-tools/h.bison.pdf">Yacc (GNU Bison)</a></td>
+      <td><a href="http://www.gnu.org/software/bison/manual/">Bison user
+        manual</a>, <a
+        href="http://www.monmouth.com/%7Ewstreett/lex-yacc/lex-yacc.html">FLEX
+        and BISON on WIN32 platform</a></td>
+      <td></td>
+    </tr>
+    <tr valign="top">
+      <td></td>
+      <td>5</td>
+      <td>Lecture</td>
+      <td>Syntax</td>
+      <td>Yacc (GNU Bison), cont'd</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>6</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>A5 due <!--
+        <a href="http://www.cs.ust.hk/~dekai/251/assignments/a5/html/">A5
+        due</a>
+        -->
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>7</td>
+      <td>Exam</td>
+      <td></td>
+      <td>Midterm (Room TBA 18:00-21:00 <!-- ; a
+        href="practice/mid2002.pdf">sample exam for your practice</a -->
+        )</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr valign="top">
+      <td></td>
+      <td>7</td>
+      <td>Lecture</td>
+      <td>Functional</td>
+      <td><a href="lectures/scheme/h.scheme.pdf">Scheme/Lisp, Function
+        Values, Lambda</a></td>
+      <td>Ch10.1 - Ch10.3, <a
+        href="http://www.schemers.org/Documents/Standards/R5RS/">Scheme
+        R5RS</a></td>
+      <td></td>
+    </tr>
+    <tr valign="top">
+      <td></td>
+      <td>8</td>
+      <td>Lecture</td>
+      <td>Functional</td>
+      <td>Functions and Lambda</td>
+      <td>Ch10.1, Ch8.3-Ch8.4, Ch9.2 - Ch9.4</td>
+      <td></td>
+    </tr>
+    <tr valign="top">
+      <td></td>
+      <td>8</td>
+      <td>Lecture</td>
+      <td>Functional</td>
+      <td>Lambda Calculus</td>
+      <td>Ch14.1</td>
+      <td></td>
+    </tr>
+    <tr valign="top">
+      <td></td>
+      <td>9</td>
+      <td>Lecture</td>
+      <td>Functional</td>
+      <td>Scope and Let Statement</td>
+      <td>Ch10.1, Ch8.5</td>
+      <td></td>
+    </tr>
+    <tr valign="top">
+      <td></td>
+      <td>9</td>
+      <td>Lecture</td>
+      <td>Generic/Functional</td>
+      <td><a href="lectures/sml/h.sml.pdf">Introduction to SML, Types</a></td>
+      <td>Ch8, Ch8.6, Ch9.1</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>9</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>A6 due <!--
+        <a href="http://www.cs.ust.hk/~dekai/251/assignments/a6/html/">A6
+        due</a>
+        -->
+      </td>
+    </tr>
+    <tr valign="top">
+      <td></td>
+      <td>10</td>
+      <td>Lecture</td>
+      <td>Generic/Functional</td>
+      <td>Datatypes, Miscellaneous and Summary</td>
+      <td>Ch9.5, Ch9.6</td>
+      <td></td>
+    </tr>
+    <tr valign="top">
+      <td></td>
+      <td>10</td>
+      <td>Lecture</td>
+      <td>Logic</td>
+      <td><a href="lectures/prolog/h.prolog.pdf">Introduction to
+      Prolog</a></td>
+      <td>Ch11.1</td>
+      <td></td>
+    </tr>
+    <tr valign="top">
+      <td></td>
+      <td>11</td>
+      <td>Lecture</td>
+      <td>Logic</td>
+      <td>Fact, Rule, and Program</td>
+      <td>Ch11.2</td>
+      <td></td>
+    </tr>
+    <tr valign="top">
+      <td></td>
+      <td>11</td>
+      <td>Lecture</td>
+      <td>Logic</td>
+      <td>List</td>
+      <td>Ch11.3</td>
+      <td></td>
+    </tr>
+    <tr valign="top">
+      <td></td>
+      <td>12</td>
+      <td>Lecture</td>
+      <td>Logic</td>
+      <td>Unification and Substitutions</td>
+      <td>Ch11.5</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>14</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>A7 due <!--
+        <a href="http://www.cs.ust.hk/~dekai/251/assignments/a5/html/">A7
+        due</a>
+        -->
+      </td>
+    </tr>
+    <tr valign="top">
+      <td></td>
+      <td>12</td>
+      <td>Lecture</td>
+      <td>Logic</td>
+      <td>Unification and Substitutions, cont'd</td>
+      <td>�</td>
+      <td></td>
+    </tr>
+    <tr valign="top">
+      <td></td>
+      <td>13</td>
+      <td>Lecture</td>
+      <td>Logic</td>
+      <td>Cuts</td>
+      <td>Ch11.6</td>
+      <td></td>
+    </tr>
+    <tr valign="top">
+      <td></td>
+      <td>13</td>
+      <td>Lecture</td>
+      <td>Logic</td>
+      <td>Programming Techniques</td>
+      <td>Ch11.4</td>
+      <td></td>
+    </tr>
+    <tr valign="top">
+      <td></td>
+      <td>14</td>
+      <td>Lecture</td>
+      <td>Review</td>
+      <td>�</td>
+      <td>�</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>14</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>A8 due <!--
+        <a href="http://www.cs.ust.hk/~dekai/251/assignments/a8/html/">A8
+        due</a>
+        -->
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>14</td>
+      <td>Lecture</td>
+      <td>Review</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>15</td>
+      <td>Exam</td>
+      <td></td>
+      <td>Final (16:30-19:30, LG4204)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr valign="top">
+      <td>�</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>�</td>
+      <td>�</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+<hr width="100%">
+<br>
+<i><a href="mailto:dekai@cs.ust.hk">dekai@cs.ust.hk</a></i> <br>
+<span class="date">Last updated: 2007.05.09</span></div>
+</body>
+</body>
+</html>

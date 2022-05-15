@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>Comp151 (Fall 2000) -- Lab 01</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=big5">
+<META content="Microsoft FrontPage 4.0" name=GENERATOR>
+<meta name="Microsoft Theme" content="zero 011">
+</HEAD>
+<BODY background="../../../_themes/zero/zertxtr.gif" bgcolor="#000000" text="#FFFFFF" link="#6699CC" vlink="#669966" alink="#999999"><!--mstheme--><font face="新細明體">
+<h1 align="center"><!--mstheme--><font color="#CCCCCC"><font face="Arial">Comp151: Lab03</font><!--mstheme--></font></h1>
+<h2><!--mstheme--><font color="#CCCCCC"><font face="Arial">Objective:&nbsp;&nbsp;</font><!--mstheme--></font></h2>
+<p><font face="Arial"><img border="0" src="../images/BD21295_.GIF" width="15" height="13"> global objects and functions</font></p>  
+<p><font face="Arial"><img border="0" src="../images/BD21295_.GIF" width="15" height="13"> pointers</font></p>
+<p><font face="Arial"><img border="0" src="../images/BD21295_.GIF" width="15" height="13"> 
+introduction to a debugger</font></p> 
+　
+<h2><!--mstheme--><font color="#CCCCCC"><font face="Arial">Download</font><!--mstheme--></font></h2>
+<p><font face="Arial"><img border="0" src="../images/BD21295_.GIF" width="15" height="13"> </font><a href="LinkedList.zip"><font face="Arial">LinkedList</font></a></p>
+<font face="Arial"><img border="0" src="../images/BD21295_.GIF" width="15" height="13"> </font><a href="Transpose.zip"><font face="Arial">Transpose</font></a>
+<p><font face="Arial"><img border="0" src="../images/BD21295_.GIF" width="15" height="13"> </font><a href="AssesmentTask.zip"><font face="Arial">AssesmentTask</font></a></p>
+<p>　</p>
+<h2><!--mstheme--><font color="#CCCCCC"><font face="Arial">Reference</font><!--mstheme--></font></h2>
+<p><font face="Arial"><img border="0" src="../images/BD21295_.GIF" width="15" height="13"><a href="http://www.gnu.org/software/ddd/"> 
+</a></font><a href="http://www.gnu.org/software/ddd/"><font face="Arial">Data  
+    Display Debugger</font></a></p> 
+<font face="Arial"><img border="0" src="../images/BD21295_.GIF" width="15" height="13"> </font><a href="http://www.google.com/search?q=data+display+debugger&num=10&meta=hl%3Dzh-TW%26lr%3D&safe=off"><font face="Arial">search  
+    in google</font></a> 
+<h2><!--mstheme--><font color="#CCCCCC">　<!--mstheme--></font></h2>
+<h2><!--mstheme--><font color="#CCCCCC"><font face="Arial">Lab Work</font><!--mstheme--></font></h2> 
+<p><font face="Arial"><img border="0" src="../images/BD21295_.GIF" width="15" height="13"> Create 
+directories&nbsp; &quot;linkedlist&quot;  
+and &quot;transpose&quot; and &quot;task&quot; under ~/comp151/lab03</font></p>  
+<font face="Arial"><img border="0" src="../images/BD21295_.GIF" width="15" height="13"> Download the zip files to the corresponding  
+    folder</font>
+<p><font face="Arial"><img border="0" src="../images/BD21295_.GIF" width="15" height="13"> unzip the file using command &quot;unzip&quot;<br>  
+&nbsp;&nbsp;&nbsp;</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font face="Arial">e.g., unzip LinkedList.zip</font>  
+<p>　</p>
+<h3><!--mstheme--><font color="#CCCCCC"><font face="Arial">List-Accessing Problem</font><!--mstheme--></font></h3>  
+<font face="Arial"><img border="0" src="../images/BD21295_.GIF" width="15" height="13"> In this problem we are given a linked list  
+        of city names</font> 
+        <p><img border="0" src="../images/listlab03.gif" width="640" height="147">
+<p><font face="Arial">and a sequence of requested accesses</font> :<font face="Arial">Sydney, Rome, Rome, Rome, Rome, HongKong,   
+            Moscow, ... ...</font> 
+<p><font face="Arial"><img border="0" src="../images/BD21295_.GIF" width="15" height="13"> The cost of accessing city is the number of   
+        cities that have to be traversed to get to that city. Given a sequence   
+        of&nbsp;&nbsp; requested accesses, our objective is to minimize the cost of   
+        accessing the cities in the sequence in the given order.</font>  
+<p><font face="Arial"><img border="0" src="../images/BD21295_.GIF" width="15" height="13"> While processing the accesses we are  
+        allowed to modify the list as follows:</font> <font face="Arial">after accessing a city in the list, we   
+            can move it anywhere we want that is  closer to the front of the list.</font> 
+        <p>　
+<h3><!--mstheme--><font color="#CCCCCC"><font face="Arial">Some algorithms for  the problem</font><!--mstheme--></font></h3>  
+<font face="Arial"><img border="0" src="../images/BD21295_.GIF" width="15" height="13"> </font><font face="Arial">LinkedList</font>&nbsp;&nbsp;<font face="Arial"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- Never modify the list</font>  
+<p><font face="Arial"><img border="0" src="../images/BD21295_.GIF" width="15" height="13"> Transpose<br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --After accessing city 'A', move city    
+                'A' one unit forward towards the front of the list<br>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --e.g. after accessing Sydney, the list   
+                becomes</font>
+<p><img border="0" src="../images/transpose.gif" width="640" height="225"></p>
+　
+            <p>　
+<p><img border="0" src="../images/BD21295_.GIF" width="15" height="13">  <font face="Arial">LinkedList</font>
+<p><font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --compile LinkedList using the command &quot;gmake&quot;<br>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --run the program<br>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --&quot;access.txt&quot; contains a sequence   
+        of requested accesses</font></p>  
+    <p>　<img border="0" src="../images/relation.gif" width="500" height="400">
+<p><font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --notice how &quot;extern&quot; in main.cpp             
+        is used to access the global objects and function.<br>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>--<font face="Arial">notice how cities are inserted into the list</font>  
+    <p>　
+<p><img border="0" src="../images/BD21295_.GIF" width="15" height="13">  <font face="Arial">Transpose</font>
+<p><font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --List::Insert is now public so as to insert   
+        node at run time</font>  
+<p><font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --List::Delete added to delete node at run   
+        time</font>
+<p><font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --compile the program</font>  
+<p><font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --when you run the program, it hangs.</font>  
+<p><font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Let's figure out what happened using the debugger 'ddd'</font>  
+<p><font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- notice the '-g' parameter in g++</font>  
+<p><font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- what is memory leak?</font>  
+<p>&nbsp;&nbsp;&nbsp;<font face="Arial"> -- what is dangling pointer?</font></p>  
+<p><img border="0" src="../images/dangling.gif" width="640" height="225"></p>
+<h2><!--mstheme--><font color="#CCCCCC"><font face="Arial">Assessment Task</font><!--mstheme--></font></h2>
+<font face="Arial"><img border="0" src="../images/arrow2.gif" width="35" height="19">&nbsp; 
+Go to the &quot;task&quot; directory in&nbsp; List.cpp file and complete the implementation&nbsp;  
+of the functions:</font><font face="Courier New"><br> 
+&nbsp;&nbsp;&nbsp; int length();</font><font face="Arial"> and&nbsp;&nbsp; </font><font face="Courier New">void insert_after_index(string 
+targetCity,int&nbsp; index);</font><font face="Arial"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font> 
+<p><font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; add your student name, student id, email,   
+        and lab section in the very beginning of the file as a comment<br>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; place your work</font>  
+</p>
+<p><font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+main.cpp<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; List.h<br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; List.cpp<br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; resource.h<br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; resource.cpp<br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; city.txt<br>
+&nbsp;&nbsp;&nbsp;</font>&nbsp;&nbsp;&nbsp;&nbsp; <font face="Arial">Makefile</font>
+<p><font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; under ~/comp151/lab03/task</font></p> 
+    <p>　
+<h2><!--mstheme--><font color="#CCCCCC"><font face="Arial">Submission</font><!--mstheme--></font></h2>
+<font face="Arial"><img border="0" src="../images/BD21295_.GIF" width="15" height="13">  
+Our system will collect the files stored under   
+        ~/comp151/lab03/task at midnight of the day of your lab.</font> 
+    <p align="right"><font face="Arial">
+    <br>
+    </font>         
+<!--mstheme--></font></BODY></HTML> 

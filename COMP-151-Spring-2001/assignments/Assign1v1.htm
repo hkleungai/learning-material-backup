@@ -1,0 +1,127 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="GENERATOR" CONTENT="Microsoft FrontPage 4.0">
+   <meta name="Microsoft Theme" content="none">
+</HEAD>
+<BODY>
+
+<H1 align="center">
+&nbsp;Assignment 1</H1>
+
+<H3>
+&nbsp;</H3>
+<H3>
+Description</H3>
+You must implement a C++ class to model a building
+<BR>with&nbsp; floors 0, 1, 2&nbsp; and rooms 0, 1, 2, 3, 4
+<BR>on each floor.&nbsp; If a room is occupied your building keeps
+<BR>track of the occupant's&nbsp; name and ID number. Both the name and
+<BR>ID number are character strings (you may assume they are not
+<BR>longer than 30 characters each).
+<BR>&nbsp;
+
+<P>Define a class&nbsp;&nbsp;&nbsp;&nbsp; <B>building&nbsp;</B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+that has the following interface:
+<BR>&nbsp;
+
+<P><I>//Default Constructor</I>
+<BR><I>//Creates new building with all rooms empty&nbsp;</I>
+<BR><I>building( );</I>
+
+<P><i>//Constructor<br>
+//Creates a new building with&nbsp; one person with name s[ ] and ID number N[
+],&nbsp;<br>
+//into room 0 on floor 0.<br>
+building(const char s[ ], const char N[ ], );</i><P><I>//Puts person with name
+s[ ] and ID number N [ ] into</I>
+<BR><I>//room on floor f and room number n. If f and n are out of range it
+prints an error message.</I>
+<BR><I>void Put(char s[ ], char N[ ], int f, int n);</I>
+
+<P><I>//Defines room on floor f and number n to be empty</I>
+<BR><I>void Empty(int f, int n);</I>
+
+<P><I>//Prints name/ID No. of occupant of room</I> <I>on floor f and number n</I>
+<BR><I>//If room is empty prints message</I> <I>&quot;Room n on floor f is empty"</I>
+<BR><I>//where n,f are replaced by the appropriate values. If f and n are out of
+range it prints an error message.</I>
+<BR><I>void Display(int f, int n);</I>
+
+<P><I>//Prints, in alphabetical order,</I> <I>one person per line, the</I>
+<BR><I>//name/ID No of all occupants of floor f in the form &lt;name>&lt;tab>&lt;id>.</I>
+<BR><I>//If floor is empty it prints the message</I> <I>&quot;Floor f is empty"</I>
+<BR><I>//where f is replaced by the appropriate values. If&nbsp; f is out of
+range it prints an error message</I>
+<BR><I>void Display(int f);</I>
+
+<P><I>//Prints, in alphabetical order,</I>
+<BR><I>// name/ID Nos&nbsp; of all occupants of building</I>
+<BR><I>//If building is empty prints message</I>
+<BR><I>//"Building is empty"</I>
+<BR><I>void Display( );</I>
+
+<P><I>//returns the number of empty rooms on floor f. If f is out of range it
+prints an error message.</I>
+<BR><I>int Vacancies(int f);</I>
+
+<P><I>//returns the number of empty rooms in the building</I>
+<BR><I>int Vacancies( );</I>
+
+<P><i>//Overloads the &lt;&lt; operator for&nbsp; buildings, such that it
+prints&nbsp; the names of the persons that occupy a building.<br>
+friend ostream&amp; operator&lt;&lt;(ostream&amp; outs, const building&amp;
+name);</i><P><i>//Overloads the ==operator so that it returns true if two
+buildings have the same<br>
+//number of persons otherwise false<br>
+friend bool operator==(const building&amp; b1, const building&amp; b2);</i><P><I>//Prints YOUR name, ID Number, Lecture and Lab section
+in the following format<br>
+</I><i>//</i>&lt;name>&lt;tab>&lt;ID>&lt;tab>&lt;Lecture>&lt;tab>&lt;Lab section>&nbsp;
+<BR><I>//This will be used for marking purposes</I>
+<BR><I>void Identify_Writer( );</I>
+<BR>&nbsp;
+
+<P>The file&nbsp;&nbsp;&nbsp;&nbsp;<B>  building.h&nbsp;&nbsp;</B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+should contain the class definition,
+<BR>The file&nbsp;&nbsp;&nbsp;&nbsp; <B>building.cpp&nbsp;&nbsp;</B>&nbsp;&nbsp;&nbsp;&nbsp;
+should contain the implementation.
+<BR>&nbsp;
+<BR>&nbsp;
+<H3>
+Input Format</H3>
+Your program does not have to read any input.
+<H3>
+Output format</H3>
+Described in the interface
+<BR>&nbsp;<H3>
+Testing your program</H3>
+We will test your files by compiling them together with another program that will call all of your functions and
+<BR>check if they perform correctly. You must test your files yourself and satisfy yourself that you've covered all
+<BR>possibilities.
+
+<P>We provide a small driver program <B><a href="CheckBuilding.cpp">CheckBuilding.cpp&nbsp;</a></B>
+that can be compiled together with
+<BR>building.h and building.cpp to test a few cases.<P>Note that this program <u> DOES NOT</u> cover all possible
+test cases and is not the program that we will actually
+<BR>use to compile your program<P>&nbsp;<h3>Assessment task</h3>
+<ul>
+  <li>
+    <p style="line-height: 200%">Create a file&nbsp;<B>  building.h&nbsp;</B>
+    with the class definition&nbsp;</li>
+  <li>
+    <p style="line-height: 200%">Create a file&nbsp;<B> building.cpp&nbsp;</B>
+    with the implementation.&nbsp;</li>
+  <li>
+    <p style="line-height: 200%">Add your student name, student id, email, and lab section in the very beginning of
+    every file as comment</li>
+  <li>
+    <p style="line-height: 200%">Create a directory &quot;assign1&quot; and
+    place files <b>building.h </b>and&nbsp; <b>building.cpp</b> under ~/comp151/assign1</li>
+</ul>
+
+
+<P>Our system will collected the files under ~/comp151/assign1 on <b>Monday 19
+March at midnight</b>.&nbsp;<br>
+<BR>&nbsp;
+</BODY>
+</HTML>

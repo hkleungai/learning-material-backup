@@ -14,5 +14,5 @@ interface Categorized<T> {
 }
 
 interface FetchedCourses {
-  [code: Course['code']]: Omit<Course, 'semesters'>
+  [code: Course['code']]: Pick<Course, 'title' | 'description'>
 }

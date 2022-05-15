@@ -66,7 +66,7 @@ const buildTables = (
   fetchedCourses: Record<Course['code'], Omit<Course, 'semesters'>>,
 ) => {
   const buildCourse = (
-    ({ code, semesters }: PreCourse) => ({ ...fetchedCourses[code], semesters })
+    ({ code, semesters }: PreCourse) => ({ ...fetchedCourses[code], code, semesters })
   );
   const tables = categorizedPreCourses.map(
     ({ category, courses }) => buildCategoryTable(category, courses.map(buildCourse))
