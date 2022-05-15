@@ -3,6 +3,10 @@ var categorizedPreCourses = [
         category: 'Algorithmic Study',
         courses: [
             {
+                code: 'COMP 170',
+                semesters: ['Spring 2010']
+            },
+            {
                 code: 'COMP 2711H',
                 semesters: ['Fall 2021']
             },
