@@ -1,2 +1,3 @@
+loading();
 appendElements();
 attachEvents();

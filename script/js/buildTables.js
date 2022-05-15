@@ -24,13 +24,13 @@ var buildCourseRow = function (_a) {
     return rows.join('\n');
 };
 var buildCategoryTable = function (category, courses) { return (
-/* html */ "\n  <div class=\"category\">\n    <h3 class=\"category-title\">".concat(category, "</h3>\n      <table class=\"courses\">\n        <tr>\n          <th>Code</th>\n          <th>Title / Content</th>\n          <th>Semester</th>\n        </tr>\n        ").concat(courses.map(buildCourseRow).join('\n'), "\n      </table>\n    </h3>\n  </div>\n  ")); };
-var buildTables = function (categorizedPreCourses, fetchedCourses) {
+/* html */ "\n  <div class=\"category\">\n    <h3 class=\"common-title\" id=\"".concat(encodeURIComponent(category), "\">\n      ").concat(category, "\n    </h3>\n    <table class=\"courses\">\n      <tr>\n        <th>Code</th>\n        <th>Title / Content</th>\n        <th>Semester</th>\n      </tr>\n      ").concat(courses.map(buildCourseRow).join('\n'), "\n    </table>\n  </div>\n  ")); };
+var buildTables = function (__CATEGORIZED_PRE_COURSES, __FETCHED_COURSES) {
     var buildCourse = (function (_a) {
         var code = _a.code, semesters = _a.semesters;
-        return (__assign(__assign({}, fetchedCourses[code]), { code: code, semesters: semesters }));
+        return (__assign(__assign({}, __FETCHED_COURSES[code]), { code: code, semesters: semesters }));
     });
-    var tables = categorizedPreCourses.map(function (_a) {
+    var tables = __CATEGORIZED_PRE_COURSES.map(function (_a) {
         var category = _a.category, courses = _a.courses;
         return buildCategoryTable(category, courses.map(buildCourse));
     });

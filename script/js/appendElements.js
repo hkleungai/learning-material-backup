@@ -1,18 +1,18 @@
-var appendElements = function () {
-    var mainDivHeader = document.querySelector('div.main h2.header');
-    if (!mainDivHeader) {
-        var error = 'No header can be found on main div!!';
-        alert(error);
-        throw new Error(error);
-    }
+var makeTemplate = function (content) {
     var template = document.createElement('template');
-    template.innerHTML = buildTables(categorizedPreCourses, fetchedCourses);
+    template.innerHTML = content;
     if (!template.innerHTML || !template.innerHTML.length) {
-        var error = 'No valid html tables can be built!!';
-        alert(error);
-        template.remove();
-        throw new Error(error);
+        return throwError('No valid elements can be built!!');
     }
-    mainDivHeader.after(template.content);
-    template.remove();
+    return template.content;
+};
+var appendElements = function () {
+    var mainDivClosingElement = document.querySelector('div.main h4.closing');
+    if (!mainDivClosingElement) {
+        return throwError('No header can be found on main div!!');
+    }
+    var noticeBoardFragment = makeTemplate(buildNoticeBoard(GIT_LOGS));
+    mainDivClosingElement.before(noticeBoardFragment);
+    var tableFragment = makeTemplate(buildTables(CATEGORIZED_PRE_COURSES, FETCHED_COURSES));
+    mainDivClosingElement.before(tableFragment);
 };

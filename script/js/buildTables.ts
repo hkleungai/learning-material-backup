@@ -47,28 +47,29 @@ const buildCourseRow = ({ code, description, semesters, title }: Course): string
 const buildCategoryTable = (category: string, courses: Course[]): string => (
   /* html */`
   <div class="category">
-    <h3 class="category-title">${category}</h3>
-      <table class="courses">
-        <tr>
-          <th>Code</th>
-          <th>Title / Content</th>
-          <th>Semester</th>
-        </tr>
-        ${courses.map(buildCourseRow).join('\n')}
-      </table>
+    <h3 class="common-title" id="${encodeURIComponent(category)}">
+      ${category}
     </h3>
+    <table class="courses">
+      <tr>
+        <th>Code</th>
+        <th>Title / Content</th>
+        <th>Semester</th>
+      </tr>
+      ${courses.map(buildCourseRow).join('\n')}
+    </table>
   </div>
   `
 );
 
 const buildTables = (
-  categorizedPreCourses: Categorized<PreCourse>[],
-  fetchedCourses: Record<Course['code'], Omit<Course, 'semesters'>>,
+  __CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[],
+  __FETCHED_COURSES: FetchedCourses,
 ) => {
   const buildCourse = (
-    ({ code, semesters }: PreCourse) => ({ ...fetchedCourses[code], code, semesters })
+    ({ code, semesters }: PreCourse) => ({ ...__FETCHED_COURSES[code], code, semesters })
   );
-  const tables = categorizedPreCourses.map(
+  const tables = __CATEGORIZED_PRE_COURSES.map(
     ({ category, courses }) => buildCategoryTable(category, courses.map(buildCourse))
   );
   return tables.join('\n');

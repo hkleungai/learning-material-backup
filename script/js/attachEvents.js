@@ -1,22 +1,16 @@
 var attachEvents = function () {
     var courseContentCells = document.querySelectorAll('td.course-content');
     if (!courseContentCells || !courseContentCells.length) {
-        var error = 'No course titles can be found!!';
-        alert(error);
-        throw new Error(error);
+        return throwError('No course titles can be found!!');
     }
     courseContentCells.forEach(function (cell) {
         var descriptionDiv = cell.querySelector('div.course-description');
         if (!descriptionDiv) {
-            var error = 'No descriptions can be found!!';
-            alert(error);
-            throw new Error(error);
+            return throwError('No descriptions can be found!!');
         }
         var toggleDiv = cell.querySelector('div.course-description-toggle');
         if (!toggleDiv) {
-            var error = 'No toggles for descriptions can be found!!';
-            alert(error);
-            throw new Error(error);
+            return throwError('No toggles for descriptions can be found!!');
         }
         toggleDiv.addEventListener('click', function () {
             var isDescriptionActive = descriptionDiv.classList.toggle('course-description--active');

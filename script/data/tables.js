@@ -1,4 +1,4 @@
-var categorizedPreCourses = [
+var CATEGORIZED_PRE_COURSES = [
     {
         category: 'Algorithmic Study',
         courses: [
