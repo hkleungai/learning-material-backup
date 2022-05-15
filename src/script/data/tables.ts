@@ -91,7 +91,7 @@ const categorizedPreCourses: Categorized<PreCourse>[] = [
       },
       {
         code: 'COMP 151',
-        semesters: ['Spring 2001'],
+        semesters: ['Spring 2001', 'Spring 2007'],
       },
       {
         code: 'COMP 2011',
