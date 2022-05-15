@@ -1,0 +1,213 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=big5">
+   <meta name="GENERATOR" content="Mozilla/4.73 [en] (Win95; U) [Netscape]">
+   <meta name="Author" content="minh le">
+   <title>COMP151 Lab 12 -- template &amp; operator overloading</title>
+<style type="text/css">
+<!--
+h1 {  font-family: "Arial", "Helvetica", "sans-serif"; font-size: 18pt; background-color: #FFFF99}
+h2 {  font-family: "Arial", "Helvetica", "sans-serif"; font-size: 16pt; background-color: #66CCFF}
+code {  font-family: "Courier New", "Courier", "mono"; color: #999999}
+h3 {  font-family: "Arial", "Helvetica", "sans-serif"; font-size: 14pt; font-weight: bold}
+-->
+</style>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000" background="cs_logo_text_embross.gif">
+
+<h1>
+COMP151 Lab 12<br>
+template &amp; operator overloading</h1>
+
+<h2>
+Objective:</h2>
+
+<ul>
+<li>
+To learn template and operator overloading in C++</li>
+</ul>
+
+<h2>
+Files:</h2>
+
+<ul>
+<li>
+<a href="templatefunc.cpp">templatefunc.cpp</a></li>
+
+<li>
+<a href="evector.cpp">evector.cpp</a></li>
+</ul>
+
+<h2>
+Lab work:</h2>
+
+<h3>
+What is a template?</h3>
+Templates can generate particular instances of a class/function varying
+by type. We parameterize all or some types in a function/class.
+<h3>
+template syntax</h3>
+
+<pre><tt>// template function
+template&lt;typename T> T min(const T&amp; t1, const T&amp; t2) {
+&nbsp; return t1 &lt; t2? t1: t2;
+};
+
+// template class
+template&lt;typename T> class Array {
+public:
+&nbsp; // ...
+&nbsp; T&amp; at(int i);
+};
+
+// instantiate template function implicitly
+int i = min(10, 20);
+
+// instantiate template function explicitly
+double d = min&lt;double>(4, 5.5);
+
+// instantiate template class
+Array&lt;int> ai;
+
+//...</tt></pre>
+
+<h3>
+Template example</h3>
+In <a href="templatefunc.cpp">templatefunc.cpp</a>, <tt>min</tt> is a template
+function. Try running it to see its output.&nbsp; Note the use of&nbsp;
+<b>min&lt;double>(5, 7.50)&nbsp;</b> instead of just <b>min(5, 7.50)</b>.&nbsp;
+Why do explicitly instantiate the function template with a <b>&lt;double>.?</b>What
+would have happened if we had written <b>min(5, 7.50)</b>?
+<p>Now remove the&nbsp; "<tt>/*</tt>" and "<tt>*/</tt>" in the main program,
+and try to recompile the program. The program will not compile because
+<tt>min</tt> is called with 2 <tt>Dummy</tt> objects as parameters.&nbsp;
+What is the problem? How can you&nbsp; fix it?
+<h3>
+What is operator overloading?</h3>
+Customization of&nbsp; C++ operators. You can overload most of the C++
+operators. But you <b>CANNOT</b> invent your own operator!
+<p>The following are <b>non</b>overloadable operators
+<br>&nbsp;
+<table BORDER=0 CELLPADDING=5 WIDTH="100%" >
+<tr BGCOLOR="#DFDFFF">
+<td>
+<center>::</center>
+</td>
+
+<td>
+<center>.*</center>
+</td>
+
+<td>
+<center>.</center>
+</td>
+
+<td>
+<center>?:</center>
+</td>
+
+<td>
+<center>sizeof</center>
+</td>
+</tr>
+</table>
+
+<h3>
+Operator overloading syntax</h3>
+
+<pre><tt>// global function
+ostream&amp; operator&lt;&lt;(ostream&amp; os, const Dummy&amp; dummy) {
+&nbsp; // ...
+};</tt></pre>
+
+<pre></pre>
+
+<pre>For an example of overloading a&nbsp; non-global operator, see the overloaded operator <tt>+=</tt> of <tt>evector</tt> in <a href="evector.cpp">evector.cpp</a>.</pre>
+
+<h2>
+Assessment:</h2>
+
+<ul>
+<li>
+<tt>evector</tt> is a template class that is publically derived from the&nbsp;
+template class <tt>vector</tt> in STL. It inherits all of the vector member
+functions&nbsp;&nbsp; including the operator[] from vector so that you
+can access each individual element by [], e.g. ev[5] returns the 6th element.</li>
+
+<li>
+<tt>+=</tt> is an overloaded&nbsp; member function. It adds the second
+parameter to each element in the <tt>evector</tt></li>
+
+<li>
+<tt>&lt;&lt;</tt> is an overloaded global function. It prints all of the
+elements in the evector separated by spaces.</li>
+</ul>
+To complete <a href="evector.cpp">evector.cpp</a>, you need to:
+<ol>
+<li>
+Fill in your name, student id and ITSC/CSD account id at the beginning
+of the evector.cpp as comment</li>
+
+<li>
+Overload the "<tt>-=</tt>" operator. This is similar to "<tt>+=</tt>",
+except that&nbsp; it subtracts the second parameter from each element in
+the <tt>evector. </tt>You may assume that operator"-"&nbsp; is defined
+on objects of class T.</li>
+
+<li>
+Overload "<tt>*</tt>" operator to do "dot product" of 2 evectors. If the
+sizes of 2 evectors are the same, it should <b>create a new evector</b>
+such that <b>the new i-th element is equal to the product of the i-th elements
+of the 2 evectors</b>. If the sizes of the 2 evectors are different, it
+returns an empty evector. Note that this is a member function&nbsp; You
+may assume that operator "*"&nbsp; is defined on objects of class T.</li>
+
+<li>
+Overload the&nbsp; "+" operator to do addition of 2 evectors. If the sizes
+of the 2 evectors are the same, it&nbsp; should <b>create a new evector</b>
+such that <b>the new-ith element is equal to the sum of the i-th elements
+of 2 evectors</b>. If the sizes of the 2 evectors are different, it returns
+an empty evector. Note that this is a member function. You may assume that
+operator "+"&nbsp; is defined on objects of class T.</li>
+
+<li>
+Remove the "<tt>/*</tt>" and "<tt>*/</tt>" in the main program</li>
+
+<li>
+compile the program named as: evector</li>
+
+<li>
+If your program works properly, it should give the following <a href="output">output</a></li>
+</ol>
+
+<p>Hints:
+<ul>
+<li>
+the function prototype to overload * is "<tt>evector&lt;T> evector&lt;T>::operator*(const
+evector&lt;T>&amp;)</tt>"</li>
+
+<li>
+the function prototype to overload + is "<tt>evector&lt;T> evector&lt;T>::operator+(const
+evector&lt;T>&amp;)</tt>"</li>
+
+<br>&nbsp;
+<p>&nbsp;</ul>
+
+<h2>
+Submission:</h2>
+
+<ul>
+<li>
+Put your&nbsp; file into <tt>~/comp151/lab12</tt></li>
+
+<li>
+The system will collect your files at mid-night of the lab day</li>
+</ul>
+
+<hr>
+<div align=right>
+<p>This page is created by Chan Ka Ki.</div>
+
+</body>
+</html>

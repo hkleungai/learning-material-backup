@@ -1,0 +1,140 @@
+
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+</head>
+
+<body>
+<h1>COMP151: Lab 02</h1>
+<h2>Objective:</h2>
+<p>To practice using  separate compilation and makefiles</p>
+<h2>Download :</h2>
+<ul>
+  <li><a href="copy.cpp">Date_all.cpp:</a> contains the
+    class definition and implementation of class <code>Date</code>, and main
+    function</li>
+</ul>
+<h2>Lab work:</h2>
+<p><b>What's class declaration, definition and implementation?</b></p>
+<table width="100%" border="1" cellspacing="1" cellpadding="5">
+  <tr>
+    <td width="23%">&nbsp;</td>
+    <td width="36%">C++ code</td>
+    <td width="41%">Explanation</td>
+  </tr>
+  <tr>
+    <td width="23%">class declaration</td>
+    <td width="36%"><code>class Date;</code></td>
+    <td width="41%">Introduce a class called &quot;Date&quot; to the complier,
+      but without any detail information.</td>
+  </tr>
+  <tr>
+    <td width="23%">class definition</td>
+    <td width="36%">
+      <p><code>class Date {<br>
+      Date();<br>
+      //...<br>
+      };</code></p>
+    </td>
+    <td width="41%">Define the class Date's member variables &amp; member
+      functions.</td>
+  </tr>
+  <tr>
+    <td width="23%">class implementation</td>
+    <td width="36%">
+      <p><code>Date::Date() {<br>
+      <br>
+      //...<br>
+      };<br>
+      <br>
+      //...</code></p>
+    </td>
+    <td width="41%">Generate the code of class Date.</td>
+  </tr>
+</table>
+<p><b>Why use separate compilation?</b></p>
+<p>Separate the interface and the actual implementation</p>
+<ul>
+  <li>Clean &amp; concise header files (*.h)</li>
+  <li>Separate the compilation process to prevent re-compilation of
+unecessary components when program is
+    changed</li>
+</ul>
+<p><b>What's makefile?</b></p>
+<p>&quot;Auto&quot; compile many files at once! and more!</p>
+<table width="100%" border="1" cellspacing="1" cellpadding="5">
+  <tr>
+    <td width="41%">Code in makefile</td>
+    <td width="59%">Explanation</td>
+  </tr>
+  <tr>
+    <td width="41%">#<br>
+      #Comp151, Lab02<br>
+      #Basic Makefile under Unix</td>
+    <td width="59%">Everything after the character &quot;#&quot is a comment.</td>
+  </tr>
+  <tr>
+    <td width="41%">
+      <p>date.o: date.h date.cpp<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; g++ -c
+      date.cpp</p>
+    </td>
+    <td width="59%">
+      <p>If ((<code>date.o</code> does not exist) or (<code>date.h</code> or <code>date.cpp</code>
+      is modified)), then run &quot;<code>g++ -c date.cpp</code>&quot;.</p>
+      <p><i><u>Attention</u>: it is a tab before &quot;g++&quot;, NOT spaces!</i></p>
+    </td>
+  </tr>
+</table>
+<br>
+<h2>Assessment tasks:</h2>
+<p>To make use the idea of separate compilation. You should first
+download the file <a href="copy.cpp">Date_all.cpp</a> which contains
+the Date classes' declarations, implemntation and  a short main program.
+You should then separate the Date class declaration and implementation
+into separate files and also put the program into a separate file.</p>
+<ul>
+  <li>Put the class Date's declaration into <code>Date.h</code></li>
+  <li>Put the class Date's implementation into <code>Date.cpp</code></li>
+  <li>Put the main function into <code>main.cpp</code></li>
+</ul>
+<p>Change the main program to an interactive one that asks the day, month and
+year and then  prints it. </p>
+<p>Write a makefile that  compiles the programas as follows:</p>
+<ul>
+  <li>First compile <code>date.cpp</code> to generate  object code <code>date.o</code></li>
+  <li>Then compile <code>main.cpp</code> to generate  object code <code>main.o</code></li>
+  <li>Finaly, link the object codes and generate an executable code with filename<code>
+    &quot;lab02&quot;</code></li>
+</ul>
+<p>Compile the program by typing</p>
+<ul>
+  <li>&quot;<code>gmake</code>&quot; to compile the program into executable code</li>
+</ul>
+<h2>Submission:</h2>
+<ul>
+  <li>Put your files (<code>date.h date.cpp date.o main.o main.cpp Makefile lab02</code>)
+    into <code>~/comp151/lab02</code></li>
+  <li>The system will collect your files on Thursday 15 February at 12.00
+    o'clock midnight.&nbsp;<br>
+    Note that due to the deadline of the add/drop period (Wednesday 14) the 
+    collection
+    day for this week's labs (1A,1B and 1C) is Thursday midnight. Starting from
+    next week the lab collection deadline will be at midnight of lab day, i.e.,
+    Tuesday
+    midnight for lab 1A and Thursday midnight for labs 2B and 2C.</li>
+</ul>
+<h2>Redirection in Unix</h2>
+<p>After you finished the program, try the following commands to see what they do:</p>
+<ul>
+  <li>&quot;<code>lab02 &lt; input.txt</code>&quot; to read input from file</li>
+  <li>&quot;<code>lab02 &lt; input.txt &gt; output.txt</code>&quot; to read
+    input from file and output to file</li>
+</ul>
+<p>&nbsp;</p>
+</body>
+
+</html>

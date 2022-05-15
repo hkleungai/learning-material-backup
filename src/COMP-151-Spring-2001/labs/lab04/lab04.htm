@@ -1,0 +1,534 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>Comp151 (Fall 2000) -- Lab 01</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=big5">
+<META content="Microsoft FrontPage 4.0" name=GENERATOR>
+</HEAD>
+<BODY>
+<h1 align="center"><B>COMP 151 : Lab 04</B><font face="Arial"><BR>   
+</font></h1>
+<h2><b><font face="Arial" size="4">Objective:</font></b></h2>
+<p><font size="4" face="Arial">file input and output</font></p> 
+<h2><b><font size="4" face="Arial">Download:</font></b></h2>
+<font face="Arial">&nbsp;<img border="0" src="BD10267_.GIF" width="12" height="12"> <a href="count.cpp">count.cpp</a></font>
+<p><font face="Arial">&nbsp; <img border="0" src="BD10267_.GIF" width="12" height="12"> </font>
+<a href="571"><font face="Arial">571 (text file)</font></a>  
+<h2><b><font face="Arial" size="4">Reference:</font></b></h2>
+<font face="Arial">&nbsp;<img border="0" src="BD10267_.GIF" width="12" height="12">&nbsp; text book section 20</font>  
+<p><font face="Arial">&nbsp;<img border="0" src="BD10267_.GIF" width="12" height="12">&nbsp; </font><a href="http://www.cplusplus.com/doc/tutorial/tut6-1.html"><font face="Arial">cplusplus.com</font></a>
+<h2><b><a name="Lab Work:"><font face="Arial" size="4">Lab Work:</font></a></b></h2> 
+<font face="Arial">&nbsp;<img border="0" src="BD10267_.GIF" width="12" height="12">&nbsp; </font><b><a href="#Input / Output Stream"><font face="Arial" size="4">Input /      
+    Output Stream</font>     
+</a></b>
+<blockquote>
+  <font face="Arial">&nbsp;<img border="0" src="BD10267_.GIF" width="12" height="12"> &nbsp; <b><a href="#Input Stream">Input Stream</a></b></font>   
+  <p><font face="Arial">&nbsp;<img border="0" src="BD10267_.GIF" width="12" height="12">&nbsp;<a href="count.cpp"></a></font> 
+  <b><a href="#Output Stream"><font face="Arial">Output Stream</font></a></b>  
+</blockquote>
+<font face="Arial">&nbsp;<img border="0" src="BD10267_.GIF" width="12" height="12">&nbsp;<a href="count.cpp"></a> 
+</font><b><a href="#File I/O"><font face="Arial" size="4">File I/O</font> 
+</a></b>
+<blockquote>
+  <font face="Arial">&nbsp;<img border="0" src="BD10267_.GIF" width="12" height="12">&nbsp;<a href="count.cpp"></a></font> 
+  <b><a href="#Open File"><font face="Arial">Open Files</font></a></b>  
+  <p><font face="Arial">&nbsp;<img border="0" src="BD10267_.GIF" width="12" height="12">&nbsp;<a href="count.cpp"></a></font> 
+  <b><a href="#Close File"><font face="Arial">Close Files</font></a></b>  
+  <p><font face="Arial">&nbsp;<img border="0" src="BD10267_.GIF" width="12" height="12">&nbsp;<a href="count.cpp"></a></font> 
+  <b><a href="#Text Files Input / Output"><font face="Arial">Text Files   
+        Input / Output</font></a></b> 
+  <p><font face="Arial">&nbsp;<img border="0" src="BD10267_.GIF" width="12" height="12">&nbsp;<a href="count.cpp"></a></font> 
+  <b><a href="#State Flags"><font face="Arial">State Flags</font></a></b>  
+  <p><font face="Arial">&nbsp;<img border="0" src="BD10267_.GIF" width="12" height="12">&nbsp;<a href="count.cpp"></a></font> 
+  <b><a href="#File Position"><font face="Arial">File Position</font></a></b>  
+</blockquote>
+<h2><a name="Input / Output Stream"><font face="Arial" size="6">Input / Output Stream</font></a></h2> 
+<blockquote>
+  <p><font face="Arial"> Besides  &lt;&lt; and &gt;&gt;, there are 
+  additional input/output operator which allow us to read/write the stream as a   
+  sequence of bytes rather than as a sequence of data types, such as char, int,   
+  string, and so on.</font></p>  
+  <p></p>
+  <h3><b><a name="Input Stream"><font face="Arial" size="4">Input        
+  Stream</font></a></b></h3>
+  <p><font face="Arial">get(char) - reads the input stream one byte at a  
+  time, including white spaces. For example:</font></p> 
+  <blockquote>
+    <p><font face="Arial">char ch;<br>                         
+    while ( cin.get(ch) ) {<br>                          
+    &nbsp;&nbsp;&nbsp; //... ...<br>                          
+    }</font></p>
+  </blockquote>
+  <hr align="center">
+  <p><font face="Arial">int get() - also reads a character from the input  
+  stream, except that it returns the value of type int rather than the istream object.</font></p> 
+  <blockquote>
+    <p><font face="Arial">int ch;<br>                          
+    while ( (ch = cin.get()) != EOF ) {<br>                          
+    &nbsp;&nbsp;&nbsp; //... ...<br>                          
+    }</font></p>
+  </blockquote>
+  <p><font face="Arial">EOF is a constant representing the end-of-file.</font></p> 
+  <hr align="center">
+  <p><font face="Arial">get(char *<i>line</i>, streamsize <i>size</i>,  
+  char <i>delimiter</i>='\n') - reads a number of characters from the input stream.</font></p> 
+  <ul>
+    <li><font face="Arial"><i>line</i> is a character array which holds  
+      the characters read</font></li>
+    <li><font face="Arial"><i>size</i> is the maximal number of  
+      characters to read</font></li>
+    <li><font face="Arial"><i>delimiter</i> indicates the character, when  
+      encountered, that will terminate reading from the istream.</font></li>
+  </ul>
+  <blockquote>
+    <p><font face="Arial">char line[1024];<br>                          
+    while ( cin.get(line, 1024) ) {<br>                          
+    &nbsp;&nbsp;&nbsp; //... ...<br>                          
+    }</font></p>
+  </blockquote>
+  <p><font face="Arial">Notice that the delimiter is not read and is  
+  left as the next character on the stream.</font></p> 
+  <hr align="center">
+  <p><font face="Arial">getline(char *line, streamsize size, char  
+  delimiter='\n') - also reads a number of characters from the input stream.</font></p> 
+  <blockquote>
+    <p><font face="Arial">char line[1024];<br>                          
+    while ( cin.getline(line, 1024) ) {<br>                          
+    &nbsp;&nbsp;&nbsp; //... ...<br>                          
+    }</font></p>
+  </blockquote>
+  <p><font face="Arial">The difference is that getline() discards the  
+  delimiter from the stream, while get(line, 1024) does not.</font></p> 
+  <hr align="center">
+  <p><font face="Arial">Some other functions:</font></p> 
+  <blockquote>
+    <p><font face="Arial">read( char*<i>line</i>, streamsize <i>size</i>)  
+    - extracts <i>size</i> contiguous bytes from the input stream</font></p> 
+    <p><font face="Arial">peek() - returns the next character but does not  
+    extract it from the istream</font></p> 
+    <p><font face="Arial">unget() - resets the reading pointer backward by one</font></p> 
+    <p><font face="Arial">putback(char) - pushes the character back onto the  
+    stream</font></p>
+    <p><font face="Arial">gcount() - returns the number of characters  
+    got in the last operation</font></p> 
+    <p><font face="Arial">ignore( streamsize length = 1, int delimiter = 
+    traits::eof)</font></p>
+    <p align="right"><b><a href="#Lab Work:"><font face="Arial">Top</font></a></b></p>
+  </blockquote>
+  <h3><b><a name="Output Stream"><font face="Arial" size="4">Output      
+  Stream</font></a></b></h3>                  
+  <p><font face="Arial">put(char) - outputs a character to the  
+  output stream</font></p> 
+  <blockquote>
+    <p><font face="Arial">char ch;<br>                         
+    while ( cin.get(ch) ) {<br>                          
+    &nbsp;&nbsp;&nbsp; cout.put(ch);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                           
+    // echo everything<br>                          
+    }</font></p>
+  </blockquote>
+  <hr align="center">
+  <p><font face="Arial">write( const char *<i>line</i>, streamsize <i>size</i>)  
+  - outputs <i>size</i> characters from the <i>line</i> character array</font></p> 
+  <blockquote>
+    <p><font face="Arial">char line[1024];<br>                          
+    while ( cin.getline(line, 1024) ) {<br>                          
+    &nbsp;&nbsp;&nbsp; write ( line, cin.gcount()                           
+    );&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // echo lines<br>                          
+    }</font></p>
+    <p align="right"><b><a href="#Lab Work:"><font face="Arial">Top</font></a></b></p>
+  </blockquote>
+</blockquote>
+<h2><a name="File I/O"><font face="Arial" size="6">File I/O</font>                        
+</a></h2>
+<font face="Arial">&nbsp;&nbsp; C++ provides support for input and output with files    
+        through the following classes:</font>   
+<blockquote>
+  <p style="line-height: 100%"><font face="Arial"><img border="0" src="../images/BD21295_.GIF" width="15" height="13"><i>ofstream</i>: File class for writing  
+            operations (derived from <i>ostream</i>)</font> 
+  <p style="line-height: 100%"><font face="Arial"><img border="0" src="../images/BD21295_.GIF" width="15" height="13"> 
+  <i>ifstream</i>: File class for reading  
+            operations (derived from <i>istream</i>)</font> 
+  <p style="line-height: 100%"><font face="Arial"><img border="0" src="../images/BD21295_.GIF" width="15" height="13"> 
+  <i>fstream</i>: File class for both  
+            reading and writing operations (derived from <i>iostream</i>)</font> 
+</blockquote>
+<h3><a name="Open File"><font face="Arial">Open File</font></a></h3> 
+    <p><font face="Arial">The open file is represented within the  
+    program by the stream (the object of one of these classes) and any input or  
+    output performed on it will apply to the physical file.</font> 
+    <p><font face="Arial">In order to open a file  use the member  
+    function open();</font> 
+    <blockquote>
+      <p><font size="4" face="Arial">void open (const char * <i>filename</i>, openmode <i>mode</i>);</font></p> 
+    </blockquote>
+    <p>
+<blockquote>
+  <p style="line-height: 100%; margin-top: 0; margin-bottom: 0">&nbsp;<img border="0" src="BD10267_.GIF" width="12" height="12">&nbsp;<a href="count.cpp"></a> 
+  <font face="Arial"><i>filename</i> </font><font face="Arial"> is a string of characters                           
+        representing the name of the file to be opened</font> 
+  <p style="line-height: 100%; margin-top: 0; margin-bottom: 0"><font face="Arial">&nbsp;<img border="0" src="BD10267_.GIF" width="12" height="12">&nbsp;<a href="count.cpp"></a> 
+  <i>mode</i> is a combination of the   
+        following flags:<br>  
+  </font>
+</blockquote>
+  <div align="center">
+    <center>
+    <table border="1" width="589">
+      <tbody>
+        <tr>
+          <td width="106"><b><font face="Arial">ios::in</font></b></td>
+          <td width="467"><font face="Arial">Open file for reading</font></td> 
+        </tr>
+        <tr>
+          <td width="106"><b><font face="Arial">ios::out</font></b></td>
+          <td width="467"><font face="Arial">Open file for writing</font></td> 
+        </tr>
+        <tr>
+          <td width="106"><b><font face="Arial">ios::ate</font></b></td>
+          <td width="467"><font face="Arial">Incial position: end of  
+            file</font></td>
+        </tr>
+        <tr>
+          <td width="106"><b><font face="Arial">ios::app</font></b></td>
+          <td width="467"><font face="Arial">Every output is appended at  
+            the end of file</font></td> 
+        </tr>
+        <tr>
+          <td width="106"><b><font face="Arial">ios::trunc</font></b></td>
+          <td width="467"><font face="Arial">If the file already existed  
+            it is erased</font></td> 
+        </tr>
+        <tr>
+          <td width="106"><b><font face="Arial">ios::binary</font></b></td>
+          <td width="467"><font face="Arial">Binary mode</font></td> 
+        </tr>
+      </tbody>
+    </table>
+    </center>
+  </div>
+<blockquote>
+  <p><font face="Arial">These flags can be combined using bitwise                         
+  operator OR: <tt><b>|</b></tt>. For example, if we want to open the file                         
+  &quot;test.bin&quot; in binary mode to add data we could do it by the                         
+  following call to function-member <tt><b>open</b></tt>:</font></p>                        
+</blockquote>
+  <blockquote>
+    <blockquote>
+    <font face="Arial">ofstream file;<br>                        
+    file.open (&quot;test.bin&quot;, ios::out | ios::app | ios::binary);</font>                      
+    </blockquote>
+  </blockquote>
+<blockquote>
+  <p><font face="Arial">The member functions <b>open</b> of                         
+  classes <b>ofstream</b>, <b>ifstream</b> and <b>fstream</b>                         
+  all include  a default mode (that varies from one to the other):</font></p>                        
+</blockquote>
+  <div align="center">
+    <center>   
+  <table border="1" width="454">
+    <tbody>
+      <tr>
+        <td bgColor="silver" width="119"><font face="Arial">class</font></td>
+        <td bgColor="silver" width="319"><font face="Arial">default <i>mode</i> to  
+          parameter</font></td>
+      </tr>
+      <tr>
+        <td width="119"><tt><b><font face="Arial">ofstream</font></b></tt></td>
+        <td width="319"><font face="Arial">ios::out | ios::trunc</font></td> 
+      </tr>
+      <tr>
+        <td width="119"><tt><b><font face="Arial">ifstream</font></b></tt></td>
+        <td width="319"><font face="Arial">ios::in</font></td>
+      </tr>
+      <tr>
+        <td width="119"><tt><b><font face="Arial">fstream</font></b></tt></td>
+        <td width="319"><font face="Arial">ios::in | ios::out</font></td> 
+      </tr>
+    </tbody>
+  </table>
+    </center>
+  </div>
+<blockquote>
+  <p><font face="Arial">The default value is only applied if the                         
+  function is called <u>without</u> the <i>mode</i> parameter. If the                         
+  function is called with any value in that parameter the default mode is not used.</font></p>                        
+  <p><font face="Arial">Since frequently the first task that is  
+  performed on an object of classes <tt><b>ofstream</b></tt>, <tt><b>ifstream</b></tt>  
+  and <tt><b>fstream</b></tt> is to open a file, we could combine the two
+previous lines in the object declaration as follows:</font> 
+</blockquote>
+<blockquote>
+  <blockquote>
+    <p><font face="Arial">ofstream file (&quot;test.bin&quot;,                         
+    ios::out | ios::app | ios::binary);</font></p>                      
+  </blockquote>
+  
+  <p><font face="Arial">Both forms of opening a file are valid.</font></p>                          
+  <hr align="center">
+  <p><font face="Arial">You can check if a file has been correctly  
+  opened by calling the member function <b>is_open()</b>:</font> 
+  <blockquote>
+    <p><font face="Arial">bool is_open();</font></p>
+  </blockquote>
+  <p><font face="Arial">For example;</font></p> 
+  <p></p>
+  <blockquote>
+    <p><font face="Arial">if (file.is_open()) {<br>                  
+    &nbsp;&nbsp;&nbsp; cerr &lt;&lt; &quot;error: unable to open input                           
+    file\n&quot;;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -1;<br>                          
+    }</font></p>
+  </blockquote>
+</blockquote>
+<blockquote>
+  <font face="Arial">returns a <b>bool</b> type value                         
+  indicating <b>true</b> if the object  is correctly                         
+  associated with an open file or <b>false</b> if it is                         
+  not.</font>
+  <p><font face="Arial">You can also check the file handle:</font></p> 
+  <p></p>
+  <blockquote>
+    <p><font face="Arial">if ( !file) {<br>                          
+    &nbsp;&nbsp;&nbsp; cerr &lt;&lt; &quot;error: unable to open input                           
+    file\n&quot;;<br>
+    &nbsp;&nbsp;&nbsp; return -1;<br>                          
+    }</font></p>
+  </blockquote>
+</blockquote>
+  <p align="right"><font face="Arial"><b><a href="#Lab Work:">Top</a></b></font></p>
+
+<h3><a name="Close File"><font face="Arial">Close File</font></a></h3> 
+<blockquote>
+  <font face="Arial">When reading, writing or consulting operations on a   
+  file have been completed we must close it so that it become again available.   
+  Closing will also flush the memory buffer to the file. We can close a file by   
+  calling the member function <b>close().  
+  </b></font>
+  <blockquote>
+    <p><font face="Arial">void close ();</font></p>   
+  </blockquote>
+  <p><b><font face="Arial">For example:</font></b></p>             
+  <p></p>
+  <blockquote>
+    <p><font face="Arial">file.close();</font></p>
+  </blockquote>
+  <p></p>
+  <font face="Arial">Once  this member function is called, the object can be                           
+  used to open another file.</font>                          
+  <p><font face="Arial">In the case that an object is destructed and is  
+  still associated to an open file, the destructor will automatically call the  
+  member function <b>close</b></font></p> 
+    <p align="right"><b><a href="#Lab Work:"><font face="Arial">Top</font></a></b></p>
+  <p></p>
+</blockquote>
+    <h3><a name="Text Files Input / Output"><font face="Arial">Text    
+    Files Input / Output</font></a></h3>                    
+<blockquote>
+  <p><font face="Arial">Reading and writing of text files uses the same  
+  members as those used for  communicating  with the console. As an example,
+ in the following we use the (overloaded) insertion operator <tt><b>&lt;&lt;</b></tt>:</font></p> 
+</blockquote>
+<p><center>
+<table cellSpacing="5" cellPadding="5" width="91%" height="275">
+  <tbody>
+    <tr>
+      <td vAlign="top" width="63%" bgColor="#ffffbf" style="background-color: #FFFFFF; border-style: solid" height="259"><tt>
+        <pre><i><font face="Arial" size="3">/<font color="#000000">/ writing on a text file</font></font></i><font face="Arial" color="#000000"><font size="3">
+#include &lt;fstream.h&gt;
+
+int main () {
+  ofstream fout (&quot;out.txt&quot;);
+  if (fout.is_open())
+  {
+    fout &lt;&lt; &quot;Comp151 lab5.\n&quot;;
+    fout &lt;&lt; &quot;File input / output.\n&quot;;
+    fout.close();
+  }
+  return 0;
+}</font>
+</font></pre>
+        </tt></td>
+      <td vAlign="top" width="37%" bgColor="silver" height="259"><table cellSpacing="5" width="100%">
+          <tbody>
+            <tr>
+              <td bgColor="white"><tt><font color="green" face="Arial">file  
+                <b>out.txt</b></font></tt></td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+        <tt><b><font face="Arial">Comp151 lab5.<br>  
+        File input / output.</font></b></tt></p>  
+      </td>
+    </tr>
+  </tbody>
+</table>
+</center>
+<blockquote>
+  <p><font face="Arial">Data input from file can be similarly  performed 
+  using  <b>cin</b>:</font> 
+</blockquote>
+<p><center>
+<table cellSpacing="5" cellPadding="5" width="92%">
+  <tbody>
+    <tr>
+      <td vAlign="top" width="63%" bgColor="#ffffbf" style="background-color: #FFFFFF; color: #FFFFFF"><tt>
+        <pre><font face="Arial"><font color="#000000"><i><font size="3">// reading a text file</font></i><font size="3">
+#include &lt;iostream.h&gt;
+#include &lt;fstream.h&gt;
+
+int main () {
+  char buffer[256];
+  ifstream fin (&quot;out.txt&quot;);
+  if (! fin.is_open())
+  { cout &lt;&lt; &quot;Error opening file&quot;; exit (1); }
+
+  while (! fin.eof() )
+  {
+    fin.getline (buffer,100);
+    cout &lt;&lt; buffer &lt;&lt; endl;
+  }
+  return 0;
+}</font></font>
+</font></pre>
+        </tt></td>
+      <td vAlign="top" width="37%" bgColor="silver"><table width="101%" cellspacing="5">
+          <tr>
+            <td width="100%" bgcolor="#FFFFFF"><font face="Arial">terminal</font></td>
+          </tr>
+        </table>
+        <p><tt><b><font face="Arial">Comp151 lab5.<br>  
+        File input / output.</font></b></tt></p>  
+      </td>
+    </tr>
+  </tbody>
+</table>
+</center>
+<blockquote>
+  <p><font face="Arial">This last example reads a text file and prints   
+  out its content on the screen. Notice that we have used a new member function,   
+  called <b>eof</b> that <b>ifstream</b> inherits from class <b>ios</b>   
+  and that returns <b>true</b> when  the end of the file has   
+  been reached.</font></p>  
+  <p align="right"><font face="Arial"><b><a href="#Lab Work:">Top</a></b></font></p>
+</blockquote>
+    <h3><a name="State Flags"><font face="Arial">State Flags</font></a></h3>         
+<blockquote>
+  <font face="Arial">esides  <b>eof()</b> there exist other  
+  member functions to verify the state of the stream (all of them return a <b>bool</b>  
+  value):<br> 
+  </font>
+  <table border="1" width="86%" height="95">
+    <tr>
+      <td width="12%" height="33"><tt><b><font face="Arial">bad()</font></b></tt></td>
+      <td width="88%" height="33"><font face="Arial">Returns <tt><b>true</b></tt>  
+        if any failure occurs in a reading or writing operation. For example if
+	there was an attempt to try to write to a file that is not open for writing  
+        (the same with reading) or if the device where it attempted to write has  
+        no space left.</font></td> 
+    </tr>
+    <tr>
+      <td width="12%" height="24">
+        <dl>
+          <dt><tt><b><font face="Arial">fail()</font></b></tt>
+        </dl>
+      </td>
+      <td width="88%" height="24"><font face="Arial">Returns <tt><b>true</b></tt>  
+        in the same cases than <tt><b>bad()</b></tt>  as well as in  cases of format errors,
+        e.g., if it  tried to read an integer number and an  
+        alphabetical character is received.</font></td> 
+    </tr>
+    <tr>
+      <td width="12%" height="1">
+        <dl>
+          <dt><tt><b><font face="Arial">eof()</font></b></tt>
+        </dl>
+      </td>
+      <td width="88%" height="1"><font face="Arial">Returns <tt><b>true</b></tt>  
+        if a file opened for reading has arrived at its end.</font></td> 
+    </tr>
+    <tr>
+      <td width="12%" height="14">
+        <dl>
+          <dt><tt><b><font face="Arial">good()</font></b></tt>
+        </dl>
+      </td>
+      <td width="88%" height="14"><font face="Arial">This  is the most  
+        generic: returns <tt><b>false</b></tt> if  calling any of the previous
+	flags would return  <tt><b>true</b></tt>.</font></td> 
+    </tr>
+  </table>
+  <dl>
+    <dt>
+  </dl>
+  <font face="Arial">In order to reset the state of the flags checked by                           
+  the previous member functions you can use the member function <b>clear()</b>,                           
+  without specifying any parameter.</font>                          
+</blockquote>
+<p align="right"><font face="Arial"><b><a href="#Lab Work:">Top</a></b></font></p>
+<h3><a name="File Position"><font face="Arial">File Position</font></a></h3> 
+<dl>
+  <blockquote>
+  </blockquote>
+  <dt><font face="Arial"><b>tellg()</b> and <b>tellp()</b></font> 
+  <dd><font face="Arial">returns the current position of <i>get</i>  
+    stream pointer (in case of <tt>tellg</tt>) or <i>put</i> stream pointer (in  
+    case of <tt>tellp</tt>).</font> 
+    <p></p>
+  <dt><b><font face="Arial">seekg()</font></b> <font face="Arial"> and <b>seekp()</b></font>                          
+  <dd><font face="Arial">This pair of functions changes the position of  
+    stream pointers <i>get</i> and <i>put</i>. Both functions are overloaded  
+    with two different prototypes:</font> 
+    <dl>
+      <p>
+      <dt><tt><b><font face="Arial">seekg ( pos_type </font> </b><font face="Arial"><i>position</i><b>                          
+        );</b><br>
+        <b>seekp ( pos_type </b><i>position</i><b> );</b><br>
+        </font></tt>
+    </dl>
+    <p><font face="Arial">This prototype changes the stream pointer to  
+    an absolute position from the beginning of the file. The type required is of  
+    the same one as  returned by functions <tt><b>tellg</b></tt> and <tt><b>tellp</b></tt>.</font></p> 
+  </dd>
+  <hr align="center">
+    <dl>
+      <dd></dd>
+      <blockquote>
+      </blockquote>
+      <dt><tt><b><font face="Arial">seekg ( off_type </font> </b><font face="Arial"><i>offset</i><b>,                       
+        seekdir </b><i>direction</i><b> );</b><br>
+        <b>seekp ( off_type </b><i>offset</i><b>, seekdir </b><i>direction</i><b> 
+        );</b></font></tt> 
+      <dd></dd>
+    </dl>
+    <blockquote>
+    <font face="Arial">Using this prototype, one can specify an    
+    offset from a concrete point determined by parameter <i>direction</i>, that    
+    can be:<br>   
+    </font>
+    <table border="1" width="650">
+        <tbody>
+          <tr>
+            <td width="102"><b><font face="Arial">ios::beg</font></b></td>
+            <td width="532"><font face="Arial">offset specified from the  
+              beginning of the stream</font></td> 
+          </tr>
+          <tr>
+            <td width="102"><b><font face="Arial">ios::cur</font></b></td>
+            <td width="532"><font face="Arial">offset specified from the  
+              current position of the stream pointer</font></td> 
+          </tr>
+          <tr>
+            <td width="102"><b><font face="Arial">ios::end</font></b></td>
+            <td width="532"><font face="Arial">offset specified from the  
+              end of the stream</font></td> 
+          </tr>
+        </tbody>
+      </table>
+    </blockquote>
+</dl>
+<p align="right"><font face="Arial"><b><a href="#Lab Work:">Top</a></b></font>
+<h2><font face="Arial"><b><font size="4">Assessment Task:</font></b></font></h2>   
+<blockquote>
+  <p><font face="Arial"><img border="0" src="BD10263_.GIF" width="15" height="15"> There is no assessment task in this lab</font></p>                         
+</blockquote>
+<p></p>
+</BODY></HTML> 

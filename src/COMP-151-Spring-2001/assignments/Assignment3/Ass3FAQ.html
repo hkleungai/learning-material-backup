@@ -1,0 +1,115 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.73 [en] (Win95; U) [Netscape]">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+
+<h1>
+<b><u><font color="#000000">FAQ&nbsp;&nbsp;&nbsp; FOR&nbsp;&nbsp;&nbsp;
+ASSIGNMENT 3</font></u></b></h1>
+<font color="#000000"><font size=+0>(last revised Saturday May&nbsp; 19,
+10:10 AM)</font></font>
+<p><font color="#000000"><font size=+2><b>1)&nbsp;</b> There were some
+errors in the original version of assignment 3.</font></font>
+<br><font color="#000000"><font size=+2>These have now been fixed.&nbsp;&nbsp;
+The errors were</font></font>
+<p><font color="#000000"><font size=+2>a) In&nbsp; Figure&nbsp; 1&nbsp;
+the edge (4,1) was missing.&nbsp; It has now been added.</font></font>
+<br><font color="#000000"><font size=+2>&nbsp;&nbsp;&nbsp;&nbsp; The commands&nbsp;&nbsp;&nbsp;<i>
+g.setEdge(4,1);&nbsp;</i>&nbsp;&nbsp;&nbsp;&nbsp; and&nbsp;&nbsp; <i>g.delEdge(4,1);
+
+</i>were</font></font>
+<br><font color="#000000"><font size=+2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+added to the beginning of the example program in the assignmnet</font></font>
+<br><font color="#000000"><font size=+2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+description.</font></font>
+<p><font size=+2><font color="#000000">b) In file&nbsp; </font><a href="http://www.cs.ust.hk/~kafeza/comp151/assignments/assignmnet3/graph.h">graph.h</a></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font size=+2><i>virtual bool sibling(int i, int j);&nbsp;</i>&nbsp;&nbsp;&nbsp;
+was changed</font>
+<br><font size=+2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<i>virtual bool sibling(int i, int j)=0;</i></font>
+<p><font size=+2>c) The original output for&nbsp;&nbsp; <i>cout &lt;&lt;g.sibling(0,2);
+</i>in
+the&nbsp; example program</font>
+<br><font size=+2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; was incorrect.&nbsp; It
+has now been fixed (to output <i>0</i>)</font>
+<br>&nbsp;
+<p><font size=+2><b>2)&nbsp; Q</b>.&nbsp; Can we change&nbsp; the file
+<i>graph.h</i>&nbsp;
+by adding new public</font>
+<br><font size=+2>or private members?</font>
+<br><font size=+2><b>A.</b> No.&nbsp; We will be compiling the code using
+our <i>graph.h</i></font>
+<br><font size=+2>(the one provided in the assignment description).&nbsp;
+So,</font>
+<br><font size=+2>even if you added members to your own version of <i>graph.h</i></font>
+<br><font size=+2>it would not help since we would not compile the code
+with it.</font>
+<br>&nbsp;
+<p><b><font size=+2>3)</font>&nbsp; <font size=+2>Q.</font></b> <font size=+2>I
+am having difficulty compiling <i>graphm.cpp </i>and <i>graphl.cpp</i></font>
+<br><font size=+2>together using the same driver file.&nbsp; What can I&nbsp;
+do?</font>
+<br><font size=+2><b>A.</b> When we compile the code we will use different
+drivers</font>
+<br><font size=+2>to test the&nbsp; graphl and graphm classes so this problem
+will not</font>
+<br><font size=+2>occur during our testing (but it would still be good
+if you can</font>
+<br><font size=+2>fix this).</font>
+<br>&nbsp;
+<p><font size=+2><b>4) Q. </b>Do we have to write constructors for graphm
+and graphl?</font>
+<br><font size=+2>Destructors?</font>
+<br><font size=+2><b>A.</b>&nbsp; You need to write constructors for <i>graphm</i>
+and <i>graphl</i> to</font>
+<br><font size=+2>replace the ABS graph&nbsp; constructor.&nbsp; That is,&nbsp;
+the constructors should</font>
+<br><font size=+2>have the prototypes:</font>
+<br><i><font size=+2>graphm (int v);&nbsp; // Create a graph with&nbsp;&nbsp;
+v&nbsp; vertices</font></i>
+<br><i><font size=+2>graphl (int v);&nbsp;&nbsp;&nbsp; //Create a graph
+with&nbsp;&nbsp; v&nbsp; vertices</font></i>
+<p><font size=+2>We do not require that you write explicit destructors.&nbsp;
+But,&nbsp; you</font>
+<br><font size=+2>are not allowed to have memory leakage in your programs.&nbsp;
+So,</font>
+<br><font size=+2>if your implementations use dynamically allocated memory,
+then</font>
+<br><font size=+2>you must provide destructors that deallocate them.</font>
+<p><font size=+2><b>5) Q. </b>Can I use&nbsp;&nbsp;
+<b>deque</b>s&nbsp;&nbsp;
+instead of&nbsp;&nbsp; <b>list</b>s&nbsp; in
+<i>graphl?</i></font>
+<br><font size=+2><b>A.</b> No.&nbsp; You must use some form of list in
+<i>graphl,
+
+</i>either</font>
+<br><font size=+2>the STL provided&nbsp;&nbsp; <b>list&nbsp;</b> or one
+that you've written yourself.</font>
+<br><font size=+2>The&nbsp;&nbsp; <b>deque</b>&nbsp;&nbsp; class does not
+provide fast&nbsp; insertion/deletion</font>
+<br><font size=+2>from the middle of the container and would therefore
+be very</font>
+<br><font size=+2>slow when updating large graphs.</font>
+<br>&nbsp;
+<p><font size=+2><b>6) Q. </b>Can you provide a test driver for the programs?</font>
+<br><b><font size=+2>A.&nbsp;&nbsp;&nbsp;</font></b> <font size=+2><a href="driver1.cpp">HERE</a></font>
+
+<font size=+2>is a test&nbsp; driver (and its&nbsp;</font> <font size=+2><a href="output1">Output
+(revised May 18,2001)</a></font> .
+<br><font size=+2>Please note that the driver only tests <i>graphm.</i>&nbsp;
+To test <i>graphl</i></font>
+<br><font size=+2>replace the fourth line in the driver --&nbsp; <i>#include
+"graphm.h" </i>--</font>
+<br><font size=+2>by&nbsp;&nbsp;&nbsp;<i> #include "graphl.h"</i></font>
+<p><font size=+2><b>7) Q. </b>The original specifications for where to
+place the program looked strange. Were they wrong?</font>
+<br><font size=+2><b>A. </b>Yes.&nbsp; there was a mistake in the original
+specifications. They have just been fixed and what is now written on the
+assignment specification page is correct.&nbsp; Your five files should
+actually be placed in directory&nbsp; <i>~/comp151/assign3</i></font>
+</body>
+</html>

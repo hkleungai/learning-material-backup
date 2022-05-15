@@ -1,0 +1,232 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.76 [en] (X11; U; SunOS 5.7 sun4u) [Netscape]">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+
+<h1>
+Comp 151 -- Spring 2001</h1>
+
+<h1>
+ASSIGNMENT&nbsp; 2</h1>
+
+<h3>
+Description</h3>
+A polynomial&nbsp;&nbsp;&nbsp; <b>P</b>&nbsp;&nbsp;&nbsp;&nbsp; in <b>x&nbsp;&nbsp;</b>&nbsp;
+is a function of the form
+<p><b>P(x) = x_n x^n + .... + x_3 x^3 + x_2 x^2 + x_1 x^1 + x_0 x^0</b>
+<p>For example
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>P_1(x)&nbsp; = x^5 +&nbsp; x
+- 1&nbsp;</b><i>&nbsp;</i>&nbsp; and&nbsp;&nbsp;&nbsp;&nbsp; <b>P_2(X)
+= x^3 - 5x + 1</b>
+<p>are both polynomials.&nbsp; In this assignment you will design and
+<br>implement a class for symbolic manipulation of polynomials with
+<br>integer coefficients. By symbolic we mean that a polynomial <b>P(x)</b>
+<br>will be represented by a list&nbsp; containing its coefficients and
+<br>exponents (powers).
+<p>When displaying&nbsp; a polynomial its terms should be output from
+<br>largest exponent to smallest.&nbsp; Terms with coefficients equal to
+zero
+<br>are not displayed.&nbsp; A&nbsp; term with exponent equal to 0 does
+not
+<br>show&nbsp; the exponent since x^0 =1.&nbsp; A term with exponent equal
+<br>to 1 should be written as <b>cx </b>instead of <b>cx^1.</b>&nbsp; Also,&nbsp;
+any coefficients
+<br>equal to 1&nbsp; should not be displayed.&nbsp; Thus,&nbsp; we write
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>x^4 + 2x^3
++ x - 4</b>&nbsp;&nbsp;&nbsp;&nbsp; instead of&nbsp;&nbsp;&nbsp; <b>1x^4
++ 2x^3 +0x^2 + 1x^1 - 4x^0</b>
+<p>The one exception to the rules above is that the zero polynomial
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<b>Q(x)&nbsp; =&nbsp; 0</b>
+<br>should be written out as
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<b>Q = 0.</b>
+<br>&nbsp;
+<p>Addition and subtraction of polynomials is done on a term by term
+<br>basis.&nbsp; For example,&nbsp; referring to the two polynomials defined
+above,
+<br>setting&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<b>Q&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =&nbsp;&nbsp;&nbsp; P_1 + P_2</b>
+<br>means that&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<b>Q(x)&nbsp; =&nbsp;&nbsp;&nbsp; x^5 + x^3 -4x</b>
+<p>Multiplication is&nbsp; the standard polynomial multiplication.
+<p>For example, if
+<br><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; R_1(x)&nbsp; = x^2 +&nbsp; 1&nbsp;</b><i>&nbsp;</i>&nbsp;
+and&nbsp;&nbsp;&nbsp;&nbsp; <b>R_2(X) = x^3 - 2</b>
+<br>setting&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<b>Q&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =&nbsp;&nbsp;&nbsp; R_1*R_2</b>
+<br>means that&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<b>Q(x)&nbsp; =&nbsp;&nbsp;&nbsp; x^5 + x^3 - 2x^2 - 2</b>
+<br>&nbsp;
+<p>Since many polynomials have&nbsp; a&nbsp; large number of zero terms
+it
+<br>is convenient to represent them using a sparse pointer-based
+<br>linked-list representation rather than an array based one.&nbsp; This
+<br>means that the&nbsp; list will store only the <b>Term</b>s of the polynomial
+<br>with non-zero coefficients where a <b>Term </b>is of the form <b>c
+x^p.</b>
+<p>As an example,&nbsp; your data structure for the polynomial
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<b>P = 5x^100 + 2x</b>
+<br>should only store the two&nbsp; terms&nbsp; <b>5x^100 </b>and&nbsp;<b>
+2x.</b>
+<br>It <i>should not </i>store any of the&nbsp; zero terms between them.
+<br>&nbsp;
+<br>&nbsp;
+<p>You assignment is to write a a class&nbsp;&nbsp;&nbsp;&nbsp; <b>polyClass&nbsp;&nbsp;</b>&nbsp;&nbsp;
+whose interface is
+<p><i>// constructors</i>
+<br><i>&nbsp;&nbsp; // Creates a polynomial P(x) = 0;</i>
+<br><i>&nbsp;&nbsp; polyClass();</i>
+<p><i>&nbsp;&nbsp; // Creates a polynomial P(x) = c x^p</i>
+<br><i>&nbsp;&nbsp; polyClass(int c, int p);</i>
+<p><i>&nbsp;&nbsp; // Copy Constructor&nbsp; --&nbsp; makes a deep copy
+of P</i>
+<br><i>&nbsp;&nbsp; polyClass(const polyClass&amp; P);</i>
+<p><i>//destructor -- needs to deallocate dynamically allocated data</i>
+<br><i>&nbsp;&nbsp; ~polyClass();</i>
+<p><i>// assignment operator&nbsp; -- makes&nbsp; a deep copy</i>
+<br><i>&nbsp;&nbsp; void operator=(const polyClass&amp; P);</i>
+<p><i>// Prints the polynomial following the instructions above</i>
+<br><i>&nbsp;&nbsp; void Display();</i>
+<p><i>//Prints YOUR name, ID Number, Lecture and Lab section</i>
+<br><i>//This will be used for marking purposes</i>
+<br><i>&nbsp; void Identify_Writer();</i>
+<p>It should also support the following four functions that are friends
+<br>of the class
+<p><i>friend polyClass operator+( polyClass P1,&nbsp; polyClass&nbsp; P2);</i>
+<br><i>friend polyClass operator-(polyClass P1,&nbsp;&nbsp; polyClass P2);</i>
+<br><i>friend polyClass operator*(polyClass P1, polyClass P2);</i>
+<br><i>friend int operator==(polyClass&nbsp; P1,&nbsp; polyClass P2);</i>
+<br>&nbsp;
+<p>where P1+P2&nbsp; and P1-P2&nbsp; return the associated sum and
+<br>difference polynomials and P1*P2 returns the associated
+<br>product polynomial. P1==P2 should return 1 if the two
+<br>polynomials are the same (term by term) and 0 if they
+<br>are not the same.
+<br>&nbsp;
+<h3>
+Input Format</h3>
+Your program does not have to read any input.
+<br>&nbsp;
+<h3>
+Output Format</h3>
+Described in the interface
+<br>&nbsp;
+<br>&nbsp;
+<h3>
+Testing your program</h3>
+
+<p><br>You should write two files:
+<br><b>Poly.h&nbsp;</b>&nbsp;&nbsp; containing the class definition
+<br>and&nbsp;&nbsp; <b>Poly.cpp</b>&nbsp;&nbsp; containing&nbsp; the class
+and friend
+<br>function implementations.&nbsp;&nbsp; We will test your files by compiling
+<br>them together with another program that will call all of your
+<br>functions and check if they perform correctly.
+<p>You must test your files yourself and satisfy yourself that
+<br>you've covered all possibilities.
+<p>We provide a small driver program&nbsp;&nbsp;&nbsp;&nbsp; <b><a href="http://www.cs.ust.hk/faculty/golin/comp151/assignments/Assignment2/CheckPoly.cpp">CheckPoly.cpp</a></b>
+<br>that can be compiled together with
+<br><b>Poly.h</b>&nbsp;&nbsp; and&nbsp;&nbsp;&nbsp; <b>Poly.cpp</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+to test a few cases. Here
+<br>is the <a href="http://www.cs.ust.hk/faculty/golin/comp151/assignments/Assignment2/CheckPoly.out">output
+</a>&nbsp;&nbsp;&nbsp;&nbsp;
+(<i>revised on 18/4/01 -- see Notes below)</i>
+<br>of&nbsp; <b>CheckPoly</b>.
+<p>Note that this program <b>DOES NOT</b> cover all possible
+<br>test cases or functions and is not the program that we will
+<br>actually use to compile your program
+<br>&nbsp;
+<br>&nbsp;
+<p>Documentation:&nbsp; Both files should contain your name, student ID,
+lecture
+<br>and Lab section at the top of the file in comments.&nbsp; Also, you
+should
+<br>document the implementation of every function,&nbsp; describing what
+it does.
+<br>Finally,&nbsp; be sure that you indent your code so that it is readable.
+<br>Documentation will count towards part of the grade of this assignment.
+<br>If we can not read your program and easily understand from the documentation
+<br>what it is doing and why it works,&nbsp; we will deduct points.
+<br>&nbsp;
+<br>&nbsp;
+<h3>
+Hints , Ideas and Notes</h3>
+<b>1&nbsp;</b> Since we usually want to access a&nbsp; polynomial's terms
+from
+<br>largest exponent to smallest exponent it makes sense to store
+<br>the terms in&nbsp; a linked list in which the data items are <b>Term</b>s
+<br>and the <b>Term</b>s are sorted in decreasing order by exponent (power)
+<p>Recall that a&nbsp; <b>Term</b> is an item of the form&nbsp;&nbsp; <b>c
+x^p</b>
+<br>&nbsp;
+<p><b>2</b> When writing your code you have many choices as to how
+<br>to implement the linked&nbsp; list code .&nbsp; One&nbsp; is to write
+it from scratch.
+<br>Another is to take&nbsp; already existing linked list code and modify
+it. Some
+<br>code that you can use if you want&nbsp; is found in&nbsp; <b><a href="http://www.cs.ust.hk/faculty/golin/comp151/assignments/Assignment2/NewListP.h">NewListP.h</a></b>
+and
+<br><b><a href="http://www.cs.ust.hk/faculty/golin/comp151/assignments/Assignment2/RevisedNewListP.cpp">NewListP.cpp</a>
+</b> (updated April 24 to correct a memory leakage problem). 
+<br>Note
+that this list code contains some functions
+<br>that you might not want to use. Also,&nbsp; if you do use this code,
+<br>you will have&nbsp; to modify the data field of the linked list to
+contain
+<br><b>Term&nbsp; </b>data.&nbsp; You can also try and modify the linked
+list code you
+<br>saw in COMP104. A third possibility, for the adventurous,&nbsp; is
+to try
+<br>and use the <b>list </b>type in C++.
+<p><b>3. </b>Your program will be tested using&nbsp; the <b>g++&nbsp; </b>running
+under&nbsp; UNIX.
+<br>Before&nbsp; submitting it please make sure that you have tested that
+your
+<br>code works properly in this environment.
+<p><b>4.&nbsp; </b>Copying of work is not permitted.&nbsp; You may discuss
+the problem
+<br>with other people&nbsp; but all of the code must be your own.&nbsp;&nbsp;
+If you do
+<br>share <i>ideas </i>with other students you should&nbsp; acknowledge
+their names
+<br>in&nbsp; comments at the top of your files.
+<p><b>5.&nbsp; </b>The orginal output of&nbsp; <b>CheckPoly&nbsp; </b>had
+an error (x was written as x^1).
+<br>This has now been corrected (18/4/01)
+<h3>
+Assessment task</h3>
+Create a file&nbsp; <b>Poly.h&nbsp;</b>&nbsp;&nbsp; containing the class
+definition
+<p>Create a file&nbsp; <b>Poly.cpp</b>&nbsp;&nbsp; containing&nbsp; the
+class and friend function implementations.
+<p>Add your student name, student id, email, and lab section in the very
+beginning of each file as comment
+<p>Create a directory "assign2" and place files&nbsp; <b>Poly.h&nbsp; </b>and
+<b>Poly.cpp
+</b>under
+~/comp151/assign2
+<p>Our system will collect the files under ~/comp151/assign2 on Wednesday,&nbsp;
+May 2, 2001 at 9:00 AM
+<br>(Please note that this date has been pushed later than the original
+date announced in class in Lecture 1.)
+<p>Submit a hard copy of&nbsp; <b>Poly.h&nbsp; </b>and <b>Poly.cpp </b>at
+the beginning of class on Wednesday, May 2, 2001
+<p>In the case of differences between the soft copy electronically collected
+and the hard copy submitted
+<br>in class, the soft copy will be considered as the authoritative submitted
+copy.
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+</body>
+</html>
