@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>COMP151, Spring 2006</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<link href="http://www.cs.ust.hk/~marine/hltcsite.css" type="text/css" rel="stylesheet">
+<meta content="article" name="documentclass">
+<meta content="fullpage,a4" name="documentstyle"></head>
+
+<body xml:lang="en">
+
+<div id="content">
+
+<h1>Doxygen notes</h1>
+
+<p>Marine CARPUAT, TA (COMP151, Spring 2006, Prof. Dekai WU, HKUST)</p>
+
+<p>Make sure you always document your code properly... Not only for
+COMP151 labs, but for every piece of code you write.</p>
+
+<h4>Why document your code?</h4>
+
+<p>Comment your code so that someone who has no idea what the code
+does can understand it. And keep in mind that, one day, that someone
+will be you!</p>
+
+<h4>What are useful comments?</h4>
+
+<p>Compare the 2 comments below:
+<ul>
+<li>Comment A:<br><tt>perimeter = a + b + c; //compute perimeter by summing the lengths of the sides.</tt></li>
+<li>Comment B:<br><tt>perimeter = a + b + c; //compute the sum of a, b and c.</tt></li>
+</ul>
+Comment B is useless because it only repeats the code without adding
+new information. In contrast, comment A provides useful information by
+explaining the purpose of this particular line of code.</p>
+
+<p>The <a
+href="http://java.sun.com/j2se/javadoc/writingdoccomments/index.html#styleguide">Javadoc
+style guide</a> contains a good example of useful vs. useless API
+description, and other comment writing style tips.</p>
+
+<h4>Writing documentation with Doxygen</h4>
+
+<p>Doxygen is a documentation system for C++, C, and other programming
+languages, that automatically generates documentation in both html and
+LaTeX format, for a set of source files that are documented in a
+specific format.</p>
+
+<p>Running Doxygen will not only give you a nicely formatted
+documentation, it will also help keep your documentation complete and
+consistent.</p>
+
+<h5>4 simple steps</h5>
+
+<p><ol>
+<li>Document *ALL* your classes and functions using Doxygen style comments (
+see examples below)</li>
+<li>Generate a doxygen config file by typing <br><tt>doxygen -g
+doxygen.config</tt><br> in the directory where your source files are.</li>
+<li>Use pico to edit the doxygen.config file. For instance, you can change the project
+name (e.g. call it "lab02"), the output directory (e.g. call it "doc"), and other parameters as you see fit.</li>
+<li>run <tt>doxygen doxygen.config</tt></li>
+</ol>
+
+DONE! you can now open doc/html/index.html to browse the html
+documentation for your code.</p>
+
+<p>For a more detailed introduction, check out the <a href="http://www.stack.nl/~dimitri/doxygen/manual.html">Doxygen manual</a></p>
+
+<h5>Writing comments for Doxygen</h5>
+
+<p>Here is an <a href="doxygen_example.txt">example</a> of the use of Doxygen comment blocks. A Doxygen documentation block is a C or C++ style comment block with some additional markings, so that Doxygen knows it is a piece of documentation that needs to end up in the generated documentation.</p>
+
+<p>For more details, consult the Doxygen manual section on <a href="http://www.stack.nl/~dimitri/doxygen/docblocks.html">Documenting the code</a>.</p>
+
+<h5>Some Doxygen tips</h5>
+
+<p>If you want ALL your comments to appear in the generated Doxygen
+documentation, including comments in the main function, comments for
+private members, etc., you should set the following parameters in the
+config file:
+
+<tt>
+<ul>
+<li>EXTRACT_ALL            = YES</li>
+<li>EXTRACT_PRIVATE        = YES</li>
+<li>EXTRACT_STATIC         = YES</li>
+<li>EXTRACT_LOCAL_CLASSES  = YES</li>
+<li>EXTRACT_LOCAL_METHODS  = YES</li>
+</ul>
+</tt>
+
+</p>
+
+</div></body></html>
