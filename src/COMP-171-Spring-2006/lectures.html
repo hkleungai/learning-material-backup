@@ -1,0 +1,1220 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0045)lectures.html -->
+<HTML xmlns="http://www.w3.org/TR/REC-html40" xmlns:v =
+"urn:schemas-microsoft-com:vml" xmlns:o =
+"urn:schemas-microsoft-com:office:office" xmlns:w =
+"urn:schemas-microsoft-com:office:word" xmlns:st1 =
+"urn:schemas-microsoft-com:office:smarttags"><HEAD><TITLE>COMP171 Data
+Structures and Algorithm</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<META content=Word.Document name=ProgId>
+<META content="MSHTML 6.00.2900.2963" name=GENERATOR>
+<META content="Microsoft Word 11" name=Originator>
+<LINK
+href="lectures_files/editdata.mso" rel=Edit-Time-Data><o:SmartTagType
+name="place"
+namespaceuri="urn:schemas-microsoft-com:office:smarttags"></o:SmartTagType><o:SmartTagType
+name="City"
+namespaceuri="urn:schemas-microsoft-com:office:smarttags"></o:SmartTagType><!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Qiang Yang</o:Author>
+  <o:Template>Normal</o:Template>
+  <o:LastAuthor>CSD</o:LastAuthor>
+  <o:Revision>90</o:Revision>
+  <o:TotalTime>473</o:TotalTime>
+  <o:Created>2005-09-01T00:48:00Z</o:Created>
+  <o:LastSaved>2006-04-30T23:58:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>807</o:Words>
+  <o:Characters>4600</o:Characters>
+  <o:Company>HKUST</o:Company>
+  <o:Lines>38</o:Lines>
+  <o:Paragraphs>10</o:Paragraphs>
+  <o:CharactersWithSpaces>5397</o:CharactersWithSpaces>
+  <o:Version>11.6568</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Zoom>BestFit</w:Zoom>
+  <w:PunctuationKerning/>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:Compatibility>
+   <w:BreakWrappedTables/>
+   <w:SnapToGridInCell/>
+   <w:WrapTextWithPunct/>
+   <w:UseAsianBreakRules/>
+   <w:DontGrowAutofit/>
+   <w:UseFELayout/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" LatentStyleCount="156">
+ </w:LatentStyles>
+</xml><![endif]-->
+<STYLE>@font-face {
+	font-family: Wingdings;
+}
+@font-face {
+	font-family: &#23435;&#20307;;
+}
+@font-face {
+	font-family: PMingLiU;
+}
+@font-face {
+	font-family: Arial Black;
+}
+@font-face {
+	font-family: @&#23435;&#20307;;
+}
+@font-face {
+	font-family: @PMingLiU;
+}
+@page Section1 {size: 612.0pt 792.0pt; margin: 72.0pt 90.0pt 72.0pt 90.0pt; mso-header-margin: 36.0pt; mso-footer-margin: 36.0pt; mso-paper-source: 0; }
+P.MsoNormal {
+	FONT-SIZE: 12pt; MARGIN: 0cm 0cm 0pt; FONT-FAMILY: "Times New Roman"; mso-style-parent: ""; mso-pagination: widow-orphan; mso-fareast-font-family: &#23435;&#20307;; mso-fareast-language: ZH-CN
+}
+LI.MsoNormal {
+	FONT-SIZE: 12pt; MARGIN: 0cm 0cm 0pt; FONT-FAMILY: "Times New Roman"; mso-style-parent: ""; mso-pagination: widow-orphan; mso-fareast-font-family: &#23435;&#20307;; mso-fareast-language: ZH-CN
+}
+DIV.MsoNormal {
+	FONT-SIZE: 12pt; MARGIN: 0cm 0cm 0pt; FONT-FAMILY: "Times New Roman"; mso-style-parent: ""; mso-pagination: widow-orphan; mso-fareast-font-family: &#23435;&#20307;; mso-fareast-language: ZH-CN
+}
+H3 {
+	FONT-WEIGHT: bold; FONT-SIZE: 13pt; MARGIN: 12pt 0cm 3pt; FONT-FAMILY: Arial; mso-pagination: widow-orphan; mso-fareast-font-family: &#23435;&#20307;; mso-fareast-language: ZH-CN; mso-style-next: Normal; mso-outline-level: 3
+}
+A:link {
+	COLOR: blue; TEXT-DECORATION: underline; text-underline: single
+}
+SPAN.MsoHyperlink {
+	COLOR: blue; TEXT-DECORATION: underline; text-underline: single
+}
+A:visited {
+	COLOR: purple; TEXT-DECORATION: underline; text-underline: single
+}
+SPAN.MsoHyperlinkFollowed {
+	COLOR: purple; TEXT-DECORATION: underline; text-underline: single
+}
+P {
+	FONT-SIZE: 12pt; MARGIN-LEFT: 0cm; MARGIN-RIGHT: 0cm; FONT-FAMILY: "Times New Roman"; mso-pagination: widow-orphan; mso-fareast-font-family: &#23435;&#20307;; mso-fareast-language: ZH-CN; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto
+}
+DIV.Section1 {
+	page: Section1
+}
+OL {
+	MARGIN-BOTTOM: 0cm
+}
+UL {
+	MARGIN-BOTTOM: 0cm
+}
+</STYLE>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+	mso-para-margin:0cm;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+table.MsoTableGrid
+	{mso-style-name:"Table Grid";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	border:solid windowtext 1.0pt;
+	mso-border-alt:solid windowtext .5pt;
+	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+	mso-border-insideh:.5pt solid windowtext;
+	mso-border-insidev:.5pt solid windowtext;
+	mso-para-margin:0cm;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]--></HEAD>
+<BODY lang=ZH-TW style="tab-interval: 36.0pt" vLink=#800080 link=#0000FF>
+<DIV class=Section1>
+<TABLE class=MsoTableGrid
+style="WIDTH: 100%; BORDER-COLLAPSE: collapse; mso-yfti-tbllook: 480; mso-padding-alt: 0cm 5.4pt 0cm 5.4pt"
+cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR style="HEIGHT: 66.75pt; mso-yfti-irow: 0; mso-yfti-firstrow: yes">
+    <TD
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 100%; PADDING-TOP: 0cm; HEIGHT: 66.75pt"
+    vAlign=top width="100%">
+      <P class=MsoNormal style="TEXT-ALIGN: center" align=center><B><SPAN
+      lang=EN-US style="FONT-SIZE: 24pt">COMP171 Schedule and Notes</SPAN></B></P>
+      <P class=MsoNormal style="TEXT-ALIGN: center" align=center><SPAN
+      lang=EN-US><o:p>&nbsp;</o:p></SPAN></P>
+      <P class=MsoNormal style="TEXT-ALIGN: center" align=center>
+		<SPAN
+      lang=EN-US>| <A
+      href="index.html">Home</A> |
+		<a href="http://www.cs.ust.hk/~pazuchan/comp171/index.htm">Assignments
+		and<SPAN
+      style="mso-bidi-font-weight: bold"> Tutorials</SPAN></a><SPAN
+      style="mso-bidi-font-weight: bold">| <A
+      href="http://www.ust.hk/cgi-bin/ccst/dnews/dnewsweb?cmd=xover&amp;group=hkust.cs.class.171&amp;from=&amp;utag=&#8834;=y">
+		Newsgroup</A></SPAN>
+      |</SPAN></P></TD></TR>
+  <TR style="mso-yfti-irow: 1; mso-yfti-lastrow: yes">
+    <TD
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 100%; PADDING-TOP: 0cm"
+    vAlign=top width="100%">
+      <H3 style="TEXT-ALIGN: center" align=center><SPAN lang=EN-US>
+      <HR align=center width="100%" SIZE=2>
+      </SPAN></H3>
+      <DIV class=MsoNormal style="TEXT-ALIGN: center" align=center><SPAN
+      lang=EN-US style="FONT-SIZE: 10pt">
+      <HR align=center width="100%" SIZE=2>
+      </SPAN></DIV>
+      <H3><font face="Times New Roman"><SPAN lang=EN-US
+      style="mso-fareast-font-family: 'Times New Roman'">Class Schedule and
+		Notes:</SPAN></font></H3>
+      <P class=MsoNormal><SPAN lang=EN-US><o:p>&nbsp;</o:p></SPAN></P>
+      <TABLE class=MsoNormalTable id=table1
+      style="BORDER-RIGHT: 1.5pt outset; BORDER-TOP: 1.5pt outset; MARGIN-LEFT: 26.1pt; BORDER-LEFT: 1.5pt outset; WIDTH: 91%; BORDER-BOTTOM: 1.5pt outset; mso-padding-alt: 1.2pt 1.2pt 1.2pt 1.2pt; mso-cellspacing: .6pt"
+      cellSpacing=1 cellPadding=0 width="91%" border=1>
+        <TBODY>
+        <TR style="HEIGHT: 11.4pt; mso-yfti-irow: 0; mso-yfti-firstrow: yes">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 11.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US>&nbsp;<B>Week of</B></SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 11.4pt"
+          width="25%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><B><SPAN
+            lang=EN-US>Topic </SPAN></B></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 11.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><B><SPAN
+            lang=EN-US>Slides</SPAN></B></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 11.4pt"
+          width="16%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><st1:place
+            w:st="on"><st1:City w:st="on"><B><SPAN
+            lang=EN-US>Readings</SPAN></B></st1:City></st1:place></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 11.4pt"
+          width="17%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><B><SPAN
+            lang=EN-US>Assignment Schedule</SPAN></B></P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 1">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal><span lang="en-us">Sept</span><SPAN lang=EN-US>.
+			4</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <P class=MsoNormal><SPAN lang=EN-US>Introduction &amp; C++ (1)</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal><SPAN lang=EN-US><A
+            href="intro.ppt">&nbsp;<SPAN
+            style="COLOR: green">intro.ppt </SPAN></A><SPAN
+            style="COLOR: green"><SPAN style="mso-spacerun: yes">&nbsp;</SPAN><A
+            href="C++.ppt">C++.ppt</A></SPAN></SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal><SPAN lang=EN-US>&nbsp;Weiss 1</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal><SPAN
+        lang=EN-US><o:p>&nbsp;</o:p></SPAN></P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 1">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            &nbsp;</TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            &nbsp;</TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            &nbsp;</TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            &nbsp;</TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            &nbsp;</TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 2">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal><span lang="en-us">Sept</span><SPAN lang=EN-US>. </SPAN>
+			<span lang="en-us">11</span></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <P class=MsoNormal><span lang="en-us">pointers in C++</span></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal><SPAN lang=EN-US>&nbsp;<A
+            href="pointers.ppt">pointers.ppt</A></SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal><SPAN lang=EN-US>&nbsp;Weiss 1.5</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal>
+			<SPAN lang=ZH-CN
+            style="mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">
+			&#12288;</SPAN></P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 3">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal>
+			<SPAN lang=ZH-CN
+            style="mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">
+			&#12288;</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <P class=MsoNormal><SPAN lang=EN-US>Recursion and Basic Math</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal><SPAN lang=EN-US><SPAN
+            style="mso-spacerun: yes">&nbsp;</SPAN><A
+            href="recursion.ppt">recursion and
+			basic math.ppt</A></SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal><SPAN lang=EN-US>&nbsp;Weiss 1.1 1.2</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal>
+			<SPAN lang=ZH-CN
+            style="mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">
+			&#12288;</SPAN></P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 4">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal><SPAN lang=EN-US>Sept. 18</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <P class=MsoNormal><SPAN lang=EN-US>Linked List</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal>Basic math: proof by induction (Sept 19)</P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal><SPAN lang=EN-US><SPAN
+            style="mso-spacerun: yes">&nbsp;</SPAN>Weiss 3</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal><SPAN lang=EN-US>PA1 out </SPAN></P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 5">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal>
+			<SPAN lang=ZH-CN
+            style="mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">
+			&#12288;</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <P class=MsoNormal><SPAN lang=EN-US>Linked Lists (2) </SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal><SPAN lang=EN-US><SPAN
+            style="mso-spacerun: yes">&nbsp;</SPAN><A
+            href="linked-list.ppt">Linked
+			List.ppt</A>,</SPAN>(Sept 21)</P>
+			<P class=MsoNormal>&nbsp;</P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal><SPAN lang=EN-US>&nbsp;Weiss 3</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal><SPAN
+        lang=EN-US><o:p>&nbsp;</o:p></SPAN></P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 6">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<span lang="en-us">Sept.</span><SPAN
+            lang=EN-US> 25</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US>Stack and Queue</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">Examples for
+			linked list:<a href="Demo/List/LinkedList.h">
+			list.h</a>, <a href="Demo/List/LinkedList.cpp">list.cpp</a></P>
+			<P class=MsoNormal style="mso-line-height-alt: 11.4pt">&nbsp;<SPAN
+            lang=EN-US><a href="stack-queue.ppt">stack-queue.ppt</a></SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US><SPAN style="mso-spacerun: yes">&nbsp;</SPAN>Weiss 3.3<SPAN style="mso-spacerun: yes">&nbsp; </SPAN>
+			3.4</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<SPAN
+            lang=ZH-CN
+            style="mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">
+			&#12288;</SPAN></P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 7">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<SPAN
+            lang=ZH-CN
+            style="mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">
+			&#12288;</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US>Algorithm and Analysis </SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US>i<A
+            href="intro_algo.ppt">ntro_algo.ppt</A></SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US><SPAN style="mso-spacerun: yes">&nbsp;</SPAN>Weiss 2</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US><o:p>&nbsp;</o:p></SPAN></P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 8">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<span lang="en-us">Oct</span><SPAN
+            lang=EN-US>. 2</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US>Algorithm and Analysis(2)</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<SPAN
+            lang=ZH-CN
+            style="mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">
+			&#12288;</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US>&nbsp;Weiss 2</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">&nbsp;</P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 9">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt" align="left">
+			<SPAN
+            style="mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">
+			Oct 9</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<span lang="en-us">Algorithm Analysis: (3),</span></P>
+			<P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<span lang="en-us">Class Quiz (topics: basic math, linked list,
+			algorithm analysis),</span></P>
+			<P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			&nbsp;</P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<span lang="en-us"><a href="algoprobs.ppt">Algorithm Analysis.ppt</a>,</span></P>
+			<P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<SPAN
+            lang=EN-US>&nbsp;</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US>&nbsp;Chapter 2.4.3</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<span style="background-color: #FFFFFF" lang="EN-US">PA1 due 5pm on
+			Oct 9th</span></P>
+			<P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<span style="background-color: #FFFF00" lang="EN-US">WA1 out </span></P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 9">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            Oct 16</TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+			<SPAN
+            lang=EN-US>Discussion of Quiz Solutions, Insertion Sort, Merge Sort</SPAN></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+			<SPAN
+            lang=EN-US>
+			<font size="3">
+			<a href="insertionsort.ppt">insertionsort.ppt</a></font></SPAN><p>
+			<SPAN
+            lang=EN-US>
+			<a href="mergesort.ppt">mergesort.ppt</a></SPAN></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <font size="3">Chapter 7.2, 7.2.3</font><p>Chapter 7.6 </TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            &nbsp;</TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 10">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			&nbsp;</P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US>Discussion of WA1 problems; Quick Sort</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US><A
+            href="qsort.ppt">qsort.ppt</A></SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US>&nbsp;Weiss 7.7</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			&nbsp;</P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 11">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<SPAN
+            lang=ZH-CN
+            style="mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">
+			&#12288;</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US>Heap and Heap Sort</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US><A
+            href="heapsort.ppt">heapsort_1.ppt</A></SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US>&nbsp;Weiss 7.5</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">&nbsp;</P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 12">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			&nbsp;</P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US>Heapsort (cont.)</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<SPAN
+            lang=ZH-CN
+            style="mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">
+			&#12288;</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US>&nbsp;Weiss 7.5</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            &nbsp;</TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 13">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			Oct 30</P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US>Lower Bound of Sorting and Radix Sort</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US><A
+            href="lowerbound-radixsort.ppt">
+			radixsort.ppt</A></SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US>&nbsp;Weiss 7.9</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<SPAN
+            lang=ZH-CN
+            style="mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">
+			&#12288;</SPAN><span style="background-color: #FFFF00">WA1: due in Lecture Time on
+			Oct 24, 2006.</span></P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 14">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <font size="3">Nov. 1</font></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <font size="3">Midterm Review</font></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">&nbsp;</P>
+            <P class=MsoNormal><SPAN lang=EN-US><A
+            href="Pages%20from%20midtermFall04.pdf">
+			Past Exam Sample.pdf</A></SPAN></P>
+            <P class=MsoNormal><SPAN lang=EN-US><A
+            href="Pages%20from%20midterm_solution.pdf">
+			Past Exam Sample-Sol.pdf</A></SPAN></P>
+            <P class=MsoNormal>
+			<SPAN lang=ZH-CN
+            style="mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">
+			&#12288;</SPAN></P>
+            <P class=MsoNormal><U><SPAN lang=EN-US style="COLOR: blue"><A
+            href="171midtermSpring05.pdf">
+			Spring05 midterm exam.pdf</A></SPAN></U></P>
+			<p><a href="midtermreview.ppt">Midterm Review Slides</a></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            &nbsp;</TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            &nbsp;</TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 16">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<font color="#008000"><span lang="en-us">Nov. 6, evening 6-9 pm</span></font></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <p class="MsoNormal" style="mso-line-height-alt: 11.4pt">
+			<font color="#008000">Midterm Exam</font><p class="MsoNormal" style="mso-line-height-alt: 11.4pt">
+			<b>(Note: Please bring a calculator if you can)</b></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <TABLE class=MsoNormalTable id=table4
+            style="BORDER-COLLAPSE: collapse; mso-padding-alt: 0cm 5.4pt 0cm 5.4pt"
+            cellSpacing=0 cellPadding=0 border=0>
+              <TBODY>
+              <TR
+              style="mso-yfti-irow: 0; mso-yfti-firstrow: yes; mso-yfti-lastrow: yes">
+                <TD
+                style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 144pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid"
+                vAlign=top width=192>
+                  <P class=MsoNormal><B><I><SPAN lang=EN-GB
+                  style="FONT-SIZE: 11pt; mso-ansi-language: EN-GB">(Coverage:
+                  <SPAN style="COLOR: red">Week 1</SPAN> to
+					<span style="color: #FF0000">Lowerbound on Sorting</span>, inclusive.&nbsp;&nbsp;
+					Refer to Lecture Notes)</SPAN></I></B></P></TD></TR></TBODY></TABLE>
+            </TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<SPAN
+            lang=ZH-CN
+            style="mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">
+			&#12288;</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><B><SPAN
+            lang=EN-US>Midterm Exam Location: </SPAN></B><SPAN lang=EN-US>LT A,
+			Free Seating.&nbsp; Be sure to arrive early!</SPAN></P>
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<SPAN
+            lang=ZH-CN
+            style="mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">
+			&#12288;</SPAN><SPAN
+            lang=EN-US><o:p></o:p></SPAN></P>
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<SPAN
+            lang=ZH-CN
+            style="mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">
+			&#12288;</SPAN></P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 17">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<SPAN
+            lang=ZH-CN
+            style="mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">
+			&#12288;</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US>Binary Search Tree, </SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US><A
+            href="bst.ppt">bst.ppt</A></SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<SPAN
+            lang=EN-US>&nbsp;Weiss 4.3 but 4.3.6 is optional</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US><o:p>&nbsp;</o:p></SPAN></P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 18">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal><span lang="en-us">Nov. 6</span></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <P class=MsoNormal><SPAN lang=EN-US>AVL Trees</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal>
+            <SPAN
+            lang=EN-US>
+			<font size="3"><A
+            href="avl-tree-cl.ppt">
+			avl-tree.ppt</A> </font></SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal>
+            <SPAN
+            lang=EN-US><font size="3">Weiss 4.4, </font>Weiss 4.7</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal>&nbsp;</P>
+			<P class=MsoNormal><span lang="en-us">WA2 Out, </span><SPAN
+            lang=EN-US><o:p>PA2 Out</o:p></SPAN></P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 19">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			Nov. 13<SPAN lang=ZH-CN
+            style="mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">&#12288;</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US>AVL Trees, B+ Trees</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<SPAN
+            lang=EN-US>
+			<A
+            href="avl-tree_part2.ppt">avl-tree
+			part2.ppt</A></SPAN></P>
+			<P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<SPAN
+            lang=EN-US>
+			<A
+            href="btree1.ppt">btree1.ppt</A>, <A
+            href="btree_part2.ppt">btree2.ppt</A></SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<SPAN
+            lang=EN-US>Weiss 4.7</SPAN></P>
+			<P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<span lang="en-us"><a href="AVL%20Tree%20Questions.ppt">Some
+			Practice</a></span></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">&nbsp;</P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 20">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			&nbsp;</P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US>Graph </SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US><A
+            href="graph_bfs.ppt">graph_bfs.ppt</A>&nbsp;,
+            <A
+            href="bfs2.ppt">bfs2</A></SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<SPAN
+            lang=EN-US>Weiss 9.1 9.3</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<span style="background-color: #FFFF00" lang="en-us">WA2 in: Lecture
+			Time, Nov 16.</span></P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 21">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal>&nbsp;</P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <P class=MsoNormal><SPAN lang=EN-US>Breadth-first search</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal><SPAN lang=EN-US><o:p>&nbsp;<a href="COMP17106FallQuiz2.pdf">Quiz
+			2: Solutions</a></o:p></SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal><SPAN lang=EN-US>Weiss 9.3.1</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal>
+			<SPAN lang=ZH-CN
+            style="mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">
+			&#12288;</SPAN></P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 22">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			Nov 27</P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US>Depth-first search</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US><A
+            href="dfs.ppt">dfs.ppt</A></SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US><o:p>&nbsp;</o:p></SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			PA2<span style="font-size: 12.0pt; font-family: Times New Roman">
+			in: <span style="background-color: #C0C0C0">20th of November, 2006
+			at 5:00 pm, via CASS system</span></span></P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 23">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">&nbsp;</P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US>Connected Component</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US><A
+            href="connectivity-directed_graph.ppt">
+			directed_graph.ppt</A></SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US><o:p>&nbsp;</o:p></SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			&nbsp;</P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 24">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<span lang="en-us">Nov. 27, Dec 4</span></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US>Topological Sort,&nbsp; </SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">&nbsp;</P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US><o:p>&nbsp;</o:p></SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<SPAN
+            lang=ZH-CN
+            style="mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">
+			&#12288;</SPAN></P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 25">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			&nbsp;</P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">&nbsp;</P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">&nbsp;</P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US>Weiss 5.1 � 5.4</SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">
+			<SPAN
+            lang=ZH-CN
+            style="mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">
+			&#12288;</SPAN></P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 26">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 7.2pt">
+			<span lang="en-us">Dec. 7</span></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <P class=MsoNormal style="mso-line-height-alt: 7.2pt">Review for
+			Final Exam</P>
+			<P class=MsoNormal style="mso-line-height-alt: 7.2pt">&nbsp;</P>
+			<ul>
+				<li>
+				<P class=MsoNormal style="mso-line-height-alt: 7.2pt">
+				<font color="#0000FF"><span style="background-color: #FFFF00">
+				Exam Q&amp;A Session 1:&nbsp; Room 4503, 18 Dec 2006 (Mon),
+				14:00-16:00</span></font></P></li>
+				<li>
+				<P class=MsoNormal style="mso-line-height-alt: 7.2pt">
+				<font color="#0000FF"><span style="background-color: #FFFF00">
+				Exam Q&amp;A Session 2: Room 4503, 20 Dec 2006 (Wed), 14:00-16:00</span></font><br>
+&nbsp;</P></li>
+			</ul>
+			<P class=MsoNormal style="mso-line-height-alt: 7.2pt"><br>
+&nbsp;</P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%"><A
+            href="finalsol%20sample.pdf">
+			<font size="3">A
+			sample final exam with solutions</font></A><font size="3"> </font>
+            <P><a href="FinalCheckList.doc">A checklist for review</a></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal style="mso-line-height-alt: 7.2pt"><SPAN
+            lang=EN-US><o:p>&nbsp;</o:p></SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal>
+			<SPAN
+            style="mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'; font-weight:700; background-color:#FFFF00">PA3
+			due Dec 8th, 5pm</SPAN></P></TD></TR>
+        <TR style="HEIGHT: 14.4pt; mso-yfti-irow: 27; mso-yfti-lastrow: yes">
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.16%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt">Final Exam
+			Info:</P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 25.76%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="25%">
+            <DIV class=Section1>
+            &nbsp;</DIV>
+			<table x:str border="0" cellpadding="0" cellspacing="0" width="346" style="border-collapse:
+ collapse;width:259pt" id="table5">
+				<colgroup>
+					<col width="100" style="width: 75pt">
+					<col width="19" style="width: 14pt">
+					<col width="115" style="width: 86pt">
+					<col width="20" style="width: 15pt">
+					<col width="92" style="width: 69pt">
+				</colgroup>
+				<tr height="17" style="height: 12.75pt">
+					<td height="17" width="100" style="height: 12.75pt; width: 75pt; color: black; font-family: 'Times New Roman', serif; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px; background: white">
+					<font size="5" color="#0000FF">22/12/06 (FRI)</font></td>
+					<td width="19" style="width: 14pt; color: black; font-family: 'Times New Roman', serif; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px; background: white">
+					<font size="5" color="#0000FF">&nbsp;</font></td>
+					<td width="115" style="width: 86pt; font-family: 'Times New Roman', serif; text-align: left; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+					<font size="5" color="#0000FF">12:30-03:30 (pm)</font></td>
+					<td width="20" style="width: 15pt; font-family: 'Times New Roman', serif; text-align: center; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px">&nbsp;</td>
+					<td width="92" style="width: 69pt; font-family: 'Times New Roman', serif; text-align: left; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+					<font size="5" color="#0000FF">G017</font></td>
+				</tr>
+			</table>
+			</TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 15.02%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="15%"><FONT size=3>1. Covers the entire semester.&nbsp; <BR>2.
+			Based on all lecture notes and assignments</FONT></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 16.26%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="16%">
+            <P class=MsoNormal style="mso-line-height-alt: 11.4pt"><SPAN
+            lang=EN-US><o:p>&nbsp;</o:p></SPAN></P></TD>
+          <TD
+          style="PADDING-RIGHT: 1.2pt; PADDING-LEFT: 1.2pt; PADDING-BOTTOM: 1.2pt; WIDTH: 17.48%; PADDING-TOP: 1.2pt; HEIGHT: 14.4pt"
+          width="17%">
+            <P class=MsoNormal
+        style="mso-line-height-alt: 11.4pt">&nbsp;</P></TD></TR></TBODY></TABLE>
+      <H3 style="mso-outline-level: 3"><font face="Times New Roman"><SPAN lang=EN-US>
+		Applets:</SPAN><A
+      name=applets></A></font><SPAN lang=EN-US
+      style="mso-fareast-font-family: 'Times New Roman'"><o:p></o:p></SPAN></H3>
+      <UL type=disc>
+        <LI class=MsoNormal
+        style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-list: l0 level1 lfo3; tab-stops: list 36.0pt"><SPAN
+        lang=EN-US><A
+        href="http://www.cosc.canterbury.ac.nz/people/mukundan/dsal/appldsal.html">
+		Java Applets by R. Mukundan </A></SPAN>
+        <LI class=MsoNormal
+        style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-list: l0 level1 lfo3; tab-stops: list 36.0pt"><SPAN
+        lang=EN-US>Sorting algorithms (<A
+        href="http://www.cs.hope.edu/~alganim/animator/Animator.html">app1</A>
+        (with recursive mergesort), <A
+        href="http://math.hws.edu/TMCM/java/xSortLab/index.html">app2</A> (with
+		iterative mergesort)) </SPAN>
+        <LI class=MsoNormal
+        style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-list: l0 level1 lfo3; tab-stops: list 36.0pt"><SPAN
+        lang=EN-US>Radix sort <A
+        href="http://ciips.ee.uwa.edu.au/~morris/Year2/PLDS210/Java/radix_sort/">
+		applet</A>
+        </SPAN>
+        <LI class=MsoNormal
+        style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-list: l0 level1 lfo3; tab-stops: list 36.0pt"><SPAN
+        lang=EN-US>Heap sort <A
+        href="http://www.bridgeport.edu/~dichter/lilly/heapsort.htm">applet</A>
+        [ click (1) start, (2) no, (3) ok, and (4) start] </SPAN>
+        <LI class=MsoNormal
+        style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-list: l0 level1 lfo3; tab-stops: list 36.0pt"><SPAN
+        lang=EN-US><A
+        href="http://www.cs.jhu.edu/~goodrich/dsa/trees/btree.html">Binary</A>
+        tree </SPAN><!--
+<LI> AVL
+<A
+HREF="http://www.seanet.com/users/arsen/avltree.html">animation</A>
+-->
+        <LI class=MsoNormal
+        style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-list: l0 level1 lfo3; tab-stops: list 36.0pt"><SPAN
+        lang=EN-US>AVL <A
+        href="http://www.cs.jhu.edu/~goodrich/dsa/trees/avltree.html">animation</A>
+        </SPAN><!--
+<LI>
+B+Tree <a --><!--href="http://www.cs.msstate.edu/~hwang/project/visualization.html">applet</a>
+-->
+        <LI class=MsoNormal
+        style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-list: l0 level1 lfo3; tab-stops: list 36.0pt"><SPAN
+        lang=EN-US><A
+        href="http://webpages.ull.es/users/jriera/Docencia/AVL/AVL%20tree%20applet.htm">
+		AVL tree applet</A> </SPAN>
+        <LI class=MsoNormal
+        style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-list: l0 level1 lfo3; tab-stops: list 36.0pt"><SPAN
+        lang=EN-US>B+ tree <A
+        href="http://www.seanster.com/BplusTree/BplusTree.html">animation</A>
+        </SPAN>
+        <LI class=MsoNormal
+        style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-list: l0 level1 lfo3; tab-stops: list 36.0pt"><SPAN
+        lang=EN-US>B+ tree <A
+        href="http://www.cs.msstate.edu/~cs2314/global/BTreeAnimation/visualization.html">
+		Applet</A>
+        </SPAN>
+        <LI class=MsoNormal
+        style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-list: l0 level1 lfo3; tab-stops: list 36.0pt"><SPAN
+        lang=EN-US>Hash <A
+        href="http://www.cs.yorku.ca/~aaw/Hang/hash/Hash.html">applet</A>
+</SPAN>
+        <LI class=MsoNormal
+        style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-list: l0 level1 lfo3; tab-stops: list 36.0pt"><SPAN
+        lang=EN-US><A
+        href="http://www.cs.duke.edu/csed/jawaa/DFSanim.html">Depth-first search</A> </SPAN>
+        <LI class=MsoNormal
+        style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-list: l0 level1 lfo3; tab-stops: list 36.0pt"><SPAN
+        lang=EN-US><A
+        href="http://www.cs.duke.edu/csed/jawaa/BFSanim.html">Breadth-first
+		search</A> </SPAN>
+        <LI class=MsoNormal
+        style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-list: l0 level1 lfo3; tab-stops: list 36.0pt"><SPAN
+        lang=EN-US>Many other <A
+        href="http://www.cis.upenn.edu/~matuszek/cse121-2003/Pages/applets.html">
+		applets</A>
+        </SPAN></LI></UL>
+      <P class=MsoNormal
+      style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto"><SPAN
+      lang=EN-US><o:p>&nbsp;</o:p></SPAN></P>
+      <P class=MsoNormal
+      style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto"><SPAN
+      lang=EN-US><A href="http://www.cs.fiu.edu/~weiss/dsaa_c++/code/">All
+		Source Code in Figures from Our Textbook</A></SPAN></P>
+      <P class=MsoNormal
+      style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto"><SPAN
+      lang=EN-US>Some useful resources for C++</SPAN></P>
+      <P class=MsoNormal
+      style="MARGIN-LEFT: 0cm; TEXT-INDENT: 0cm; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-list: l1 level1 lfo5; tab-stops: list 22.7pt"><![if !supportLists]>
+		<SPAN
+      style="mso-list: Ignore; font-size:8pt; mso-fareast-font-family:Wingdings; mso-bidi-font-family:Wingdings" lang="EN-US">
+		l</SPAN><SPAN
+      style="font-style:normal; font-variant:normal; font-weight:normal; font-size:7pt; font-family:Times New Roman; mso-list:Ignore; mso-fareast-font-family:Wingdings; mso-bidi-font-family:Wingdings" lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </SPAN><![endif]><SPAN lang=EN-US><A
+      href="http://www.cprogramming.com/tutorial/">A nice C++ Tutorial with
+		Examples</A></SPAN></P>
+      <P class=MsoNormal
+      style="MARGIN-LEFT: 0cm; TEXT-INDENT: 0cm; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-list: l1 level1 lfo5; tab-stops: list 22.7pt"><![if !supportLists]>
+		<SPAN
+      style="mso-list: Ignore; font-size:8pt; mso-fareast-font-family:Wingdings; mso-bidi-font-family:Wingdings" lang="EN-US">
+		l</SPAN><SPAN
+      style="font-style:normal; font-variant:normal; font-weight:normal; font-size:7pt; font-family:Times New Roman; mso-list:Ignore; mso-fareast-font-family:Wingdings; mso-bidi-font-family:Wingdings" lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </SPAN><![endif]><SPAN lang=EN-US><A
+      href="http://www.msoe.edu/eecs/ce/courseinfo/stl/index.htm">
+		http://www.msoe.edu/eecs/ce/courseinfo/stl/index.htm</A>
+      </SPAN></P>
+      <P class=MsoNormal><SPAN lang=EN-US
+      style="FONT-SIZE: 10pt"><o:p></o:p></SPAN></P></TD></TR></TBODY></TABLE>
+<P class=MsoNormal><SPAN
+lang=EN-US><o:p>&nbsp;</o:p></SPAN></P></DIV></BODY></HTML>

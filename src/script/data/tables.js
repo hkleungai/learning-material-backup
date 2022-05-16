@@ -8,7 +8,7 @@ var CATEGORIZED_PRE_COURSES = [
             },
             {
                 code: 'COMP 171',
-                semesters: ['Fall 2002', 'Fall 2005']
+                semesters: ['Fall 2002', 'Fall 2005', 'Spring 2006']
             },
             {
                 code: 'COMP 2711H',
