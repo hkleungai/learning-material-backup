@@ -1,4 +1,4 @@
-const categorizedPreCourses: Categorized<PreCourse>[] = [
+const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
   {
     category: 'Algorithmic Study',
     courses: [

@@ -1,0 +1,21 @@
+#!/bin/sh
+__temp_commit=".temp-commit"
+__custom_git_log_ts_path="src/script/data/gitLogs.ts"
+__custom_git_log_js_path="src/script/data/gitLogs.js"
+
+if [ -e $__temp_commit ]
+then
+  rm $__temp_commit
+  touch     $__custom_git_log_ts_path
+  echo "/* THIS IS AN AUTO GENERATED LOG FILE BY COMMIT HOOK. DO NOT TOUCH IT! */\n"    \
+    >                       $__custom_git_log_ts_path
+  echo "const GIT_LOGS = {"                                                             \
+    >>                      $__custom_git_log_ts_path
+  git log --pretty=format:"  '%ad': '%s'," --date=format:"%Y-%m-%d %H:%M:%S"            \
+    >>                      $__custom_git_log_ts_path
+  echo "\n};"                                                                           \
+    >>                      $__custom_git_log_ts_path
+  yarn tsc --removeComments $__custom_git_log_ts_path
+  git add                   $__custom_git_log_ts_path   $__custom_git_log_js_path
+  git commit --amend -C HEAD --no-verify
+fi

@@ -1,4 +1,4 @@
-const fetchedCourses: FetchedCourses = {
+const FETCHED_COURSES: FetchedCourses = {
   'COMP 001': {
     title: 'Academic and Professional Development I',
     description: 'A compulsory one-year course forstudents of the Department of Computer Science and Engineering. This course is designed to provide academic advising to students and to develop their communication skills in interacting with technical and non-technical audiences. Graded P or F.'
