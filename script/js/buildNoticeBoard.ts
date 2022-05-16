@@ -40,7 +40,7 @@ const buildDailyLogElements = ({ date, logs }: DailyGitLog) => (
 const buildNoticeBoard = (__GIT_LOGS: Record<string, string>) => (
   /* html */`
   <div class="notice-wrapper">
-    <h3 class="common-title">
+    <h3 class="common-title" id="Page Updates">
       Page Updates
     </h3>
     <div class="notice-board">

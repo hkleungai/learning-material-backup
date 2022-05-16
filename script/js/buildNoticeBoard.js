@@ -28,4 +28,4 @@ var buildDailyLogElements = function (_a) {
     /* html */ "\n  <div class=\"daily-notice\">\n    <div class=\"date\">\n      ".concat(date, "\n    </div>\n    <div class=\"daily-log-list\">\n      ").concat(logs.map(buildLog).join('\n'), "\n    </div>\n  </div>\n  "));
 };
 var buildNoticeBoard = function (__GIT_LOGS) { return (
-/* html */ "\n  <div class=\"notice-wrapper\">\n    <h3 class=\"common-title\">\n      Page Updates\n    </h3>\n    <div class=\"notice-board\">\n      ".concat(buildDailyLogs(__GIT_LOGS).map(buildDailyLogElements).join('\n'), "\n    </div>\n  </div>\n  ")); };
+/* html */ "\n  <div class=\"notice-wrapper\">\n    <h3 class=\"common-title\" id=\"Page Updates\">\n      Page Updates\n    </h3>\n    <div class=\"notice-board\">\n      ".concat(buildDailyLogs(__GIT_LOGS).map(buildDailyLogElements).join('\n'), "\n    </div>\n  </div>\n  ")); };
