@@ -6,12 +6,11 @@ div.loading-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: fixed;
   height: 100vh;
   width: 100vw;
-  -webkit-animation: hide-loading-icon 2s linear;
-  animation: hide-loading-icon 2s linear;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
+  -webkit-animation: hide-loading-icon 2s linear forwards;
+  animation: hide-loading-icon 2s linear forwards;
 }
 @keyframes hide-loading-icon {
   0% { opacity: 1; }
@@ -65,10 +64,8 @@ div.main {
   padding: 0 14px;
   line-height: 1.5;
   display: flex;
-  -webkit-animation: show-main 3s linear;
-  animation: show-main 3s linear;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
+  -webkit-animation: show-main 3s linear forwards;
+  animation: show-main 3s linear forwards;
 }
 @keyframes show-main {
   0% { max-height: 0; opacity: 0; }
@@ -117,6 +114,7 @@ div.main div.notice-board div.daily-notice div.date {
   font-style: italic;
   width: 15%;
   white-space: normal;
+  word-wrap: break-word;
 }
 div.main div.notice-board div.daily-notice div.daily-log-list {
   width: calc(85% - 24px);

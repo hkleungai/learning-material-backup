@@ -3,6 +3,7 @@ const buildDailyLogs = (__GIT_LOGS: GitLogs): DailyGitLog[] => {
   const dailyLogObject = logEntries.reduce<DailyGitLogEntries>((acc, [key, rawLog]) => {
     const dateString = key.split(' ')[0];
     const log = rawLog.split(/\s+/).slice(1).join(' ');
+    // An unfortunatate trick for making sentence-case string
     const sentenceCasedLog = log[0].toUpperCase() + log.slice(1);
     if (acc[dateString]) {
       acc[dateString].push(sentenceCasedLog);

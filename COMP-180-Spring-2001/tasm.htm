@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0048)http://www.acs.ucf.edu/manuals/lan/assemble.html -->
+<HTML><HEAD><TITLE>PC LAN New Users Guide</TITLE>
+<META content="text/html; charset=windows-1252" http-equiv=Content-Type><!-- OWNER_NAME="Brad Mundt" --><!-- OWNER_INFO="University of Central Florida, Orlando, Florida 32816" --><LINK 
+href="mailto:web@www.ir.ucf.edu" rev=made><!BASE Href="HTTP://www.ir.ucf.edu/acs/resources/manuals/lan/">
+<META content="MSHTML 5.00.2314.1000" name=GENERATOR></HEAD>
+<BODY aLink=#daa520 bgColor=#ffffff link=#2f4f4f text=#000000 vLink=#000000>
+<CENTER>
+<H1>BORLAND TURBO ASSEMBLER v3.1 &amp; TURBO LINK v5.1</H1></CENTER>
+<H3>General Information</H3>Borland Turbo Assembler v3.1 is a multi-pass 
+assembler. It has features such as forward referencing, MASM compatibility, and 
+an <I>Ideal</I> mode. Turbo Assembler (<B><TT>tasm</TT></B>) is a command-line 
+assembler that produces object files (<B><TT>.obj</TT></B>) from your assembly 
+source code (<B><TT>.asm</TT></B>). Then, you use the Borland Turbo Link v5.1 
+to link the object files into an executable file (<B><TT>.exe</TT></B></TT>). This 
+version of tasm can generate machine instructions for 8086, 80186, 80286, and 
+80386 processors as well as 8087, 80287, and 80387 numeric 
+coprocessors.<BR><BR>Turbo Assembler may also be used to interface with other 
+languages. Programs written in Borland C, Turbo C++, and Turbo Pascal can be 
+combined with programs written in Turbo Assembler. For complete details on this 
+procedure, please see the User's Manual.<BR><BR>
+<H3>Getting Started</H3>
+<P>Before you can assemble your programs you must first write them using a text 
+editor. On the PC, this includes programs such as DOS Edit (<B><TT>edit</TT></B>), wordpad, or UEdit. You can use 
+either of these programs to create and edit your source files (with an 
+<B><TT>.asm</TT></B> extension).<BR><BR>Once your program has been written and 
+saved as a text file, you are ready to assemble and link it. Following is a 
+brief desciption of how to assemble and link a program. A more thorough 
+explanation of the assembler and linker will follow.<BR><BR>To call the Turbo Assembler, you may first invoke NTVDM (using the "cmd.exe"). 
+Then, simply type:<BR><BR><B><TT>l:\bc31\bin\tasm filename</TT></B><BR><BR>where 
+<B><TT>filename</TT></B> is the name of your source file to be assembled (assume the current directory). Turbo 
+Assembler will then ask which options you wish. Pressing &lt;ENTER&gt; will 
+accept the default filename. If no errors were produced then you can call Turbo 
+Link by typing the following:<BR><BR><B><TT>l:\bc31\bin\tlink filename</TT></B><BR><BR>where 
+<B><TT>filename</TT></B> is the name of your source file. You can then choose 
+which files to generate and what names they will use. If no linker errors were 
+found, you will be able to run the executable file.<BR><BR></P>
+<H3>Using Turbo Assembler</H3>To get a list of all the command line options, 
+simply enter the command <B><TT>tasm</TT></B> with no filename specified. With 
+the command line options, you can specify the filename of multiple programs to 
+be assembled as well as various options. To assemble more than one file, 
+separate the filenames with a semicolon. Each file can have its own options 
+specified before its respective filename. You can also use the DOS wildcard 
+characters (* and ?) to specify a list of files to assemble.<BR><BR>The comma 
+can be used to accept the default filenames from the command line. After the 
+filename, <B><TT>tasm</TT></B> expects the name to use for the 
+<B><TT>.obj</TT></B>, the <B><TT>.lst</TT></B>, and then the 
+<B><TT>.xrf</TT></B> files. Specifying a filename of <B><TT>nul</TT></B> will 
+tell <B><TT>tasm</TT></B> not to generate that specific file. For example, the 
+command:<BR><BR><B><TT>l:\bc31\bin\tasm reverse,,prog1,nul</TT></B><BR><BR>will assemble the 
+file <B><TT>reverse.asm</TT></B> and produce the object file 
+<B><TT>reverse.obj</TT></B>, the listing file <B><TT>prog1.lst</TT></B>, and 
+will not produce a cross reference file.<BR><BR>For a complete list of the 
+command line options and their meanings, please see the Borland Turbo Assembler 
+User's Guide.<BR><BR>
+<H4>Ideal Mode</H4>Turbo Assembler offers a directive called IDEAL mode. This 
+mode is useful for beginning assembly programmers because it is cleaner and 
+easier to understand. It also assembles faster than MASM mode. Ideal mode offers 
+a new syntax for expressions and instruction operands. It is, however, similar 
+to MASM syntax so as not to be too confusing.<BR><BR>
+<H3>Using Turbo Link</H3>Once the program has been assembled, you will need to 
+link the various <B><TT>.obj</TT></B> files into an executable file. To do this, 
+you will need to use Turbo Link. To link your file, simply 
+type:<BR><BR><B><TT>l:\bc31\bin\tlink <I>filename</I></TT></B><BR><BR>where 
+<B><TT><I>filename</I></TT></B> is the name of your <B><TT>.obj 
+file</TT></B>.<BR><BR>Running <B><TT>tlink</TT></B> without specifying any 
+options will display a help screen. Any options should be specified before the 
+filename. After the filename, you can specify all other <B><TT>.obj</TT></B> 
+files to be linked together. After the list of <B><TT>.obj</TT></B> files, you 
+can specify the name of the <B><TT>.exe</TT></B>, the name of the 
+<B><TT>.map</TT></B>, and a list of libraries to be linked into the program. 
+Each option should be separated by a comma. For example, the 
+command:<BR><BR><B><TT>l:\bc31\bin\tlink /c reverse prog2,,,lib\bri</TT></B><BR><BR>will 
+link the files <B><TT>reverse.obj</TT></B> and <B><TT>prog2.obj</TT></B> into a 
+file <B><TT>reverse.obj</TT></B> and create a map file 
+<B><TT>reverse.map</TT></B> and using the supporting library 
+<B><TT>lib\bri.lib</TT></B>. The <B><TT>/c</TT></B> option specifies that the 
+<B><TT>.obj</TT></B> file is case sensitive.<BR><BR>
+<H3>Helpful Hints</H3>· Beginner programmers might find Ideal mode easier and 
+more straight forward for writing their assembly programs. It is closer to 
+programming in a higher level language than MASM mode.<BR><BR>· The DOS 
+operating system does not protect itself. Therefore, it is very possible to 
+write programs that accidentally or intentionally overwrite the operating 
+system, which may freeze or lock up your computer (i.e., your computer does not 
+respond to the keyboard). When this happens, you will need to reboot the 
+computer.<BR><BR>
+<H3>Examples</H3>The following are example Turbo Assembler programs.<BR><BR>
+<H4>Example 1</H4><PRE><TT>
+   .MODEL small
+   .STACK 100h
+   .DATA
+Message DB ‘Hello, there!’,13,10,’$’
+   .CODE
+   mov  ax,@data
+   mov  ds,ax		     ;set DS to point to the data segment
+   mov  ah,9			   ;DOS print string function
+   mov  dx,OFFSET Message        ;point to “Hello, there!”
+   int  21h				   ;display “Hello, there!”
+   mov  ah,4ch			   ;DOS terminate program function
+   int  21h				   ;terminate the program
+   END
+</TT></PRE>
+<H4>Example 2</H4><PRE><TT>
+   .MODEL  small
+   .STACK  100h
+   .DATA
+TimePrompt DB 'Is it after 12 noon (Y/N):$'
+MorningMessage  LABEL  BYTE
+   DB  13,10,'Good morning!',13,10,'$'
+AfternoonMessage  LABEL  BYTE
+   DB  13,10,'Good afternoon!',13,10,'$'
+   .CODE
+   mov  ax,@data
+   mov  ds,ax                      ;set DS to point to data segment
+   mov  dx,OFFSET TimePrompt       ;point to the time prompt
+   mov  ah,9                       ;DOS print string function #
+   int  21h                        ;display the time prompt
+   mov  ah,1                       ;DOS get character function #
+   int  21h                        ;get a single-character response
+   cmp  al,'y'                     ;typed lowercase y for after noon?
+   jz   IsAfternoon                ;yes, it's after noon
+   cmp  al,'Y'                     ;typed uppercase Y for after noon?
+   jnz  IsMorning                  ;no, it's before noon
+IsAfternoon:
+   mov  dx,OFFSET AfternoonMessage       ;point to the afternoon
+                                         ;greeting
+   jmp  DisplayGreeting
+IsMorning:
+   mov  dx,OFFSET MorningMessage         ;point to the before noon
+                                         ;greeting
+DisplayGreeting:
+   mov  ah,9                       ;DOS print string function #
+   int  21h                        ;display the appropriate greeting
+   mov  ah,4ch                     ;DOS terminate program function #
+   int  21h                        ;terminate the program
+   END
+</TT></PRE>
+<H3>Common Problems &amp; Solutions</H3>Q. When I try to assemble my program, I 
+get an error message that it can’t find my file. What’s wrong?<BR>A. If you 
+specify no filename extension when you are assembling your program, by default 
+Turbo Assembler will look for that filename with a <B><TT>.asm</TT></B> 
+extension. If your program has no extension or a different one, change it to 
+<B><TT>.asm</TT></B> and try again.<BR><BR>
+<H3>References/Manuals</H3><U>Borland Turbo Assembler v3.1 User’s 
+Guide</U><BR><U>Borland Turbo Link v5.1 User’s 
+Guide</U><BR><BR><BR><BR><BR><BR>
+<CENTER>
+<TABLE frame=void rules=none width="99%">
+  <TBODY>
+  <TR>
+    <TD align=left><A 
+      href="http://www.acs.ucf.edu/manuals/lan/quattro.html"></A></TD>
+    <TD align=middle></TD>
+    <TD align=right><A 
+      href="http://www.acs.ucf.edu/manuals/lan/turboc.html"></A></TD></TR></TBODY></TABLE></CENTER>
+<CENTER><A href="http://www.ucf.edu/"></A><BR>&nbsp; </CENTER></B></BODY></HTML>

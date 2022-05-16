@@ -1,0 +1,123 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>A Quick Tour to CS UNIX Environment</title>
+</head>
+
+<body>
+
+<h1>A Quick Tour to CS UNIX Environment at HKUST</h1>
+
+<h2>CS LAB UNIX Hosts</h2>
+<p>You can connect to a CS UNIX host by telnet to one of the <code>csl2su</code>#<code>.cs.ust.hk</code>
+where # is from 1 to 41. </p>
+<h3>Telnet </h3>
+<p>Basically, you can use any telnet program to establish the connection. But
+the cssystem recommends using SSH Secure Shell. All the PCs in the CS labs have
+SSH Secure Shell installed. To telnet to, for example <code>csl2su5.cs.ust.hk</code>
+using SSH Secure Shell, follow these steps:
+<p><img border="0" src="unixto1.jpg" width="391" height="91">
+<ol>
+  <li>Run SSH Secure Shell.</li>
+  <li>Left-click on the &quot;connect&quot; button (circled in the above figure)
+    on the toolbar.</li>
+  <li>Enter <code>csl2su5.cs.ust.hk</code> as the host name, and your unix ID as the user name.</li>
+  <li>Enter your password when the program asks for it.</li>
+  <li>You should log in sufficiently.</li>
+  <li>To logout from UNIX,&nbsp;enter <code>logout</code>. You also need to click on the &quot;disconnect&quot;
+    button, which is to the right of &quot;connect&quot;.</li>
+</ol>
+
+<p>Note: Microsoft Windows also comes with a (insecure) telnet program. You can enter&nbsp;<code>telnet csl2su5.cs.ust.hk</code> in
+the DOS prompt to establish a telnet session.</p>
+
+<h3>File Transfer</h3>
+
+<p>To transfer a file to your CS UNIX account, ftp to one of&nbsp;CS UNIX hosts
+mentioned in previous section. Similar to telnet, you can use any ftp program to establish the connection. But
+the cssystem recommends using SSH Secure File Transfer. All the PCs in the CS labs have
+SSH Secure File Transfer&nbsp; installed. To ftp to, for example <code>csl2su5.cs.ust.hk</code>
+using SSH Secure File Transfer, follow these steps:</p>
+
+<p><img border="0" src="unixto2.gif" width="341" height="78"></p>
+
+<ol>
+  <li>Left-click on the &quot;Connect&quot; button (circled in the above figure)
+    on the toolbar.</li>
+  <li>Enter <code>csl2su5.cs.ust.hk</code> as the host name, and your unix ID as the user name.</li>
+  <li>Enter your password when the program asks for it.</li>
+  <li>You should log in sufficiently.</li>
+</ol>
+
+<p>You can rename files, delete files, create/remove directories and change
+files access permissions (right-click and choose &quot;properties&quot;).</p>
+
+<p>Note: Microsoft Windows also comes with a (insecure) ftp program. You can enter&nbsp;<code>ftp
+csl2su5.cs.ust.hk</code> in
+the DOS prompt to establish a ftp session. This program requires knowledge of
+ftp commands.</p>
+
+<h2>Some Basic UNIX Commands</h2>
+<h3>Directory</h3>
+<p>In DOS, you can list the files in a directory by using <code>dir</code>. The corresponding UNIX command is <code>ls</code>. 
+To list in detail the files in a directory, enter <code>ls -l</code>. </p>
+<h3>Making and Removing Directory</h3>
+<p>To make an empty directory, use the command <code>mkdir <i>dir</i></code>. The UNIX command
+<code>rm</code> can only be used to remove a file. To remove a directory, you must
+use <code>rmdir</code>.</p>
+<h3>Editing a Text File</h3>
+<p>There are several commands to edit a text file. The most user-friendly one
+is&nbsp;<code>pico</code>. It is easy to use.</p>
+<p> 
+Other popular editors are <code>emacs</code> and <code>vi</code>. They are more powerful 
+but harder to use.</p>
+<h3>Showing a Text File</h3>
+<p>There are several commands to display the content of a text file:</p>
+<table border="0" width="100%">
+  <tr>
+    <td ><code>cat</code></td>
+    <td >Display the whole content without stop.</td>
+  </tr>
+  <tr>
+    <td ><code>more</code></td>
+    <td >Display the content page by page.&nbsp;</td>
+  </tr>
+  <tr>
+    <td ><code>less</code></td>
+    <td >Similar to <code>more</code>, but has more functions (e.g. can move backward).</td>
+  </tr>
+</table>
+<p>Example:&nbsp;<code>more libsort.cpp</code></p>
+<h3>Man Page</h3>
+Almost all UNIX commands come with a manual (a.k.a man page). To show the manual of a command, enter <code>man <i>cmd</i></code>.
+For example, to show the manual of <code>ls</code>, enter <code>man ls</code>.
+<p>A manual is usually longer than one page. So people generally redirect the
+output of a man page to <code>more</code> (or <code>less</code>) by pipelining: <code>man ls | more</code>.
+</p>
+<p>If you simply want to redirect the output of a man page to a text file, enter <code>man ls > ls.txt</code>.
+</p> 
+<p>This redirection technique can be applied to store the output of a program
+into a text file.</p>
+<h2>C++ Compiler</h2>
+<p>The c++ compiler in UNIX is called <code>g++</code>. To compile one source
+code file, for instance called <code>hello.cpp</code>, enter <code>g++ hello.cpp</code>.
+If there is no message then the compilation is success. (In UNIX environment, no
+message usually means okay.) The executable binary is called <code>a.out</code>.
+You can rename this file by the command <code>mv</code>. You can also specify the executable filename during
+the compilation. Suppose you want to name it as &quot;hello&quot;. Then enter <code>g++ hello.cpp -o hello</code>.</p>
+<h2>References</h2>
+<p>The SSH programs can be downloaded from cssystem homepage.</p>
+
+<hr width="100%">
+<br>
+<i>Ken Lee</i> <br>
+<i> <a
+href="mailto:cswkl@cs.ust.hk">cswkl@cs.ust.hk</a></i> <br>
+<i>Last update: 2002.10.08</i>
+</body>
+
+</html>

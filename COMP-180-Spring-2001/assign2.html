@@ -1,0 +1,247 @@
+<html>
+
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#78021C" VLINK="#885555" ALINK="#D5BC81">
+<center>
+<H3>
+COMP 180 Computer Organization - all lecture sessions
+</H3>
+<H4>
+2001 Spring Semester
+<br>
+Programming Assignment Two
+<br>
+Due: May 11, 2001, 5pm
+</H4>
+</center>
+
+<hr>
+[<a href=#problem>Problem</a> | <a href=#sample>Sample run</a> | <a href=#things>Things to know</a> | <a href=#prereq>Prerequisites</a> | <a href=#ref>References</a> | <a href=#grading>Grading</a> | <a href=#submit>Submission</a> | <a href=#ai>Academic integrity</a> ]
+<hr>
+<a name=#handout>
+[<a href=http://standby.uhome.net/ust/comp180/cs180_asm_ref.pdf>Handout of
+80x86 Assemebly Language Programming</a>] (takes several minutes...)
+<hr>
+[<a href="day2date.asm">Lab 09</a> | <a href="sound.asm">Lab 10</a>]
+<hr>
+<a name=#problem>
+<H4>Problem</H4>
+You are to write a 80x86 assembly language program to
+implement a <b>PC Piano</b>.
+Your program should prompt the user to enter the <i>number</i> (integer)
+of notes to be played. Then it gets the <i>duration in secs</i> (integer)
+and <i>frequency</i> (letter) of each note typed in by the user.
+
+Please use the following letter-to-frequency mapping:
+
+<center>
+<TABLE BORDER=1 CELLPADDING=5>
+<tr><td align=center>
+<strong> Letter</strong></td>
+<td align=center> <strong>Frequency</strong> </td>
+</tr>
+<tr><td align=center>
+<strong>D</strong></td>
+<td align=center>256 Hz</td>
+</tr>
+<tr><td align=center><strong>R</strong></td>
+<td align=center>287 Hz</td>
+<tr><td align=center><strong>M</strong></td>
+<td align=center>322 Hz</td>
+<tr><td align=center><strong>F</strong></td>
+<td align=center>341 Hz</td>
+<tr><td align=center><strong>S</strong></td>
+<td align=center>383 Hz</td>
+<tr><td align=center><strong>L</strong></td>
+<td align=center>430 Hz</td>
+<tr><td align=center><strong>T</strong></td>
+<td align=center>483 Hz</td>
+<tr><td align=center><strong>d</strong></td>
+<td align=center>512 Hz</td>
+</table>
+</center>
+
+<p>
+After reading all inputs, the program <i>concurrently</i>
+
+<ol>
+<li>prints out the system (or real-time) clock and
+<li>plays the musical notes.
+</ol>
+The screen should not scroll up while the program is in execution.
+
+<p>
+<i>Note</i>: Since concurrency is a requirement in this assignment, you CANNOT
+use delay loop to implement the duration. You must know how
+to interrupt the system clock (<a href=#sysclock>lab assignment</a>).
+
+<a name=sample>
+<H4>
+Sample run and requirement
+</H4>
+In this assignment, assume all inputs are valid: the
+user (or the grader) <i>must</i> input non-negative numbers for number of notes
+to be played, and for their duration. Also, your program can
+assume either 'D', 'R', 'M', 'F', 'S', 'L', 'T', or 'd'
+is entered as note frequencies. Therefore, it saves you a lot
+of checking. You need not make your program's input validation
+procedure a bullet-proof one.
+<p>
+
+When <i>hwk2</i> is run, it prints out "Input number of notes = ".
+In this example, the user types "3" and press the [Enter] key.
+Then, he types in 3 notes with their durations and frequencies
+(in letter). After the last input, the music starts immediately,
+and the system clock is kept updating.
+<p>
+C:\> hwk2 <br>
+Input number of notes = 3 <br>
+3 <br>
+D <br>
+2 <br>
+R <br>
+1 <br>
+M <br>
+<b>14:59:58</b>
+<p>
+
+
+<i>Explanation of output:</i>
+<ol>
+<li>During 14:59:58--15:00:01, a sound of frequency 256 Hz (`Do') is played. Note that
+if <i>hwk2</i> starts executing in the <i>middle</i> of 14:59:58 and 14:59:59, it is
+also <u>fine</u> with us (since it leads to a simpler implementation).
+<li>Then, during 15:00:01--15:00:03, 287 Hz (`Re') is played. Finally,
+322 Hz (`Me') is played during 15:00:03--15:00:04.
+<li>At 15:00:04 the program terminates.
+<li>During 14:59:58--15:00:04, updating the system
+clock and playing the notes should be done concurrently.
+<li>Also, the screen must not scroll up after each clock update.
+</ol>
+
+Alternatively, you can be a composer, by preparing the following
+music score (do you like Henry Macinni, by the way?),
+stored as a file (named "notes.txt", for instance):
+
+<hr>
+3 <br>
+3 <br>
+D <br>
+2 <br>
+R <br>
+1 <br>
+M <br>
+<hr>
+
+Using the <i>same</i> program without modification, we can redirect
+the keyboard input to file, without having the user type in all
+the notes tediously every time the same piece of music is played:
+
+<p>
+C:\> hwk2 < notes.txt   <br>
+<b>14:59:58</b>
+<p>
+
+The <i>same</i> should be heard. You are <i>not</i> required to
+disable the input prompt "Input number of notes = " if your <i>hwk2</i>
+is played with a piece of music score.
+
+<a name=things>
+<h4>Things to know for this homework</h4>
+You should know the following <b>before</b> starting to code the program:
+
+<ol>
+<li> <i>ASCII-to-binary</i> conversion for user-supplied parameters.
+<li> Turning on/off the PC speaker by using <i>8255 PPI and 8253 timer</i>.
+<li> <i>(Packed) BCD-to-ASCII</i> conversion for displaying the system time.
+<li> <i>System clock interrupt</i> using INT 1AH.
+<li> <i>Print string/buffered keyboard input</i> using INT 21H.
+</ol>
+
+<a name=prereq>
+<h4>Prerequisites</h4>
+Granted, you have to <b>implement</b> the following lab exercises.
+Reading and understanding the labs without actual implementation equal to
+<i>nothing</i>.
+The lab exercises will guide you, step-by-step, to the end of successful
+implementation of the PC Piano. All lab exercises are self-explanatory.
+We publish them once and for all, for students who want to finish the
+assignment quick:
+
+<p>
+<a href="helloworld.pdf">Lab 08</a>:
+[<a href=http://www.cs.ust.hk/~cktang/cs180/tasm.htm>Tasm and Tlink</a>]
+8086 architecture and "hello world" program, use of debugger <br>
+<a href="day2date.pdf">Lab 09</a>:
+[<a href="d_ske.pdf">program skeleton</a> | <a href="day2date.asm">full program</a>]
+"day2date" convertor <br>
+<a href="82558253.pdf">Lab 10</a>:
+[<a href="sound.asm">full program</a>]
+Generating sound using 8255 PPI and 8253 timer
+<br>
+<a name="sysclock">
+<a href="systemclock.pdf">Lab 11</a>:
+[<a href="clock.asm">full program</a>]
+System clock interrupt <br>
+<a href="address.pdf">Lab 12</a>:
+[<a href="clock.asm">solutions</a>]
+Addressing mode <br>
+
+<p>
+We purposely do not provide many program skeletons in a cut-and-paste
+ready form. We encourage you to type in the program skeleton and your
+modification yourself, using
+an editor such as notepad. Then, assemble and link your <b>.asm</b> and
+<b>.obj</b> files to produce an <b>.exe</b> file.
+
+<a name=ref>
+<h4>References</h4>
+Reference on 80x86 programming in the textbook is sparse.
+<p>
+We shall put several reference books on 80x86 assembly language in the
+Library (reserve section). Specifically, you should use turbo assembler
+(TASM) and turbo linker (TLINK). The TAs will use TASM
+and TLINK to assemble and link your program, respectively.
+<p>
+<i>We shall also put a 25-page handout, a concise reference
+manual for 80x86 assembly language, in the reserve section of
+the Library. All the instructions there are more than sufficient
+to implement this assignment. Four copies, one for each session,
+will be reserved in Library, view it on-line <a href=#handout>here</a></i>
+
+<a name=grading>
+<h4>Grading </h4>
+<u>Correctness:  70%</u> <br>
+<ol>
+<li> Program can be assembled and linked: 10%
+<li> Test case 1 (<a href="test1.txt">known</a>) : 15%
+<li> Test case 2 (<a href="test2.txt">known</a>) : 15%
+<li> Test case 3 (unkonwn): 10%
+<li> Test case 4 (unkonwn): 10%
+<li> Test case 5 (unkonwn): 10%
+</ol>
+<u>Documentation : 20% </u>
+<ol>
+<li> Program contains your name, student id, e-mail, department, lecture and lab session ?: 5%
+<li> Program reasonably commented? : 15%
+</ol>
+<u>Programming style (procedural or modular approach?): 10% </u><br>
+
+
+<a name=submit>
+<h4>Submission</h4>
+Your program will be collected automatically using our automatic collection system (ACS).  For easy identification, your name, student number, e-mail address, department, lecture and lab sections should be written clearly as comments at the very beginning of your program.  A well-documented program should be kept in a file named as <b>~<i>yourlogin</i>/comp180/hwk2/hwk2.asm</i></b> on
+the Computer Science Department Unix server by <b>5pm</b> on <b>May 11, 2001</b>. If you want to include your music scores, be sure that the filenames have the
+extension <b>.txt</b>. Please refer to the detailed instructions <a href=http://www.cs.ust.hk/~dyyeung/course/comp180/hwk/acs.html>here</a> if you are not familiar with using the ACS for homework submission.  Contact your TA or instructor well before the due date if you encounter any problem.
+<p>
+Late submission is NOT allowed.
+
+<a name=ai>
+<h4>Academic integrity</h4>
+Cheating by copying from others, or providing your program to
+others, are strictly forbidden. Check out the <a href=cheat> departmental
+procedures for handling cheating</a>.
+
+<hr>
+<i>Last update
+Sun Mar 18 12:36:47 HKT 2001</i>
+</html>

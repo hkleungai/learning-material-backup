@@ -1,0 +1,41 @@
+<cite>This document is a supplement of the tutorial slides.</cite>
+<p>
+
+<b>
+
+Reasons of Using Templates&nbsp;</b></p>
+<p>
+
+Software developers find that many existing codes have to be re-implemented merely because they 
+were implemented for a particular data type. Take the function <code>swap(...)</code> as an example. 
+Basically, it is to swap the value of two variables. In practice, however, a swap function for 
+<code>int</code>, implemented in a strong-type programming language, cannot be re-used to correctly swap two 
+<code>double</code> variables. The same problem appears for data structure. A linked list basically is a list of 
+linked item; but at the programming level, the type of items to be linked does matter.</p>
+<p>
+
+One convenient solution is to duplicate the original code and modify the parameter type 
+(e.g. replace <code>int</code> to <code>double</code>). This works. But it takes time to make these tedious changes. 
+It is also easy to make mistakes. Later, if the implementation needs to be modified 
+(e.g. fixing a bug), then you have to modify <i>n</i> versions, where <i>n</i> is the number of "clones". 
+
+Another approach is to have a <code>typedef</code> to specify the data type. The disadvantages of 
+this approach are: 1) you need to edit the header file for each type change. 2) it is 
+not possible to have one <code>typedef</code> to represent two different types simultaneously.</p>
+<p>
+
+C++ Template is a better solution for the above problems. The swap function can now be 
+implemented independent of a specific data type. This is same as for <code>pair</code>. The implementation 
+is ready for any type, and modification is localized.</p>
+<p>
+
+<b>
+
+
+Standard Template Library (STL)</b></p>
+<p>
+
+STL is a standard set of common data structures and algorithms written in templates. 
+We introduce how to use vector because it is easy to understand and is sometimes more convenient to use than an array.</p>
+<p><b>Reference</b></p>
+<p>Stephen Prata, <i>C++ Primer Plus</i>, Waite Group Press.</p>

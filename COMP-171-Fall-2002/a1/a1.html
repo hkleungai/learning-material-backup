@@ -1,0 +1,209 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0039)http://www.cs.ust.hk/~dekai/171/a1.html -->
+<HTML><HEAD><TITLE>COMP 171 - Fall 2002</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<META content="MSHTML 5.50.4616.200" name=GENERATOR></HEAD>
+<BODY>
+<CENTER><B>COMP 171 Data Structures and Algorithms</B> <BR><B>2002 Fall Term, 
+MWF 12:00-12:50, Rm 2503</B> <BR><B>Dr. Dekai WU, Rm 3539, 2358-6989, 
+dekai@cs.ust.hk</B></CENTER>
+<TABLE cols=1 width="100%" border=0>
+  <TBODY>
+  <TR bgColor=#000000>
+    <TD><B><FONT color=#ffffff>Programming Assignment 
+  1</FONT></B></TD></TR></TBODY></TABLE>
+<P>In this programming assignment you will implement a number of different 
+sorting algorithms, and experimentally compare their performance. You will 
+perform timing experiments to measure the run time. In addition, you will record 
+the number of comparison operations and data movement operations required by 
+each algorithm.</P>
+<P>You will have to hand in a physical printout of each of your programs along 
+with running time statistics. We will also electronically check your 
+programs.</P>
+<P>As usual, please remember to submit your work before the deadline. If you 
+have any questions about this assignment, please send emails to <A 
+href="mailto:shenyh@ust.hk">shenyh@ust.hk</A>.</P>
+<H3>DUE DATE</H3>
+<P>The deadline of the assignment is 12:00 noon, Wed 30 Oct 2002. Late 
+assignments will not be accepted, since ACS will not collect them.</P>
+<H3>GRADING</H3>
+<P>Each function written should be adequately documented so that a reader will 
+be able to understand what is being done. Your programs will be run on a 
+standard test data set.</P>
+<P>This assignment will account for 80 points in your final score. The general 
+grading criteria for a program is as follows:</P>
+<UL>
+  <LI>80% - Correctness 
+  <LI>10% - Programming style 
+  <LI>10% - Documentation </LI></UL>
+<P>When your program does not run correctly on the test data, then your program 
+will be graded by visual examination and the maximum score you can then get for 
+Correctness is 30%.</P>
+<H3>ACS SUBMISSION</H3>To avoid receiving zero credit for this assignment, 
+please pay careful attention to the following instructions. We will 
+electronically copy the programs from your account to ours for testing. To 
+ensure that the copying routine performs properly you must do the following. 
+<UL>
+  <LI>You must use your <STRONG>Computer Science department UNIX 
+  account</STRONG> to submit your homework (do not use other campus account from 
+  ITSC or other departments). If for some reason this is not possible please 
+  come see one of the instructors. 
+  <LI>You should have already activated this account for Assignment 0. If you 
+  have not, you can do it in the CSSystem home page (<A 
+  href="https://cssu3.cs.ust.hk:8443/pass.html">https://cssu3.cs.ust.hk:8443/pass.html</A>). 
+
+  <LI>Your program must compile properly on your CS department account, using 
+  the <STRONG>g++ compiler</STRONG>. Other C++ compilers or computers cannot be 
+  used for your final submission. 
+  <LI>Create your homework directory "<STRONG>~/comp171/a1/</STRONG>" under your 
+  CS department UNIX account. 
+  <LI>Put the <STRONG>source code</STRONG> for your functions in a single file 
+  "<STRONG>sortlib.cpp</STRONG>" under your homework directory before the 
+  deadline. Make sure you name your file exactly as specified. 
+  <LI>Make sure that there is <STRONG>no main() function</STRONG> in your 
+  <TT>sortlib.cpp</TT>. As its name implies, <TT>sortlib.cpp</TT> is intended to 
+  be used as a library of functions that some other main program can call. 
+  <LI>Make sure there are <STRONG>no other files</STRONG> in this directory. You 
+  are encouraged to compile and run your program to check if it gives the right 
+  result, but use another directory for your implementation and testing. 
+</LI></UL>
+<H3>IMPLEMENTATION (60% of Correctness)</H3>You are required to program four 
+sorting functions, each with the same arguments: 
+<OL>
+  <LI><TT>qsort(int keys[], int n)</TT> // quicksort 
+  <LI><TT>hsort(int keys[], int n)</TT> // heapsort 
+  <LI><TT>msort(int keys[], int n)</TT> // mergesort 
+  <LI><TT>rsort(int keys[], int n)</TT> // radix sort </LI></OL>
+<P><TT>keys</TT> is an array of <TT>n</TT> elements containing the input list to 
+be sorted. You may assume that each key is an integer 0 &lt; k &lt; 9999999. 
+(Remember that in C++, an array argument only passes the pointer to the base 
+address of the array, rather than the whole contents of the array.)</P>
+<P>After calling the sort function, the elements in <TT>keys</TT> should be 
+sorted. Note that for quicksort, heapsort, and radix sort, you may sort the list 
+directly in the <TT>keys</TT> array (i.e., perform the sort in place). For 
+mergesort, however, you will need to copy keys to a separate auxiliary 
+array.</P>
+<P>(Although you may want to keep these functions in separate files while 
+implementing and testing, remember to store them all in the same file 
+<TT>sortlib.cpp</TT> before turning in the assignment. Test them again 
+<EM>after</EM> combining into one file, to make sure nothing has been 
+accidentally broken!) Make sure there is <STRONG>no main() function</STRONG> in 
+<TT>sortlib.cpp</TT>!</P>
+<H3>ANALYSIS (40% of Correctness)</H3>You will measure the performance of each 
+sorting algorithm in three ways. 
+<OL>
+  <LI><EM>Run time</EM> --- you will time how long the algorithms take to run, 
+  using the UNIX <TT>time</TT> command. To get accurate measurements, you will 
+  need to call the same routine with the same data 10 or 100 or 1000 times, and 
+  then divide. Here's an example of how to use the <TT>time</TT> command: 
+  <P></P><TT>cssu31:dekai:158&gt; time isortprog</TT><BR><TT>4.260u 0.060s 
+  0:04.33 99.7% 0+105k 0+0io 0pf+0w</TT> 
+  <P></P>
+  <P>The running time of the program is the user time + the system time, which 
+  in this example equals 4.26 + 060 = 4.32 seconds.</P>
+  <LI><EM>Comparisons</EM> --- you will insert code in your functions to 
+  increment a counter every time a comparison is performed between any two 
+  elements of the data. 
+  <LI><EM>Data movements</EM> --- you will insert code in your functions to 
+  increment a counter every time a data element is moved. </LI></OL>
+<P>For each of these criteria, you should obtain measurements for <EM>n</EM> 
+being 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, and 16384. Use the standard C 
+random number generator <TT>rand()</TT> to produce unsorted lists (you will need 
+to <TT>#include &lt;stdlib.h</TT>&gt;). For these experiments we are not 
+interested in seeing the output.</P>
+<P>Record the measurements in tables. Also create <STRONG>three graphs</STRONG>, 
+one for each criterion, plotting the measurements for each type of sort against 
+the input size to compare their performance.</P>
+
+<H3>TEST YOUR ALGORITHMS WITH THE TEST DRIVER</H3>
+
+<p>We will give you the following files to help you with your implementation and analysis:</p>
+<ul>
+<li>
+The files containing the test arrays:
+<A href="array1024.txt"> array1024.txt</A></li>, 
+<A href="array2048.txt">array2048.txt</A>, 
+<A href="array4096.txt">array4096.txt</A>, 
+<A href="array8192.txt">array8192.txt</A>, 
+<A href="array16384.txt">array16384.txt</A>, 
+<A href="array32768.txt">array32768.txt</A>, 
+<A href="array65536.txt">array65536.txt</A>, 
+<A href="array131072.txt">array131072.txt</A>, 
+<A href="array262144.txt">array262144.txt</A>, 
+<A href="array524288.txt">array524288.txt</A>.
+</li>
+<li>The files
+<A href="sortlib.hpp">"sortlib.hpp"</A> and
+<A href="sort.cpp">"sort.cpp"</A>.
+</li>
+</ul>
+
+<h4>The files containing the test arrays</h4>
+<p>We provide you with files containing arrays of different length to do your analysis. The length of an array is always an exponent of 2, ranging from 1024 to 524288. The files have the filename with the
+style "array****.txt" in which "****" represents the length of the array, i. e. the file "array1024.txt" contains an array with the
+length of 1024 and the file "array65536.txt" contains an array with the length of 65536.</p>
+
+ 
+
+<h4>"sortlib.hpp"</h4>
+
+<p>The file "sortlib.hpp" gives the name and parameters of the functions implementing the four required algorithms. You will use <b>exactly</b> the names and parameters for your functions defined in "sortlib.hpp".</p>
+<h4>"sort.cpp"</h4>
+<p>The file "sort.cpp" contains the "main" function you will use to test your sorting algorithms. It uses two arguments:</p>
+<ul>
+  <li>Argument 1: Use argument 1 to select your sorting algorithm. Type 1 for quick sort, 2 for heap sort, 3 for merge sort and 4 for radix sort.</li>
+  <li>Argument 2: The length of the array you want to test with. The length you can select ranges from 1 to 524288. If you want to test your algorithm with a longer length than 524288 you have to create the array yourself. We strongly suggest you select 
+      lengths which are exponents of 2, so that when you select 1024 the test driver will read the array from file "array1024.txt" and when you select a length of 131072, the test driver will read the array from file "array131072.txt", etc. If you select
+      a length which is not an exponent of 2, the test driver will read an array with the length from the file which contains an array of the least length from all files than contain an array longer than the length you select, i. e. if you select a length
+      of 1099, the test driver will read numbers from the file "array2048.txt". </li>
+</ul>
+<p>The "main" function works as follows:</p>
+<ul>
+  <li>Check the two arguments and read in an array with the length you select.</li>
+  <li>Sort the array with the sorting algorithm you select. For an array with a length less than 16384, the test driver will sort the array for 100 times to give you meaningful running time.</li>
+  <li>Check if the array is sorted.</li>
+</ul>
+<h4>How to do the test?</h4>
+<p>Please follow the following steps to go on with the test:</p>
+<ul>
+  <li>Write the code "#include "sortlib.hpp"" in your file "sortlib.cpp".</li>
+  <li>Put the files "sort.cpp", "sortlib.hpp" and "sortlib.cpp" under the same directory.</li>
+  <li>Use the command "g++ sort.cpp sortlib.cpp -o filename" to create the executable output file with the filename designated by you, i. e. for "g++ sort.cpp sortlib.cpp -o sort" you will get the executable file "sort".</li>
+  <li>Use the command "time filename arg1 arg2" to calculate the running time for your algorithm, i. e. if you have the executable file "sort" and you want to use quick sort to sort an array with the length 1024, use the command "time sort 1 1024".</li>
+</ul>
+<h4>Calculate the running time</h4>
+<p>Use the command "time filename arg1 arg2" to calculate the running time of the program <b>T1</b>. Some factors affecting the final running time of your algorithm <b>T</b>:</p>
+<ul>
+  <li>The time <b>T2</b> it takes to read arrays from the files should be deducted from the running time.</li>
+       <ul>
+  <li>1024     0.04s     It takes the test driver 0.04 seconds to read an array with length 1024 from a file.</li>
+  <li>2048     0.06s</li>
+  <li>4096     0.07s</li>
+  <li>8192     0.08s</li>
+  <li>16384   0.09s</li>
+  <li>32768   0.13s</li>
+  <li>65536   0.20s</li>
+  <li>131072 0.34s</li>
+  <li>262144 0.67s</li>
+  <li>524288 1.28s</li>
+</ul>
+  <li>If the array you select has a length less than 16384, the test driver sorts the array for 100 times.</li>
+  <li>The final running time <b>T</b> for your algorithm sorting an array with length <b>L</b>.</li>
+  <ul>
+  <li>If <b>L</b>>16384, then <b>T</b>=<b>T1</b>-<b>T2</b></li>
+  <li>If <b>L</b><16384, then <b>T</b>=(<b>T1</b>-<b>T2</b>)/100</li>
+  
+</ul>
+</ul>
+<H3>RECAP</H3>
+<P>Write the four functions <TT>msort</TT>, <TT>qsort</TT>, <TT>hsort</TT>, and 
+<TT>rsort</TT> and store them as directed in <TT>comp171/a1/sortlib.cpp</TT> in 
+your CS UNIX account. Hand in hard copies of each of the programs along with 
+tables and graphs describing the timing data collected.</P>
+<HR width="100%">
+<BR><I><A href="http://www.cs.ust.hk/~dekai/">Dekai WU</A>, SHEN Yihai</I> <BR><A 
+href="mailto:dekai@cs.ust.hk">dekai@cs.ust.hk</A>, <A 
+href="mailto:shenyh@ust.hk">shenyh@ust.hk</A>
+<BR><I>Last update: 
+2002.10.15</I> </BODY></HTML>
