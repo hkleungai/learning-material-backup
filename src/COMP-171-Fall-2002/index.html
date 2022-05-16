@@ -1,0 +1,575 @@
+<!DOCTYPE html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <title>COMP 171 - Fall 2002</title>
+</head>
+
+<body>
+
+<center>
+<b>COMP 171 Data Structures and Algorithms</b> <br>
+<b>2002 Fall Term, MWF 12:00-12:50, Rm 2503</b> <br>
+<b>Dr. Dekai WU, Rm 3539, 2358-6989, dekai@cs.ust.hk</b></center>
+
+<table border="0" COLS=1 width="100%">
+  <tbody>
+    <tr bgcolor="#000000">
+      <td><b><font
+        color="#FFFFFF">Announcements<blink></blink></font><blink><font
+        color="#FFFF00">&lt;- Important</font></blink></b></td>
+    </tr>
+    <tr>
+      <td><b>Always</b> check <a
+        href="http://www.cs.ust.hk/~dekai/171/">www.cs.ust.hk/~dekai/171</a>
+        for up-to-the-minute announcements.</td>
+    </tr>
+  </tbody>
+</table>
+
+<table border="0" COLS=1 width="100%">
+  <tbody>
+    <tr bgcolor="#000000">
+      <td><b><font color="#FFFFFF">Policies</font></b></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>TEXTBOOK</h3>
+Thomas H. CORMEN, Charles E. LEISERSON, Ronald L. RIVEST, and Clifford STEIN.
+<em>Introduction to Algorithms</em>, Second Edition. MIT Press, 2001.
+
+<h3>TAS</h3>
+WONG Ka Wah (cs_wkw@stu.ust.hk), Ken LEE Wing Kuen (cswkl@ust.hk), SHEN Yihai
+(shenyh@ust.hk)
+
+<h3>OFFICE HOURS</h3>
+You are welcome to knock on the doors of the instructor any time. The TAs'
+office hours are M 14:30-15:30, Rm 4211 for WONG Ka Wah, and Th 12:30-13:30,
+Rm 4208 for Ken LEE Wing Kuen.
+
+<h3>PLAGIARISM</h3>
+All materials submitted for grading must be your own work. You are advised
+against being involved in any form of copying (either copying other people's
+work or <b>allowing others to copy yours</b>). If you are found to be
+involved in an incident of plagiarism, <b>you will receive a failing grade
+for the course and the incident will be reported for appropriate disciplinary
+actions</b>.
+
+<h3>COLLABORATION</h3>
+You are encouraged to collaborate in study groups. However, you must write up
+solutions on your own. <b>You must also acknowledge your collaborators in the
+write-up for each problem, whether or not they are classmates.</b> Other
+cases will be dealt with as plagiarism.
+
+<h3>EXAMINATIONS</h3>
+No reading material is allowed during the examinations. No make-ups will be
+given unless prior approval is granted by the instructor, or you are in
+unfavorable medical condition with physician's documentation on the day of
+the examination. In addition, being absent at the final examination results
+in automatic failure of the course according to university regulations,
+unless prior approval is obtained from the department head.
+
+<p>There will be two midterms and one final exam.&nbsp; Each exam is worth
+250 points. </p>
+
+<h3>HOMEWORK</h3>
+All programming assignments must be submitted at the <b>beginning</b> of
+lecture on the due date. Programming assignments must be in <b>C++</b> on
+<b>Unix</b> and will be collected electronically under an arrangement to be
+announced later. Unless prior approval is granted by the instructor, <b>late
+homeworks will be penalized 1 point per minute</b> during lecture (after
+lecture ends there is no guarantee that you can deliver the homework). Sorry,
+in the interest of fairness, exceptions cannot be made.
+
+<p>Written assignments are not graded. Many exam questions will be similar to
+written assignment questions, so it is to your own benefit to do them.</p>
+
+<p>Programming assignments will account for a total of 250 points.</p>
+
+<h3>GRADE GUARANTEES</h3>
+The total points you can achieve in the course is 1000.&nbsp; The course will
+be graded on a curve, but subject to the following guarantees: <br>
+&nbsp; 
+
+<center>
+
+<table>
+  <tbody>
+    <tr>
+      <td>If you achieve</td>
+      <td>900 points</td>
+      <td>you will receive no less than a</td>
+      <td>A</td>
+      <td>grade.</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>800 points</td>
+      <td></td>
+      <td>B</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>700 points</td>
+      <td></td>
+      <td>C</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>600 points</td>
+      <td></td>
+      <td>D</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+</center>
+
+<table border="0" width="100%">
+  <tbody>
+    <tr bgcolor="#000000">
+      <td><b><font color="#FFFFFF">Schedule</font></b></td>
+      <td><b><font color="#FFFFFF">Wk</font></b></td>
+      <td><b><font color="#FFFFFF">Event</font></b></td>
+      <td><b><font color="#FFFFFF">Reading</font></b></td>
+      <td><b><font color="#FFFFFF">Assignments</font></b></td>
+    </tr>
+    <tr>
+      <td>2002.09.04</td>
+      <td>1</td>
+      <td>Lecture: Intro</td>
+      <td>Ch1</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.09.06</td>
+      <td>1</td>
+      <td>Lecture: <a href="intro.ps">Analysis of algorithms: Binary search
+        vs linear search</a></td>
+      <td>Ch2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.09.09</td>
+      <td>2</td>
+      <td>Lecture: Analysis of algorithms: Time complexity: asymptotic
+        notations, growth rate</td>
+      <td>Ch3</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.09.11</td>
+      <td>2</td>
+      <td>Lecture: Analysis of algorithms: Upper and lower bounds</td>
+      <td>Ch3</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.09.13</td>
+      <td>2</td>
+      <td>Lecture: Sorting: Insertion sort</td>
+      <td>Ch2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>2</td>
+      <td>Tutorial: <a href="tutorial/COMP171T01_v3.ppt">Templates in
+        C++</a>, <a href="tutorial/t01.htm">Supplement</a>, C++ examples (<a
+        href="tutorial/myswap.cpp">swap</a>, <a
+        href="tutorial/pair.cpp">pair</a>, <a
+        href="tutorial/vect.cpp">vector</a>)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.09.16</td>
+      <td>3</td>
+      <td>Lecture: Sorting: Insertion sort analysis</td>
+      <td>Ch2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.09.18</td>
+      <td>3</td>
+      <td>Lecture: Sorting: Mergesort</td>
+      <td>Ch2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.09.20</td>
+      <td>3</td>
+      <td>Lecture: Sorting: Mergesort: recurrence, analyzing recursive
+        programs</td>
+      <td>Ch2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>3</td>
+      <td>Tutorial: <a href="tutorial/COMP171T02_v3.ppt">Asymtotic notation
+        review &amp; selection sort</a></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.09.23</td>
+      <td>4</td>
+      <td>Lecture: Sorting: Quicksort</td>
+      <td>Ch7</td>
+      <td><a href="a0/a0.html">a0</a></td>
+    </tr>
+    <tr>
+      <td>2002.09.25</td>
+      <td>4</td>
+      <td>Lecture: Sorting: Quicksort variations (<a
+        href="quicksort.pdf">Lewis &amp; Denenberg and Weiss
+      versions</a>)</td>
+      <td>Ch7</td>
+      <td>a0 due</td>
+    </tr>
+    <tr>
+      <td>2002.09.27</td>
+      <td>4</td>
+      <td>Lecture: Sorting: Quicksort partition analysis</td>
+      <td>Ch7</td>
+      <td><a href="wa1.html">wa1</a></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>4</td>
+      <td>Tutorial: <a href="tutorial/COMP171T03_v1.ppt">Mergesort &amp;
+        quicksort review</a>, <a
+      href="tutorial/T03_extra.pdf">Supplement</a></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.09.30</td>
+      <td>5</td>
+      <td>Lecture: Sorting: Quicksort analysis, pivot selection, cutoffs</td>
+      <td>Ch7</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.10.02</td>
+      <td>5</td>
+      <td>Lecture: Sorting: Binary trees (heapsort preliminaries)</td>
+      <td>Ch6</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.10.04</td>
+      <td>5</td>
+      <td>Lecture: Sorting: Heapsort (priority queue)</td>
+      <td>Ch6</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>5</td>
+      <td>Tutorial: <a href="tutorial/COMP171T04_v1.ppt">In-class exercise to
+        practice analysis review</a>, <a href="tutorial/Answer3.pdf">Model
+        answer</a></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.10.07</td>
+      <td>6</td>
+      <td>Lecture: Sorting: Heapsort variations</td>
+      <td>Ch6</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.10.09</td>
+      <td>6</td>
+      <td>Lecture: Sorting: Lower bound based on the decision tree model</td>
+      <td>Ch8</td>
+      <td><a href="a1/a1.html">a1</a></td>
+    </tr>
+    <!--
+    <tr>
+    <td></td>
+    <td></td>
+    <td>Lecture: Lists and stacks: Review of Abstract Data Types</td>
+    <td>Ch10</td>
+    <td></td>
+    </tr>
+    -->
+    <tr>
+      <td>2002.10.11</td>
+      <td>6</td>
+      <td>Lecture: Sorting: Radix sort as an application of linked list and
+        queue</td>
+      <td>Ch8</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>6</td>
+      <td>Tutorial: <a href="tutorial/unixtour.html">In-lab exercise on the
+        CS Unix environment</a> (Rm 4213), <a
+        href="tutorial/COMP171T05_v1.ppt">Heapsort</a></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.10.14</td>
+      <td>7</td>
+      <td>Public Holiday</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.10.16</td>
+      <td>7</td>
+      <td>Lecture: Review</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.10.18</td>
+      <td>7</td>
+      <td>Midterm 1 (covers up to &amp; including Radix Sort)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>7</td>
+      <td>Tutorial: Extra office hours: Ka Wah (W 16:00-18:00, Rm 4211), Ken
+        (Th 17:00-19:00, Rm 4208)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.10.21</td>
+      <td>8</td>
+      <td>Lecture: Dictionaries: Binary search tree, definitions</td>
+      <td>Ch12</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.10.23</td>
+      <td>8</td>
+      <td>Lecture: Dictionaries: Binary search tree, traversals</td>
+      <td>Ch12</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.10.25</td>
+      <td>8</td>
+      <td>Lecture: Dictionaries: Binary search tree, lookup, insertion</td>
+      <td>Ch12</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>8</td>
+      <td>Tutorial: Midterm 1 solutions</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.10.28</td>
+      <td>9</td>
+      <td>Lecture: Dictionaries: Binary search tree, deletion</td>
+      <td>Ch12</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.10.30</td>
+      <td>9</td>
+      <td>Lecture: Dictionaries: Red-black tree, insertion</td>
+      <td>Ch13</td>
+      <td>a1 due</td>
+    </tr>
+    <tr>
+      <td>2002.11.01</td>
+      <td>9</td>
+      <td>Lecture: Dictionaries: Red-black tree, insertion</td>
+      <td>Ch13</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>9</td>
+      <td>Tutorial: <a href="tutorial/COMP171T06_v1.ppt">Binary search tree
+        review</a></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.11.04</td>
+      <td>10</td>
+      <td>Lecture: Dictionaries: Red-black tree, deletion</td>
+      <td>Ch13</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.11.06</td>
+      <td>10</td>
+      <td>Lecture: Dictionaries: Red-black tree, deletion</td>
+      <td>Ch13</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.11.08</td>
+      <td>10</td>
+      <td>Lecture: Dictionaries: 23-tree, insertion</td>
+      <td>none</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>10</td>
+      <td>Tutorial: <a href="tutorial/COMP171T07_v2.pdf">Red-black tree
+        review</a></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.11.11</td>
+      <td>11</td>
+      <td>Lecture: Dictionaries: 23-tree, deletion</td>
+      <td>none</td>
+      <td></td>
+    </tr>
+    <!--
+    <tr>
+    <td></td>
+    <td>Lecture: Lists and stacks: Graham's scan (convex hull construction)
+    application</td>
+    <td>Ch33.3</td>
+    <td></td>
+    </tr>
+    -->
+    <tr>
+      <td>2002.11.13</td>
+      <td>11</td>
+      <td>Lecture: Dictionaries: B-tree, insertion</td>
+      <td>Ch18</td>
+      <td><a href="a2/a2.html">a2</a></td>
+    </tr>
+    <tr>
+      <td>2002.11.15</td>
+      <td>11</td>
+      <td>Lecture: Dictionaries: B-tree, deletion</td>
+      <td>Ch18</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>11</td>
+      <td>Tutorial: <a href="tutorial/COMP171T08_v1.pdf">More red-black tree
+        review</a>; C++ template examples (<a
+        href="tutorial/List.hpp">List.hpp</a>, <a
+        href="tutorial/List.cpp">List.cpp</a>)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.11.18</td>
+      <td>12</td>
+      <td>Lecture: Dictionaries: B-tree, issues, 234-tree</td>
+      <td>Ch18</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.11.20</td>
+      <td>12</td>
+      <td>Lecture: Hashing: Digital data, Hash tables and functions</td>
+      <td>Ch11</td>
+      <td>a2 due</td>
+    </tr>
+    <tr>
+      <td>2002.11.22</td>
+      <td>12</td>
+      <td>Lecture: Hashing: Collision resolution: separate chaining</td>
+      <td>Ch11</td>
+      <td><a href="wa1soln.html">wa1 solutions</a></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>12</td>
+      <td>Tutorial: <a href="tutorial/COMP171T09_v1.ppt">B-tree review</a>; <a href="tutorial/COMP171T09_extra.pdf">extra</a>; questions for Midterm 2</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.11.25</td>
+      <td>13</td>
+      <td>Midterm 2</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.11.27</td>
+      <td>13</td>
+      <td>Lecture: Hashing: Collision resolution: linear probing</td>
+      <td>Ch11</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.11.29</td>
+      <td>13</td>
+      <td>Lecture: Hashing: Collision resolution: double hashing, hashing
+        functions</td>
+      <td>Ch11</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>13</td>
+      <td>Tutorial: Midterm 2 solutions</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.12.02</td>
+      <td>14</td>
+      <td>Lecture: Tries, Patricia trees, De la Briandias trees, variants</td>
+      <td>-</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.12.04</td>
+      <td>14</td>
+      <td>Lecture: Tries: digital search trees; Graphs: Definition,
+        representation</td>
+      <td>Ch22</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.12.06</td>
+      <td>14</td>
+      <td>Lecture: <a href="graph.ps">Graphs: Depth-first search,
+        breadth-first search, topological sort</a></td>
+      <td>Ch22</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>14</td>
+      <td>Tutorial: <a href="tutorial/COMP171T10_v1.ppt">Hash table, trie review</a></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2002.12.13</td>
+      <td>15</td>
+      <td>Midterm 3 (Final, 12:30-15:30, LG1)</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+<hr width="100%">
+<br>
+<i><a href="mailto:dekai@cs.ust.hk">dekai@cs.ust.hk</a></i> <br>
+<i>Last update: 2002.12.04</i></body>
+</html>

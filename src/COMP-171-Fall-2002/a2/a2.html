@@ -1,0 +1,221 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0039)http://www.cs.ust.hk/~dekai/171/a1.html -->
+<html>
+<head>
+  <title>COMP 171 - Fall 2002</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+
+<center>
+<b>COMP 171 Data Structures and Algorithms</b> <br>
+<b>2002 Fall Term, MWF 12:00-12:50, Rm 2503</b> <br>
+<b>Dr. Dekai WU, Rm 3539, 2358-6989, dekai@cs.ust.hk</b></center>
+
+<table cols=1 width="100%" border="0">
+  <tbody>
+    <tr bgcolor="#000000">
+      <td><b><font color="#ffffff">Programming Assignment 2</font></b></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In this programming assignment you will implement a dynamic dictionary ADT
+using a red-black tree.</p>
+
+<p>You will have to hand in a physical printout of each of your programs. We
+will also electronically check your programs.</p>
+
+<p>As usual, please remember to submit your work before the deadline. If you
+have any questions about this assignment, please send emails to <a
+href="mailto:shenyh@ust.hk">shenyh@ust.hk</a>.</p>
+
+<h3>DUE DATE</h3>
+
+<p>The deadline of the assignment is 12:00 noon, Wed 20 Nov 2002. Late
+assignments will not be accepted, since ACS will not collect them.</p>
+
+<h3>GRADING</h3>
+
+<p>Each function written should be adequately documented so that a reader
+will be able to understand what is being done. Your programs will be run on a
+standard test data set.</p>
+
+<p>This assignment will account for 80 points in your final score. The
+general grading criteria for a program is as follows:</p>
+<ul>
+  <li>80% - Correctness</li>
+  <li>10% - Programming style</li>
+  <li>10% - Documentation</li>
+</ul>
+
+<p>When your program does not run correctly on the test data, then your
+program will be graded by visual examination and the maximum score you can
+then get for Correctness is 30%.</p>
+
+<h3>ACS SUBMISSION</h3>
+To avoid receiving zero credit for this assignment, please pay careful
+attention to the following instructions. We will electronically copy the
+programs from your account to ours for testing. To ensure that the copying
+routine performs properly you must do the following.
+<ul>
+  <li>You must use your <strong>Computer Science department UNIX
+    account</strong> to submit your homework (do not use other campus account
+    from ITSC or other departments). If for some reason this is not possible
+    please come see one of the instructors.</li>
+  <li>You should have already activated this account for Assignment 0. If you
+    have not, you can do it in the CSSystem home page (<a
+    href="https://cssu3.cs.ust.hk:8443/pass.html">https://cssu3.cs.ust.hk:8443/pass.html</a>).</li>
+  <li>Your program must compile properly on your CS department account, using
+    the <strong>g++ compiler</strong>. Other C++ compilers or computers
+    cannot be used for your final submission.</li>
+  <li>Create your homework directory "<strong>~/comp171/a2/</strong>" under
+    your CS department UNIX account.</li>
+  <li>Put the <strong>source code</strong> for your functions in a single
+    file "<tt>dictionary.hpp</tt>" (<strong>not</strong> "dictionary.cpp"
+    since templates must go in the .hpp file) under your homework directory
+    before the deadline. Make sure you name your file exactly as
+  specified.</li>
+  <li>Make sure that there is <strong>no main() function</strong> in your
+    <tt>dictionary.hpp</tt>. Header files cannot contain a main() function,
+    and are intended to be used as a library of functions that some other
+    main program can call.</li>
+  <li>You may also have one other file "<tt>dictionary.cpp</tt>" in this
+    directory, if your implementation requires it (note that it is possible
+    to do the assignment without this, but you may prefer to have some
+    non-template functions that go in "dictionary.cpp"). If you do this, make
+    sure this file does <strong>not</strong> contain any main() function.</li>
+  <li>Make sure there are <strong>no other files</strong> in this directory.
+    You are encouraged to compile and run your program to check if it gives
+    the right result, but use another directory for your implementation and
+    testing.</li>
+  <li>Your file must compile correctly and work, using the testing {\tt main}
+    program that will be posted.</li>
+</ul>
+
+<h3>IMPLEMENTATION</h3>
+You are required to program a red-black tree implementation of a dynamic
+dictionary that stores <strong>distinct numeric keys</strong> (which could be
+ints, floats, doubles, etc). Updating in the dictionary is allowed.
+
+<p></p>
+
+<p>Use the following type declarations for the tree node. You are allowed to
+add any other public or protected member variables and functions as you wish
+to this class, so long as you implement at least these members correctly.</p>
+<pre>enum RBColor { RED, BLACK };
+
+template &lt;class T&gt;
+class RBTreeNode {
+public:
+  T key;
+  RBTreeNode<T>* leftchild;
+  RBTreeNode<T>* rightchild;
+  RBTreeNode<T>* parent;
+  RBColor color;
+};</pre>
+
+<p>You are required to program a red-black tree container class that supports
+three member functions. This class provides a Dictionary API. As such, you
+may not add any other public member variables or functions to this class
+(except, of course, constructors or destructors).</p>
+<pre>template &lt;class T&gt;
+class RedBlackTree {
+public:
+  T* find(const T&amp; x) const;
+    // Search the tree to find x.  Return a pointer to the matching key,
+    // or NULL if x is not found.
+  bool insert(const T&amp; x);
+    // Insert x into the tree.  If x has been inserted before, then it
+    // is NOT inserted again.  Return true iff this is the first time
+    // that x is inserted.
+  int erase(const T&amp; x);
+    // Delete x from the tree.  Return 1 if x was found and deleted,
+    // or 0 if x was not found.
+protected:
+  RBTreeNode<T>&lt;T&gt;* getRoot();
+    // Return a pointer to the root of the red-black tree.
+  RBTreeNode<T>&lt;T&gt;* getSentinel();
+    // Return a pointer to the node being used as a sentinel.
+};</pre>
+
+<p>Rules to be observed:</p>
+<ol>
+  <li>All insertion and deletion should be performed in the fashion as
+    described in the textbook (and in lecture). Do not program according to
+    any other textbook.</li>
+  <li>During deletion, when you try to perform a rotation, you should check
+    with the left sibling of a node to see whether rotation can be done. If
+    the left sibling does not exist or rotation cannot be done, then check
+    with the right sibling to see whether a rotation can be done.</li>
+</ol>
+
+<h3>A TEST DRIVER</h3>
+
+<p>You may find the following files helpful for your implementation and
+testing:</p>
+<ul>
+  <li>The files containing the test arrays: <a
+    href="array8.txt">array8.txt</a>, <a href="array16.txt">array16.txt</a>,
+    <a href="array32.txt">array32.txt</a>, <a
+    href="array64.txt">array64.txt</a>, <a
+    href="array1024.txt">array1024.txt</a></li>
+  <li>The files <a href="testdriver.cpp">testdriver.cpp</a></li>
+</ul>
+
+<h4>The files containing the test arrays:</h4>
+
+<p>These files containing arrays of different length to do your testing. The
+length of an array is always an exponent of 2. The files have the filename
+with the style "array*.txt" in which "*" represents the length of the array,
+i.e. the file "array32.txt" contains an array with the length of 32 and the
+file "array1024.txt" contains an array with the length of 1024.</p>
+
+<h4>The test driver:</h4>
+
+<p>The test driver uses one argument which is the length of the array you
+want to test your algorithm with.</p>
+
+<p>The test driver is composed of four parts:</p>
+<ol>
+  <li>Read an array of the length defined in the argument from the
+    corresponding file.</li>
+  <li>The sample code that inserts the keys of the array into an empty red
+    black tree one by one and examines the red black property after each
+    insertion.</li>
+  <li>The sample code that tries to find a key in the red black tree.</li>
+  <li>The sample code that erases the keys of the array from a red black tree
+    one by one and examines the red black property after each erasion.</li>
+</ol>
+
+<p></p>
+
+<h4>Testing your algorithm with the test driver:</h4>
+
+<p>Please follow the following steps to go on with the test:</p>
+<ul>
+  <li>Put the files "testdriver.cpp", "dictionary.hpp" and the files
+    containing the arrays under the same directory.</li>
+  <li>If you do all your implementation in "dictionary.hpp", use the command
+    "g++ testdriver.cpp -o filename" to create the executable output file
+    with the filename designated by you, i. e. for "g++ testdriver.cpp -o
+    TestRedBlack" you will get the executable file "TestRedBlack". If you
+    have an extra "dictionary.cpp" file, use the command "g++ testdriver.cpp
+    dictionary.cpp -o filename" to create the executable file.</li>
+  <li>Use the command "filename arg1" to test your algorithm, i. e. if you
+    have the executable file "TestRedBlack" and you want to use an array with
+    the length 32 to test your algorithm, use the command "TestRedBlack
+  32".</li>
+</ul>
+
+<p>We strongly suggest you begin your test with arrays of small size to find
+the problems with your algorithm.</p>
+<hr width="100%">
+<br>
+<i><a href="http://www.cs.ust.hk/~dekai/">Dekai WU</a>, SHEN Yihai</i> <br>
+<a href="mailto:dekai@cs.ust.hk">dekai@cs.ust.hk</a>, <a
+href="mailto:shenyh@ust.hk">shenyh@ust.hk</a> <br>
+<i>Last update: 2002.11.15</i></body>
+</html>

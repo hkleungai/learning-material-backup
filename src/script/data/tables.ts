@@ -7,6 +7,10 @@ const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
         semesters: ['Spring 2010'],
       },
       {
+        code: 'COMP 171',
+        semesters: ['Fall 2002'],
+      },
+      {
         code: 'COMP 2711H',
         semesters: ['Fall 2021'],
       },
