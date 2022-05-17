@@ -21,7 +21,7 @@ var CATEGORIZED_PRE_COURSES = [
         courses: [
             {
                 code: 'COMP 221',
-                semesters: ['Spring 1998']
+                semesters: ['Spring 1998', 'Fall 2007']
             },
             {
                 code: 'COMP 4211',
