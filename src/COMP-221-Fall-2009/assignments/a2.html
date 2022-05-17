@@ -1,0 +1,146 @@
+<!DOCTYPE html public "-//w3c//dtd html 4.0 transitional//en">
+<html xmlns:hx="http://purl.org/NET/hinclude">
+<head>
+  <script src="../hinclude.js" type="text/javascript"></script>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title>COMP 221 - Fall 2009</title>
+  <link rel="stylesheet" type="text/css" media="print"
+  href="../dekaiprint.css">
+  <link rel="stylesheet" type="text/css" media="screen"
+  href="../dekaisite.css">
+</head>
+
+<body>
+<body lang="en">
+
+<div id="navigation" class="xhtml">
+<h3>HLTC</h3>
+<a href="http://www.cs.ust.hk/~hltc/"><img alt="HLTC's logo symbolizes commitment to combining the best features of the traditional and the cutting edge, bridging the East and West." src="../hltc_logo_cropped.jpg" width="50%" /></a>
+<p></p>
+<a href="../index.html">Course Home</a>
+</div>
+
+<!--
+<div id="bg">
+  <a href="http://www.ust.hk"><img alt="HKUST's ideal research environment is situated in beautiful Clear Water Bay, Hong Kong." src="hkustcampus.jpg" width="25%" /></a>
+</div>
+-->
+
+<div id="content">
+<h2>COMP 221 Assignment 2 - Fall 2009</h2>
+
+  <p><b>Fall 2009, COMP 221 Fundamentals of Artificial Intelligence [3-1-0:3]</b>
+<br>
+Lecture 1, WF 15:00-16:20, Rm 2463 <br>
+<b><a href="http://www.cs.ust.hk/~dekai">Prof. Dekai WU</a></b>, Rm 3539,
+2358-6989, <a href="mailto:dekai@cs.ust.hk">dekai@cs.ust.hk</a></p>
+
+<p><strong>Due:</strong> 2009.10.22 at 23:00 by CASS</p>
+
+<p><strong>Assignment page:</strong> <a
+href="a2.html">http://www.cs.ust.hk/~dekai/221/assignments/a2.html</a></p>
+
+
+<h3>Part 1</h3>
+
+<p>Extend your Scheme function <tt>permute</tt> from A1, to implement a new
+  function <tt>anagram</tt> that takes an additional argument consisting of
+  a list of symbols representing legal words.  Your new function will print
+  all permutations of a given list of any length, such that appending the
+  symbols in the permuted list gives a legal word.</p>
+
+<p>For example:</p>
+<pre>&gt; (define dictionary '(a act ale at ate cat eat etc tea))
+&gt; (anagram dictionary '(a e t))
+(a t e)
+(e a t)
+(t e a)
+#f
+&gt; (anagram dictionary '(a t c))
+(a c t)
+(c a t)
+#f
+&gt; (anagram dictionary '(a))
+(a)
+#f
+&gt; (anagram '() '(a e t))
+#f
+&gt;</pre>
+
+<p>(Hint: You may wish to recall some potentially useful standard functions like <tt>symbol->string</tt>, <tt>string->symbol</tt>, <tt>string-append</tt>, etc.)</p>
+
+<p>Notice that <tt>anagram</tt> always returns <tt>#f</tt>. The legal permutations
+must be <em>displayed</em> to standard output, not returned. This is to avoid
+building enormous lists in memory (consider how many permutations there are of
+a list of length 10).</p>
+
+<h3>Part 2</h3>
+
+<p>Consider the following <tt>my-or</tt> macro:<p>
+
+<pre>(define-macro my-or
+  (lambda (x y)
+    `(if ,x ,x ,y)))</pre>
+
+<p>For simple cases, this works fine:</p>
+<pre>&gt; (my-or 1 2)
+1
+&gt; (my-or #f 2)
+2
+&gt;</pre>
+
+<p>But what happens here?</p>
+<pre>&gt; (define i 0)
+&gt; (my-or
+  (begin
+    (set! i (+ i 1))
+    #t)
+  2)
+&gt; i
+</pre>
+
+<p>We can try to solve the problem thus:</p>
+<pre>(define-macro my-or
+  (lambda (x y)
+    `(let ([temp ,x])
+       (if temp temp ,y))))</pre>
+
+<p>But now what happens?</p>
+<pre>&gt; (define temp 3)
+&gt; (my-or #f temp)
+</pre>
+
+<p>Re-implement the <tt>my-or</tt> macro, in a way that avoids this variable
+  capture problem from using <tt>define-macro</tt>, by instead using
+  <tt>define-syntax</tt> to invoke Scheme's built-in `hygienic' and
+  `referentially transparent' macro system.</p>
+
+<h3>Important reminders</h3>
+
+<p>Your final submitted version must run on the version of Chicken Scheme in
+Lab 2. You may only use any SRFIs that were taught in lecture.</p>
+
+<p>Place your entire assignment in one well-organized and documented file named
+<tt>a2.scm</tt>.</p>
+
+<p>Your proper <em>software engineering</em> skills are being graded. Your
+programming style (how clearly and how well you speak Scheme) is what will be
+graded. Correct functioning of your program is necessary but not sufficient!</p>
+
+<p>You must write the final version of the program on your own. Sophisticated
+plagiarism detection systems are in operation, and they are pretty good at
+catching copying! If you worked in study groups, you must also acknowledge your
+collaborators in the write-up for each problem, whether or not they are
+classmates. Other cases will be dealt with as plagiarism. Re-read the policy on
+the course home page, and note the University's tougher policy this year
+regarding cheating.</p>
+
+<br>
+
+<hr width="100%">
+<br>
+<i><a href="mailto:dekai@cs.ust.hk">dekai@cs.ust.hk</a></i> <br>
+<span class="date">Last updated: 2009.10.14</span></div>
+</body>
+</body>
+</html>
