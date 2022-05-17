@@ -3,7 +3,7 @@ var buildDailyLogs = function (__GIT_LOGS) {
     var dailyLogObject = logEntries.reduce(function (acc, _a) {
         var key = _a[0], rawLog = _a[1];
         var dateString = key.split(' ')[0];
-        var log = rawLog.split(/\s+/).slice(1).join(' ');
+        var log = rawLog.replace(/^.*:\s+/, '');
         var sentenceCasedLog = log[0].toUpperCase() + log.slice(1);
         if (acc[dateString]) {
             acc[dateString].push(sentenceCasedLog);

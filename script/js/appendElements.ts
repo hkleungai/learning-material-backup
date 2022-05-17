@@ -1,3 +1,5 @@
+/** TODO: Build by fragment / template so that attach-event need not be done separately */
+
 const makeTemplate = (content: string): DocumentFragment => {
   const template = document.createElement('template');
   template.innerHTML = content;

@@ -123,6 +123,10 @@ var FETCHED_COURSES = {
         title: 'Special Topics in Computer Science',
         description: 'Selected topics of current interest to the Department not covered by existing courses.  Offerings are announced each semester.'
     },
+    'COMP 300E': {
+        title: '',
+        description: ''
+    },
     'COMP 303': {
         title: 'Internet Computing',
         description: 'Technologies and standards for World Wide Web (WWW), user interfaces and Browsers, authoring tools, Internet protocols, Internet servers, database connectivity, Robots, Search engines, server-side programming, client-side programming, security and privacy, recent advances.'
@@ -146,6 +150,10 @@ var FETCHED_COURSES = {
     'COMP 336': {
         title: 'Search Engines for Web and Enterprise Data',
         description: 'Text retrieval models, vector space model, document ranking, performance evaluation; indexing, pattern matching, relevance feedback, clustering; web search engines, authority-based ranking; enterprise data management, content creation, meta data, taxonomy, ontology; semantic web, digital libraries and knowledge management applications.'
+    },
+    'COMP 337': {
+        title: '',
+        description: ''
     },
     'COMP 341': {
         title: 'Computer Graphics',
@@ -226,6 +234,10 @@ var FETCHED_COURSES = {
     'COMP 398H': {
         title: 'Final Year Thesis II (Honors Study Track)',
         description: 'Continuation of COMP 397H.'
+    },
+    'COMP 510': {
+        title: '',
+        description: ''
     },
     'COMP 512': {
         title: 'Advanced Distributed Software Development',
