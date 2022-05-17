@@ -2,7 +2,8 @@ const buildDailyLogs = (__GIT_LOGS: GitLogs): DailyGitLog[] => {
   const logEntries = Object.entries(__GIT_LOGS);
   const dailyLogObject = logEntries.reduce<DailyGitLogEntries>((acc, [key, rawLog]) => {
     const dateString = key.split(' ')[0];
-    const log = rawLog.split(/\s+/).slice(1).join(' ');
+    // Assume conventional commits always start with (unneeded) prefixes with "...: "
+    const log = rawLog.replace(/^.*:\s+/, '');
     // An unfortunatate trick for making sentence-case string
     const sentenceCasedLog = log[0].toUpperCase() + log.slice(1);
     if (acc[dateString]) {

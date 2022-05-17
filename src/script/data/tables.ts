@@ -1,3 +1,5 @@
+/** TODO: Fill up course info gradually */
+
 const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
   {
     category: 'Algorithmic Study',
@@ -13,6 +15,23 @@ const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
       {
         code: 'COMP 2711H',
         semesters: ['Fall 2021'],
+      },
+    ],
+  },
+  {
+    category: 'Artificial Intelligence',
+    courses: [
+      {
+        code: 'COMP 221',
+        semesters: ['Spring 1998'],
+      },
+      {
+        code: 'COMP 4211',
+        semesters: ['Spring 2022'],
+      },
+      {
+        code: 'COMP 5212',
+        semesters: ['Spring 2022'],
       },
     ],
   },
@@ -78,19 +97,6 @@ const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
       {
         code: 'COMP 1022Q',
         semesters: ['Spring 2020'],
-      },
-    ],
-  },
-  {
-    category: 'Machine Learning',
-    courses: [
-      {
-        code: 'COMP 4211',
-        semesters: ['Spring 2022'],
-      },
-      {
-        code: 'COMP 5212',
-        semesters: ['Spring 2022'],
       },
     ],
   },

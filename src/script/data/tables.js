@@ -17,6 +17,23 @@ var CATEGORIZED_PRE_COURSES = [
         ]
     },
     {
+        category: 'Artificial Intelligence',
+        courses: [
+            {
+                code: 'COMP 221',
+                semesters: ['Spring 1998']
+            },
+            {
+                code: 'COMP 4211',
+                semesters: ['Spring 2022']
+            },
+            {
+                code: 'COMP 5212',
+                semesters: ['Spring 2022']
+            },
+        ]
+    },
+    {
         category: 'Big-Data / Database Analysis',
         courses: [
             {
@@ -78,19 +95,6 @@ var CATEGORIZED_PRE_COURSES = [
             {
                 code: 'COMP 1022Q',
                 semesters: ['Spring 2020']
-            },
-        ]
-    },
-    {
-        category: 'Machine Learning',
-        courses: [
-            {
-                code: 'COMP 4211',
-                semesters: ['Spring 2022']
-            },
-            {
-                code: 'COMP 5212',
-                semesters: ['Spring 2022']
             },
         ]
     },
