@@ -1,4 +1,5 @@
-var GIT_LOGS = {
+const GIT_LOGS = {
+    '2022-05-19 00:16:19': 'refactor: oop-chaining, file splitting, es6 module',
     '2022-05-17 20:58:58': 'feat: add COMP 221 (09f)',
     '2022-05-17 20:43:12': 'feat: add COMP 221 (07f)',
     '2022-05-17 20:00:11': 'feat: add COMP 221 (98s), minor fix on data logic',
@@ -39,5 +40,6 @@ var GIT_LOGS = {
     '2022-05-05 23:38:21': 'feat: add COMP2012, modify html, js layout',
     '2022-05-05 02:52:47': 'feat: add COMP2611, style index.html a bit',
     '2022-05-05 01:22:38': 'feat: add homepage, modify index html',
-    '2022-05-05 01:13:17': 'feat: add COMP3511'
+    '2022-05-05 01:13:17': 'feat: add COMP3511',
 };
+export default GIT_LOGS;

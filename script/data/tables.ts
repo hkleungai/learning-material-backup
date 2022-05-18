@@ -1,4 +1,5 @@
 /** TODO: Fill up course info gradually */
+import { Categorized, PreCourse } from '../interface/types';
 
 const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
   {
@@ -130,3 +131,5 @@ const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
     ]
   },
 ];
+
+export default CATEGORIZED_PRE_COURSES;
