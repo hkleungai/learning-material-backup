@@ -4,7 +4,6 @@
 /** TODO: study browser / html test tools             */
 /** TODO: Share __temp_commit var among git hooks     */
 
-import BaseRenderer from './BaseRenderer';
 import TableRenderer from './TableRenderer';
 import NoticeBoardRenderer from './NoticeBoardRenderer';
 import { CATEGORIZED_PRE_COURSES, FETCHED_COURSES, GIT_LOGS } from '../data';
@@ -26,7 +25,7 @@ function _main() {
   if (!mainDivClosingElement) {
     throw new Error('No closing div can be found!!');
   }
-  const renderers: BaseRenderer<any>[] = [
+  const renderers = [
     new NoticeBoardRenderer({ __GIT_LOGS: GIT_LOGS }),
     new TableRenderer({
       __CATEGORIZED_PRE_COURSES: CATEGORIZED_PRE_COURSES,

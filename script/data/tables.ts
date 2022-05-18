@@ -14,6 +14,10 @@ const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
         semesters: ['Fall 2002', 'Fall 2005', 'Spring 2006'],
       },
       {
+        code: 'COMP 670J',
+        semesters: ['Spring 2001'],
+      },
+      {
         code: 'COMP 2711H',
         semesters: ['Fall 2021'],
       },
@@ -33,15 +37,6 @@ const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
       {
         code: 'COMP 5212',
         semesters: ['Spring 2022'],
-      },
-    ],
-  },
-  {
-    category: 'Big-Data / Database Analysis',
-    courses: [
-      {
-        code: 'COMP 4331',
-        semesters: ['Fall 2021'],
       },
     ],
   },
@@ -68,6 +63,15 @@ const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
       {
         code: 'COMP 4451',
         semesters: ['Spring 2022'],
+      },
+    ],
+  },
+  {
+    category: 'Data Analysis',
+    courses: [
+      {
+        code: 'COMP 4331',
+        semesters: ['Fall 2021'],
       },
     ],
   },
@@ -128,7 +132,16 @@ const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
         code: 'COMP 2012H',
         semesters: ['Fall 2021'],
       },
-    ]
+    ],
+  },
+  {
+    category: 'Programming Languages Study',
+    courses: [
+      {
+        code: 'COMP 272',
+        semesters: ['Spring 1997'],
+      },
+    ],
   },
 ];
 

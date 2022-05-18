@@ -87,7 +87,6 @@ _TableRenderer_instances = new WeakSet(), _TableRenderer_buildSemesterCell = fun
       </div>
       `);
 }, _TableRenderer_attachCellEvent = function _TableRenderer_attachCellEvent(cell) {
-    console.log({ c: cell.className, d: cell.id });
     const description = cell.querySelector('div.course-description');
     if (!description) {
         throw new Error('[ERROR]: No description div can be found!');
