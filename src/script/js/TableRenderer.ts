@@ -91,7 +91,6 @@ export default class TableRenderer extends BaseRenderer<TableRendererProps> {
     return this;
   }
   #attachCellEvent(cell: Element): void {
-    console.log({ c: cell.className, d: cell.id })
     const description = cell.querySelector('div.course-description');
     if (!description) {
       throw new Error('[ERROR]: No description div can be found!');

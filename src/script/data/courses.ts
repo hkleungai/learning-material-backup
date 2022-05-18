@@ -313,6 +313,10 @@ const FETCHED_COURSES: FetchedCourses = {
     title: 'Topics in Theoretical Computer Science',
     description: 'Selected topics in theoretical computer science not covered by existing courses, including, but not limited to, computational complexities and computability, graph algorithms and combinatorial optimization.'
   },
+  'COMP 670J': {
+    title: 'Approximation Algorithms',
+    description: 'Most computer science researchers have given up on the possibility of finding techniques that always yield optimal solutions to NP-hard problems. This still leaves us with the task of finding \'good\' solutions to these problems. The theory of approximation algorithms is devoted to developing techniques that yield provably good (\'approximate\') solutions to these problems. In this course we will learn about the theory and practice of designing such algorithms.',
+  },
   'COMP 680': {
     title: 'Topics in Computer Engineering',
     description: 'Selected topics in computer engineering of current interest to the Department and not covered by existing courses.'
