@@ -37,15 +37,6 @@ const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
     ],
   },
   {
-    category: 'Big-Data / Database Analysis',
-    courses: [
-      {
-        code: 'COMP 4331',
-        semesters: ['Fall 2021'],
-      },
-    ],
-  },
-  {
     category: 'Computer Architecture',
     courses: [
       {
@@ -68,6 +59,15 @@ const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
       {
         code: 'COMP 4451',
         semesters: ['Spring 2022'],
+      },
+    ],
+  },
+  {
+    category: 'Data Analysis',
+    courses: [
+      {
+        code: 'COMP 4331',
+        semesters: ['Fall 2021'],
       },
     ],
   },
@@ -128,7 +128,16 @@ const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
         code: 'COMP 2012H',
         semesters: ['Fall 2021'],
       },
-    ]
+    ],
+  },
+  {
+    category: 'Programming Languages Study',
+    courses: [
+      {
+        code: 'COMP 272',
+        semesters: ['Spring 1997'],
+      },
+    ],
   },
 ];
 
