@@ -1,3 +1,5 @@
+import { FetchedCourses } from '../interface/types';
+
 const FETCHED_COURSES: FetchedCourses = {
   'COMP 001': {
     title: 'Academic and Professional Development I',
@@ -784,3 +786,5 @@ const FETCHED_COURSES: FetchedCourses = {
     description: 'Original and independent doctoral thesis research supervised by a faculty member.  A successful defense of the thesis leads to Pass.  No course credit is assigned.'
   }
 };
+
+export default FETCHED_COURSES;

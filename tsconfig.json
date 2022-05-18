@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "baseUrl": "src",
+    "target": "es2016",
     "lib": [
       "dom",
       "dom.iterable",
@@ -13,16 +14,19 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "CommonJS",
+    "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": false,
-    "noEmit": true,
-    "jsx": "react-jsx",
     "downlevelIteration": true,
-    "removeComments": true
+    "removeComments": true,
+    "strictPropertyInitialization": false
   },
   "include": [
-    "src"
-  ]
+    "src/script/**/*"
+  ],
+  "tsc-alias": {
+    "verbose": false,
+    "resolveFullPaths": true,
+  }
 }

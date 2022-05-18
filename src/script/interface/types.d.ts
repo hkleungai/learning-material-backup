@@ -1,31 +1,31 @@
-interface PreCourse {
+export interface PreCourse {
   code: string;
   semesters: string[];
 }
 
-interface Course extends PreCourse {
+export interface Course extends PreCourse {
   description: string;
   title: string;
 }
 
-interface Categorized<T> {
+export interface Categorized<T> {
   category: string;
   courses: T[];
 }
 
-interface FetchedCourses {
+export interface FetchedCourses {
   [code: Course['code']]: Pick<Course, 'title' | 'description'>
 }
 
-interface GitLogs {
+export interface GitLogs {
   [date: string]: string;
 }
 
-interface DailyGitLog {
+export interface DailyGitLog {
   date: string;
   logs: string[];
 }
 
-interface DailyGitLogEntries {
+export interface DailyGitLogEntries {
   [date: DailyGitLog['date']]: DailyGitLog['logs'];
 }

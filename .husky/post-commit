@@ -15,7 +15,9 @@ then
     >>                      $__custom_git_log_ts_path
   echo "\n};"                                                                           \
     >>                      $__custom_git_log_ts_path
-  yarn tsc --removeComments $__custom_git_log_ts_path
+  echo "\nexport default GIT_LOGS;"                                                     \
+    >>                      $__custom_git_log_ts_path
+  yarn build
   git add                   $__custom_git_log_ts_path   $__custom_git_log_js_path
   git commit --amend -C HEAD --no-verify
 fi

@@ -1,4 +1,4 @@
-var FETCHED_COURSES = {
+const FETCHED_COURSES = {
     'COMP 001': {
         title: 'Academic and Professional Development I',
         description: 'A compulsory one-year course forstudents of the Department of Computer Science and Engineering. This course is designed to provide academic advising to students and to develop their communication skills in interacting with technical and non-technical audiences. Graded P or F.'
@@ -125,7 +125,7 @@ var FETCHED_COURSES = {
     },
     'COMP 300E': {
         title: '',
-        description: ''
+        description: '',
     },
     'COMP 303': {
         title: 'Internet Computing',
@@ -153,7 +153,7 @@ var FETCHED_COURSES = {
     },
     'COMP 337': {
         title: '',
-        description: ''
+        description: '',
     },
     'COMP 341': {
         title: 'Computer Graphics',
@@ -237,7 +237,7 @@ var FETCHED_COURSES = {
     },
     'COMP 510': {
         title: '',
-        description: ''
+        description: '',
     },
     'COMP 512': {
         title: 'Advanced Distributed Software Development',
@@ -784,3 +784,4 @@ var FETCHED_COURSES = {
         description: 'Original and independent doctoral thesis research supervised by a faculty member.  A successful defense of the thesis leads to Pass.  No course credit is assigned.'
     }
 };
+export default FETCHED_COURSES;
