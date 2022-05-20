@@ -1,0 +1,557 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0037)http://www.cs.ust.hk/~tklove/COMP271/ -->
+<HTML><HEAD><TITLE>COMP 271: Design and Analysis of Algorithms</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<SCRIPT language=JavaScript>
+<!-- // Start of AdSubtract JavaScript block; you can ignore this.
+     // It is used when AdSubtract blocks cookies or pop-up windows.
+document.iMokie = "cookie blocked by AdSubtract";
+document.iMferrer = "referrer blocked by AdSubtract";
+function iMwin() {
+	this.location = "";
+	this.frames = new Array(9);
+	this.frames[0] = this;
+	this.frames[1] = this;
+	this.frames[2] = this;
+	this.frames[3] = this;
+	this.frames[4] = this;
+	this.frames[5] = this;
+	this.frames[6] = this;
+	this.frames[7] = this;
+	this.frames[8] = this;
+	this.length = 0;
+}
+// End of AdSubtract JavaScript block. -->
+</SCRIPT>
+
+<META content="Microsoft FrontPage 5.0" name=GENERATOR></HEAD>
+<BODY text=#000000 vLink=#005522 aLink=#ff3300 link=#cc0000 bgColor=#ddddff><!-- -------------------------------------------------------------------- -->
+<CENTER>
+<H2>COMP271 Design and Analysis of Algorithms<BR>Spring 2003</H2></CENTER>
+<CENTER>
+<H4><a href="http://www.cs.ust.hk/~golin">Mordecai Golin</a>, Room 3559, Tel 
+2358-6993, Email <a href="mailto:golin@cs.ust.hk">golin@cs.ust.hk</a></H4></CENTER><!-- -------------------------------------------------------------------- -->
+<CENTER>
+<TABLE bgColor=#aaffaa border=2>
+  <TBODY>
+  <TR>
+    <TD vAlign=top align=middle width=100><B><FONT size=+1>
+    <a href="Notes/Syllabus.htm" style="text-decoration: none">Syllabus&nbsp;</a></FONT></B></TD>
+    <TD vAlign=top align=middle width=200><B><FONT size=+1>
+    <a href="Notes/" style="text-decoration: none">
+    Lectures (schedule and notes)</a></FONT></B></TD>
+    <TD vAlign=top align=middle width=150><B><FONT size=+1>
+    <a href="#Assignment Schedule:" style="text-decoration: none">Assignments&nbsp;</a></FONT></B></TD>
+    <TD vAlign=top align=middle width=150><B><FONT size=+1>
+    <a href="Tutorials/" style="text-decoration: none">Question 
+      Banks&nbsp;&amp; Tutorials</a></FONT></B></TD>
+    <TD vAlign=top align=middle width=120><B><FONT size=+1>
+    <a href="Grades/ForPosting" style="text-decoration: none">Marks</a>&nbsp;</FONT><FONT size=2><a href="Grades/EC_for_Posting" style="text-decoration: none">(Extra 
+    Credit)</a></FONT></B></TD></TR></TBODY></TABLE></CENTER>
+<P>
+<hr>
+<h3><font color="#000080">Important Notes:&nbsp; <font size="3">Revised&nbsp; 
+Sunday, May 25, 2003: </font></font></h3>
+<h3> <font size="3" color="#000080">Due to 
+the SARS situation and following the HKUST academic-affairs office 
+recommendations we will&nbsp; make the following changes in the COMP271 class this 
+semester:</font></h3>
+<ol>
+  <li><font color="#000080"><b>There will be no more face-to-face lectures this 
+  semester. That is,&nbsp; all formal classes will be cancelled (unless the SARS 
+  situation unexpectedly quickly improves)</b></font></li>
+  <li><font color="#000080"><b>All Tutorial sessions will also be cancelled 
+  (although we will continue&nbsp; posting tutorial assignments for you to 
+  practice on).</b></li>
+  <li><b>You will be responsible for learning the material yourselves from the 
+  notes and reading assignments posted on the class </b></font><b>
+  <a href="Notes/"><font color="#000080">lecture 
+  page</font></a><font color="#000080">.&nbsp; See the </font>
+  <a href="Notes/"><font color="#000080">lecture 
+  page</font></a></b><font color="#000080"><b> for more detailed instructions as 
+  to exactly which material you will be responsible to know and when. The next 
+  five&nbsp; lecture notes have already been posted.&nbsp; The remaining ones 
+  will be posted soon.</b></li>
+  <li><b>The instructor will hold office-hours in his office (room 3559) during 
+  the scheduled class hours: tuesday/thursday 9:00-10-20. You are welcome to 
+  stop by and ask questions then.&nbsp; You are also welcome to email questions 
+  at anytime to </b></font><b><a href="mailto:golin@cs.ust.hk">
+  <font color="#000080">golin@cs.ust.hk</font></a></b><font color="#000080"><b> 
+  or to ask for an appointment outside of office-hours.</b></li>
+  <li><b>As previously announced the class grading scheme has been changed as 
+  follows:&nbsp; The midterm has been cancelled.&nbsp; There are now five 
+  assignments worth 6% of the final grade each (rather than&nbsp; four worth 5% 
+  each).&nbsp; The final exam will now be worth 70% of the final grade. </b></li>
+  <li><b>Assignment 2 is due Tuesday April 15, 2003.&nbsp; Assignment 3 is due 
+   
+  </b></font><font color="#FF0000"><b>&nbsp;</b></font><b><font color="#000080">Thursday, April 24, 2003.</font></b></li>
+  <li><font color="#000080"><b>There 
+  will be a voluntary Question and Answer session on Thursday, April 17, 2003, 
+  9:40AM, in the standard 271 classroom.&nbsp; Nothing will be taught but the 
+  instructor will be there to answer any questions you might have about the 
+  readings.</b></font></li>
+  <li>
+  <font color="#000080"><b>17/04/03: Lecture 13 was just revised and reposted to 
+  web (errors corrected on pages 15/16). I also just posted solutions to 
+  Assignment 2.</b></font></li>
+  <li>
+  <font color="#000080"><b>21/04/03: There was an error in the example given in 
+  Problem 4 of Assignment 3. A revised version of Assignment 3 with the error 
+  corrected has just been posted.&nbsp; </b></font></li>
+  <li>
+  <font color="#000080"><b>21/04/03: This week's tutorial&nbsp; (on greedy 
+  algorithms) was just posted to the
+  <a href="Tutorials/">Question Bank and 
+  Tutorial Page</a>.&nbsp; The problems in this tutorial come from Question Bank 
+  4; QB4 and its solutions were also just posted to the
+  <a href="Tutorials/">Question Bank and 
+  Tutorial Page</a>. Lecture 18 was just posted on the </b></font><b>
+  <a href="Notes/"><font color="#000080">lecture 
+  page</font></a><font color="#000080">.</font></b></li>
+  <li>
+  <font color="#000080"><b>21/04/03:There will be a voluntary Q&amp;A session on 
+  Thur, April 24, 2003, 9:40AM, in the 271 classroom.</b></font></li>
+  <li>
+  <font color="#000080"><b>23/04/03: Assignment 4 was just posted on the web 
+  page.&nbsp; It will be due on May 6, 2003. Also a box has been placed at the 
+  front of the computer science department administration office for collection 
+  of assignment 3.&nbsp; By 5 PM, Thursday, April 24, 2003, please either put 
+  your assignments in the box or email them to me. As before,&nbsp; make sure 
+  that you keep copies of your solutions.</b></font></li>
+  <li><b><font color="#000080">
+  There will be a voluntary Q&amp;A session on Tuesday, April 29, 2003, 9:40AM, in 
+  the 271 classroom (note that Thursday,&nbsp; 01/05/03, is a public holiday so 
+  there will be no Q&amp;A session then).&nbsp; Also, there will be no tutorial 
+  posted this week.</font></b></li>
+  <li><b><font color="#000080">
+  Lectures 19 and 20 were just posted to the</font><font color="#FF3300">&nbsp; </font>
+  <a href="Notes/"><font color="#000080">lecture 
+  page</font></a><font color="#000080">. A revised version of Lecture 14 (last 
+  page changed) and Lecture 18 (pp. 12 and 25 changed) were also posted.&nbsp; 
+  After consideration&nbsp; of the time remaining in the semester I have decided 
+  not to teach the supplementary material on Heuristics and Approximation this 
+  year.&nbsp; If you are interested in this topic, please read Chapter 35 of the 
+  CLRS textbook and let me know if you have any questions.&nbsp; Also, Question 
+  Bank 5 and selected solutions have just been posted to the </font></b>
+  <font color="#000080"><b>
+  <a href="Tutorials/">Question Bank and 
+  Tutorial Page</a>.</b></font></li>
+  <li><b><font color="#000080">Due 
+  to requests the due-date for Assignment 4 has been delayed one day. It is now 
+  due Wednesday, May 7, at 5:00 PM. As usual, there will be a box in the CS 
+  department office for submitting your assignments. Alternatively,&nbsp; you 
+  can email them to me at <a href="mailto:golin@cs.ust.hk">golin@cs.ust.hk</a> 
+  or slip them under my office door.</font></b></li>
+  <li><b><font color="#000080">There 
+  will be NO Q&amp;A session on Tuesday, May 6.&nbsp; If you want to ask questions, 
+  I will however, hold </font><font color="#008000">office hours </font><font color="#000080">
+  that afternoon, </font><font color="#008000">Tuesday May 6, 3-4PM</font><font color="#000080"> 
+  in my office, </font><font color="#008000">3559</font><font color="#000080"> 
+  (other times by email appointment).</font></b></li>
+  <li><font color="#000080"><b>Thursday, 
+  May 8, is&nbsp; a public holiday.&nbsp; If there is interest,&nbsp; though, I 
+  can hold a Q&amp;A session or office hours on that day.&nbsp; If you would like 
+  this,&nbsp; please send me email.</b></font></li>
+  <li><font color="#000080"><b> 
+  Assignment 5 was just posted to this page.&nbsp; It will be due on May 19, 2003 
+  at 5PM. Solutions to assignments 3 and 4 were also just posted.</b></font></li>
+  <li><font color="#000080"><b> 
+  There will be a </b></font><b><font color="#000080">
+  voluntary Q&amp;A session on Tuesday, May 13, 2003, 9:40AM, in the 271 
+  classroom.&nbsp; Assignments 2 and 3 will be returned at that time.&nbsp; If 
+  you do not come to the Q&amp;A you can pick the assignments up from my office.</font></b></li>
+  <li><font color="#000080"><b> 
+  There will be a </b></font><b><font color="#000080">
+  voluntary Q&amp;A session on Thursday, May 15, 2003, 9:40AM, in the 271 classroom.</font></b></li>
+  <li><font color="#000080"><b> 
+  I will hold one review session next week to answer any questions you might 
+  have in your exam preparation.&nbsp; The date of the review session will be 
+  set depending upon student response to email sent out (and will be posted 
+  soon).</b></font></li>
+  <li><font color="#000080"><b> 
+  Information on the final exam contents can be found below in the
+  <a href="#Exams Coverage:">exam section</a> of this page.</b></font></li>
+  <li><b><font color="#000080">The last review session before the final will be 
+  held </font>
+  <font color="#008000">Tuesday May 20, 11AM-12:20PM, Room 3598</font><font color="#000080">.&nbsp; 
+  Please note that the time is NOT the normal 271 class time and the room is NOT 
+  the normal 271 class room. The purpose of this review session is to answer any 
+  questions you might have so,&nbsp; please prepare in advance for this.&nbsp; 
+  Also,&nbsp; you can pick up all of your marked assignments,&nbsp; including 
+  assignment 4, at the review session.</font></b></li>
+  <li><b><font color="#000080">The
+  <a href="Grades/ForPosting">assignment marks</a> 
+  and <a href="Grades/EC_for_Posting">extra 
+  credit</a> marks have all been posted on the web.&nbsp; Please check the marks 
+  to see that they are correct and let me know ASAP if you think that there is 
+  an error in the record. A zero mark indicates that the indicated assignment 
+  was not submitted.&nbsp; </font></b></li>
+  <li><b><font color="#000080">Due to student requests, the due date of 
+  Assignment 5 has been delayed one day.&nbsp; Assignment 5 is now due at 5PM on 
+  Tuesday,&nbsp; May 20.</font></b></li>
+  <li><b><a href="Assignments/Ass5_sol.ps">Solution</a><font color="#000080"> 
+  to Assignment 5 has just been posted below.</font></b></li>
+  <li>T<font color="#000080"><b>he review session on Tuesday was the last formal session of the semester.&nbsp; 
+  If you still have question please stop by my office to ask me in person (it is 
+  better to send email to <a href="mailto:golin@cs.ust.hk">golin@cs.ust.hk</a> 
+  first to make sure that I will be around when you want to come). 
+  Alternatively,&nbsp; especially if you prefer explanation sin Cantonese,&nbsp;&nbsp; 
+  Leung Yiu Cho,&nbsp; one of the TAs, will hold office hours, from 2-3PM on 
+  Friday, May 23rd and Monday, May 26, in room 4209.&nbsp; </b></font></li>
+  <li><font color="#000080">
+  <b>The&nbsp; </b></font><b><font color="#000080">
+  <a href="Grades/ForPosting">assignment marks</a> </font></b><font color="#000080">
+  <b>&nbsp;have just been updated to include the assignment 5 grades.&nbsp; You 
+  can pick up your marked assignment 5 (along with any other assignments you 
+  have not yet picked up) from Mr. Leung Yiu Cho,&nbsp; one of the 271 TAs,&nbsp; 
+  during his office hours from 2-3PM on Monday, May 26, in room 4209.</b></font></li>
+  <li><b><font color="#000080">I will 
+  hold one last office hour from 3-4PM on Monday May 26, to answer any last 
+  minute questions you might have.&nbsp; (Please note that you will not be able 
+  to pick up your assignments from me during this hour; as mentioned above,&nbsp; 
+  your assignments will be available from the TA between 2-3).</font></b></li>
+  <li><b><font color="#000080">
+  Lecture 19 was just slightly revised.&nbsp; The revision was the correction of 
+  a typographical error in the first line of the proof on page 33.</font></b></li>
+  <li><b><font color="#000080">I was 
+  asked by a student whether you would be allowed to bring a review sheet into 
+  the exam.&nbsp; The answer is no.&nbsp; You may not bring any materials other 
+  than pens and/or pencils into the exam.&nbsp; No review sheets, calculators or 
+  pocket PCs will be allowed.</font></b></li>
+  <li><b><font color="#FF3300">New 02/06/03: </font></b><font color="#000080">
+  <b>Please check out all of the&nbsp; </b></font><b><font color="#000080">
+  <a href="Grades/ForPosting">marks</a> </font></b><font color="#000080">
+  <b>&nbsp;of the assignments and grades.&nbsp; I will hold office hours in my room 
+  (3559) on Tuesday June 3, 2009 at which you can took a look at your final 
+  exams.&nbsp; Please also note that that final course grades will be assigned 
+  late afternoon on June 3rd so this will be your only time to ask questions 
+  about your exam grades.&nbsp; Finally,&nbsp; if you do plan on checking out 
+  your exam, please download the </b></font>&nbsp;<b><a href="Exams/final_with_solutions.ps">exam 
+  solutions</a></b> <font color="#000080">
+  <b>&nbsp;first and take a look at them so you'll have a better idea as to what 
+  the solutions are.</b></font></li>
+</ol>
+<p>&nbsp;</p>
+<hr>
+<H3>Course Overview:</H3>This course presents the fundamental techniques for 
+designing efficient computer algorithms, proving their correctness, and 
+analyzing their running times. General topics include review of asymptotics, 
+mathematical analysis of algorithms (summations and recurrences), algorithm 
+design techniques (such as divide-and-conquer,&nbsp; dynamic 
+programming, and greedy algorithms), graph algorithms (minimum spanning trees 
+and shortest paths) and NP-completeness.<P>
+<HR SIZE=5>
+<!-- -------------------------------------------------------------------- -->
+<H3><FONT color=#000000>Textbook<span style="font-weight: 400; font-style: italic"> 
+(available at the HKUST bookstore and on&nbsp; reserve in the library)</span></FONT></H3>T. Cormen, C. Leiserson, R. Rivest, 
+C. Stein. <A href="http://theory.lcs.mit.edu/~clr/"><I>Introduction to 
+Algorithms</I></A>, Second Edition, McGraw Hill and MIT Press, 2001. QA76.6 C662 
+2001.<BR>
+<H3><FONT color=#000000>References
+<span style="font-weight: 400; font-style: italic">(all available on reserve in 
+the library)</span></FONT></H3>
+<ol>
+  <li>Jon Bentley. <i>Programming pearls (2nd Ed).</i> 
+  Addison-Wesley, 2000. QA76.6 .B454 2000.</li>
+  <li>Michael R. Garey and&nbsp; David S. Johnson. <i>Computers and 
+  intractability : a guide to the theory of NP-completeness. </i>W. H. Freeman, 
+  1979. QA267.7 .G37 1979.</li>
+  <li>Robert Sedgewick.&nbsp; <i>Algorithms in C++ (3rd ed) Volumes 1 and 2. </i>
+  Addison-Wesley, 1998. QA76.73.C153 S38 1998.</li>
+  <li>Jurai Hromkovic. <i>Algorithmics for hard problems :&nbsp; Introduction to 
+  combinatorial optimization,&nbsp; randomization, approximation, and 
+  heuristics. </i>Springer-Verlag,  2001&nbsp; QA76.9.A43 H76 2001. </li>
+</ol>
+<HR SIZE=5>
+<!-- -------------------------------------------------------------------- -->
+<H3>Course Work:</H3>Course work will consist of 4 homework assignments and 2 
+exams (a midterm and a comprehensive final). Homeworks are to be turned in by 
+the start of class on the due date. <STRONG>No late homeworks will be 
+accepted.</STRONG> (So turn in what you have by the start of class.) In 
+exceptional circumstances (illness, university business, or religious 
+observances) extensions may be granted. However, all extensions must be approved 
+by me <STRONG>before</STRONG> the due date. 
+<P>The primary benefit to working on homeworks is to&nbsp; prepare for the exams; exam questions are often variants of homework problems. For this reason 
+I encourage you to spend time alone thinking about each problem and your 
+approach in solving it. You are allowed to and encouraged to 
+<STRONG>discuss</STRONG> homework problems with your classmates. However, you 
+must <STRONG>write up</STRONG> the solutions on your own. In particular: 
+<UL>
+  <LI>Homework solutions must be written in your own words (not copied or 
+  modified from someone else's write-up). 
+  <LI>You must understand your solution and its derivation. (I may ask you to 
+  explain your solution to me.) 
+  <LI>You must acknowledge your collaborators (whether or not they are 
+  classmates) or any other outside sources on each homework. </LI></UL>
+<P>&nbsp;<P>Failing to do any of these will be considered plagiarism, and may result in a 
+failing grade on an assignment or in the course&nbsp;&nbsp; in the course and notification for appropriate disciplinary 
+action. As an example of plagiarism,&nbsp;&nbsp; if we find that your solution 
+is copied, without attribution,&nbsp; from something on the web, this would be 
+treated as plagiarism. On the other hand,&nbsp; if you report that you found a 
+solution to a similar problem on the web, tell where this was,&nbsp; and write 
+down the solution in your own words,&nbsp; this would be fine. <P>As a courtesy to the graders, homeworks should be written 
+<STRONG>neatly</STRONG>. Poorly written work will not be graded. When writing 
+algorithms be sure not only that your solution is correct, but also that it is 
+easy for the grader to understand why your solution is correct. Part of your 
+grade will be based not only on correctness, but also on the <STRONG>clarity, 
+simplicity, and elegance</STRONG> of your solution. 
+<hr>
+<h3><a name="Assignment Schedule:">Assignment Schedule:</a></h3>
+<p>Assignments should either be emailed&nbsp; to the instructor at
+<a href="mailto:golin@cs.ust.hk">golin@cs.ust.hk</a> or submitted to the 
+computer science department office (room 3528) by 5:00PM of the due date.&nbsp; 
+When submitting to the department office please specify (and write on your 
+paper) that this is meant for Dr Golin.&nbsp; Please also keep <b>copies</b> of 
+your homeworks so that,&nbsp; if there is a mixup,&nbsp; I can ask you to 
+resubmit it.</p>
+<div align="center">
+  <center>
+  <table border="1" cellspacing="1" width="63%" id="AutoNumber1">
+    <tr>
+      <td width="24%">&nbsp;</td>
+      <td width="20%" align="center">&nbsp;&nbsp; Distributed</td>
+      <td width="18%" align="center">Revised</td>
+      <td width="16%">&nbsp;Due Date</td>
+      <td width="137%">&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="24%">
+      <a href="Assignments/Ass1.ps">Assignment 1</a></td>
+      <td width="20%">&nbsp;&nbsp;&nbsp; 20/02/03</td>
+      <td width="18%" align="center">27/02/03</td>
+      <td width="16%">&nbsp;06/03/03</td>
+      <td width="119%">
+      <a href="Assignments/Ass1_sol.ps">Solution</a></td>
+    </tr>
+    <tr>
+      <td width="24%">
+      <a href="Assignments/Ass2.ps">Assignment 2</a></td>
+      <td width="20%">&nbsp;&nbsp;&nbsp; 18/03/03</td>
+      <td width="18%">&nbsp;&nbsp;&nbsp; </td>
+      <td width="16%">&nbsp;15/04/03</td>
+      <td width="119%">
+      <a href="Assignments/Ass2_sol.ps">Solution</a></td>
+    </tr>
+    <tr>
+      <td width="24%">
+      <a href="Assignments/Ass3.ps">Assignment 3</a></td>
+      <td width="20%">&nbsp;&nbsp;&nbsp; 04/04/03</td>
+      <td width="18%">&nbsp;&nbsp; 21/04/04</td>
+      <td width="16%">&nbsp;24/04/03</td>
+      <td width="119%">
+      <a href="Assignments/Ass3_sol.ps">Solution</a></td>
+    </tr>
+    <tr>
+      <td width="24%">
+      <a href="Assignments/Ass4.ps">Assignment 4</a></td>
+      <td width="20%">&nbsp;&nbsp;&nbsp; 22/04/03</td>
+      <td width="18%">&nbsp;</td>
+      <td width="16%">&nbsp;07/05/03</td>
+      <td width="119%">
+      <a href="Assignments/Ass4_sol.ps">Solution</a></td>
+    </tr>
+    <tr>
+      <td width="24%">
+      <a href="Assignments/Ass5.ps">Assignment 5</a></td>
+      <td width="20%">&nbsp;&nbsp;&nbsp; 08/05/03</td>
+      <td width="18%">&nbsp;</td>
+      <td width="16%">&nbsp;20/05/03</td>
+      <td width="119%">
+      <a href="Assignments/Ass5_sol.ps">Solution</a></td>
+    </tr>
+  </table>
+  </center>
+</div>
+<P>
+<P>
+<P>
+<hr>
+<h3>Exam Schedule:</h3>
+<div align="center">
+  <center>
+  <table border="1" cellspacing="1" width="60%" id="AutoNumber2">
+    <tr>
+      <td width="25%">&nbsp;</td>
+      <td width="34%">&nbsp;Date/Time</td>
+      <td width="41%">&nbsp;Venue</td>
+    </tr>
+    <tr>
+      <td width="25%">Midterm </td>
+      <td width="34%"><b><font color="#FF0000">CANCELLED</font></b></td>
+      <td width="41%">&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="25%">Final Exam </td>
+      <td width="34%">27/05/03 (TUE)&nbsp;&nbsp;&nbsp; 08:30-11:30 (am)</td>
+      <td width="41%">&nbsp;Room LG1031<b> <font color="#FF0000">(new room)</font></b></td>
+    </tr>
+  </table>
+  </center>
+</div>
+<p>&nbsp;</p>
+<p><b><font size="4">Old Exams: </font></b>&nbsp;&nbsp; To assist you in 
+preparing for the here are copies of last semester's
+<a href="Exams/midterm.ps">midterm</a> and
+<a href="Exams/final.ps">final</a>.&nbsp; Please 
+note that the material taught during the first few weeks last semester was 
+slightly different&nbsp; than this semester's so you did not learn the 
+background to question 2 of the midterm.</p>
+<p><a name="Exams Coverage:"><b><font size="4">Exams Coverage: </font></b>&nbsp;&nbsp;
+</a> </p>
+<ol>
+  <li>The final exam will cover ALL material covered in the lecture notes (1-20) 
+  presented on the <font color="#000080"><b>class </b></font><b>
+  <a href="Notes/"><font color="#000080">lecture 
+  page</font></a><font color="#000080">.&nbsp; </font></b></li>
+  <li>Lectures 18, 19, 20 (NP completeness) will only be worth 10% of the final 
+  exam</li>
+  <li>The exam format will be similar to last semester's
+<a href="Exams/midterm.ps">midterm</a> and
+<a href="Exams/final.ps">final</a>.&nbsp; Please 
+  note that the material taught during the first few weeks last semester was 
+  slightly different&nbsp; than this semester's so you did not learn the 
+  background to question 2 of the midterm. Please also note that last semester's 
+  final was not comprehensive (i.e., did not cover a lot of the material from 
+  the first half of the term).&nbsp; This semester's final <b>will be 
+  comprehensive</b>.&nbsp; All material in lectures 1-20 can be on the exam.</li>
+</ol>
+<hr>
+<A name=assign>
+<H3>Grading&nbsp; <span style="font-weight: 400"><i>(this has been modified due 
+to the class cancellations)</i></span></H3>
+<CENTER>
+<TABLE border=1>
+  <TBODY>
+  <TR>
+    <TD align=left width=100>5 assignments </TD>
+    <TD align=left width=100>30% (6% each)</TD></TR>
+  <TR>
+    <TD align=left>Midterm </TD>
+    <TD align=left><font color="#FF0000"><b>CANCELLED</b></font></TD></TR>
+  <TR>
+    <TD align=left>Final </TD>
+    <TD align=left>70% </TD></TR></TBODY></TABLE></CENTER>
+<P>&nbsp;</A><A name=assign><P align="left">No make-ups will be given for midterm and final unless prior approval is 
+granted by the instructor, or you are in unfavorable medical condition with 
+physician's documentation on the day of the examination. In addition, being 
+absent at the final examination results in automatic failure of the course 
+according to university regulations, unless prior approval is obtained from the 
+department head. 
+<P>
+<HR SIZE=5>
+
+<p>&nbsp;</p>
+
+<TABLE border=0>
+  <TBODY>
+  <TR>
+    <TD vAlign=center align=left width=150>
+      <H3><FONT color=#000000>Lectures&nbsp;</FONT></H3></TD>
+    <TD vAlign=center align=middle width=530>
+      <TABLE border=2>
+        <TBODY>
+        <TR>
+          <TD vAlign=top align=middle width=160><B>Days&nbsp;</B></TD>
+          <TD vAlign=top align=middle width=250><B>Time&nbsp;</B></TD>
+          <TD vAlign=top align=middle width=100><B>Room&nbsp;</B></TD></TR>
+        <TR>
+          <TD vAlign=top align=middle width=160>Tue &amp; Thu &nbsp;</TD>
+          <TD vAlign=top align=middle width=250>9:00 - 10:20</TD>
+          <TD vAlign=top align=middle 
+  width=100>4502</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<P><!-- -------------------------------------------------------------------- -->
+<TABLE border=0>
+  <TBODY>
+  <TR>
+    <TD vAlign=center align=left width=150>
+      <H3><FONT color=#000000>Tutorials&nbsp;</FONT></H3></TD>
+    <TD vAlign=center align=middle width=550>
+      <TABLE border=2>
+        <TBODY>
+        <TR>
+          <TD vAlign=top align=middle width=130><B>Section&nbsp;</B></TD>
+          <TD vAlign=top align=middle width=160><B>Day&nbsp;</B></TD>
+          <TD vAlign=top align=middle width=300><B>Time&nbsp;</B></TD>
+          <TD vAlign=top align=middle width=100><B>Room&nbsp;</B></TD>
+          <TD vAlign=top align=middle width=400><B>TA&nbsp;</B></TD></TR>
+        <TR>
+          <TD vAlign=top align=middle width=130>1A&nbsp;</TD>
+          <TD vAlign=top align=middle width=160>Fri</TD>
+          <TD vAlign=top align=middle width=300>10:00 - 10:50&nbsp;</TD>
+          <TD vAlign=top align=middle width=100>4475&nbsp;</TD>
+          <TD vAlign=top align=middle width=400>Yeung Siu Yin</TD></TR>
+        <TR>
+          <TD vAlign=top align=middle width=130>1B&nbsp;</TD>
+          <TD vAlign=top align=middle width=160>Fri</TD>
+          <TD vAlign=top align=middle width=300>11:00 - 11:50&nbsp;</TD>
+          <TD vAlign=top align=middle width=100>4475&nbsp;</TD>
+          <TD vAlign=top align=middle width=400>Leung Yiu Cho</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE><!-- -------------------------------------------------------------------- -->
+<P>
+<HR SIZE=5>
+
+<p>&nbsp;</p>
+
+<TABLE border=0>
+  <TBODY>
+  <TR>
+    <TD vAlign=center align=left width=150>
+      <H3><FONT color=#000000>Contacts&nbsp;</FONT></H3></TD>
+    <TD vAlign=center align=middle width=590>
+      <TABLE border=2>
+        <TBODY>
+        <TR>
+          <TD vAlign=top align=middle width=120><B>Name&nbsp;</B></TD>
+          <TD vAlign=top align=middle width=80><B>Office&nbsp;</B></TD>
+          <TD vAlign=top align=middle width=80><B>Ext.&nbsp;</B></TD>
+          <TD vAlign=top align=middle width=120><B>Email&nbsp;</B></TD>
+          <TD vAlign=top align=middle width=190><B>Office 
+Hours&nbsp;</B></TD></TR>
+        <TR>
+          <TD vAlign=center align=left>
+          <a name="assign" href="http://www.cs.ust.hk/~golin">Mordecai Golin</a></TD>
+          <TD vAlign=center align=middle>3559&nbsp;</TD>
+          <TD vAlign=center align=middle>6993</TD>
+          <TD vAlign=center align=middle>
+          <a name="assign" href="mailto:golin@cs.ust.hk">golin@cs.ust.hk</a></TD>
+          <TD vAlign=center align=middle>Anytime instructor is in office or by 
+          appointment</TD></TR>
+        <TR>
+          <TD vAlign=center align=left>Leung Yiu Cho</TD>
+          <TD vAlign=center align=middle>&nbsp;</TD>
+          <TD vAlign=center align=middle>&nbsp;</TD>
+          <TD vAlign=center align=middle><a href="mailto:cscho@cs.ust.hk">
+          cscho@cs.ust.hk</a></TD>
+          <TD vAlign=center align=middle>TBA</TD></TR>
+        <TR>
+          <TD vAlign=center align=left>Yeung Siu Yin&nbsp;</TD>
+          <TD vAlign=center align=middle>&nbsp;</TD>
+          <TD vAlign=center align=middle>&nbsp;</TD>
+          <TD vAlign=center align=middle>
+          <a name="assign" href="mailto:siuyin@cs.ust.hk">siuyin@cs.ust.hk</a></TD>
+          <TD vAlign=center align=middle>TBA</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE><!-- -------------------------------------------------------------------- -->
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<HR SIZE=5>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</A>
+<p>&nbsp;</p>
+<A name=assign>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</A>
+<p>&nbsp;</p>
+
+</BODY></HTML>

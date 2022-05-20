@@ -1,4 +1,7 @@
 const GIT_LOGS = {
+    '2022-05-20 21:28:39': 'feat: add COMP 342 (10s)',
+    '2022-05-20 21:06:17': 'feat: add COMP 271 (05s)',
+    '2022-05-20 20:57:18': 'feat: add COMP 271 (03s)',
     '2022-05-19 03:58:03': 'feat: add COMP 670J (01s)',
     '2022-05-19 01:47:16': 'feat: add COMP 272 (97s)',
     '2022-05-19 00:16:19': 'refactor: oop-chaining, file splitting, es6 module',
