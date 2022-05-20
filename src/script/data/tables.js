@@ -77,11 +77,11 @@ const CATEGORIZED_PRE_COURSES = [
         ],
     },
     {
-        category: 'Internet / Multimedia / Networking',
+        category: 'Internet / Multimedia',
         courses: [
             {
-                code: 'COMP 5622',
-                semesters: ['Spring 2020'],
+                code: 'COMP 342',
+                semesters: ['Spring 2010'],
             },
         ],
     },
@@ -132,6 +132,15 @@ const CATEGORIZED_PRE_COURSES = [
             {
                 code: 'COMP 2012H',
                 semesters: ['Fall 2021'],
+            },
+        ],
+    },
+    {
+        category: 'Networking',
+        courses: [
+            {
+                code: 'COMP 5622',
+                semesters: ['Spring 2020'],
             },
         ],
     },
