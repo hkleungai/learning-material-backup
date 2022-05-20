@@ -1,0 +1,599 @@
+<!DOCTYPE html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <title>COMP 271 - Spring 2005</title>
+</head>
+
+<body>
+
+<center>
+<b>COMP 271 Design and Analysis of Algorithms [3-1-0:3]</b> <br>
+<b>2005 Spring Term</b> <br>
+<br>
+<b>Lecture 1, TTh 13:30-14:50, Rm 3008</b> <br>
+<b><a href="http://www.cs.ust.hk/~dekai">Dr. Dekai WU</a>, Rm 3539,
+2358-6989, <a href="mailto:dekai@cs.ust.hk">dekai@cs.ust.hk</a></b> <br>
+<br>
+<b>Lecture 2, TTh 16:30-17:50, Rm 2464</b> <br>
+<b><a href="http://ihome.ust.hk/~trippen">Gerhard TRIPPEN</a>, 2358-8834, <a
+href="mailto:trippen@cs.ust.hk">trippen@cs.ust.hk</a></b> <br>
+<br>
+<b><a href="mailto:rnpu@cs.ust.hk">PU Ruonan</a> / <a
+href="mailto:csfung@cs.ust.hk">Stanley LEUNG Man Fung</a> / <a
+href="mailto:cstom@cs.ust.hk">Tom HUANG Jinxin</a>, Tutorial 1A, Fr
+14:00-14:50, Rm 1505</b> <br>
+<b><a href="mailto:rnpu@cs.ust.hk">PU Ruonan</a> / <a
+href="mailto:csfung@cs.ust.hk">Stanley LEUNG Man Fung</a> / <a
+href="mailto:cstom@cs.ust.hk">Tom HUANG Jinxin</a>, Tutorial 1B, Fr
+15:00-15:50, Rm 1505</b> <br>
+<br>
+<b><a href="mailto:zhouhong@cs.ust.hk">ZHOU Hong</a> / <a
+href="mailto:cschen@cs.ust.hk">CHEN Shi</a> / <a
+href="mailto:csct@cs.ust.hk">CHEN Tao</a>, Tutorial 2A, Fr 16:00-16:50, Rm
+2502</b> <br>
+<b><a href="mailto:zhouhong@cs.ust.hk">ZHOU Hong</a> / <a
+href="mailto:cschen@cs.ust.hk">CHEN Shi</a> / <a
+href="mailto:csct@cs.ust.hk">CHEN Tao</a>, Tutorial 2B, Fr 17:00-17:50, Rm
+2465</b></center>
+<br>
+
+
+<table border="0" width="100%">
+  <tbody>
+    <tr bgcolor="#000000">
+      <td><b><font color="#FFFFFF">Announcements</font><blink><font
+        color="#FFFF00">&lt;- Important</font></blink></b></td>
+    </tr>
+    <tr>
+      <td><p><b>Always</b> check <a
+        href="index.html">http://www.cs.ust.hk/~dekai/271/</a>
+        for up-to-the-minute announcements.<br>
+        <b>Tutorial info</b> is at <a
+        href="http://course.cs.ust.hk/comp271/tutorials/">http://course.cs.ust.hk/comp271/tutorials/</a>.<br>
+        <b>Newsgroup</b> is <a
+        href="http://www.ust.hk/cgi-bin/ccst/dnews/dnewsweb?cmd=xover&amp;group=hkust.cs.class.271&amp;from=&amp;utag=&amp;sub=y">hkust.cs.class.271</a>.
+        Always read before asking/posting/emailing your question.</p>
+
+        <p><b>2005.05.11 ASSIGNMENT 3 will be due May 17 at 3pm in 4209 (L19/20) </b> (<a
+        href="assignments/A3/A3.ps">ps</a> <a
+        href="assignments/A3/A3.pdf">pdf</a>). Please review the PLAGIARISM
+        and COLLABORATION policy below CAREFULLY.</p>
+
+        <p><b>2005.03.31 ASSIGNMENT 2 will be due Apr 19 </b> (<a
+        href="assignments/A2/A2.ps">ps</a> <a
+        href="assignments/A2/A2.pdf">pdf</a>). Please review the PLAGIARISM
+        and COLLABORATION policy below CAREFULLY.</p>
+
+        <p><b>2005.03.30 MIDTERM is on Apr 12, 18:30-20:30</b>. Lecture 1 is in Rm 3008, and Lecture 2 is in Rm 3007.  There will be no other lecture that day.</p>
+
+        <p><b>2005.03.03 ASSIGNMENT 1 will be due Mar 17 </b> (<a
+        href="assignments/A1/A1.ps">ps</a> <a
+        href="assignments/A1/A1.pdf">pdf</a>). Please review the PLAGIARISM
+        and COLLABORATION policy below CAREFULLY.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p></p>
+
+<table border="0" width="100%">
+  <tbody>
+    <tr bgcolor="#000000">
+      <td><b><font color="#FFFFFF">Policies</font></b></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>ACADEMIC CALENDAR DESCRIPTION</h3>
+Time and space complexity analysis of algorithms. Design paradigms:
+dived-and-conquer, greedy algorithms, dynamic programming. Graph algorithms:
+searching and backtracking, connectivity, biconnectivity, minimum spanning
+tree, shortest path. NP-completeness. <strong>Prerequisite:</strong> COMP
+171/171H.
+
+<h3>TEXTBOOKS</h3>
+<ol>
+  <li><em>Introduction to Algorithms</em> (2nd Edition), by <strong>Cormen,
+    Leiserson, Rivest, and Stein</strong>. MIT Press, 2001.</li>
+</ol>
+
+<h3>REFERENCE BOOKS</h3>
+<ol>
+  <li><b>Dave MOUNT</b>: <a href="451lects.pdf">Lecture Notes</a>.</li>
+  <li><em>Programming Pearls</em> (2nd Edition), by <b>Jon BENTLEY</b>.
+    Addison-Wesley, 2000.</li>
+  <li><em>Computers and intractability: A guide to the theory of
+    NP-completeness</em>, by <b>Michael R. GAREY and David S. JOHNSON</b>.
+    W.H. Freeman, 1979.</li>
+</ol>
+
+<h3>TAS AND TUTORIALS</h3>
+<ul>
+  <li>PU Ruonan (<a href="mailto:rnpu@cs.ust.hk">rnpu@cs.ust.hk</a>)</li>
+  <li>Stanley LEUNG Man Fung (<a
+    href="mailto:csfung@cs.ust.hk">csfung@cs.ust.hk</a>)</li>
+  <li>Tom HUANG Jinxin (<a
+  href="mailto:cstom@cs.ust.hk">cstom@cs.ust.hk</a>)</li>
+  <li>ZHOU Hong (<a
+  href="mailto:zhouhong@cs.ust.hk">zhouhong@cs.ust.hk</a>)</li>
+  <li>CHEN Shi (<a href="mailto:cschen@cs.ust.hk">cschen@cs.ust.hk</a>)</li>
+  <li>CHEN Tao (<a href="mailto:csct@cs.ust.hk">csct@cs.ust.hk</a>)</li>
+</ul>
+
+<p>All information for tutorials is at <a
+href="http://course.cs.ust.hk/comp271/tutorials/">http://course.cs.ust.hk/comp271/tutorials/</a>.</p>
+
+<h3>OFFICE HOURS</h3>
+You are welcome to knock on the doors of the instructor any time. The TA's
+office hours are TBA.
+
+<h3>REQUIRED SIGNATURE ON HONOR STATEMENT</h3>
+To receive a passing grade, you are required to sign an <a
+href="honor.pdf">honor statement</a> acknowledging that you understand and
+will uphold all policies on plagiarism and collaboration.
+
+<h3>PLAGIARISM</h3>
+All materials submitted for grading must be your own work. You are advised
+against being involved in any form of copying (either copying other people's
+work or <b>allowing others to copy yours</b>). If you are found to be
+involved in an incident of plagiarism, <b>you will receive a failing grade
+for the course and the incident will be reported for appropriate disciplinary
+actions</b>.
+
+<h3>COLLABORATION</h3>
+You are encouraged to collaborate in study groups. However, you must write up
+solutions on your own. <b>You must also acknowledge your collaborators in the
+write-up for each problem, whether or not they are classmates.</b> Other
+cases will be dealt with as plagiarism.
+
+<h3>EXAMINATIONS</h3>
+No reading material is allowed during the examinations. No make-ups will be
+given unless prior approval is granted by the instructor, or you are in
+unfavorable medical condition with physician's documentation on the day of
+the examination. In addition, being absent at the final examination results
+in automatic failure of the course according to university regulations,
+unless prior approval is obtained from the department head.
+
+<p>There will be one midterm worth 350 points, and one final exam worth 450
+points.</p>
+
+<h3>ASSIGNMENTS</h3>
+All programming assignments must be submitted at the <b>beginning</b> of
+lecture on the due date. Late assignments cannot be accepted. Sorry, in the
+interest of fairness, exceptions cannot be made.
+
+<p>There will be 3 assignments, which together will account for a total of
+200 points.</p>
+
+<h3>GRADE GUARANTEES</h3>
+The total points you can achieve in the course is 1000.� The course will be
+graded on a curve, but subject to the following guarantees: <br>
+�
+
+<table>
+  <tbody>
+    <tr>
+      <td>If you achieve</td>
+      <td>900 points</td>
+      <td>you will receive no less than a</td>
+      <td>A</td>
+      <td>grade.</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>800 points</td>
+      <td></td>
+      <td>B</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>700 points</td>
+      <td></td>
+      <td>C</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>600 points</td>
+      <td></td>
+      <td>D</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<p></p>
+<!-- table border="0" width="100%" -->
+
+<table border="4" style="border-collapse: collapse" id="AutoNumber1"
+cellspacing="1">
+  <tbody>
+    <tr bgcolor="#000000">
+      <td><b><font color="#FFFFFF">Theme</font></b></td>
+      <td><b><font color="#FFFFFF">Date</font></b></td>
+      <td><b><font color="#FFFFFF">Wk</font></b></td>
+      <td><b><font color="#FFFFFF">Event</font></b></td>
+      <td><b><font color="#FFFFFF">Notes</font></b></td>
+      <td><b><font color="#FFFFFF">Chapters</font></b></td>
+      <td><b><font color="#FFFFFF">Assignments</font></b></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><b>Introduction and Review</b></td>
+      <td>Feb 01</td>
+      <td>1</td>
+      <td>lec</td>
+      <td>Introduction (<a href="notes/L01/L01.ps">ps</a> <a
+        href="notes/L01/L01.pdf">pdf</a>)</td>
+      <td>1.1-4.2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Feb 03</td>
+      <td></td>
+      <td>lec</td>
+      <td>Review (<a href="notes/L01a/quickSort.pdf">slides</a> <a
+        href="notes/L01a/poa.pdf">reference</a>)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><b>Divide and Conquer</b></td>
+      <td>Feb 08</td>
+      <td>2</td>
+      <td>lec</td>
+      <td>Maximum contiguous subarray problem (<a
+        href="notes/L02/L02.ps">ps</a> <a
+      href="notes/L02/L02.pdf">pdf</a>)</td>
+      <td>�</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Feb 10</td>
+      <td></td>
+      <td></td>
+      <td>Lunar New Year</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>�</td>
+      <td>Feb 15</td>
+      <td>3</td>
+      <td>lec</td>
+      <td>Polynomial multiplication (<a href="notes/L03/L03.ps">ps</a> <a
+        href="notes/L03/L03.pdf">pdf</a>)</td>
+      <td>�</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>�</td>
+      <td>Feb 17</td>
+      <td></td>
+      <td>lec</td>
+      <td>Randomized selection and randomized quicksort (<a
+        href="notes/L04/L04.ps">ps</a> <a
+      href="notes/L04/L04.pdf">pdf</a>)</td>
+      <td>7</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>�</td>
+      <td>Feb 22</td>
+      <td>4</td>
+      <td>lec</td>
+      <td>Deterministic linear-time selection (<a
+        href="notes/L05/L05.ps">ps</a> <a
+      href="notes/L05/L05.pdf">pdf</a>)</td>
+      <td>9.2, 9.3</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><b>Graph Algorithms</b></td>
+      <td>Feb 24</td>
+      <td></td>
+      <td>lec</td>
+      <td>Depth-first search and its applications (<a
+        href="notes/L06/L06.ps">ps</a> <a
+      href="notes/L06/L06.pdf">pdf</a>)</td>
+      <td>22.3</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Mar 01</td>
+      <td>5</td>
+      <td>lec</td>
+      <td>Depth-first search and its applications (cont)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>�</td>
+      <td>Mar 03</td>
+      <td></td>
+      <td>lec</td>
+      <td>Minimum spanning tree and Prim's algorithm (<a
+        href="notes/L07/L07.ps">ps</a> <a
+      href="notes/L07/L07.pdf">pdf</a>)</td>
+      <td>23</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>�</td>
+      <td>Mar 08</td>
+      <td>6</td>
+      <td>lec</td>
+      <td>Minimum spanning tree and Prim's algorithm (cont)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>�</td>
+      <td>Mar 10</td>
+      <td></td>
+      <td>lec</td>
+      <td>Kruskal's algorithm (<a href="notes/L08/L08.ps">ps</a> <a
+        href="notes/L08/L08.pdf">pdf</a>)</td>
+      <td>23</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>�</td>
+      <td>Mar 15</td>
+      <td>7</td>
+      <td>lec</td>
+      <td>Disjoint set union and find (<a href="notes/L09/L09.ps">ps</a> <a
+        href="notes/L09/L09.pdf">pdf</a>)</td>
+      <td>21.3</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>�</td>
+      <td>Mar 17</td>
+      <td></td>
+      <td>lec</td>
+      <td>Dijktra's algorithm (<a href="notes/L10/L10.ps">ps</a> <a
+        href="notes/L10/L10.pdf">pdf</a>)</td>
+      <td>24.3</td>
+      <td>A1 due (<a href="assignments/A1/A1.ps">ps</a> <a
+        href="assignments/A1/A1.pdf">pdf</a>)</td>
+    </tr>
+    <tr>
+      <td><b>Dynamic Programming</b></td>
+      <td>Mar 22</td>
+      <td>8</td>
+      <td>lec</td>
+      <td>0-1 Knapsack (<a href="notes/L11/L11.ps">ps</a> <a
+        href="notes/L11/L11.pdf">pdf</a>)</td>
+      <td>�</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Mar 24</td>
+      <td></td>
+      <td>lec</td>
+      <td>0-1 Knapsack (cont)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>�</td>
+      <td>Mar 29</td>
+      <td>8</td>
+      <td>lec</td>
+      <td>Matrix chain multiplication (<a href="notes/L12/L12.ps">ps</a> <a
+        href="notes/L12/L12.pdf">pdf</a> written notes (jpeg) <a
+        href="notes/L12/L12-ex01.jpg">1</a> <a
+        href="notes/L12/L12-ex02.jpg">2</a> <a
+        href="notes/L12/L12-ex03.jpg">3</a> <a
+        href="notes/L12/L12-ex04.jpg">4</a>)</td>
+      <td>15.2, 15.3</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>�</td>
+      <td>Mar 31</td>
+      <td></td>
+      <td>lec</td>
+      <td>All-pairs shortest paths (<a href="notes/L13/L13.ps">ps</a> <a
+        href="notes/L13/L13.pdf">pdf</a> written notes (jpeg) <a
+        href="notes/L13/L13-ex01.jpg">1</a> <a
+        href="notes/L13/L13-ex02.jpg">2</a> <a
+        href="notes/L13/L13-ex03.jpg">3</a> <a
+        href="notes/L13/L13-ex04.jpg">4</a> <a
+        href="notes/L13/L13-ex05.jpg">5</a> <a
+        href="notes/L13/L13-ex06.jpg">6</a> <a
+        href="notes/L13/L13-ex07.jpg">7</a> <a
+        href="notes/L13/L13-ex08.jpg">8</a>)</td>
+      <td>25.1, 25.2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Apr 5</td>
+      <td>9</td>
+      <td></td>
+      <td>Ching Ming Festival</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>�</td>
+      <td>Apr 7</td>
+      <td></td>
+      <td>lec</td>
+      <td>All-pairs shortest paths (cont)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Apr 12</td>
+      <td>10</td>
+      <td>exam</td>
+      <td><strong>Midterm</strong> (18:30-20:30, Rm3008 for L1, Rm3007 for
+      L2)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><b>Greedy Algorithms</b></td>
+      <td>Apr 14</td>
+      <td></td>
+      <td>lec</td>
+      <td>Fractional Knapsack (<a href="notes/L14/L14.ps">ps</a> <a
+        href="notes/L14/L14.pdf">pdf</a> written notes (jpeg) <a
+        href="notes/L14/L14-ex01.jpg">1</a> <a
+        href="notes/L14/L14-ex02.jpg">2</a> <a
+        href="notes/L14/L14-ex03.jpg">3</a> <a
+        href="notes/L14/L14-ex04.jpg">4</a>)</td>
+      <td>16.2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>�</td>
+      <td>Apr 19</td>
+      <td>11</td>
+      <td>lec</td>
+      <td>Huffman coding (<a href="notes/L15/L15.ps">ps</a> <a
+        href="notes/L15/L15.pdf">pdf</a> written notes <a
+        href="notes/L15/L15-ex.ps">ps</a> <a
+        href="notes/L15/L15-ex.pdf">pdf</a>)</td>
+      <td>16.3</td>
+      <td>A2 due (<a href="assignments/A2/A2.ps">ps</a> <a
+        href="assignments/A2/A2.pdf">pdf</a>)</td>
+    </tr>
+    <tr>
+      <td>�</td>
+      <td>Apr 21</td>
+      <td></td>
+      <td>lec</td>
+      <td>Huffman coding (cont)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><b>More Algorithms</b></td>
+      <td>Apr 26</td>
+      <td>12</td>
+      <td>lec</td>
+      <td>String matching (<a href="notes/L16/L16.ps">ps</a> <a
+        href="notes/L16/L16.pdf">pdf</a> written notes <a
+        href="notes/L16/L16-ex.ps">ps</a> <a
+        href="notes/L16/L16-ex.pdf">pdf</a>)</td>
+      <td>32.1, 32.4</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Apr 28</td>
+      <td></td>
+      <td>lec</td>
+      <td>String matching (cont)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><b>NP-completeness</b></td>
+      <td>May 03</td>
+      <td>13</td>
+      <td>lec</td>
+      <td>Introduction to NP (<a href="notes/L18/L18.ps">ps</a> <a
+        href="notes/L18/L18.pdf">pdf</a>)</td>
+      <td>34.1, 34.2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>May 05</td>
+      <td></td>
+      <td>lec</td>
+      <td>Introduction to NP (cont)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>May 10</td>
+      <td>14</td>
+      <td>lec</td>
+      <td>Introduction to NP (cont)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>�</td>
+      <td>May 12</td>
+      <td></td>
+      <td>lec</td>
+      <td>Polynomial time reduction (<a href="notes/L19/L19.ps">ps</a> <a
+        href="notes/L19/L19.pdf">pdf</a> written notes (jpeg) <a
+        href="notes/L19/L19-ex01.jpg">1</a> <a
+        href="notes/L19/L19-ex02.jpg">2</a> <a
+        href="notes/L19/L19-ex03.jpg">3</a> <a
+        href="notes/L19/L19-ex04.jpg">4</a>)</td>
+      <td>34.3, 34.5</td>
+      <td></td>
+    </tr>
+<!--  INSUFFICIENT TIME TO COVER
+    <tr>
+      <td>�</td>
+      <td>TBA</td>
+      <td></td>
+      <td></td>
+      <td>Approximate algorithms (<a href="notes/L20/L20.ps">ps</a> <a
+        href="notes/L20/L20.pdf">pdf</a>)</td>
+      <td>35.1, 35.2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>�</td>
+      <td>TBA</td>
+      <td></td>
+      <td></td>
+      <td>Approximate algorithms (cont)</td>
+      <td></td>
+      <td></td>
+    </tr>
+-->
+    <tr>
+      <td>�</td>
+      <td>May 17</td>
+      <td>15</td>
+      <td></td>
+      <td>(15:00, Rm 4209, Lifts 19/20)</td>
+      <td></td>
+      <td>A3 due (<a href="assignments/A3/A3.ps">ps</a> <a
+        href="assignments/A3/A3.pdf">pdf</a>)</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>May 21</td>
+      <td></td>
+      <td>exam</td>
+      <td><strong>Final</strong> (08:30-11:30, LG4204)</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+<!-- hr width="100%" -->
+<br>
+<i><a href="mailto:dekai@cs.ust.hk">dekai@cs.ust.hk</a></i> <br>
+<i>Last update: 2005.05.11</i></body>
+</html>
