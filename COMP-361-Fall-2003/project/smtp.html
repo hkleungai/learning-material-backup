@@ -1,0 +1,237 @@
+<HTML>
+<HEAD>
+<TITLE>COMP 361 Course Project : A SMTP Server in Java</TITLE>
+
+<STYLE type=text/css>BODY {
+	FONT-FAMILY: Arial, sans-serif
+}
+P {
+	FONT-FAMILY: Arial, sans-serif
+}
+TD {
+	FONT-FAMILY: Arial, sans-serif
+}
+UL {
+	FONT-FAMILY: Arial, sans-serif
+}
+OL {
+	FONT-FAMILY: Arial, sans-serif
+}
+DL {
+	FONT-FAMILY: Arial, sans-serif
+}
+H1 {
+	FONT-FAMILY: Arial, sans-serif
+}
+H2 {
+	FONT-FAMILY: Arial, sans-serif
+}
+H3 {
+	FONT-FAMILY: Arial, sans-serif
+}
+H4 {
+	FONT-FAMILY: Arial, sans-serif
+}
+H5 {
+	FONT-FAMILY: Arial, sans-serif
+}
+H6 {
+	FONT-FAMILY: Arial, sans-serif
+}
+</STYLE>
+
+<BODY text=#000000 vLink=#800080 link=#000080 bgColor=#FFFFCC>
+<H2><FONT face="Arial, Helvetica, sans-serif" color=#008000>COMP 361 Course 
+Project : A SMTP Server in Java</FONT></H2></TD></TR>
+<FONT face="Arial, Helvetica, Sans-serif" size=3>
+            <P>In this programming assignment you will implement a SMTP server that 
+            receives mail 
+            from remote hosts. Your task is to:<ol>
+  <li>Program the SMTP interaction 
+            between the SMTP server and remote host. 
+            </li>
+  <li>Save the mail content and attachments in system.</li>
+  </ol>
+            </FONT>
+<FONT face="Arial, Helvetica, Sans-serif" size=4>
+            <p><b>The Requirement</b></p>
+            </FONT>
+<FONT face="Arial, Helvetica, Sans-serif" size=3>
+            <p>The SMTP server listens at port 25 for a remote connection. When 
+             
+            a remote host connects to the server, the server spawns a 
+            new thread to serve this client. The parent process continues to 
+            listen port 25 for other connections.</p>
+  <p>In the thread, the client initiates the negotiation and the server replies 
+  to the client's request. </p>
+  <ol>
+    <li>The client first says HELLO to server and server replies. </li>
+    <li>Client sends the sender address to the server, the server checks whether 
+    this is a valid email address. </li>
+    <li>Client sends the receiver address to the server, the server must check 
+    whether the receiver address is a member of CS department, i.e. the domain 
+    should be &quot;@cs.ust.hk&quot;, or otherwise, the server must reject this address.</li>
+    <li>Client starts to send the mail content, this mail content may contain 
+    a MIME style message body and attachment.</li>
+    <li>Server separates the data into plain-text message body and attachments. 
+    Conversion (base64 only) may be needed.</li>
+    <li>Server creates a new directory and saves the plain-text message into &quot;message.txt&quot;.</li>
+    <li>If attachment is received, the attachment is saved according to the file 
+    name specified, or using a dummy name if the MIME header hasn't given a file name.</li>
+    <li>Client may send another message by repeating step 2 to step 7, or 
+    terminate the SMTP connection.</li>
+  </ol>
+  <p>During step 2 to step 8, if the client says HELLO again, the server needs to 
+  discard all the previous data (except the saved messages) and restarts from 
+  step 2. see <a target="_new" href="rfc0821.txt">RFC 821</a> and
+  <a target="_new" href="rfc2821.txt">RFC 
+  2821</a> for details.</p>
+  <p>To simplify the implementation, the server must understand the following 
+  SMTP commands, and answer them with appropriate reply codes, for the details 
+  of SMTP interaction, read <a target="_new" href="rfc0821.txt">RFC 821</a> and
+  <a target="_new" href="rfc2821.txt">RFC 2821</a>:</p>
+            <TABLE width="273">
+              <TR>
+                <TH width="108">Command 
+                <TH width="155">Reply Codes</TR> 
+              <TR>
+                <TD width="108">HELO or EHLO<TD width="155">250 500 501 503 </TD>
+              <TR>
+                <TD width="108">MAIL FROM<TD width="155">250 500 503</TD>
+              <TR>
+                <TD width="108">RCPT TO<TD width="155">250 500 503</TD>
+              <TR>
+                <TD width="108">DATA<TD width="155">354 451</TD>
+              <TR>
+                <TD width="108">QUIT 
+                <TD width="155">221</TD></TR></TABLE>
+            <p>You only need to implement the following message header, if an 
+            unrecognized field is detected, treat the previous processed line(s) as message body and 
+            process the remaining content as message body:</p>
+            <TABLE width="324">
+              <TR>
+                <TH width="227" >Message Header Field<TH width="91" >Processing<TR>
+                <TD width="227">From:<TD width="91" align="center"><i>no</i><TR>
+                <TD width="227">To:<TD width="91" align="center"><i>no</i><TR>
+                <TD width="227"><font color="#FF0000"><b>Subject:</b></font><TD width="91" align="center">
+                <font color="#FF0000"><b>yes</b></font><TR>
+                <TD width="227"><font color="#FF0000"><b>Date:</b></font><TD width="91" align="center">
+                <font color="#FF0000"><b>yes</b></font><TR>
+                <TD width="227"><font color="#FF0000"><b>Content-Type:</b></font><TD width="91" align="center">
+                <font color="#FF0000"><b>yes</b></font><TR>
+                <TD width="227"><font color="#FF0000"><b>
+                Content-Transfer-Encoding:</b></font><TD width="91" align="center">
+                <font color="#FF0000"><b>yes</b></font><TR>
+                <TD width="227"><b>
+<FONT face="Arial, Helvetica, Sans-serif" size=3 color="#FF0000">
+                MIME-Version:</FONT></b></TR>
+                <TD width="91" align="center"><b>
+                <font face="Arial, Helvetica, Sans-serif" color="#FF0000">yes</font></b></TR><TR>
+                <TD width="227">Message-ID:</TR>
+                <TD width="91" align="center"><i>
+                <font face="Arial, Helvetica, Sans-serif">no</font></i></TR><TR>
+                <TD width="227">Importance:</TR>
+                <TD width="91" align="center"><i>
+                <font face="Arial, Helvetica, Sans-serif">no</font></i></TR><TR>
+                <TD width="227">User-Agent:</TR>
+                <TD width="91" align="center"><i>
+                <font face="Arial, Helvetica, Sans-serif">no</font></i></TR><TR>
+                <TD width="227">field starts with &quot;X&quot;</TR>
+                <TD width="91" align="center"><i>
+                <font face="Arial, Helvetica, Sans-serif">no</font></i></TR></TABLE>
+            <p>A subset of MIME 
+          extension over&nbsp;SMTP is needed. This extension reserves the traditional SMTP 
+          commands and architecture, but it extends the capability of mail 
+          service to include items ssuch as such as file attachments, multimedia and richtext formatted email. 
+          You can look at <a target="_new" href="rfc2045.txt">RFC 2045</a> &amp;
+          <a target="_new" href="rfc2046.txt">RFC 2046</a> 
+          for details.</p>
+  <p>For the ease of programming, all file attachments only use Base64 or 
+  7bit(plain-text) encoding. The <code>Base64</code> class is 
+          already provided for you. This
+          <a target="_new" href="http://iharder.sourceforge.net/xmlizable/api/net/iharder/xmlizable/Base64.html">
+          links</a> to the <code>Base64</code> class API homepage. If you want 
+          to use another Base64 java class from public domain, you are free to 
+          do so.</p>
+          <p>The MIME extension is capable to encapsulate 8-bit character as 
+          message text, for example, you can transfer Chinese characters as 
+          message text.</p>
+          <p>In this project, Java SDK Version 1.4.1 is used. Windows platform 
+          or UNIX platform are both accepted.</p>
+            <H3>The Code</H3>
+            <P>The program consists of four classes: 
+            <TABLE height="84">
+              <TBODY>
+              <TR>
+                <TD height="18"><a target="_new" href="MailServer.java">MailServer
+                </a> 
+                <TD height="18">The Mail Server</TD>
+              <TR>
+                <TD height="18"><a target="_new" href="MessageSave.java">MessageSave</a> 
+                <TD height="18">Save the message body to system</TD>
+              <tr>
+                <TD height="14"><a target="_new" href="SMTPConnection.java">SMTPConnection</a> 
+                <TD height="14">Thread class for SMTP connection to client</TD>
+              </tr>
+              <TR>
+                <TD height="16"><a target="_new" href="Base64.java">Base64</a>
+                <TD height="16">Base64 encoder for MIME</TD></TR></TBODY></TABLE>
+            <P>You need to complete the code in the 
+            <CODE>SMTPConnection</CODE> class and <CODE>MessageSave</CODE> class so 
+            that in the end you will have a program that is capable of receiving&nbsp; 
+            mail and storing&nbsp; it in the system.&nbsp; The code for the other two classes 
+            are provided. 
+            <P>The places where you need to complete the code have been marked 
+            with the comments <CODE>/* Fill in */</CODE>. Each of the places 
+            requires one or more lines of code. 
+            <P>The <CODE>MailServer</CODE> is the frontend of the SMTP server. When 
+            a new connection is established, <CODE>MailServer </CODE>creates a 
+            new object <code>SMTPConnection</code> for handling this client.
+            <code>SMTPConnection</code> is the core part of the server, it 
+            negotiates with the client and responds to every request issued by 
+            the client. After the client&nbsp; sends the whole message to the 
+            server, <code>SMTPConnection </code>creates another object called
+            <code>MessageSave</code> and puts the message body, sender address 
+            and receiver address into it. <code>MessageSave</code> reads every 
+            line in the data and determines the message header, message body, 
+            MIME header and MIME body. if the message body or MIME body is 
+            base64 encoded, <code>MessageSave </code>calls <code>Base64 </code>
+            for decoding. Afterwardsl, the message body is broken into the message body 
+            and attachments,&nbsp; and saved into a new directory (directory name 
+            is generated by <code>MessageSave</code>.) 
+            <P>
+            <P>
+            <H3>Hints</H3>
+            <P>To make it easier to debug your program, do not, at first, 
+            include the code that opens the socket in&nbsp; <code>SMTPConnection</code>, but use the following 
+            definitions for <CODE>fromClient</CODE> and <CODE>toClient</CODE>. 
+            This way, your program sends the commands to the terminal. Acting as 
+            the remote host, you will need to give the correct reply codes. When 
+            your program works, add the code to open the socket to the server. 
+            <PRE>	fromClient = new BufferedReader(new InputStreamReader(System.in));
+	toClient = System.out;
+</PRE>
+            <P>The lines for opening and closing the socket, i.e., the lines 
+            <CODE>connection = ...</CODE> in the constructor and the line 
+            <CODE>connection.close()</CODE> in function <CODE>close()</CODE>, 
+            have been commented out by default. 
+            <P>Start by completing the method <CODE>fetch() </CODE>and <code>
+            parseHELO()</code> You will need this function in many places. <br>
+            <P>In the function <CODE>reply()</CODE>, you should use the 
+            function <CODE>writeBytes()</CODE> to write the commands to the 
+            server. The advantage of using <CODE>writeBytes()</CODE> instead of 
+            <CODE>write()</CODE> is that the former automatically converts the 
+            strings to bytes which is what the server expects. Do not forget to 
+            terminate each command with the string CRLF. 
+            <p>In <code>MessageSave </code>class, you need to handle the message 
+            body received by the server; the simplest way to get it right is to 
+            investigate a real SMTP connection, 
+            or create a fake SMTP server and use Outlook or Eudora to send an 
+            email to your fake server, thus you can grab the raw data for 
+            testing. But remember to follow the RFC specification.</p>
+  <p>You need to identify message header and message body clearly, or otherwise, 
+  information may be lost and the whole message may be corrupted.</p>
+            <P>Don't use a huge file as attachment as the decoding time is long.<P>
+In&nbsp; then laboratory, server cannot bind port 25 in UNIX platform; you need to use port 
+number higher than 1024 for testing.</FONT>
+<br><P ALIGN="RIGHT"><SCRIPT language="JavaScript">document.write("<EM>Last modified on "+document.lastModified+ "</EM>")</SCRIPT></BODY></HTML>

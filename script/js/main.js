@@ -7,7 +7,7 @@ function main() {
         _main();
     }
     catch (error) {
-        alert(new Error(error.message));
+        alert(error.message);
         throw error;
     }
 }
