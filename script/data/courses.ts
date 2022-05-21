@@ -321,6 +321,10 @@ const FETCHED_COURSES: FetchedCourses = {
     title: 'Topics in Theory: Game Theoretic Applications in CS',
     description: 'A quick and dirty introduction to the basic concepts of modern game theory followed by a survey of recent work in computer science that uses game theory. The course will start with the instructor giving two or three introductory lessons on the basics of game theory. The remainder of the course will be students presenting papers.'
   },
+  'COMP 670P': {
+    title: 'Topics in Theory: Metric Embeddings and Algorithms',
+    description: 'A quick and dirty introduction to the basic concepts of embeddings followed by a survey of recent work in computer science that uses embeddings. The course will start with the instructor giving two or three introductory lessons on the basics of  embeddings. The remainder of the course will be participants presenting papers.',
+  },
   'COMP 680': {
     title: 'Topics in Computer Engineering',
     description: 'Selected topics in computer engineering of current interest to the Department and not covered by existing courses.'

@@ -1,7 +1,8 @@
 /* THIS IS AN AUTO GENERATED LOG FILE BY COMMIT HOOK. DO NOT TOUCH IT! */
 
 const GIT_LOGS = {
-  '2022-05-21 17:08:22': 'feat: add COMP170 (05f)',
+  '2022-05-21 21:45:29': 'feat: add COMP 670P (07s)',
+  '2022-05-21 17:10:47': 'feat: add COMP 170 (05f)',
   '2022-05-21 16:30:11': 'feat: add COMP 670O (06s)',
   '2022-05-21 13:37:59': 'feat: add COMP 361 (03f)',
   '2022-05-21 12:53:00': 'feat: implement copy-link by nagivator api, with browser alert hint',
