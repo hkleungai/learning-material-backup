@@ -19,6 +19,10 @@ const CATEGORIZED_PRE_COURSES = [
                 semesters: ['Spring 2001'],
             },
             {
+                code: 'COMP 670O',
+                semesters: ['Spring 2006'],
+            },
+            {
                 code: 'COMP 2711H',
                 semesters: ['Fall 2021'],
             },

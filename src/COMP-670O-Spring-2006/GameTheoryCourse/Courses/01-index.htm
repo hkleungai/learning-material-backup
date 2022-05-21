@@ -1,0 +1,450 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0047)http://www.cs.cornell.edu/courses/cs684/2004sp/ -->
+<!-- saved from url=(0047)http://www.cs.cornell.edu/courses/cs681/2000fa/ --><HTML><HEAD><TITLE>CS684</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<META content="MSHTML 6.00.2900.2802" name=GENERATOR></HEAD>
+<BODY bgColor=#ffffff>
+<CENTER>
+<H2>Algorithmic Game Theory </H2>
+<H1>Computer Science 684 <BR>Spring 2004 </H1></CENTER>
+<H2>Instructor: <A href="http://www.cs.cornell.edu/home/eva/eva.html">Éva 
+Tardos</A> </H2>
+<DL>
+  <DT><FONT size=3>5153 Upson</FONT> 
+  <DT><FONT size=3>255-0984</FONT> 
+  <DT><A href="mailto:eva@cs.cornell.edu"><FONT size=3>eva at 
+  cs.cornell.edu</FONT></A> </DT></DL><FONT size=4>
+<P>Time: MWF 11:15-12:05</FONT> 
+<P><FONT size=4>Place: Phillips 219.</FONT> 
+<P><FONT size=4>Office Hours:&nbsp;</FONT> 
+<P><FONT size=3>Mondays 10-11 and Thursdays 2:30-3:30, or by appointment. 
+</FONT>
+<P><FONT size=4><FONT color=#ff0000>Office hour Monday 17: 2-3pm</FONT>.</FONT>
+<P><FONT size=4>TA:&nbsp; <A href="http://www.cs.cornell.edu/~sandler">Mark 
+Sandler</A></FONT> 
+<DL>
+  <DT><FONT size=3>492 Rhodes Hall</FONT>
+  <DT><FONT size=3>254-8833</FONT> 
+  <DT><FONT size=3>sandler at cs.cornell.edu</FONT> </DT></DL>
+<P><FONT size=4>Office Hours:&nbsp;</FONT> 
+<P><FONT size=3>Fridays 2-3, or by appointment.</FONT> 
+<P><FONT size=4>Mark will have additional office hours during the regular class 
+times.</FONT>
+<P><FONT size=4>Final Project due Wednesday, May 19th</FONT></P><FONT size=2>
+<P>&nbsp;</FONT>Submit a brief proposal for your final project before spring 
+break. The project proposal is a few paragraph long explanation on what you are 
+hoping to accomplish. The goal of asking for the proposals is to get each group 
+started on thinking about the projects, and also to allow early feedback on the 
+plans. You can work on this project in groups of at most 3.</P>
+<P>There are many different types of projects possible. You can consider a game, 
+and propose to work on understanding the algorithmic issues associated with this 
+game, such as how to find an equilibria, are there many equilibria, do natural 
+plays find such equilibria, what are the quality of the worst or best 
+equilibria, etc. I think the most interesting projects would model some 
+phenomena in computer science as a game, and analyze a simplified version. 
+Projects may be theoretical or experimental in nature. Alternatively, your 
+project may be an extended survey of the literature in a sub-area. If you choose 
+to do a survey, you should make sure that you understand the papers well, and 
+can compare the results, and techniques of different papers, explain their 
+advantages and disadvantages.&nbsp;</P>
+<P> 
+<H2>Handouts</H2>
+<UL>
+  <LI>Here is a <A 
+  href="http://www.cs.cornell.edu/courses/cs684/2004sp/sample.tex">sample 
+  file</A> for scribes, if you want to use Latex. </LI></UL>
+<UL>
+  <LI>Problem set 1 was due Monday February 23rd. You can download it here in 
+  either <A href="http://www.cs.cornell.edu/courses/cs684/2004sp/ps1.ps">ps</A> 
+  or <A href="http://www.cs.cornell.edu/courses/cs684/2004sp/ps1.pdf">pdf 
+  </A>formats. 
+  <LI>Problem set 2 was due Wednesday, March 17th. You can download it here in 
+  either <A href="http://www.cs.cornell.edu/courses/cs684/2004sp/ps2.ps">ps</A> 
+  or <A href="http://www.cs.cornell.edu/courses/cs684/2004sp/ps2.pdf">pdf 
+  </A>formats. 
+  <LI>Problem set 3 was due Monday, May 3th. You can download it here in either 
+  <A href="http://www.cs.cornell.edu/courses/cs684/2004sp/ps3.ps">ps</A> or <A 
+  href="http://www.cs.cornell.edu/courses/cs684/2004sp/ps3.pdf">pdf </A>formats. 
+<!--
+  <ul>
+  <li>Typo in Problem 2 corrected on 4/21 (non-root node, rather than non-tree 
+  node in 2c) </li>
+  <li>Problem 3: <b>new definition: </b>For any vector <b>x</b>, let <b>x</b>(i) 
+  denote the sum of the smallest i entries. We say that x is the most 
+  egalitarian cost-sharing on the core, if&nbsp; for any other vector y in the 
+  core <b>x</b>(i) &#8805;<b>y</b>(i) for all i. For example, this means for i=1 that 
+  the smallest cost-share is as high as possible in the most egalitarian vector
+  <b>x</b>.</li>
+  <li>In Problem 4, I used the word efficiency loss for the price of anarchy in
+    the case when we compare total utility to the utility in Nash (utility,
+    rather than cost). So the question is about the ratio of Nash to Opt.&nbsp;</li>
+</ul>
+-->S </LI></UL>
+<H2>Overview </H2>
+<P><FONT size=3>Algorithmic Game Theory combines algorithmic thinking with 
+game-theoretic, or, more generally, economic concepts. The course will focus on 
+problems arising from, and motivated by, the Internet and other decentralized 
+computer networks. The most defining characteristic of the Internet is that it 
+was not designed by a single central entity, but emerged from the complex 
+interaction of many economic agents, such as network operators, service 
+providers, designers, users, etc., in varying degrees of collaboration and 
+competition. The course will focus on some of the many questions at the 
+interface between algorithms and game theory that arise from this point of 
+view.&nbsp;</FONT></P>
+<H2>Topics</H2>
+<P><FONT size=3>Topics include some of the following (subject to 
+change):&nbsp;</FONT></P>
+<UL>
+  <LI><FONT size=3>Introduction to Algorithms and Games,</FONT> 
+  <LI>Games on Networks 
+  <UL>
+    <LI>congestion games 
+    <LI>selfish routing in networks 
+    <LI>Nash and Wardrop equilibria 
+    <LI>coordination ratios (price of anarchy) 
+    <LI>pricing network edges 
+    <LI>network design with selfish agents </LI></UL></LI></UL>
+<UL>
+  <LI>Algorithmic Aspects of Equilibria 
+  <UL>
+    <LI>existence and complexity of equilibria (including Nash and cooperative) 
+    <LI>complexity of market equilibria 
+    <LI>fast algorithms for specific games 
+    <LI>games with incomplete information 
+    <LI>evolutionary games </LI></UL>
+  <P> </P>
+  <LI><FONT size=3>Economic aspects of Internet routing:&nbsp;</FONT> 
+  <UL>
+    <LI><FONT size=3>fairness, charging schemes, and rate control.</FONT> 
+  </LI></UL>
+  <P> </P>
+  <LI>Mechanism Design&nbsp; 
+  <UL>
+    <LI>general principles 
+    <LI>algorithmic mechanism design 
+    <LI>distributed aspects 
+    <LI>specific applications, e.g. multicast pricing 
+    <LI>cost-sharing mechanisms </LI></UL>
+  <P> </P>
+  <LI>Auctions 
+  <UL>
+    <LI>combinatorial auctions 
+    <LI>frugality 
+    <LI>auctions for digital goods 
+    <LI>computational aspects of auctions </LI></UL></LI></UL>
+<H3>Topics week by week, lecture notes, references, etc.</H3>
+<BLOCKQUOTE>
+  <P><A href="http://www.cs.cornell.edu/courses/cs684/2004sp/febr5.ps">Notes</A> 
+  for January 26- February 6 on Introduction to games, Nash equilibria, load 
+  balancing game, potential games, a routing game, non-atomic games, and convex 
+  optimization. 
+  <P>Week of January 26-30: 
+  <UL>
+    <LI>E. Koutsoupias, C. H. Papadimitriou "<A 
+    href="http://www.cs.berkeley.edu/~christos/nash.ps">Worst-case 
+    equilibria</A><I>", STACS 99</I>.&nbsp;&nbsp; 
+    <LI>Monderer and Shapley, Potential Games,&nbsp; Games and Economic 
+    Behavior, 14:124--143, 1996. </LI></UL>
+  <P>Week of February 2-6:&nbsp; 
+  <UL>
+    <LI>Alex Fabrikant, Christos Papadimitriou, and Kunal Talwar&nbsp;&nbsp; <A 
+    href="http://www.cs.berkeley.edu/~christos/papers/pure.ps">On the complexity 
+    of pure equilibria</A>, to appear in STOC 2004.&nbsp; </LI></UL>
+  <P>Week of February 9-13:&nbsp; 
+  <UL>
+    <LI><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/Lecture7v2.pdf">Notes</A> 
+    for February 9: worst case Opt/Nash ratio is on two links 
+    <LI><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/notes-2-11-04.ps">Notes</A> 
+    for February 11: more on Nash/Opt, fair flows, and the Braess' paradox 
+    <LI><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/feb13.ps">Notes</A> for 
+    February 13: bounding Nash by Opt on twice the delay </LI></UL>
+  <UL>
+    <LI>T. Roughgarden and É. Tardos. <A 
+    href="http://www.cs.cornell.edu/timr/papers/routing.ps"><EM>How Bad is 
+    Selfish Routing?</EM></A><EM>. In JACM 2002.</EM> 
+    <LI>T. Roughgarden. <A 
+    href="http://www.cs.cornell.edu/timr/papers/indep.ps"><EM>The Price of 
+    Anarchy is Independent of the Network Topology</EM></A>. In JCSS 2003. 
+  </LI></UL>
+  <P>Week of February 16-20:&nbsp; 
+  <UL>
+    <LI><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/CS684scribeFeb16.ps">Notes</A> 
+    for February 16: proof of Brower's fixed point theorem. 
+    <LI><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/febr18.ps">Notes</A> 
+    for February 18: Proving the existence of Nash equlibrium. 
+    <LI><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/feb20.pdf">Notes</A> 
+    for February 20: Correlated equilibria. </LI></UL>
+  <P>Week of February 23-27&nbsp;(Price of anarchy on randomized load balancing 
+  games): 
+  <UL>
+    <LI><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/cs684feb23.ps">Notes</A> 
+    for February 23: worst case Opt/Nash for maximum expected load in randomized 
+    load balancing 
+    <LI><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/2-25.ps">Notes</A> for 
+    February 25: worst case Opt/Nash for <B>expected maximum</B> load in 
+    randomized load balancing 
+    <LI><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/febr27.ps">Notes</A> 
+    for February 27: On evolutionary games, and evolutionary stable strategies 
+    <LI> 
+    <LI>E. Koutsoupias, C. H. Papadimitriou: <A 
+    href="http://www.cs.berkeley.edu/~christos/nash.ps">``Worst-case 
+    equilibria,''</A> in STACS 1999. 
+    <LI>A. Czumaj and B. Vöcking: <A 
+    href="http://www.cis.njit.edu/~czumaj/PUBLICATIONS/SODA-2002-Proceedings-Final-Revision.ps.gz">Tight 
+    Bounds for Worst-Case Equilibria</A>, in SODA 2002. </LI></UL>
+  <P>Week of March 1-5&nbsp;(Markets, and market equilibria)</P>
+  <UL>
+    <LI><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/notes0301.ps">Notes</A> 
+    for March 1st: On Vetta's facility location game 
+    <LI><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/march3.ps">Notes</A> 
+    for March 3rd: On the existence of market equilibrium with strictly concave 
+    utilities. 
+    <LI><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/march5.pdf">Notes</A> 
+    for March 5th: On an algorithm for the case with linear utilities, and 
+    separated goods and buyers. 
+    <LI> 
+    <LI>Adrian Vetta, <A 
+    href="http://www.math.mcgill.ca/~vetta/Research.dir/nash.ps">Nash equilibria 
+    in competitive societies with applications to facility location, traffic 
+    routing and auctions.</A> FOCS, 2002. 
+    <LI>Deng Xiaotie, C. H. Papadimitriou, Muli Safra&nbsp; <A 
+    href="http://www.cs.berkeley.edu/~christos/equi.ps">On the Complexity of 
+    Equilibria., STOC 02&nbsp;&nbsp;</A> 
+    <LI>N. Devanur, C. Papadimitriou, A. Saberi, and V. Vazirani <A 
+    href="http://www.cc.gatech.edu/fac/Vijay.Vazirani/market.ps">``Market 
+    Equilibrium via a Primal-Dual-Type Algorithm''</A>, FOCS 2002. </LI></UL>
+  <P>Week of March 8-12:&nbsp;guest lectures by</P>
+  <UL>
+    <LI><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/notes0308.ps">Notes</A> 
+    for March 8:&nbsp; Eric Friedman's lecture about some problems with the Nash 
+    equilibrium. 
+    <LI><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/notes0310.ps">Notes</A> 
+    for March 10: Mark Sandler's lecture about: <A 
+    href="http://www.cis.upenn.edu/~mkearns/papers/graphgames.ps">Graphical 
+    Models for Game Theory</A>, by M. Kearns, M. Littman, and S. Singh. 2001. In 
+    Proceedings of UAI 2001. 
+    <LI><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/cs684_scribe_notes_040312.pdf">Notes</A> 
+    for March 12: Tom Wexler talked about <I><A 
+    href="http://www.cs.cornell.edu/grad/phd/www.cs.cornell.edu/~wexler/ndsa_STOC03.ps">Near-optimal 
+    network design with selfish agents</A></I>, by E. Anshelevich, A. Dasgupta, 
+    É. Tardos, T. Wexler, in STOC'03 </LI></UL>
+  <P>Week of March 15-19&nbsp;Bandwidth sharing:&nbsp; mechanisms and the price 
+  of anarchy.</P><FONT face="Times New Roman">
+  <UL>
+    <LI>
+    <P align=left><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/mar%2015.pdf">Notes</A> 
+    for March 15:&nbsp; On Kelly's Bandwidth sharing game. </P>
+    <LI>
+    <P align=left><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/march17.pdf">Notes</A> 
+    for March 17:&nbsp; For the Johari-Tsitsiklis game on a single link </P>
+    <LI>
+    <P align=left><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/cs684mar19.ps">Notes</A> 
+    for March 19: On extending Kelly's and the Johari-Tsitsiklis game to a 
+    network. <FONT color=#ff0000>Improved version with the last proof 
+    expanded.</FONT> </P>
+    <LI>
+    <P align=left> </P>
+    <LI>
+    <P align=left>F. P. Kelly, “<A 
+    href="http://www.statslab.cam.ac.uk/~frank/elastic.ps">Charging and rate 
+    control for elastic traffic</A>,” </FONT><I><FONT 
+    face="Times New Roman">European Transactions on 
+    Telecommunications</FONT></I><FONT face="Times New Roman">,</FONT> <FONT 
+    face="Times New Roman">vol. 8, pp. 33–37, 1997.</FONT> </P>
+    <LI>
+    <P align=left>Ramesh Johari, and John N. Tsitsiklis. (2004). <A 
+    href="http://web.mit.edu/~rjohari/www/pubs/ncgamepaper.pdf">Efficiency loss 
+    in a network resource allocation game.</A><BR></P>
+    <LI>
+    <P align=left>see also: <FONT face="Times New Roman">Frank Kelly, Aman 
+    Maulloo and David Tan:<EM> </EM><A 
+    href="http://www.statslab.cam.ac.uk/~frank/rate.html">Rate control in 
+    communication networks: shadow prices, proportional fairness and 
+    stability</A>. <I>Journal of the Operational Research Society </I>49 (1998) 
+    237-252.</FONT> </P>
+    <LI>
+    <P align=left>S. H. Low, Larry Peterson and Limin Wang: <A 
+    href="http://netlab.caltech.edu/FAST/papers/vegas.pdf">Understanding Vegas: 
+    A Duality Model</A> Journal of ACM, 49(2):207-235, March 2002. </P></LI></UL>
+  <P align=left>Week of March 29-April 2: Fair bandwidth sharing &nbsp; 
+  <UL>
+    <LI>
+    <P align=left><FONT face="Times New Roman"><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/scribenotes_Mar29.pdf">Notes</A> 
+    for March 29:&nbsp; on the characterization of core allocations. </FONT></P>
+    <LI>
+    <P align=left><FONT face="Times New Roman"><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/ShapleyValue.pdf">Notes</A> 
+    for March 31: on Shapley value</FONT> </P>
+    <LI>
+    <P align=left><FONT face="Times New Roman"><A 
+    href="http://www.cs.cornell.edu/~djm/classes/coms684/scribe-04-02-2004.ps">Notes</A> 
+    for April 2: on serial cost-sharing</FONT> </P>
+    <LI>
+    <P align=left> </P>
+    <LI>
+    <P align=left>Herve Moulin and Scott Shenker, "Serial Cost Sharing," 
+    Econometrica, vol. 60, no. 5, pp. 1009-1037, 1992. </P>
+    <LI>Scott Shenker <A onmousedown="return clk(3,this)" 
+    href="http://www.stanford.edu/class/cs206/shenker2.pdf">Making Greed Work in 
+    Networks A Game Theoretic Analysis of Switch Switch Service Disciplines</A>, 
+    SIGCOMM'95 </LI></UL>
+  <P>Week of April 5-9: We continue discussing the fair bandwidth sharing game, 
+  and start talking about cross monotone cost-sharing.</P>
+  <UL>
+    <LI>
+    <P align=left><FONT face="Times New Roman"><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/cs684-0405.ps">Notes</A> 
+    for April 5:&nbsp; Showing that all cost-sharing games can result in 
+    solutions that are not pareto optimal.</FONT> </P>
+    <LI>
+    <P align=left><FONT face="Times New Roman"><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/notes0407.ps">Notes</A> 
+    for April 7: define cross monotone cost-sharing and show that for submodular 
+    cost-functions, Shapley value is cross-monotone</FONT> </P>
+    <LI>
+    <P align=left><FONT face="Times New Roman"><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/scribe-09-04.ps">Notes</A> 
+    for April 9: give a cross-monotone cost-sharing function for the spanning 
+    tree problem (or muticast).</FONT> </P>
+    <LI>
+    <P align=left><FONT face="Times New Roman"></FONT> </P>
+    <LI>
+    <P align=left><FONT face="Times New Roman">H. Moulin and S. Shenker: <A 
+    href="http://www.icir.org/shenker/cost.ps">Strategyproof Sharing of 
+    Submodular Costs: budget balance versus efficiency</A></FONT> </P>
+    <LI>
+    <P align=left>K. Jain and V. Vazirani&nbsp; <A 
+    href="http://www.cc.gatech.edu/fac/Vijay.Vazirani/econ.ps">Applications of 
+    Approximation Algorithms to Cooperative Games</A>, STOC 2001<BR>&nbsp; 
+    </P></LI></UL>
+  <P>Week of April 12-16: We define truthfulness, and discuss the VCG 
+  mechanism</P>
+  <UL>
+    <LI>
+    <P align=left><FONT face="Times New Roman"><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/notes0412.pdf">Notes</A> 
+    for April 12:&nbsp; on Vickrey auction and VCG mechanisms for 
+    cost-sharing.</FONT> </P>
+    <LI>
+    <P align=left><FONT face="Times New Roman"><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/0414.pdf">Notes</A> for 
+    April 14: on the VCG mechanism</FONT> </P>
+    <LI>
+    <P align=left><FONT face="Times New Roman"><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/0416.pdf">Notes</A> for 
+    April 16: on combinatorial auction</FONT> </P>
+    <LI>
+    <P align=left><FONT face="Times New Roman"></FONT> </P>
+    <LI>
+    <P align=left>N. Nisan and A. Ronen. <A 
+    href="http://www.cs.huji.ac.il/~noam/selfishJ.ps">Algorithmic Mechanism 
+    Design</A>, STOC 1999. </P>
+    <LI>
+    <P align=left>John Hershberger and Subhash Suri. <A 
+    href="http://www.eecs.harvard.edu/~parkes/cs286r/spring02/papers/vickrey.pdf">Vickrey 
+    Prices and Shortest Paths: What is an edge worth?,</A> FOCS 2001 </P>
+    <LI>
+    <P align=left>J. Feigenbaum, C. H. Papadimitriou, R. Sami, S. Shenker&nbsp; 
+    <A href="http://www.cs.berkeley.edu/~christos/papers/podc.ps">A BGP-based 
+    Mechanism for Lowest-cost Routing</A>, PODC, 2002. </P></LI></UL>
+  <P>Week of April 19-23: More on truthful mechanisms and impossibility results 
+  </P>
+  <UL>
+    <LI><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/Auctions.ps">Notes</A> 
+    for April 19: on using linear programming and rounding to design truthful 
+    auctions 
+    <LI>Notes for April 21: on auction for digital goods 
+    <LI><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/scribe-04-23-04.ps">Notes</A> 
+    for April 23: on Arrow's impossibility theorem 
+    <LI> 
+    <LI>Aaron Archer, Christos Papadimitriou, Kunal Talwar and Éva Tardos, "<A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/www.orie.cornell.edu/~aarcher/Research/logcopySODAproc.ps">An 
+    approximate truthful mechanism for combinatorial auctions with single 
+    parameter agents</A>"<FONT size=+1>&nbsp;</FONT> 
+    <LI><I>A. V. Goldberg, J. D. Hartline, A. R. Karlin, and A. Wright: </I><A 
+    href="http://www.avglab.com/andrew/pub/auction.ps">Competitive Auctions</A> 
+    </LI></UL>
+  <P>Week of April 26-31: More on impossibility and Bayesian games</P>
+  <UL>
+    <LI><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/Apr26.ps">Notes</A> for 
+    April 26: on the Gibbard-Setterthwaite impossibility theorem on truthfulness 
+    without side payments. 
+    <LI>April 28: Bayesian games, and first price auction, see notes with next 
+    lecture 
+    <LI><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/new4-30.pdf">Notes</A> 
+    for April 30: on first price auction, revenue equivalence and auctions with 
+    reserve prices. </LI></UL>
+  <P>Week of May 3-7: Three recent results </P>
+  <UL>
+    <LI><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/notes-5-3-04.ps">Notes</A> 
+    for May 3: On the severity of Braess' paradox 
+    <LI>Notes for May 5: On finding correlated equilibria in compactly 
+    represented games 
+    <LI><A 
+    href="http://www.cs.cornell.edu/courses/cs684/2004sp/may7.ps">Notes</A> for 
+    May 7: stable matching games 
+    <LI> 
+    <LI>T. Roughgarden. <A 
+    href="http://www.cs.berkeley.edu/~timr/papers/nd_hard.ps"><EM>On the 
+    Severity of Braess's Paradox: Designing Networks for Selfish Users Is 
+    Hard</EM></A>. 
+    <LI>C. Papadimitriou, and T. Roughgarden. <A 
+    href="http://www.cs.berkeley.edu/~christos/papers/multiplayer.ps">Computing 
+    equilibria in multiplayer games.</A> </LI></UL>
+  <P><BR></P></BLOCKQUOTE>
+<H2>Pre-requisites </H2>
+<P><FONT size=3>The course pre-requisites include background in algorithms and 
+graphs at the level of CS 482. No prior knowledge of game theory or economics 
+will be assumed.</FONT></P><FONT size=4>
+<H2>Course work </H2></FONT><FONT size=3>There will be 3-4 homework sets during 
+the semester, and a final project.&nbsp;</FONT> 
+<P><FONT size=3>You may discuss the homework problems with other members of the 
+class, but you must write up the assignment separately and list the names of the 
+people with whom you discussed the assignment.&nbsp;</FONT></P>There are 
+man<FONT size=3>y different types of projects possible both experimental, 
+theoretical, or an extended survey of literature in a sub-area. Y</FONT>ou can 
+work on the final project in groups of up to three people. The first step in the 
+project will be a short `proposal'. 
+<H2>Book</H2>
+<P>There is no textbook for the course, as it covers recent research. <FONT 
+size=3>The following book is a very nice introduction to game theory. (But it is 
+not required for the course.)</FONT> 
+<UL>
+  <LI>Osbourne and Rubinstein, A Course in Game Theory, MIT Press, 1994. 
+</LI></UL>
+<H2>Similar Courses </H2><FONT size=3>By <A 
+href="http://www.cs.berkeley.edu/~christos/games03/cs294.html">Christos 
+Papadimitiou,</A> <A 
+href="http://www.cs.huji.ac.il/~noam/econcs/index.html">Noam Nisan</A>, <A 
+href="http://www.cis.upenn.edu/~mkearns/teaching/cgt/">Mike Kearns</A>, <A 
+href="http://www.cs.brown.edu/courses/cs295-9/">Eli Upfal</A>, <A 
+href="http://www.orie.cornell.edu/~friedman/ORIE629/ORIE_629.html">Eric 
+Friedman</A>, and <A href="http://zoo.cs.yale.edu/classes/cs455/">Joan 
+Feigenbaum</A>. In addition,&nbsp; <A 
+href="http://www.gametheory.net/html/lectures_a.html">Game Theory . net</A> 
+offers a wide range of game theory courses.</FONT><BIG><BR></BIG>
+<P> </P></BODY></HTML>

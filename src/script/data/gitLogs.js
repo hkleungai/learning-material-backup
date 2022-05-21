@@ -1,4 +1,5 @@
 const GIT_LOGS = {
+    '2022-05-21 16:30:11': 'feat: add COMP 670O (06s)',
     '2022-05-21 13:37:59': 'feat: add COMP 361 (03f)',
     '2022-05-21 12:53:00': 'feat: implement copy-link by nagivator api, with browser alert hint',
     '2022-05-20 21:28:39': 'feat: add COMP 342 (10s)',
