@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0060)http://www.cs.ust.hk/~cslok/comp361/project/dummy_proxy.html -->
+<HTML><HEAD><TITLE>COMP 361 Course Project : A Dummy Proxy Server</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=big5">
+<STYLE type=text/css>BODY {
+	FONT-FAMILY: Arial, sans-serif
+}
+P {
+	FONT-FAMILY: Arial, sans-serif
+}
+TD {
+	FONT-FAMILY: Arial, sans-serif
+}
+UL {
+	FONT-FAMILY: Arial, sans-serif
+}
+OL {
+	FONT-FAMILY: Arial, sans-serif
+}
+DL {
+	FONT-FAMILY: Arial, sans-serif
+}
+H1 {
+	FONT-FAMILY: Arial, sans-serif
+}
+H2 {
+	FONT-FAMILY: Arial, sans-serif
+}
+H3 {
+	FONT-FAMILY: Arial, sans-serif
+}
+H4 {
+	FONT-FAMILY: Arial, sans-serif
+}
+H5 {
+	FONT-FAMILY: Arial, sans-serif
+}
+H6 {
+	FONT-FAMILY: Arial, sans-serif
+}
+</STYLE>
+
+<META content="Microsoft FrontPage 5.0" name=GENERATOR></HEAD>
+<BODY text=#000000 vLink=#800080 link=#000080 bgColor=#ffffcc>
+<H2><FONT face="Arial, Helvetica, sans-serif" color=#008000>COMP 361 Course 
+Project : A Multi-Threaded Proxy Server </FONT></H2><FONT 
+face="Arial, Helvetica, Sans-serif" size=3>
+<P>In this programming assignment we will develop a dummy proxy server. In the 
+end, you will have built a multi-threaded proxy server that is capable of 
+processing multiple simultaneous service requests in parallel. You should be 
+able to demonstrate that your proxy server is capable of retrieving and 
+delivering simple web pages to a Web browser. </P>
+<P>We are going to implement part of version 1.1 of HTTP, as defined in
+<a target="_new" href="rfc2616.txt">RFC 
+2616</a> , where separate HTTP requests are sent for each component of the Web 
+page. The server will be able to handle multiple simultaneous service requests 
+in parallel. This means that the Web server is multi-threaded. In the main 
+thread, the server listens to a fixed port. When it receives a TCP connection 
+request, it sets up a TCP connection through another port and services the 
+request in a separate thread. </P>
+<P>As you are developing the code, you can test your server from a Web browser. 
+But remember that you need to configure your Web browser to use your proxy 
+server. For example, if you are using netscape7, you need to specify the host 
+name and port number of your proxy server manually by going through the menu 
+[Edit-&gt;Preferences-&gt;Advanced-&gt;Proxies], and type the required 
+information in the <B>HTTP proxy</B> preference box. </P></FONT>
+<H3>Proxy Server Requirement</H3>
+<P>In this assignment, you only implement part of the HTTP version 1.1.<BR>Here 
+are the guidelines&nbsp; you should follow:</P>
+<OL>
+  <LI>Only GET and HEAD requests are served. 
+  <LI>Caching needs NOT to be implemented. 
+  <LI>The server must NOT forward the <CODE>Connection</CODE>, 
+  <CODE>Proxy-Connection</CODE>, <CODE>Keep-Alive</CODE>, 
+  <CODE>If-Modified-Since</CODE> and <CODE>If-None-Match</CODE> Headers. 
+  <LI>The server must support <CODE>If-Modified-Since</CODE> conditional 
+  requests. 
+  <LI>The server must implement HTTP code 304, 501, 502 correctly. 
+  <LI>The server can run on JDK 1.4 or later. </LI></OL>
+<P>For the details of the above requirements, you are advised to read <FONT 
+face="Arial, Helvetica, Sans-serif" size=3><a target="_new" href="rfc2616.txt">RFC 2616</a> 
+</FONT>carefully. </P><FONT face="Arial, Helvetica, Sans-serif" size=3>
+<H3>The Code</H3>
+<P>The program consists of two classes: </P>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD height=18><a target="_new" href="ProxyServer.java">ProxyServer</a> 
+    </TD></TR>
+  <TR>
+    <TD height=18><a target="_new" href="HttpRequest.java">HttpRequest</a> 
+   </TD></TR></TBODY></TABLE>
+<P>You need to complete the code in both <CODE>ProxyServer</CODE> class and 
+<CODE>HttpRequest</CODE>. </P>
+<P>The places where you need to complete the code have been marked with the 
+comments <CODE>/* Fill in */</CODE>. Each of the places requires one or more 
+lines of code. </P>
+<P>The <CODE>ProxyServer</CODE> relays HTTP requests that it receives through a 
+well-known port number 3128 or 8080. You can choose any port higher than 1024, 
+but make sure that the same port number is used in the HTTP proxy setting of 
+your browser. Each time the <CODE>ProxyServer</CODE> receives an HTTP 
+connection, it calls the multi-threaded class <CODE>HttpRequest</CODE> and 
+passes the HTTP connection to it for handling the actual request. The 
+<CODE>HttpRequest</CODE> thread processes the request by connecting to the 
+destination Web server, retrieving the content corresponding to the request, and 
+forwarding to the Web browser. After the class <CODE>HttpRequest</CODE> 
+completes the HTTP request, it closes the connections of both the destination 
+Web server and the Web browser. 
+<H3>Hints</H3>To simplify the debugging process, you are advised to write the 
+code in phases. First you should implement the HTTP proxy server to relay simple 
+and valid requests, and then implement the "If-Modified-Since" and invalid 
+request requirements for the server. To test the proxy server during&nbsp; the first 
+phase, you can request a simple web page that consists only of simple sentence and 
+several images. You also need to check the server correctness in handling 
+invalid requests such as "bad gateway" and "method not implemented". </FONT>
+<P ALIGN="RIGHT"><SCRIPT language="JavaScript">document.write("<EM>Last modified on "+document.lastModified+ "</EM>")</SCRIPT>
+</BODY></HTML>
