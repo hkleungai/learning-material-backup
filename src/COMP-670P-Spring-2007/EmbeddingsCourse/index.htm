@@ -1,0 +1,410 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>COMP670P -- Spring 2007 -- Embeddings</title>
+</head>
+
+<body>
+
+Last Modified: 
+<!--webbot bot="Timestamp" S-Type="EDITED" S-Format="%Y-%m-%d" startspan -->2007-03-23<!--webbot bot="Timestamp" endspan i-checksum="12210" -->.<p>
+<b>Notice: Most of the material in this paper library comes from two other courses:</b></p>
+<p><b><font face="Arial">1. <a href="http://www.cs.cmu.edu/~anupamg">Anupam 
+Gupta</a> and <a href="http://www.gsia.cmu.edu/andrew/ravi/">R. Ravi</a>. At 
+CMU. </font>&nbsp;<font face="Arial" size="3"><a href="http://www.cs.cmu.edu/~anupamg/metrics/">Algorithmic 
+Applications of Metric Embeddings</a>.</font></b></p>
+<p><b><font face="Arial">2. <a href="http://theory.stanford.edu/~tim/">Tim 
+Roughgarden</a> At Stanford </font><font size="3" face="Arial">
+<a href="http://theory.stanford.edu/~tim/w06b/w06b.html">Metric Embeddings and 
+Algorithmic Applications</a></font></b></p>
+<p><u><font size="4"><b>Book</b></font><b><font size="4">s</font></b></u></p>
+<p>The most comprehensive survey is in <a href="Papers/Books/dg-nmetr.ps">Chapter 15</a> 
+(latest version, 2005) of&nbsp;
+<a href="http://kam.mff.cuni.cz/~matousek/dg.html">Lectures on Discrete Geometry
+</a>(Springer, May 2002) by <a href="http://kam.mff.cuni.cz/~matousek">Jiri 
+Matousek</a>. And the <a href="Papers/Survey/dg-nbib.ps">References</a>.</p>
+<p><u><font size="4"><b>Surveys</b></font></u></p>
+<li><a href="Papers/Survey/indyk-mat-chapter.ps">Chapter</a> on embeddings in 
+Handbook of Discrete and Computational Geometry, Jiri Matousek and Piotr Indyk.<br>&nbsp;&nbsp;&nbsp;<font color="#008000"><i>Quick reference on many topics.</i></font></li>
+<li><a href="Papers/Survey/tut.ps">Survey </a>by Piotr Indyk at FOCS 1999.<br>
+&nbsp;&nbsp;&nbsp;<i> <font color="#008000">More emphasis on algorithmic applications.</font></i></li>
+<li><a href="Papers/Survey/icm.ps">Finite Metric Spaces - Combinatorics, 
+Geometry and Algorithms</a> by Nati Linial<br>
+&nbsp;&nbsp;&nbsp; <font color="#008000">Proceedings of the International Congress of 
+Mathematicians III, 573--586 Beijing, 2002</font></li>
+<p><u><b><font size="4">Embeddings into Euclidean and l<sub>1</sub> spaces</font></b></u></p>
+<p><b><i>Upper bounds:<br>
+&nbsp;</i></b><ul>
+	<li>J. Bourgain. On {Lipschitz} embeddings of finite metric spaces in 
+	{Hilbert} space. Israel J. of Math. 1985.<br>
+	&nbsp;&nbsp;&nbsp; <i><font color="#008000">How to embed any n-point metric into any l_p 
+	space with distortion O(log n)</font></i></li>
+	<li>N. Linial, E. London and Yu. Rabinovich,
+	<a href="Papers/L1Space/UpperBound/llr.ps">The geometry of graphs and some 
+	of its algorithmic applications</a>, Combinatorica (1995) 15, pp. 215-245.
+	<br>
+	&nbsp;&nbsp;&nbsp; <i><font color="#008000">Algorithmic version of Bourgain's embedding, 
+	many other embeddings results.</font></i></li>
+	<li>Aumann/Rabani, <a href="Papers/L1Space/UpperBound/AumannR94.ps">An O(log 
+	k) Approximate Min-Cut Max-Flow Theorem and Approximation Algorithms</a>, 
+	SIAM Journal of Computing '98.<br>
+&nbsp;&nbsp;&nbsp; <i><font color="#008000">Upper bounds (of O(log n)) for the 
+	sparsest cut/maximum concurrent flow gap in general graphs with general 
+	demands. Lower bound and Application
+	<a href="Papers/L1Space/LowerBound/p787-leighton.pdf">[LR99]</a>.</font></i></li>
+	<li>S. Rao. <a href="Papers/L1Space/UpperBound/p300-rao.pdf">Small 
+	distortion and volume preserving embeddings for Planar and {Euclidean} 
+	metrics</a>, SoCG 1999.<br>
+	&nbsp;&nbsp;&nbsp; <i><font color="#008000">Planar graphs can be embedded into Euclidean 
+	space with distortion sqrt(log n)</font></i></li>
+	<li>A. Gupta, I. Newman, Yu. Rabinovich, A. Sinclair.
+	<a href="Papers/L1Space/UpperBound/focs99.ps">Cuts, trees and 
+	{$\ell_1$}-embeddings of graphs</a>, FOCS 1999.<br>&nbsp;&nbsp;&nbsp; <i>
+	<font color="#008000">Shows that series-parallel graphs embed into l1 
+	with distortion O(1)</font></i></li>
+	<li>C. Chekuri, A. Gupta, I. Newman, Yu. Rabinovich, A. Sinclair.
+	<a href="Papers/L1Space/UpperBound/soda03-halin.ps">Embedding 
+	$k$-outerplanar graphs into $\ell_1$</a>, SODA 2003.<br>&nbsp;&nbsp;&nbsp; 
+	<i><font color="#008000">k-outerplanar graphs embed into l1 with 
+	distortion exp(k).</font></i></li>
+	<li>D. Shmoys. <a href="Papers/L1Space/UpperBound/shmoys.ps">Approximation 
+	algorithms for Cut problems and their application to divide-and-conquer</a>. 
+	1997.<br>&nbsp;&nbsp;<i>&nbsp; <font color="#008000">Approximation algorithms for graph partitioning 
+	using embeddings.</font></i></li>
+	<li>Chawla, Gupta, Racke, <a href="Papers/Euclidean/sparse-cut.pdf">
+	Embeddings of Negative-type Metrics and An Improved Approximation to 
+	Generalized Sparsest Cut</a>, SODA 2005<br>
+&nbsp;&nbsp; <i><font color="#008000">Gives an O(log^{3/4} n)-distortion 
+	embedding of l_2^2 metrics into l_2.</font></i></li>
+	<li>Arora, Lee, Naor, <a href="Papers/Euclidean/aln-stoc.pdf">Euclidean 
+	distortion and the Sparsest Cut</a>, STOC 2005.<br>
+&nbsp;&nbsp;&nbsp; <i><font color="#008000">O(log n log log n)-distortion 
+	embedding (again, from l_2^2 to l_2)</font></i></li>
+	<li>A high-level overview of the ALN embedding is given in these
+	<a href="http://www.cs.princeton.edu/courses/archive/spring05/cos598B/lecture11.pdf">
+	scribe notes</a> from a course of Sanjeev Arora.</li>
+</ul>
+	<p>&nbsp;</p>
+<p><i><b>Lower bounds:<br>
+&nbsp;</b></i><ul>
+	<li>J. Matousek, <a href="Papers/L1Space/LowerBound/lpemb.ps">On embedding 
+	expanders into $l\sb p$ spaces</a>, Israel Journal of Math, 1997.<br>
+	&nbsp;&nbsp;&nbsp; <i><font color="#008000">Expanders suffer (log n)/p distortion when 
+	embedded into Lp spaces</font></i></li>
+	<li>I. Newman, Y. Rabinovich. <a href="Papers/L1Space/LowerBound/Newman.pdf">
+	A lower bound on the distortion of embedding planar metrics into Euclidean 
+	space</a>, SoCG 2001.<br>
+	&nbsp;&nbsp;&nbsp; <i><font color="#008000">Simple planar graphs have large distortions 
+	into Euclidean space.</font></i></li>
+	<li>J.R. Lee, A. Naor.
+	<a href="Papers/L1Space/LowerBound/lee03embedding.pdf">Embedding the diamond 
+	graph in Lp and dimension reduction in L1</a>. Manuscript.<br>
+	&nbsp;&nbsp;&nbsp;<i> <font color="#008000">A short proof of the [NR01] result.</font></i></li>
+	<li>N. Alon.&nbsp;<br>
+	<i>&nbsp;&nbsp;&nbsp; <font color="#008000">A lower bound for L2 embeddability.</font></i></li>
+</ul>
+&nbsp;<p><b><u><font size="4">Embeddings into distributions of trees</font></u><br>
+<br>
+&nbsp;</b><ul>
+	<li>N. Alon, R. Karp, D. Peleg, D. B. West, <a href="Papers/Trees/AKPW.ps">A 
+	graph-theoretic game and its application to the k-server problem</a>, SICOMP 
+	1995.<br>
+	&nbsp;&nbsp;&nbsp; <i><font color="#008000">The paper that introduced the idea of embedding 
+	into <u>distributions</u> of trees.</font></i></li>
+	<li>Y. Bartal, <a href="Papers/Trees/B-prob-approx.ps">Probabilistic 
+	Approximations of Metric Spaces and its Algorithmic Applications</a>, FOCS 
+	1996.<br>
+	&nbsp;&nbsp;&nbsp; <i><font color="#008000">Gives a O(log<sup>2</sup> n) approximation for 
+	metrics by tree distributions, shows that graph decompositions give 
+	embeddings.<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; He has another paper <a href="Papers/Trees/B-prob-approx2.ps">
+	[Bartal 1998]</a> that improves things to O(log n loglog n). A bit advanced, 
+	so&nbsp;<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; read the following&nbsp; paper instead:</font></i></li>
+	<li>J. Fakcharoenphol, S. Rao and K. Talwar, <a href="Papers/Trees/logn.ps">
+	A tight bound on approximating arbitrary metrics by tree metrics</a>. STOC 
+	2003.<br>
+	&nbsp;&nbsp;&nbsp; <i><font color="#008000">A simple algorithm that gets the tight O(log n) 
+	result for all graphs.</font></i> </li>
+	<li>G. Konjevod, R. Ravi and F.S. Salman.
+	<a href="Papers/Trees/planarmetrics.ps">On approximating planar metrics by 
+	tree metrics</a>. IPL 2001.<br>
+	&nbsp;&nbsp;&nbsp; <i><font color="#008000">O(log n) for planar graphs, lower bounds of 
+	Omega(log n) for the grid.<br>
+	&nbsp;&nbsp;&nbsp; <a href="Papers/Trees/focs99.ps">[GNRS99]</a> above gives a different 
+	lower bound for series-parallel graphs.</font></i> </li>
+	<li>M. Charikar, C. Chekuri, S. Guha, A. Goel, S. Plotkin.
+	<a href="Papers/Trees/treemetric2.ps">Approximating a Finite Metric by a 
+	Small Number of Tree Metrics</a>. FOCS 98.<br>
+	&nbsp;&nbsp;&nbsp; <i><font color="#008000">How to derandomize Bartal's embeddings, via a 
+	&quot;dual&quot; problem.</font></i> </li>
+	<li>Fakcharoenphol/Rao/Talwar,
+	<a href="http://research.microsoft.com/~kunal/">Approximating Metrics by 
+	Tree Metrics (survey)</a>, SIGACT News 2004.<br>
+	&nbsp;&nbsp;&nbsp; <i><font color="#008000">A short survey on the previous 
+	papers</font></i></li>
+	<li>E. Halperin and R. Krauthgamer,
+	<a href="http://www.cs.berkeley.edu/~robi/papers/HK-GroupSteiner2-STOC03.pdf">
+	Polylogarithmic inapproximability</a>, STOC '03<br>
+&nbsp;&nbsp; <i>&nbsp;</i><span style="background-color: #FFFFFF"><i><font face="Times New Roman" color="#008000">S</font></i></span><font face="Times New Roman" color="#008000"><i><span style="background-color: #FFFFFF">ome 
+	hardness result of a polylogarithmic approximation ratio for a natural 
+	NP-hard optimization problem.</span></i></font></li>
+</ul>
+	<p><span style="background-color: #FFFFFF"><i>
+	<font face="Times New Roman" color="#008000">&nbsp;&nbsp;&nbsp; </font></i>
+	</span><b><i> Spanning trees</i></b><ul>
+	<li>&nbsp;K. Dhamdhere, A. Gupta, and H. Raecke,
+	<a href="Papers/Trees/improved-spanning.pdf">Improved Embeddings of Graph 
+	Metrics into Random Trees</a>, SODA '06.<br>
+&nbsp;&nbsp;&nbsp; <font color="#008000"><i>Probabilistic embedding of a graph 
+	into one of its spanning trees with maximum expected stretch O(log^2 n).</i></font></li>
+	<li>M. Elkin, Y. Emek, D. Spielman, and S. Teng,
+	<a href="http://www.wisdom.weizmann.ac.il/~yuvale/Publications/lsst.pdf">
+	Lower-Stretch Spanning Trees</a>, STOC '05.<br>
+&nbsp;&nbsp;&nbsp; <i><font color="#008000">The big breakthrough (polylogarithmic 
+	maximum expected stretch) came in.</font></i></li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;<i> <b>Applications of random tree embeddings:</b></i>
+<ul>
+	<li>N. Garg, G. Konjevod, R.Ravi. <a href="Papers/Trees/Application/gst.ps">
+	A polylogarithmic approximation algorithm for the group {Steiner} tree 
+	problem</a>, SODA 98.<br>
+	&nbsp;&nbsp;&nbsp; <i><font color="#008000">Reduce the problem to trees, and then solve the 
+	resulting (non-trivial) problem.</font></i> </li>
+	<li>B. Awerbuch and Y.Azar. <a href="Papers/Trees/Application/bulk.ps">Buy-at-Bulk Network Design</a>. FOCS 97.<br>&nbsp;&nbsp;&nbsp; 
+	<i><font color="#008000">Reduce the network design problem to trees, 
+	where it is very simple.</font></i> </li>
+</ul>
+<p>&nbsp;</p>
+<b><u><font size="4">Dimension Reduction</font></u><br>
+<br>
+&nbsp;</b><ul>
+	<li>W. Johnson, J. Lindenstauss. Extensions of Lipschitz maps into a Hilbert 
+	space. Contemporary Mathematics 1984.<br>
+	&nbsp;&nbsp;&nbsp; <i><font color="#008000">Any n-point Euclidean space embeds into O(log 
+	n/x<sup>2</sup>) space with (1+ x)&nbsp;<br>
+	&nbsp;&nbsp;&nbsp; distortion. In fact, a random such subspace will do.</font></i></li>
+	<li>S. Dasgupta, A. Gupta. <a href="Papers/Dimension/Dasgupta.pdf">An 
+	elementary proof of a theorem of Johnson and Lindenstrauss</a>, Random 
+	Structures Algorithms, 2002.<br>
+	<i>&nbsp;&nbsp;&nbsp; <font color="#008000">Chernoff-type proof of [JL84]</font></i></li>
+	<li>D. Achlioptas. <a href="Papers/Dimension/jl.ps">Database Friendly Random 
+	Projections</a>, PoDS 2000.<br>
+	&nbsp;&nbsp;&nbsp; <i><font color="#008000">How to do [JL84] with unbiased coins.&nbsp;</font></i></li>
+</ul>
+<p>&nbsp;<ul>
+	<li>S. Dasgupta, <a href="Papers/Dimension/focs2.ps">Learning Mixtures of 
+	Gaussians</a>, FOCS 1999.&nbsp; Dasgupta's
+	<a href="Papers/Dimension/thesis.pdf">thesis</a><br>
+	&nbsp;&nbsp;&nbsp; <i><font color="#008000">Using dimension reduction for learning.</font></i></li>
+	<li>R. Arriaga, S. Vempala. <a href="Papers/Dimension/robust.ps">An 
+	algorithmic theory of learning: robust concepts and random projection</a>. 
+	FOCS 1999.<br>
+	&nbsp;&nbsp;&nbsp; <i><font color="#008000">Using dimension reduction for learning.</font></i></li>
+	<li>P. Indyk, <a href="Papers/Dimension/stream.ps">Stable distributions, 
+	pseudorandom generators, embeddings and data stream computation</a>, FOCS 
+	2000.<br>
+	&nbsp;&nbsp;&nbsp; <i><font color="#008000">Unified view of dim. redn.as studying stable 
+	distributions, using it for streaming.</font></i></li>
+</ul>
+<p>&nbsp;<ul>
+	<li>J. Kleinberg, <a href="Papers/Dimension/stoc97-nn.ps">Two Algorithms for 
+	Nearest-Neighbor Search in High Dimensions</a>, STOC 1997.<br>
+	&nbsp;&nbsp;&nbsp; <i><font color="#008000">Random projection for near-neighbour searching.</font></i></li>
+	<li>P. Indyk, R. Motwani. <a href="Papers/Dimension/nndraft.ps">Approximate 
+	Nearest Neighbors: Towards Removing the Curse of Dimensionality</a>. STOC 
+	1998.<br>
+	&nbsp;&nbsp;&nbsp; <i><font color="#008000">More approx NN searching; uses projections + 
+	&quot;point location in equal balls&quot;</font></i></li>
+	<li>E. Kushilevitz and R. Ostrovsky and Y. Rabani.
+	<a href="Papers/Dimension/KushilevitzOR98.ps">Efficient Search for 
+	Approximate Nearest Neighbor in High Dimensional Spaces</a>. STOC 1998.<br>
+	&nbsp;&nbsp;&nbsp; <font color="#008000">A<i> form of dimension reduction for the 
+	hypercube, and using it for NN searching. </i></font></li>
+</ul>
+	<p>&nbsp;&nbsp; <i><b>&nbsp;Impossibility of dimensionality reduction</b></i></p>
+	<ul>
+		<li>Brinkman/Charikar,
+		<a href="http://www.cs.princeton.edu/~moses/papers/l1proceedings.ps">On 
+		the Impossibility of Dimension Reduction in l</a>, FOCS '03.<br>
+		<i><font color="#008000">&nbsp;First impossibility result.</font></i></li>
+	</ul>
+	<p>&nbsp;</p>
+<b><u><font size="4">Other Embeddings</font></u><br>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp; <i>Spanners:<br>
+&nbsp;</i></b><ul>
+		<li>I. Althofer, G. Das, D. Dobkin, D. Joseph, and J. Soares. On sparse 
+	spanners of weighted graphs. D&amp;CG 1993.<br>&nbsp;&nbsp;&nbsp; <i>
+		<font color="#008000">Finding sparse subgraphs that maintain all pair 
+	distances.<br>&nbsp;&nbsp;&nbsp; Used, e.g., in the network design paper
+		<a href="Papers/Spanner/98dimacs.ps">[MP98]</a></font></i></li>
+		<li>S. Khuller, B. Raghavachari, and N.E. Young.
+		<a href="Papers/Spanner/kry93a.ps">Balancing minimum spanning and shortest 
+	path trees</a>, Algorithmica, 1995.<br>&nbsp;&nbsp;&nbsp;<i>
+		<font color="#008000">Finds trees that are simultaneously near-MST 
+	and near-shortest path trees<br>&nbsp;&nbsp;&nbsp; Used, e.g., in the network design paper
+		<a href="Papers/Spanner/kry93a.ps">[SCRS97]</a></font></i></li>
+		<li>M. Thorup, U.Zwick. <a href="Papers/Spanner/thorup-zwick.pdf">Approximate distance oracles</a>. STOC 2001.<br>&nbsp;&nbsp;&nbsp; 
+		<i><font color="#008000">Gives tree covers: a small set of subtrees such 
+	that each shortest-path is maintained by one of them.<br>&nbsp;&nbsp;&nbsp; Used, e.g., in network routing paper
+		<a href="Papers/Spanner/route-SPAA.ps">[TZ02]</a></font></i></li>
+		<li>A. Gupta, A. Kumar, R. Rastogi. <a href="Papers/Spanner/focs01a.ps">Traveling with a Pez dispenser</a>. FOCS 2001.
+		<a href="Papers/Spanner/00959889.pdf">conference version</a>.<br>&nbsp;&nbsp;&nbsp; 
+		<i><font color="#008000">Good tree covers for planar graphs, and using 
+	them for routing</font>.<br><br>&nbsp;</i></li>
+		<li>Y. Rabinovich, R. Raz. <a href="Papers/Spanner/Raz.pdf">Lower Bounds on 
+	the Distortion of Embedding Finite Metric Spaces in Graphs</a>. D&amp;CG 99.<br>&nbsp;&nbsp;&nbsp; 
+		<i><font color="#008000">Lower bounds on spanners. Shows: the n-cycle 
+	cannot be approximated by a tree.</font></i></li>
+		<li>A. Gupta. <a href="Papers/Spanner/soda01.ps">Steiner nodes in Trees 
+	don't (really) help</a>. SODA 2001.<br>&nbsp;&nbsp;&nbsp; <i>
+		<font color="#008000">Shows a simpler proof of the non-embeddability 
+	of the cycle + other results.</font></i></li>
+		<li>K. V. M. Naidu, H. Ramesh. <a href="Papers/Spanner/new1.ps">Lower Bounds 
+	for Embedding Graphs into Graphs of Smaller Characteristic</a>. FST&amp;TCS 
+	2002.<br>&nbsp;&nbsp;&nbsp; <i><font color="#008000">Better lower bounds on spanners.</font></i><br>&nbsp;</li>
+	</ul>
+<p>&nbsp;&nbsp;&nbsp; <i><b>Doubling metrics and nearest neighbor search.</b></i><ul>
+		<li>Gupta, Krauthgamer, Lee, <a href="Papers/Doubling/ass-focs.pdf">
+		Bounded geometries, fractals, and low-distortion embeddings</a>, FOCS 
+		2003.<br>
+		<font FACE="Times New Roman"><i><font color="#008000">Tight bounds for 
+		embedding doubling metric into (low-dimensional) normed spaces.</font></i></font></li>
+		<li>Krauthgamer, Lee, <a href="Papers/Doubling/KL-NavNets-SODA04.pdf">
+		Navigating nets: Simple algorithms for proximity search</a>, SODA 2004.<br>
+		<font FACE="Fw"><i><font color="#008000">Present a simple deterministic 
+		data structure for maintaining a set </font></i></font><i>
+		<font FACE="Fv" color="#008000">S </font></i><font FACE="Fw"><i>
+		<font color="#008000">of points in a general metric space,&nbsp; <br>
+		while supporting proximity search (nearest neighbor and range queries) 
+		and updates to </font></i></font><i><font FACE="Fv" color="#008000">S
+		</font></i><font FACE="Fw"><i><font color="#008000">(insertions and <br>
+		sdeletions).</font></i></font></li>
+		<li>Krauthgamer, Lee, <a href="Papers/Doubling/nnc.pdf">The black-box 
+		complexity of nearest neighbor search</a>, ICALP 2004.</li>
+		<li>Har-Peled, Mendel,
+		<a href="http://valis.cs.uiuc.edu/~sariel/research/papers/04/lipschitz/lipschitz.pdf">
+		Fast Construction of Nets in Low Dimensional Metrics, and Their 
+		Applications</a>, SCG 2005.<br>
+		<i><font face="CMR10" color="#008000">P</font></i><font FACE="CMR10" SIZE="3" color="#008000"><i>resent 
+		a near linear time algorithm for constructing hierarchical nets in 
+		finite<br>
+		metric spaces with constant doubling dimension.</i></font></li>
+		<li>Cole, Gottlieb, <a href="Papers/Doubling/p574-cole.pdf">Searching 
+		Dynamic Point Sets in Spaces with Bounded Doubling Dimension</a>, STOC 
+		2006.<br>
+&nbsp;</li>
+		<li>Talwar, <a href="Papers/Doubling/p281-talwar.pdf">Bypassing the 
+		embedding: algorithms for low dimensional metrics</a>, STOC 2004.</li>
+		</ul>
+		<p>&nbsp;&nbsp;&nbsp; <i><b>Uniform sparsest cut</b></i></p>
+		<ul>
+			<li>Arora, Rao, Vazirani, <a href="Papers/Sparse/arvfull.pdf">
+			Expander Flows, Geometric Embeddings, and Graph Partitionings</a>, 
+			STOC 2004.</li>
+			<li>Section 4 of Lee, <a href="Papers/Sparse/soda05-full.pdf">
+			Distance scales, embeddings, and metrics of negative type</a>, SODA 
+			2005.</li>
+			</ul>
+			<p>&nbsp;&nbsp;&nbsp; <i><b>Measured descent</b></i></p>
+			<ul>
+				<li>Krauthgamer, Lee, Mendel, Naor,
+				<a href="Papers/Measure/KLMN-descent-Journal.pdf">Measured 
+				descent: A new embedding method for finite metrics</a>, FOCS 
+				2004<br>
+&nbsp;</li>
+				<li>Lee, <a href="Papers/Measure/soda05-full.pdf">Distance 
+				scales, embeddings, and metrics of negative type</a>, SODA 2005.<br>
+				<i><font color="#008000">The more general &quot;Gluing Lemma&quot;</font></i></li>
+				</ul>
+				<p><b><i>&nbsp;&nbsp;&nbsp; Volume Respecting Embeddings:<br>
+&nbsp;</i></b><ul>
+					<li>U. Feige. <a href="Papers/Volume/bandwidth.ps">Approximating the 
+	bandwidth via volume respecting embeddings</a>. STOC 1998.<br>&nbsp;&nbsp;&nbsp; 
+					<i><font color="#008000">How to maintain not only pair-wise distances, 
+	but also &quot;volumes&quot; of sets of points.<br>&nbsp;&nbsp;&nbsp; Used for laying out graphs on the integers with small stretch (but 
+	arbitrary contraction).</font></i></li>
+				</ul>
+				<p><font color="#008000"><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Some 
+				Improvements:</i></font></p>
+				<ul>
+					<li>Dunagan, Vempala, <a href="Papers/Volume/randband.ps">On 
+					Euclidean embeddings and bandwidth minimization</a>, APPROX 
+					2001 <br>
+&nbsp;&nbsp;&nbsp; <i><font color="#008000">A bit better approximation ratio.</font></i></li>
+					<li>Gupta, <a href="Papers/Volume/soda00.ps">Improved 
+					Bandwidth Approximation for Trees and Chordal Graphs</a>, 
+					SODA 2000/J Algorithms 2001<br>
+&nbsp;&nbsp;&nbsp; <i><font color="#008000">Improved results for trees.</font></i></li>
+					<li>Feige, Talwar, <a href="Papers/Volume/caterpillar.pdf">
+					Approximating the Bandwidth of Caterpillars</a>, APRROX 2005<br>
+&nbsp;&nbsp;&nbsp; <i><font color="#008000">Better bounds for caterpillars.</font></i></li>
+				</ul>
+				<p><font color="#008000"><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+				Inapproximability results:</i></font></p>
+				<ul>
+					<li>Unger, <a href="Papers/Volume/00743431.pdf">The 
+					Complexity of the Approximation of the Bandwidth Problem,</a> 
+					FOCS 1998</li>
+				</ul>
+				<p>&nbsp;&nbsp;<i><b>&nbsp; Additive Approximations to Metrics:</b></i><br>&nbsp;<ul>
+					<li>R.Agarwala, V. Bafna, M. Farach, M. Paterson, M.Thorup.
+					<a href="Papers/Additive/29633.ps">On the Approximability of Numerical 
+	Taxonomy.</a> SICOMP 1999.<br>&nbsp;&nbsp;&nbsp; <i><font color="#008000">Fitting distances by tree metrics.</font></i></li>
+					<li>J. Hastad, L. Ivansson, J. Lagergren.
+					<a href="Papers/Additive/rhmap.ps">Fitting points on the real line and applications to RH mapping.</a> J. 
+	Algorithms.<br>&nbsp;&nbsp;&nbsp; <i><font color="#008000">Fitting distances by line metrics.</font></i></li>
+				</ul>
+				<p>&nbsp;&nbsp;<i><b>&nbsp; Metric Property Testing:</b></i><br>&nbsp;<ul>
+					<li>M. Parnas, D. Ron: <a href="Papers/Property/met.ps">Testing metric 
+	properties</a>. STOC 2001.<br>&nbsp;&nbsp;&nbsp;<font color="#008000"> <i>Testing in sublinear time whether a metric has 
+	some claimed properties.</i></font></li>
+					<li>R. Krauthgamer, O. Sasson.
+					<a href="Papers/Property/KS-TestingDim-SODA03.ps">Property testing of data 
+	dimensionality</a>. SODA 2003.<br>&nbsp;&nbsp;&nbsp; <i>
+					<font color="#008000">Further results in that vein.</font></i></li>
+				</ul>
+				<p>&nbsp;&nbsp;&nbsp; <i><b>Growth Restrictions on Metrics:<br>&nbsp;</b></i><ul>
+					<li>A. Gupta, R. Krauthgamer and J.R. Lee.
+					<a href="Papers/Growth/ass-focs.ps">Bounded geometries, fractals, and 
+	low-distortion embeddings</a>. FOCS 2003<br>&nbsp;&nbsp;&nbsp; <i>
+					<font color="#008000">Properties of metrics which cannot grow very 
+	fast.</font></i></li>
+					<li>D. Karger, M. Ruhl. <a href="Papers/Growth/neighbor.ps">Finding nearest 
+	neighbors in growth-restricted metrics</a>. STOC 2002.<br>&nbsp;&nbsp;&nbsp; 
+					<i><font color="#008000">Using growth restrictions to improve NN 
+	searches in graphs.</font></i></li>
+				</ul>
+				<p>&nbsp;&nbsp;<i><b>&nbsp; Metric Labeling:<br>&nbsp;</b></i><ul>
+					<li>J. Kleinberg, É.Tardos.
+					<a href="Papers/labeling/focs99-mrf.ps">Approximation algorithms for classification problems</a>. FOCS 1999.<br>&nbsp;&nbsp;&nbsp; 
+					<i><font color="#008000">Map a graph into a set of labels to minimize 
+	the average stretch + assignment costs.<br>&nbsp;&nbsp;&nbsp; Uses results from tree embeddings.</font></i></li>
+				</ul>
+				<p>&nbsp;&nbsp;&nbsp; <i><b>Ramsay Properties of Metrics:</b></i><br>&nbsp;<ul>
+					<li>Y. Bartal, N. Linial, M. Mendel, and A. Naor.<a href="Papers/Ramsay/Ramsey.ps"> 
+	On Metric Ramsey-Type Phenomena</a>. STOC 2003.<br>&nbsp;&nbsp;&nbsp; <i>
+					<font color="#008000">Every metric has a large subspace that is close 
+	to Euclidean.</font></i></li>
+				</ul>
+				<p> <i><b>&nbsp;&nbsp;&nbsp; Spreading Metrics:</b></i><br>&nbsp;<ul>
+					<li>
+					<pre id="347479"><font face="Times New Roman" size="3">Guy Even and Joseph Seffi Naor and Satish Rao and Baruch Schieber.
+    <a href="Papers/Spreading/p585-even.pdf">Divide-and-conquer approximation algorithms via spreading metric. </a>JACM 2000<br>&nbsp;&nbsp;&nbsp; <i><font color="#008000">Present a novel divide-and-conquer paradigm for approximating NP-hard graph optimization problems.</font></i></font></pre>
+					</li>
+				</ul>
+<p>&nbsp;</p>
+<p><u><b><font size="4">Scribed Notes</font></b></u></p>
+<p><a href="http://www.cs.cmu.edu/~anupamg/metrics/">Scribe notes from a CMU 
+course</a> taught in Fall 2003 by <a href="http://www.cs.cmu.edu/~anupamg/">
+Anupam Gupta</a> and <a href="http://www.gsia.cmu.edu/andrew/ravi/">R. Ravi</a>.</p>
+
+</body>
+
+</html>
