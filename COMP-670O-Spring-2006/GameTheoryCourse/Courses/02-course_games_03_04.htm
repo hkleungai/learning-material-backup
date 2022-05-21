@@ -1,0 +1,785 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0070)http://www.math.tau.ac.il/~mansour/course_games/course_games_03_04.htm -->
+<HTML><HEAD><TITLE>Computational Game Theory</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<META content=Word.Document name=ProgId>
+<META content="MSHTML 6.00.2900.2802" name=GENERATOR>
+<META content="Microsoft Word 10" name=Originator>
+<META content="Mozilla/4.77 [en] (Windows NT 5.0; U) [Netscape]" name=GENERATOR><!-- saved from url=(0022)http://internet.e-mail --><!-- saved from url=(0068)http://www.cs.tau.ac.il/~mansour/course_games/course_games_03_04.htm --><LINK 
+href="course_games_03_04_files/filelist.xml" rel=File-List><!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>mansour</o:Author>
+  <o:LastAuthor>mansour</o:LastAuthor>
+  <o:Revision>25</o:Revision>
+  <o:TotalTime>648</o:TotalTime>
+  <o:LastPrinted>2004-02-29T14:24:00Z</o:LastPrinted>
+  <o:Created>2004-03-30T14:00:00Z</o:Created>
+  <o:LastSaved>2004-07-22T06:17:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>802</o:Words>
+  <o:Characters>4573</o:Characters>
+  <o:Company>tau</o:Company>
+  <o:Lines>38</o:Lines>
+  <o:Paragraphs>10</o:Paragraphs>
+  <o:CharactersWithSpaces>5365</o:CharactersWithSpaces>
+  <o:Version>10.4219</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Zoom>80</w:Zoom>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]-->
+<STYLE>@font-face {
+	font-family: Verdana;
+}
+@page Section1 {size: 595.3pt 841.9pt; margin: 72.0pt 90.0pt 72.0pt 90.0pt; mso-header-margin: 35.4pt; mso-footer-margin: 35.4pt; mso-paper-source: 0; mso-gutter-direction: rtl; }
+P.MsoNormal {
+	FONT-SIZE: 12pt; MARGIN: 0cm 0cm 0pt; DIRECTION: rtl; FONT-FAMILY: "Times New Roman"; unicode-bidi: embed; TEXT-ALIGN: right; mso-style-parent: ""; mso-pagination: widow-orphan; mso-fareast-font-family: "Times New Roman"
+}
+LI.MsoNormal {
+	FONT-SIZE: 12pt; MARGIN: 0cm 0cm 0pt; DIRECTION: rtl; FONT-FAMILY: "Times New Roman"; unicode-bidi: embed; TEXT-ALIGN: right; mso-style-parent: ""; mso-pagination: widow-orphan; mso-fareast-font-family: "Times New Roman"
+}
+DIV.MsoNormal {
+	FONT-SIZE: 12pt; MARGIN: 0cm 0cm 0pt; DIRECTION: rtl; FONT-FAMILY: "Times New Roman"; unicode-bidi: embed; TEXT-ALIGN: right; mso-style-parent: ""; mso-pagination: widow-orphan; mso-fareast-font-family: "Times New Roman"
+}
+H1 {
+	FONT-SIZE: 16pt; MARGIN: 12pt 0cm 3pt; DIRECTION: rtl; FONT-FAMILY: Arial; unicode-bidi: embed; TEXT-ALIGN: right; mso-pagination: widow-orphan; mso-style-next: Normal; mso-outline-level: 1; mso-font-kerning: 16.0pt
+}
+H2 {
+	FONT-WEIGHT: normal; FONT-SIZE: 14pt; MARGIN: 0cm 0cm 0pt 18pt; COLOR: red; FONT-FAMILY: "Times New Roman"; TEXT-DECORATION: underline; mso-pagination: widow-orphan; mso-style-next: Normal; mso-outline-level: 2; text-underline: single
+}
+A:link {
+	COLOR: blue; TEXT-DECORATION: underline; text-underline: single
+}
+SPAN.MsoHyperlink {
+	COLOR: blue; TEXT-DECORATION: underline; text-underline: single
+}
+A:visited {
+	COLOR: purple; TEXT-DECORATION: underline; text-underline: single
+}
+SPAN.MsoHyperlinkFollowed {
+	COLOR: purple; TEXT-DECORATION: underline; text-underline: single
+}
+SPAN.small1 {
+	FONT-FAMILY: Verdana; mso-style-name: small1; mso-ansi-font-size: 10.0pt; mso-bidi-font-size: 10.0pt; mso-ascii-font-family: Verdana; mso-hansi-font-family: Verdana
+}
+SPAN.l {
+	mso-style-name: l
+}
+DIV.Section1 {
+	page: Section1
+}
+</STYLE>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+	mso-para-margin:0cm;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";}
+</style>
+<![endif]--></HEAD>
+<BODY lang=EN-US style="tab-interval: 36.0pt" vLink=#800080 link=#0000ff>
+<DIV class=Section1>
+<H1 style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+style="FONT-SIZE: 28pt"><U>Computational Game Theory</U><O:P></O:P></SPAN></H1>
+<DIV class=MsoNormal 
+style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+style="FONT-SIZE: 14pt"><O:P></O:P></SPAN></DIV>
+<P class=MsoNormal 
+style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+style="FONT-SIZE: 14pt">Lecturer: <I>Yishay Mansour</I> (<A 
+href="mailto:mansour@cs.tau.ac.il">mansour@cs.tau.ac.il</A>)<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+style="FONT-SIZE: 14pt">TA: <I>Nir Andelman</I> (<A 
+href="mailto:andelmni@post.tau.ac.il">andelmni@post.tau.ac.il</A>)<O:P></O:P></SPAN> 
+
+<P class=MsoNormal 
+style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+style="FONT-SIZE: 14pt"><O:P></O:P></SPAN>
+<P class=MsoNormal 
+style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+style="FONT-SIZE: 14pt"><U>Time &amp; Place :</SPAN><SPAN 
+style="FONT-SIZE: 14pt"><SPAN style="mso-spacerun: yes"></SPAN></U>Tuesday 
+10-13, Dan David 204<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+style="FONT-SIZE: 14pt"><O:P></O:P></SPAN>
+<P class=MsoNormal 
+style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+style="FONT-SIZE: 14pt">Lectures:<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+style="FONT-SIZE: 14pt"><O:P></O:P></SPAN><BR>&nbsp; 
+<TABLE class=MsoNormalTable 
+style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; WIDTH: 487.35pt; BORDER-BOTTOM: medium none; BORDER-COLLAPSE: collapse; mso-border-alt: solid windowtext .5pt; mso-yfti-tbllook: 480; mso-padding-alt: 0cm 5.4pt 0cm 5.4pt; mso-border-insideh: .5pt solid windowtext; mso-border-insidev: .5pt solid windowtext" 
+cellSpacing=0 cellPadding=0 width=650 border=1>
+  <TBODY>
+  <TR style="mso-yfti-irow: 0">
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: windowtext 1pt solid; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: windowtext 1pt solid; WIDTH: 109.45pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt" 
+    vAlign=top width=146>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt">lecture<O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: windowtext 1pt solid; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 165.3pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt" 
+    vAlign=top width=220>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt">sources<O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: windowtext 1pt solid; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 54.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt" 
+    vAlign=top width=73>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt">scribe<O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: windowtext 1pt solid; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 157.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt" 
+    vAlign=top width=210>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt">Additional sources<O:P></O:P></SPAN></DIV></TD></TR>
+  <TR style="mso-yfti-irow: 1">
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: windowtext 1pt solid; WIDTH: 109.45pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=146>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt">1. Introduction<O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 165.3pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=220>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><B>A Course 
+      in Game Theory<SPAN class=small1><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Times New Roman'"></B> Martin J. 
+      Osborne, Ariel Rubinstein<O:P></O:P></SPAN></SPAN></DIV>
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      class=small1><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Times New Roman'">Parts of Chapters 
+      1 &amp; 2</SPAN></SPAN><SPAN 
+    style="FONT-SIZE: 14pt"><O:P></O:P></SPAN></P></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 54.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=73>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt"><A 
+      href="http://www.cs.tau.ac.il/~mansour/course_games/scribe/lecture1.pdf">pdf</A><O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 157.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=210>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt"><O:P></O:P></SPAN></DIV></TD></TR>
+  <TR style="mso-yfti-irow: 2">
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: windowtext 1pt solid; WIDTH: 109.45pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=146>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt">2. Coordination Ratio: Job 
+      scheduling<O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 165.3pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=220>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><B>Worst-case 
+      Equilibria<SPAN style="FONT-SIZE: 10pt"></B>Koutsoupias and 
+      Papadimitriou</SPAN></DIV><BR><B>Tight Bounds for Worst-Case 
+      Equilibria</B> 
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 10pt">A. Czumaj and B. Vocking</SPAN></P></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 54.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=73>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt"><A 
+      href="http://www.cs.tau.ac.il/~mansour/course_games/scribe/lecture2.pdf">pdf</A><O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 157.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=210>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 10pt">Marios Mavronicolas<O:P></O:P></SPAN></DIV></TD></TR>
+  <TR style="mso-yfti-irow: 3">
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: windowtext 1pt solid; WIDTH: 109.45pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=146>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt">3. Coordination Ratio: Selfish 
+      Routing<O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 165.3pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=220>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><B>How Bad 
+      is Selfish Routing?</B><SPAN 
+      style="FONT-SIZE: 18pt"><O:P></O:P></SPAN></DIV>
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 10pt">Roughgarden and Tardos</SPAN><SPAN 
+      style="FONT-SIZE: 14pt"><O:P></O:P></SPAN></P></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 54.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=73>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt"><A 
+      href="http://www.math.tau.ac.il/~mansour/course_games/scribe/lecture3.pdf">pdf</A><O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 157.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=210>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 10pt"><A href="http://www.cs.berkeley.edu/~timr/">Tim 
+      Roughgarden</A></SPAN><SPAN 
+      style="FONT-SIZE: 10pt"><O:P></O:P></SPAN></DIV></TD></TR>
+  <TR style="mso-yfti-irow: 4">
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: windowtext 1pt solid; WIDTH: 109.45pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=146>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt">4. Zero Sum games<O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 165.3pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=220>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><B>Game 
+      Theory</B><SPAN style="FONT-SIZE: 14pt"><O:P></O:P></SPAN></DIV>
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 10pt">Owen</SPAN><SPAN 
+      style="FONT-SIZE: 14pt"><O:P></O:P></SPAN> 
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><B>Adaptive 
+      game playing using multiplicative weights</B><SPAN 
+      style="FONT-SIZE: 14pt"><O:P></O:P></SPAN> 
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 10pt">Freund and Schapire</SPAN><SPAN 
+      style="FONT-SIZE: 14pt"><O:P></O:P></SPAN></P></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 54.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=73>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt"><A 
+      href="http://www.math.tau.ac.il/~mansour/course_games/scribe/lecture4.pdf">pdf</A><O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 157.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=210>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt"><O:P></O:P></SPAN></DIV></TD></TR>
+  <TR style="mso-yfti-irow: 5">
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: windowtext 1pt solid; WIDTH: 109.45pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=146>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt">5. General sum games: 
+    Nash<O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 165.3pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=220>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><B><A 
+      href="http://www.mathpages.com/home/kmath262/kmath262.htm">Brouwer<SPAN 
+      style="mso-spacerun: yes"></SPAN>Lemma</A></B><O:P></O:P></DIV>
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><B>Playing 
+      large games using simple strategies</B><SPAN 
+      style="FONT-SIZE: 14pt"><O:P></O:P></SPAN> 
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 10pt">Lipton, Markakis and Mehta<O:P></O:P></SPAN> 
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><B>Complexity 
+      results about Nash Equilibrium</B><O:P></O:P> 
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 10pt">Conitzer and Sandholm</SPAN><SPAN 
+      style="FONT-SIZE: 14pt"><O:P></O:P></SPAN></P></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 54.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=73>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt"><A 
+      href="http://www.math.tau.ac.il/~mansour/course_games/scribe/lecture5.pdf">pdf</A><O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 157.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=210>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt"><O:P></O:P></SPAN></DIV></TD></TR>
+  <TR style="mso-yfti-irow: 6">
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: windowtext 1pt solid; WIDTH: 109.45pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=146>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt">6. Congestion and Potential 
+      Games<O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 165.3pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=220>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><B><A 
+      href="http://www.cs.tau.ac.il/~mansour/sem-game-02-03/monderer-potential-96.pdf">Potential 
+      Games</A></B><O:P></O:P></DIV>
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 10pt">Monderer and Shapley<O:P></O:P></SPAN> 
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><B><A 
+      href="http://www.cs.berkeley.edu/~christos/papers/pure.ps">On the 
+      complexity of pure equilibria</A></B> 
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 10pt">Fabrikant, Papadimitriou and 
+      Talwar<O:P></O:P></SPAN></P></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 54.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=73>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt"><A 
+      href="http://www.math.tau.ac.il/~mansour/course_games/scribe/lecture6.pdf">pdf</A><O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 157.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=210>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt"></SPAN><SPAN style="FONT-SIZE: 10pt"><A 
+      href="http://www.cs.berkeley.edu/~christos/">Christos H. 
+      Papadimitriou</A></SPAN><SPAN 
+      style="FONT-SIZE: 14pt"><O:P></O:P></SPAN></DIV></TD></TR>
+  <TR style="mso-yfti-irow: 7">
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: windowtext 1pt solid; WIDTH: 109.45pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=146>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt">7. Extensive form and Repeated 
+      Games<O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 165.3pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=220>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><B>A Course 
+      in Game Theory<SPAN class=small1><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Times New Roman'"></B> Martin J. 
+      Osborne, Ariel Rubinstein<O:P></O:P></SPAN></SPAN></DIV>
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      class=small1><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Times New Roman'">Parts of Chapters 
+      6 &amp; 8<O:P></O:P></SPAN></SPAN> 
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      class=l><B><A href="http://citeseer.ist.psu.edu/486020.html">On Bounded 
+      Rationality And Computational Complexity</A></B><SPAN 
+      style="FONT-WEIGHT: normal"></SPAN></SPAN> <BR>Papadimitriou and 
+      Yannakakis<O:P></O:P></P></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 54.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=73>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt"><A 
+      href="http://www.math.tau.ac.il/~mansour/course_games/scribe/lecture7.pdf">pdf</A><O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 157.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=210>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 10pt"><O:P></O:P></SPAN></DIV></TD></TR>
+  <TR style="mso-yfti-irow: 8">
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: windowtext 1pt solid; WIDTH: 109.45pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=146>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt">8. External and Internal 
+      Regret<O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 165.3pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=220>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><B><A 
+      href="http://www.math.tau.ac.il/~mansour/course_games/regret.ps">From 
+      External to Internal Regret&nbsp;<SPAN 
+      style="mso-spacerun: yes"></SPAN><SPAN 
+      style="FONT-SIZE: 10pt"></A></B>Blum and Mansour</SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 54.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=73>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt"><A 
+      href="http://www.math.tau.ac.il/~mansour/course_games/scribe/lecture8.pdf">pdf</A><O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 157.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=210>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 10pt"><A 
+      href="http://homes.dsi.unimi.it/~cesabian/">Nicolò 
+      Cesa-Bianchi</A><O:P></O:P></SPAN></DIV>
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 10pt"><A href="http://www.ma.huji.ac.il/~hart/">Sergiu 
+      Hart</A><O:P></O:P></SPAN></P></TD></TR>
+  <TR style="mso-yfti-irow: 9">
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: windowtext 1pt solid; WIDTH: 109.45pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=146>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt">9. Dynamics in Load balancing &amp; 
+      Routing<O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 165.3pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=220>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><B><A 
+      href="http://www.math.tau.ac.il/~mansour/course_games/nash-load.pdf">Convergence 
+      Time to Nash Equilibria&nbsp;</A></B><SPAN 
+      class=MsoHyperlink><O:P></O:P></SPAN></DIV>
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 10pt">Even-Dar, Kesselman &amp;<SPAN 
+      style="mso-spacerun: yes"></SPAN>Mansour<O:P></O:P></SPAN> 
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><B><A 
+      href="http://www.math.tau.ac.il/~mansour/course_games/rerouting.ps">Fast 
+      Convergance to Selfish Routing</A></B><SPAN 
+      class=MsoHyperlink><O:P></O:P></SPAN> 
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 10pt">Even-Dar &amp; Mansour<O:P></O:P></SPAN> 
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 10pt"><O:P></O:P></SPAN></P></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 54.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=73>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt"><A 
+      href="http://www.math.tau.ac.il/~mansour/course_games/scribe/lecture9.pdf">pdf</A><O:P></O:P></SPAN></DIV>
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt"><A 
+      href="http://www.math.tau.ac.il/~mansour/course_games/rerouting-bertinoro.ppt">ppt</A><O:P></O:P></SPAN></P></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 157.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=210>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt"><O:P></O:P></SPAN></DIV></TD></TR>
+  <TR style="mso-yfti-irow: 10">
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: windowtext 1pt solid; WIDTH: 109.45pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=146>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt">10. Mechanism Design &amp; Social 
+      Choice<O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 165.3pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=220>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><B><A 
+      href="http://www.math.tau.ac.il/~mansour/course_games/mechtheo.pdf">Mechanism 
+      Theory</A></B><SPAN class=MsoHyperlink><O:P></O:P></SPAN></DIV>
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 10pt">M. Jackson<O:P></O:P></SPAN> 
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><B><A 
+      href="http://www.math.tau.ac.il/~mansour/course_games/arrow.pdf">Three 
+      Brief proofs of Arrows impossibility results</A></B><O:P></O:P> 
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 10pt">J. Geanakoplos<O:P></O:P></SPAN> 
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><B><A 
+      href="http://www.math.tau.ac.il/~mansour/course_games/gibbard-sat">A 
+      Gibbard-Satterthwaite theorem: a simple proof</A></B><SPAN 
+      class=MsoHyperlink><O:P></O:P></SPAN> 
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 10pt">J. Benoit<O:P></O:P></SPAN></P></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 54.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=73>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt"><A 
+      href="http://www.math.tau.ac.il/~mansour/course_games/scribe/lecture10.pdf">pdf</A><O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 157.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=210>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt"><O:P></O:P></SPAN></DIV></TD></TR>
+  <TR style="mso-yfti-irow: 11; mso-yfti-lastrow: yes">
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: windowtext 1pt solid; WIDTH: 109.45pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=146>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt">11 Combinatorial 
+    Auctions<O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 165.3pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=220>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><B><A 
+      href="http://robotics.stanford.edu/~shoham/LOS-JACM(proof).pdf">Truth 
+      revelation in approximately efficient combinatorial 
+      auctions</A></B><O:P></O:P></DIV>
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      class=small1><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Times New Roman'">Lehmann, 
+      O’Callaghan &amp; Shoham<O:P></O:P></SPAN></SPAN> 
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><B><A 
+      href="http://portal.acm.org/citation.cfm?id=846250&amp;dl=ACM&amp;coll=portal">Incentive 
+      compatible multi unit combinatorial auctions&nbsp;<SPAN class=small1><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Times New Roman'"><SPAN 
+      style="mso-spacerun: yes"></SPAN></A></B>Bartal, Gonen &amp; 
+      Nisan</SPAN></SPAN><O:P></O:P></P></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 54.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=73>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 14pt"><A 
+      href="http://www.math.tau.ac.il/~mansour/course_games/scribe/lecture11.pdf">pdf</A><O:P></O:P></SPAN></DIV></TD>
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: medium none; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; WIDTH: 157.8pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; mso-border-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=210>
+      <DIV class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 10pt"><A href="http://www.cs.huji.ac.il/~noam/">Noam 
+      Nisan</A><O:P></O:P></SPAN></DIV>
+      <P class=MsoNormal 
+      style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+      style="FONT-SIZE: 10pt"><A 
+      href="http://www-2.cs.cmu.edu/~sandholm/">Tuomas 
+      Sandholm</A><O:P></O:P></SPAN></P></TD></TR></TBODY></TABLE>
+<P class=MsoNormal 
+style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+style="FONT-SIZE: 14pt"><O:P></O:P></SPAN>
+<P class=MsoNormal 
+style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+style="FONT-SIZE: 20pt; COLOR: red"><B><U>HOMEWORKS:</U></B><O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+style="FONT-SIZE: 14pt">Homework 1 (given March 16, due March 30) <A 
+href="http://www.cs.tau.ac.il/~mansour/course_games/homework1.doc">doc</A> <A 
+href="http://www.cs.tau.ac.il/~mansour/course_games/homework1.htm">htm</A><O:P></O:P></SPAN> 
+
+<P class=MsoNormal 
+style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+style="FONT-SIZE: 14pt">Homework 2 (given March 30, due April 18) <A 
+href="http://www.cs.tau.ac.il/~mansour/course_games/homework2.doc">doc</A> <A 
+href="http://www.cs.tau.ac.il/~mansour/course_games/homework2.htm">htm</A><O:P></O:P></SPAN> 
+
+<P class=MsoNormal 
+style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+style="FONT-SIZE: 14pt">Homework 3 (given May 11, due June 1) <A 
+href="http://www.math.tau.ac.il/~mansour/course_games/homework3.doc">doc</A> <A 
+href="http://www.math.tau.ac.il/~mansour/course_games/homework3.htm">htm</A><O:P></O:P></SPAN> 
+
+<P class=MsoNormal 
+style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+style="FONT-SIZE: 14pt"><O:P></O:P></SPAN>
+<P class=MsoNormal 
+style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+style="FONT-SIZE: 14pt"><O:P></O:P></SPAN>
+<P class=MsoNormal 
+style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+style="FONT-SIZE: 18pt; COLOR: green"><U>A tentative list of the subjects (not 
+all will be covered):</U><O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+style="FONT-SIZE: 14pt"><O:P></O:P></SPAN>
+<P class=MsoNormal 
+style="MARGIN-LEFT: 36pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 36.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">1.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: red"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">Introduction<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 36pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 36.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">2.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: red"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">Coordination Ratio<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 72pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 72.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">a.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: red"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">Job Scheduling<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 72pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 72.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">b.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: red"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">Routing<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 36pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 36.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">3.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: red"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">Computation of Nash Eq.<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 72pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 72.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">a.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: red"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">Zero sum game &amp; Correlated 
+eq.<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 72pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 72.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">b.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: red"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">General Sum: existence 
+proof<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 72pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 72.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">c.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: red"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">Two payers general sum: 
+algo.<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 36pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 36.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">4.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: red"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">Internal and External 
+Regret<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 36pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 36.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">5.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: red"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">Vector payoff games<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 72pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 72.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">a.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: red"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">Approachability 
+Theorem&nbsp;<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 36pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 36.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">6.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: red"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">Congestion and potential 
+games.<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 36pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 36.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">7.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: red"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">Dynamics in games<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 72pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 72.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">a.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: red"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: red">Job scheduling<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 72pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 72.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: purple">b.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: purple"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: purple">Routing<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 36pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 36.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: purple">8.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: purple"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: purple">Repeated games and Bounded 
+rationality&nbsp;<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 36pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 36.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: purple">9.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: purple"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: purple">Graphical models<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 36pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 36.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: purple">10.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: purple"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: purple">Mechanism design<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 36pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 36.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: green">11.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: green"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: green">Stochastic games<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 36pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 36.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: green">12.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: green"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: green">Cooperative games<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 36pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 36.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: green">13.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: green"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: green">Extensive form games<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 36pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 36.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: green">14.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: green"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: green">Fictitious play<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 36pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 36.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: green">15.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: green"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: green">Evolutionary game theory 
+(dynamics)<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 36pt; DIRECTION: ltr; TEXT-INDENT: -18pt; unicode-bidi: embed; TEXT-ALIGN: left; tab-stops: list 36.0pt"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: green">16.</SPAN><SPAN 
+style="FONT-SIZE: 7pt; COLOR: green"></SPAN><SPAN 
+style="FONT-SIZE: 14pt; COLOR: green">Implementation theory<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 18pt; DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+style="FONT-SIZE: 14pt; COLOR: green"><O:P></O:P></SPAN>
+<P class=MsoNormal 
+style="MARGIN-LEFT: 18pt; DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+style="FONT-SIZE: 14pt"><B><U>GRADE:</U></B><O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 18pt; DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+style="FONT-SIZE: 14pt"><U>Scribe notes:</SPAN><SPAN 
+style="FONT-SIZE: 14pt"></U> Each student will write a scribe note for a 
+lecture<O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 18pt; DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+style="FONT-SIZE: 14pt"><SPAN style="mso-spacerun: yes"></SPAN>(template [<A 
+href="http://www.math.tau.ac.il/~mansour/course_games/template.tex">tex</A> <A 
+href="http://www.math.tau.ac.il/~mansour/course_games/template.ps">ps</A>] 
+explanation [<A 
+href="http://www.cs.tau.ac.il/~mansour/course_games/explanation-about-template.tex">tex</A><A 
+href="http://www.cs.tau.ac.il/~mansour/course_games/explanation-about-template.ps">ps</A>])<SPAN 
+style="mso-tab-count: 1"></SPAN><O:P></O:P></SPAN> 
+<P class=MsoNormal 
+style="MARGIN-LEFT: 18pt; DIRECTION: ltr; unicode-bidi: embed; TEXT-ALIGN: left"><SPAN 
+style="FONT-SIZE: 14pt"><SPAN style="mso-tab-count: 3"></SPAN>Additional Latex 
+information: <A 
+href="http://www.maths.tcd.ie/~dwilkins/LaTeXPrimer/">http://www.maths.tcd.ie/~dwilkins/LaTeXPrimer/</A><O:P></O:P></SPAN> 
+
+<H2><SPAN style="COLOR: windowtext">HOMEWORK<O:P></O:P></SPAN></H2>
+<H2><SPAN 
+style="COLOR: windowtext">EXAM/PROJECT<O:P></O:P></SPAN></H2></DIV></BODY></HTML>

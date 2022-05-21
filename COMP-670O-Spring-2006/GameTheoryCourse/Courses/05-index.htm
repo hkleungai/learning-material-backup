@@ -1,0 +1,237 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0018)http://ec.tcfs.it/ -->
+<!-- saved from url=(0018)http://ec.tcfs.it/ --><HTML><HEAD><TITLE>Algorithms for selfish agents</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<META content="MSHTML 6.00.2900.2802" name=GENERATOR>
+<META content="Pino Persiano with vi" name=Originator>
+<META 
+content="Algorithms, Game Theory, Algorithmic Game Theory, Computational Game Theory, Mechanism Design" 
+name=keywords>
+<STYLE>@page Section1 {size: 8.5in 11.0in; margin: 1.0in 1.25in 1.0in 1.25in; mso-header-margin: .5in; mso-footer-margin: .5in; mso-paper-source: 0; }
+P.MsoNormal {
+	FONT-SIZE: 12pt; MARGIN: 0in 0in 0pt; FONT-FAMILY: "Times New Roman"; mso-style-parent: ""; mso-pagination: widow-orphan; mso-fareast-font-family: "Times New Roman"
+}
+LI.MsoNormal {
+	FONT-SIZE: 12pt; MARGIN: 0in 0in 0pt; FONT-FAMILY: "Times New Roman"; mso-style-parent: ""; mso-pagination: widow-orphan; mso-fareast-font-family: "Times New Roman"
+}
+DIV.MsoNormal {
+	FONT-SIZE: 12pt; MARGIN: 0in 0in 0pt; FONT-FAMILY: "Times New Roman"; mso-style-parent: ""; mso-pagination: widow-orphan; mso-fareast-font-family: "Times New Roman"
+}
+H1 {
+	FONT-SIZE: 20pt; MARGIN: 12pt 0in 3pt; FONT-FAMILY: Arial; mso-pagination: widow-orphan; mso-style-next: Normal; mso-outline-level: 1; mso-font-kerning: 16.0pt
+}
+H2 {
+	FONT-SIZE: 16pt; MARGIN: 12pt 0in 3pt; FONT-FAMILY: Arial; mso-pagination: widow-orphan; mso-style-next: Normal; mso-outline-level: 2
+}
+A:link {
+	COLOR: blue; TEXT-DECORATION: underline; text-underline: single
+}
+SPAN.MsoHyperlink {
+	COLOR: blue; TEXT-DECORATION: underline; text-underline: single
+}
+A:visited {
+	COLOR: purple; TEXT-DECORATION: underline; text-underline: single
+}
+SPAN.MsoHyperlinkFollowed {
+	COLOR: purple; TEXT-DECORATION: underline; text-underline: single
+}
+DIV.Section1 {
+	page: Section1
+}
+P.pino {
+	FONT-SIZE: 16pt; MARGIN-BOTTOM: 0pt; FONT-FAMILY: "Times New Roman"; mso-style-parent: ""; mso-pagination: widow-orphan; mso-fareast-font-family: "Times New Roman"; page: Section1
+}
+DIV.pino {
+	FONT-SIZE: 16pt; MARGIN-BOTTOM: 0pt; FONT-FAMILY: "Times New Roman"; mso-style-parent: ""; mso-pagination: widow-orphan; mso-fareast-font-family: "Times New Roman"; page: Section1
+}
+OL {
+	MARGIN-BOTTOM: 0in
+}
+UL {
+	MARGIN-BOTTOM: 0in
+}
+</STYLE>
+</HEAD>
+<BODY bgColor=white>
+<DIV class=pino>
+<H1>Algorithms for selfish agents </H1>
+<P class=MsoNormal>This page is http://ec.tcfs.it </P>
+<P class=pino><B>Staff</B>: <A href="http://www.dia.unisa.it/~auletta">Vincenzo 
+Auletta</A>, <A href="http://www.dia.unisa.it/~penna">Paolo Penna</A>, <A 
+href="http://www.dia.unisa.it/~giuper">Giuseppe Persiano</A>. </P>
+<P><B>Objectives</B>: This class intends to discuss some of the issues that are 
+on the border between Theoretical Computer Science (more specifically, 
+Complexity Theory and Design and Analysis of Algorithms) and Microeconomics 
+(more specifically, Game Theory and Incentive Theory). </P><B>Next class:</B> 
+Wednesday June 18, 15:00 C/49. 
+<P>A set of lecture notes for the class is available <A 
+href="http://ec.tcfs.it/Notes/all.pdf">here</A>. 
+<P><B>Topics</B>: 
+<OL>
+  <LI><B>Modeling selfish behaviour.</B> <BR>Games in strategic form, Nash 
+  equilibrium, Prisoner's dilemma, Football Match or Shopping, Matching Pennies. 
+  <BR>Lecture notes available <A 
+  href="http://ec.tcfs.it/Notes/lecture1.pdf">here</A>. <BR>The book <I>A course 
+  in game theory</I>, by M. J. Osborne and A. Rubinstein is an excellent 
+  reference for Game Theory. <BR>The book <I>An introduction to game theory</I> 
+  by M. J. Osborne is instead a kinder introduction. Some chapters are availbale 
+  from <A href="http://www.economics.utoronto.ca/osborne">Osborne</A>'s home 
+  page and can be found at the links below: 
+  <UL>
+    <LI><A href="http://ec.tcfs.it/Papers/intro.ps">Introduction</A>; 
+    <LI><A href="http://ec.tcfs.it/Papers/nash.ps">Nash</A> equilibrium; 
+    <LI><A href="http://ec.tcfs.it/Papers/nashapp.ps">Applications</A> of Nash 
+    equilibrium. </LI></UL>The seminal paper by John F. Nash <I>Non-cooperative 
+  games</I> is available <A href="http://ec.tcfs.it/Papers/Nash51.pdf">here</A>. 
+
+  <P></P>
+  <LI><B>Selfish routing: the flow model.</B><BR>Braess's paradox, coordination 
+  ratio, upper bound for linear latency. <BR>Lecture notes available <A 
+  href="http://ec.tcfs.it/Notes/lecture2.pdf">here</A>. <BR>Most of the material 
+  is from the paper <I>How Bad is Selfish Routing?</I> by E. Tardos and T. 
+  Roughgarden, FOCS 2000, available <A 
+  href="http://ec.tcfs.it/Papers/RoughgardenT.ps">here</A>. The paper (and other 
+  related papers) can be found at <A 
+  href="http://www.cs.cornell.edu/timr">http://www.cs.cornell.edu/timr</A>. 
+  <P></P>
+  <LI><B>Selfish routing: the discrete model.</B><BR>Bounds on the coordination 
+  ratio when jobs have discrete sizes. <BR>Lecture notes available <A 
+  href="http://ec.tcfs.it/Notes/lecture3.pdf">here</A>. <BR>The material is 
+  based on <I>Worst-case equilibria</I> by E. Koutsoupias, C. H. Papadimitriou 
+  available <A href="http://ec.tcfs.it/Papers/papakoutso.ps">here</A> (original 
+  site <A href="http://www.cs.berkeley.edu/~christos/">here</A>). 
+  <P></P>
+  <LI><B>Selfish routing: Stackelberg games</B><BR>Bound on the coordinaiton 
+  ration when the system manager controls a fraction of the jobs. <BR>The 
+  material is based on <I>Stackelberg Scheduling Strategies</I> by T. 
+  Roughgarden. <BR>The paper is available <A 
+  href="http://ec.tcfs.it/Papers/stack.pdf">here</A> or from <A 
+  href="http://www.cs.cornell.edu/timr">http://www.cs.cornell.edu/timr</A>. 
+  <P></P>
+  <LI><B>Introduction to Mechanism Design: VCG mechanisms</B><BR>A simple 
+  routing problem involving selfish links. The shortest path problem on graphs 
+  with edges owned by selfish agents. Definition of <I>dominant strategy</I> and 
+  of <I>truthful mechanism</I>. Truthful <I>VCG mechanisms</I> for 
+  <I>utilitarian</I> problems. <BR>Lecture notes available <A 
+  href="http://ec.tcfs.it/Notes/lecture5.pdf">here</A>. <BR>The material is 
+  partially based on <I>Algorithms For Rational Agents</I> by A. Ronen, 
+  available <A ref="http://ec.tcfs.it/Papers/MD-ronen.ps">here</A> or from <A 
+  href="http://iew3.technion.ac.il/~amirr/">http://iew3.technion.ac.il/~amirr/</A> 
+  <BR>The seminal paper by W. Vickrey <I>Counterspeculation, Auctions, and 
+  Competitive Sealed Tenders</I> is available <A 
+  href="http://ec.tcfs.it/Papers/vickrey61.pdf">here</A>. 
+  <P></P>
+  <LI><B>Applications of VCG mechanisms</B><BR>The problem of sharing the cost 
+  of a multicast transmission on a given tree: maximizing the <I>net worth</I>; 
+  the problem as a utilitarian problem; an exact algorithm and the VCG payments; 
+  other constraints and distributed implementations. The problem of scheduling 
+  jobs on <I>unrelated</I> machines: the Min-Work mechanism and its 
+  truthfulness; approximation analysis and the lower bound for deterministic 
+  truthful mechanisms on two machines. <BR>The material is partially based on 
+  <OL>
+    <LI><I>Sharing the Cost of Multicast Transmissions</I> by J. Feigenbaum, 
+    C.H. Papadimitriou and S. Shenker, available from <A 
+    href="http://cs-www.cs.yale.edu/homes/jf/home.html#papers">http://cs-www.cs.yale.edu/homes/jf/home.html#papers</A> 
+
+    <LI><I>Algorithmic mechanism design</I> by N. Nisan and A. Ronen, available 
+    <A href="http://ec.tcfs.it/Papers/AMDJ.ps">here</A> or from <A 
+    href="http://iew3.technion.ac.il/~amirr/">http://iew3.technion.ac.il/~amirr/</A> 
+    </LI></OL>
+  <P></P>
+  <LI><B>Combinatorial Auctions</B><BR>Definition of the problem and its 
+  relations to mechanism design. Integer Programming formulation and discussion 
+  of its computational complexity and approximability. Restriction of the 
+  problem to single-minded agents and infeasibility of VCG mechanisms. 
+  Sufficient conditions to have a truthful auction for single-minded agents. A 
+  square root approximation truthful mechanism for single-minded agents. A 
+  near-optimal approximation truthful mechanism for known single minded agents. 
+  <BR>Lecture notes available <A 
+  href="http://ec.tcfs.it/Notes/lecture7.pdf">here</A>. <BR>The material is 
+  partially based on 
+  <OL>
+    <LI><I>Truth Revelation in Approximately Efficient Combinatorial 
+    Auctions</I> by D. Lehmann, L. O'Callaghan and Y. Shoham, available <A 
+    href="http://ec.tcfs.it/Papers/Lehman.ps">here</A> or from <A 
+    href="http://www.cs.huji.ac.il/~lehmann/papers/mechanisms/LCS.ps">http://www.cs.huji.ac.il/~lehmann/papers/mechanisms/LCS.ps</A>. 
+
+    <LI><I>Truthful Approximation Mechanisms for Restricted 
+    CombinatorialAuctions</I> by Ahuva Mu'alem and Noam Nisan. available from <A 
+    href="http://ec.tcfs.it/Papers/Nisan_auction.ps">here</A> or from <A 
+    href="http://www.cs.huji.ac.il/~noam/mkts.html">http://www.cs.huji.ac.il/~noam/mkts.html</A>. 
+
+    <LI><I>Combinatorial Auctions: A survey </I>by S. de Vries and R. Vohra. 
+    </LI></OL>
+  <P></P>
+  <LI><B>Competitive Auctions</B><BR>Definition of the problem and competitive 
+  framework. Deterministic and randomized auctions. Optimal omniescent 
+  single-price and multi-price auctions and their competitiveneness. Non 
+  competitiveness of deterministic auctions with respect to omniescent auctions. 
+  A randomized 4-competitive auction. <BR>The material is partially based on 
+  <OL>
+    <LI><I>Competitive Auctions</I> by A. Goldberg, H. Hartline, A. Karlin, A. 
+    Wright. available from <A 
+    href="http://ec.tcfs.it/Papers/Goldberg_auction.ps">here</A> or from <A 
+    href="http://www.avglab.com/andrew/">http://www.avglab.com/andrew/</A>. 
+  </LI></OL>
+  <P></P>
+  <LI><B>Scheduling on related machines</B><BR>Approximating algorithm for 
+  scheudling jobs on related machines owned by selfish agents. <BR>Lecture notes 
+  available <A href="http://ec.tcfs.it/Notes/lecture9.pdf">here</A>. <BR>The 
+  material in partially based on 
+  <OL>
+    <LI><I>Truthful Mechanisms for One-Parameter Agents</I> by A. Archer and E. 
+    Tardos. from FOCS 2001 available <A 
+    href="http://ec.tcfs.it/Papers/Archer.ps">here</A> or from <A 
+    href="http://www.orie.cornell.edu/~aarcher/Research/">http://www.orie.cornell.edu/~aarcher/Research/</A>. 
+    </LI></OL>
+  <P>
+  <HR>
+
+  <H2>Suggested papers for student presentations</H2>The following list includes 
+  interesting papers that were not presented in class or were presented only 
+  partially. The interested students should contact the teaching staff in order 
+  to be assigned a paper. 
+  <P>
+  <OL>
+    <LI><A href="http://ec.tcfs.it/Papers/CKV.pdf"><I>Selfish traffic allocation 
+    for server farms</I></A> by A. Czumaj, P. Krysta, and B. Vocking. 
+    <P></P>
+    <LI><A href="http://ec.tcfs.it/Papers/CV.ps.gz"><I>Tight bounds for 
+    worst-case equilibria</I></A> by A. Czumaj and B. Vocking. 
+    <P></P>
+    <LI><A href="http://ec.tcfs.it/Papers/stack.pdf"><I>Stackelberg Scheduling 
+    Strategies</I></A> by T. Roughgarden. 
+    <P></P>
+    <LI><A href="http://ec.tcfs.it/Papers/AMDJ.ps"><I>Algorithmic mechanism 
+    design</I></A> by N. Nisan and A. Ronen 
+    <P></P>
+    <LI><A href="http://ec.tcfs.it/Papers/APTT.ps"><I>An approximate truthful 
+    mechanism for combinatorial auctions with single parameter agents</I></A> by 
+    A. Archer, C. Papadimitriou, K. Talwar and E. Tardos 
+    <P></P>
+    <LI><A href="http://ec.tcfs.it/Papers/Jain_Vazirani.ps"><I>Applications of 
+    Approximation Algorithms to Cooperative Games</I></A> by K. Jain and V. 
+    Vazirani </LI></OL>
+  <HR>
+
+  <H2>Related courses</H2>Following is a list of classes and links on related 
+  topics. 
+  <UL>
+    <LI><A href="http://zoo.cs.yale.edu/classes/cs455/">Feigenbaum's class</A>: 
+    Economics and Computation 
+    <LI><A 
+    href="http://www.math.tau.ac.il/~mansour/sem-game-02-03/sem-games.html">Mansour's 
+    seminar</A>: Computational issues in Game Theory 
+    <LI><A href="http://www.cs.huji.ac.il/~noam/econcs/index.html">Nisan's 
+    class</A>: Topics on the border of CS, Game theory, and Economics 
+    <LI><A 
+    href="http://www.cs.berkeley.edu/~christos/games/cs294.html">Papadimitriou's 
+    class</A>: Seminar on Algorithmic Aspects of Game Theory 
+    <LI><A 
+    href="http://www-2.cs.cmu.edu/~sandholm/cs15-892/cs15-892.htm">Sandholm's 
+    class</A>: Foundations of Electronic Marketplaces 
+    <LI><A href="http://www.cse.iitd.ernet.in/~rahul/cs905">Garg's class</A>: An 
+    introduction to Game Theory 
+    <LI><A href="http://www.gametheory.net/">Resources for game theory</A> 
+    <LI><A href="http://www.gametheorysociety.org/">The game theory society</A> 
+    </LI></UL></LI></OL></DIV></BODY></HTML>

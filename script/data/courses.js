@@ -315,6 +315,10 @@ const FETCHED_COURSES = {
         title: 'Approximation Algorithms',
         description: 'Most computer science researchers have given up on the possibility of finding techniques that always yield optimal solutions to NP-hard problems. This still leaves us with the task of finding \'good\' solutions to these problems. The theory of approximation algorithms is devoted to developing techniques that yield provably good (\'approximate\') solutions to these problems. In this course we will learn about the theory and practice of designing such algorithms.',
     },
+    'COMP 670O': {
+        title: 'Topics in Theory: Game Theoretic Applications in CS',
+        description: 'A quick and dirty introduction to the basic concepts of modern game theory followed by a survey of recent work in computer science that uses game theory. The course will start with the instructor giving two or three introductory lessons on the basics of game theory. The remainder of the course will be students presenting papers.'
+    },
     'COMP 680': {
         title: 'Topics in Computer Engineering',
         description: 'Selected topics in computer engineering of current interest to the Department and not covered by existing courses.'
