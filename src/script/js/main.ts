@@ -1,8 +1,9 @@
-/** TODO: make some ts index.ts                       */
-/** TODO: data to proper json                         */
-/** TODO: study ts-doc                                */
-/** TODO: study browser / html test tools             */
-/** TODO: Share __temp_commit var among git hooks     */
+/** TODO: show success / failed notice upon clicking link-share   */
+/** TODO: Study ts-doc                                            */
+/** TODO: Make some ts index.ts                                   */
+/** TODO: Move data to proper json                                */
+/** TODO: Study browser / html test tools                         */
+/** TODO: Share __temp_commit var among git hooks                 */
 
 import TableRenderer from './TableRenderer';
 import NoticeBoardRenderer from './NoticeBoardRenderer';
@@ -15,7 +16,7 @@ function main() {
     _main();
   }
   catch (error: unknown) {
-    alert(new Error((error as Error).message));
+    alert((error as Error).message);
     throw error;
   }
 }
