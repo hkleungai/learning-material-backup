@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Lab 4 | clpcd</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Lab 4" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A Type Checker for the Amy Language" />
+<meta property="og:description" content="A Type Checker for the Amy Language" />
+<meta property="og:site_name" content="clpcd" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Lab 4" />
+<!-- End Jekyll SEO tag -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <a id="skip-to-content" href="#content">Skip to the content.</a>
+
+    <header class="page-header" role="banner">
+      <h1 class="project-name">Lab 4</h1>
+      <h2 class="project-tagline">A Type Checker for the Amy Language</h2>
+
+
+        <a href="https://lptk.github.io/clpcd" class="btn">COMP 4901U Home</a>
+        <a href="https://canvas.ust.hk/courses/38344" class="btn">COMP 4901U on Canvas</a>
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <p>Parsing concludes the syntactical analysis of Amy programs. Having successfully constructed an abstract syntax tree for an input program, compilers typically run one or multiple phases containing checks of a more semantical nature. Virtually all high-level programming languages rely on some form of name analysis, whose purpose is to disambiguate symbol references throughout the program. Some languages go further and perform a series of additional checks whose goal is to rule out runtime errors statically (i.e., during compilation, without executing the program). While the exact rules for those checks vary from language to language, this part of compilation is typically summarized as “type checking”. Amy, being a statically-typed language, requires both name and type analysis.</p>
+
+<h2 id="prelude-from-nominal-trees-to-symbolic-trees">Prelude: From Nominal Trees to Symbolic Trees</h2>
+
+<p>Recall that during parsing we created (abstract syntax) trees of the <em>nominal</em> sort: Names of variables, functions and data types were simply stored as strings. However, two names used in the program could be the same but refer to different things. During name analysis, we translate nominal trees to symbolic trees, making it clear whether two names refer to the same underlying entity. That is, we explicitly replace strings by fresh identifiers which will prevent us from mixing up definitions of the same name, or referring to things that have not been defined. Amy’s name analyzer is provided to you as part of this lab’s skeleton, but you should read the <a href="lab4-name-analyzer.html">dedicated name analyzer page</a> to understand how it works.</p>
+
+<h2 id="introduction-to-type-checking">Introduction to Type Checking</h2>
+
+<p>The purpose of this lab is to implement a type checker for Amy. Our type checking rules will prevent certain errors based on the kind or shape of values the program is manipulating. For instance, we should prevent an integer from being added to a boolean value.</p>
+
+<p>Type checking is the last stage of the compiler frontend. A program that reaches the end of this stage without any errors is deemed type-correct or <em>well-typed</em>, and a program that does not is deemed <em>ill-typed</em>. After type checking, we will finally be ready to interpret the program or compile it to binary code!</p>
+
+<p>The typing rules of Amy are presented in detail in the <a href="../files/amy-spec.pdf">Amy specification</a>. You will need to make sure to check that all expressions and patterns in the input program follow these typing rules exactly.</p>
+
+<h2 id="implementation">Implementation</h2>
+
+<p>The current assignment focuses on the file <code class="language-plaintext highlighter-rouge">TypeChecker.scala</code>. As usual, the skeleton and helper methods are given to you, and you will have to complete the missing parts. In particular, you will write a compiler phase that checks whether the expressions in a given program are well-typed and report errors otherwise.</p>
+
+<p>To this end, you will implement a simplified form of the Hindley-Milner (HM) type-inference algorithm that will be presented in the next lecture. While not advertised as a feature to users of Amy (which does require type annotations), behind the scenes we will perform some amount of type inference, to simplify the type checking algorithm.
+<!-- It is usually straightforward to adapt an algorithm for type inference to type checking, since one can add the user-provided type annotations to the set of constraints. This is what you will do with HM in this lab. --></p>
+
+<p>Compared to the presentation of HM type inference you will see in class, your type checker can be simplified in another way: Since Amy does not feature higher-order functions or polymorphic data types, types in Amy are always <em>simple</em> in the sense that they are not composed of arbitrary other types. That is, a type is either a base type (one of <code class="language-plaintext highlighter-rouge">Int</code>, <code class="language-plaintext highlighter-rouge">Bool</code> and <code class="language-plaintext highlighter-rouge">String</code>) or it is an ADT, which has a proper name (e.g. <code class="language-plaintext highlighter-rouge">List</code> or <code class="language-plaintext highlighter-rouge">Option</code> from the standard library). In the latter case, all the types in the constructor of the ADT are immediately known. For instance, the standard library’s <code class="language-plaintext highlighter-rouge">List</code> is really a list of integers, so we know that the <code class="language-plaintext highlighter-rouge">Cons</code> constructor takes an <code class="language-plaintext highlighter-rouge">Int</code> and another <code class="language-plaintext highlighter-rouge">List</code>.</p>
+
+<p>As a result, your algorithm will never have to deal with complex constraints over type constructors (such as the function arrow <code class="language-plaintext highlighter-rouge">A ⇒ B</code>). Instead, your constraints will always be of the form <code class="language-plaintext highlighter-rouge">T1 = T2</code> where <code class="language-plaintext highlighter-rouge">T1</code> and <code class="language-plaintext highlighter-rouge">T2</code> are either <em>simple</em> types or type variables. This makes the implementation of the unification process quite straightforward.</p>
+
+<p>Your task now is to</p>
+
+<ul>
+  <li>
+    <p>complete the <code class="language-plaintext highlighter-rouge">genConstraints</code> method which will traverse a given expression and collect all the necessary typing constraints; and</p>
+  </li>
+  <li>
+    <p>implement the <em>unification</em> algorithm in <code class="language-plaintext highlighter-rouge">solveConstraints</code>.</p>
+  </li>
+</ul>
+
+<p>Familiarize yourself with the <code class="language-plaintext highlighter-rouge">Constraint</code> and <code class="language-plaintext highlighter-rouge">TypeVariable</code> data structures in <code class="language-plaintext highlighter-rouge">TypeChecker.scala</code> and then start by implementing <code class="language-plaintext highlighter-rouge">genConstraints</code>. The structure of this method will in many cases be analogous to the AST traversal performed during <a href="lab4-name-analyzer.html">name analysis</a>. Note that <code class="language-plaintext highlighter-rouge">genConstraints</code> also takes an <em>expected type</em> in parameter. For instance, in case of addition, the expected type of both operands should be <code class="language-plaintext highlighter-rouge">Int</code>. For other constructs, such as pattern matching it is not inherently clear what should be the type of each <code class="language-plaintext highlighter-rouge">case</code> body. In this case, you can create and pass a fresh type variable.</p>
+
+<p>Once you have a working implementation of both <code class="language-plaintext highlighter-rouge">genConstraints</code> and <code class="language-plaintext highlighter-rouge">solveConstraints</code>, you can copy over your previous work on the interpreter and run the programs produced by your frontend! Do not forget that to debug your compiler’s behavior, you can also use the reference compiler with the <code class="language-plaintext highlighter-rouge">--interpret</code> flag and compare the outputs.</p>
+
+<h2 id="skeleton">Skeleton</h2>
+
+<p>As usual, you can find the skeleton for this lab in a corresponding zip archive file, available <a href="../files/clp-lab04.zip">here</a>.
+This lab builds on your previous work, so you should copy your implementations of the lexer and parser into this new skeleton.
+The structure of your project <code class="language-plaintext highlighter-rouge">src</code> directory should be as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>src/amyc
+ ├── Main.scala                (updated)
+ │
+ ├── analyzer                  (new)
+ │    ├── SymbolTable.scala
+ │    ├── NameAnalyzer.scala
+ │    └── TypeChecker.scala
+ │
+ ├── ast
+ │    ├── Identifier.scala
+ │    ├── Printer.scala
+ │    └── TreeModule.scala
+ │
+ ├── parsing
+ │    ├── Parser.scala
+ │    ├── Lexer.scala
+ │    └── Tokens.scala
+ │
+ └── utils
+      ├── AmycFatalError.scala
+      ├── Context.scala
+      ├── Document.scala
+      ├── Pipeline.scala
+      ├── Position.scala
+      ├── Reporter.scala
+      └── UniqueCounter.scala
+</code></pre></div></div>
+
+<h2 id="deliverables">Deliverables</h2>
+
+<p>You have 2 weeks to complete this assignment.</p>
+
+<p><strong>Deadline: Tuesday, November 16, 23:00.</strong></p>
+
+
+
+      <footer class="site-footer">
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </main>
+  </body>
+</html>

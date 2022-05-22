@@ -603,6 +603,10 @@ const FETCHED_COURSES = {
         title: 'Special Topics in Computer Science',
         description: 'Selected topics of current interest to the Department not covered by existing courses. Offerings are announced each semester. May be graded by letter, P/F, or DI/PA/F for different offerings.'
     },
+    'COMP 4901U': {
+        title: 'Computer Language Processing',
+        description: 'Computer languages are now everywhere. Thus, basic computer language processing skills are essential to any self-respecting software engineer. From parsing ad-hoc configuration file formats, to validating complex specification languages, to generating efficient code solving data-intensive problems at scale, many important problems of today and tomorrow fall within this general domain. In this context, the usefulness of compiler theory and practice goes much beyond understanding the technology underlying your grandpa\'s old C compilers – our software-driven world is full of domain-specific languages that need correct and efficient implementations, and emergent areas like machine learning are more than ever in need of innovations from the fields of compilation and optimization. In this course, you will learn the essentials of computer language processing, including: parsing, analyzing, transforming, and compiling programs. You will learn to design and implement your own programming language and extend it with features of your choice in a small team project.',
+    },
     'COMP 4911': {
         title: 'IT Entrepreneurship',
         description: 'Basic elements of starting a new business in information technology; exploiting an "unfair" advantage; preparing a business plan; arranging financial support; accounting and legal requirements; exit strategy. Case studies of successful and failed ventures in Hong Kong and elsewhere.'

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Lab 3 | clpcd</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Lab 3" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A Parser for the Amy Language" />
+<meta property="og:description" content="A Parser for the Amy Language" />
+<meta property="og:site_name" content="clpcd" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Lab 3" />
+<!-- End Jekyll SEO tag -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <a id="skip-to-content" href="#content">Skip to the content.</a>
+
+    <header class="page-header" role="banner">
+      <h1 class="project-name">Lab 3</h1>
+      <h2 class="project-tagline">A Parser for the Amy Language</h2>
+
+
+        <a href="https://lptk.github.io/clpcd" class="btn">COMP 4901U Home</a>
+        <a href="https://canvas.ust.hk/courses/38344" class="btn">COMP 4901U on Canvas</a>
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <h1 id="introduction">Introduction</h1>
+
+<p>Starting from this week, you will work on the second stage of the Amy compiler, the parser.
+The task of the parser is to take a sequence of tokens produced by the lexer and transform it into an Abstract Syntax Tree (AST).</p>
+
+<p>For this purpose, you will write a grammar for Amy programs in a Domain Specific Language (DSL) that can be embedded in Scala.
+Similarly to what you have seen in the Lexer lab,
+each grammar rule will also be associated with a transformation function that maps the parse result to an AST.
+The overall grammar will then be used to automatically parse sequences of tokens into Amy ASTs,
+while abstracting away extraneous syntactical details, such as commas and parentheses.</p>
+
+<p>As you have seen (and will see) in the lectures,
+there are various algorithms to parse syntax trees corresponding to context-free grammars.
+Any context-free grammar (after some normalization) can be parsed using the CYK algorithm.
+However, this algorithm is rather slow: its complexity is in <em>O(n^3 * g)</em>
+where <em>n</em> is the size of the program and <em>g</em> the size of the grammar.
+On the other hand, a more restricted LL(1) grammar can parse inputs in linear time.
+Thus, the goal of this lab will be to develop an LL(1) version of the Amy grammar.</p>
+
+<h2 id="the-parser-combinator-dsl">The Parser Combinator DSL</h2>
+
+<p>In the previous lab you already started working with <strong>Silex</strong>,
+which was the library we used to tokenize program inputs based on a prioritized list of regular expressions.
+In this lab, we will start using its companion library, <strong>Scallion</strong>:
+Once an input string has been tokenized,
+Scallion allows us to parse the token stream using the rules of an LL(1) grammar and translate to a target data structure,
+such as an AST.</p>
+
+<p>To familiarize yourself with the parsing functionality of Scallion,
+please make sure you read the <a href="lab3-scallion.html">Introduction to (Scallion) Parser Combinators</a>.
+In it, you will learn how to describe grammars in Scallion’s parser combinator DSL
+and how to ensure that your grammar lies in LL(1) (which Scallion requires to function correctly).</p>
+
+<p>Once you understand parser combinators,
+you can get to work on your own implementation of an Amy parser in <code class="language-plaintext highlighter-rouge">Parser.scala</code>.
+Note that in this lab you will essentially operate on two data structures:
+Your parser will consume a sequence of <code class="language-plaintext highlighter-rouge">Token</code>s (defined in <code class="language-plaintext highlighter-rouge">Tokens.scala</code>)
+and produce an AST (as defined by <code class="language-plaintext highlighter-rouge">NominalTreeModule</code> in <code class="language-plaintext highlighter-rouge">TreeModule.scala</code>).
+To accomplish this, you will have to define appropriate parsing rules and translation functions for Scallion.</p>
+
+<p>In <code class="language-plaintext highlighter-rouge">Parser.scala</code> you will already find a number of parsing rules given to you,
+including the starting non-terminal <code class="language-plaintext highlighter-rouge">program</code>.
+Others, such as <code class="language-plaintext highlighter-rouge">expr</code> are stubs (marked by <code class="language-plaintext highlighter-rouge">???</code>) that you will have to complete yourself.
+Make sure to take advantage of Scallion’s various helpers
+such as the <code class="language-plaintext highlighter-rouge">operators</code> method that simplifies defining operators of different precedence and associativity.</p>
+
+<h2 id="an-ll1-grammar-for-amy">An LL(1) grammar for Amy</h2>
+
+<p>As usual, the <a href="../files/amy-spec.pdf">Amy specification</a> will guide you when it comes to deciding
+what exactly should be accepted by your parser. Carefully read Section 2 (<em>Syntax</em>).</p>
+
+<p>Note that the EBNF grammar in Figure 2 merely represents an over-approximation of Amy’s true grammar
+– it is too imprecise to be useful for parsing: Firstly, the grammar in Figure 2 is ambiguous.
+That is, it allows multiple ways to parse an expression.
+E.g. <code class="language-plaintext highlighter-rouge">x + y * z</code> could be parsed as either <code class="language-plaintext highlighter-rouge">(x + y) * z</code> or as <code class="language-plaintext highlighter-rouge">x + (y * z)</code>.
+In other words, the grammar doesn’t enforce either operator precedence or associativity correctly.
+Additionally, the restrictions mentioned throughout Section 2 of the specification are not followed.</p>
+
+<p>Your task is thus to come up with appropriate rules that encode Amy’s true grammar.
+Furthermore, this grammar should be LL(1) for reasons of efficiency.
+Scallion will read your grammar, examine if it is in LL(1), and, if so, parse input programs.
+If Scallion determines that the grammar is not in LL(1), it will report an error.
+You can also instruct Scallion to generate some counter-examples for you (see the <code class="language-plaintext highlighter-rouge">checkLL1</code> function).</p>
+
+<h2 id="translating-to-asts">Translating to ASTs</h2>
+
+<p>Scallion will parse a sequence of tokens according to the grammar you provide.
+However, without additional help, it does not know how to build Amy ASTs.
+For instance, a (non-sensical) grammar that only accepts sequences of identifier tokens, e.g.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">many</span><span class="o">(</span><span class="nf">elem</span><span class="o">(</span><span class="nc">IdentifierKind</span><span class="o">))</span><span class="k">:</span> <span class="kt">Syntax</span><span class="o">[</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">Token</span><span class="o">]]</span>
+</code></pre></div></div>
+
+<p>will be useful in deciding whether the input matches the expected form,
+but will simply return the tokens unchanged when parsing succeeds.</p>
+
+<p>Scallion does allow you to map parse results from one type to another, however. For instance, in the above example we might want to provide a function <code class="language-plaintext highlighter-rouge">f(idTokens: Seq[Token]): Seq[Variable]</code> that transforms the identifier tokens into (Amy-AST) variables of those names.</p>
+
+<p>For more information on how to use Scallion’s <code class="language-plaintext highlighter-rouge">Syntax#map</code> method please refer to the <a href="lab3-scallion.html">Scallion introduction</a>.</p>
+
+<h1 id="notes">Notes</h1>
+
+<h2 id="understanding-the-ast-nominal-vs-symbolic-trees">Understanding the AST: Nominal vs. Symbolic Trees</h2>
+
+<p>If you check the TreeModule file containing the ASTs, you will notice it is structured in an unusual way: There is a <code class="language-plaintext highlighter-rouge">TreeModule</code> class extended by <code class="language-plaintext highlighter-rouge">NominalTreeModule</code> and <code class="language-plaintext highlighter-rouge">SymbolicTreeModule</code>. The reason for this design is that we need two very similar ASTs, but with different types representing names in each case: Just after parsing (this assignment), all names are just Strings and qualified names are essentially pairs of Strings. We call ASTs that only use such String-based names <code class="language-plaintext highlighter-rouge">Nominal</code> – the variant we will be using in this lab. Later, during name analysis, these names will be resolved to unique identifiers, e.g. two variables that refer to different definitions will be distinct, even if they have the same name. For now you can just look at the TreeModule and substitute the types that are not defined there (<code class="language-plaintext highlighter-rouge">Name</code> and <code class="language-plaintext highlighter-rouge">QualifiedName</code>) with their definitions inside <code class="language-plaintext highlighter-rouge">NominalTreeModule</code>.</p>
+
+<h2 id="positions">Positions</h2>
+
+<p>As you will notice in the code we provide, all generated ASTs have their position set. The position of each node of the AST is defined as its starting position. It is important that you set the positions in all the trees that you create for better error reporting later. Although our testing infrastructure cannot directly check for the presence of positions, we will check them manually.</p>
+
+<h2 id="pretty-printing">Pretty Printing</h2>
+
+<p>Along with the stubs, we provide a printer for Amy ASTs. It will print parentheses around all expressions so you can clearly see how your parser interprets precedence and associativity. You can use it to test your parser, and it will also be used during our testing to compare the output of your parser with the reference parser.</p>
+
+<h1 id="skeleton">Skeleton</h1>
+
+<p>As usual, you can find the skeleton in a corresponding zip archive file, available <a href="../files/clp-lab03.zip">here</a>.
+This lab builds on your previous work, so you should copy your implementation of the lexer into this new skeleton.
+The structure of your project <code class="language-plaintext highlighter-rouge">src</code> directory should be as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>amyc
+ ├── Main.scala                   (updated)
+ │
+ ├── ast                          (new)
+ │    ├── Identifier.scala
+ │    ├── Printer.scala
+ │    └── TreeModule.scala
+ │
+ ├── lib
+ │    ├── scallion_3-0.6.jar   (new)
+ │    └── silex_3-0.6.jar
+ │
+ ├── parsing
+ │    ├── Parser.scala            (new)
+ │    ├── Lexer.scala
+ │    └── Tokens.scala
+ │
+ └── utils
+      ├── AmycFatalError.scala
+      ├── Context.scala
+      ├── Document.scala
+      ├── Pipeline.scala
+      ├── Position.scala
+      ├── Reporter.scala
+      └── UniqueCounter.scala
+</code></pre></div></div>
+
+<h2 id="deliverables">Deliverables</h2>
+
+<p>You have 2 weeks to complete this assignment.</p>
+
+<p><strong>Deadline: Tuesday, November 2, 23:00.</strong></p>
+
+
+
+      <footer class="site-footer">
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </main>
+  </body>
+</html>

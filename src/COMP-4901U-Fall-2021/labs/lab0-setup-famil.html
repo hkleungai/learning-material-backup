@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Lab 0 | clpcd</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Lab 0" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Scala Setup and Familiarization" />
+<meta property="og:description" content="Scala Setup and Familiarization" />
+<meta property="og:site_name" content="clpcd" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Lab 0" />
+<!-- End Jekyll SEO tag -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <a id="skip-to-content" href="#content">Skip to the content.</a>
+
+    <header class="page-header" role="banner">
+      <h1 class="project-name">Lab 0</h1>
+      <h2 class="project-tagline">Scala Setup and Familiarization</h2>
+
+
+        <a href="https://lptk.github.io/clpcd" class="btn">COMP 4901U Home</a>
+        <a href="https://canvas.ust.hk/courses/38344" class="btn">COMP 4901U on Canvas</a>
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <h1 id="scala-setup-and-familiarization">Scala Setup and Familiarization</h1>
+
+<p>The graded mini-projects will start next week with the design of an interpreter and later a lexer, as we have not yet seen the principles of lexical analysis (the topic of next week).</p>
+
+<p>The goal of this lab is to make sure you can program in Scala on your computer.</p>
+
+<h3 id="scala-setup">Scala setup</h3>
+
+<p>Please follow the instructions at the following link, if you have not set up a Scala 3 environment: <a href="https://docs.scala-lang.org/scala3/getting-started.html">https://docs.scala-lang.org/scala3/getting-started.html (Links to an external site.)</a></p>
+
+<p>This is easy to do and should not take very long. Indeed, the <em>coursier</em> tool should be able to take care of installing everything you need with the command <code class="language-plaintext highlighter-rouge">cs setup</code>.</p>
+
+<p>Create an SBT project in an empty filter using the command <code class="language-plaintext highlighter-rouge">sbt new scala/scala3.g8</code>, and you are all set to go.</p>
+
+<h3 id="ide-setup">IDE Setup</h3>
+
+<p>I would recommend using VSCode or IntelliJ. Both can be made to use the latest <em>Metals</em> language server implementation (https://scalameta.org/metals/). Metals can also be used with editors like vim and emacs.</p>
+
+<h3 id="basic-scala-implementations">Basic Scala implementations</h3>
+
+<p>We will reuse the functional list data structure presented in the lecture and implement a few operations on it. Here I will rename “List” to “Stack” and “Nil” to “Empty” to avoid potential clashes with the standard Scala library.</p>
+
+<p>Paste the basic code into a file named <code class="language-plaintext highlighter-rouge">Stack.scala</code> in the <code class="language-plaintext highlighter-rouge">src/main/scala</code> folder of the project:</p>
+
+<p><code class="language-plaintext highlighter-rouge">package lab01enum Stack[A]:  case Empty()  case Cons(head: A, tail: Stack[A])object Stack:  extension [A](x: A) def ::(xs: Stack[A]): Stack[A] = Cons(x, xs)</code></p>
+
+<p>To try out the code, type <code class="language-plaintext highlighter-rouge">sbt</code> in the console, and then type <code class="language-plaintext highlighter-rouge">console</code> to enter a REPL, where you can type Scala expressions to be evaluated:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sbt</span><span class="k">:</span><span class="kt">scala3-simple&gt;</span> <span class="kt">console</span>
+
+<span class="n">scala</span><span class="o">&gt;</span> <span class="k">import</span> <span class="nn">lab01.</span><span class="o">*,</span> <span class="nc">Stack</span><span class="o">.*</span>
+
+<span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="nv">ls</span> <span class="k">=</span> <span class="mi">0</span> <span class="o">::</span> <span class="mi">1</span> <span class="o">::</span> <span class="mi">2</span> <span class="o">::</span> <span class="nc">Empty</span><span class="o">()</span>
+<span class="k">val</span> <span class="nv">ls</span><span class="k">:</span> <span class="kt">lab01.Stack</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Cons</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="nc">Cons</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="nc">Cons</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span><span class="nc">Empty</span><span class="o">())))</span>
+</code></pre></div></div>
+
+<p>Alternatively, create a Scala spreadsheet, which will show you the results of expression evaluations in real time. In VSCode, all you need is to create a file with extension <code class="language-plaintext highlighter-rouge">.worksheet.sc</code> in the same <code class="language-plaintext highlighter-rouge">src</code> folder (https://scalameta.org/metals/docs/editors/vscode/#worksheets):</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">lab01.</span><span class="o">*,</span> <span class="nc">Stack</span><span class="o">.*</span>
+
+<span class="k">val</span> <span class="nv">ls</span> <span class="k">=</span> <span class="mi">0</span> <span class="o">::</span> <span class="mi">1</span> <span class="o">::</span> <span class="mi">2</span> <span class="o">::</span> <span class="nc">Empty</span><span class="o">()</span> <span class="c1">// ls: Stack[Int] = Cons(0,Cons(1,Cons(2,Empty())))</span>
+</code></pre></div></div>
+
+<h3 id="pretty-printing">Pretty-printing</h3>
+
+<p>Change the way lists are printed by overriding the toString method of List instances:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">enum</span> <span class="nc">Stack</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span><span class="k">:</span>
+  <span class="kt">case</span> <span class="kt">Empty</span><span class="o">()</span>
+  <span class="kt">case</span> <span class="kt">Cons</span><span class="o">(</span><span class="kt">head:</span> <span class="kt">A</span><span class="o">,</span> <span class="kt">tail:</span> <span class="kt">Stack</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span>
+
+<span class="err"> </span> <span class="k">override</span> <span class="k">def</span> <span class="nf">toString</span> <span class="k">=</span> <span class="s">"TODO"</span>
+</code></pre></div></div>
+
+<p>For example, you could make the list <code class="language-plaintext highlighter-rouge">0 :: 1 :: 2 :: Empty()</code> print as <code class="language-plaintext highlighter-rouge">[0, 1, 2]</code>.</p>
+
+<h3 id="flat-mapping">Flat-mapping</h3>
+
+<p>Implement a method to perform flat-mapping, meaning that a function passed in parameter is applied on each element of the list, producing new sub-lists, and the result is the concatenation of all these lists.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">def</span> <span class="nf">flatMap</span><span class="o">[</span><span class="kt">B</span><span class="o">](</span><span class="n">f</span><span class="k">:</span> <span class="kt">A</span> <span class="o">=&gt;</span> <span class="nc">Stack</span><span class="o">[</span><span class="kt">B</span><span class="o">])</span><span class="k">:</span> <span class="kt">Stack</span><span class="o">[</span><span class="kt">B</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span> <span class="c1">// TODO</span>
+</code></pre></div></div>
+
+<p>For instance, <code class="language-plaintext highlighter-rouge">("a" :: "b" :: Empty()).flatMap(x =&gt; (x + "0") :: (x + "1") :: Empty())</code> should result in the list <code class="language-plaintext highlighter-rouge">"a0" :: "a1" :: "b0" :: "b1" :: Empty()</code>.</p>
+
+<h3 id="folding-left-and-right">Folding left and right</h3>
+
+<p>Implement a function named “foldr” that <em>folds</em> a list in a left-associative way, meaning that values on the left are processed first. Given an initial value <code class="language-plaintext highlighter-rouge">z</code>, and a list <code class="language-plaintext highlighter-rouge">ls = (x0 :: x1 :: ... :: xn :: Empty())</code>, then <code class="language-plaintext highlighter-rouge">ls.foldl(z, f)</code> should be equivalent to <code class="language-plaintext highlighter-rouge">f( ... f(f(z, x0), x1)) ..., xn)</code>.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">def</span> <span class="nf">foldl</span><span class="o">[</span><span class="kt">B</span><span class="o">](</span><span class="n">z</span><span class="k">:</span> <span class="kt">B</span><span class="o">,</span> <span class="n">f</span><span class="k">:</span> <span class="o">(</span><span class="kt">B</span><span class="o">,</span> <span class="kt">A</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">B</span><span class="o">)</span><span class="k">:</span> <span class="kt">B</span> <span class="o">=</span> <span class="o">???</span> <span class="c1">// TODO</span>
+</code></pre></div></div>
+
+<p>The simplest way to implement this uses recursion and no loops or mutation.</p>
+
+<p>Now, implement “foldr”, whose behavior is to fold in a <em>right</em>-associative way. The expression <code class="language-plaintext highlighter-rouge">ls.foldr(f)</code> should be equivalent to <code class="language-plaintext highlighter-rouge">f(x0, f(x1, ... f(xn, z) ... ))</code>.</p>
+
+<h3 id="advanced-question-for-the-courageous">Advanced question for the courageous</h3>
+
+<p>Try to express <code class="language-plaintext highlighter-rouge">foldr</code> in terms of <code class="language-plaintext highlighter-rouge">foldl</code>, and conversely.</p>
+
+<p>Hint: the trick is to accumulate <em>function values</em>, starting from the identity.</p>
+
+<h2 id="solutions-click-here"><a href="https://gist.github.com/LPTK/c3e5f347276cdd176545be9514a0ccba">Solutions: Click Here</a></h2>
+
+
+
+      <footer class="site-footer">
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </main>
+  </body>
+</html>

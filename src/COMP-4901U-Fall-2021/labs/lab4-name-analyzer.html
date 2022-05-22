@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Lab 4 | clpcd</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Lab 4" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Note: Name Analysis" />
+<meta property="og:description" content="Note: Name Analysis" />
+<meta property="og:site_name" content="clpcd" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Lab 4" />
+<!-- End Jekyll SEO tag -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <a id="skip-to-content" href="#content">Skip to the content.</a>
+
+    <header class="page-header" role="banner">
+      <h1 class="project-name">Lab 4</h1>
+      <h2 class="project-tagline">Note: Name Analysis</h2>
+
+
+        <a href="https://lptk.github.io/clpcd" class="btn">COMP 4901U Home</a>
+        <a href="https://canvas.ust.hk/courses/38344" class="btn">COMP 4901U on Canvas</a>
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <p>In the following, we will briefly discuss the purpose and implementation of the name analyzer phase in Amy. Name analysis has three goals:</p>
+
+<ul>
+  <li>
+    <p>To reject programs that do not follow the Amy naming rules.</p>
+  </li>
+  <li>
+    <p>For correct programs, to assign a unique identifier to every name.</p>
+
+    <p>Remember that trees coming out of the parser contain plain strings wherever a name is expected. This might lead to confusion as to what each name refers to. Therefore, during name analysis, we assign a unique identifier to each name at its definition. Later in the program, every reference to that name will use the same unique identifier.</p>
+  </li>
+  <li>
+    <p>To populate the symbol table.</p>
+
+    <p>The symbol table contains a mapping from identifiers to all information that you could need later in the program for that identifier. For example, for each constructor, the symbol table contains an entry with the argument types, parent, and an index for this constructor.</p>
+  </li>
+</ul>
+
+<p>After name analysis, only name-correct programs should survive, and they should contain unique identifiers that correspond to the correct symbol in the program.</p>
+
+<p>You can always look at the expected output of name analysis for a given program by invoking the reference compiler with the <code class="language-plaintext highlighter-rouge">--printNames</code> option.</p>
+
+<h2 id="the-symbol-table">The Symbol Table</h2>
+
+<p>The symbol table contains information for all kinds of entities in the program. In the first half of name analysis, we discover all definitions of symbols, assign each of them a fresh identifier, and store these identifier-definition entries in the symbol table.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">SymbolTable</code> API contains three kinds of methods:</p>
+
+<ul>
+  <li>
+    <p>‘addX’ methods will add a new object to the symbol table. Among other things, these methods turn the strings found in nominal trees into the fresh <code class="language-plaintext highlighter-rouge">Identifier</code>s we will use to construct symbolic trees.</p>
+  </li>
+  <li>
+    <p>‘getX’ methods which take an <code class="language-plaintext highlighter-rouge">Identifier</code> as an argument. This is what you will be using to resolve symbols you find in the program, for example, during type checking.</p>
+  </li>
+  <li>
+    <p>‘getX’ methods which take two strings as arguments. These are only useful for name analysis and should not be used later: since during name analysis unique identifiers have not been assigned to everything from the start, sometimes our compiler will need to look up a definition based on its name and the name of its containing module. Of course you should not use these methods once you already have an identifier (in particular, not during type checking).</p>
+  </li>
+</ul>
+
+<h2 id="the-different-tree-modules">The different tree modules</h2>
+
+<p>It is time to talk in detail about the different tree modules in the <code class="language-plaintext highlighter-rouge">TreeModule</code> file. As explained earlier, our goal is to define two very similar tree modules, with the only difference being how a (qualified) name is represented: In a <em>nominal</em> tree, i.e. one coming out of the parser, names are plain strings and qualified names are pairs of strings. On the other hand, in a <em>symbolic</em> tree, both kinds of names are unique identifiers.</p>
+
+<p>To represent either kind of tree, we define a single Scala trait called <code class="language-plaintext highlighter-rouge">TreeModule</code> which defines two <em>abstract type fields</em> <code class="language-plaintext highlighter-rouge">Name</code> and <code class="language-plaintext highlighter-rouge">QualifiedName</code>. This trait also defines all types we need to represent Amy ASTs. Many of these types depend on the abstract types.</p>
+
+<p>These abstract types are filled in when we instantiate the trait. Further down in the same file you can see that we define two objects <code class="language-plaintext highlighter-rouge">NominalTreeModule</code> and <code class="language-plaintext highlighter-rouge">SymbolicTreeModule</code>, which instantiate the abstract types. In addition all types within <code class="language-plaintext highlighter-rouge">TreeModule</code> are conceptually defined separately in each of the two implementations. As a result, there is a type called <code class="language-plaintext highlighter-rouge">NominalTreeModule.Ite</code> which is <em>different</em> from the type called <code class="language-plaintext highlighter-rouge">SymbolicTreeModule.Ite</code>.</p>
+
+<h2 id="the-nameanalyzer-class">The NameAnalyzer class</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">NameAnalyzer</code> class implements Amy’s naming rules (section 3.4 of the Amy specification). It takes a nominal program as an input and produces a symbol table and a symbolic program.</p>
+
+<p>Name analysis is split into well-defined steps. The idea is the following: we first discover all definitions in the program in the correct order, i.e., modules, types, constructors, and, finally, functions. We then rewrite function bodies and expressions to refer to the newly-introduced identifiers.</p>
+
+<p>Notice how name analysis takes as input the <code class="language-plaintext highlighter-rouge">NominalTreeModule.Program</code> output by the Parser, and returns a <code class="language-plaintext highlighter-rouge">SymbolicTreeModule.Program</code> along with a populated symbol table. During the last step we therefore transform the program and each of its subtrees from <code class="language-plaintext highlighter-rouge">NominalTreeModule.X</code> into <code class="language-plaintext highlighter-rouge">SymbolicTreeModule.X</code>. For instance, a <code class="language-plaintext highlighter-rouge">NominalTreeModule.Program</code> will be transformed into a <code class="language-plaintext highlighter-rouge">SymbolicTreeModule.Program</code>, a <code class="language-plaintext highlighter-rouge">NominalTreeModule.Ite</code> into a <code class="language-plaintext highlighter-rouge">SymbolicTreeModule.Ite</code> and so forth. To save some typing, we have imported NominalTreeModule as <code class="language-plaintext highlighter-rouge">N</code> and SymbolicTreeModule as <code class="language-plaintext highlighter-rouge">S</code>. So to refer e.g. to a <code class="language-plaintext highlighter-rouge">Plus</code> in the original (nominal) tree module we can simply use <code class="language-plaintext highlighter-rouge">N.Plus</code> – to refer to one in the symbolic tree module we can use <code class="language-plaintext highlighter-rouge">S.Plus</code>.</p>
+
+
+
+      <footer class="site-footer">
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </main>
+  </body>
+</html>

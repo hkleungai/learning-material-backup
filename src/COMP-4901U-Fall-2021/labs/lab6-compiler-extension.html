@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Lab 6 | clpcd</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Lab 6" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Compiler Extension for the Amy Language (Optional)" />
+<meta property="og:description" content="Compiler Extension for the Amy Language (Optional)" />
+<meta property="og:site_name" content="clpcd" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Lab 6" />
+<!-- End Jekyll SEO tag -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <a id="skip-to-content" href="#content">Skip to the content.</a>
+
+    <header class="page-header" role="banner">
+      <h1 class="project-name">Lab 6</h1>
+      <h2 class="project-tagline">Compiler Extension for the Amy Language (Optional)</h2>
+
+
+        <a href="https://lptk.github.io/clpcd" class="btn">COMP 4901U Home</a>
+        <a href="https://canvas.ust.hk/courses/38344" class="btn">COMP 4901U on Canvas</a>
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <p>You have now written a compiler for Amy, a simple functional language.
+The final lab project is to design and implement a new functionality of
+your own choice on top of the compiler you built so far. In preparation
+for this, you should aim to learn about the problem domain by searching
+the appropriate literature. The project includes:</p>
+
+<ul>
+  <li>
+    <p>designing and implementing the new functionality</p>
+  </li>
+  <li>
+    <p>documenting the results in a written report document</p>
+  </li>
+</ul>
+
+<p><strong>This project is optional</strong>, meaning that you do not have to complete it.</p>
+
+<p><strong>Grading scheme:</strong>
+If you choose to complete this project,
+the marks you obtain for it can be used to recover
+<em>at most half</em> of the marks you lost in the previous labs/mini-projects.
+For example, if you have an average of 40% in your mini-project grades,
+then obtaining 100% in the optional project will prop your overall labs grade to
+40 + 100/2 = 90%.
+The overall labs grade is capped at 100%. So
+if, on the other hand, you had an average of 60% in your mini-projects
+and you still obtained 100% in the optional project,
+your new grade will be 100%, <em>not</em> 110%.
+<!-- – in other words this optional project cannot be used to recover
+final exam marks. --></p>
+
+<p>Because this is potentially quite a big bonus,
+the compiler extension project will be evaluated rather strictly
+(do not expect an easy 100% grade).</p>
+
+<h2 id="selecting-a-project-topic">Selecting a Project Topic</h2>
+
+<p>In the following document, we list several project ideas, but you should
+also feel free to submit your own.</p>
+
+<p><strong>However, you should make sure to contact me (the course instructor)
+before selecting a project, even if it is already a listed project.</strong>
+Indeed, I will try to make sure that no two groups work on the same project topic.</p>
+
+<p>Because not all
+projects are equally difficult, we annotated each of them with the
+expected workload. The suggested projects cover a wide range of
+complexity, and we will evaluate your submissions with that complexity
+in mind. For instance, for a project marked with <code class="language-plaintext highlighter-rouge">(1)</code> (relatively low
+complexity) we will be expecting a polished, well-tested and
+well-documented extension, whereas projects on the other end (<code class="language-plaintext highlighter-rouge">(3)</code>) may
+be more prototypical. For all submissions, however, we require that you
+deliver code that compiles and a set of example input files that
+demonstrate the new functionality.</p>
+
+<p><a href="../files/extensions.pdf">Project ideas</a></p>
+
+<h2 id="project-orientation">Project Orientation</h2>
+
+<p>To give you a chance to validate your understanding of the
+project and what’s expected of you, please feel free to contact me
+by email and possibly set up a meeting in person.
+But before you do, think
+about the following questions:</p>
+
+<ul>
+  <li>
+    <p>What are the features you will add to the compiler/language?</p>
+  </li>
+  <li>
+    <p>What would be some (short) programs highlighting the use of these
+features?</p>
+  </li>
+  <li>
+    <p>What changes might be required in each compiler phase and/or what
+new phases would you add? (Very roughly)</p>
+  </li>
+</ul>
+
+<h2 id="project-implementation-and-report">Project Implementation and Report</h2>
+
+<p><strong>Deadline: December 18, 2021, 23:00</strong></p>
+
+<p>Your implementation and a report are due on this date
+at the latest.
+Any later submission will not be considered.</p>
+
+<p><strong>Note that you should try to submit your work earlier if possible</strong>,
+which will allow me to come back to you with feedback and potentially suggest improvements or fixes.
+If you submit right before the deadline,
+I will not have any time to come back to you
+because the final grades will be due for reporting to the CSE department soon after.</p>
+
+<p>You will develop your project on top of your
+implementation of Amy.
+Please submit <em>all the <strong>source</strong> files</em> in your project to me, in a zip archive,
+so I can properly test it.
+Your zip file should contain:</p>
+
+<ul>
+  <li>
+    <p>Your implementation, which must, to be graded at all, compile and be
+able to run non-trivial examples.</p>
+  </li>
+  <li>
+    <p>A subdirectory <code class="language-plaintext highlighter-rouge">extension-examples/</code> which includes some examples
+that demonstrate your compiler extension in action.</p>
+  </li>
+  <li>
+    <p>A subdirectory <code class="language-plaintext highlighter-rouge">report/</code> which includes a PDF summarizing your
+extension.</p>
+  </li>
+</ul>
+
+<p><strong>If you did not manage to complete your planned features, or they are
+partially implemented, make this clear in your report!</strong></p>
+
+<p>You are encouraged to use the following (LaTeX) template for your
+report:</p>
+
+<ul>
+  <li><a href="../files/report-template.zip">LaTeX sources</a></li>
+</ul>
+
+<p>A compiled PDF version of the template with the required sections is available
+here:</p>
+
+<ul>
+  <li><a href="../files/report-template.pdf">PDF Example</a></li>
+</ul>
+
+<p>Although you are not required to use the above template, your report
+must contain at least the sections described in it with the appropriate
+information. Note that writing this report will take some time, and you
+should not do it at the last minute. The final report is an important
+part of the compiler project. If you have questions about the template
+or the contents of the report, make sure to ask them early.</p>
+
+<!-- A common question is \"how long should the report be?\". There is no
+definitive answer to that. Considering that the report will contain code
+examples and a technical description of your implementation, it would be
+surprising if it were shorter than 3 pages. -->
+<p>Please try to stay within 6
+pages or less for your report, but do include all code examples and technical descriptions
+needed to truly understand your contribution.
+A concise but well-written report is preferable to a long but poorly-written one.</p>
+
+
+
+      <footer class="site-footer">
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </main>
+  </body>
+</html>
