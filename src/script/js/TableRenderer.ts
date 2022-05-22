@@ -145,7 +145,8 @@ export default class TableRenderer extends BaseRenderer<TableRendererProps> {
     }
     svgLink.onclick = async () => {
       try {
-        const linkToBeCopied =`${window.location.href.replace(/\/+$/, '')}/#${title.id}`;
+        const homeLink = window.location.href.replace(window.location.hash, '').replace(/\/+$/, '');
+        const linkToBeCopied =`${homeLink}/#${title.id}`;
         await navigator.clipboard.writeText(linkToBeCopied);
         alert('[SUCCESS]: Successfully copy the link');
       }

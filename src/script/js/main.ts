@@ -1,4 +1,4 @@
-/** TODO: show success / failed notice upon clicking link-share   */
+/** TODO: show surprise "sucks" message upon clicking headers     */
 /** TODO: Study ts-doc                                            */
 /** TODO: Make some ts index.ts                                   */
 /** TODO: Move data to proper json                                */

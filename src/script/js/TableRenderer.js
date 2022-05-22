@@ -136,7 +136,8 @@ _TableRenderer_instances = new WeakSet(), _TableRenderer_buildSemesterCell = fun
     }
     svgLink.onclick = () => __awaiter(this, void 0, void 0, function* () {
         try {
-            const linkToBeCopied = `${window.location.href.replace(/\/+$/, '')}/#${title.id}`;
+            const homeLink = window.location.href.replace(window.location.hash, '').replace(/\/+$/, '');
+            const linkToBeCopied = `${homeLink}/#${title.id}`;
             yield navigator.clipboard.writeText(linkToBeCopied);
             alert('[SUCCESS]: Successfully copy the link');
         }
