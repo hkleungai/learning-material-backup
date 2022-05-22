@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Using Post Method</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h3>Getting User From Server</h3>
+    <h4>Select your user:</h4>
+    <select id="username">
+        <option>amy</option>
+        <option>john</option>
+        <option>may</option>
+        <option>paul</option>
+    </select>
+    <button id="go-button">Go!</button>
+    <h4>User information:</h4>
+    <pre id="result"></pre>
+    <script>
+    $(document).ready(function() {
+        $("#go-button").on("click", () => {
+            const data = { username: $("#username").val() };
+            fetch("/getuser", {
+                method: "POST",
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify(data)
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    // Format the JSON data and show it in the <pre>
+                    $("#result").text(JSON.stringify(data));
+                })
+                .catch((error) => {
+                    // Show the error
+                    $("#result").text(error);
+                });
+        });
+    });
+    </script>
+</body>
+</html>

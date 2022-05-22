@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Using Promise</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <script>
+    $(document).ready(function() {
+        const apple = new Image();
+        apple.src = "apple.png";
+        apple.decode()
+            .then(() => {
+                $("body").append($(apple));
+            })
+            .catch(() => {
+                $("body").append($("<p>The image cannot be loaded.</p>"));
+            })
+    });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The GameScore Module</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>
+    Score: <span id="score">0</span>
+    </h1>
+    <button id="increaseScore">Increase Score</button>
+    <button id="decreaseScore">Decrease Score</button>
+    <script src="gamescore.js"></script>
+    <script>
+    $(document).ready(function() {
+        const gameScore = GameScore(0);
+
+        $("#increaseScore").on("click", function() {
+            gameScore.increase();
+        });
+
+        $("#decreaseScore").on("click", function() {
+            gameScore.decrease();
+        });
+    });
+    </script>
+</body>
+</html>
+

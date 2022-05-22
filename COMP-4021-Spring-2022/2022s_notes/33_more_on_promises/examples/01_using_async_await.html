@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Using Async and Await</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <script>
+    $(document).ready(function() {
+        const apple    = new Image(),
+              orange   = new Image(),
+              carrot   = new Image(),
+              pumpkin  = new Image(),
+              eggplant = new Image();
+
+        function loadImage(img, src) {
+            img.src = src;
+            return img.decode();
+        }
+
+        async function loadAllImages() {
+            await loadImage(apple, "apple.png");
+            await loadImage(orange, "orange.png");
+            await loadImage(carrot, "carrot.png");
+            await loadImage(pumpkin, "pumpkin.png");
+            await loadImage(eggplant, "eggplant.png");
+            $("body").append($(apple), $(orange), $(carrot), $(pumpkin), $(eggplant));
+        }
+
+        loadAllImages();
+    });
+    </script>
+</body>
+</html>
+

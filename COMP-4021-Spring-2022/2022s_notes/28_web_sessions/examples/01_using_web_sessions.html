@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Using Web Sessions</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <p>
+    <strong>Tell me your name:</strong>
+    <input id="name"></input>
+    <button id="okay">Okay</button>
+    </p>
+    <p id="greeting"></p>
+    <button id="delete" style="display: none">Delete my name</button>
+    <script>
+    $(document).ready(function() {
+        // Get the name stored on the server
+        fetch("/getname")
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.name) {
+                    $("#greeting").text("Hi, " + data.name + "!");
+                    $("#delete").show();
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        $("#okay").on("click", () => {
+            // Set the name in the server
+            fetch("/setname", {
+                method: "POST",
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify({ name: $("#name").val() })
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    alert("Please reload the page!");
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        });
+
+        $("#delete").on("click", () => {
+            // Delete the name in the server
+            fetch("/deletename")
+                .then((response) => response.json())
+                .then((data) => {
+                    alert("Please reload the page!");
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        });
+    });
+    </script>
+</body>
+</html>

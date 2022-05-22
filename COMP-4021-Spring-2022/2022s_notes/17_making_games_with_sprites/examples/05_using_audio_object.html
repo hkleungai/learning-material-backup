@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Using the Audio Object</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <button id="play">Play</button>
+    <button id="pause">Pause</button>
+    <button id="stop">Stop</button>
+    <script>
+    $(document).ready(function() {
+        const song = new Audio("zelda_main.mp3");
+
+        $("#play").on("click", function() {
+            song.play();
+        });
+
+        $("#pause").on("click", function() {
+            song.pause();
+        });
+
+        $("#stop").on("click", function() {
+            song.pause();
+            song.currentTime = 0;
+        });
+    });
+    </script>
+</body>
+</html>

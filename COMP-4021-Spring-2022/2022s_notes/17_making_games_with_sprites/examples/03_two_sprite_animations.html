@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Drawing a Sprite Sheet with Timing</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <canvas style="border: 1px solid gray" width="600" height="400"></canvas>
+    <script>
+    $(document).ready(function() {
+        const cv = $("canvas").get(0);
+        const context = cv.getContext("2d");
+
+        /* Prepare the sprite sheet */
+        const sheet = new Image();
+        sheet.onload = function() {
+            /* Start to draw the sprite */
+            requestAnimationFrame(doFrame);
+        };
+        sheet.src = "sprite_sheet.png";
+        
+        /* Define the sprite information */
+        const sequence1 = {
+            x: 0, y: 100, width: 24, height: 25,
+            targetX: 150, targetY: 135,
+            targetWidth: 120, targetHeight: 125,
+            index: 0, count: 10, timing: 100,
+            last: performance.now()
+        };
+        const sequence2 = {
+            x: 0, y: 125, width: 24, height: 25,
+            targetX: 300, targetY: 135,
+            targetWidth: 120, targetHeight: 125,
+            index: 0, count: 10, timing: 50,
+            last: performance.now()
+        };
+
+        /* Draw one sprite */
+        function drawSprite(sequence, now) {
+            if (now - sequence.last >= sequence.timing) {
+                /* Clear the previous sprite */
+                context.clearRect(sequence.targetX, sequence.targetY,
+                                  sequence.targetWidth, sequence.targetHeight);
+
+                /* Draw the sprite */
+                context.imageSmoothingEnabled = false;
+                context.drawImage(
+                    sheet,
+                    sequence.x + sequence.index * sequence.width,
+                    sequence.y, sequence.width, sequence.height,
+                    sequence.targetX, sequence.targetY,
+                    sequence.targetWidth, sequence.targetHeight
+                );
+
+                /* Move to the next sprite */
+                sequence.index++;
+                if (sequence.index >= sequence.count)
+                    sequence.index = 0;
+
+                /* Remember the time information */
+                sequence.last = now;
+            }
+        }
+
+        function doFrame(now) {
+            /* Sprite 1 */
+            drawSprite(sequence1, now);
+
+            /* Sprite 2 */
+            drawSprite(sequence2, now);
+
+            /* Start to draw the next sprite */
+            requestAnimationFrame(doFrame);
+        }
+    });
+    </script>
+</body>
+</html>

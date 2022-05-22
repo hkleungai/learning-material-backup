@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Path</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <canvas style="border: 1px solid gray" width="600" height="400"></canvas>
+    <script>
+    $(document).ready(function() {
+        let cv = $("canvas").get(0);
+        let context = cv.getContext("2d");
+
+        context.beginPath();
+
+        /* Draw a circle */
+        context.arc(300, 100, 50, 0, 2 * Math.PI);
+
+        /* Draw a few lines */
+        context.moveTo(300, 150); context.lineTo(300, 250);
+        context.moveTo(300, 150); context.lineTo(200, 200);
+        context.moveTo(300, 150); context.lineTo(400, 200);
+        context.moveTo(300, 250); context.lineTo(250, 350);
+        context.moveTo(300, 250); context.lineTo(350, 350);
+
+        context.stroke();
+    });
+    </script>
+</body>
+</html>

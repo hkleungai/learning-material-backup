@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>player.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>player.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-1">&#x00a7;</a>
+              </div>
+              <p>This function defines the Player module.</p>
+<ul>
+<li><code>ctx</code> - A canvas context for drawing</li>
+<li><code>x</code> - The initial x position of the player</li>
+<li><code>y</code> - The initial y position of the player</li>
+<li><code>gameArea</code> - The bounding box of the game area</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> <span class="hljs-title class_">Player</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">ctx, x, y, gameArea</span>) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-2">&#x00a7;</a>
+              </div>
+              <p>This is the sprite sequences of the player facing different directions.
+It contains the idling sprite sequences <code>idleLeft</code>, <code>idleUp</code>, <code>idleRight</code> and <code>idleDown</code>,
+and the moving sprite sequences <code>moveLeft</code>, <code>moveUp</code>, <code>moveRight</code> and <code>moveDown</code>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> sequences = {
+        <span class="hljs-comment">/* Idling sprite sequences for facing different directions */</span>
+        <span class="hljs-attr">idleLeft</span>:  { <span class="hljs-attr">x</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">25</span>, <span class="hljs-attr">width</span>: <span class="hljs-number">24</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">25</span>, <span class="hljs-attr">count</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">timing</span>: <span class="hljs-number">2000</span>, <span class="hljs-attr">loop</span>: <span class="hljs-literal">false</span> },
+        <span class="hljs-attr">idleUp</span>:    { <span class="hljs-attr">x</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">50</span>, <span class="hljs-attr">width</span>: <span class="hljs-number">24</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">25</span>, <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">timing</span>: <span class="hljs-number">2000</span>, <span class="hljs-attr">loop</span>: <span class="hljs-literal">false</span> },
+        <span class="hljs-attr">idleRight</span>: { <span class="hljs-attr">x</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">75</span>, <span class="hljs-attr">width</span>: <span class="hljs-number">24</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">25</span>, <span class="hljs-attr">count</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">timing</span>: <span class="hljs-number">2000</span>, <span class="hljs-attr">loop</span>: <span class="hljs-literal">false</span> },
+        <span class="hljs-attr">idleDown</span>:  { <span class="hljs-attr">x</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">y</span>:  <span class="hljs-number">0</span>, <span class="hljs-attr">width</span>: <span class="hljs-number">24</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">25</span>, <span class="hljs-attr">count</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">timing</span>: <span class="hljs-number">2000</span>, <span class="hljs-attr">loop</span>: <span class="hljs-literal">false</span> },
+
+        <span class="hljs-comment">/* Moving sprite sequences for facing different directions */</span>
+        <span class="hljs-attr">moveLeft</span>:  { <span class="hljs-attr">x</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">125</span>, <span class="hljs-attr">width</span>: <span class="hljs-number">24</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">25</span>, <span class="hljs-attr">count</span>: <span class="hljs-number">10</span>, <span class="hljs-attr">timing</span>: <span class="hljs-number">50</span>, <span class="hljs-attr">loop</span>: <span class="hljs-literal">true</span> },
+        <span class="hljs-attr">moveUp</span>:    { <span class="hljs-attr">x</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">150</span>, <span class="hljs-attr">width</span>: <span class="hljs-number">24</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">25</span>, <span class="hljs-attr">count</span>: <span class="hljs-number">10</span>, <span class="hljs-attr">timing</span>: <span class="hljs-number">50</span>, <span class="hljs-attr">loop</span>: <span class="hljs-literal">true</span> },
+        <span class="hljs-attr">moveRight</span>: { <span class="hljs-attr">x</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">175</span>, <span class="hljs-attr">width</span>: <span class="hljs-number">24</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">25</span>, <span class="hljs-attr">count</span>: <span class="hljs-number">10</span>, <span class="hljs-attr">timing</span>: <span class="hljs-number">50</span>, <span class="hljs-attr">loop</span>: <span class="hljs-literal">true</span> },
+        <span class="hljs-attr">moveDown</span>:  { <span class="hljs-attr">x</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">100</span>, <span class="hljs-attr">width</span>: <span class="hljs-number">24</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">25</span>, <span class="hljs-attr">count</span>: <span class="hljs-number">10</span>, <span class="hljs-attr">timing</span>: <span class="hljs-number">50</span>, <span class="hljs-attr">loop</span>: <span class="hljs-literal">true</span> }
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-3">&#x00a7;</a>
+              </div>
+              <p>This is the sprite object of the player created from the Sprite module.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> sprite = <span class="hljs-title class_">Sprite</span>(ctx, x, y);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-4">&#x00a7;</a>
+              </div>
+              <p>The sprite object is configured for the player sprite here.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    sprite.<span class="hljs-title function_">setSequence</span>(sequences.<span class="hljs-property">idleDown</span>)
+          .<span class="hljs-title function_">setScale</span>(<span class="hljs-number">2</span>)
+          .<span class="hljs-title function_">setShadowScale</span>({ <span class="hljs-attr">x</span>: <span class="hljs-number">0.75</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">0.20</span> })
+          .<span class="hljs-title function_">useSheet</span>(<span class="hljs-string">&quot;player_sprite.png&quot;</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-5">&#x00a7;</a>
+              </div>
+              <p>This is the moving direction, which can be a number from 0 to 4:</p>
+<ul>
+<li><code>0</code> - not moving</li>
+<li><code>1</code> - moving to the left</li>
+<li><code>2</code> - moving up</li>
+<li><code>3</code> - moving to the right</li>
+<li><code>4</code> - moving down</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">let</span> direction = <span class="hljs-number">0</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-6">&#x00a7;</a>
+              </div>
+              <p>This is the moving speed (pixels per second) of the player</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">let</span> speed = <span class="hljs-number">150</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-7">&#x00a7;</a>
+              </div>
+              <p>This function sets the player’s moving direction.</p>
+<ul>
+<li><code>dir</code> - the moving direction (1: Left, 2: Up, 3: Right, 4: Down)</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> move = <span class="hljs-keyword">function</span>(<span class="hljs-params">dir</span>) {
+        <span class="hljs-keyword">if</span> (dir &gt;= <span class="hljs-number">1</span> &amp;&amp; dir &lt;= <span class="hljs-number">4</span> &amp;&amp; dir != direction) {
+            <span class="hljs-keyword">switch</span> (dir) {
+                <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: sprite.<span class="hljs-title function_">setSequence</span>(sequences.<span class="hljs-property">moveLeft</span>); <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>: sprite.<span class="hljs-title function_">setSequence</span>(sequences.<span class="hljs-property">moveUp</span>); <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>: sprite.<span class="hljs-title function_">setSequence</span>(sequences.<span class="hljs-property">moveRight</span>); <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>: sprite.<span class="hljs-title function_">setSequence</span>(sequences.<span class="hljs-property">moveDown</span>); <span class="hljs-keyword">break</span>;
+            }
+            direction = dir;
+        }
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-8">&#x00a7;</a>
+              </div>
+              <p>This function stops the player from moving.</p>
+<ul>
+<li><code>dir</code> - the moving direction when the player is stopped (1: Left, 2: Up, 3: Right, 4: Down)</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> stop = <span class="hljs-keyword">function</span>(<span class="hljs-params">dir</span>) {
+        <span class="hljs-keyword">if</span> (direction == dir) {
+            <span class="hljs-keyword">switch</span> (dir) {
+                <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: sprite.<span class="hljs-title function_">setSequence</span>(sequences.<span class="hljs-property">idleLeft</span>); <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>: sprite.<span class="hljs-title function_">setSequence</span>(sequences.<span class="hljs-property">idleUp</span>); <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>: sprite.<span class="hljs-title function_">setSequence</span>(sequences.<span class="hljs-property">idleRight</span>); <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>: sprite.<span class="hljs-title function_">setSequence</span>(sequences.<span class="hljs-property">idleDown</span>); <span class="hljs-keyword">break</span>;
+            }
+            direction = <span class="hljs-number">0</span>;
+        }
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-9">&#x00a7;</a>
+              </div>
+              <p>This function speeds up the player.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> speedUp = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
+        speed = <span class="hljs-number">250</span>;
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-10">&#x00a7;</a>
+              </div>
+              <p>This function slows down the player.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> slowDown = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
+        speed = <span class="hljs-number">150</span>;
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-11">&#x00a7;</a>
+              </div>
+              <p>This function updates the player depending on his movement.</p>
+<ul>
+<li><code>time</code> - The timestamp when this function is called</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> update = <span class="hljs-keyword">function</span>(<span class="hljs-params">time</span>) {
+        <span class="hljs-comment">/* Update the player if the player is moving */</span>
+        <span class="hljs-keyword">if</span> (direction != <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">let</span> { x, y } = sprite.<span class="hljs-title function_">getXY</span>();
+
+            <span class="hljs-comment">/* Move the player */</span>
+            <span class="hljs-keyword">switch</span> (direction) {
+                <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: x -= speed / <span class="hljs-number">60</span>; <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>: y -= speed / <span class="hljs-number">60</span>; <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>: x += speed / <span class="hljs-number">60</span>; <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>: y += speed / <span class="hljs-number">60</span>; <span class="hljs-keyword">break</span>;
+            }
+
+            <span class="hljs-comment">/* Set the new position if it is within the game area */</span>
+            <span class="hljs-keyword">if</span> (gameArea.<span class="hljs-title function_">isPointInBox</span>(x, y))
+                sprite.<span class="hljs-title function_">setXY</span>(x, y);
+        }
+
+        <span class="hljs-comment">/* Update the sprite object */</span>
+        sprite.<span class="hljs-title function_">update</span>(time);
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-12">&#x00a7;</a>
+              </div>
+              <p>The methods are returned as an object here.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">return</span> {
+        <span class="hljs-attr">move</span>: move,
+        <span class="hljs-attr">stop</span>: stop,
+        <span class="hljs-attr">speedUp</span>: speedUp,
+        <span class="hljs-attr">slowDown</span>: slowDown,
+        <span class="hljs-attr">getBoundingBox</span>: sprite.<span class="hljs-property">getBoundingBox</span>,
+        <span class="hljs-attr">draw</span>: sprite.<span class="hljs-property">draw</span>,
+        <span class="hljs-attr">update</span>: update
+    };
+};</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

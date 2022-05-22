@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="utf8">
+<head>
+    <meta charset="en">
+    <title>COMP4021 Lab 2 - Hammer Game</title>
+    <link rel="stylesheet" href="../../css/lab.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/xcode.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <link href='https://fonts.googleapis.com/css?family=Arizonia' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <h1>
+        <a href="https://course.cse.ust.hk/comp4021">
+            COMP4021 Internet Computing
+        </a>
+        &gt; Lab 2 - Hammer Game
+    </h1>
+
+    <h2>Overview</h2>
+
+    <ul>
+        <li>In this lab, you will build a 'hammer game'
+            <figure><img src="images/hammer_game.png" alt="The Hammer Game"></figure>
+        </li>
+        <li>The game works like this:
+        <ol>
+            <li>The game starts by counting down from 3</li>
+            <li>After counting down, the game starts with the monster appearing in one of the 9 holes in the game area</li>
+            <li>If the player hits the monster, it will disappear and reappear a while later</li>
+            <li>The monster will disappear by itself after some time</li>
+            <li>The player can only miss the monster twice; if he/she misses the monster three times, the game will be over</li>
+        </ol>
+        </li>
+        <li>Here is an video example of the complete game:
+            <figure>
+            <video width="600" controls>
+                <source src="videos/example_game.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            </figure>
+        </li>
+        <li>You will need to use mainly JQuery code to complete the game</li>
+    </ul>
+
+    <h2>Lab Instructions</h2>
+
+    <ul class="toc">
+        <li><a href="#section1">1. The Hammer Game</a></li>
+        <li><a href="#section2">2. The Countdown Screen</a></li>
+        <li><a href="#section2.1">2.1. Making the Countdown Timer</a></li>
+        <li><a href="#section3">3. Starting the Game</a></li>
+        <li><a href="#section3.1">3.1. Hiding the Countdown Screen</a></li>
+        <li><a href="#section3.2">3.2. Fixing the Appearance of the Monster and the Holes</a></li>
+        <li><a href="#section3.3">3.3. Showing the Monster</a></li>
+        <li><a href="#section3.4">3.4. Working with a Click Event</a></li>
+        <li><a href="#section4">4. Finishing the Game Flow</a></li>
+        <li><a href="#section4.1">4.1. Hiding and Showing the Monster (again)</a></li>
+        <li><a href="#section4.2">4.2. Game Over</a></li>
+    </ul>
+
+    <h3 id="section1">1. The Hammer Game</h3>
+
+    <ul>
+        <li>You are given a starting HTML file
+            <a href="hammer_game.html">here</a>, and two images
+            <a href="clown.png">here</a> and <a href="nomore.png">here</a></li>
+        <li>If you load the game up, it will look like this:
+            <figure><img src="images/starting_display.png" alt="Starting Display"></figure>
+        </li>
+        <li>Before you work on the HTML code, let's first understand the structure of the game HTML document</li>
+        <li>In the HTML, you have three areas:
+        <ul>
+            <li>A countdown screen</li>
+            <li>A game area</li>
+            <li>A game over screen</li>
+        </ul>
+        </li>
+        <li>At any one time, only one of the above areas is shown inside the game</li>
+        <li>Some of the CSS styles have been given to you already</li>
+        <li>You just need to fill in some particular rules to the game area only</li>
+        <li>The game uses a Google font that you can see from the link:</li>
+    </ul>
+
+    <pre><code class="html">&lt;link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet"&gt;</code></pre>
+
+    <ul>
+        <li>If you like, you can go to <a href="https://fonts.google.com/" target="blank">Google font</a> and change the font to anything you like</li>
+        <li>The script structure has been given</li>
+        <li>You will follow the instructions to write your own code inside the given functions</li>
+    </ul>
+
+    <h3 id="section2">2. The Countdown Screen</h3>
+
+    <ul>
+        <li>In the starting HTML file, a countdown screen is given to you like this:</li>
+    </ul>
+
+    <pre><code class="html">&lt;!-- The countdown screen --&gt;
+&lt;div id="countdown"&gt;3&lt;/div&gt;</code></pre>
+
+    <ul>
+        <li>The initial countdown time (3) is already shown inside the div</li>
+        <li>As the first task, you need to make the screen counting down the time from 3 to 0</li>
+        <li>At time 0, you will display the text 'Start' and then start the game</li>
+    </ul>
+
+    <h4 id="section2.1">2.1. Making the Countdown Timer</h4>
+
+    <ul>
+        <li>You have learned how to use the <code>setTimeout()</code> function to make a countdown timer</li>
+        <li>You can read the notes and the examples for how to do that</li>
+        <li>In this game, you will make a similar countdown timer for the countdown screen</li>
+        <li>The <code>countdown()</code> function has been given to you</li>
+    </ul>
+
+    <pre><code class="javascript">function countdown() {
+    // Decrease the remaining time
+
+    // Continue the countdown if there is still time;
+    // otherwise, start the game when the time is up
+}</code></pre>
+    <br>
+
+    <h5>Starting the countdown() Function</h5>
+
+    <ul>
+        <li>You need to first start the function somewhere in the ready event</li>
+    </ul>
+
+    <pre><code class="javascript">$(document).ready(function() {
+    // Start the countdown screen
+});</code></pre>
+
+    <ul>
+        <li>To do that, you have to use <code>setTimeout()</code> to start the <code>countdown()</code> function there</li>
+        <li>Obviously, you will start the function 1 second after the page is ready</li>
+    </ul>
+
+    <h5>Finishing the countdown() Function</h5>
+
+    <ul>
+        <li>The content of the <code>countdown()</code> function is very similar to the course example</li>
+        <li>A global variable <code>timeRemaining</code> has been given to you to store the time remaining so far</li>
+    </ul>
+
+    <pre><code class="javascript">let timeRemaining = 3;    // Amount of time remaining for the countdown</code></pre>
+
+    <ul>
+        <li>For the <code>countdown()</code> function:
+        <ul>
+            <li>The remaining time is shown inside the countdown screen</li>
+            <li>When the time is up, you show 'Start' on the screen instead of '0'</li>
+        </ul>
+        </li>
+        <li>Finally, at the end of the countdown you should run the given <code>startGame()</code> function to start the game</li>
+    </ul>
+
+    <pre><code class="javascript">function startGame() {
+    ...
+}</code></pre>
+
+    <ul>
+        <li>After you finish the <code>countdown()</code> function, your countdown screen should work like this:
+            <figure>
+                <img src="images/count_to3.png" alt="Count To 3...">
+                <figcaption>At the start...</figcaption>
+            </figure>
+            <figure>
+                <img src="images/count_to2.png" alt="Count To 2...">
+                <figcaption>Count to 2...</figcaption>
+            </figure>
+            <figure>
+                <img src="images/count_to1.png" alt="Count To 1...">
+                <figcaption>Count to 1...</figcaption>
+            </figure>
+            <figure>
+                <img src="images/count_to_start.png" alt="Count To 0...">
+                <figcaption>Before starting the game</figcaption>
+            </figure>
+        </li>
+        <li>You will complete the <code>startGame()</code> function in the next part of the lab</li>
+    </ul>
+
+    <h3 id="section3">3. Starting the Game</h3>
+
+    <ul>
+        <li>There are a few things you have to prepare before the player starts to play the game:
+        <ol>
+            <li>Hide the countdown screen</li>
+            <li>Fix the appearance of the monster and the holes</li>
+            <li>Show the monster for the first time</li>
+            <li>Set up the click event for the monster</li>
+        </ol>
+        </li>
+    </ul>
+
+    <h4 id="section3.1">3.1. Hiding the Countdown Screen</h4>
+
+    <ul>
+        <li>When the countdown timer counts to 0, the game starts and you need to hide the countdown screen</li>
+        <li>You could have simply used the <code>hide()</code> function to hide the screen</li> 
+        <li>However, doing that is similar to changing the CSS <code>display</code> property to <code>none</code>
+            so that the HTML element, i.e. the screen would disappear immediately</li>
+        <li>To make a more interesting effect, you can experiment with <code>fadeOut()</code> and <code>slideUp()</code></li>
+        <li>Typically you would want to have a quick animation so that
+            the duration you give to these functions is likely to be smaller than 1 second</li>
+    </ul>
+
+    <h4 id="section3.2">3.2. Fixing the Appearance of the Monster and the Holes</h4>
+
+    <ul>
+        <li>In this part, you need to make the game area to have 9 holes in it, with the monster in the first hole initially</li>
+        <li>For example, the following image shows what you should have after fixing their appearance:
+            <figure><img src="images/holes_and_monster.png" alt="Holes and the Monster"></figure>
+        </li>
+    </ul>
+
+    <h5>Arranging the Holes</h5>
+
+    <ul>
+        <li>The 9 holes are already given as 9 divs, as shown below:</li>
+    </ul>
+
+    <pre><code class="html">&lt;!-- This div contains all holes --&gt;
+&lt;div id="game-area"&gt;
+    &lt;div class="hole"&gt;
+        &lt;!-- This is the monster --&gt;
+        &lt;img id="monster" src="nomore.png" alt="Nomore monster"&gt;
+    &lt;/div&gt;
+    &lt;div class="hole"&gt;&lt;/div&gt;
+    &lt;div class="hole"&gt;&lt;/div&gt;
+    &lt;div class="hole"&gt;&lt;/div&gt;
+    &lt;div class="hole"&gt;&lt;/div&gt;
+    &lt;div class="hole"&gt;&lt;/div&gt;
+    &lt;div class="hole"&gt;&lt;/div&gt;
+    &lt;div class="hole"&gt;&lt;/div&gt;
+    &lt;div class="hole"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+    <ul>
+        <li>You simply need to use appropriate CSS style properties to put them in a correct arrangement</li>
+        <li>One useful CSS property that can help you do that is the <code>float</code> property</li>
+        <li>The property can arrange the divs so that they 'float' inside the document, rather than occupying a row of space
+        <ul>
+            <li>For example, the monster image shown on the right has been floated to the right of the page using <code>float: right</code>
+                <img src="nomore.png" alt="Floating monster" style="float: right; width: 150px">
+            </li>
+            <li>The HTML code of the image is shown below:</li>
+        </ul>
+        </li>
+    </ul>
+
+    <pre><code class="html">&lt;img src="nomore.png" alt="Floating monster" style="float: right; width: 150px"&gt;</code></pre>
+
+    <ul>
+        <li>You can quickly experiment the property with the holes in the game by putting <code>float: left</code>,
+            a fixed size and border inside the style rule of the divs, for example:</li>
+    </ul>
+    <pre><code class="html">.hole {
+    float: left;
+    width: 20vmin;
+    height: 20vmin;
+    border: 1vmin solid red;
+}</code></pre>
+
+    <ul>
+        <li><code>vmin</code> is a unit, which means a percentage of the minimum of <code>vh</code> and <code>vw</code></li>
+        <li>The display will likely become this:
+            <figure><img src="images/floating_holes.png" alt="Autoarrangement of the holes"></figure>
+        </li>
+        <li>Certainly, you do not make your holes looking like the ones from above</li>
+        <li>Your holes should have these properties:
+        <ul>
+            <li>A green border</li>
+            <li>They occupy 1/3 of the game area in each dimension for each hole
+            <ul>
+                <li>Note that the size of the game area is 90vw x 90vh and therefore each hole should be 30vw x 30vh in size</li>
+            </ul>
+            </li>
+            <li>A black background</li>
+        </ul>
+        </li>
+        <li>You can consider some properties that you have used in the previous lab for this lab as well</li>
+    </ul>
+
+    <h5>Arranging the Monster</h5>
+
+    <ul>
+        <li>The monster, as an HTML image, is initially put inside the first 'hole'</li>
+        <li>To make it fit inside the hole, you can adjust the size of the monster image
+        <ul>
+            <li>For example, you can set the size of the monster to be relative to the size of each hole, i.e. using <code>%</code></li>
+        </ul>
+        </li>
+        <li>Before you finish this part, you need to hide the monster using the <code>display</code> property, i.e.:</li>
+    </ul>
+
+    <pre><code class="html">#monster {
+    ...
+    display: none;
+}</code></pre>
+
+    <ul>
+        <li>This is because the player is not supposed to see the monster anywhere at the start</li>
+    </ul>
+
+    <h4 id="section3.3">3.3. Showing the Monster</h4>
+
+    <ul>
+        <li>A <code>showMonster()</code> function has been given to you so that you can use it to show the monster</li>
+    </ul>
+
+    <pre><code class="javascript">function showMonster() {
+    // Find the target div randomly and move the monster
+    // to that div
+
+    // Show the monster
+    $("#monster").show();
+
+    // Hide the monster later
+}</code></pre>
+
+    <ul>
+        <li>You can already run the function to show the monster as the code has been given</li>
+        <li>Let's try to do this inside the <code>startGame()</code> function</li>
+        <li>For the game, rather than showing the monster immediately, you need to show the monster after a certain interval</li>
+        <li>The time you need to wait has been initialized in the <code>timeToShowMonster</code> variable already</li>
+    </ul>
+
+    <pre><code class="javascript">let timeToShowMonster = 2000;   // Amount of time to show the monster
+let timeToHideMonster = 2000;   // Amount of time to hide the monster</code></pre>
+
+    <ul>
+        <li>Therefore, for the first time you show the monster, you will use a <code>setTimeout()</code> to run the <code>showMonster()</code> function</li>
+        <li>If you do that correctly, your game will show the monster in the first hole, 2 seconds after the countdown</li>
+    </ul>
+
+    <h5>Picking a Random Hole</h5>
+
+    <ul>
+        <li>Now, you will improve the way the monster appearing in the game</li>
+        <li>If you use <code>showMonster()</code> now, it will always show the monster in the first hole</li>
+        <li>You need to make the monster appearing in a random hole in the game area</li>
+        <li>To do that, you will improve the <code>showMonster()</code> function, before the line of code which shows the monster</li>
+        <li>If you run <code>$(".hole")</code> now, the JQuery object will contain all the 9 divs</li>
+        <li>You just need to find a way to randomly pick one of the divs from there
+        <ul>
+            <li>First, you can use <code>Math.random()</code> again to give you a random number between 0 to 8</li>
+            <li>This random number will be the index of the div that you want to retrieve</li>
+            <li>Using the index, you can pick a div from the JQuery object like this:</li>
+        </ul>
+        </li>
+    </ul>
+
+    <pre><code class="javascript">let div = $(".hole").eq(<i>...random div index...</i>);</code></pre>
+
+    <ul>
+        <li>You can then move the monster into the above div using a JQuery function called <code>appendTo()</code>
+        <ul>
+            <li>This function is a similar function to the DOM function <code>appendChild()</code></li>
+            <li>For example, if <code>monster</code> is the monster in the game, you will be able to move it inside the div using this code:</li>
+        </ul>
+        </li>
+    </ul>
+
+    <pre><code class="javascript">monster.appendTo(div);</code></pre>
+
+    <ul>
+        <li>Once you have finished this, your monster should appear in a random hole at the start of the game</li>
+    </ul>
+
+    <h4 id="section3.4">3.4. Working with a Click Event</h4>
+
+    <ul>
+        <li>Now that your monster is in a hole, you can try to hit it with a hammer, i.e. clicking the monster with your mouse</li>
+        <li>Certainly, it won't destroy your monster because you need to write the code for it</li>
+        <li>To do that, you will have to set up a click event listener for the monster image</li>
+    </ul>
+
+    <h5>Setting up the Click Event</h5>
+
+    <ul>
+        <li>You will do this inside the <code>startGame()</code> function</li>
+        <li>The comments inside the function has already suggested what you need to do:</li>
+    </ul>
+
+    <pre><code class="javascript">// Set up the click handler of the monster
+// - Clear the previous timeout
+// - Hide the monster
+// - Adjust the monster time
+// - Show the monster later again</code></pre>
+
+    <ul>
+        <li>You will not finish all the above in this part of the lab but you will first make the callback of the click event here</li>
+        <li>You will use the <code>on()</code> function to set it up, i.e.:</li>
+    </ul>
+
+    <pre><code class="javascript">// Set up the click handler of the monster
+$("#monster").on("click", function() {
+    ...
+});</code></pre>
+    <br>
+
+    <h5>Completing the Click Event</h5>
+
+    <ul>
+        <li>There are four things you need to do inside the callback</li>
+        <li>You will finish two of them here and the rest later in the lab</li>
+        <li>First, once you click on the monster, you will make it disappear, destroy it</li>
+        <li>This is very easy to do as you should know very well the use of <code>show()</code> and <code>hide()</code> by now</li>
+        <li>If you hide the monster and it never comes back, there will be no game to play</li>
+        <li>Therefore, inside the callback, you need to schedule the code to show the monster again later</li>
+        <li>This will just be the same code that you have done when you show the monster the first time</li>
+        <li>If you can do the above two things correctly, you will be able to kill the monster by clicking on the monster;
+            the monster will then reappear after 2 seconds</li>
+        <li>This is already some sort of a playable game</li>
+    </ul>
+
+    <h3 id="section4">4. Finishing the Game Flow</h3>
+
+    <ul>
+        <li>At this stage, the game can show the monster, you can kill the monster and the monster can reappear</li>
+        <li>In this part, you will make it much more like a game by:
+        <ul>
+            <li>Making the monster jump around the holes, i.e. disappear and reappear in different holes</li>
+            <li>Creating a game over situation</li>
+        </ul>
+        </li>
+    </ul>
+
+    <h4 id="section4.1">4.1. Hiding and Showing the Monster (again)</h4>
+
+    <ul>
+        <li>To hide the monster, you can extend the <code>showMonster()</code> function</li>
+        <li>At the end of that function, you can schedule a timeout to hide the monster automatically</li>
+        <li>You have already been given the <code>hideMonster()</code> function to do just that</li>
+    </ul>
+
+    <pre><code class="javascript">function hideMonster() {
+    // Change the life and the colour of the holes
+
+    // If the game is over show the game over screen
+
+    // Hide the monster
+    $("#monster").hide();
+
+    // Show the monster later again
+}</code></pre>
+
+    <ul>
+        <li>The amount of time that you need to wait before hiding the monster is controlled by the <code>timeToHideMonster</code> variable</li>
+        <li>If you have used a timeout correctly in the <code>showMessage()</code> function,
+            you will see your monster appearing and then disappearing after 2 seconds</li>
+        <li>However, after disappearing, the monster will not show up again!</li>
+        <li>Remember that you have used a timeout to show the monster again after you click on it</li>
+        <li>You will do the same inside the <code>hideMonster()</code> function so that your monster will reappear after a while</li>
+        <li>It becomes something like this:<br>
+            <i>
+            <code>showMonster()</code> ➜  2 sec later ➜
+            <code>hideMonster()</code> ➜  2 sec later ➜
+            <code>showMonster()</code> ➜  2 sec later ➜  ...</i></li>
+        <li>So now, if you do not click on the monster, the monster will appear and disappear continously inside the game area</li>
+    </ul>
+
+    <h5>Modifying the Click Event</h5>
+
+    <ul>
+        <li>It seems that most of the things are working well</li>
+        <li>However, if you click on the monster to kill it a couple of times, you will find the monster suddenly appearing very frequently</li>
+        <li>If you look at the code, you will find:
+        <ul>
+            <li>In the click event, you hide the monster and schedule a timeout to show the monster again</li>
+            <li>In the <code>showMonster()</code> and <code>hideMonster()</code> functions,
+                a timeout is used to hide the monster and another one to show the monster</li>
+        </ul>
+        </li>
+        <li>There are two different parts of the code that makes timeouts to do similar things</li>
+        <li>If you keep on killing the monster, there will be a lot of such timeouts</li>
+        <li>The solution is then to keep only one timeout for the same purpose at all time</li>
+        <li>Inside the click event, you need to hide the monster immediately</li>
+        <li>In order to avoid hiding the monster again with a scheduled timeout, you need to 'clear the previous timeout'</li>
+        <li>The previous timeout has been set at the end of the <code>showMonster()</code> function that you have done previously</li>
+        <li>You will now need to use a variable to remember the timeout so that you can clear it inside the click event</li>
+        <li>A global variable has been given to you for this:</li>
+    </ul>
+
+    <pre><code class="javascript">let hideMonsterTimeout;   // Timeout id for hiding the monster</code></pre>
+
+    <ul>
+        <li>Then, you task is to use this variable to clear the hide monster timeout
+            when you click on the monster, i.e. inside the click event like this:</li>
+    </ul>
+
+    <pre><code class="javascript">// - Clear the previous timeout
+clearTimeout(hideMonsterTimeout);</code></pre>
+    <br>
+
+    <h4 id="section4.2">4.2. Game Over</h4>
+
+    <ul>
+        <li>The game never ends now</li>
+        <li>Let's make a game over situation for the game</li>
+        <li>If you look at the top of the script, you will find a <code>life</code> variable already given to you:</li>
+    </ul>
+
+    <pre><code class="javascript">let life = 3; // The player's life</code></pre>
+
+    <ul>
+        <li>You will work on this <code>life</code> variable</li>
+    </ul>
+
+    <h5>Decreasing the Player's Life</h5>
+
+    <ul>
+        <li>When the player fails to kill the monster once, the player's life will be reduced by one</li>
+        <li>This happens when the monster hides itself, i.e. inside the <code>hideMonster()</code> function</li>
+        <li>Therefore, when that happens, you write the code to decrease the player's life</li>
+        <li>At the same time, it would be nice to have some kind of indicator to show the player that he/she is in danger of losing the game</li>
+        <li>A simple way to do this is to use a different border colour for the holes to show the current status:
+        <ul>
+            <li>When life is 3, the border is green, i.e. the initial colour of the hole
+                <figure><img src="images/green_border.png" alt="Green border"></figure>
+            </li>
+            <li>When life is 2, the border becomes yellow
+                <figure><img src="images/yellow_border.png" alt="Yellow border"></figure>
+            </li>
+            <li>When life is 1, the border becomes red
+                <figure><img src="images/red_border.png" alt="Red border"></figure>
+            </li>
+            <li>When life is 0, no need to do anything as the game is over
+                <figure><img src="images/game_over.png" alt="Game over"></figure>
+            </li>
+        </ul>
+        </li>
+        <li>The border colour can be changed easily using the <code>css()</code> function on the holes in the game area, i.e.:</li>
+    </ul>
+
+    <pre><code class="javascript">$(".hole").css("border-color", <i>...new colour...</i>);</code></pre>
+    <br>
+
+    <h5>Showing the Game Over Screen</h5>
+
+    <ul>
+        <li>When the life value reaches 0, the game is over</li>
+        <li>It would be nice to show a game over screen</li>
+        <li>The screen has already been given to you:</li>
+    </ul>
+
+    <pre><code class="html">&lt;!-- The gameover screen --&gt;
+&lt;div id="gameover"&gt;Game Over&lt;/div&gt;</code></pre>
+
+    <ul>
+        <li>You only need to show it up when the game is over</li>
+        <li>Again, you can experiment a bit the way to show it up, e.g.
+            you can use <code>show()</code>, <code>fadeIn()</code> or <code>slideDown()</code> to show the screen</li>
+    </ul>
+
+    <h5>Making the Game Harder</h5>
+
+    <ul>
+        <li>To make it easier to reach the game over screen, you can make the game harder every time the player successfully kills a monster</li>
+        <li>This is done by making the timeout shorter, i.e. using a smaller timing for the timeouts</li>
+        <li>Remember that the timeouts are controlled by the <code>timeToShowMonster</code> and <code>timeToHideMonster</code> variables,
+            you can reduce their values appropriately inside the click event to make the game harder progressively</li>
+        <li>For example, you can subtract 100 from both variables each time you kill the monster</li>
+    </ul>
+
+    <h2>Marking and submission</h2>
+
+    <ul>
+        <li>This work will be marked</li>
+        <li>When you have completely finished your work:
+        <ol>
+            <li>Check <b><a href="marking_scheme.html">the marking scheme</a></b> for the lab</li>
+            <li><b>Double check</b> everything in your project works correctly, fix it if it doesn't!
+            <ul>
+                <li>Use <code>F12</code> then <i>Console</i> in Chrome to check no JavaScript errors are generated</li>
+                <li>We will only use <b>Chrome</b> to mark your work, because it is the most commonly used browser</li>
+            </ul>
+            </li>
+            <li>You need to submit <b>ONLY</b> hammer_game.html</li>
+            <li>Submit your file in 
+                <a href="https://canvas.ust.hk/courses/42327/assignments/197804" target="blank">canvas</a></li>
+        </ol>
+        </li>
+        <li>Please check the submission deadline on canvas
+        <ul>
+            <li><b>Submit early!</b> - well before the deadline</li>
+            <li>You can submit as many times as you like <b>before</b> the deadline</li>
+            <li>We won't mark work submitted after the deadline unless there is some kind of exceptional situation
+            <ul>
+                <li>e.g. if the canvas system is down for a few hours</li>
+            </ul>
+            </li>
+        </ul>
+        </li>
+    </ul>
+
+</body>
+</html>

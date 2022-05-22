@@ -154,8 +154,8 @@ const FETCHED_COURSES: FetchedCourses = {
     description: 'Text retrieval models, vector space model, document ranking, performance evaluation; indexing, pattern matching, relevance feedback, clustering; web search engines, authority-based ranking; enterprise data management, content creation, meta data, taxonomy, ontology; semantic web, digital libraries and knowledge management applications.'
   },
   'COMP 337': {
-    title: '',
-    description: '',
+    title: 'Introduction to Data Mining',
+    description: 'This course will provide an introduction to concepts and techniques in the field of data mining. Material include an introduction to data preprocessing and the techniques used to explore the large quantities of data for the discovery of predictive models and knowledge.  The course will include data mining techniques such as nearest neighbor, decision trees, neural networks, Bayesian networks and Naïve Bayes, rule-based methods, association analysis and clustering, as well as social networks and data mining applications in business and finance applications.  We will also cover emerging data mining areas and applications. Students learn the material by attending lectures and implementing and applying different data analysis and data mining techniques to large datasets.',
   },
   'COMP 341': {
     title: 'Computer Graphics',
@@ -604,6 +604,10 @@ const FETCHED_COURSES: FetchedCourses = {
   'COMP 4901': {
     title: 'Special Topics in Computer Science',
     description: 'Selected topics of current interest to the Department not covered by existing courses. Offerings are announced each semester. May be graded by letter, P/F, or DI/PA/F for different offerings.'
+  },
+  'COMP 4901U': {
+    title: 'Computer Language Processing',
+    description: 'Computer languages are now everywhere. Thus, basic computer language processing skills are essential to any self-respecting software engineer. From parsing ad-hoc configuration file formats, to validating complex specification languages, to generating efficient code solving data-intensive problems at scale, many important problems of today and tomorrow fall within this general domain. In this context, the usefulness of compiler theory and practice goes much beyond understanding the technology underlying your grandpa\'s old C compilers – our software-driven world is full of domain-specific languages that need correct and efficient implementations, and emergent areas like machine learning are more than ever in need of innovations from the fields of compilation and optimization. In this course, you will learn the essentials of computer language processing, including: parsing, analyzing, transforming, and compiling programs. You will learn to design and implement your own programming language and extend it with features of your choice in a small team project.',
   },
   'COMP 4911': {
     title: 'IT Entrepreneurship',

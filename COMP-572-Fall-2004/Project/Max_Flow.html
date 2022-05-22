@@ -1,0 +1,85 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Max Flow</title>
+</head>
+
+<body>
+
+<p>COMP572 -- Fall 2004</p>
+<h2><u><font color="#0000FF">MAX-FLOW </font></u><font color="#0000FF"><u>Project Specification</u></font></h2>
+<h2><font size="3" color="#FF0000">A: (1 person) Implement 
+Ford-Fulkerson algorithm</font></h2><p>You should implement the Edmonds-Karp version of the Ford Fulkerson Algorithm.</p>
+<p>Input:<br>
+The input is read from standard input or a file (your documentation should indicate which)&nbsp; The first line contains an integer n 
+where n is the number of nodes of the network. The nodes are numbered from 0 to 
+n-1. Each of the next n lines of the input contains n integers. The j-th integer 
+in the i-th line indicates the capacity of the directed edge from node i to node 
+j. The source and sink will always be 0 and n-1 respectively.<br>
+You can assume:<br>
+1. n is between 2 and 50.<br>
+2. All the capacities are less than 1,000,000,000.<br>
+3. The max-flow is less than 1,000,000,000.<br>
+<br>
+Output:<br>
+Print out the value of the max-flow (which is always an integer) in the first 
+line.<br>
+<br>
+Print out the complete flow of the network in next n lines as follow: The j-th 
+integer in the i-th line is the flow value from node i to node j. All the values 
+must be integers. If the flow from u to v is f, then print out 0 instead of -f 
+for the flow from v to u.<br>
+<br>
+Print out the corresponding min-cut in next two lines as follow: The first line 
+should be a sorted sequence of nodes containing 0 and the second line should be 
+a sorted sequence of nodes containing n-1. These two sets of integers correspond 
+to the min-cut.<br>
+<br>
+Note that the flow values and the cut may not be unique. You just need to output 
+one of them.<br>
+<br>
+Follow the format as sample output. Don’t print any other text character. Always 
+use space to separate two values.<br>
+<br>
+
+Sample input: (Maximum Flows, page 19)
+<pre style='font:10pt"Courier New"'>6
+0 16 13 0 0 0
+0 0 10 12 0 0
+0 4 0 0 14 0
+0 0 9 0 0 20
+0 0 0 7 0 4
+0 0 0 0 0 0
+</pre>
+<br>
+Sample output:
+<pre style='font:10pt"Courier New"'>23
+0 11 12 0 0 0
+0 0 0 12 0 0
+0 1 0 0 11 0
+0 0 0 0 0 19
+0 0 0 7 0 4
+0 0 0 0 0 0
+0 1 2 4
+3 5
+</pre>
+
+&nbsp;</p><hr><p><font color="#FF0000"><b>B</b></font><b><font size="3" color="#FF0000">: (2 person) Implement 
+(A) </font><font color="#FF0000">and a graphical user interface (GUI) for the FF algorithm.</font></b></p><p>Your program should also include a GUI that includes</p><ul>	<li>A graphical method for inputting/editing a flow network,&nbsp; e.g., 	vertices, edges, capacities, denoting the source and sink</li>	<li>A graphical method for illustrating the algorithm.&nbsp; That is,&nbsp; 	it should show the residual networks and augmenting flows in each step and</li>	<li>shows the corresponding Max-Cut at the conclusion of the algorithm</li></ul><p>Note that, even with the GUI, your program should also permit inputting text data via standard input or from a file following the specifications from part (A).</p><p>For your GUI you may assume that there are at most n=20 vertices in the graph.</p><hr><p><b><font color="#FF0000">C:&nbsp; (3 person) Implement&nbsp; part (B) along with another GUI that implements Max-Cardinality matching of Bipartite graphs using the FF algorithm</font></b></p><p>Your program should include another GUI (could either be separate or combined with the one from part B) that provides</p><ul>	<li>A graphical method for inputting/editing&nbsp; an unweighted bipartite 	graph</li>	<li>A graphical transformation of the bipartite matching problem to a flow 	network</li>	<li>A graphical method of illustrating how FF works on the flow network.&nbsp; 	At every stage your GUI should also indicate the current matching and the 	augmenting path (relative to that matching) constructed.<br>&nbsp;</li></ul><p>For your GUI you may assume that there are at most n=20 vertices on edge side of the bipartite graph.</p><hr>
+
+<p><i><font size="2">This page was released on November 19, 2004 and last 
+revised on
+<!--webbot bot="Timestamp" S-Type="EDITED" S-Format="%m/%d/%Y %H:%M %Z" startspan -->11/19/2004 13:38 +0800<!--webbot bot="Timestamp" endspan i-checksum="29325" --></font></i></p>
+
+
+<p><a href="index.htm">Return to main project page</a></p><p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

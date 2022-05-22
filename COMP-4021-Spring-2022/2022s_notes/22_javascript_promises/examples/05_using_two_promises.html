@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Using Two Promises</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <script>
+    $(document).ready(function() {
+        const apple  = new Image(),
+              orange = new Image();
+
+        apple.src = "apple.png";
+        apple.decode()
+            .then(() => {
+                $("body").append($(apple));
+
+                orange.src = "orange.png";
+                return orange.decode();
+            })
+            .then(() => {
+                $("body").append($(orange));
+            })
+            .catch(() => {
+                $("body").append($("<p>The image cannot be loaded.</p>"));
+            })
+    });
+    </script>
+</body>
+</html>
+

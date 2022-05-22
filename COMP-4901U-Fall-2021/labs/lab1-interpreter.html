@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Lab 1 | clpcd</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Lab 1" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An Interpreter for the Amy Language" />
+<meta property="og:description" content="An Interpreter for the Amy Language" />
+<meta property="og:site_name" content="clpcd" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Lab 1" />
+<!-- End Jekyll SEO tag -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <a id="skip-to-content" href="#content">Skip to the content.</a>
+
+    <header class="page-header" role="banner">
+      <h1 class="project-name">Lab 1</h1>
+      <h2 class="project-tagline">An Interpreter for the Amy Language</h2>
+
+
+        <a href="https://lptk.github.io/clpcd" class="btn">COMP 4901U Home</a>
+        <a href="https://canvas.ust.hk/courses/38344" class="btn">COMP 4901U on Canvas</a>
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <p>In this lab assignment,
+you will get to know the Amy language and implement an interpreter for it.</p>
+
+<!-- If you haven't looked at the [Labs Setup]() page yet, please do so before starting out with the assignment. -->
+
+<h1 id="setup">Setup</h1>
+
+<p>Download the project files from <a href="../files/clp-lab01.zip">this link</a> and decompress them.</p>
+
+<p>This zip file contains a folder with the Scala 3 project that you will be working on in this lab.
+In particular, it contains the bare-bone structure of the interpreter and a compiled version of
+the Amy compiler’s frontend (lexer, parser, namer, typer)
+which are needed before your interpreter can be called.</p>
+
+<p>You should be able to compile the project successfully by typing <code class="language-plaintext highlighter-rouge">sbt</code> in the console
+and then typing <code class="language-plaintext highlighter-rouge">compile</code>.</p>
+
+<p>You can also try the commands <code class="language-plaintext highlighter-rouge">test</code> and <code class="language-plaintext highlighter-rouge">run library/Std.scala examples/Hello.scala</code>,
+which will initially crash with a <code class="language-plaintext highlighter-rouge">scala.NotImplementedError</code> exception,
+as the project is still missing your interpreter implementation.</p>
+
+<h1 id="part-1-your-first-amy-programs">Part 1: Your first Amy programs</h1>
+
+<p>Write two example Amy programs and make sure you can compile them using the <a href="../labs/amy-reference-compiler">Amy Reference Compiler</a>. Put them under <code class="language-plaintext highlighter-rouge">/examples</code>. Please be creative when writing your programs: they should be nontrivial and not reproduce the functionality of the examples in the <code class="language-plaintext highlighter-rouge">/library</code> and <code class="language-plaintext highlighter-rouge">/examples</code> directories of the repository. Of course you are welcome to browse these directories for inspiration.</p>
+
+<p>Remember that you will use these programs in the remaining of the semester to test your compiler, so don’t make them too trivial! Try to test many features of the language.</p>
+
+<p>If you have questions about how a feature of Amy works, you can always look at the <a href="../files/amy-spec.pdf">Amy Specification</a>. It’s a good idea to keep a local copy of this document handy – it will be your reference for whenever you are asked to implement an aspect of the Amy language throughout this semester.</p>
+
+<h1 id="part-2-an-interpreter-for-amy">Part 2: An Interpreter for Amy</h1>
+
+<p>The main task of the first lab is to write an interpreter for Amy.</p>
+
+<!-- (If you haven't been assigned your repository yet, you can download a packaged version of the interpreter lab's skeleton [here](http://lara.epfl.ch/~gschmid/clp20/735df0961cf5ca22d217ad5c495d969d/clp-lab01.zip). If you already have your repository assigned, you can simply check out the `lab01` branch. Note that future labs will only be distributed through the repository, so be sure to familiarize yourself with the setup.) -->
+
+<h2 id="interpreters">Interpreters</h2>
+
+<p>The way to execute programs you have mostly seen so far is compilation to some kind of low-level code (bytecode for a virtual machine such as Java’s; native binary code in case of languages such as C). An alternative way to execute programs is interpretation. According to Wikipedia, “an interpreter is a computer program that directly executes, i.e. performs, instructions written in a programming or scripting language, without previously compiling them into a machine language program”. In other words, your interpreter is supposed to directly look at the code and <em>interpret</em> its meaning. For example, when encountering a call to the ‘printString’ function, your interpreter should print its argument on the standard output.</p>
+
+<h2 id="the-general-structure-of-the-interpreter">The general structure of the Interpreter</h2>
+
+<p>The skeleton of the assignment is provided by us in three files:</p>
+
+<ul>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">Main.scala</code> source file</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">Interpreter.scala</code> source file, and</p>
+  </li>
+  <li>
+    <p>the <code class="language-plaintext highlighter-rouge">amyc-assembly-1.7.jar</code> bytecode file, which is located under <code class="language-plaintext highlighter-rouge">lib/</code> .</p>
+  </li>
+</ul>
+
+<p>Now let’s look into the code in a little more detail.</p>
+
+<p>In <code class="language-plaintext highlighter-rouge">Main.scala</code>, take a look at the main method, which is the entry point to your program. After processing the command line arguments of the interpreter, the main method creates a Pipeline, which contains the different stages of the compiler (more on it in later assignments). The Pipeline will first call the Amy frontend, which will parse the source program into an abstract syntax tree (AST) and check it for correctness according to the <a href="../files/amy-spec.pdf">Amy specification</a>, and then passes the result to the Interpreter. The implementation of the frontend is given to you in compiled form (it lives in the <code class="language-plaintext highlighter-rouge">amyc-assembly-1.7.jar</code> file), because you will need to write your own version in the next assignments. <strong>Note</strong>: You are only allowed to use this binary code to link against your interpreter.</p>
+
+<p>So what is this AST we’ve mentioned? For the computer to “understand” the meaning of a program, it first has to transform it from source (text) form to a more convenient form, which we call an abstract syntax tree. The AST abstracts away uninteresting things of the program (e.g. parentheses, whitespace, operator precedence…) and keeps the essential structure of the program.</p>
+
+<p>In Scala, we represent the AST as a tree-form object. The tree has different types of nodes, each one representing a different programming structure. The types of nodes are of course represented as different classes, which all inherit from a class called Tree. Conveniently enough, the classes correspond pretty much one-to-one to the rules of the BNF grammar given in the language specification. E.g. in the language spec we read that a module looks as follows:</p>
+
+<p><em>ModuleDef</em> ::= <strong>program</strong> <em>Identifier</em> <strong>extends</strong> <strong>App</strong> <strong>{</strong> ( <em>ClassOrFunDef</em> )<em> </em>Expr*? <strong>}</strong></p>
+
+<p>and indeed in the implementation we find a class</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">case</span> <span class="k">class</span> <span class="nc">ModuleDef</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">Identifier</span><span class="o">,</span> <span class="n">defs</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">ClassOrFunDef</span><span class="o">],</span> <span class="n">optExpr</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Expr</span><span class="o">])</span> <span class="k">extends</span> <span class="nc">Definition</span>
+</code></pre></div></div>
+
+<p>You can find the source code of the AST <a href="../files/SymbolicTreeModule.scala">here</a>. Note: This is not exactly the code we will use in later assignments, but it’s good enough to serve as a reference while implementing this first assignment.</p>
+
+<h2 id="the-interpreter-class">The Interpreter class</h2>
+
+<p>Now let’s delve into <code class="language-plaintext highlighter-rouge">Interpreter.scala</code>. This file currently only contains a partial implementation, and it is your task for to complete it! The entrypoint into the interpreter is <code class="language-plaintext highlighter-rouge">interpret</code>, which takes an expression as input and executes its meaning. The main loop at the end of the class will just take the modules in order and interpret their expression, if present.</p>
+
+<p><code class="language-plaintext highlighter-rouge">interpret</code> returns a <code class="language-plaintext highlighter-rouge">Value</code>, which is a type that represents a value that an Amy expression can produce. Value is inherited by classes which represent the different types of values present in Amy (<code class="language-plaintext highlighter-rouge">Int</code>, <code class="language-plaintext highlighter-rouge">Booleans</code>, <code class="language-plaintext highlighter-rouge">Unit</code>, <code class="language-plaintext highlighter-rouge">String</code> and ADT values). <code class="language-plaintext highlighter-rouge">Value</code> has convenience methods to cast to <code class="language-plaintext highlighter-rouge">Int</code>, <code class="language-plaintext highlighter-rouge">Boolean</code> and <code class="language-plaintext highlighter-rouge">String</code> (<code class="language-plaintext highlighter-rouge">as*</code>). Remember we can always call these methods safely when we know the types of an expression (e.g. the operands of an addition), since we know that the program type-checks.</p>
+
+<p><code class="language-plaintext highlighter-rouge">interpret</code> takes an additional implicit parameter as an argument, which is a mapping from variables to values (in the interpreted language). In Scala, when an implicit parameter is expected, the compiler will look in the scope for some binding of the correct type and pass it automatically. This way we do not have to pass the same mapping over and over to all recursive calls to <code class="language-plaintext highlighter-rouge">interpret</code>. Be aware, however, that there are some cases when you need to change the <code class="language-plaintext highlighter-rouge">locals</code> parameter! Think carefully about when you have to do so.</p>
+
+<p>A few final notes:</p>
+
+<ul>
+  <li>
+    <p>You can print program output straight to the console.</p>
+  </li>
+  <li>
+    <p>You can assume the input programs are correct. This is guaranteed by the Amy frontend.</p>
+  </li>
+  <li>
+    <p>To find constructors and functions in the program, you have to search in the <code class="language-plaintext highlighter-rouge">SymbolTable</code> passed along with the program. To do this, use the three helper methods provided in the interpreter:</p>
+
+    <ul>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">isConstrutor</code> will return whether the <code class="language-plaintext highlighter-rouge">Identifier</code> argument is a type constructor in the program</p>
+      </li>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">findFunctionOwner</code> will return the module which contains the given <code class="language-plaintext highlighter-rouge">Identifier</code>, which has to be a function in the program. E.g. if you give it the <code class="language-plaintext highlighter-rouge">printInt</code> function of the <code class="language-plaintext highlighter-rouge">Std</code> module, you will get the string <code class="language-plaintext highlighter-rouge">“Std”</code>.</p>
+      </li>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">findFunction</code> will return the function definition given a pair of Strings representing the module containing the function, and the function name. The return value is of type <code class="language-plaintext highlighter-rouge">FunDef</code> (see <a href="../files/SymbolicTreeModule.scala">the AST definitions</a>).</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>When comparing Strings by reference, compare the two <code class="language-plaintext highlighter-rouge">StringValue</code>s directly and not the underlying Strings. The reason is that the JVM may return true when comparing Strings by equality when it is not expected (it has to do with JVM constant pools).</p>
+  </li>
+  <li>
+    <p>Some functions contained in the <code class="language-plaintext highlighter-rouge">Std</code> module are built-in in the language, i.e. they are hard-coded in the interpreter because they cannot be implemented in Amy otherwise. An example of a built-in function is <code class="language-plaintext highlighter-rouge">printString</code>. When you implement the interpreter for function calls, you should first check if the function is built-in, and if so, use the implementation provided in the <code class="language-plaintext highlighter-rouge">builtIns</code> map in the interpreter.</p>
+  </li>
+  <li>
+    <p>When a program fails (e.g. due to a call to <code class="language-plaintext highlighter-rouge">error</code> or a match fail), you should call the dedicated method in the Context: <code class="language-plaintext highlighter-rouge">ctx.reporter.fatal</code>.</p>
+  </li>
+</ul>
+
+<h2 id="implementation-skeleton">Implementation skeleton</h2>
+
+<!-- If you have followed [Labs Setup]() for Lab 01, you should have a working project with a stub implementation, containing the following files: -->
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">src/amyc/interpreter/Interpreter.scala</code> contains a partially implemented interpreter</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">src/amyc/Main.scala</code> contains the <code class="language-plaintext highlighter-rouge">main</code> method which runs the interpreter on the input files</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">library</code> directory contains library definitions you can call from your programs.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">examples</code> directory contains some example programs on which you can try your implementation. Remember that most of them also use library files from <code class="language-plaintext highlighter-rouge">/library</code>.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">lib/amyc-assembly-1.7.jar</code> contains the <em>frontend</em> of the compiler as a library, allowing you directly work with type-checked ASTs of input programs.</p>
+  </li>
+</ul>
+
+<p>You will have to complete the interpreter by implementing the missing methods (marked with the placeholder <code class="language-plaintext highlighter-rouge">???</code>).</p>
+
+<h2 id="testing">Testing</h2>
+
+<p>When you are done, use sbt to try some of your programs from Part 1:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sbt
+&gt; run library/Std.scala examples/Hello.scala
+Hello world!
+</code></pre></div></div>
+
+<p>There is also testing infrastructure under <code class="language-plaintext highlighter-rouge">/test</code>. To add your own tests, you have to add your testcases under <code class="language-plaintext highlighter-rouge">/test/resources/interpreter/passing</code> and the expected output under <code class="language-plaintext highlighter-rouge">/test/resources/interpreter/outputs</code>. Then, you have to add the name of the new test in <code class="language-plaintext highlighter-rouge">InterpreterTests</code>, similarly to the examples given. To allow a test to also use the standard library (e.g., <code class="language-plaintext highlighter-rouge">Std.printString</code>), you can copy <code class="language-plaintext highlighter-rouge">Std.scala</code> from <code class="language-plaintext highlighter-rouge">library/Std.scala</code> to <code class="language-plaintext highlighter-rouge">/test/resources/interpreter/passing</code>.</p>
+
+<p>For example, to add a test that expects only “Hello world” to be printed, you can add “/test/resources/interpreter/passing/Hello.scala” containing <code class="language-plaintext highlighter-rouge">object Hello { Std.printString(“Hello world”) }</code> and <code class="language-plaintext highlighter-rouge">/test/resources/interpreter/outputs/Hello.txt</code> containing <code class="language-plaintext highlighter-rouge">Hello world</code> (with a newline in the end!). You will also have to add a line to <code class="language-plaintext highlighter-rouge">/test/scala/amyc/test/InterpreterTests.scala</code>: <code class="language-plaintext highlighter-rouge">@Test def testHello = shouldOutput(List(“Std”, “Hello”), “Hello”)</code>. This will pass both files <code class="language-plaintext highlighter-rouge">Std.scala</code> and <code class="language-plaintext highlighter-rouge">Hello.scala</code> as inputs of the test. When you now run <code class="language-plaintext highlighter-rouge">test</code> from sbt, you should see the additional test case (called <code class="language-plaintext highlighter-rouge">testHello</code>).</p>
+
+<h2 id="deliverables">Deliverables</h2>
+
+<p>You are given about <strong>2 weeks</strong> for this assignment.
+Deadline: <strong>Tue, Sep 28th, 11pm</strong>.</p>
+
+<p>You will need to submit your <code class="language-plaintext highlighter-rouge">src/amyc/interpreter/Interpreter.scala</code> file to Canvas
+– follow <a href="https://canvas.ust.hk/courses/38344/assignments/177133">this link to the assignment</a>.</p>
+
+<p>Since you will submit a single Scala file, all your changes should be self-contained in that file.
+To test it, I will replace my own <code class="language-plaintext highlighter-rouge">Interpreter.scala</code> file with yours and run the tests on my computer.</p>
+
+<h2 id="related-documentation">Related documentation</h2>
+
+<ul>
+  <li>End of Chapter 1 in the Tiger Book presents a similar problem for another mini-language. A comparison of the implementation of ASTs in Java (as shown in the book) and Scala is instructive.</li>
+</ul>
+
+
+      <footer class="site-footer">
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </main>
+  </body>
+</html>

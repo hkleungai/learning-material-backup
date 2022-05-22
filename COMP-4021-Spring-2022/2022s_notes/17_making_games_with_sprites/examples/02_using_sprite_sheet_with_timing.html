@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Drawing a Sprite Sheet with Timing</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <canvas style="border: 1px solid gray" width="600" height="400"></canvas>
+    <p>
+        <strong>Sprite Timing:</strong>
+        <br>
+        <input id="timing" type="range" min="10" max="1000" value="100" style="margin: 10px 0">
+        <br>
+        <span id="timing-text">100 milliseconds</span>
+    </p>
+    <script>
+    $(document).ready(function() {
+        const cv = $("canvas").get(0);
+        const context = cv.getContext("2d");
+
+        /* Prepare the sprite sheet */
+        const sheet = new Image();
+        sheet.onload = function() {
+            /* Start to draw the sprite */
+            requestAnimationFrame(doFrame);
+        };
+        sheet.src = "sprite_sheet.png";
+        
+        /* Define the sprite sequence */
+        const sequence = {
+            x: 0, y: 100, width: 24, height: 25,
+            targetX: 240, targetY: 135,
+            targetWidth: 120, targetHeight: 125,
+            index: 0, count: 10
+        };
+
+        /* Get the time information from the window */
+        let last = performance.now();
+
+        function doFrame(now) {
+            /* Get the timing from the slider */
+            const timing = $("#timing").val();
+
+            /* Determine if it is time to draw the next sprite */
+            if (now - last >= timing) {
+                /* Clear the previous sprite */
+                context.clearRect(sequence.targetX, sequence.targetY,
+                                  sequence.targetWidth, sequence.targetHeight);
+
+                /* Draw the sprite */
+                context.imageSmoothingEnabled = false;
+                context.drawImage(
+                    sheet,
+                    sequence.x + sequence.index * sequence.width,
+                    sequence.y, sequence.width, sequence.height,
+                    sequence.targetX, sequence.targetY,
+                    sequence.targetWidth, sequence.targetHeight
+                );
+
+                /* Move to the next sprite */
+                sequence.index++;
+                if (sequence.index >= sequence.count)
+                    sequence.index = 0;
+
+                /* Remember the time information */
+                last = now;
+            }
+
+            /* Start to draw the next sprite */
+            requestAnimationFrame(doFrame);
+        }
+
+        $("#timing").on("input", function() {
+            $("#timing-text").text($("#timing").val() + " milliseconds");
+        });
+    });
+    </script>
+</body>
+</html>

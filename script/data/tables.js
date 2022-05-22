@@ -15,6 +15,10 @@ const CATEGORIZED_PRE_COURSES = [
                 semesters: ['Spring 2003', 'Spring 2005'],
             },
             {
+                code: 'COMP 572',
+                semesters: ['Fall 2004']
+            },
+            {
                 code: 'COMP 670J',
                 semesters: ['Spring 2001'],
             },
@@ -79,6 +83,10 @@ const CATEGORIZED_PRE_COURSES = [
         category: 'Data Analysis',
         courses: [
             {
+                code: 'COMP 337',
+                semesters: ['Fall 2010'],
+            },
+            {
                 code: 'COMP 4331',
                 semesters: ['Fall 2021'],
             },
@@ -91,6 +99,10 @@ const CATEGORIZED_PRE_COURSES = [
                 code: 'COMP 342',
                 semesters: ['Spring 2010'],
             },
+            {
+                code: 'COMP 4021',
+                semesters: ['Spring 2022'],
+            }
         ],
     },
     {
@@ -163,6 +175,10 @@ const CATEGORIZED_PRE_COURSES = [
                 code: 'COMP 272',
                 semesters: ['Spring 1997'],
             },
+            {
+                code: 'COMP 4901U',
+                semesters: ['Fall 2021'],
+            }
         ],
     },
 ];

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Using Cascading onloads</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <script>
+    $(document).ready(function() {
+        const apple  = new Image(),
+              orange = new Image();
+
+        apple.onload = function() {
+            $("body").append($(apple));
+
+            orange.onload = function() {
+                $("body").append($(orange));
+            };
+            orange.src = "orange.png";
+        };
+        apple.src = "apple.png";
+    });
+    </script>
+</body>
+</html>
+

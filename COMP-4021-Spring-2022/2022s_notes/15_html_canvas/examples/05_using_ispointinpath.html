@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Using isPointInPath()</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <canvas style="border: 1px solid gray" width="600" height="400"></canvas>
+    <script>
+    $(document).ready(function() {
+        let cv = $("canvas").get(0);
+        let context = cv.getContext("2d");
+
+        /* Draw a circle */
+        context.beginPath();
+        context.arc(150, 100, 50, 0, 1.5 * Math.PI);
+        context.lineTo(150, 100);
+        context.fillStyle = "red";
+        context.fill();
+
+        /* Draw a square */
+        context.beginPath();
+        context.rect(350, 200, 150, 100);
+        context.fillStyle = "blue";
+        context.fill();
+
+        $("canvas").on("click", function(event) {
+            let offset = $("canvas").eq(0).offset();
+            let x = event.pageX - offset.left;
+            let y = event.pageY - offset.top;
+
+            /* Check if the point is inside the circle */
+            context.beginPath();
+            context.arc(150, 100, 50, 0, 1.5 * Math.PI);
+            context.lineTo(150, 100);
+            if (context.isPointInPath(x, y)) {
+                alert("You clicked on the red circle!");
+            }
+
+            /* Check if the point is inside the rectangle */
+            context.beginPath();
+            context.rect(350, 200, 150, 100);
+            if (context.isPointInPath(x, y)) {
+                alert("You clicked on the blue rectangle!");
+            }
+        });
+    });
+    </script>
+</body>
+</html>

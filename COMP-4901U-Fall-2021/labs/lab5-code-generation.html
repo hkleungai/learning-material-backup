@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Lab 5 | clpcd</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Lab 5" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Code Generation for the Amy Language" />
+<meta property="og:description" content="Code Generation for the Amy Language" />
+<meta property="og:site_name" content="clpcd" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Lab 5" />
+<!-- End Jekyll SEO tag -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <a id="skip-to-content" href="#content">Skip to the content.</a>
+
+    <header class="page-header" role="banner">
+      <h1 class="project-name">Lab 5</h1>
+      <h2 class="project-tagline">Code Generation for the Amy Language</h2>
+
+
+        <a href="https://lptk.github.io/clpcd" class="btn">COMP 4901U Home</a>
+        <a href="https://canvas.ust.hk/courses/38344" class="btn">COMP 4901U on Canvas</a>
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <h2 id="introduction">Introduction</h2>
+
+<p>This is the last mini-project assignment for the Amy compiler. At this
+point, we are finally done with the frontend: we have translated source
+programs to ASTs and have checked that all correctness conditions hold
+for our program. We are ready to generate code for our program. In our
+case the target language will be <em>WebAssembly</em>.</p>
+
+<p>WebAssembly is "a new portable, size- and load-time-efficient format
+suitable for compilation to the web" (<a href="http://webassembly.org">http://webassembly.org</a>).
+WebAssembly is designed to be called from JavaScript in browsers and
+lends itself to highly-performant execution.</p>
+
+<p>For simplicity, we will not use a browser, but execute the resulting
+WebAssembly bytecode directly using <code class="language-plaintext highlighter-rouge">nodejs</code> which is essentially a
+standalone distribution of the Chrome browser's JavaScript engine. When
+you run your complete compiler (or the reference compiler) with no
+options on program <code class="language-plaintext highlighter-rouge">p</code>, it will generate four different files under the
+<code class="language-plaintext highlighter-rouge">wasmout</code> directory:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">p.wat</code> is the wasm output of the compiler in text format. You can
+use this representation to debug your generated code.</li>
+  <li><code class="language-plaintext highlighter-rouge">p.wasm</code> is the binary output of the compiler. This is what <code class="language-plaintext highlighter-rouge">nodejs</code>
+will use. To translate to the binary format, we use the <code class="language-plaintext highlighter-rouge">wat2wasm</code>
+tool provided by the WebAssembly developers. For your convenience we
+have included it in the <code class="language-plaintext highlighter-rouge">bin</code> directory of the skeleton. Note that
+this tool performs a purely mechanical translation and thus its
+output (for instance, <code class="language-plaintext highlighter-rouge">p.wasm</code>) corresponds to a binary
+representation of <code class="language-plaintext highlighter-rouge">p.wat</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">p.js</code> is a JavaScript wrapper which we will run with nodejs and
+serve as an entrypoint into your generated binary.</li>
+</ul>
+
+<p>To run the program, simply type <code class="language-plaintext highlighter-rouge">nodejs wasmout/p.js</code></p>
+
+<h3 id="installing-nodejs">Installing nodejs</h3>
+
+<ul>
+  <li>You can find directions for your favorite operating system
+<a href="https://nodejs.org/en/">here</a>. You should have nodejs 12 or later
+(run <code class="language-plaintext highlighter-rouge">nodejs --version</code> to make sure).</li>
+  <li>Once you have installed nodejs, run <code class="language-plaintext highlighter-rouge">npm install deasync</code> from the
+directory you plan to run <code class="language-plaintext highlighter-rouge">amyc</code> in, i.e. the toplevel directory of
+the compiler.</li>
+  <li>Make sure the <code class="language-plaintext highlighter-rouge">wat2wasm</code> executable is visible, i.e. it is in the
+system path or you are at the toplevel of the <code class="language-plaintext highlighter-rouge">amyc</code> directory.</li>
+</ul>
+
+<h2 id="webassembly-and-amy">WebAssembly and Amy</h2>
+
+<p>Make sure to carefully read <a href="lab5-amy-to-wasm.html">this detailed presentation</a>
+to understand the main concepts of how to translate Amy programs to WebAssembly.</p>
+
+<p>You can find the annotated compiler output to the concat example
+<a href="../files/concat.wat">here</a>.</p>
+
+<h2 id="code-of-the-assignment">Code of the Assignment</h2>
+
+<h3 id="overview">Overview</h3>
+
+<p>The code for the assignment is divided into two directories: <code class="language-plaintext highlighter-rouge">wasm</code> for
+the modeling of the WebAssembly framework, and <code class="language-plaintext highlighter-rouge">codegen</code> for
+Amy-specific code generation. There is a lot of code here, but your task
+is only to implement code generation for Amy expressions within
+<code class="language-plaintext highlighter-rouge">codegen/CodeGen.scala</code>.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">wasm/Instructions.scala</code> provides types that describe a subset of
+WebAssembly instructions. It also provides a type <code class="language-plaintext highlighter-rouge">Code</code> to describe
+sequences of instructions. You can chain multiple instructions or
+<code class="language-plaintext highlighter-rouge">Code</code> objects together to generate a longer <code class="language-plaintext highlighter-rouge">Code</code> with the <code class="language-plaintext highlighter-rouge">&lt;:&gt;</code>
+operator.</li>
+  <li><code class="language-plaintext highlighter-rouge">wasm/Function.scala</code> describes a wasm function.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">LocalsHandler</code> is an object which will create fresh indices for
+local variables as needed.</li>
+      <li>A <code class="language-plaintext highlighter-rouge">Function</code> contains a field called <code class="language-plaintext highlighter-rouge">isMain</code> which is used to
+denote a main function without a return value, which will be
+handled differently when printing, and will be exported to
+JavaScript.</li>
+      <li>The only way to create a <code class="language-plaintext highlighter-rouge">Function</code> is using <code class="language-plaintext highlighter-rouge">Function.apply</code>.
+Its last argument is a function from a <code class="language-plaintext highlighter-rouge">LocalsHandler</code> to
+<code class="language-plaintext highlighter-rouge">Code</code>. The reason for this unusual choice is to make sure the
+Function object is instantiated with the number of local
+variables that will be requested from the LocalsHandler. To see
+how it is used, you can look in <code class="language-plaintext highlighter-rouge">codegen/Utils.scala</code> (but you
+won't have to use it directly).</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">wasm/Module.scala</code> and <code class="language-plaintext highlighter-rouge">wasm/ModulePrinter.scala</code> describe a wasm
+module, which you can think of as a set of functions and the
+corresponding module headers.</li>
+  <li><code class="language-plaintext highlighter-rouge">codegen/Utils.scala</code> contains a few utility functions (which you
+should use!) and implementations of the built-in functions of Amy.
+Use the built-ins as examples.</li>
+  <li><code class="language-plaintext highlighter-rouge">codegen/CodeGen.scala</code> is the focus of the assignment. It contains
+code to translate Amy modules, functions and expressions to wasm
+code. It is a pipeline and returns a wasm Module.</li>
+  <li><code class="language-plaintext highlighter-rouge">codegen/CodePrinter.scala</code> is a Pipeline which will print output
+files from the wasm module.</li>
+</ul>
+
+<h3 id="the-cgexpr-function">The cgExpr function</h3>
+
+<p>The focus of this assignment is the <code class="language-plaintext highlighter-rouge">cgExpr</code> function, which takes an
+expression and generates a <code class="language-plaintext highlighter-rouge">Code</code> object. It also takes two additional
+arguments: (1) a <code class="language-plaintext highlighter-rouge">LocalsHandler</code> which you can use to get a new slot for
+a local when you encounter a local variable or you need a temporary
+variable for your computation. (2) a map <code class="language-plaintext highlighter-rouge">locals</code> from <code class="language-plaintext highlighter-rouge">Identifiers</code> to
+locals slots, i.e. indices, in the wasm world. For example, if <code class="language-plaintext highlighter-rouge">locals</code>
+contains a pair <code class="language-plaintext highlighter-rouge">i -&gt; 4</code>, we know that <code class="language-plaintext highlighter-rouge">get_local 4</code> in wasm will push
+the value of i to the stack. Notice how <code class="language-plaintext highlighter-rouge">locals</code> is instantiated with
+the function parameters in <code class="language-plaintext highlighter-rouge">cgFunction</code>.</p>
+
+<h2 id="skeleton">Skeleton</h2>
+
+<p>As usual, you can find the skeleton for this lab in a corresponding zip archive file, available <a href="../files/clp-lab05.zip">here</a>.
+This lab builds on your previous work, so you should copy your implementations of the lexer and parser into this new skeleton.
+The structure of your project <code class="language-plaintext highlighter-rouge">src</code> directory should be as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>src/amyc
+ ├── Main.scala                (updated)
+ │
+ ├── analyzer
+ │    ├── SymbolTable.scala
+ │    ├── NameAnalyzer.scala
+ │    └── TypeChecker.scala
+ │
+ ├── ast
+ │    ├── Identifier.scala
+ │    ├── Printer.scala
+ │    └── TreeModule.scala
+ │
+ ├── codegen                  (new)
+ │    ├── CodeGen.scala
+ │    ├── CodePrinter.scala
+ │    └── Utils.scala
+ │
+ ├── parsing
+ │    ├── Parser.scala
+ │    ├── Lexer.scala
+ │    └── Tokens.scala
+ │
+ ├── utils
+ │    ├── AmycFatalError.scala
+ │    ├── Context.scala
+ │    ├── Document.scala
+ │    ├── Env.scala
+ │    ├── Pipeline.scala
+ │    ├── Position.scala
+ │    ├── Reporter.scala
+ │    └── UniqueCounter.scala
+ │
+ └── wasm                     (new)
+      ├── Function.scala
+      ├── Instructions.scala
+      ├── ModulePrinter.scala
+      └── Module.scala
+</code></pre></div></div>
+
+<h2 id="deliverables">Deliverables</h2>
+
+<p>You have <strong>3 weeks</strong> to complete this assignment.
+Make sure to start early, as this lab represents more work than previous labs.</p>
+
+<p><strong>Deadline: December 7, 23:00.</strong></p>
+
+
+
+      <footer class="site-footer">
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </main>
+  </body>
+</html>

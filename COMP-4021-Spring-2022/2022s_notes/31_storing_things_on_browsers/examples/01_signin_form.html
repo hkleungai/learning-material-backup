@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign-In Form</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>Username:</td>
+            <td><input id="username"></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input id="password" type="password"></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><input id="save" type="checkbox"> Remember Me</td>
+        </tr>
+        <tr>
+            <td colspan="2"><button>Sign-In</button></td>
+        </tr>
+    </table>
+    <script>
+    $(document).ready(function() {
+        const username = localStorage.getItem("username");
+        if (username) {
+            $("#username").val(username);
+        }
+
+        $("button").on("click", () => {
+            // If the checkbox is checked
+            if ($("#save").prop("checked")) {
+                localStorage.setItem("username", $("#username").val());
+            }
+            
+            alert("Password incorrect!");
+        });
+    });
+    </script>
+</body>
+</html>

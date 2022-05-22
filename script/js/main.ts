@@ -1,9 +1,11 @@
-/** TODO: show success / failed notice upon clicking link-share   */
-/** TODO: Study ts-doc                                            */
-/** TODO: Make some ts index.ts                                   */
-/** TODO: Move data to proper json                                */
-/** TODO: Study browser / html test tools                         */
-/** TODO: Share __temp_commit var among git hooks                 */
+/** TODO: Change "code" from string into { dept, code }             */
+/** TODO: Change "semesters" from string[] into { year, season }    */
+/** TODO: Show surprise "sucks" message upon clicking headers       */
+/** TODO: Study ts-doc                                              */
+/** TODO: Make some ts index.ts                                     */
+/** TODO: Move data to proper json                                  */
+/** TODO: Study browser / html test tools                           */
+/** TODO: Share __temp_commit var among git hooks                   */
 
 import TableRenderer from './TableRenderer';
 import NoticeBoardRenderer from './NoticeBoardRenderer';

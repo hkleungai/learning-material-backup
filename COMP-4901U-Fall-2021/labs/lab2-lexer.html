@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Lab 2 | clpcd</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Lab 2" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A Lexer for the Amy Language" />
+<meta property="og:description" content="A Lexer for the Amy Language" />
+<meta property="og:site_name" content="clpcd" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Lab 2" />
+<!-- End Jekyll SEO tag -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <a id="skip-to-content" href="#content">Skip to the content.</a>
+
+    <header class="page-header" role="banner">
+      <h1 class="project-name">Lab 2</h1>
+      <h2 class="project-tagline">A Lexer for the Amy Language</h2>
+
+
+        <a href="https://lptk.github.io/clpcd" class="btn">COMP 4901U Home</a>
+        <a href="https://canvas.ust.hk/courses/38344" class="btn">COMP 4901U on Canvas</a>
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <p>This assignment is the first stage of the Amy compiler.</p>
+
+<p>You can download the <code class="language-plaintext highlighter-rouge">zip</code> file of the project skeleton <a href="../files/clp-lab02.zip">here</a>.</p>
+
+<h2 id="code-skeleton">Code Skeleton</h2>
+
+<p>In this lab you will start your own compiler from scratch, meaning that you will no longer rely on the compiler frontend which was previously provided to you as a jar file. In this lab you will build the lexical analysis phase (“lexer”).
+Since practically none of the compiler’s code will be shared with the previous lab, the new project folder (<code class="language-plaintext highlighter-rouge">clp-lab02</code>) contains a fresh skeleton.
+Compared to the previous lab, the structure of your <code class="language-plaintext highlighter-rouge">lib</code> and <code class="language-plaintext highlighter-rouge">src</code> directories will be as follows:</p>
+
+<pre><code class="language-amyc"> ├── lib
+ │    ├── amyc-assembly-1.7.jar (removed)
+ │    ├── scallion_3-0.6.jar    (new)
+ │    └── silex_3-0.6.jar       (new)
+ │
+ ├── src
+ │    ├── Main.scala                     (updated)
+ │    │
+ │    ├── parsing                        (new)
+ │    │    ├── Lexer.scala
+ │    │    └── Tokens.scala
+ │    │
+ │    └── utils                          (new)
+ │         ├── AmycFatalError.scala
+ │         ├── Context.scala
+ │         ├── Document.scala
+ │         ├── Env.scala
+ │         ├── Pipeline.scala
+ │         ├── Position.scala
+ │         ├── Reporter.scala
+ │         └── UniqueCounter.scala
+ ├── library ...  (as before)
+ ...
+</code></pre>
+
+<p>This lab will focus on the following two files:</p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">src/amyc/parsing/Tokens.scala</code>: list of tokens and token kinds.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">src/amyc/parsing/Lexer.scala</code>: skeleton for the <code class="language-plaintext highlighter-rouge">Lexer</code> phase.</p>
+  </li>
+</ul>
+
+<h2 id="a-lexer-for-amy">A Lexer for Amy</h2>
+
+<p>The role of a lexer is to read the input text and convert it to a list of tokens. Tokens are the smallest useful units in a source file: a name referring to a variable, a bracket, a keyword etc. The role of the lexer is to group together those useful units (e.g. return the keyword <code class="language-plaintext highlighter-rouge">else</code> as a unit, as opposed to individual characters <code class="language-plaintext highlighter-rouge">e</code>, <code class="language-plaintext highlighter-rouge">l</code>, <code class="language-plaintext highlighter-rouge">s</code>, <code class="language-plaintext highlighter-rouge">e</code>) and to abstract away all useless information (i.e. whitespace, comments).</p>
+
+<h2 id="code-structure">Code structure</h2>
+
+<p>You can find the lexer in the <code class="language-plaintext highlighter-rouge">Lexer.scala</code> file. It is based on Scallion and Silex, a pair of Scala libraries which simplify the implementation of parsing pipelines. Silex allows you to transform an input character stream (such as the contents of an Amy source file) into a sequence of Tokens. We are going to take a closer look at Scallion in the next lab, where our goal will be to build Amy’s parser. You can find more information on Scallion and Silex <a href="https://github.com/LPTK/scallion">here</a>, but we also included a short reference of Silex’s API in <code class="language-plaintext highlighter-rouge">Lexer.scala</code>.
+The Lexer has the following components:</p>
+
+<ul>
+  <li>
+    <p>The public method is <code class="language-plaintext highlighter-rouge">run</code>. It just calls <code class="language-plaintext highlighter-rouge">lexer.spawn(source)</code> (which returns an <code class="language-plaintext highlighter-rouge">Iterator[Token]</code>)  for every input file and concatenates the results.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">lexer</code> is the Silex-based definition of tokenization rules. Each rule corresponds to a regular expression matching a prefix of the remaining program input.
+Silex will compose all of these rules into one finite state machine and apply the so-called “maximal munch” (or “longest match”) rule you’ve seen in class.</p>
+  </li>
+  <li>
+    <p>Whenever a rule is found to match a (maximal) prefix of the remaining input, Scallion will call the transformation function provided using the <code class="language-plaintext highlighter-rouge">|&gt;</code> operator in the rule.
+This function is given the matched input characters (<code class="language-plaintext highlighter-rouge">cs</code>, of type <code class="language-plaintext highlighter-rouge">Iterable[Character]</code>) along with positional information (<code class="language-plaintext highlighter-rouge">range</code>, of type <code class="language-plaintext highlighter-rouge">(Position, Position)</code>) and should then produce an instance of <code class="language-plaintext highlighter-rouge">Token</code>.
+You can find its definition in <code class="language-plaintext highlighter-rouge">Tokens.scala</code>, which includes a list of all the different kinds of tokens that your Amy compiler should process.
+For instance, <code class="language-plaintext highlighter-rouge">KeywordToken("if")</code> represents an occurrence of the reserved word <code class="language-plaintext highlighter-rouge">if</code> in a program.
+For more details on how to write new rules, read the short introduction to Silex’s API at the top of <code class="language-plaintext highlighter-rouge">Lexer.scala</code> or consider the examples on the Scallion website. You can also refer to <a href="https://epfl-lara.github.io/silex/silex/index.html">Silex’s Scaladoc page</a>.
+Your task is to complete the rules in <code class="language-plaintext highlighter-rouge">Lexer.scala</code> and implement the filtering of irrelevant tokens.</p>
+  </li>
+</ul>
+
+<h2 id="notes">Notes</h2>
+
+<p>Here are some details you should pay attention to:</p>
+
+<ul>
+  <li>
+    <p>Make sure you recognize keywords as their own token kind. <code class="language-plaintext highlighter-rouge">if</code>, for instance, should be lexed as a token <code class="language-plaintext highlighter-rouge">KeywordToken("if")</code>, not as an identifier with the content “if”.</p>
+  </li>
+  <li>
+    <p>Make sure you correctly register the position of all tokens. Note the <code class="language-plaintext highlighter-rouge">range</code> parameter of the transformer functions. Once you have created a token, use <code class="language-plaintext highlighter-rouge">setPos(range._1)</code> to associate it with its position in the program source.</p>
+  </li>
+  <li>
+    <p>In general, it is good to output as many errors as possible (this will be helpful to whomever uses your compiler, including yourself). Your lexer should therefore not give up after the first error, but rather skip the erroneous token, emit an error message, and then continue lexing. Scallion takes care of this for you for the most part. However, there are certain inputs that you might explicitly want to map to <code class="language-plaintext highlighter-rouge">ErrorToken</code>, such as unclosed multi-line comments.</p>
+  </li>
+  <li>
+    <p>The Lexer does not immediately read and return all tokens, it returns an <code class="language-plaintext highlighter-rouge">Iterator[Token]</code> that will be used by future phases to read tokens on demand.</p>
+  </li>
+  <li>
+    <p>Comments and whitespace should not produce tokens. (The most convenient way of doing this in Scallion is to first produce dedicated tokens and then filter them out later; See the related TODO in <code class="language-plaintext highlighter-rouge">Lexer.scala</code>.)</p>
+  </li>
+  <li>
+    <p>The returned tokens should new instances of the the appropriate <code class="language-plaintext highlighter-rouge">Token</code> subclass. Value tokens (tokens that carry a value, such as identifiers) need to be constructed with the appropriate value. Tokens that do not carry a value should not be shared (they should be freshly instantiated every time), as they do still contain unique position information.</p>
+  </li>
+  <li>
+    <p>Make sure to correctly implement the Amy lexing rules for literals and identifiers.</p>
+  </li>
+</ul>
+
+<h2 id="example">Example</h2>
+
+<p>For reference, below is a possible output for the example under <code class="language-plaintext highlighter-rouge">examples/Hello.scala</code>,
+which you should get when entering the <code class="language-plaintext highlighter-rouge">sbt</code> shell
+and typing <code class="language-plaintext highlighter-rouge">run examples/Hello.scala</code>.
+Two small things to note here:</p>
+
+<ul>
+  <li>
+    <p>First, if you try this initially, it will yield a <code class="language-plaintext highlighter-rouge">scala.NotImplementedError</code>,
+which is normal as you have not yet implemented the lexer.
+This exception is raised by the <code class="language-plaintext highlighter-rouge">???</code> Scala method that is used as a placeholder in the original lexer implementation.
+Pay attention to the line number of the second line of the stack trace,
+which should look something like <code class="language-plaintext highlighter-rouge">at amyc.parsing.Lexer$.run$$anonfun$2$$anonfun$1$$anonfun$1(Lexer.scala:110)</code>
+– here, this tells us that the exception was raised at line <code class="language-plaintext highlighter-rouge">110</code> of <code class="language-plaintext highlighter-rouge">Lexer.scala</code>,
+presumably by a leftover occurrence of <code class="language-plaintext highlighter-rouge">???</code>.
+This line number info is useful if you want to progressively implement and test only the features needed to run
+the simplest examples.</p>
+  </li>
+  <li>
+    <p>Second, notice that for this example to work, in this lab,
+we no longer need to provide the <code class="language-plaintext highlighter-rouge">library/Std.scala</code> file,
+although the definitions of this file are used by <code class="language-plaintext highlighter-rouge">Hello.scala</code>.
+This is because at this point, we do not yet perform any name resolution or type checking,
+since we only perform lexing. So it is sufficient to pass only <code class="language-plaintext highlighter-rouge">examples/Hello.scala</code> to our lexing compiler stub.</p>
+  </li>
+</ul>
+
+<p>You can always get reference output for the lexer from the <a href="../labs/amy-reference-compiler">reference compiler</a> by typing</p>
+
+<p><code class="language-plaintext highlighter-rouge">java -jar amyc_2.12-1.X.jar --printTokens &lt;files&gt;</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>KeywordToken(object)(1:1)
+IdentifierToken(Hello)(1:8)
+DelimiterToken({)(1:14)
+IdentifierToken(Std)(2:3)
+DelimiterToken(.)(2:6)
+IdentifierToken(printString)(2:7)
+DelimiterToken(()(2:18)
+StringLitToken(Good morning!)(2:19)
+DelimiterToken())(2:34)
+DelimiterToken(})(3:1)
+EOFToken()(4:1)
+</code></pre></div></div>
+
+<h2 id="deliverable">Deliverable</h2>
+
+<p>You are given <strong>2 weeks</strong> for this assignment.
+Deadline: <strong>Tue, Oct. 12, 11pm</strong>.</p>
+
+
+      <footer class="site-footer">
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </main>
+  </body>
+</html>

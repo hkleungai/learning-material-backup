@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Ticker</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+    * { font-family: Arial, sans-serif; }
+    table { color: white; width: 300px; border-collapse: collapse; margin-bottom: 10px; }
+    tr:first-child { background: #09c; }
+    tr:last-child { background: #069; }
+    td { padding: 5px; }
+    #code, #price, #change { font-size: 120%; font-weight: bold; }
+    #price, #change { width: 25%; text-align: center; }
+    #name { color: lightgray; }
+    .up { background: #4c4; }
+    .down { background: #f44; }
+    </style>
+</head>
+<body>
+    <h2>Stock Ticker</h2>
+    <table>
+        <tr>
+            <td id="code">COMP 4021</td>
+            <td id="price">-</td>
+            <td id="change">-</td>
+        </tr>
+        <tr>
+            <td id="name" colspan="3">Internet Computing</td>
+        </tr>
+    </table>
+    <button id="play">Play</button>
+    <button id="pause">Pause</button>
+
+    <script src="/socket.io/socket.io.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        // Create the WebSocket
+        const socket = io();
+
+        // Listen for the 'update' event
+        socket.on("update", (data) => {
+            const { price, change } = JSON.parse(data);
+
+            $("#price").text(price.toFixed(1));
+            $("#change").text(change.toFixed(1));
+
+            if (change >= 0) {
+                $("#change").addClass("up");
+                $("#change").removeClass("down");
+            }
+            else {
+                $("#change").addClass("down");
+                $("#change").removeClass("up");
+            }
+        });
+
+        // Send the 'play' command to the server
+        $("#play").on("click", () => {
+            socket.emit("command", "play");
+        });
+
+        // Send the 'pause' command to the server
+        $("#pause").on("click", () => {
+            socket.emit("command", "pause");
+        });
+    });
+    </script>
+</body>
+</html>

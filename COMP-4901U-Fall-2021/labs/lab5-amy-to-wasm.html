@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Lab 5 | clpcd</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Lab 5" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Note: From Amy to WebAssembly" />
+<meta property="og:description" content="Note: From Amy to WebAssembly" />
+<meta property="og:site_name" content="clpcd" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Lab 5" />
+<!-- End Jekyll SEO tag -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <a id="skip-to-content" href="#content">Skip to the content.</a>
+
+    <header class="page-header" role="banner">
+      <h1 class="project-name">Lab 5</h1>
+      <h2 class="project-tagline">Note: From Amy to WebAssembly</h2>
+
+
+        <a href="https://lptk.github.io/clpcd" class="btn">COMP 4901U Home</a>
+        <a href="https://canvas.ust.hk/courses/38344" class="btn">COMP 4901U on Canvas</a>
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <h2 id="introduction">Introduction</h2>
+
+<p>In this presentation, we see how to translate an Amy program,
+represented as an Abstract Syntax Tree, to WebAssembly binary
+code.</p>
+
+<p>As an early example, consider the following Amy program:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">fact</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="nf">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="o">)</span> <span class="o">{</span> <span class="mi">1</span> <span class="o">}</span>
+  <span class="k">else</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="nv">rec</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="nf">fact</span><span class="o">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+    <span class="n">i</span> <span class="o">*</span> <span class="n">rec</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We will see how to output the following code for it:</p>
+
+<pre><code class="language-wasm">(func $fact (param i32) (result i32) (local i32)
+  get_local 0
+  i32.const 2
+  i32.lt_s
+  if (result i32)
+    i32.const 1
+  else
+    get_local 0
+    i32.const 1
+    i32.sub
+    call $fact
+    set_local 1
+    get_local 0
+    get_local 1
+    i32.mul
+  end
+)
+</code></pre>
+
+<h2 id="webassembly-basics">WebAssembly Basics</h2>
+
+<h3 id="basic-concepts">Basic Concepts</h3>
+
+<ul>
+  <li>
+    <p><strong>Stack.</strong> WebAssembly is a stack-based VM: All operations
+add/remove values from the top of the stack.
+The stack starts empty at the beginning of each function.
+Question: How will the stack evolve in our example for
+<code class="language-plaintext highlighter-rouge">fact(3)</code>?</p>
+  </li>
+  <li>
+    <p><strong>Types.</strong> WebAssembly supports different integer and float
+types. In our compiler we will only use the 32-bit integer type <code class="language-plaintext highlighter-rouge">i32</code> to
+represent all values</p>
+  </li>
+  <li>
+    <p><strong>Locals.</strong> The header of a function defines:</p>
+
+    <p>(1) the number and type of function parameters,</p>
+
+    <p>(2) the return type of the function,</p>
+
+    <p>(3) the number and type of local variables.</p>
+
+    <p>Parameters and local variables are both accessible with the
+<code class="language-plaintext highlighter-rouge">getLocal</code> and <code class="language-plaintext highlighter-rouge">setLocal</code> commands. Both use a common
+numbering, with parameters coming first, followed by local
+variables.
+In our example,
+<code class="language-plaintext highlighter-rouge">getLocal 0</code> refers to the function parameter (<code class="language-plaintext highlighter-rouge">i</code> in Amy)
+and
+<code class="language-plaintext highlighter-rouge">setLocal 1</code> to the local variable (<code class="language-plaintext highlighter-rouge">rec</code>).</p>
+  </li>
+</ul>
+
+<h3 id="structured-blocks">Structured Blocks</h3>
+
+<p>WebAssembly offers the <code class="language-plaintext highlighter-rouge">loop</code> and <code class="language-plaintext highlighter-rouge">block</code> structured control
+constructs.
+Corresponding branch instructions are used to jump to the <em>beginning</em>
+(respectively to the <em>end</em>) of the construct.
+This is only possible from within the block. This is to
+simulate control constructs of higher-level languages, where
+one cannot jump in the middle of a loop/if-then-else etc.</p>
+
+<p>Example:</p>
+<pre><code class="language-wasm">loop $label
+  ...
+  br $label // Good, jump to $label
+end
+br $label // Bad, outside the block
+</code></pre>
+
+<h3 id="if-construct"><code class="language-plaintext highlighter-rouge">if</code> Construct</h3>
+
+<p>Webassembly offers an if-else construct, similar to high level
+languages:</p>
+<pre><code class="language-wasm">i32.const 1
+if
+  ...
+else
+  ...
+end
+</code></pre>
+<p><code class="language-plaintext highlighter-rouge">if</code> will pop a value from the stack and interpret it as a
+boolean condition. It will then execute the if branch iff the
+popped value is nonzero, otherwise it will execute the else branch.
+In the above example, the <code class="language-plaintext highlighter-rouge">if</code> branch will be executed.</p>
+
+<h3 id="control-constructs-and-accessing-stack-values">Control constructs and accessing stack values</h3>
+
+<p>Control constructs are not allowed to pop values from the stack
+that were there before the start of the construct.</p>
+
+<p>E.g.</p>
+<pre><code class="language-wasm">i32.const 0
+i32.const 1
+if
+  i32.eqz // Wrong!
+  ...
+</code></pre>
+
+<p>Although the stack has the value 0 when we enter the if, we are
+not allowed to access it within the if-block.</p>
+
+<h3 id="control-constructs-and-returning-stack-values">Control constructs and returning stack values</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">if</code> and <code class="language-plaintext highlighter-rouge">block</code> constructs are typed.
+Each construct must leave on the
+stack a value of the specified type.
+For if, the two versions we will use are
+<code class="language-plaintext highlighter-rouge">if</code> (no value) and <code class="language-plaintext highlighter-rouge">if (result i32)</code> (an i32 value)</p>
+
+<p>Examples:</p>
+
+<pre><code class="language-wasm">if
+  i32.const 0 // Wrong
+else
+  i32.const 0
+  get_local 0
+  i32.add
+  set_local 0 // Correct
+end
+</code></pre>
+
+<pre><code class="language-wasm">if (result i32)
+  i32.const 0 // Correct
+else
+  i32.const 0
+  get_local 0 // Wrong
+end
+</code></pre>
+
+<h3 id="wasm-memory">Wasm Memory</h3>
+
+<p>In the header of a WebAssembly module, we can declare a
+<em>linear memory</em> object. Memory is basically an array of bytes,
+from where we can load and store values:</p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">i32.load</code> will pop a value <code class="language-plaintext highlighter-rouge">addr</code> from the stack, fetch an <code class="language-plaintext highlighter-rouge">i32</code>
+value from address <code class="language-plaintext highlighter-rouge">addr</code> of the memory, and push the value
+onto the stack</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">i32.store</code> will pop 2 values <code class="language-plaintext highlighter-rouge">addr</code>, <code class="language-plaintext highlighter-rouge">v</code> from the stack, and
+store <code class="language-plaintext highlighter-rouge">v</code> on address <code class="language-plaintext highlighter-rouge">addr</code> in the memory.</p>
+  </li>
+</ul>
+
+<p>Memory is indexed by <code class="language-plaintext highlighter-rouge">i32</code> values.
+We will use the linear memory as our programs’ heaps, to store
+heap-allocated values, i.e. strings and ADTs.
+We will use a global variable (<em>memory boundary</em>) to represent
+the first available memory address.
+Every time we will allocate a value in the memory, we will increase
+the memory boundary accordingly.</p>
+
+<p>For simplicity,
+we do not intend have garbage collection – when the memory is full,
+our program fails.
+This is of course not viable for a real-world programming language,
+as it rules out long-running programs which allocate lots of memory,
+but it is good enough for our code-generation mini-project.</p>
+
+<h2 id="representing-amy-values">Representing Amy values</h2>
+
+<p>We mentioned that we only use <code class="language-plaintext highlighter-rouge">i32</code> values to represent all values.
+But how do we represent all different Amy values as integers?
+Amy integers are conveniently defined as 32-bit integers, so
+we can represent them directly.
+We represent booleans as follows: <code class="language-plaintext highlighter-rouge">false</code> with <code class="language-plaintext highlighter-rouge">0</code>, true with <code class="language-plaintext highlighter-rouge">1</code>.
+We represent the unit literal with <code class="language-plaintext highlighter-rouge">0</code>.</p>
+
+<h3 id="representing-strings-in-wasm">Representing strings in wasm</h3>
+
+<p>Strings are sequences of bytes in the linear memory. Each byte
+corresponds to the ASCII code of the corresponding character
+in the string.
+We use 0-terminated strings, and pad them to
+use space in memory in multiples of 4 bytes.</p>
+
+<p>For example, <code class="language-plaintext highlighter-rouge">"Hello"</code> will be the sequence <code class="language-plaintext highlighter-rouge">(72, 101, 108, 108, 111, 0, 0, 0)</code> (8 bytes total).
+The empty string is <code class="language-plaintext highlighter-rouge">(0, 0, 0, 0)</code>.</p>
+
+<p>A string will be represented by the address of its first
+character in memory. For example, if a function allocates a
+string starting at address <code class="language-plaintext highlighter-rouge">48</code> and needs to return it to the
+caller, it will return the <code class="language-plaintext highlighter-rouge">i32</code> value <code class="language-plaintext highlighter-rouge">48</code>.</p>
+
+<p>Strings only support two operations and we provide helper
+functions for them, so they will be trivial for you to implement.</p>
+
+<h3 id="representing-adts-in-wasm">Representing ADTs in wasm</h3>
+
+<p>ADTs are also heap-allocated values.
+To represent an ADT, we need to somehow represent in
+memory its constructor and its fields.</p>
+
+<p>The fields are just values themselves, so they will be
+represented as <code class="language-plaintext highlighter-rouge">i32</code> values, like all other values.</p>
+
+<p>To represent the constructor, we will assign an individual
+<em>index</em> or <em>code</em> to every constructor of a type. For example, if
+we have a <code class="language-plaintext highlighter-rouge">List</code> type with <code class="language-plaintext highlighter-rouge">Nil</code> and <code class="language-plaintext highlighter-rouge">Cons</code> constructors, we
+could assign <code class="language-plaintext highlighter-rouge">0</code> to <code class="language-plaintext highlighter-rouge">Nil</code> and <code class="language-plaintext highlighter-rouge">1</code> to <code class="language-plaintext highlighter-rouge">Cons</code>.
+The index is stored in
+memory before the fields of the ADT.</p>
+
+<p>Conveniently, we already created those indexes in the symbol
+table (calling the <code class="language-plaintext highlighter-rouge">getConstructor</code> method returns a
+<code class="language-plaintext highlighter-rouge">ConstrSig</code>, which contains an <code class="language-plaintext highlighter-rouge">index</code> field).</p>
+
+<p>An ADT is represented by a reference to its base address in
+memory, i.e. as the address of its first word in memory (the
+address of the index), which by the way is also an <code class="language-plaintext highlighter-rouge">i32</code>!</p>
+
+<h3 id="allocating-adts-values">Allocating ADTs values</h3>
+
+<p>Here is the process to allocate an ADT value:</p>
+
+<ol>
+  <li>
+    <p>Save the old memory boundary b</p>
+  </li>
+  <li>
+    <p>Increment the current memory boundary by the size of the allocated ADT value</p>
+  </li>
+  <li>
+    <p>Store the constructor index to address b</p>
+  </li>
+  <li>
+    <p>For each field of the constructor, generate code for it and store it in memory in the correct offset from b</p>
+  </li>
+  <li>
+    <p>Push b to the stack (base address of the ADT)</p>
+  </li>
+</ol>
+
+<p>Note: Feel free to use fresh locals as temporary storage!</p>
+
+<h3 id="allocating-adt-values-example">Allocating ADT values: Example</h3>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">abstract</span> <span class="k">class</span> <span class="nc">List</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Nil</span><span class="o">()</span> <span class="k">extends</span> <span class="nc">List</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Cons</span><span class="o">(</span><span class="n">h</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">t</span><span class="k">:</span> <span class="kt">List</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">List</span>
+
+<span class="k">def</span> <span class="nf">foo</span><span class="o">()</span><span class="k">:</span> <span class="kt">List</span> <span class="o">=</span> <span class="o">{</span> <span class="nc">Cons</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="nc">Cons</span><span class="o">(</span><span class="mi">42</span><span class="o">,</span> <span class="nc">Nil</span><span class="o">()))</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<p>Suppose at some point during the execution of the program, the
+memory boundary is <code class="language-plaintext highlighter-rouge">100</code>.
+We encounter a call to <code class="language-plaintext highlighter-rouge">foo</code>.
+After the call, the memory could look like this:
+<!-- Address: `100 104 108 112 116 120 124`
+Content: `1 5 112 1 42 124 0`
+Meaning: `Cons( 5, −→Cons( 42, −→Nil()` --></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Address |  100  104  108 |  112  116  120 |  124
+Content |    1    5  112 |    1   42  124 |    0
+Meaning | Cons(   5,   ---&gt;Cons(  42,   ----&gt;Nil
+</code></pre></div></div>
+
+<p>After the call,
+the memory boundary would become <code class="language-plaintext highlighter-rouge">128</code> and <code class="language-plaintext highlighter-rouge">foo</code> would return <code class="language-plaintext highlighter-rouge">100</code> to
+its caller.</p>
+
+<h3 id="compiling-pattern-matching">Compiling pattern matching</h3>
+
+<p>A pattern matching expression</p>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">e</span> <span class="k">match</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="n">p1</span> <span class="k">=&gt;</span> <span class="n">e1</span>
+  <span class="o">...</span>
+  <span class="k">case</span> <span class="n">pn</span> <span class="k">=&gt;</span> <span class="n">en</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>can be considered to be equivalent to the following pseudo-code:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">v</span> <span class="k">=</span> <span class="n">e</span><span class="o">;</span>
+<span class="nf">if</span> <span class="o">(</span><span class="nf">matchAndBind</span><span class="o">(</span><span class="n">v</span><span class="o">,</span> <span class="n">p1</span><span class="o">))</span> <span class="n">e1</span>
+<span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="nf">matchAndBind</span><span class="o">(</span><span class="n">v</span><span class="o">,</span> <span class="n">p2</span><span class="o">))</span> <span class="n">e2</span>
+<span class="k">else</span> <span class="o">...</span>
+<span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="nf">matchAndBind</span><span class="o">(</span><span class="n">v</span><span class="o">,</span> <span class="n">pn</span><span class="o">))</span> <span class="n">en</span>
+<span class="k">else</span> <span class="nf">error</span><span class="o">(</span><span class="s">"Match error!"</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">matchAndBind(v, p)</code> is a function not expressible in Amy which
+you will have to implement in WebAssembly. It will examine if the
+pattern <code class="language-plaintext highlighter-rouge">p</code> matches with a value <code class="language-plaintext highlighter-rouge">v</code>, and make sure it binds the
+correct values to the identifiers in <code class="language-plaintext highlighter-rouge">p</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">matchAndBind</code> is defined as follows:</p>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">matchAndBind</span><span class="o">(</span><span class="n">v</span><span class="o">,</span> <span class="k">_</span><span class="o">)</span> <span class="k">=</span> <span class="kc">true</span>
+<span class="nf">matchAndBind</span><span class="o">(</span><span class="n">v</span><span class="o">,</span> <span class="n">id</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span> <span class="n">id</span> <span class="k">=</span> <span class="n">v</span><span class="o">;</span> <span class="kc">true</span> <span class="o">}</span> <span class="c1">// assign v to id</span>
+<span class="nf">matchAndBind</span><span class="o">(</span><span class="n">v</span><span class="o">,</span> <span class="n">lit</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span> <span class="n">v</span> <span class="o">==</span> <span class="n">lit</span> <span class="o">}</span> <span class="c1">// lit is a literal</span>
+<span class="nf">matchAndBind</span><span class="o">(</span><span class="nc">C_1</span><span class="o">(</span><span class="n">v_1</span><span class="o">,</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.,</span> <span class="n">v_n</span><span class="o">),</span> <span class="nc">C_2</span><span class="o">(</span><span class="n">p_1</span><span class="o">,</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.,</span> <span class="n">p_m</span><span class="o">))</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nc">C_1</span> <span class="o">==</span> <span class="nc">C_2</span> <span class="o">&amp;&amp;</span>
+  <span class="nf">matchAndBind</span><span class="o">(</span><span class="n">v_1</span><span class="o">,</span> <span class="n">p_1</span><span class="o">)</span> <span class="o">&amp;&amp;</span>
+  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
+  <span class="nf">matchAndBind</span><span class="o">(</span><span class="n">v_m</span><span class="o">,</span> <span class="n">p_m</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>You have to translate the pseudo-code above to binary code.</p>
+
+<p>Think about:</p>
+
+<ul>
+  <li>
+    <p>how you translate the above to the wasm postfix format</p>
+  </li>
+  <li>
+    <p>when you have to push values on the stack</p>
+  </li>
+  <li>
+    <p>when you have to drop useless values from the stack</p>
+  </li>
+  <li>
+    <p>when you need to use extra local variables as temporary storage</p>
+  </li>
+  <li>
+    <p>in case of case class patterns, how the object is laid out in
+memory and how you can access its constructor and fields.</p>
+  </li>
+  <li>
+    <p>how to nest if-blocks correctly</p>
+  </li>
+  <li>
+    <p>why is it safe to make the recursive calls to <code class="language-plaintext highlighter-rouge">matchAndBind</code>?</p>
+  </li>
+  <li>
+    <p>How are we certain the memory even contains the things we expect?</p>
+  </li>
+</ul>
+
+<h3 id="extended-example-list-concatenation">Extended example: List concatenation</h3>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">object</span> <span class="nc">L</span> <span class="o">{</span>
+  <span class="k">abstract</span> <span class="k">class</span> <span class="nc">List</span>
+  <span class="k">case</span> <span class="k">class</span> <span class="nc">Nil</span><span class="o">()</span> <span class="k">extends</span> <span class="nc">List</span>
+  <span class="k">case</span> <span class="k">class</span> <span class="nc">Cons</span><span class="o">(</span><span class="n">h</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">t</span><span class="k">:</span> <span class="kt">List</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">List</span>
+
+  <span class="k">def</span> <span class="nf">concat</span><span class="o">(</span><span class="n">l1</span><span class="k">:</span> <span class="kt">List</span><span class="o">,</span> <span class="n">l2</span><span class="k">:</span> <span class="kt">List</span><span class="o">)</span><span class="k">:</span> <span class="kt">List</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="n">l1</span> <span class="k">match</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="nc">Nil</span><span class="o">()</span> <span class="k">=&gt;</span> <span class="n">l2</span>
+      <span class="k">case</span> <span class="nc">Cons</span><span class="o">(</span><span class="n">h</span><span class="o">,</span> <span class="n">t</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Cons</span><span class="o">(</span><span class="n">h</span><span class="o">,</span> <span class="nf">concat</span><span class="o">(</span><span class="n">t</span><span class="o">,</span> <span class="n">l2</span><span class="o">))</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>You can find the commented output code <a href="../files/concat.wasm">here</a>.</p>
+
+<p>For further examples, do not hesitate to use the reference compiler!
+You can call it on any program of interest,
+and inspect the human-readable code it generates
+into the corresponding <code class="language-plaintext highlighter-rouge">.wat</code> files.</p>
+
+
+
+      <footer class="site-footer">
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </main>
+  </body>
+</html>

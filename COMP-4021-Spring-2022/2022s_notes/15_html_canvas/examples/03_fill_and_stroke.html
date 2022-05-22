@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Two Rectangles</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <canvas style="border: 1px solid gray" width="600" height="400"></canvas>
+    <script>
+    $(document).ready(function() {
+        let cv = $("canvas").get(0);
+        let context = cv.getContext("2d");
+
+        /* Draw a red rectangle */
+        context.fillStyle = "red";
+        context.fillRect(50, 50, 200, 150);
+
+        /* Draw a red hollow rectangle */
+        context.strokeStyle = "red";
+        context.lineWidth = 3;
+        context.strokeRect(350, 200, 200, 150);
+    });
+    </script>
+</body>
+</html>

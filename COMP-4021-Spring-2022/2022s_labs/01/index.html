@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>COMP4021 Lab 1 - Guessing Game</title>
+    <link rel="stylesheet" href="../../css/lab.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/xcode.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <link href='https://fonts.googleapis.com/css?family=Arizonia' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <h1>
+        <a href="https://course.cse.ust.hk/comp4021">
+            COMP4021 Internet Computing
+        </a>
+        &gt; Lab 1 - Guessing Game
+    </h1>
+
+    <h2>Overview</h2>
+
+    <ul>
+        <li>In this lab, you will build a 'guessing game'
+            <figure><img src="images/guessing_game.png" alt="The Guessing Game"></figure>
+        </li>
+        <li>The game works like this:
+        <ol>
+            <li>The game starts and thinks of a secret number between 1 to 100</li>
+            <li>The player needs to guess the number by entering a number between 1 to 100</li>
+            <li>Depending on the player's input, the game will give appropriate hints to the player</li>
+            <li>The game is over when the player can successfully guess the secret number correctly</li>
+        </ol>
+        </li>
+        <li>To finish the game, you will have two major tasks:
+        <ol>
+            <li>You need to use appropriate CSS styles to make the game looks similar to what is shown above</li>
+            <li>You need to write the JavaScript code to complete the logic of the game</li>
+        </ol>
+        </li>
+    </ul>
+
+    <h2>Lab Instructions</h2>
+
+    <ul class="toc">
+        <li><a href="#section1">1. The Guessing Game</a></li>
+        <li><a href="#section2">2. The Title Screen and the Main Screen</a></li>
+        <li><a href="#section2.1">2.1. Using Appropriate Styles for Both Screens</a></li>
+        <li><a href="#section3">3. The Title Screen</a></li>
+        <li><a href="#section3.1">3.1. Using Appropriate Styles for the Title Screen</a></li>
+        <li><a href="#section4">4. The Main Screen</a></li>
+        <li><a href="#section4.1">4.1. Using Appropriate Styles for the Main Screen</a></li>
+        <li><a href="#section4.2">4.2. Hiding the Main Screen</a></li>
+        <li><a href="#section5">5. The JavaScript Code</a></li>
+        <li><a href="#section5.1">5.1. Making an Answer Using a Random Number</a></li>
+        <li><a href="#section5.2">5.2. Completing the Click Handler of the Title Screen</a></li>
+        <li><a href="#section5.3">5.3. Asking the Player for the Guess</a></li>
+        <li><a href="#section5.4">5.4. Handling the Player Guess</a></li>
+        <li><a href="#section6">6. Finishing the Game</a></li>
+    </ul>
+
+    <h3 id="section1">1. The Guessing Game</h3>
+
+    <ul>
+        <li>You are given a starting HTML file
+            <a href="guessing_game.html">here</a> and an image
+            <a href="smoke.png">here</a></li>
+        <li>If you load it up, the game will look pretty horrible, like this:
+            <figure><img src="images/starting_display.png" alt="Starting Display"></figure>
+        </li>
+        <li>Before you work on the HTML code, let's first understand the two major components in the game display</li>
+    </ul>
+
+    <h3 id="section2">2. The Title Screen and the Main Screen</h3>
+
+    <ul>
+        <li>There are two 'screens' in the game - the title screen and the main screen
+        <ul>
+            <li>The title screen shows the game title called 'Fantastic Number'</li>
+            <li>The main screen contains the components that the player needs to play the game</li>
+        </ul>
+        </li>
+        <li>The two screens are put in their corresponding <code>&lt;div&gt;</code></li>
+    </ul>
+
+    <pre><code class="html">&lt;!-- the title screen --&gt;
+&lt;div class="box" id="title"&gt;
+    ...
+&lt;/div&gt;
+
+&lt;!-- the game screen --&gt;
+&lt;div class="box" id="main"&gt;
+    ...
+&lt;/div&gt;</code></pre>
+
+    <ul>
+        <li>At any time during the game, only one of the screen will be shown in the browser</li>
+        <li>First, the game shows the title screen and then waits for the player to click anywhere inside the screen</li>
+        <li>Once the player clicks on the title screen, the title screen will disappear and the main screen will be shown</li>
+    </ul>
+
+    <h4 id="section2.1">2.1. Using Appropriate Styles for Both Screens</h4>
+
+    <ul>
+        <li>In the given HTML file, both screens do not have any associated style information;
+            in fact, the entire HTML file contains only a little bit of CSS style instructions</li>
+        <li>To work on the screens, you first need to apply appropriate styles to them so that you will see them displayed correctly in the browser</li>
+        <li>In this part, you will fix the display of the two divs so that they look like a box shown centrally in the game display,
+            for example, like this:
+            <figure><img src="images/title_screen_target.png" alt="Example Screen"></figure>
+        </li>
+        <li>In this part, you will fix the divs only; the elements inside each screen will be taken care of later</li>
+        <li>If you look at the HTML code, the two divs already have a <code>class</code> attribute assigned to them</li>
+        <li>You can make use of this class, called '<code>box</code>', to apply some common style properties to them</li>
+        <li>Here are the objectives:
+        <ul>
+            <li>The screens cover roughly 90% of the display area of the browser</li>
+            <li>The screens are located centrally inside the display</li>
+            <li>The screens have an appropriate black border around it</li>
+            <li>The screens have an appropriate font size and the size is automatically adjusted based on the size of the screen</li>
+        </ul>
+        </li>
+        <li>You can certainly and are welcome to use your own understanding of CSS to achieve the above objectives</li>
+        <li>The main point of the lab is to let you get some practice working on CSS, based on some requirements</li>
+        <li>Here are some suggestions that you may consider</li>
+    </ul>
+
+    <h5>Making an Appropriate Screen Size</h5>
+
+    <ul>
+        <li>Note that the objective is to make the screen covering roughly 90% of the browser display</li>
+        <li>Since the size of the browser display may change, you cannot adjust the size using an absolute value</li>
+        <li>Luckily, there are some CSS display units that you can use, which are relative to the size of browser display</li>
+        <li>In particular, two useful units that you can use are <code>vw</code> and <code>vh</code></li>
+        <li>They are percentage values relative to the size of the viewport, i.e. the display area of the browser</li>
+        <li>For instance, the following code creates an area covering half the display size in width and 5% in height:</li>
+    </ul>
+
+    <pre><code class="html">&lt;div style="width: 50vw; height: 5vh"&gt;&lt;/div&gt;</code></pre>
+
+    <ul>
+        <li>The div is shown below (with a red background):</li>
+    </ul>
+
+    <div style="width: 50vw; height: 5vh; background: red"></div>
+
+    <ul>
+        <li>You can adjust the size of the browser to see the size effect</li>
+        <li>You can then easily use the unit to set the screen size correctly</li>
+    </ul>
+
+    <h5>Putting the Screens Centrally</h5>
+
+    <ul>
+        <li>Following up with the above style change, you can put the screens in the middle of the display easily</li>
+        <li>Since you already know exactly the width and height of the screens, you can use some exact margins so that they will occupy the browser area centrally</li>
+        <li>Using the red div as an example again, if we use a horizontal margin of <code>25vw</code>, i.e.:
+    </ul>
+
+    <pre><code class="html">&lt;div style="width: 50vw; height: 5vh; margin: 0 25vw"&gt;&lt;/div&gt;</code></pre>
+
+    <ul>
+        <li>It will be displayed centrally like this on the page (with a red background):</li>
+    </ul>
+
+    <div style="width: 50vw; height: 5vh; margin: 0 25vw; background: red"></div>
+
+    <ul>
+        <li>For the game, the screens should be put centrally in both the horizontal and vertical directions</li>
+    </ul>
+
+    <h5>Adding a Black Border</h5>
+
+    <ul>
+        <li>It is easy to add a black border as you have already seen the <code>border</code> style property in class</li>
+        <li>You can then add a black border with the thickness that you want, for example, like this:</li>
+    </ul>
+
+    <pre><code class="html">&lt;div style="width: 50vw; height: 5vh; border: 5px solid black"&gt;&lt;/div&gt;</code></pre>
+
+    <ul>
+        <li>The div is then displayed as shown below</li>
+    </ul>
+
+    <div style="width: 50vw; height: 5vh; border: 5px solid black"></div>
+
+    <ul>
+        <li>However, by default, the width and height properties of a box in CSS <b>do not include</b> the size of the border (and padding)</li>
+        <li>This may be a big problem for layouts that use border heavily with a relative box size</li>
+        <li>Here is a simple example:
+        <ul>
+            <li>Imagine that you want a div to occupy 100% of the browser display area</li>
+            <li>To do that, you use <code>50vw</code> for the width and <code>25vw</code> for the margin</li>
+            <li>The total width of the div is then 50vw + 25vw x 2 = 100vw, exactly 100% of the display width</li>
+            <li>Then, if you add a border, say a <code>10px</code> thick border, around the div,
+                the total width is then 50vw <b>+ 2 x 10px</b> + 25vw x 2 = 100vw <b>and 20px</b>,
+                which is slightly bigger than 100%</li>
+        </ul>
+        </li>
+        <li>Because of this, CSS has a property to change the calculation
+            so that the width and height properties <b>do include</b> the border size and padding</li>
+        <li>This is done by setting the <code>box-sizing</code> property to <code>border-box</code></li>
+        <li>Here are two divs, with the upper one using the default sizing and the lower one uses <code>border-box</code>:</li>
+    </ul>
+
+    <div style="width: 50vw; height: 40px; border: 5px solid black; line-height: 40px; text-align: center"><small>default box sizing</small></div>
+    <br>
+    <div style="width: 50vw; height: 40px; border: 5px solid black; box-sizing: border-box; line-height: 30px; text-align: center"><small>using border-box</small></div>
+    <br>
+
+    <h5>Adjusting the Font Properties</h5>
+
+    <ul>
+        <li>Finally, let's make the font bigger inside the screens</li>
+        <li>You can change the font in various display units</li>
+        <li>Similar to the screen size, you can use a unit that is relative to the size of the browser display</li>
+        <li>If you do that, you will see the font changing its size dynamically based on the size of the browser</li>
+        <li>For example, the text shown below will change its size if you resize your browser:
+            <p style="font-family: Georgia, serif; font-size: 10vh; margin: 2rem 0">Magic Text</p>
+        </li>
+        <li>At this stage, you can set a single size for the font so that both screen appears to have a slightly bigger font</li>
+        <li>You can adjust the size anytime later on</li>
+    </ul>
+
+    <h3 id="section3">3. The Title Screen</h3>
+
+    <ul>
+        <li>At this point, your title screen should look something like this:
+            <figure><img src="images/title_screen_section2.png" alt="The Title Screen After Section 2"></figure>
+        </li>
+        <li>Scrollbars appear in the browser because the two screens are both showing up in the page</li>
+        <li>When you hide one of the screens later, each screen should fit just right in the browser display area</li>
+        <li>In this section, you target to make the title screen to look something like this:
+            <figure><img src="images/title_screen_target.png" alt="The Title Screen Target"></figure>
+        </li>
+    </ul>
+
+    <h4 id="section3.1">3.1. Using Appropriate Styles for the Title Screen</h4>
+
+    <ul>
+        <li>Similar to the previous section, there is no style properties associated with the title screen</li>
+        <li>If you want to assign some style rules to the screen, you will need to make use of the id of the div, as shown underlined below:</li>
+    </ul>
+
+    <pre><code class="html">&lt;!-- the title screen --&gt;
+&lt;div class="box" <u>id="title"</u>&gt;
+    ...
+&lt;/div&gt;</code></pre>
+
+    <ul>
+        <li>To make the title screen, you need to use appropriate styles for the following objectives:
+        <ul>
+            <li>Using a transparent background colour for the screen</li>
+            <li>Making the text align centrally</li>
+            <li>Using appropriate font settings for different parts of the screen</li>
+        </ul>
+        </li>
+        <li>All of the above are relatively simple to do; however, you do need to experiment a bit, especially the use of the font size</li>
+    </ul>
+
+    <h5>Using a Transparent Background</h5>
+
+    <ul>
+        <li>There are two ways to make the background transparent:
+        <ul>
+            <li>Using the <code>opacity</code> property</li>
+            <li>Using a transparent RGB background colour</li>
+        </ul>
+        </li>
+        <li>The difference between them is the <code>opacity</code> property changes everything to transparent, including the text inside the div;
+            whereas a transparent background colour is effective to the background only</li>
+        <li>For example, here is a div with a opacity of 0.5:</li>
+    </ul>
+
+    <pre><code class="html">&lt;div style="background: red; opacity: 0.5"&gt;&lt;b&gt;RED&lt;/b&gt;&lt;/div&gt;</code></pre>
+
+    <ul>
+        <li>The div displays both the background and text with transparency</li>
+    </ul>
+
+    <div style="background: red; opacity: 0.5"><b>RED</b></div>
+
+    <ul>
+        <li>If you use a transparent RGB colour, which can be achieved by setting the fourth value of colour to anything less than 1,
+            such as what is done below:</li>
+    </ul>
+
+    <pre><code class="html">&lt;div style="background: rgba(255, 0, 0, 0.5)"&gt;&lt;b&gt;RED&lt;/b&gt;&lt;/div&gt;</code></pre>
+
+    <ul>
+        <li>The div will show the background with transparency and the text with solid colour</li>
+    </ul>
+
+    <div style="background: rgba(255, 0, 0, 0.5)"><b>RED</b></div>
+
+    <ul>
+        <li>For your title screen, to keep things simple, you can set the opacity to some value smaller than 1</li>
+    </ul>
+
+    <h5>Putting the Text Centrally</h5>
+
+    <ul>
+        <li>It should be very straightforward to do this part</li>
+        <li>However, note that you may need to change the alignment of the 'subtitle' back to using left justification with a bit of margin to the left</li>
+    </ul>
+
+    <h5>Changing the Font Appropriately</h5>
+
+    <ul>
+        <li>There are different parts of the text in the title screen, as shown by its HTML code:</li>
+    </ul>
+
+    <pre><code class="html">&lt;p id="title1"&gt;Fantastic&lt;/p&gt;
+&lt;p id="title2"&gt;Number&lt;/p&gt;
+&lt;p id="subtitle"&gt;that &lt;big&gt;You Need&lt;/big&gt;&lt;br&gt;
+    to &lt;big&gt;Guess&lt;/big&gt;&lt;/p&gt;</code></pre>
+
+    <ul>
+        <li>Relevant ids have been assigned to the text so that you can adjust their properties individually</li>
+        <li>You can also change the behaviour of the <code>&lt;big&gt;</code> tag so that the 'bigness' is correctly done</li>
+        <li>Reminded that the font settings should be adjusted relatively, i.e. try your best to use percentages as style values</li>
+        <li>Apart from usual font size, margin, padding and colour, one special adjustment to the text is that they have been changed to big letters,
+            as shown below:
+            <figure><img src="images/big_letters.png" alt="The Big Letters in the Title Screen"></figure>
+        </li>
+        <li>You do not need to type the text again; you only need to use the <code>text-transform</code> property to do that</li>
+        <li>Here are the various <code>text-transform</code> values that you can apply to a piece of text, 'Text transform':
+        <ul>
+            <li>Using <code>text-transform: capitalize</code> becomes '<span style="text-transform: capitalize">Text transform</span>'</li>
+            <li>Using <code>text-transform: uppercase</code> becomes '<span style="text-transform: uppercase">Text transform</span>'</li>
+            <li>Using <code>text-transform: lowercase</code> becomes '<span style="text-transform: lowercase">Text transform</span>'</li>
+        </ul>
+        </li>
+        <li>You just need to pick one from above</li>
+    </ul>
+
+
+    <h3 id="section4">4. The Main Screen</h3>
+
+    <ul>
+        <li>After fixing the title screen, your main screen remains unchanged like this:
+            <figure><img src="images/main_screen_section3.png" alt="The Main Screen After Section 3"></figure>
+        </li>
+        <li>Similar to what you did for the title screen, you need to make the main screen to look differently, to something such as this:
+            <figure><img src="images/main_screen_target.png" alt="The Main Screen Target"></figure>
+        </li>
+        <li>After practicing your CSS skill using the title screen, this section should be easy for you to do now</li>
+    </ul>
+
+    <h4 id="section4.1">4.1. Using Appropriate Style for the Main Screen</h4>
+
+    <ul>
+        <li>Again, an id has been assigned to the main screen, as shown underlined below:</li>
+    </ul>
+
+    <pre><code class="html">&lt;!-- the main screen --&gt;
+&lt;div class="box" <u>id="main"</u>&gt;
+    ...
+&lt;/div&gt;</code></pre>
+
+    <ul>
+        <li>That means you can apply some style properties to this screen only</li>
+        <li>The objectives for this screen are:
+        <ul>
+            <li>Using appropriate font settings for different parts of the screen</li>
+            <li>Making the hyperlink to look like a button</li>
+        </ul>
+        </li>
+        <li>There is no need to repeat what we said before for the first objective</li>
+    </ul>
+
+    <h5>Changing the Hyperlink to Look Like a Button</h5>
+
+    <ul>
+        <li>The HTML of the link is shown below:</li>
+    </ul>
+
+    <pre><code class="html">&lt;a id="button" href="#"&gt;Enter Your Guess&lt;/a&gt;</code></pre>
+
+    <ul>
+        <li>It seems complicated to change a hyperlink to a button; however, it is in fact quite easy to do</li>
+        <li>The very first thing that you need to do is to use change the <code>&lt;a&gt;</code> tag into a box, i.e. a block element</li>
+        <li>This can be achieved by using the <code>display</code> property and setting its value to <code>block</code></li>
+        <li>Doing this makes any target element to become a block element</li>
+        <li>Once the hyperlink has become a box, you can use the usual padding, margin and border to adjust the appearance of the hyperlink</li>
+    </ul>
+
+    <h4 id="section4.2">4.2. Hiding the Main Screen</h4>
+
+    <ul>
+        <li>The last thing that you need to do for the main screen is to hide it</li>
+        <li>This is because the game initially shows only the title screen</li>
+        <li>The main screen will only show up after the player clicks on the title screen</li>
+        <li>To hide a particular element in an HTML page, the common approach is to set the <code>display</code> property to <code>none</code></li>
+        <li>Once you have added the property to the main screen, your HTML should have the title screen solely occupying the browser display area</li>
+    </ul>
+
+    <h3 id="section5">5. The JavaScript Code</h3>
+
+    <ul>
+        <li>After you finish 'decorating' the game, it is time to write some code to complete the game logic</li>
+        <li>The starting file gives you a few things to start with:</li>
+    </ul>
+
+    <pre><code class="javascript">let answer;
+
+function load() {
+    ...
+}
+
+function start() {
+    ...
+}
+
+function guess() {
+    ...
+
+    return false;
+}</code></pre>
+
+    <ul>
+        <li>Your task is to use the right function at the right moment and fill in the content for the functions</li>
+    </ul>
+
+    <h4 id="section5.1">5.1. Making an Answer Using a Random Number</h4>
+
+    <ul>
+        <li>The first thing you have to do is to think of a secret number</li>
+        <li>You will do that in the <code>load()</code> function</li>
+        <li>As the name suggests, you run this function when the HTML page loads; therefore, you should run the function at the load event of the <code>&lt;body&gt;</code> tag</li>
+        <li>To make a random number between 1 to 100, you can use the following code:</li>
+    </ul>
+
+    <pre><code class="javascript">parseInt(Math.random() * 100) + 1</code></pre>
+
+    <ul>
+        <li>The above code uses the random number generator in JavaScript, <code>Math.random()</code>, to make a number in the range [0, 1)</li>
+        <li>The code then converts the number into our desired range</li>
+        <li>You will put the secret number into the given global variable <code>answer</code></li>
+    </ul>
+
+    <h4 id="section5.2">5.2. Completing the Click Handler of the Title Screen</h4>
+
+    <ul>
+        <li>At the moment, your game should allow the player to click on the title screen to start the game</li>
+        <li>You will need to write the code to make that work</li>
+        <li>Since the player can click on the title screen to start, a click event should be assigned to the entire title screen,
+            which is the div that you have worked on before, i.e.</li>
+    </ul>
+
+    <pre><code class="html">&lt;!-- the title screen --&gt;
+&lt;div class="box" id="title"&gt;
+    ...
+&lt;/div&gt;</code></pre>
+
+    <ul>
+        <li>The <code>start()</code> function has been given to you to do that</li>
+        <li>After clicking on the title screen, your code in the function needs to hide the title screen and show the main screen</li>
+        <li>Remember that you have used the <code>display</code> property to hide the main screen, this time you will write JavaScript code to change the
+            property for both screens, to <code>none</code> for the title screen and <code>block</code> for the main screen</li>
+        <li>To change a style property of an HTML element, you can use the style object</li>
+        <li>For example, to change the background colour of the title screen to black, you will write this code:</li>
+    </ul>
+
+    <pre><code class="javascript">document.getElementById("title").style.backgroundColor = "black";</code></pre>
+
+    <ul>
+        <li>Using similar code, you can easily adjust the <code>display</code> property of the two screens</li>
+    </ul>
+
+    <h4 id="section5.3">5.3. Asking the Player for the Guess</h4>
+
+    <ul>
+        <li>In this game, the player can enter his/her guess when he/she clicks on the 'guess button', i.e. the hyperlink on the page</li>
+        <li>The code will be written inside the <code>guess()</code> function and you need to assign a click event to the hyperlink</li>
+        <li>However, the way you do that this time is a little bit different from before</li>
+        <li>You need to write the event like this inside the tag:</li>
+    </ul>
+
+    <pre><code class="html">&lt;a id="button" href="#" <u>onclick="return guess()"</u>&gt;Enter Your Guess&lt;/a&gt;</code></pre>
+    
+    <ul>
+        <li>The <code>return</code> in the above code means that you want to cancel the default behaviour of the event by returning <code>false</code></li>
+        <li>The <code>guess()</code> function already gives you a <code>return false;</code> at the bottom of the function
+            so that the page will not jump (the default behaviour) even if you click on the link</li>
+        <li>Inside the function, you can then use the <code>prompt()</code> function to ask for a guess</li>
+        <li>Once you store the player's input somewhere, possibly a variable, you can move on to the next section to handle the guess</li>
+    </ul>
+
+    <h4 id="section5.4">5.4. Handling the Player Guess</h4>
+
+    <ul>
+        <li>After the player has entered the guess, your game needs to give the player hints about what to do next</li>
+        <li>You need to check for and show the following hints:
+        <ul>
+            <li>If the player does not enter a number then show "Please enter a number!"</li>
+            <li>If the player does not enter an integer then show "Please enter an integer!"</li>
+            <li>If the player does not enter a number within 1 to 100 then show "Please enter an integer between 1 and 100!"</li>
+            <li>If the player enters a number smaller than the secret number then show "Your number is too small!"</li>
+            <li>If the player enters a number bigger than the secret number then show "Your number is too big!"</li>
+            <li>Finally, if the player enters the correct guess then show "You are right!"</li>
+        </ul>
+        </li>
+        <li>To work on the above cases, you can make use of these functions: <code>isNaN()</code>, <code>parseInt()</code>, <code>parseFloat()</code></li>
+        <li>The hint will be shown inside the following paragraph:</li>
+    </ul>
+    
+    <pre><code class="html">&lt;p id="hint"&gt;Press the button to start the guess!&lt;/p&gt;</code></pre>
+
+    <ul>
+        <li>To change the content of the paragraph, you can use <code>innerHTML</code> of the element, i.e.:</li>
+    </ul>
+
+    <pre><code class="javascript">document.getElementById("hint").innerHTML = "...";</code></pre>
+
+    <ul>
+        <li>If the player enters a valid guess, i.e. a number between 1 to 100, it will be useful to put the guess somewhere
+            so that the player knows what was going on</li>
+        <li>A text span called <code>guess</code> has been given in the HTML so that you can put the player's guess on the page, like this:
+            <figure><img src="images/store_guess.png" alt="Showing the Player's Guess"></figure>
+        </li>
+    </ul>
+
+    <h3 id="section6">6. Finishing the Game</h3>
+
+    <ul>
+        <li>If the player guesses the secret number correctly, the game will be over</li>
+        <li>In that situation, even if the player clicks on the button again, the game should not ask for a new guess</li>
+        <li>You can write a few lines of code at the top of the <code>guess()</code> function
+            so that the function will return if the game is over</li>
+        <li>Remember that the last player's guess has been put inside the text span called <code>guess</code>,
+            you can then write the code to compare the secret number and the last player's guess</li>
+        <li>If they are the same, you immediately skip the rest of the function by returning <code>false</code></li>
+    </ul>
+
+    <h2>Submission</h2>
+
+    <p>You do not need to submit the lab. It would be very useful to save a copy of your work, e.g. in a USB or through email.</p>
+
+</body>
+</html>
+

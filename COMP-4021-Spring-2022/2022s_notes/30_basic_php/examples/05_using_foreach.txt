@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Using Foreach Loop</title>
+</head>
+<body>
+    <?php
+    $meals = ["breakfast" => "Pancakes",
+              "lunch" => "Hotdog",
+              "dinner" => "Curry"];
+
+    foreach ($meals as $meal => $food) {
+        echo "<strong>{$meal}</strong>:
+              {$food}<br>";
+    }
+    ?>
+</body>
+</html>

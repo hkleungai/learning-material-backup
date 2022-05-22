@@ -1,0 +1,125 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Simplex</title>
+</head>
+
+<body>
+
+<p>COMP572 -- Fall 2004</p>
+<h2><u><font color="#0000FF">SIMPLEX </font></u><font color="#0000FF"><u>Project Specifications</u></font></h2>
+<h2><font size="3" color="#FF0000">A: (1 person) implement the simplex algorithm</font></h2>
+<p>You should implement the standard simplex algorithm as taught in class. The 
+input is read from standard input or a file (your documentation should indicate 
+which) </p>
+<p>The first line contains two integers m, n where m is the number equations in 
+the LP and n is the number of variables in the LP. The next m lines of the input 
+will be the description of an LP in general form. The i-th line contains a<sub>i1</sub>, 
+a<sub>i2</sub>, …, a<sub>in</sub>, s<sub>i</sub>, b<sub>i</sub> where a<sub>i1</sub> to a<sub>in</sub> and b<sub>i</sub> are numbers and s<sub>i</sub> is one of “==”, 
+“&lt;=” or “&gt;=”. This line means a<sub>i1</sub>x<sub>1</sub> + a<sub>i2</sub>x<sub>2</sub> +…+ a<sub>in</sub>x<sub>n</sub> = b<sub>i</sub> if s<sub>i</sub> is “==”.The 
+last line contains the cost function s, c<sub>1</sub>, c<sub>2</sub>, …, c<sub>n</sub> where s is either 
+“maximize” or “minimize” and c<sub>1</sub> to c<sub>n</sub> is numbers. You can assume m, n are at 
+most 30. Your code does not have to worry about underflow/overflow.<br>
+&nbsp;</p>
+<p>Note that you will NOT be given an original BFS and therefore need to 
+implement the two-phase method.<br>
+Output:<p><u><font color="#008000">If there is a bounded feasible solution:</font></u><p>
+i)
+Print out the minimum/maximum value of the cost function of the LP with 3 
+decimal digits in the first line.<br>
+<br>
+ii)
+Print out the solution x1 to xn with 3 decimal digits in next line.<br>
+<br>
+Note that the solution may not be unique. You just need to output one of them.<br>
+<br>
+Follow the format as sample output. Don’t print any other text character. Always 
+use space to separate two values.<br>
+&nbsp;<p>Sample input: (Linear Programming - Simplex part 3, page 6)
+<pre style='font:10pt"Courier New"'>3 5
+3.0 2.0 1.0 0.0 0.0 == 1.0
+5.0 1.0 1.0 1.0 0.0 == 3.0
+2.0 5.0 1.0 0.0 1.0 == 4.0
+minimize 1.0 1.0 1.0 1.0 1.0
+</pre>
+<p>
+<br>
+Sample output: </p>
+<pre style='font:10pt"Courier New"'>4.500
+0.000 0.500 0.000 2.500 1.500</pre>
+
+<p><u><font color="#008000">If there are feasible solutions but objective is 
+unbounded</font></u><p>i) Print out the word &quot;unbounded&quot; on the first line<p>ii) 
+Print out &quot;any&quot; feasible solution on next line (using same format as above)<p>Sample output:
+</p>
+<pre style='font:10pt"Courier New"'>UNBOUNDED
+0.000 0.500 0.000 2.500 1.500</pre>
+
+<p>&nbsp;<p><u><font color="#008000">If there is no feasible solution </font>
+</u>
+<p>Print out the single word &quot;infeasible&quot; and stop<p>
+<br>
+
+Sample output:
+<p><font face="Courier New" size="2">INFEASIBLE</font><br>
+<p>&nbsp;</p>
+</p><hr>
+<p><b><font color="#FF0000">B: (2 person) implement part (A) and a GUI for simplex, showing tableaus</font></b></p>
+<p>Your program should also include a GUI that includes</p>
+<ul>
+	<li>A screen based method for inputting the constraints and objective 
+	functions&nbsp; that</li>
+	<li>then transforms the problem into a two-phase tableau for phase 1.</li>
+	<li>A method for walking through the tableaus step-by-step, always 
+	indicating pivots.</li>
+	<li>When phase 1 ends you should either indicate infeasibility or create a 
+	tableau using only the original variables that starts at a BFS and then 
+	walks through the tableau step by step, always indicating pivots.</li>
+</ul>
+<p>Note that during&nbsp; phase 1 you might encounter redundant constraints and 
+have to throw them away.&nbsp; This would require changing the tableau.</p>
+<p>Note too, that, even with the GUI, your program should also permit inputting 
+text data via standard input or from a file following the specifications from 
+part (A).</p>
+<p>For the GUI part, you may assume that m, n &lt;=20.</p><hr>
+<p><b><font color="#FF0000">C: (3 person) implement part (B) and, for n-m=2, draws 2D polygon and 
+    shows correspondence of tableaus and polygon</font></b></p>
+<p>Implement everything in part B. In addition, for n-m-2, once the second phase 
+starts, it draws the 2D polygon associated with the problem and then, for every 
+pivot, indicates the correspondence between the pivot and movement on the 
+polygon.&nbsp; Your GUI should permit the user to decide which two variables 
+should be used to define the drawing plane.</p><hr>
+<p><b><font color="#FF0000">D: (3 person) implements part (B) and another GUI that allows entering a 
+    max-flow problem and then uses simplex to solve max flow.</font></b></p>
+<p>Implement everything in part B. In addition, implement another GUI (could be 
+linked to the first one) that allows</p>
+<ul>
+	<li>A graphical method for inputting/editing a flow network,&nbsp; e.g., 
+	vertices, edges, capacities, denoting the source and sink</li>
+	<li>Showing the LP that corresponds to the flow network</li>
+	<li>Solving the LP to derive max-flow (it is not necessary to walk through 
+	the tableau steps graphically for this one)</li>
+	<li>graphically illustrates the derived max-flow and associated min-cut on 
+	the flow network.</li>
+</ul>
+<p>For your GUI you may assume that there are at most n=20 vertices in the 
+graph.</p>
+<hr>
+
+<p><i><font size="2">This page was released on November 19, 2004 and last 
+revised on
+<!--webbot bot="Timestamp" S-Type="EDITED" S-Format="%m/%d/%Y %H:%M %Z" startspan -->11/19/2004 10:37 +0800<!--webbot bot="Timestamp" endspan i-checksum="29149" --></font></i></p>
+
+
+<p><a href="index.htm">Return to main project page</a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>
