@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic AJAX</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h3>HK Gov Covid Vaccination Data</h3>
+    <pre id="result"></pre>
+    <script>
+    $(document).ready(function() {
+        fetch("https://static.data.gov.hk/covid-vaccine/summary.json")
+            .then((response) => response.json())
+            .then((data) => {
+                // Format the JSON data and show it in the <pre>
+                $("#result").text(JSON.stringify(data, null, "  "));
+            })
+            .catch((error) => {
+                // Show the error
+                $("#result").text(error);
+            });
+    });
+    </script>
+</body>
+</html>

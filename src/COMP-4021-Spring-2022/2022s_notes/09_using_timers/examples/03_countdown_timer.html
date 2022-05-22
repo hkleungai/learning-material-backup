@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>A Countdown Timer</title>
+</head>
+<body>
+    <h1 id="time">5</h1>
+    <script>
+    let timeRemaining = 5;
+
+    function countDown() {
+        timeRemaining = timeRemaining - 1;
+        document.getElementById("time").innerHTML = timeRemaining;
+        if (timeRemaining > 0)
+            setTimeout(countDown, 1000);
+    }
+
+    setTimeout(countDown, 1000);
+    </script>
+</body>
+</html>

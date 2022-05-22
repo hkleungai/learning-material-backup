@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>COMP4021 Lab 3 - Jumping Game</title>
+    <link rel="stylesheet" href="../../css/lab.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/xcode.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <link href='https://fonts.googleapis.com/css?family=Arizonia' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <h1>
+        <a href="https://course.cse.ust.hk/comp4021">
+            COMP4021 Internet Computing
+        </a>
+        &gt; Lab 3 - Jumping Game
+    </h1>
+
+    <h2>Overview</h2>
+
+    <ul>
+        <li>In this lab, you will build a 'jumping game'
+            <figure><img src="images/jumping_game.png" alt="The Jumping Game"></figure>
+        </li>
+        <li>The game works like this:
+        <ol>
+            <li>The player appears to walk along a path</li>
+            <li>Things in the sky or on the grass moves backwards</li>
+            <li>The player needs to jump over obstacles such as holes under the ground or flowers on the ground</li>
+            <li>If the player falls into the hole or hits the flower, the game will be over</li>
+        </ol>
+        </li>
+        <li>Here is an video example of the complete game:
+            <figure>
+            <video width="600" controls>
+                <source src="videos/example_game.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            </figure>
+        </li>
+        <li>You will use a lot of CSS animations to do all animations in the game</li>
+    </ul>
+
+    <h2>Lab Instructions</h2>
+
+    <ul class="toc">
+        <li><a href="#section1">1. The Jumping Game</a></li>
+        <li><a href="#section2">2. Creating the SVG Elements</a></li>
+        <li><a href="#section2.1">2.1. Writing Your Own SVG Code</a></li>
+        <li><a href="#section2.2">2.2. Using SVG Edit</a></li>
+        <li><a href="#section2.3">2.3. Searching for SVG Pictures on the Web</a></li>
+        <li><a href="#section2.4">2.4. The Elements in the Game</a></li>
+        <li><a href="#section3">3. Making the Animations</a></li>
+        <li><a href="#section3.1">3.1. Animation for the Clouds</a></li>
+        <li><a href="#section3.2">3.2. Animation for the Obstacle</a></li>
+        <li><a href="#section3.3">3.3. Animation for the Player</a></li>
+        <li><a href="#section4">4. Controlling the Animations Using JavaScript</a></li>
+        <li><a href="#section4.1">4.1. Starting to Move the Obstacle</a></li>
+        <li><a href="#section4.2">4.2 Making the Player Jump</a></li>
+        <li><a href="#section4.3">4.3 Checking for the Game Over Situation</a></li>
+    </ul>
+
+    <h3 id="section1">1. The Jumping Game</h3>
+
+    <ul>
+        <li>You are given a starting HTML file
+            <a href="jumping_game.html">here</a></li>
+        <li>If you put the HTML file in a browser, it will look like this:
+            <figure><img src="images/starting_display.png" alt="Starting Display" style="border: 2px solid lightgray"></figure>
+        </li>
+        <li>Here is what you get in the body of the starting HTML:</li>
+    </ul>
+
+    <pre><code class="html">&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400"&gt;
+    &lt;!-- The game over text --&gt;
+    &lt;g id="gameover-container"&gt;
+        &lt;text id="gameover" x="0" y="0" fill="red"
+              font-size="80px" text-anchor="middle"&gt;Game Over&lt;/text&gt;
+    &lt;/g&gt;
+&lt;/svg&gt;</code></pre>
+
+    <ul>
+        <li>It contains a simple SVG area, with the text 'Game Over' in the middle of the screen</li>
+        <li>The coordinate system of the SVG area has been set up using the <code>viewBox</code> attribute
+            so that the top left corner is (0, 0) and the bottom right corner is (1000, 400)
+            <figure><img src="images/coordinate_system.png" alt="Coordinate system" style="border: 2px solid lightgray"></figure>
+        </li>
+        <li>Even if you change the size of the browser, the coordinate system will remain the same within the SVG area, i.e. the coordinate system is not related to the actual size of the SVG area in the browser</li>
+        <li>To make the game, you need to:
+        <ul>
+            <li>Create the necessary SVG elements into the game, which include:
+            <ul>
+                <li>the sky</li>
+                <li>the ground</li>
+                <li>some clouds</li>
+                <li>the player</li>
+                <li>a hole/flower on the ground</li>
+            </ul>
+            </li>
+            <li>Make appropriate CSS animations for the SVG elements</li>
+            <li>Control the animations using JavaScript</li>
+        </ul>
+        </li>
+        <li>Similar to before, this game uses a Google font that you can see from the link:</li>
+    </ul>
+
+    <pre><code class="html">&lt;link href="https://fonts.googleapis.com/css2?family=Dosis:wght@700" rel="stylesheet"&gt;</code></pre>
+    
+    <ul>
+        <li>You can certainly change the font if you like from <a href="https://fonts.google.com/" target="blank">Google fonts</a></li>
+        <li>In this lab, you don't need to write JavaScript code to create the animations</li>
+        <li>Most of them are handled by the CSS animation instructions for the SVG elements</li>
+    </ul>
+
+    <h3 id="section2">2. Creating the SVG Elements</h3>
+
+    <ul>
+        
+        <li>Here are some examples of the SVG elements that you need in the game:
+        <ul>
+            <li>the sky:
+                <figure>
+                    <img src="images/sky.png" alt="An example sky">
+                </figure>
+            </li>
+            <li>the ground:
+                <figure>
+                    <img src="images/ground.png" alt="An example ground">
+                </figure>
+            </li>
+            <li>the cloud:
+                <figure>
+                    <img src="images/cloud.png" alt="An example cloud">
+                </figure>
+            </li>
+            <li>the player:
+                <figure>
+                    <img src="images/player.png" alt="An example player">
+                </figure>
+            </li>
+            <li>the obstacle (a hole):
+                <figure>
+                    <img src="images/hole.png" alt="An example obstacle">
+                </figure>
+            </li>
+        </ul>
+        </li>
+        <li>However, please do not copy the above and please use your own images in your work!</li>
+        <li>You can freely choose one of the following ways to create them:
+        <ul>
+            <li>Writing your own SVG code</li>
+            <li>Using
+                <a href="https://github.com/SVG-Edit/svgedit" target="blank">SVG edit</a>
+                to draw the SVG pictures and copy the SVG code into the game</li>
+            <li>Searching on the Web for useful SVG pictures and copy the code into the game</li>
+            <li>Using some free bitmap-to-vector conversion tools such as <a target="blank" href="https://www.autotracer.org/">https://www.autotracer.org/</a></li>
+        </ul>
+        </li>
+    </ul>
+
+    <h4 id="section2.1">2.1. Writing Your Own SVG Code</h4>
+
+    <ul>
+        <li>You may think it is not easy to write your own SVG code</li>
+        <li>However, sometimes this is the best way to create simply SVG elements in your game</li>
+        <li>For example, the sky and the ground of the game can both be a simple rectangle</li>
+        <li>To do that, you can write your own rectangle using some code similar to this:</li>
+    </ul>
+
+    <pre><code class="html">&lt;rect height="400" width="1000" y="0" x="0" stroke="none" fill="skyblue"/&gt;</code></pre>
+
+    <ul>
+        <li>The above rectangle will create a blue area in the background of the game:
+            <figure>
+                <svg xmlns="http://www.w3.org/2000/svg" width="500" height="200" viewBox="0 0 1000 400">
+                    <rect height="400" width="1000" y="0" x="0" stroke="none" fill="skyblue"/>
+                </svg>
+            </figure>
+        </li>
+        <li>You can then make some adjustments to the colour of the rectangle
+        <ul>
+            <li>For example, you can add a gradient to make the sky look more vibrant</li>
+            <li>An example is shown below:
+            <figure>
+                <svg xmlns="http://www.w3.org/2000/svg" width="500" height="200" viewBox="0 0 1000 400">
+                    <defs>
+                        <linearGradient y2="1" x2="0" id="sky">
+                            <stop offset="0" stop-color="darkblue"/>
+                            <stop offset="1" stop-color="skyblue"/>
+                        </linearGradient>
+                    </defs>
+                    <rect height="400" width="1000" y="0" x="0" stroke="none" fill="url(#sky)"/>
+                </svg>
+            </figure>
+            </li>
+            <li>You can inspect the source of the above blue area to see how the SVG code is written</li>
+        </ul>
+        </li>
+    </ul>
+
+    <h4 id="section2.2">2.2. Using SVG Edit</h4>
+
+    <ul>
+        <li>If you are not too sure about writing your own SVG code, you can make use of
+            <a href="https://github.com/SVG-Edit/svgedit" target="blank">SVG edit</a>
+            to help you do that</li>
+        <li>You can draw different sorts of things inside SVG edit by experimenting with the tools</li>
+        <li>To make the drawing area inside SVG edit compatible with the one in the game, you can change the size of the document to 1000x400 in the document properties as shown below:
+            <figure>
+                <img src="images/doc_properties.png" alt="SVG edit document properties">
+                <figcaption>Opening the document properties window...</figcaption>
+            </figure>
+            <figure>
+                <img src="images/doc_size.png" alt="SVG edit document size">
+                <figcaption>Changing the size to 1000x400</figcaption>
+            </figure>
+        </li>
+        <li>Once you have finished the picture, the important thing is to copy the relevant SVG code to your game</li>
+        <li>You need to be careful when you copy and paste your code</li>
+        <li>Sometimes you may need to copy the things inside the <code>&lt;defs&gt;</code> area</li>
+        <li>If you are adventurous enough, you can also try to draw things using Adobe Illustrator</li>
+        <li>You can access the software from the ITSC virtual barn</li>
+        <li>Once you draw a picture inside Adobe Illustrator, you can save the picture as an SVG file</li>
+        <li>You can then again copy the relevant SVG code from the file to your game area</li>
+    </ul>
+
+    <h4 id="section2.3">2.3. Searching for SVG Pictures on the Web</h4>
+
+    <ul>
+        <li>If you want to include some fantastic pictures in your game, it may take you a long time to draw/make one</li>
+        <li>Then the simplest way is to 'borrow' one from the Web</li>
+        <li>You can search for SVG pictures easily using Google search</li>
+        <li>You can either:
+        <ul>
+            <li>Change the advanced settings in Google Image search to include only SVG results</li>
+            <li>Alternatively, search for SVG files using the <code>filetype:svg</code> directive</li>
+        </ul>
+        </li>
+        <li>For example, here are the results of searching for 'Hello Kitty' in Google:
+            <figure><img src="images/google_search_results.png" alt="Google search results"></figure>
+        </li>
+        <li>Once you have chosen a desired SVG picture from the result</li>
+        <li>You can again copy the appropriate SVG code into your game</li>
+        <li>However, most of the time the pictures on the Web may not have the size that you want</li>
+        <li>In this case, you can use SVG edit to help you:
+        <ol>
+            <li>Copy and paste the relevant SVG code into SVG edit</li>
+            <li>Group any SVG elements together (select all elements, right click and then select group)</li>
+            <li>Reduce the size of the entire group</li>
+            <li>Copy the modified SVG code and put it in your game</li>
+        </ol>
+        </li>
+    </ul>
+
+    <h4 id="section2.4">2.4. The Elements in the Game</h4>
+
+    <ul>
+        <li>For each object in the game, it may consist of many SVG elements</li>
+        <li>It may be a bit hard to handle the SVG elements if they scatter all over the place</li>
+        <li>Therefore, you should group the SVG elements of an object together and give the group an element so that you can work with the group later</li>
+        <li>For example, if you have copied some SVG code as the player picture, you should make a group for the copied code, like this:</li>
+    </ul>
+
+    <pre><code class="html">&lt;g id="player"&gt;
+    ...SVG elements for the player...
+&lt;/g&gt;</code></pre>
+
+    <ul>
+        <li>In your game, you should at least have these objects ready:</li>
+    </ul>
+
+    <pre><code class="html">&lt;g id="cloud"&gt;
+    ...SVG elements for a cloud...
+&lt;/g&gt;
+
+&lt;g id="obstacle"&gt;
+    ...SVG elements for a hole/flower...
+&lt;/g&gt;
+
+&lt;g id="player"&gt;
+    ...SVG elements for the player...
+&lt;/g&gt;</code></pre>
+
+    <ul>
+        <li>They should be put right before the given 'Game Over' text in the SVG code</li>
+        <li>Notice that the above groups do not include the sky and the ground</li>
+        <li>This is because you do not really need to create animation or write code for them so that they do not require any id or group</li>
+    </ul>
+    
+    <h3 id="section3">3. Making the Animations</h3>
+
+    <ul>
+        <li>At this stage, you should have the SVG objects ready</li>
+        <li>In this part, you will make CSS animations for the three things in the game:
+        <ul>
+            <li>The cloud</li>
+            <li>The obstacle</li>
+            <li>The player</li>
+        </ul>
+        </li>
+        <li>If you want to, you can hide the game over text, by setting the <code>display</code> property to <code>none</code>, before working with the animations</li>
+    </ul>
+
+    <h4 id="section3.1">3.1. Animation for the Cloud</h4>
+
+    <ul>
+        <li>Assume that you have your cloud ready inside an SVG group, i.e.</li>
+    </ul>
+
+    <pre><code class="html">&lt;g id="cloud"&gt;
+    ...SVG elements for a cloud...
+&lt;/g&gt;</code></pre>
+
+    <ul>
+        <li>You will make an animation for the cloud to move slowly from right to left</li>
+        <li>To do that, you first need to create the <code>@keyframes</code> rule for the cloud animation</li>
+    </ul>
+
+    <h5>The Keyframes Rule</h5>
+
+    <ul>
+        <li>The <code>@keyframes</code> rule in CSS defines the change of CSS properties for a particular animation</li>
+        <li>The simplest way of writing the <code>@keyframes</code> rule is like this:</li>
+    </ul>
+
+    <pre><code class="css">@keyframes ...name... {
+    from { /* ...CSS properties here... */ }
+    to   { /* ...CSS properties here... */ }
+}</code></pre>
+
+    <ul>
+        <li>Since you want to change the x position of the cloud to move from right to left,
+            you can make use of the <code>transform</code> property to do that</li>
+        <li>For example, you can move the cloud to the right side of the SVG area by translating it using a big number,
+            e.g. <code>transform: translateX(1000px)</code></li>
+        <li>It is likely that the above <code>transform</code> property will move the cloud out of the visible area of the SVG</li>
+        <li>Exactly how much you need to move also depends on the initial position of your object</li>
+        <li>For example, if you put the cloud (the white shape) initially next to the left edge of the SVG area, i.e.:
+            <figure><img src="images/cloud_pos.png" alt="Initial cloud position"></figure>
+            using <code>transform: translateX(1000px)</code> will exactly put the cloud just outside the right edge of the SVG area</li>
+        <li>So using a big value of <code>translateX</code> moves the cloud to the right and,
+            similarly, using a small value of <code>translateX</code> moves the cloud to the left</li>
+        <li>The <code>@keyframes</code> rule can be set up like this:</li>
+    </ul>
+            
+    <pre><code class="css">@keyframes cloud-animation {
+    from { transform: translateX(1000) }
+    to   { transform: translateX(-120) }
+}</code></pre>
+
+    <ul>
+        <li>A negative value is used for the target <code>translateX</code>
+            because you would want to move the cloud out of the left edge of the SVG area</li>
+        <li>The values that you need to use, again, depend on the initial position of your cloud and the size of the cloud
+            so you will need to experiment a bit</li>
+    </ul>
+
+    <h5>The Animation Property</h5>
+
+    <ul>
+        <li>After setting up the <code>@keyframes</code> rule, you can then apply the rule to the cloud group</li>
+        <li>In the notes, we always set the <code>animation</code> property with the name and duration together</li>
+        <li>An alternative way is to use the <code>animation-name</code> and <code>animation-duration</code> properties separately</li>
+        <li>That means you can apply the animation using the following CSS properties for the group:
+        <ul>
+            <li><code>animation-name</code>
+            <ul>
+                <li>This is the <code>@keyframes</code> rule that you want to use for the group</li>
+                <li>It will be the name of the <code>@keyframes</code> rule you have created above</li>
+            </ul>
+            </li>
+            <li><code>animation-duration</code>
+            <ul>
+                <li>This is the duration the animation will last for in one iteration</li>
+                <li>You can try different values here, e.g. <code>10s</code></li>
+            </ul>
+            </li>
+            <li><code>animation-timing-function</code>
+            <ul>
+                <li>This is the timing you want to use for the animation</li>
+                <li>For the cloud animation, it is likely that you want it to move linearly, i.e. <code>linear</code></li>
+            </ul>
+            </li>
+            <li><code>animation-iteration-count</code>
+            <ul>
+                <li>This is the number of times you want to run the animation</li>
+                <li>Normally, you set it to an integer so that the animation is used a certain number of times</li>
+                <li>In our game, the cloud moves continuously so this can be set to <code>infinite</code></li>
+                <li>That means the animation will get repeated forever!</li>
+            </ul>
+            </li>
+        </ul>
+        </li>
+        <li>If you consider the <code>@keyframes</code> rule and the animation property,
+            it is likely you will have something similar to this in your style area:</li>
+    </ul>
+            
+    <pre><code class="css">@keyframes cloud-animation {
+  from { transform: translateX(1000px); }
+  to   { transform: translateX(-120px); }
+}
+
+#cloud {
+    animation-name: cloud-animation;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 10s;
+}</code></pre>
+
+    <ul>
+        <li>You will then have a cloud moving like this:
+            <figure>
+                <svg xmlns="http://www.w3.org/2000/svg" width="500" height="200" viewBox="0 0 1000 400">
+                    <defs>
+                        <linearGradient y2="1" x2="0" id="sky">
+                            <stop offset="0" stop-color="darkblue"/>
+                            <stop offset="1" stop-color="skyblue"/>
+                        </linearGradient>
+                        <style>
+                        @keyframes cloud-animation {
+                            from { transform: translateX(1000px); }
+                            to   { transform: translateX(-120px); }
+                        }
+
+                        #cloud {
+                            animation-name: cloud-animation;
+                            animation-timing-function: linear;
+                            animation-iteration-count: infinite;
+                            animation-duration: 10s;
+                        }
+                        </style>
+                    </defs>
+                    <rect height="400" width="1000" y="0" x="0" stroke="none" fill="url(#sky)"/>
+
+                    <g id="cloud">
+                        <circle cx="20" cy="120" r="20" fill="#ffffff"/>
+                        <rect x="20" y="100" width="80" height="40" fill="#ffffff"/>
+                        <circle cx="100" cy="120" r="20" fill="#ffffff"/>
+                    </g>
+                </svg>
+            </figure>
+        </li>
+        <li>After making one cloud, you can make more clouds in the game</li>
+        <li>You can consider making a <code>cloud</code> class to apply the animation to all your clouds</li>
+        <li>A trick to start your animation differently for each cloud is to use the <code>animation-delay</code> property, e.g. using the <code>style</code> attribute on each cloud</li>
+        <li>Here is an example of the cloud having a delay of <code>-5s</code> so that the animation has <i>already</i> begun when you load the page up:
+            <figure>
+                <svg xmlns="http://www.w3.org/2000/svg" width="500" height="200" viewBox="0 0 1000 400">
+                    <defs>
+                        <linearGradient y2="1" x2="0" id="sky">
+                            <stop offset="0" stop-color="darkblue"/>
+                            <stop offset="1" stop-color="skyblue"/>
+                        </linearGradient>
+                        <style>
+                        @keyframes cloud-animation {
+                            from { transform: translateX(1000px); }
+                            to   { transform: translateX(-120px); }
+                        }
+
+                        #cloud2 {
+                            animation-name: cloud-animation;
+                            animation-timing-function: linear;
+                            animation-iteration-count: infinite;
+                            animation-duration: 10s;
+                            animation-delay: -5s;
+                        }
+                        </style>
+                    </defs>
+                    <rect height="400" width="1000" y="0" x="0" stroke="none" fill="url(#sky)"/>
+
+                    <g id="cloud2">
+                        <circle cx="20" cy="120" r="20" fill="#ffffff"/>
+                        <rect x="20" y="100" width="80" height="40" fill="#ffffff"/>
+                        <circle cx="100" cy="120" r="20" fill="#ffffff"/>
+                    </g>
+                </svg>
+            </figure>
+        </li>
+    </ul>
+
+    <h4 id="section3.2">3.2. Animation for the Obstacle</h4>
+
+    <ul>
+        <li>The next animation you will make is for the obstacle</li>
+        <li>Again the animation of the obstacle is to move from right to left of the SVG area, i.e.:
+            <figure>
+                <img src="images/obstacle1.png" alt="Obstacle animation start">
+                <figcaption>At the start of the animation...</figcaption>
+            </figure>
+            <figure>
+                <img src="images/obstacle2.png" alt="Obstacle animation middle">
+                <figcaption>In the middle of the animation...</figcaption>
+            </figure>
+            <figure>
+                <img src="images/obstacle3.png" alt="Obstacle animation finish">
+                <figcaption>Near the end of the animation...</figcaption>
+            </figure>
+        </li>
+        <li>As you can see, the animation for the obstacle is not much different to the one you have already done for the cloud</li>
+        <li>Therefore, you can do what you have done for the cloud to the obstacle, i.e.
+            using similar <code>@keyframes</code> rule and <code>animation</code> property values</li>
+        <li>However, you only need to do this animation <strong>once</strong></li>
+        <li>That means you <strong>do not</strong> need to set the iteration count to <code>infinite</code></li>
+    </ul>
+
+    <h5>Controlling the Animation</h5>
+
+    <ul>
+        <li>Since we want to programmatically control the obstacle animation,
+            you do not want to use the animation when the page loads</li>
+        <li>There are two things that you need to do to stop the obstacle from showing up at the start of the game:
+        <ol>
+            <li>Setting the <code>animation-name</code> property to <code>none</code> so that the animation does not start</li>
+            <li>Setting the <code>display</code> property to <code>none</code> so that the obstacle is not shown</li>
+        </ol>
+        </li>
+        <li>Your obstacle CSS rule will then look like this:</li>
+    </ul>
+
+    <pre><code class="css">#obstacle {
+    animation-name: none;
+
+    /* ...other animation settings... */
+
+    display: none;
+}</code></pre>
+
+    <ul>
+        <li>Later on, you can show and start the animation by adjusting the above two properties appropriately</li>
+        <li>Since they are CSS properties, you can change them using JavaScript to start the animation easily</li>
+    </ul>
+
+    <h4 id="section3.3">3.3. Animation for the Player</h4>
+
+    <ul>
+        <li>Finally, you will make the animation for the player</li>
+        <li>The animation is used to mimic the jumping action of the player:
+            <figure>
+                <img src="images/player_down.png" alt="At the start">
+                <figcaption>Before jumping</figcaption>
+            </figure>
+            <figure>
+                <img src="images/player_up.png" alt="Jump up">
+                <figcaption>Jumping up above the ground</figcaption>
+            </figure>
+            <figure>
+                <img src="images/player_down.png" alt="Back to the ground">
+                <figcaption>Back to the ground</figcaption>
+            </figure>
+        </li>
+        <li>It should really be jumping up and down only and that means
+            you can adjust the <code>translateY</code> value of the <code>transform</code> property
+        <ul>
+            <li>Notice that the coordinate system is upside-down in the y direction so you will decrease the y position for an upward movement</li>
+        </ul>
+        </li>
+        <li>That implies there are at least three key moments in the animation</li>
+        <li>You cannot specific three things using <code>from</code> and <code>to</code> in the <code>@keyframes</code> rule</li>
+        <li>You will need to use percentage in the rule in this case, for example, like this:</li>
+    </ul>
+
+    <pre><code class="css">@keyframes player-animation {
+  0%   { ... }
+  50%  { ... }
+  100% { ... }
+}</code></pre>
+
+    <ul>
+        <li>The rest of the animation setup will be similar to what you have done before</li>
+        <li>Here is an example of the jumping animation:
+            <figure>
+                <svg xmlns="http://www.w3.org/2000/svg" width="500" height="200" viewBox="0 0 1000 400">
+                    <defs>
+                        <linearGradient y2="1" x2="0" id="sky">
+                            <stop offset="0" stop-color="darkblue"/>
+                            <stop offset="1" stop-color="skyblue"/>
+                        </linearGradient>
+                        <style>
+                        @keyframes player-animation {
+                            0%   { transform: translateY(0px); }
+                            50%  { transform: translateY(-80px); }
+                            100% { transform: translateY(0px); }
+                        }
+
+                        #player {
+                            animation-name: player-animation;
+                            animation-iteration-count: infinite;
+                            animation-duration: 1s;
+                        }
+                        </style>
+                    </defs>
+                    <rect height="400" width="1000" y="0" x="0" stroke="none" fill="url(#sky)"/>
+
+                    <g id="player">
+                        <circle cx="200" cy="200" r="20" stroke="black" fill="yellow"/>
+                    </g>
+                </svg>
+            </figure>
+        </li>
+        <li>And like the obstacle, you do not start the animation right at the start of the game, i.e. setting the <code>animation-name</code> property to <code>none</code></li>
+    </ul>
+
+    <h3 id="section4">4. Controlling the Animations Using JavaScript</h3>
+
+    <ul>
+        <li>You have already finished the majority of the game</li>
+        <li>The remaining part of the lab is to control those animations</li>
+        <li>As you have learned already, you can easily start those animations using the <code>animation-name</code> property</li>
+        <li>You will use the property to control the animations in the following cases:
+        <ol>
+            <li>Starting to move the obstacle at a random start time</li>
+            <li>Making the player jump when the spacebar key is pressed</li>
+            <li>Stopping all animations when the game is over</li>
+        </ol>
+        </li>
+    </ul>
+
+    <h4 id="section4.1">4.1. Starting to Move the Obstacle</h4>
+
+    <ul>
+        <li>The obstacle (and its animation) is not shown at the start of the game</li>
+        <li>We want the game has a little bit of randomness so that the obstacle will come out at a random time</li>
+        <li>The randomness has been created for you at the start of the game by this code:</li>
+    </ul>
+
+    <pre><code class="javascript">// Start the obstacle animation
+setTimeout(makeObstacle, Math.random() * 2000);</code></pre>
+
+    <ul>
+        <li>As you can see, the obstacle is created after a random time, which is within 2 seconds</li>
+        <li>However, the function <code>makeObstacle()</code> is not yet completed</li>
+        <li>You will need to show the obstacle and start its animation inside this function</li>
+    </ul>
+
+    <pre><code class="javascript">function makeObstacle() {
+
+    // You need to show the obstacle and start the animation here
+
+}</code></pre>
+    <br>
+
+    <h5>Showing the Obstacle and Starting the Animation</h5>
+
+    <ul>
+        <li>As the obstacle is hidden at the start, you need to show it up</li>
+        <li>You can easily do that by changing its <code>display</code> property from <code>none</code> to <code>inline</code> using JavaScript DOM functions</li>
+        <li>Alternatively, you can use the jQuery function <code>.show()</code> to do the work for you</li>
+        <li>Then, you can start the animation of the obstacle by changing its <code>animation-name</code>
+            property to the name of the <code>@keyframes</code> rule that you have created before</li>
+    </ul>
+
+    <h5>Hiding the Obstacle and Stopping the Animation</h5>
+
+    <ul>
+        <li>When the animation finished, i.e. the obstacle has moved from right to left completely, you will need to reverse what you have done above</li>
+        <li>That means you need to hide the obstacle and stop the animation</li>
+        <li>In order to run the code when the animation finished, you will do that inside the <code>animationend</code> event,
+            which has been set up for you in the code already</li>
+    </ul>
+
+    <pre><code class="javascript">// The obstacle animation has finished
+$("#obstacle").on("animationend", function() {
+
+    // You need to hide the obstacle and stop the animation here
+
+    // You will make another obstacle later
+
+});</code></pre>
+
+    <ul>
+        <li>You can hide the obstacle using the <code>display</code> property again, or using the jQuery <code>.hide()</code> function</li>
+        <li>To stop the animation, you simply set the <code>animation-name</code> to <code>none</code>
+        <ul>
+            <li>Although the animation has ended (that is why we are in the <code>animationend</code> event), it is still being 'used' by the obstacle</li>
+            <li>You need to stop it using the animation here; otherwise, you will not be able to restart it later</li>
+        </ul>
+        </li>
+    </ul>
+
+    <h5>Making a New Obstacle</h5>
+
+    <ul>
+        <li>If you complete the above code, no more obstacle will show up in the game after the first one</li>
+        <li>This is because the code has only made the obstacle once</li>
+        <li>To continually make obstacles in the game, you can use the <code>makeObstacle()</code> function again</li>
+        <li>You should do this inside the <code>animationend</code> event so that a new obstacle is created when the current one has finished</li>
+        <li>Also, you should make a new obstacle at a random time later, i.e. using <code>setTimeout()</code> like the code given to you</li>
+        <li>If you want to, you can make the game harder by reducing the animation duration</li>
+    </ul>
+
+    <h4 id="section4.2">4.2. Making the Player Jump</h4>
+
+    <ul>
+        <li>In the game, if the spacebar is pressed, you will make the player jump</li>
+        <li>If you look at the given code, the <code>keydown</code> event handler has been given so that it runs a <code>jump()</code> function
+            to make the player jump</li>
+        <li>You can start the jump animation for the player inside that function</li>
+        <li>Similar to what you have done for the obstacle, you also need to stop using the animation
+            when the animation has finished</li>
+        <li>This can be written in the given <code>animationend</code> event handler for the player</li>
+    </ul>
+
+    <h4 id="section4.3">4.3. Checking for the Game Over Situation</h4>
+
+    <ul>
+        <li>So far, we have not mentioned what you need to do for the game over text</li>
+        <li>Initially, you should hide the text when the game starts</li>
+        <li>The text should then be shown only when the game is over</li>
+        <li>In order to test the game over situation, you can do that simply by comparing the positions of the player and the obstacle</li>
+        <li>You will do that inside the given <code>checkGameover()</code> function</li>
+        <li>If you read the code, you will see that the function has been started using this line of code:</li>
+    </ul>
+
+    <pre><code class="javascript">// Start the game over checking
+setTimeout(checkGameover, 100);</code></pre>
+
+    <ul>
+        <li>The function is used continually 10 times a second by using another <code>setTimeout()</code> inside the function itself</li>
+        <li>So the way to check whether the game is over is as follows:
+        <ul>
+            <li>If the player and the obstacle are very close together, the game will be over</li>
+            <li>For example, the game is over when:
+            <ul>
+                <li>The player is near the ground AND</li>
+                <li>The obstacle is under the player</li>
+            </ul>
+            </li>
+        </ul>
+        </li>
+        <li>To be able to check the above condition, you need to be able to read the positions of both the player and the obstacle</li>
+        <li>The <code>transform</code> property is very useful here as it provides
+            the current values of the transform even when they are in the middle of an animation</li>
+    </ul>
+
+    <h5>Reading the Transform Property</h5>
+
+    <ul>
+        <li>Unfortunately, it is not easy to get the position from the <code>transform</code> property</li>
+        <li>It is because the value returned by the property is a matrix with 6 values, which looks like this:</li>
+    </ul>
+
+    <pre><code>matrix(1, 0, 0, 1, 0, 0)</code></pre>
+
+    <ul>
+        <li>You can ignore the first four numbers</li>
+        <li>The last two numbers indicate the translation (i.e. movement) of an element</li>
+        <li>For example:
+        <ul>
+            <li><code>matrix(1, 0, 0, 1, 0, 0)</code> means the element has not moved from its original position at all</li>
+            <li><code>matrix(1, 0, 0, 1, 200, 50)</code> means the element has moved 200 pixels to the left and 50 pixels downwards from its original position</li>
+        </ul>
+        <li>You will need to extract the two numbers from the property, probably using the <code>.split()</code> function of JavaScript string to do that</li>
+        <li>For example, the code <code>"matrix(1, 0, 0, 1, 200, 50)".split(", ")</code> gives you the array <code>['matrix(1', '0', '0', '1', '200', '50)']</code> as a result</li>
+    </ul>
+
+    <h5>Game Over</h5>
+
+    <ul>
+        <li>When the game is over, you can then stop all animations of the game, including the cloud(s), the obstacle and the player</li>
+        <li>Then show the game over text</li>
+        <li>Rather than the <code>animation-name</code> property, you can stop an animation using another property called <code>animation-play-state</code>
+        <ul>
+            <li>It has a value of either <code>running</code> or <code>paused</code></li>
+            <li>If you set the property to <code>paused</code> using JavaScript, you will be able to stop an animation immediately, as shown by this example:
+                <figure>
+                    <style>
+                    @keyframes dizzy-color {
+                        0% { background: red; }
+                        20% { background: orange; }
+                        40% { background: yellow; }
+                        60% { background: limegreen; }
+                        80% { background: cyan; }
+                        100% { background: magenta; }
+                    }
+                    #dizzy {
+                        animation: dizzy-color 2s infinite;
+                        display: inline-block;
+                        padding: 20px;
+                        font-size: 1.5em;
+                        font-weight: bold;
+                    }
+                    </style>
+                    <div id="dizzy">Feeling dizzy</div>
+                    <strong>animation-play-state</strong>: <span id="dizzy-state">running</span>
+                </figure>
+                <script>
+                function startDizzy() {
+                    document.getElementById("dizzy").style.animationPlayState = "running";
+                    document.getElementById("dizzy-state").innerHTML = "running";
+                }
+                function stopDizzy() {
+                    document.getElementById("dizzy").style.animationPlayState = "paused";
+                    document.getElementById("dizzy-state").innerHTML = "paused";
+                }
+                </script>
+                <button onclick="startDizzy()">Start!</button>
+                <button onclick="stopDizzy()">Stop!</button>
+            </li>
+        </ul>
+        </li>
+        <li>That means you will change the property for all animations of the game, by setting it to <code>paused</code></li>
+        <li>To show the game over text, you can use the jQuery <code>.show()</code> function</li>
+        <li>To make it more fun, you can create some fancy animation to show the game over text, e.g. using opacity or rotation</li>
+        <li>Finally, you do not need to run the <code>checkGameover()</code> function again when the game is over so you need to
+            carefully move the <code>setTimeout()</code> code in the appropriate place</li>
+    </ul>
+
+    <h2><a class="anchor" name="marking"></a>Marking and submission</h2>
+
+    <ul>
+        <li>This work will be marked</li>
+        <li>When you have completely finished your work:
+        <ol>
+            <li>Check <b><a href="marking_scheme.html">the marking scheme</a></b> for the lab</li>
+            <li><b>Double check</b> everything in your project works correctly, fix it if it doesn't!
+            <ul>
+                <li>Use <code>F12</code> then <i>Console</i> in Chrome to check no JavaScript errors are generated</li>
+                <li>We will only use <b>Chrome</b> to mark your work, because it is the most commonly used browser</li>
+            </ul>
+            </li>
+            <li>You need to submit <b>ONLY</b> jumping_game.html</li>
+            <li>Submit your file in 
+                <a href="https://canvas.ust.hk/courses/42327/assignments/201240" target="blank">canvas</a></li>
+        </ol>
+        </li>
+        <li>Please check the submission deadline on canvas</b>
+        <ul>
+            <li><b>Submit early!</b> - well before the deadline</li>
+            <li>You can submit as many times as you like <b>before</b> the deadline</li>
+            <li>We won't mark work submitted after the deadline unless there is some kind of exceptional situation
+            <ul>
+                <li>e.g. if the canvas system is down for a few hours</li>
+            </ul>
+            </li>
+        </ul>
+        </li>
+    </ul>
+
+</body>
+</html>

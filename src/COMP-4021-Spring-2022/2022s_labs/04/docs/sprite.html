@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>sprite.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>sprite.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-1">&#x00a7;</a>
+              </div>
+              <p>This function defines a Sprite module.</p>
+<ul>
+<li><code>ctx</code> - A canvas context for drawing</li>
+<li><code>x</code> - The initial x position of the sprite</li>
+<li><code>y</code> - The initial y position of the sprite</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> <span class="hljs-title class_">Sprite</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">ctx, x, y</span>) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-2">&#x00a7;</a>
+              </div>
+              <p>This is the image object for the sprite sheet.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> sheet = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Image</span>();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-3">&#x00a7;</a>
+              </div>
+              <p>This is an object containing the sprite sequence information used by the sprite containing:</p>
+<ul>
+<li><code>x</code> - The starting x position of the sprite sequence in the sprite sheet</li>
+<li><code>y</code> - The starting y position of the sprite sequence in the sprite sheet</li>
+<li><code>width</code> - The width of each sprite image</li>
+<li><code>height</code> - The height of each sprite image</li>
+<li><code>count</code> - The total number of sprite images in the sequence</li>
+<li><code>timing</code> - The timing for each sprite image</li>
+<li><code>loop</code> - <code>true</code> if the sprite sequence is looped</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">let</span> sequence = { <span class="hljs-attr">x</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">width</span>: <span class="hljs-number">20</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">20</span>, <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">timing</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">loop</span>: <span class="hljs-literal">false</span> };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-4">&#x00a7;</a>
+              </div>
+              <p>This is the index indicating the current sprite image used in the sprite sequence.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">let</span> index = <span class="hljs-number">0</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-5">&#x00a7;</a>
+              </div>
+              <p>This is the scaling factor for drawing the sprite.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">let</span> scale = <span class="hljs-number">1</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-6">&#x00a7;</a>
+              </div>
+              <p>This is the scaling factor to determine the size of the shadow, relative to the scaled sprite image size.</p>
+<ul>
+<li><code>x</code> - The x scaling factor</li>
+<li><code>y</code> - The y scaling factor</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">let</span> shadowScale = { <span class="hljs-attr">x</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">0.25</span> };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-7">&#x00a7;</a>
+              </div>
+              <p>This is the updated time of the current sprite image.
+It is used to determine the timing to switch to the next sprite image.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">let</span> lastUpdate = <span class="hljs-number">0</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-8">&#x00a7;</a>
+              </div>
+              <p>This function uses a new sprite sheet in the image object.</p>
+<ul>
+<li><code>spriteSheet</code> - The source of the sprite sheet (URL)</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> useSheet = <span class="hljs-keyword">function</span>(<span class="hljs-params">spriteSheet</span>) {
+        sheet.<span class="hljs-property">src</span> = spriteSheet;
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-9">&#x00a7;</a>
+              </div>
+              <p>This function returns the readiness of the sprite sheet image.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> isReady = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">return</span> sheet.<span class="hljs-property">complete</span> &amp;&amp; sheet.<span class="hljs-property">naturalHeight</span> != <span class="hljs-number">0</span>;
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-10">&#x00a7;</a>
+              </div>
+              <p>This function gets the current sprite position.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> getXY = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">return</span> {x, y};
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-11">&#x00a7;</a>
+              </div>
+              <p>This function sets the sprite position.</p>
+<ul>
+<li><code>xvalue</code> - The new x position</li>
+<li><code>yvalue</code> - The new y position</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> setXY = <span class="hljs-keyword">function</span>(<span class="hljs-params">xvalue, yvalue</span>) {
+        [x, y] = [xvalue, yvalue];
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-12">&#x00a7;</a>
+              </div>
+              <p>This function sets the sprite sequence.</p>
+<ul>
+<li><code>newSequence</code> - The new sprite sequence to be used by the sprite</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> setSequence = <span class="hljs-keyword">function</span>(<span class="hljs-params">newSequence</span>) {
+        sequence = newSequence;
+        index = <span class="hljs-number">0</span>;
+        lastUpdate = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-13">&#x00a7;</a>
+              </div>
+              <p>This function sets the scaling factor of the sprite.</p>
+<ul>
+<li><code>value</code> - The new scaling factor</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> setScale = <span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) {
+        scale = value;
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-14">&#x00a7;</a>
+              </div>
+              <p>This function sets the scaling factor of the sprite shadow.</p>
+<ul>
+<li><code>value</code> - The new scaling factor as an object<ul>
+<li><code>value.x</code> - The x scaling factor</li>
+<li><code>value.y</code> - The y scaling factor</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> setShadowScale = <span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) {
+        shadowScale = value;
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-15">&#x00a7;</a>
+              </div>
+              <p>This function gets the display size of the sprite.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> getDisplaySize = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-comment">/* Find the scaled width and height of the sprite */</span>
+        <span class="hljs-keyword">const</span> scaledWidth  = sequence.<span class="hljs-property">width</span> * scale;
+        <span class="hljs-keyword">const</span> scaledHeight = sequence.<span class="hljs-property">height</span> * scale;
+        <span class="hljs-keyword">return</span> {<span class="hljs-attr">width</span>: scaledWidth, <span class="hljs-attr">height</span>: scaledHeight};
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-16">&#x00a7;</a>
+              </div>
+              <p>This function gets the bounding box of the sprite.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> getBoundingBox = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-comment">/* Get the display size of the sprite */</span>
+        <span class="hljs-keyword">const</span> size = <span class="hljs-title function_">getDisplaySize</span>();
+
+        <span class="hljs-comment">/* Find the box coordinates */</span>
+        <span class="hljs-keyword">const</span> top = y - size.<span class="hljs-property">height</span> / <span class="hljs-number">2</span>;
+        <span class="hljs-keyword">const</span> left = x - size.<span class="hljs-property">width</span> / <span class="hljs-number">2</span>;
+        <span class="hljs-keyword">const</span> bottom = y + size.<span class="hljs-property">height</span> / <span class="hljs-number">2</span>;
+        <span class="hljs-keyword">const</span> right = x + size.<span class="hljs-property">width</span> / <span class="hljs-number">2</span>;
+
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">BoundingBox</span>(ctx, top, left, bottom, right);
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-17">&#x00a7;</a>
+              </div>
+              <p>This function draws shadow underneath the sprite.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> drawShadow = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-comment">/* Save the settings */</span>
+        ctx.<span class="hljs-title function_">save</span>();
+
+        <span class="hljs-comment">/* Get the display size of the sprite */</span>
+        <span class="hljs-keyword">const</span> size = <span class="hljs-title function_">getDisplaySize</span>();
+
+        <span class="hljs-comment">/* Find the scaled width and height of the shadow */</span>
+        <span class="hljs-keyword">const</span> shadowWidth  = size.<span class="hljs-property">width</span> * shadowScale.<span class="hljs-property">x</span>;
+        <span class="hljs-keyword">const</span> shadowHeight = size.<span class="hljs-property">height</span> * shadowScale.<span class="hljs-property">y</span>;
+
+        <span class="hljs-comment">/* Draw a semi-transparent oval */</span>
+        ctx.<span class="hljs-property">fillStyle</span> = <span class="hljs-string">&quot;black&quot;</span>;
+        ctx.<span class="hljs-property">globalAlpha</span> = <span class="hljs-number">0.6</span>;
+        ctx.<span class="hljs-title function_">beginPath</span>();
+        ctx.<span class="hljs-title function_">ellipse</span>(x, y + size.<span class="hljs-property">height</span> / <span class="hljs-number">2</span>,
+                    shadowWidth / <span class="hljs-number">2</span>, shadowHeight / <span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span> * <span class="hljs-title class_">Math</span>.<span class="hljs-property">PI</span>);
+        ctx.<span class="hljs-title function_">fill</span>();
+
+        <span class="hljs-comment">/* Restore saved settings */</span>
+        ctx.<span class="hljs-title function_">restore</span>();
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-18">&#x00a7;</a>
+              </div>
+              <p>This function draws the sprite.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> drawSprite = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-comment">/* Save the settings */</span>
+        ctx.<span class="hljs-title function_">save</span>();
+
+        <span class="hljs-comment">/* Get the display size of the sprite */</span>
+        <span class="hljs-keyword">const</span> size = <span class="hljs-title function_">getDisplaySize</span>();
+
+
+        <span class="hljs-comment">/* TODO */</span>
+        <span class="hljs-comment">/* Replace the following code to draw the sprite correctly */</span>
+        ctx.<span class="hljs-property">fillStyle</span> = <span class="hljs-string">&quot;red&quot;</span>;
+        ctx.<span class="hljs-property">globalAlpha</span> = <span class="hljs-number">0.6</span>;
+        ctx.<span class="hljs-title function_">fillRect</span>(<span class="hljs-built_in">parseInt</span>(x - size.<span class="hljs-property">width</span> / <span class="hljs-number">2</span>), <span class="hljs-built_in">parseInt</span>(y - size.<span class="hljs-property">height</span> / <span class="hljs-number">2</span>),
+                     size.<span class="hljs-property">width</span>, size.<span class="hljs-property">height</span>);
+
+
+        <span class="hljs-comment">/* Restore saved settings */</span>
+        ctx.<span class="hljs-title function_">restore</span>();
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-19">&#x00a7;</a>
+              </div>
+              <p>This function draws the shadow and the sprite.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> draw = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">if</span> (<span class="hljs-title function_">isReady</span>()) {
+            <span class="hljs-title function_">drawShadow</span>();
+            <span class="hljs-title function_">drawSprite</span>();
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-20">&#x00a7;</a>
+              </div>
+              <p>This function updates the sprite by moving to the next sprite
+at appropriate time.</p>
+<ul>
+<li><code>time</code> - The timestamp when this function is called</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> update = <span class="hljs-keyword">function</span>(<span class="hljs-params">time</span>) {
+        <span class="hljs-keyword">if</span> (lastUpdate == <span class="hljs-number">0</span>) lastUpdate = time;
+
+
+        <span class="hljs-comment">/* TODO */</span>
+        <span class="hljs-comment">/* Move to the next sprite when the timing is right */</span>
+
+
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-21">&#x00a7;</a>
+              </div>
+              <p>The methods are returned as an object here.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">return</span> {
+        <span class="hljs-attr">useSheet</span>: useSheet,
+        <span class="hljs-attr">getXY</span>: getXY,
+        <span class="hljs-attr">setXY</span>: setXY,
+        <span class="hljs-attr">setSequence</span>: setSequence,
+        <span class="hljs-attr">setScale</span>: setScale,
+        <span class="hljs-attr">setShadowScale</span>: setShadowScale,
+        <span class="hljs-attr">getDisplaySize</span>: getDisplaySize,
+        <span class="hljs-attr">getBoundingBox</span>: getBoundingBox,
+        <span class="hljs-attr">isReady</span>: isReady,
+        <span class="hljs-attr">draw</span>: draw,
+        <span class="hljs-attr">update</span>: update
+    };
+};</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

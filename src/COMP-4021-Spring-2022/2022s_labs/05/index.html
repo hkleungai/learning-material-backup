@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>COMP4021 Lab 5 - Chatroom Part 1</title>
+    <link rel="stylesheet" href="../../css/lab.css?lab5">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/xcode.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <link href='https://fonts.googleapis.com/css?family=Arizonia' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <h1>
+        <a href="https://course.cse.ust.hk/comp4021">
+            COMP4021 Internet Computing
+        </a>
+        &gt; Lab 5 - Chatroom Part 1
+    </h1>
+
+    <h2>Overview</h2>
+
+    <ul>
+        <li>In this lab and the next lab, you will work on a chatroom web application</li>
+        <li>The application is divided into two parts:
+        <ol>
+            <li>User registration and authentication</li>
+            <li>Online user management and chatroom communication</li>
+        </ol>
+        </li>
+        <li>You will focus on the first part in this lab</li>
+        <li>Here is a video showing you the functionalities you will work on in this lab:
+            <br>
+            <video width="640" height="360" controls>
+                <source src="videos/chatroom_part1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video> 
+            <br>
+            <em><small>(The dropdown of the avatar selection is not shown in the above video)</small></em>
+        </li>
+        <li>Although the video has mainly demonstrated the signing in and out operations in the frontend, i.e. the web page,
+            the majority of the work you will do is on the server-side</li>
+        <li>The first time you arrive in the application, you will be asked to sign in or register
+            <figure><img src="images/signin_form.png" width="500px" alt="Sign-in/registration form"></figure>
+        <ul>
+            <li>If you do not have an account, you will need to register for a new account
+                after filling in the required information</li>
+            <li>If you already have an account, or right after registration, you will be able to sign in
+                using your account information</li>
+        </ul>
+        </li>
+        <li>After signing in, you will not be able to do much at the moment because you will
+            not work on the chat functions until the next lab
+            <figure><img src="images/after_signin.png" width="500px" alt="After signing in"></figure>
+        </li>
+        <li>Even if you refresh the page, you will still stay signed in the system</li>
+        <li>If you want to, you can sign out of the application by selecting the sign out button,
+            which is at the top right hand corner of the web page
+            <figure><img src="images/signout_button.png" width="100px" alt="Sign out button"></figure>
+        </li>
+        <li>This lab involves these skills:
+        <ul>
+            <li>Node.js programming
+            <ul>
+                <li>Working with Express</li>
+                <li>Reading and writing JSON files</li>
+                <li>Using HTTP sessions</li>
+            </ul>
+            </li>
+            <li>Writing AJAX calls using <code>fetch()</code></li>
+        </ul>
+        </li>
+    </ul>
+
+    <h2>Lab Instructions</h2>
+
+    <ul class="toc">
+        <li><a href="#section1">1. Overview</a></li>
+        <li><a href="#section1.1">1.1. The Starting Code</a></li>
+        <li><a href="#section1.2">1.2. The Frontend</a></li>
+        <li><a href="#section1.3">1.3. The Backend</a></li>
+        <li><a href="#section1.4">1.4. Using the Application</a></li>
+
+        <li><a href="#section2">2. User Registration</a></li>
+        <li><a href="#section2.1">2.1. Building the User Registration Process</a></li>
+
+        <li><a href="#section3">3. User Sign-In</a></li>
+        <li><a href="#section3.1">3.1. Building the Sign-In Process</a></li>
+
+        <li><a href="#section4">4. Maintain a Session</a></li>
+        <li><a href="#section4.1">4.1. Adjusting the Sign-In Process</a></li>
+        <li><a href="#section4.2">4.2. Making the Validation Request</a></li>
+
+        <li><a href="#section5">5. User Sign-Out</a></li>
+
+        <li><a href="#section6">6. Summary</a></li>
+    </ul>
+
+    <h3 id="section1">1. Overview</h3>
+
+    <h4 id="section1.1">1.1. The Starting Code</h4>
+
+    <ul>
+        <li>You are given the starting code <a href="chatroom.zip">here</a></li>
+        <li>You need to download the zip file and then extract it somewhere in your local folder</li>
+        <li>After extracting the zip file, you will have the following files:
+        <ul>
+            <li><strong>Files Related to the Server-side Operations</strong>
+            <ul>
+                <li><strong>Node.js File</strong>
+                <ul>
+                    <li><code>chat_server.js</code><br>
+                        The web server of the chatroom</li>
+                </ul>
+                </li>
+                <li><strong>JSON File</strong>
+                <ul>
+                    <li><code>data/users.json</code><br>
+                        The user 'database' of the chatroom</li>
+                </ul>
+                </li>
+            </ul>
+            </li>
+            <li><strong>Files Related to Client-side Operations</strong>
+            <ul>
+                <li><strong>HTML File</strong>
+                <ul>
+                    <li><code>public/index.html</code><br>
+                        The entry point of the chatroom in the browser</li>
+                </ul>
+                </li>
+                <li><strong>CSS File</strong>
+                <ul>
+                    <li><code>public/style.css</code><br>
+                        The CSS rules of the web page</li>
+                </ul>
+                </li>
+                <li><strong>JavaScript Files</strong>
+                <ul>
+                    <li><code>public/scripts/avatar.js</code><br>
+                        The list of avatars the user can choose from</li>
+                    <li><code>public/scripts/ui.js</code><br>
+                        The JavaScript code for handling UI related operations</li>
+                    <li><code>public/scripts/registration.js</code><br>
+                        The JavaScript code for processing the registration request</li>
+                    <li><code>public/scripts/authentication.js</code><br>
+                        The JavaScript code for handling authentication related operations</li>
+                </ul>
+                </li>
+            </ul>
+            </li>
+        </ul>
+        </li>
+        <li>All these files should be stored under the same folder</li>
+        <li>You do not need to change all of them in this lab</li>
+        <li>In fact, you <strong>should not change</strong> some of them as
+            they will get replaced in the next lab with more functionalities</li>
+        <li>Here are the files that you will change in this lab:
+        <ul>
+            <li><code>chat_server.js</code></li>
+            <li><code>data/users.json</code></li>
+            <li><code>public/scripts/registration.js</code></li>
+            <li><code>public/scripts/authentication.js</code></li>
+        </ul>
+        </li>
+        <li>Although you do not need to change the other files,
+            you may want to see what they do for you in the lab work</li>
+    </ul>
+
+    <h4 id="section1.2">1.2. The Frontend</h4>
+
+    <h5>The HTML Page</h5>
+
+    <ul>
+        <li>The frontend of the chatroom is <code>index.html</code></li>
+        <li>Together with the CSS file <code>style.css</code>,
+            they form the visual components of the user interface
+            <figure><img src="images/frontend.png" width="500px" alt="The frontend"></figure>
+        </li>
+        <li>We will not look into the details of the HTML/CSS, but you
+            probably want to know the form elements that are available to you</li>
+        <li>This is because you will send the data from those elements to the server</li>
+        <li>For example, the two forms that you will use are created in a
+            <code>&lt;div&gt;...&lt;/div&gt;</code> called <code>signin-overlay</code>,
+            as shown below:</li>
+    </ul>
+
+        <pre><code class="html">&lt;div id="signin-overlay" class="overlay row"&gt;
+    &lt;div class="content shadow row"&gt;
+        &lt;form id="signin-form" class="col"&gt;
+            ...
+        &lt;/form&gt;
+        ...
+        &lt;form id="register-form" class="col"&gt;
+            ...
+        &lt;/form&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+    <ul>
+        <li>There you can find the form elements: the input fields and the submit button for each form</li>
+        <li>The logic of the user interface is mostly written in the JavaScript files
+            so you won't see much JavaScript code inside the HTML file</li>
+        <li>There are four JavaScript files linked to the HTML page, as shown below:</li>
+    </ul>
+
+        <pre><code class="html">&lt;script src="scripts/avatar.js"&gt;&lt;/script&gt;
+&lt;script src="scripts/ui.js"&gt;&lt;/script&gt;
+&lt;script src="scripts/registration.js"&gt;&lt;/script&gt;
+&lt;script src="scripts/authentication.js"&gt;&lt;/script&gt;</code></pre>
+
+    <ul>
+        <li>You can still find the document ready event written in the file though</li>
+    </ul>
+
+    <pre><code class="html">&lt;script&gt;
+$(document).ready(function() {
+    ...
+});
+&lt;/script&gt;</code></pre>
+    <br>
+
+    <h5>JavaScript Files</h5>
+
+    <ul>
+        <li>All JavaScript files are written in a module pattern structure</li>
+        <li>For example, the file <code>avatar.js</code> has this structure:</li>
+    </ul>
+
+    <pre><code class="javascript">const Avatar = (function() {
+    // This stores the available avatars
+    const avatars = { ... };
+
+    // This function populates the avatars to a select box
+    const populate = function(select) { ... };
+
+    // This function gets the code from the avatar name
+    const getCode = function(name) { ... };
+
+    return { populate, getCode };
+})();</code></pre>
+
+    <ul>
+        <li>Because of the IIFE, you can then use, for example, <code>Avatar.populate()</code> in other parts of the code</li>
+        <li>In this application, this JavaScript file is mainly used to provide the list of avatars
+            (a variety of animal icons) that the user can choose from</li>
+        <li>You can see the list by clicking on the 'Select your avatar' box in the registration form, i.e.:
+            <figure><img src="images/avatar_select.png" width="250px" alt="The avatar selection"></figure>
+            <ul>
+                <li>Instead of images, these avatars are unicode characters
+                <ul>
+                    <li>For example, the koala image &#128040; can be put in a web page
+                        using the HTML entity <code>&amp;#128040;</code></li>
+                </ul>
+                </li>
+                <li>You can find all avatars' code and description in the <code>avatars</code> object inside the JavaScript file</li>
+            </ul>
+        </li>
+        <li>The file <code>ui.js</code> handles all UI related code such as
+            setting up events, showing/hiding a component and so on</li>
+        <li>There are 'UI components', i.e.
+            <code>SignInForm</code> and <code>UserPanel</code>, created inside the file but
+            the main module is the <code>UI</code> module
+        <ul>
+            <li><code>SignInForm</code> represents the sign-in and registration form, and
+                <figure><img src="images/signin_form.png" width="300px" alt="Signin/registration form"></figure>
+            </li>
+            <li><code>UserPanel</code> represents the user account shown at the top right hand corner
+                <figure><img src="images/user_panel.png" width="150px" alt="The user panel"></figure>
+            </li>
+        </ul>
+        </li>
+        <li>The <code>UI</code> module starts the initialization of everything on the page</li>
+        <li>The last two JavaScript files are the two most important in this lab:
+            <code>registration.js</code> and <code>authentication.js</code></li>
+        <li>As the names suggest, they handle user registration and user authentication respectively
+        <ul>
+            <li><code>registration.js</code> provides a single function called <code>register</code>
+                that is used when the user registers for a new account</li>
+        </ul>
+
+        <pre><code class="javascript">const Registration = (function() {
+    ...
+    return { register };
+})();</code></pre>
+
+        <ul>
+            <li><code>authentication.js</code> has four functions as the file handles
+                everything about authentication including signing in and signing out</li>
+        </ul>
+
+        <pre><code class="javascript">const Authentication = (function() {
+    ...
+    return { getUser, signin, validate, signout };
+})();</code></pre>
+        </li>
+    </ul>
+
+    <h4 id="section1.3">1.3. The Backend</h4>
+
+    <h5>The Web Server</h5>
+
+    <ul>
+        <li>The web server is implemented inside <code>chat_server.js</code></li>
+        <li>It uses Express, as shown by the following code:</li>
+    </ul>
+
+    <pre><code class="javascript">const express = require("express");
+...
+const app = express();
+...
+app.listen(8000, () =&gt; {
+    console.log("The chat server has started...");
+});</code></pre>
+
+    <ul>
+        <li>If you read into the file, you should notice that it uses
+            a few more modules from Node.js than just the web server:</li>
+    </ul>
+
+    <pre><code class="javascript">const bcrypt = require("bcrypt");
+const fs = require("fs");
+const session = require("express-session");</code></pre>
+
+    <ul>
+        <li>These modules are needed when you work on the server endpoints later</li>
+        <li>Altogether, you need to implement four server endpoints, which are listed below with
+            their specifications:
+            <table class="basic">
+                <tr>
+                    <th>Description</th>
+                    <th>HTTP Method</th>
+                    <th>Path</th>
+                    <th>Input</th>
+                    <th>Output</th>
+                </tr>
+                <tr>
+                    <td>Register for a new account</td>
+                    <td>POST</td>
+                    <td>/register</td>
+                    <td>
+                        New user account:<br>
+                        <code>{<em>username</em>, <em>avatar</em>, <em>name</em>, <em>password</em>}</code>
+                    </td>
+                    <td>If successful:<br>
+                        <code>{status: "success"}</code>
+                        <br>
+                        otherwise, return the error message:<br>
+                        <code>{status: "error", <em>error</em>}</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Sign in the chatroom</td>
+                    <td>POST</td>
+                    <td>/signin</td>
+                    <td>
+                        Username/password:<br>
+                        <code>{<em>username</em>, <em>password</em>}</code>
+                    </td>
+                    <td>If successful, return the user account:<br>
+                        <code>{status: "success", user : {<em>username</em>, <em>avatar</em>, <em>name</em>}}</code>
+                        <br>
+                        otherwise, return the error message:<br>
+                        <code>{status: "error", <em>error</em>}</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Validate a sign-in session</td>
+                    <td>GET</td>
+                    <td>/validate</td>
+                    <td>None</td>
+                    <td>If successful, return the user account:<br>
+                        <code>{status: "success", user : {<em>username</em>, <em>avatar</em>, <em>name</em>}}</code>
+                        <br>
+                        otherwise, return the error message:<br>
+                        <code>{status: "error", <em>error</em>}</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Sign out the chatroom</td>
+                    <td>GET</td>
+                    <td>/signout</td>
+                    <td>None</td>
+                    <td>Always return this:<br>
+                        <code>{status: "success"}</code></td>
+                </tr>
+            </table>
+        </li>
+        <li>The template of the above paths have been given to you in the code:</li>
+    </ul>
+
+    <pre><code class="javascript">app.post("/register", (req, res) =&gt; { ... });
+app.post("/signin", (req, res) => { ... });
+app.get("/validate", (req, res) => { ... });
+app.get("/signout", (req, res) => { ... });</code></pre>
+    <br>
+
+    <h5>Data Storage</h5>
+
+    <ul>
+        <li>The 'database' of the web server stores the user accounts</li>
+        <li>It is simply a plain JSON file as we do not want to make things complicated using any fully functional database server</li>
+        <li>The initial content of the file has two users:</li>
+    </ul>
+
+    <pre><code class="javascript">{
+  "tony": {
+    "avatar": "Owl",
+    "name": "Tony Lee",
+    "password": "$2b$10$Yxb2fSgA5RFn9Oz9TxjLLuve/GiPXCs2DWVFhyFDr4qz39qglwp8e"
+  },
+  "may": {
+    "avatar": "Rabbit",
+    "name": "May Wong",
+    "password": "$2b$10$gLc3Ri9W6P650EKKbexw6uvirV8Bar7gmvAtMcoMiPiR3rsY50GVu"
+  }
+}</code></pre>
+
+    <ul>
+        <li>Each user inside the file is stored as a key and value pair, with the key being the username
+            and the value being the other information of the user, i.e.:
+            <p>
+            <code><em>username</em>: { <em>avatar</em>, <em>name</em>, <em>password</em> }</code>
+            </p>
+        </li>
+        <li>The password value is stored as a hashed password for enhanced security</li>
+        <li>The passwords for both of the given accounts, in plain text form, are <code>pwd</code>
+            in case you want to use them to test your system</li>
+    </ul>
+
+    <h4 id="section1.4">1.4. Using the Application</h4>
+
+    <h5>Starting the Server</h5>
+
+    <ul>
+        <li>To use the chatroom application, you need to start the web server</li>
+        <li>Before doing so, you need to make sure you have installed the following packages using <code>npm</code>:
+        <ul>
+            <li>express
+            <ul>
+                <li><code>npm install express</code></li>
+            </ul>
+            </li>
+            <li>bcrypt
+            <ul>
+                <li><code>npm install bcrypt</code></li>
+            </ul>
+            </li>
+            <li>express-session
+            <ul>
+                <li><code>npm install express-session</code></li>
+            </ul>
+            </li>
+        </ul>
+        </li>
+        <li>After installing the packages, you should have the content of the file <code>package.json</code> looking similar to this:</li>
+    </ul>
+
+    <pre><code class="javascript">{
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.3",
+    "express-session": "^1.17.2"
+  }
+}</code></pre>
+
+    <ul>
+        <li>When everything is ready, you can start the server using <code>node</code>, i.e.:
+            <p>
+            <code>node chat_server.js</code>
+            </p>
+        </li>
+        <li>This should be what you see after starting your server:
+            <figure><pre><code class="terminal">&gt; node chat_server.js
+The chat server has started...</code></pre></figure>
+        </li>
+    </ul>
+
+    <h5>Accessing From a Browser</h5>
+
+    <ul>
+        <li>After starting the server, you can go to the chatroom application using a browser</li>
+        <li>The URL of the system is:
+            <p>
+            <a href="http://localhost:8000" target="blank">http://localhost:8000</a>
+            </p>
+        </li>
+        <li>You do not need any page in the URL as the default page is the given file <code>index.html</code></li>
+        <li>If you have successfully started the server, you should see this display in the browser:
+            <figure><img src="images/frontpage_in_browser.png" width="500px" alt="The frontpage in a browser"></figure>
+        </li>
+        <li>Both the sign-in and registration functions are not working
+            so you will not be able to do anything on the page</li>
+        <li>To make it work, you will first build the registration and then the authentication of the system</li>
+    </ul>
+
+    <h4 id="section2">2. User Registration</h4>
+
+    <ul>
+        <li>In this part of the lab, you will work on this server endpoint:
+            <table class="basic">
+                <tr>
+                    <th>Description</th>
+                    <th>HTTP Method</th>
+                    <th>Path</th>
+                    <th>Input</th>
+                    <th>Output</th>
+                </tr>
+                <tr>
+                    <td>Register for a new account</td>
+                    <td>POST</td>
+                    <td>/register</td>
+                    <td>
+                        New user account:<br>
+                        <code>{<em>username</em>, <em>avatar</em>, <em>name</em>, <em>password</em>}</code>
+                    </td>
+                    <td>If successful:<br>
+                        <code>{status: "success"}</code>
+                        <br>
+                        otherwise, return the error message:<br>
+                        <code>{status: "error", <em>error</em>}</code>
+                    </td>
+                </tr>
+            </table>
+        </li>
+        <li>The registration process is illustrated in the following figure:
+            <figure><img src="images/registration_process.png" width="700px" alt="The registration process"></figure>
+        </li>
+        <li>The process is triggered by the user filling in the registration form and clicking on the <em>Register</em> button, for example:
+            <figure><img src="images/registration_form_example.png" width="300px" alt="Example of the registration form"></figure>
+        </li>
+        <li>After clicking on the button, the event runs <code>Registration.register()</code> and the function kicks off the communication between
+            the browser and the server, which is shown in the figure</li>
+        <li>The <code>register()</code> function is given to you in <code>registration.js</code>:</li>
+    </ul>
+
+    <pre><code class="javascript">const register = function(username, avatar, name, password, onSuccess, onError) {
+    ...
+    if (onError) onError("This function is not yet implemented.");
+};</code></pre>
+
+    <ul>
+        <li>There are 6 parameters in the <code>register()</code> function
+        <ul>
+            <li>The first 4 parameters of the function are the data fields from the registration form</li>
+            <li>The last 2 parameters are callback functions for handling the successful and error situations</li>
+        </ul>
+        </li>
+        <li>In the given code, it always reports an error by calling the error callback function <code>onError()</code>
+        <li>On the server, it is handled by the endpoint <code>app.get("/register", ...)</code>, which is shown below:</li>
+    </ul>
+
+    <pre><code class="javascript">app.post("/register", (req, res) =&gt; {
+    const { username, avatar, name, password } = req.body;
+    ...
+    res.json({ status: "error", error: "This endpoint is not yet implemented." });
+});</code></pre>
+
+    <ul>
+        <li>The endpoint reads the user data from the request body but then always return an error</li>
+        <li>You need to complete the browser and server functions based on the above figure:
+        <ol type="A">
+            <li>Preparing the user data <em>(Browser)</em></li>
+            <li>Sending the AJAX request to the server <em>(Browser)</em></li>
+            <li>Reading the JSON input from the browser <em>(Server)</em></li>
+            <li>Reading the users.json file <em>(Server)</em></li>
+            <li>Checking for the user data correctness <em>(Server)</em></li>
+            <li>Processing any error returned by the server <em>(Browser)</em></li>
+            <li>Adding the new user account <em>(Server)</em></li>
+            <li>Saving the users.json file <em>(Server)</em></li>
+            <li>Sending a success response to the browser <em>(Server)</em></li>
+            <li>Handling the success response from the server <em>(Browser)</em></li>
+        </ol>
+        </li>
+        <li>We will go into each of the above steps for user registration, as
+            this may be the first time you work on both browser and server</li>
+        <li>Although it looks like there are a lot of things to handle,
+            some of them are short and relatively easy to do</li>
+    </ul>
+
+    <h4 id="section2.1">2.1. Building the User Registration Process</h4>
+
+    <h5>A. Preparing the User Data <em>(Browser)</em> </h5>
+
+    <ul>
+        <li>As you can see from the previous section, the first 4 parameters of <code>register()</code>
+            contains the data from the registration form</li>
+        <li>The first thing you need to do in the function is to pack them together in JSON format
+            so that you can send them to the server</li>
+        <li>You can do that by making a JavaScript object containing the parameters in this form (see the <a href="#section2">server endpoint</a>):
+            <p>
+            <code>{ <em>username</em>, <em>avatar</em>, <em>name</em>, <em>password</em> }</code>
+            </p>
+        </li>
+        <li>You can then create a JSON representation of the object using <code>JSON.stringify()</code></li>
+        <li>For example, if the input parameters are "john", "Dragon", "John Chan" and "jcx", the JSON representation will be:
+            <p>
+            <code>{"username":"john","avatar":"Dragon","name":"John Chan","password":"jcx"}</code>
+            </p>
+        </li>
+    </ul>
+ 
+    <h5>B. Sending the AJAX Request to the Server <em>(Browser)</em></h5>
+
+    <ul>
+        <li>When the JSON data is ready, you can refer to the
+            <a href="../../2022s_notes/26_using_ajax/26_4021_using_ajax_2022s.pdf#page=16" target="blank">lecture notes</a>
+            to send a POST request using <code>fetch()</code></li>
+        <li>The endpoint is /register and therefore you will need something like this:</li>
+    </ul>
+
+    <pre><code class="javascript">fetch("/register", { /* ...options... */ })
+  .then((res) =&gt; res.json() )
+  .then((json) =&gt; {
+      console.log("Successful!");
+  })
+  .catch((err) =&gt; {
+      console.log("Error!");
+  });</code></pre>
+
+    <ul>
+        <li>You need to make sure that:
+        <ul>
+            <li>The request is a POST request
+            <li>The headers are correctly set (using <code>application/json</code>), and</li>
+            <li>The request body is the JSON data that you have prepared</li>
+        </ul>
+        </li>
+        <li>After finishing the request, if you request for a registration, 
+            you will also see "Successful!" printed in the browser's console</li>
+    </ul>
+
+    <h5>C. Reading the JSON Input From the Browser <em>(Server)</em></h5>
+
+    <ul>
+        <li>If you read the code in <code>chat_server.json</code>, you will see that this has been done for you already</li>
+    </ul>
+
+    <pre><code class="javascript">app.post("/register", (req, res) =&gt; {
+    const { username, avatar, name, password } = req.body;
+    ...
+</code></pre>
+
+    <ul>
+        <li>The four variables are the user data that has been filled in the registration form
+            after you sent them to the server in the previous step</li>
+    </ul>
+
+    <h5>D. Reading the users.json File <em>(Server)</em></h5>
+
+    <ul>
+        <li>You are now ready to put the new user account to the 'database'</li>
+        <li>As discussed before the 'database' of the application is a JSON file called <code>users.json</code></li>
+        <li>In this step, you will read the content of a file into the web server program</li>
+        <li>To do that, you use <code>fs.readFileSync()</code> from the <code>fs</code> module
+        <ul>
+            <li>For example, you can refer to the 
+                <a href="../../2022s_notes/27_spa_example/27_4021_spa_example_2022s.pdf#page=16" target="blank">lecture notes</a>
+                on how to read the file and change it to a JavaScript object at the same time</li>
+        </ul>
+        </li>
+        <li>After reading the file, you can use <code>console.log()</code> to show the content and
+            there should be two users inside:
+            <figure><pre><code class="terminal">{
+  tony: {
+    avatar: 'Owl',
+    name: 'Tony Lee',
+    password: '$2b$10$Yxb2fSgA5RFn9Oz9TxjLLuve/GiPXCs2DWVFhyFDr4qz39qglwp8e'
+  },
+  may: {
+    avatar: 'Rabbit',
+    name: 'May Wong',
+    password: '$2b$10$gLc3Ri9W6P650EKKbexw6uvirV8Bar7gmvAtMcoMiPiR3rsY50GVu'
+  }
+}</code></pre></figure>
+        </li>
+    </ul>
+
+    <h5>E. Checking for the User Data Correctness <em>(Server)</em></h5>
+
+    <ul>
+        <li>Before adding the user, you need to make sure the user data is valid</li>
+        <li>Here are three things that you need to check:
+            <ol>
+                <li>Username, avatar, name and password are not empty</li>
+                <li>The username contains only underscores, letters or numbers
+                <ul>
+                    <li>You will find the given function <code>containWordCharsOnly()</code> useful here</li>
+                </ul>
+                </li>
+                <li>The username does not exist in the current list of users
+                <ul>
+                    <li>You can do this using the <code>in</code> operator on the users' object that you have read in the previous step</li>
+                </ul>
+                </li>
+            </ol>
+        </li>
+        <li>If any of the above is not satisfied, you will need to return an error to the browser</li>
+        <li>This can be done by <code>req.json()</code> like this:</li>
+    </ul>
+
+    <pre><code class="javascript">res.json({ status: "error", error: /* the error message */ });</code></pre>
+
+    <ul>
+        <li>You will use an appropriate error message for each of the above cases</li>
+    </ul>
+
+    <h5>F. Processing Any Error Returned by the Server <em>(Browser)</em></h5>
+
+    <ul>
+        <li>Now that you have sent some JSON error responses to the browser</li>
+        <li>It would be great if you can show them, back in the browser</li>
+        <li>Remember that you have used the <code>fetch()</code> function inside <code>register()</code></li>
+        <li>Inside <code>.then()</code>, you can show the JSON returned by the server like this:</li>
+    </ul>
+
+    <pre><code class="javascript">.then((json) =&gt; {
+    console.log(json);
+})</code></pre>
+
+    <ul>
+        <li>For example, if you return this response from the server:</li>
+    </ul>
+
+    <pre><code class="javascript">res.json({ status: "error", error: "An error has occurred." });</code></pre>
+
+    <ul>
+        <li>You will see this in the browser's console:
+            <figure><img src="images/console_error.png" width="500px" alt="Console's error"></figure>
+        </li>
+        <li>However, we do not want to show this in the console but to show the error in the registration form</li>
+        <li>To do this, you only need to make use of the <code>onError()</code> callback in the <code>register()</code> function</li>
+        <li>Therefore, instead of using <code>console.log()</code>, you can use the callback to pass the error back to the UI, like this:</li>
+    </ul>
+
+    <pre><code class="javascript">.then((json) =&gt; {
+    if (onError) onError(json.error);
+})</code></pre>
+
+    <ul>
+        <li>After this, any error will be shown at the bottom in the registration form, like the example below:
+            <figure><img src="images/registration_error.png" width="300px" alt="Registration error"></figure>
+        </li>
+        <li>For your work, you should use some meaningful error messages so that the user knows what has gone wrong</li>
+        <li>At this stage, if you do not enter valid user data in the registration form,
+            you should be able to have the corresponding error shown at the bottom of the form</li>
+    </ul>
+
+    <h5>G. Adding the New User Account <em>(Server)</em></h5>
+
+    <ul>
+        <li>After the previous step, the user data should contain some valid values</li>
+        <li>But you still have one last thing to do before adding the user account to the database</li>
+        <li>To enhance the security of the system, the password will be 'hashed' before saving</li>
+        <li>A convenient function called <code>hashSync()</code> from the <code>bcrypt</code> module can hash a password with a salt</li>
+        <li>You do not need to understand how it works but a password can be hashed using this line of code:</li>
+    </ul>
+
+    <pre><code class="javascript">const hash = bcrypt.hashSync(password, 10);</code></pre>
+
+    <ul>
+        <li>For example, if the password is <code>jcx</code>, a possible hash produced by the function will be:
+            <p>
+            <code>$2b$10$GxNGChxcGIpWeSlxoGjMAOl28C9RUYaaJExGRARgRi8iIKDWxKI72</code>
+            </p>
+        </li>
+        <li>When the hash is available you will store the hashed password, not the plain text password,
+            in the JavaScript object and thus the JSON file</li>
+    </ul>
+
+    <h5>H. Saving the users.json File <em>(Server)</em></h5>
+
+    <ul>
+        <li>Similar to reading the file, you can write the users' object back to <code>users.json</code></li>
+        <li>Again, you can refer to the 
+            <a href="../../2022s_notes/27_spa_example/27_4021_spa_example_2022s.pdf#page=16" target="blank">lecture notes</a>
+            on how to write the file based on the JavaScript object</li>
+        <li>After writing the file, you should be able to see the new user added to your <code>users.json</code></li>
+    </ul>
+
+    <h5>I. Sending a Success Response to the Browser <em>(Server)</em></h5>
+
+    <ul>
+        <li>You have almost finished the server-side code</li>
+        <li>After finishing the previous steps, you can safely return a success response to the browser</li>
+        <li>It is a very simple response that can be sent by a single line of code, i.e.:</li>
+    </ul>
+
+    <pre><code class="javascript">res.json({ status: "success" });</code></pre>
+
+    <ul>
+        <li>In the next step, you will handle this success response back in the browser side</li>
+    </ul>
+
+    <h5>J. Handling the Success Response from the Server <em>(Browser)</em></h5>
+
+    <ul>
+        <li>This is the last step of the user registration</li>
+        <li>Your server should have sent back a success response to the browser if the user is added to the server</li>
+        <li>You can add appropriate code in <code>.then()</code> to handle the response</li>
+        <li>For example, you can simply test for the status value before running the <code>onSuccess()</code> callback to tell the UI components, e.g.:</li>
+    </ul>
+
+    <pre><code class="javascript">.then((json) =&gt; {
+    if (json.status == "success") {
+        /* Run the onSuccess() callback */
+    }
+    else if (onError) onError(json.error);
+})</code></pre>
+
+    <ul>
+        <li>You have now completed the registration process</li>
+        <li>If you successfully create a new user account, you will
+            see this message showing at the bottom of the form:
+            <figure><img src="images/successful_registration.png" width="300px" alt="Example of a successful registration"></figure>
+        </li>
+    </ul>
+
+    <h4 id="section3">3. User Sign-In</h4>
+
+    <ul>
+        <li>After finishing the user registration function, you should have
+            a good understanding on how to complete the communication between the browser and the server now</li>
+        <li>For the rest of the lab, you will complete three more requests, starting with the sign-in request</li>
+        <li>We don't need to go into every detail of each request because
+            some of the code is very similar to what you have done for the registration process</li>
+        <li>Let's start by looking at the sign-in endpoint:
+            <table class="basic">
+                <tr>
+                    <th>Description</th>
+                    <th>HTTP Method</th>
+                    <th>Path</th>
+                    <th>Input</th>
+                    <th>Output</th>
+                </tr>
+                <tr>
+                    <td>Sign in the chatroom</td>
+                    <td>POST</td>
+                    <td>/signin</td>
+                    <td>
+                        Username/password:<br>
+                        <code>{<em>username</em>, <em>password</em> }</code>
+                    </td>
+                    <td>If successful, return the user account:<br>
+                        <code>{status: "success", user : {<em>username</em>, <em>avatar</em>, <em>name</em> } }</code>
+                        <br>
+                        otherwise, return the error message:<br>
+                        <code>{status: "error", <em>error</em> }</code>
+                    </td>
+                </tr>
+            </table>
+        </li>
+        <li>As you need to send data to the server, this is again a POST request</li>
+        <li>The process starts by entering the username and password into the sign-in form and then clicking <em>Sign In</em></li>
+        <li>Here is an example of the sign-in form:
+            <figure><img src="images/signin_form_example.png" width="250px" alt="Example of the sign-in form"></figure>
+        </li>
+        <li>The sign-in process, which is a little bit simpler than the registration process, is shown below:
+            <figure><img src="images/signin_process.png" width="700px" alt="The sign-in process"></figure>
+        </li>
+        <li>The sign-in request is made inside the function <code>signin()</code>,
+            which is located in <code>authentication.js</code>, as shown below:</li>
+    </ul>
+
+    <pre><code class="javascript">const signin = function(username, password, onSuccess, onError) {
+
+    if (onError) onError("This function is not yet implemented.");
+
+};</code></pre>
+
+    <ul>
+        <li>On the server, the endpoint is handled by this code:</li>
+    </ul>
+
+    <pre><code class="javascript">app.post("/signin", (req, res) =&gt; {
+    const { username, password } = req.body;
+    ...
+    res.json({ status: "error", error: "This endpoint is not yet implemented." });
+});</code></pre>
+
+    <ul>
+        <li>You will complete the above functions similar to what you have done for the user registration</li>
+        <li>Here are the steps based on the above figure:
+        <ol type="A">
+            <li>Preparing the user data <em>(Browser)</em></li>
+            <li>Sending the AJAX request to the server <em>(Browser)</em></li>
+            <li>Reading the JSON input from the browser <em>(Server)</em></li>
+            <li>Reading the users.json file <em>(Server)</em></li>
+            <li><strong>Checking for the username/password values <em>(Server)</em></strong></li>
+            <li>Processing any error returned by the server <em>(Browser)</em></li>
+            <li><strong>Sending a success response to the browser <em>(Server)</em></strong></li>
+            <li><strong>Handling the success response from the server <em>(Browser)</em></strong></li>
+        </ol>
+        </li>
+        <li>You should be able to complete most of the above by yourself without any problem</li>
+        <li>We will focus on the ones that are different from the user registration, which are shown in bold above</li>
+    </ul>
+
+    <h4 id="section3.1">3.1. Building the Sign-In Process</h4>
+
+    <h5>E. Checking for the Username/Password Values <em>(Server)</em></h5>
+
+    <ul>
+        <li>At this stage, you should have obtained the users' object from the <code>users.json</code> file</li>
+        <li>Your task here is to verify the username and password pair</li>
+        <li>First, you can easily check whether the username is valid by looking for it in the users' object
+        <ul>
+            <li>Again, the <code>in</code> operator is probably very helpful here</li>
+        </ul>
+        </li>
+        <li>Next, you need to check whether the password given to the server is the same as the stored password</li>
+        <li>However, remember that the password has been stored as a hash, you need to use a special function to help you check that</li>
+        <li>Similar to the user registration, you can use the <code>bcrypt</code> module to help you with this</li>
+        <li>It provides a function <code>compareSync()</code> to directly compare a (plain text) password against a hashed password</li>
+        <li>Here is an example:</li>
+    </ul>
+
+    <pre><code class="javascript">const password = /* any plain text password */;
+const hashedPassword = /* a hashed password stored in users.json */;
+if (!bcrypt.compareSync(password, hashedPassword)) {
+    /* Passwords are not the same */
+});</code></pre>
+
+    <ul>
+        <li>Then, if either the username does not exist or the password does not match, you will return an error response</li>
+    </ul>
+ 
+    <h5>G. Sending a Success Response to the Browser <em>(Server)</em></h5>
+
+    <ul>
+        <li>This is almost the same as the success response for user registration</li>
+        <li>The difference is here in the sign-in process, you also need to return the user account to the browser</li>
+        <li>If you directly send the user account to the browser, it will also include the password field</li>
+        <li>In order to avoid that, you will send the user in this form:
+            <p>
+            <code>{ <em>username</em>, <em>avatar</em>, <em>name</em> }</code>
+            </p>
+        </li>
+        <li>That means the response would be sent in this way:</li>
+    </ul>
+
+    <pre><code class="javascript">res.json({ status: "success", user: /* the user object */ });</code></pre>
+    <br>
+
+    <h5>H. Handling the Success Response from the Server <em>(Browser)</em></h5>
+
+    <ul>
+        <li>From the previous step, the signed-in user account has been returned along with the response</li>
+        <li>In the code, you need to store the returned user in the closure variable <code>user</code>, i.e.:</li>
+    </ul>
+
+    <pre><code class="javascript">.then((json) =&gt; {
+    if (json.status == "success") {
+        user = /* returned user */;
+
+        /* Run the onSuccess() callback */
+    }
+    else if (onError) onError(json.error);
+})</code></pre>
+
+    <ul>
+        <li>You only do that when the response is successful</li>
+        <li>The user account will be used by some functions of some UI components</li>
+        <li>After completing both the registration and sign-in requests, you can now sign in the system
+            using existing accounts or registering a new one</li>
+    </ul>
+
+    <h4 id="section4">4. Maintaining a Session</h4>
+
+    <ul>
+        <li>It seems that the authentication of the application is working well</li>
+        <li>However, if you reload the page, you will find that you need to sign in again</li>
+        <li>This does not usually happen with most other websites because it is very common that a session is maintained with the signed-in users</li>
+        <li>In this part of the lab, you will make a session with the signed-in user
+            so that he/she does not need to sign in again even after reloading the page</li>
+    </ul>
+
+    <h4 id="section4.1">4.1. Adjusting the Sign-In Process</h4>
+
+    <ul>
+        <li>You can use the <code>express-session</code> module to maintain a session easily</li>
+        <li>In <code>chat_server.js</code>, a session has been set up for you already:</li>
+    </ul>
+
+    <pre><code class="javascript">const chatSession = session({
+    secret: "game",
+    resave: false,
+    saveUninitialized: false,
+    rolling: true,
+    cookie: { maxAge: 300000 }
+});
+app.use(chatSession);</code></pre>
+
+    <ul>
+        <li>For this session, if you idle for 5 minutes, the session data will be lost</li>
+        <li>Just having setting up the session is not enough, you will need a 'token'
+            in the session to let you distinguish between a signed-in session and a normal session</li>
+        <li>In this application, you will put the signed-in user account in the session as a token</li>
+        <li>To do that, you need to adjust the sign-in process</li>
+        <li>Before returning the success response, you need to put the user account into the current session, i.e.:</li>
+    </ul>
+
+    <pre><code class="javascript">req.session.user = /* user account */;</code></pre>
+
+    <ul>
+        <li>Similar to the sign-in process, the user account can be this, without the password:
+            <p>
+            <code>{ <em>username</em>, <em>avatar</em>, <em>name</em> }</code>
+            </p>
+        </li>
+        <li>The password should not be stored anywhere apart from <code>users.json</code></li>
+    </ul>
+
+    <h4 id="section4.2">4.2. Making the Validation Request</h4>
+
+    <ul>
+        <li>After putting the user account into the session, you can use it to
+            find out whether the current session has a user signed-in or not</li> 
+        <li>To do that, a validation request is made whenever the page is loaded</li>
+        <li>The code has been written in the document ready event:</li>
+    </ul>
+
+    <pre><code class="javascript">Authentication.validate(
+    () =&gt; {
+        SignInForm.hide();
+        UserPanel.update(Authentication.getUser());
+        UserPanel.show();
+    },
+    () =&gt; { SignInForm.show(); }
+); </code></pre>
+
+    <ul>
+        <li>The validation request is created in the <code>validate()</code> function of the <code>Authentication</code> module</li>
+        <li>It is relatively simple, as shown by the endpoint below:
+            <table class="basic">
+                <tr>
+                    <th>Description</th>
+                    <th>HTTP Method</th>
+                    <th>Path</th>
+                    <th>Input</th>
+                    <th>Output</th>
+                </tr>
+                <tr>
+                    <td>Validate a sign-in session</td>
+                    <td>GET</td>
+                    <td>/validate</td>
+                    <td>None</td>
+                    <td>If successful, return the user account:<br>
+                        <code>{status: "success", user : {<em>username</em>, <em>avatar</em>, <em>name</em>}}</code>
+                        <br>
+                        otherwise, return the error message:<br>
+                        <code>{status: "error", <em>error</em>}</code>
+                    </td>
+                </tr>
+            </table>
+        </li>
+        <li>It is a GET request, which returns the user account if it exists, or an error otherwise</li>
+        <li>If the user has signed-in to the application, you will be able to get the user account from <code>req.session.user</code></li>
+        <li>In other words, if <code>req.session.user</code> is not defined, no user has signed-in in the current session</li>
+        <li>Here is the process of the validation request:
+            <figure><img src="images/validation_process.png" width="600px" alt="The validation process"></figure>
+        </li>
+        <li>If you have correctly implemented the validation request,
+            you should be able to retain the user sign-in even after reloading the page</li>
+    </ul>
+
+    <h4 id="section5">5. User Sign-Out</h4>
+
+    <ul>
+        <li>In the final part of the lab, you will make the sign out request so that the user can sign out from the application</li>
+        <li>This becomes straightforward as you have gained a lot of experience in developing the previous three AJAX requests</li>
+        <li>Here is the endpoint of the sign out request:
+            <table class="basic">
+                <tr>
+                    <th>Description</th>
+                    <th>HTTP Method</th>
+                    <th>Path</th>
+                    <th>Input</th>
+                    <th>Output</th>
+                </tr>
+                <tr>
+                    <td>Sign out the chatroom</td>
+                    <td>GET</td>
+                    <td>/signout</td>
+                    <td>None</td>
+                    <td>Always return this:<br>
+                        <code>{status: "success"}</code></td>
+                </tr>
+            </table>
+        </li>
+        <li>In this request, the server simply removes the session user and
+            therefore removing the signed-in status of the session</li>
+        <li>The server always returns a success response no matter whether the session user exists or not</li>
+        <li>After using <code>fetch()</code> and when the user successfully signs out,
+            you need to set the closure variable <code>user</code> back to <code>null</code></li>
+        <li>This will be done inside the <code>signout()</code> function in the <code>Authentication</code> module</li>
+    </ul>
+
+    <h4 id="section6">6. Summary</h4>
+
+    <ul>
+        <li>After finishing everything in this lab, in summary, your application should be able to:
+        <ul>
+            <li>Let a user register a new account if:
+            <ul>
+                <li>This new account has a username, an avatar, a name and a password</li>
+                <li>The new username contains only underscores, letters or digits</li>
+                <li>The new username does not exist in the current users JSON file</li>
+            </ul>
+            </li>
+            <li>Let a user sign in if
+            <ul>
+                <li>The username exists in the current users JSON file</li>
+                <li>The password matches the stored hashed password of the user</li>
+            </ul>
+            </li>
+            <li>Let a user remained signed in even after reloading the page</li>
+            <li>Let a user sign out of the application</li>
+        </ul>
+        </li>
+    </ul>
+
+    <h2>Submission</h2>
+
+    <p>You do not need to submit the lab. However, this lab will be extended in the next lab, lab 6.
+    It would be very useful to save a copy of your work, e.g. in a USB or through email.</p>
+
+</body>
+</html>

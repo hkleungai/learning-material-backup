@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign-In Session</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <table id="signin-form">
+        <tr>
+            <td>Username:</td>
+            <td><input id="username"></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input id="password" type="password"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button>Sign-In</button></td>
+        </tr>
+    </table>
+    <h1 id="secret-content" style="display: none">
+        Oh, you can see the secret content!
+    </h1>
+    <script>
+    $(document).ready(function() {
+        const status = sessionStorage.getItem("signin-status");
+        if (status == "true") {
+            $("#signin-form").hide();
+            $("#secret-content").fadeIn(500);
+        }
+
+        $("button").on("click", () => {
+            sessionStorage.setItem("signin-status", "true"); 
+
+            $("#signin-form").hide();
+            $("#secret-content").fadeIn(500);
+        });
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RESTful APIs</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+    * { font-family: Helvetica, sans-serif; }
+    h1, h2 { font-weight: normal; }
+    .row { display: flex; }
+    .col { padding: 0 20px; border-left: 1px solid lightgray; }
+    .col:last-child { border-right: 1px solid lightgray; }
+    .caption { color: gray; }
+    .caption, textarea, input { margin-bottom: 5px; }
+    button { margin: 10px 0; }
+    textarea, input, button { display: block; }
+    </style>
+</head>
+<body>
+    <h1>Library Books RESTful APIs</h3>
+
+    <div class="row">
+        <div class="col">
+            <h2>Get All Books</h2>
+            <button id="get-books">Execute</button>
+            <div class="caption">Result:</div>
+            <textarea id="get-books-result"></textarea>
+        </div>
+
+        <div class="col">
+            <h2>Get a Book</h2>
+            <div class="caption">Book id:</div>
+            <input id="get-book-id">
+            <button id="get-book">Execute</button>
+            <div class="caption">Result:</div>
+            <textarea id="get-book-result"></textarea>
+        </div>
+
+        <div class="col">
+            <h2>Create a New Book</h2>
+            <div class="caption">Book title:</div>
+            <input id="create-book-title">
+            <div class="caption">Book author:</div>
+            <input id="create-book-author">
+            <div class="caption">Book year:</div>
+            <input id="create-book-year">
+            <button id="create-book">Execute</button>
+        </div>
+
+        <div class="col">
+            <h2>Update a Book</h2>
+            <div class="caption">Book id:</div>
+            <input id="update-book-id">
+            <div class="caption">Book title:</div>
+            <input id="update-book-title">
+            <div class="caption">Book author:</div>
+            <input id="update-book-author">
+            <div class="caption">Book year:</div>
+            <input id="update-book-year">
+            <button id="update-book">Execute</button>
+        </div>
+
+        <div class="col">
+            <h2>Delete a Book</h2>
+            <div class="caption">Book id:</div>
+            <input id="delete-book-id">
+            <button id="delete-book">Execute</button>
+        </div>
+    </div>
+
+    <script>
+    $(document).ready(function() {
+        // Get the books
+        $("#get-books").on("click", () => {
+            fetch("/books")
+                .then((response) => {
+                    if (response.status == 200)
+                        return response.json();
+                    else
+                        alert("Failed to get the books!");
+                })
+                .then((json) => {
+                    $("#get-books-result").val(JSON.stringify(json, null, "  "));
+                })
+                .catch((err) => {
+                    alert(err);
+                });
+        });
+
+        // Get the book
+        $("#get-book").on("click", () => {
+            const id = $("#get-book-id").val();
+            fetch("/books/" + id)
+                .then((response) => {
+                    if (response.status == 200)
+                        return response.json();
+                    else
+                        alert("Failed to get the book!");
+                })
+                .then((json) => {
+                    $("#get-book-result").val(JSON.stringify(json, null, "  "));
+                })
+                .catch((err) => {
+                    alert(err);
+                });
+        });
+
+        // Create a new book
+        $("#create-book").on("click", () => {
+            const title = $("#create-book-title").val();
+            const author = $("#create-book-author").val();
+            const year = $("#create-book-year").val();
+            fetch("/books", {
+                method: "POST",
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify({ title, author, year })
+            })
+                .then((response) => {
+                    if (response.status == 201)
+                        alert("The new book has been created!");
+                    else
+                        alert("Failed to create the book!");
+                })
+                .catch((err) => {
+                    alert(err);
+                });
+        });
+
+        // Update a book
+        $("#update-book").on("click", () => {
+            const id = $("#update-book-id").val();
+            const title = $("#update-book-title").val();
+            const author = $("#update-book-author").val();
+            const year = $("#update-book-year").val();
+            fetch("/books/" + id, {
+                method: "PUT",
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify({ title, author, year })
+            })
+                .then((response) => {
+                    if (response.status == 200)
+                        alert("The book has been updated!");
+                    else
+                        alert("Failed to update the book!");
+                })
+                .catch((err) => {
+                    alert(err);
+                });
+        });
+
+        // Delete a book
+        $("#delete-book").on("click", () => {
+            const id = $("#delete-book-id").val();
+            fetch("/books/" + id, { method: "DELETE" })
+                .then((response) => {
+                    if (response.status == 200)
+                        alert("The book has been deleted!");
+                    else
+                        alert("Failed to delete the book!");
+                })
+                .catch((err) => {
+                    alert(err);
+                });
+        });
+    });
+    </script>
+</body>
+</html>

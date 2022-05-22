@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Drawing From an Image Element</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <canvas style="border: 1px solid gray" width="600" height="400"></canvas>
+    <script>
+    $(document).ready(function() {
+        let cv = $("canvas").get(0);
+        let context = cv.getContext("2d");
+
+        /* Prepare the image */
+        let image = new Image();
+        image.onload = function() {
+            context.drawImage(image, 50, 50);
+        };
+        image.src = "pineapple.png";
+    });
+    </script>
+</body>
+</html>

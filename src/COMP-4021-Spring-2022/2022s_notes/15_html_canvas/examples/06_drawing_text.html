@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Drawing Text</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <canvas style="border: 1px solid gray" width="600" height="400"></canvas>
+    <script>
+    $(document).ready(function() {
+        let cv = $("canvas").get(0);
+        let context = cv.getContext("2d");
+
+        /* Draw some text */
+        context.font = "20px Arial";
+        context.fillText("How are you doing?", 50, 50);
+
+        /* Draw some outline text */
+        context.strokeStyle = "red";
+        context.lineWidth = 2;
+        context.font = "bold 40px Georgia";
+        context.strokeText("I am fine!!", 50, 100);
+    });
+    </script>
+</body>
+</html>

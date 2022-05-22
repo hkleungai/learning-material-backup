@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The Counter Module</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>
+    Counter: <span id="counter">0</span>
+    </h1>
+    <button id="increase">Increase counter</button>
+    <script src="counter_js_module.js"></script>
+    <script>
+    $(document).ready(function() {
+        const counter = Counter();
+
+        $("#increase").on("click", function() {
+            counter.increase();
+            $("#counter").text(counter.get());
+        });
+    });
+    </script>
+</body>
+</html>

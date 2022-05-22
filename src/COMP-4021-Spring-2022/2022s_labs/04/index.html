@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>COMP4021 Lab 4 - Gem Rush!</title>
+    <link rel="stylesheet" href="../../css/lab.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/xcode.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <link href='https://fonts.googleapis.com/css?family=Arizonia' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <h1>
+        <a href="https://course.cse.ust.hk/comp4021">
+            COMP4021 Internet Computing
+        </a>
+        &gt; Lab 4 - Gem Rush!
+    </h1>
+
+    <h2>Overview</h2>
+
+    <ul>
+        <li>In this lab, you will make a 'collecting as many gems as you can' game using the sprite
+            that we have shown during the lecture as the main character of the game</li>
+        <li>Here is a video showing an example of the game:
+            <br>
+            <video width="640" height="360" controls>
+                <source src="videos/gem_rush.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video> 
+        </li>
+        <li>As you can see, the game works like this:
+        <ul>
+            <li>The game lasts for only 20 seconds (shown at the top-left hand corner of the game)
+                <figure><img src="images/countdown_timer.png" width="200px" alt="Countdown Timer"></figure>
+            </li>
+            <li>The player needs to walk/run around to collect as many gems as possible
+                <figure><img src="images/player.png" width="100px" alt="The Player"></figure>
+            </li>
+            <li>At any one time, there is only one gem in the game
+                <figure><img src="images/gem.png" width="50px" alt="The Gem"></figure>
+            </li>
+            <li>The gem randomly changes its colour and location after some time</li>
+            <li>When the time is up, the game is over</li>
+        </ul>
+        </li>
+        <li>This lab involves these skills:
+        <ul>
+            <li>HTML canvas programming</li>
+            <li>Working with modules written using the module pattern</li>
+            <li>Playing audio in a web page</li>
+        </ul>
+        </li>
+    </ul>
+
+    <h2>Lab Instructions</h2>
+
+    <ul class="toc">
+        <li><a href="#section1">1. Overview</a></li>
+        <li><a href="#section1.1">1.1. The Starting Code</a></li>
+        <li><a href="#section1.2">1.2. The Game Structure</a></li>
+        <li><a href="#section1.3">1.3. Starting the Game</a></li>
+
+        <li><a href="#section2">2. Drawing the Player and the Gem</a></li>
+        <li><a href="#section2.1">2.1. Drawing the (First) Sprite</a></li>
+        <li><a href="#section2.2">2.2. Moving to the Next Sprite</a></li>
+
+        <li><a href="#section3">3. Moving the Player and the Gem</a></li>
+        <li><a href="#section3.1">3.1. Moving the Player in the Event Handlers</a></li>
+        <li><a href="#section3.2">3.2. Moving the Gem at the Start of the Game</a></li>
+        <li><a href="#section3.3">3.3. Moving the 'Old' Gem</a></li>
+
+        <li><a href="#section4">4. Collecting the Gem</a></li>
+
+        <li><a href="#section5">5. Handling the Game Over Situation</a></li>
+
+        <li><a href="#section6">6. More Improvements</a></li>
+        <li><a href="#section6.1">6.1. Adding Some Sounds to the Game</a></li>
+        <li><a href="#section6.2">6.2. Adding Some Fires to the Game</a></li>
+        <li><a href="#section6.3">6.3. Adding a Cheat Key</a></li>
+    </ul>
+
+    <h3 id="section1">1. Overview</h3>
+
+    <h4 id="section1.1">1.1. The Starting Code</h4>
+
+    <ul>
+        <li>You are given the starting code <a href="gem_rush.zip">here</a></li>
+        <li>You need to download the zip file and then extract it somewhere in your local folder</li>
+        <li>After extracting the zip file, you will have the following files:
+        <ul>
+            <li><strong>HTML File</strong>
+            <ul>
+                <li><code>gem_rush.html</code><br>
+                    The starting HTML file of the game</li>
+            </ul>
+            </li>
+            <li><strong>JavaScript Files</strong>
+            <ul>
+                <li><code>bounding_box.js</code><br>
+                    The JavaScript file containing the code to handle a bounding box</li>
+                <li><code>sprite.js</code><br>
+                    The JavaScript file containing the code to use a sprite animation sequence</li>
+                <li><code>player.js</code><br>
+                    The JavaScript file containing the code to work with the main player</li>
+                <li><code>gem.js</code><br>
+                    The JavaScript file containing the code to work with the gem</li>
+            </ul>
+            </li>
+            <li><strong>Image Files</strong>
+            <ul>
+                <li><code>background.png</code><br>
+                    The background image of the game</li>
+                <li><code>player_sprite.png</code><br>
+                    The sprite sheet for the main player</li>
+                <li><code>object_sprites.png</code><br>
+                    The sprite sheet containing a variety of game objects such as gems</li>
+            </ul>
+            </li>
+            <li><strong>Sound Files</strong>
+            <ul>
+                <li><code>background.mp3</code><br>
+                    The background music of the game</li>
+                <li><code>collect.mp3</code><br>
+                    The sound effect when the player collects a gem</li>
+                <li><code>gameover.mp3</code><br>
+                    The music to play when the game is over</li>
+            </ul>
+            </li>
+        </ul>
+        </li>
+        <li>There are quite a lot of files to handle!</li>
+        <li>Nevertheless, some of them are media resources such as images and sounds</li>
+        <li>And you only need to change the HTML file and a couple of the JavaScript files</li>
+    </ul>
+
+    <h5>The HTML File</h5>
+
+    <ul>
+        <li>The starting point of the game is <code>gem_rush.html</code></li>
+        <li>All other files are directly/indirectly linked to this HTML file
+        <ul>
+            <li>For example, you can see the JavaScript files are linked in the body section of the HTML file:</li>
+        </ul>
+
+        <pre><code class="html">&lt;body&gt;
+    ...
+    &lt;script src="bounding_box.js"&gt;&lt;/script&gt;
+    &lt;script src="sprite.js"&gt;&lt;/script&gt;
+    &lt;script src="player.js"&gt;&lt;/script&gt;
+    &lt;script src="gem.js"&gt;&lt;/script&gt;
+    ...
+&lt;/body&gt;</code></pre>
+
+        </li>
+        <li>The media files are added to the game using CSS or JavaScript code
+            so you won't see any <code>&lt;img&gt;</code> tags or <code>&lt;audio&gt;</code> tags in the page</li>
+        <li>The body of the web page contains a canvas area, and a few SVG areas
+        <ul>
+            <li>The canvas area is the main game area where you are going to draw your sprites</li>
+        </ul>
+       
+        <pre><code class="html">&lt;canvas width="854px" height="480px"&gt;&lt;/canvas&gt;</code></pre>
+
+        <ul>
+            <li>The SVG areas are typically used to show some pretty text, including:
+            <ul>
+                <li>The countdown timer</li>
+            </ul>
+
+            <pre><code class="html">&lt;svg xmlns="http://www.w3.org/2000/svg" id="counter"&gt;...&lt;/svg&gt;</code></pre>
+
+            <ul>
+                <li>The game start display</li>
+            </ul>
+
+            <pre><code class="html">&lt;svg xmlns="http://www.w3.org/2000/svg" id="game-start"&gt;...&lt;/svg&gt;</code></pre>
+
+            <ul>
+                <li>The game over display</li>
+            </ul>
+
+            <pre><code class="html">&lt;svg xmlns="http://www.w3.org/2000/svg" id="game-over" style="display: none"&gt;...&lt;/svg&gt;</code></pre>
+
+            </li>
+            <li>The rest of the body contains the JavaScript code for running the game, i.e.:</li>
+        </ul>
+
+        <pre><code class="html">&lt;script&gt;
+$(document).ready(function() {
+    ...
+});
+&lt;/script&gt;</code></pre>
+
+        <ul>
+            <li>We will refer to this code inside the HTML page as the <em>main code</em> in the rest of the lab page</li>
+        </ul>
+
+        </li>
+    </ul>
+
+    <h5>The JavaScript Files</h5>
+
+    <ul>
+        <li>The JavaScript files contains the different modules used by the game</li>
+        <li>All of them are written using the basic module pattern discussed in the lecture</li>
+        <li>In order to let you understand how they work,
+            some documentations have been prepared for them</li>
+        <li>You can take a look now, or if you prefer you can do that when you need to use them
+        <ul id="documentations">
+            <li><a href="docs/bounding_box.html" target="blank">Documentation for the <code>BoundingBox</code> module</a></li>
+            <li><a href="docs/sprite.html" target="blank">Documentation for the <code>Sprite</code> module</a></li>
+            <li><a href="docs/player.html" target="blank">Documentation for the <code>Player</code> module</a></li>
+            <li><a href="docs/gem.html" target="blank">Documentation for the <code>Gem</code> module</a></li>
+        </ul>
+        </li>
+    </ul>
+
+    <h5>The Background Image</h5>
+
+    <ul>
+        <li>The background image has been put underneath the canvas area by a simple CSS instruction, as shown below:</li>
+    </ul>
+
+    <pre><code class="css">canvas {
+    background: url(background.png);
+    background-size: cover;
+}</code></pre>
+
+    <ul>
+        <li>Here is how it looks like (the example below is half of the actual size):
+            <figure><canvas style="border: 1px solid gray; background: url(images/background.png); background-size: cover" width="427" height="240"></canvas></figure>
+        </li>
+        <li>It is interesting to know the background image will stay as the background of the canvas area,
+            even if you use a <code>clearRect()</code> command</li>
+        <li>That means you don't need to worry about losing the background content when you update your canvas content</li>
+    </ul>
+
+    <h5>The Sprite Sheets</h5>
+
+    <ul>
+        <li>Here are the sprite sheets, which are PNG files with transparency:
+        <ul>
+            <li>For the player:
+                <figure><img src="images/player_sprite.png" width="400px" alt="Player's Sprite sheet"></figure></li>
+            <li>For other objects such as gems:
+                <figure><img src="images/object_sprites.png" width="400px" alt="Objects' Sprite sheet"></figure></li>
+        </ul>
+        </li>
+        <li>These sprite sheets are easy to use because the sprites are uniformly distributed inside the image</li>
+        <li>The size of the sprites in the player's sprite sheet is 24 by 25 pixels,
+            whereas the size of the object sprites is 16 by 16 pixels</li>
+    </ul>
+
+    <h4 id="section1.2">1.2. The Game Structure</h4>
+
+    <ul>
+        <li>The main code in the HTML file uses some of the JavaScript modules
+        <ul>
+            <li>For example, the <code>player</code> variable in the main code is initialized using the <code>Player</code> module</li>
+        </ul>
+        </li>
+        <li>In addition, some JavaScript modules also use other JavaScript modules
+        <ul>
+            <li>For example, the <code>Player</code> module uses the <code>Sprite</code> module internally</li>
+        </ul>
+        </li>
+        <li>The relationship between the HTML file and the modules can be shown in the following figure:
+            <figure><img src="images/game_structure.png" width="640px" alt="The Game Structure"></figure></li>
+    </ul>
+
+    <h4 id="section1.3">1.3. Starting the Game</h4>
+
+    <ul>
+        <li>You can play the game by loading <code>gem_rush.html</code> in the browser</li>
+        <li>After loading the page, the starting screen of the game is shown and it looks like this:
+            <figure><img src="images/start_screen.png" width="640px" alt="The Start Screen"></figure></li>
+        <li>If you click on the screen, you will start the game</li>
+        <li>However, the following screen is shown and you cannot control anything in the game:
+            <figure><img src="images/game_screen.png" width="640px" alt="The Game Screen of the Starting Code"></figure></li>
+        <li>Although the timer at the top-left hand corner seems working fine,
+            it does not stop even when the time is negative</li>
+        <li>In the following sections, you will gradually add functionalities in the game</li>
+    </ul>
+
+    <h4 id="section2">2. Drawing the Player and the Gem</h4>
+
+    <ul>
+        <li>After starting the game, the player and the gem are shown as semi-transparent red rectangles:
+            <figure><img src="images/player_gem_rects.png" width="100px" alt="The red rectangles of the player and gem"></figure></li>
+        <li>It would be great if you can make them showing their corresponding sprite sheet with animations</li>
+    </ul>
+
+    <h4 id="section2.1">2.1. Drawing the (First) Sprite</h4>
+
+    <ul>
+        <li>In the main code, the player and the gem are created from the <code>Player</code> and the <code>Gem</code> modules, as shown below:</li>
+    </ul>
+
+    <pre><code class="javascript">const player = Player(context, 427, 240, gameArea);
+const gem = Gem(context, 427, 350, "green");</code></pre>
+
+    <ul>
+        <li>If you look at the content of both modules, you will find that both of them rely on the <code>Sprite</code> module to draw their sprites</li>
+        <li>You can also see their relationship in the game structure:
+            <figure><img src="images/player_gem_structure.png" width="450px" alt="The Player and the Gem in the Game Structure"></figure></li>
+        </li>
+        <li>Instead of the <code>Player</code> and the <code>Gem</code> modules,
+            it is the <code>Sprite</code> module that you need to change so that they can be displayed correctly</li>
+    </ul>
+
+    <h5>Current Code</h5>
+
+    <ul>
+        <li>At the moment, the code to draw the sprite inside the <code>Sprite</code> module has been written like this:</li>
+    </ul>
+
+    <pre><code class="javascript">const drawSprite = function() {
+    ...
+    const size = getDisplaySize();
+
+    ctx.fillStyle = "red";
+    ctx.globalAlpha = 0.6;
+    ctx.fillRect(parseInt(x - size.width / 2), parseInt(y - size.height / 2),
+                 size.width, size.height);
+    ...
+};</code></pre>
+
+    <ul>
+        <li>It is obvious that the code draws a red rectangle for the sprite</li>
+        <li>By examining the use of <code>fillRect()</code> above, you would know:
+        <ul>
+            <li>the (<code>x</code>, <code>y</code>) position is at the centre of the sprite</li>
+            <li>the width and height of the sprite come from <code>size.width</code> and <code>size.height</code> respectively
+            <figure><img src="images/sprite_dimension.png" width="120px" alt="The Sprite Dimension"></figure>
+            </li>
+        </ul>
+        </li>
+    </ul>
+
+    <h5>Changing the Code</h5>
+
+    <ul>
+        <li>In the <code>Sprite</code> module, a variable called <code>sequence</code> is used to store
+            the sprite information</li>
+        <li>If you want to show its value, you can use <code>console.log()</code> to show the content of the object inside the code, i.e.:</li>
+    </ul>
+
+    <pre><code class="javascript">const drawSprite = function() {
+    ...
+    console.log(sequence);
+    ...
+};</code></pre>
+
+    <ul>
+        <li>For example, the content of <code>sequence</code> for the player is:</li>
+    </ul>
+
+    <pre><code class="javascript">{ x: 0, y:  0, width: 24, height: 25, count: 3, timing: 2000, loop: false }</code></pre>
+
+    <ul>
+        <li>This is one of the animation sequences (<code>idleDown</code>) stored in the <code>Player</code> module</li>
+        <li>Based on the content of the sequence, you can replace the code inside the function,
+            from drawing a red rectangle to drawing an appropriate sprite</li>
+        <li>To do that, you can refer to the
+            <a href="../../2022s_notes/17_making_games_with_sprites/17_4021_making_games_with_sprites_2022s.pdf#page=17" target="blank">lecture notes</a>
+            for the code that you need to write here</li>
+        <li>Obviously, you need to change all the variables appropriately to what you have currently inside the <code>Sprite</code> module
+        <ul>
+            <li>For example, the sprite index is stored in a separate variable called <code>index</code> inside the module
+                (In the notes, <code>index</code> is a property inside the <code>sequence</code> object)</li>
+        </ul>
+        </li>
+        <li>If you do changes correctly, you will see the player and the gem shown in the game appropriately, like this:
+            <figure><img src="images/drawing_first_sprite.png" width="100px" alt="The Player and the Gem"></figure></li>
+        <li>However, only the first sprite in their corresponding animation sequence is shown, i.e. they are not animated at all</li>
+    </ul>
+
+    <h4 id="section2.2">2.2. Moving to the Next Sprite</h4>
+
+    <ul>
+        <li>The player and the gem are not animated after the previous step
+        <ul>
+            <li>This is because the sprite index has not been updated anywhere in the code</li>
+        </ul>
+        </li>
+        <li>If you read the <code>Sprite</code> module code or its
+            <a href="docs/sprite.html" target="blank">documentation</a>, you will find that the index should be updated here:</li>
+    </ul>
+
+    <pre><code class="javascript">const update = function(time) {
+    if (lastUpdate == 0) lastUpdate = time;
+
+    /* Add your code here */
+
+    return this;
+};</code></pre>
+
+    <ul>
+        <li>Again, you can refer to the lecture notes
+            <a href="../../2022s_notes/17_making_games_with_sprites/17_4021_making_games_with_sprites_2022s.pdf#page=19" target="blank">here</a>
+            and
+            <a href="../../2022s_notes/17_making_games_with_sprites/17_4021_making_games_with_sprites_2022s.pdf#page=23" target="blank">here</a>
+            for the code that you need to use in this place</li>
+        <li>You need to change the variables when needed, e.g. using the <code>index</code> variable inside the <code>Sprite</code> module</li>
+        <li>The <code>sequence</code> object also has an additional property called <code>loop</code>, i.e.:</li>
+    </ul>
+
+    <pre><code class="javascript">{ ..., loop: false }</code></pre>
+
+    <ul>
+        <li>This property tells you whether you need to repeat the animation sequence when you reach the end of the animation
+        <ul>
+            <li>If the value is <code>true</code>, you will repeat the animation;
+                this is similar to what has been done in the notes</li>
+            <li>If the value is <code>false</code>, you will need to make sure that
+                the animation stops at the last sprite in the sequence</li>
+        </ul>
+        </li>
+        <li>At the start of the game, the <code>Player</code> module uses a sequence that has <code>loop</code> set to <code>false</code>, i.e.:</li>
+    </ul>
+
+    <pre><code class="javascript">{ x: 0, y:  0, width: 24, height: 25, count: 3, timing: 2000, loop: false }</code></pre>
+
+    <ul>
+        <li>And the <code>Gem</code> module uses a sequence that has <code>loop</code> set to <code>true</code>, i.e.:</li>
+    </ul>
+
+    <pre><code class="javascript">{ x: 192, y:  0, width: 16, height: 16, count: 4, timing: 200, loop: true }</code></pre>
+
+    <ul>
+        <li>That means if you write the code correctly, the player's animation will stop at the last sprite (sleeping) and
+            the gem will repeat its animation continously, as shown below:
+            <br>
+            <video width="200" height="300" controls>
+                <source src="videos/animation_sequence.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video> 
+        </li>
+    </ul>
+
+    <h4 id="section3">3. Moving the Player and the Gem</h4>
+
+    <ul>
+        <li>After finishing the previous part, the player and the gem have animations but they are not moving at all</li>
+        <li>In this part, you will add the code to make them move</li>
+        <li>You do not need to change the <code>Player</code> module and
+            the <code>Gem</code> module but you will use a lot of their functions</li>
+        <li>You can read their <a href="#documentations">documentations</a> when needed</li>
+    </ul>
+
+    <h4 id="section3.1">3.1. Moving the Player in the Event Handlers</h4>
+
+    <ul>
+        <li>In the game, you use the arrow keys to move the player around
+            <figure><img src="images/arrow_keys.jpg" width="150px" alt="The Arrow Keys"></figure></li>
+        </li>
+        <li>In a web page, you can use the key event handlers to do things with them</li>
+        <li>In the main code, two key event handlers have already been set up for you inside the document ready event:</li>
+    </ul>
+
+    <pre><code class="javascript">$(document).on("keydown", function(event) {
+
+    /* Add your code here */
+
+});
+
+$(document).on("keyup", function(event) {
+
+    /* Add your code here */
+
+});</code></pre>
+
+    <ul>
+        <li>The <code>keydown</code> event is triggered when you press down a key and
+            the <code>keyup</code> event is triggered when you release the key</li>
+        <li>The <code>event</code> parameter tells you which key is involved in the event using the <code>keyCode</code> property, i.e. <code>event.keyCode</code></li>
+        <li>In our game, we use the arrow keys which have the following key codes:
+        <ul>
+            <li>Left arrow key - 37</li>
+            <li>Up arrow key - 38</li>
+            <li>Right arrow key - 39</li>
+            <li>Down arrow key - 40</li>
+        </ul>
+        </li>
+    </ul>
+
+    <h5>Adding Code to the Event Handlers</h5>
+
+    <ul>
+        <li>The <code>Player</code> module gives you two functions to move and stop the player:
+        <ul>
+            <li><code>player.move(dir)</code> asks the player to start moving towards a direction
+            <ul>
+                <li><code>dir</code> can be 1 (Left), 2 (Up), 3 (Right) or 4 (Down)</li>
+            </ul>
+            </li>
+            <li><code>player.stop(dir)</code> asks the player to stop moving
+            <ul>
+                <li><code>dir</code> can be 1 (Left), 2 (Up), 3 (Right) or 4 (Down)</li>
+                <li>This direction is the direction the player is heading towards before he stops</li>
+            </ul>
+            </li>
+        </ul>
+        </li>
+        <li>You need to use the above functions appropriately in the event handlers, i.e.:
+        <ul>
+            <li>Use the correct function and direction, based on the key codes</li>
+        </ul>
+        </li>
+        <li>After finishing the code, you should be able to move the player freely around the game area, as shown by the following video:
+            <br>
+            <video width="640" height="360" controls>
+                <source src="videos/moving_player.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video> 
+        </li>
+    </ul>
+
+    <h4 id="section3.2">3.2. Moving the Gem at the Start of the Game</h4>
+
+    <ul>
+        <li>In this part, you will 'randomize' the gem so that it gets a new colour and a new location randomly</li>
+        <li>The <code>Gem</code> module provides a useful function for you to do that</li>
+        <li>The code of the function is shown below:</li>
+    </ul>
+
+    <pre><code class="javascript">const randomize = function(area) {
+    /* Randomize the color */
+    const colors = ["green", "red", "yellow", "purple"];
+    setColor(colors[Math.floor(Math.random() * 4)]);
+
+    /* Randomize the position */
+    const {x, y} = area.randomPoint();
+    sprite.setXY(x, y);
+};</code></pre>
+
+    <ul>
+        <li>In the <code>randomize()</code> function,
+        <ul>
+            <li>It first assign a random colour, out of four available colours, to the gem</li>
+            <li>Then, it gives a random position to the sprite representing the gem
+            <ul>
+                <li>This random position is obtained from the <code>area</code> given to the function</li>
+                <li>This parameter represents the game area, which should be
+                    a variable created from the <code>BoundingBox</code> module</li>
+                <li>In the main code, you can use the variable <code>gameArea</code> for this purpose</li>
+            </ul>
+            </li>
+        </ul>
+        </li>
+        <li>Using the function, you can then randomly move the gem away at the start of the game</li>
+        <li>You should do this before the game starts, i.e. when you click on the starting screen of the game</li>
+        <li>An example of the result is shown below:
+            <figure>
+                <img src="images/random_gem.png" width="600px" alt="The gem is randomly moved at the start">
+                <figcaption>The gem is randomly placed and has a yellow colour at the start</figcaption>
+            </figure></li>
+        </li>
+    </ul>
+
+    <h4 id="section3.3">3.3. Moving the 'Old' Gem</h4>
+
+    <ul>
+        <li>Even after moving the gem at the start of the game, it still stays in that place forever</li>
+        <li>To make the game more interesting, you can move the gem in a fixed interval</li>
+        <li>The gem has an 'age' value that you can get from the <code>Gem</code> module
+        <ul>
+            <li>You use the <code>getAge()</code> function to get the current age of the gem, expressed in milliseconds</li>
+        </ul>
+        </li>
+        <li>This age value is reset every time the gem is randomized</li>
+        <ul>
+            <li>For example, if you run <code>getAge()</code> one second after the gem is randomized, you will get 1000 (milliseconds) as a return value</li>
+        </ul>
+        </li>
+        <li>In the main code, a variable called <code>gemMaxAge</code> has been created, which indicates the maximum age of a gem</li>
+        <li>When the gem reaches this age, you need to randomize it</li>
+        <li>As <code>gemMaxAge</code> has been initialized with 3000, it means the gem is randomized every 3 seconds</li>
+        <li>You need to write the code in the <code>doFrame()</code> function</li>
+        <li>It does not matter where you are going to put the code in the function but let's put the code before drawing the sprites, i.e.:</li>
+    </ul>
+
+    <pre><code class="javascript">function doFrame(now) {
+    ...
+
+    /* Add your code here */
+
+    /* Clear the screen */
+    context.clearRect(0, 0, cv.width, cv.height);
+    ...
+}</code></pre>
+
+    <ul>
+        <li>After adding the code, the gem is randomly moved every 3 seconds, like in this video:
+            <br>
+            <video width="640" height="360" controls>
+                <source src="videos/moving_gem.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video> 
+        </li>
+    </ul>
+
+    <h4 id="section4">4. Collecting the Gem</h4>
+
+    <ul>
+        <li>You have now finished the movement of the player and the gem</li>
+        <li>In this part, you will complete the major part of the game, collecting the gems</li>
+        <li>You need to write the code to check whether the gem is very close to the player, so that the player can collect it</li>
+        <li>Similar to before, all the necessary functions have been given to you so you just need to use them correctly</li>
+        <li>Here are the functions that are most useful in this part:
+        <ul>
+            <li><code>getBoundingBox()</code> - You can get the bounding box of the player by using the player's <code>getBoundingBox()</code> function
+                (<a href="docs/player.html">documentation</a>)
+            <figure><img src="images/bounding_box.png" width="200px" alt="The bounding box"></figure></li>
+            <li><code>isPointInBox()</code> - From the returned bounding box, you can use the <code>isPointInBox()</code> function
+                to determine if (x, y) is within the bounding box or not
+                (<a href="docs/bounding_box.html">documentation</a>)
+            <figure><img src="images/point_in_box.png" width="170px" alt="Is point in box?"></figure></li>
+            <li><code>getXY()</code> - You can get the position of the gem using its <code>getXY()</code> function
+                so that you can test it against the player's bounding box
+                (<a href="docs/bounding_box.html">documentation</a>)
+            </li>
+        </ul>
+        </li>
+        <li>Using the above functions, you can easily test if the player can collect the gem (the gem's centre is inside the player's bounding box)</li>
+        <li>This code can be added to the <code>doFrame()</code> function
+        <ul>
+            <li>For example, you can add the code before drawing the sprites</li>
+        </ul>
+        </li>
+        <li>If a player is close to a gem, i.e. the player can collect the gem, you should:
+        <ul>
+            <li>Increase the number of collected gems by one using the <code>collectedGems</code> variable given to you in the main code</li>
+            <li>Randomize the gem to move it away and reset its age</li>
+        </ul>
+        </li>
+    </ul>
+
+    <h4 id="section5">5. Handling the Game Over Situation</h4>
+
+    <ul>
+        <li>The game never ends now as the count down timer can go negative without stopping</li>
+        <li>You should stop the game when the timer is 0</li>
+        <li>You can add the code after the timer is updated in the <code>doFrame()</code> function, i.e.:</li>
+    </ul>
+
+    <pre><code class="javascript">function doFrame(now) {
+    if (gameStartTime == 0) gameStartTime = now;
+
+    /* Update the time remaining */
+    const gameTimeSoFar = now - gameStartTime;
+    const timeRemaining = Math.ceil((totalGameTime * 1000 - gameTimeSoFar) / 1000);
+    $("#time-remaining").text(timeRemaining);
+
+    /* Add your code here */
+
+    ...
+}</code></pre>
+
+    <ul>
+        <li>When the value of <code>timeRemaining</code> is 0, you should:
+        <ul>
+            <li>Show the game over screen
+            <ul>
+                <li>Remember to put the number of gems collected in the 'game over' text here:</li>
+            </ul>
+
+            <pre><code class="html">&lt;tspan id="final-gems"&gt;0&lt;/tspan&gt;</code></pre>
+
+            <ul>
+            </ul>
+            </li>
+            <li>Stop the animation loop by stopping the <code>doFrame()</code> function, i.e. using <code>return</code>
+                without running <code>requestAnimationFrame()</code> again</li>
+        </ul>
+        </li>
+        <li>After adding the code, when the time is up, the game over screen will be shown like this:
+            <figure><img src="images/game_over.png" width="600px" alt="Game over"></figure></li>
+        </li>
+        <li>And the player and the gem cannot move anymore</li>
+    </ul>
+
+    <h4 id="section6">6. More Improvements</h4>
+
+    <ul>
+        <li>At this stage, the game is complete</li>
+        <li>However, it is always possible to add improvements to it</li>
+        <li>You will add three improvements here:
+        <ol>
+            <li>Adding sounds and music</li>
+            <li>Adding some decorative fires</li>
+            <li>Adding a cheat key</li>
+        </ol>
+        </li>
+    </ul>
+
+    <h4 id="section6.1">6.1. Adding Some Sounds to the Game</h4>
+
+    <ul>
+        <li>The main code has already helped you load some sound files, as shown in the code:</li>
+    </ul>
+
+    <pre><code class="javascript">const sounds = {
+    background: new Audio("background.mp3"),
+    collect: new Audio("collect.mp3"),
+    gameover: new Audio("gameover.mp3")
+};</code></pre>
+
+    <ul>
+        <li><code>sounds.background</code> is the background music of the game
+        <ul>
+            <li>You should play it when the game starts</li>
+        </ul>
+        </li>
+        <li><code>sounds.collect</code> is the sound effect when the player collects a gem
+        <ul>
+            <li>You should play it when the player collects a gem</li>
+            <li>You need to make sure the sound is played from the beginning
+            <ul>
+                <li>This is because the player may be able to collect another gem before the previous sound effect has finished playing</li>
+            </ul>
+            </li>
+        </ul>
+        </li>
+        <li><code>sounds.gameover</code> is the music to play when the time is up
+        <ul>
+            <li>You should play it when the game is over</li>
+            <li>When doing this, you need to stop the other two sounds; otherwise, you may have all of them playing at the same time</li>
+        </ul>
+        </li>
+    </ul>
+
+    <h4 id="section6.2">6.2. Adding Some Fires to the Game</h4>
+
+    <ul>
+        <li>You can add some decorations to the game
+        <ul>
+            <li>For example, you can add some fires or bombs to the corners of the game area</li>
+        </ul>
+        </li>
+        <li>You can get the corners of the game area using the <code>getPoints()</code> function of <code>gameArea</code>
+        <ul>
+            <li>Or, simply by hardcoding the locations when you create the fires</li>
+        </ul>
+        </li>
+        <li>You can find the fire sprites in the objects' sprite sheet, at the bottom row:
+            <figure><img src="images/fire_sprites.png" width="400px" alt="The fire sprites"></figure></li>
+        </li>
+        <li>To add the fires, you need to add a new module from scratch, e.g. a <code>Fire</code> module in <code>fire.js</code></li>
+        <li>It would be a module that is similar to <code>Gem</code> and <code>Player</code></li>
+        <li>However, since the <code>Fire</code> module is for decoration only,
+            you do not need all the extra functionalities that you find from <code>Gem</code> and <code>Player</code></li>
+        <li>After finishing the module, you can use the module to make a few instances of the fire, for example:</li>
+    </ul>
+
+    <pre><code class="javascript">const fires = [
+    Fire(...),
+    Fire(...),
+    Fire(...),
+    Fire(...)
+];</code></pre>
+
+    <ul>
+        <li>Then, you need to update and draw them appropriately, just like the player and the gem</li>
+        <li>Although it looks like a big task, it is relatively straightforward because
+            you can refer to how <code>Gem</code> and <code>Player</code> work</li>
+    </ul>
+
+    <h4 id="section6.3">6.3. Adding a Cheat Key</h4>
+
+    <ul>
+        <li>You may have noticed that the <code>Player</code> module has two functions
+            called <code>speedUp()</code> and <code>slowDown()</code></li>
+        <li>These two functions can be combined to make a 'cheat' key</li>
+        <li>For example, you can use the spacebar key, which has a key code of 32,
+            to act as an acceleration key, i.e.:
+        <ul>
+            <li>If you press down the spacebar key, the player will move faster, and</li>
+            <li>If you release the spacebar key, the player will get back to his normal speed</li>
+        </ul>
+        </li>
+        <li>This can be done easily by extending your current code in the key event handlers</li>
+    </ul>
+
+
+    <h2><a class="anchor" name="marking"></a>Marking and submission</h2>
+
+    <ul>
+        <li>This work will be marked</li>
+        <li>When you have completely finished your work:
+        <ol>
+            <li>Check <b><a href="marking_scheme.html">the marking scheme</a></b> for the lab</li>
+            <li><b>Double check</b> everything in your project works correctly, fix it if it doesn't!
+            <ul>
+                <li>Use <code>F12</code> then <i>Console</i> in Chrome to check no JavaScript errors are generated</li>
+                <li>We will only use <b>Chrome</b> to mark your work, because it is the most commonly used browser</li>
+            </ul>
+            </li>
+            <li>You need to submit all your files by putting them in one single zip file</li>
+            <li>Submit your file in 
+                <a href="https://canvas.ust.hk/courses/42327/assignments/203907" target="blank">canvas</a></li>
+        </ol>
+        </li>
+        <li>Please check the submission deadline on canvas</b>
+        <ul>
+            <li><b>Submit early!</b> - well before the deadline</li>
+            <li>You can submit as many times as you like <b>before</b> the deadline</li>
+            <li>We won't mark work submitted after the deadline unless there is some kind of exceptional situation
+            <ul>
+                <li>e.g. if the canvas system is down for a few hours</li>
+            </ul>
+            </li>
+        </ul>
+        </li>
+    </ul>
+
+</body>
+</html>

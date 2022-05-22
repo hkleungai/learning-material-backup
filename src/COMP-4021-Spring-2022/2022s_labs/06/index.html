@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>COMP4021 Lab 6 - Chatroom Part 2</title>
+    <link rel="stylesheet" href="../../css/lab.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/xcode.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <link href='https://fonts.googleapis.com/css?family=Arizonia' rel='stylesheet' type='text/css'>
+    <style>
+    .label { color: steelblue; }
+    </style>
+</head>
+<body>
+    <h1>
+        <a href="https://course.cse.ust.hk/comp4021">
+            COMP4021 Internet Computing
+        </a>
+        &gt; Lab 6 - Chatroom Part 2
+    </h1>
+
+    <h2>Overview</h2>
+
+    <ul>
+        <li>In the previous lab, you have finished the first part of the chatroom web application</li>
+        <li>As a reminder, the application is divided into two parts:
+        <ol>
+            <li>User registration and authentication</li>
+            <li>Online user management and chatroom communication</li>
+        </ol>
+        </li>
+        <li>In this lab, you will focus on the second part</li>
+        <li>Here is a video showing you the functionalities you will work on in this lab:
+            <br>
+            <video width="960" height="457" controls>
+                <source src="videos/chatroom_part2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video> 
+        </li>
+        <li>As you can see, there are two major components in the chatroom that you have not worked on before
+        <ul>
+            <li>The online user list shown on the right of the page</li>
+            <li>The chatroom content in the middle of the page</li>
+        </ul>
+        </li>
+        <li>After signing in the system, you will see your information shown at the top right hand corner, like this:
+            <figure><img src="images/user_info.png" width="180px" alt="User information"></figure>
+        </li>
+        <li>At the same time, your information will be shown in the online user list of other signed-in users, as shown by the following example:
+            <figure><img src="images/online_user_list.png" width="200px" alt="Online user list"></figure>
+        </li>
+        <li>The online user list contains the users who are currently connected to the system, and it will be automatically updated whenever users sign in/out</li>
+        <li>The main part of the system is the chatroom area:
+            <figure><img src="images/chatroom.png" width="400px" alt="The chatroom"></figure>
+        </li>
+        <li>After signing in, you can see all messages that have been posted in the chatroom so far</li>
+        <li>All signed-in users can participate in the chatroom by posting new messages using the new message input at the bottom of the page</li>
+        <li>New messages are shown immediately for everyone after they are posted</li>
+        <li>This lab involves these skills:
+        <ul>
+            <li>Node.js programming
+            <ul>
+                <li>Using the Socket.IO module</li>
+                <li>Reading and writing JSON files</li>
+            </ul>
+            </li>
+            <li>Using Socket.IO on the browser side</li>
+        </ul>
+        </li>
+    </ul>
+
+    <h2>Lab Instructions</h2>
+
+    <ul class="toc">
+        <li><a href="#section1">1. Overview</a></li>
+        <li><a href="#section1.1">1.1. The Starting Code</a></li>
+        <li><a href="#section1.2">1.2. The Frontend</a></li>
+        <li><a href="#section1.3">1.3. The Backend</a></li>
+        <li><a href="#section1.4">1.4. Installing Socket.IO</a></li>
+
+        <li><a href="#section2">2. Creating the Socket.IO Server</a></li>
+
+        <li><a href="#section3">3. The Online User List</a></li>
+        <li><a href="#section3.1">3.1. Managing the Online User List</a></li>
+        <li><a href="#section3.2">3.2. Showing the Online User List</a></li>
+        <li><a href="#section3.3">3.3. Broadcasting When Users Sign In and Out</a></li>
+
+        <li><a href="#section4">4. The Chatroom</a></li>
+        <li><a href="#section4.1">4.1. Getting the Chatroom Messages</a></li>
+        <li><a href="#section4.2">4.2. Posting a New Message</a></li>
+        <li><a href="#section4.3">4.3. Broadcasting New Messages</a></li>
+
+        <li><a href="#section5">5. Improvement</a></li>
+    </ul>
+
+    <h3 id="section1">1. Overview</h3>
+
+    <h4 id="section1.1">1.1. The Starting Code</h4>
+
+    <ul>
+        <li>You have already got the starting code in lab 5</li>
+        <li>However, it does not contain the required JavaScript code for the online user list and chatroom functionalities</li>
+        <li>In this lab, you will download a new set of the starting code
+        <ul>
+            <li>Some files are new and some other replace the files that you have got from the last lab</li>
+        </ul>
+        </li>
+        <li>We assume that you have only made changes to the following files in lab 5:
+        <ul>
+            <li><code>chat_server.js</code></li>
+            <li><code>data/users.json</code></li>
+            <li><code>public/scripts/registration.js</code></li>
+            <li><code>public/scripts/authentication.js</code></li>
+        </ul>
+        </li>
+        <li>Before you download the new starting code, <strong>make sure you have made a backup of the previous files</strong></li>
+        <li>If you are sure you have backed up the files, you can download the starting code for this lab <a href="chatroom_part2.zip">here</a></li>
+        <li>You can then extract it somewhere in your local folder</li>
+        <li>After extracting the zip file, you will have the following files:
+        <ul>
+            <li><strong>Files Related to the Server-side Operations</strong>
+            <ul>
+                <li><strong>Node.js File</strong>
+                <ul>
+                    <li><code>chat_server.js</code> <strong class="label">(Same as lab 5 - You need to replaced this)</strong><br>
+                        The web server of the chatroom<br>
+                        <strong>(You are expected to overwrite this file with the one you have worked on in lab 5)</strong></li>
+                </ul>
+                </li>
+                <li><strong>JSON File</strong>
+                <ul>
+                    <li><code>data/users.json</code> <strong class="label">(Same as lab 5 - You need to replaced this)</strong><br>
+                        The user 'database' of the chatroom<br>
+                        <strong>(You are expected to overwrite this file with the one you have worked on in lab 5)</strong></li>
+                    <li><code>data/chatroom.json</code> <strong class="label">(New)</strong><br>
+                        The 'database' of the chatroom content</li>
+                </ul>
+                </li>
+            </ul>
+            </li>
+            <li><strong>Files Related to Client-side Operations</strong>
+            <ul>
+                <li><strong>HTML File</strong>
+                <ul>
+                    <li><code>public/index.html</code> <strong class="label">(Updated)</strong><br>
+                        The entry point of the chatroom in the browser</li>
+                </ul>
+                </li>
+                <li><strong>CSS File</strong>
+                <ul>
+                    <li><code>public/style.css</code> <strong class="label">(Same as lab 5)</strong><br>
+                        The CSS rules of the web page</li>
+                </ul>
+                </li>
+                <li><strong>JavaScript Files</strong>
+                <ul>
+                    <li><code>public/scripts/avatar.js</code> <strong class="label">(Same as lab 5)</strong><br>
+                        The list of avatars the user can choose from</li>
+                    <li><code>public/scripts/ui.js</code> <strong class="label">(Updated)</strong><br>
+                        The JavaScript code for handling UI related operations</li>
+                    <li><code>public/scripts/registration.js</code> <strong class="label">(Same as lab 5 - You need to replaced this)</strong><br>
+                        The JavaScript code for processing the registration request<br>
+                        <strong>(You are expected to overwrite this file with the one you have worked on in lab 5)</strong></li>
+                    </li>
+                    <li><code>public/scripts/authentication.js</code> <strong class="label">(Same as lab 5 - You need to replaced this)</strong><br>
+                        The JavaScript code for handling authentication related operations<br>
+                        <strong>(You are expected to overwrite this file with the one you have worked on in lab 5)</strong></li>
+                    </li>
+                    <li><code>public/scripts/socket.js</code> <strong class="label">(New)</strong><br>
+                        The JavaScript code for handling the WebSocket related initialization and operations</li>
+                    </li>
+                </ul>
+                </li>
+            </ul>
+            </li>
+        </ul>
+        </li>
+        <li>All these files should be stored under the same folder</li>
+        <li>To remind you again, you are expected to <strong>overwrite the following files</strong> with the ones you have done in lab 5
+            (<strong>make sure you have backed these up somewhere!</strong>):
+        <ul>
+            <li><code>chat_server.js</code></li>
+            <li><code>data/users.json</code></li>
+            <li><code>public/scripts/registration.js</code></li>
+            <li><code>public/scripts/authentication.js</code></li>
+        </ul>
+        </li>
+        <li>In this lab, you will mostly work on these files:
+        <ul>
+            <li><code>chat_server.js</code></li>
+            <li><code>data/chatroom.json</code></li>
+            <li><code>public/scripts/socket.js</code></li>
+        </ul>
+        </li>
+    </ul>
+
+    <h4 id="section1.2">1.2. The Frontend</h4>
+
+    <ul>
+        <li>In this lab, you will work with two components that you have not used in lab 5:
+        <ul>
+            <li>The online user list</li>
+            <li>The chatroom area</li>
+        </ul>
+        </li>
+        <li>The HTML code for them are already in the HTML file you have got before</li>
+        <li>In the HTML file in the new starting code, we have removed for you a couple of text saying 'This function will be implemented in Lab 6', which is not useful anymore</li>
+    </ul>
+
+    <h5>The Online User List</h5>
+
+    <ul>
+        <li>The online user list is on the right side of the HTML page:
+            <figure><img src="images/frontend_online_user_list.png" width="500px" alt="The online user list in the frontend"></figure>
+        </li>
+        <li>It is created by the following HTML using a <code>&lt;div&gt;...&lt;/div&gt;</code>:</li>
+    </ul>
+
+    <pre><code class="html">&lt;div id="online-users-panel" class="col"&gt;
+    &lt;div id="online-users-area" class="col"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+    <ul>
+        <li>Initially, the area is empty</li>
+        <li>When there are users signing in the system, the users are then nicely arranged and displayed inside this area</li>
+    </ul>
+
+    <h5>The Chatroom Area</h5>
+
+    <ul>
+        <li>The chatroom area forms the main part of the HTML page, which is located around the center:
+            <figure><img src="images/frontend_chatroom.png" width="500px" alt="The chatroom area in the frontend"></figure>
+        </li>
+        <li>The area is created by the following HTML:</li>
+    </ul>
+
+    <pre><code class="html">&lt;div id="chat-panel" class="col"&gt;
+    &lt;div id="chat-area" class="col"&gt;&lt;/div&gt;
+    &lt;form id="chat-input-form" autocomplete="off"&gt;
+        &lt;input id="chat-input" placeholder="Enter your message"&gt;&lt;/input&gt;
+    &lt;/form&gt;
+&lt;/div&gt;</code></pre>
+
+    <ul>
+        <li>It has a chat area, which contains the chatroom messages, and an input field for posting new messages
+        <ul>
+            <li>When a user signs in the system, the chatroom messages are retrieved from the server and shown in the chat area</li>
+            <li>New messages can be posted by submitting the form, i.e. pressing Enter in the input field</li>
+        </ul>
+        </li>
+    </ul>
+
+    <h5>JavaScript Files</h5>
+
+    <ul>
+        <li>In the new starting code, there is a couple of new JavaScript files linked by the HTML page:</li>
+    </ul>
+
+    <pre><code class="html">&lt;script src="/socket.io/socket.io.min.js"&gt;&lt;/script&gt;
+&lt;script src="scripts/socket.js"&gt;&lt;/script&gt;</code></pre>
+
+    <ul>
+        <li>The first JavaScript file is the Socket.IO library which is coming from the server that you make later</li>
+        <li>The second file <code>socket.js</code> is a module for handling WebSocket related operations in the HTML page</li>
+        <li>Similar to other JavaScript files, this JavaScript file is written in a module pattern structure:</li>
+    </ul>
+
+    <pre><code class="javascript">const Socket = (function() {
+    // This stores the current Socket.IO socket
+    let socket = null;
+
+    // This function gets the socket from the module
+    const getSocket = function() { ... };
+
+    // This function connects the server and initializes the socket
+    const connect = function() { ... };
+
+    // This function disconnects the socket from the server
+    const disconnect = function() { ... };
+
+    // This function sends a post message event to the server
+    const postMessage = function(content) { ... };
+
+    return { getSocket, connect, disconnect, postMessage };
+})();</code></pre>
+
+    <ul>
+        <li>This file contains code for handling the communication between the browser and the server using WebSocket
+        <ul>
+            <li>For example, if you want to connect to the Socket.IO server in the server program, you can run <code>Socket.connect()</code></li>
+        </ul>
+        </li>
+        <li>Later down the lab page, you will need to look at some of the code in this file
+            when you work on the communication between the browser and the server</li>
+        <li>From the HTML page, you also link to <code>ui.js</code> which you have already seen in lab 5:</li>
+    </ul>
+
+    <pre><code class="html">&lt;script src="scripts/ui.js"&gt;&lt;/script&gt;</code></pre>
+
+    <ul>
+        <li>In this lab, this file has been updated so that there are two more UI components that you can use:
+        <ul>
+            <li>A component called <code>OnlineUsersPanel</code>, and</li>
+            <li>A component called <code>ChatPanel</code></li>
+        </ul>
+        </li>
+        <li>They correspond to the two components that are discussed at the start of this section</li>
+        <li>You do not need to change the code in this file for the lab</li>
+        <li>However, you may be interested to see what it is doing with the UI and the results from the WebSocket communication</li>
+    </ul>
+
+    <h4 id="section1.3">1.3. The Backend</h4>
+
+    <h5>The Web Server</h5>
+
+    <ul>
+        <li>It is the same Express web server from your lab 5 and you should have completed the required sign-in/out and registration functionalities</li>
+        <li>In this lab, you will extend the web server to include WebSocket capability</li>
+        <li>The online user list and chatroom content are both managed using the WebSocket connection</li>
+        <li>Here is a summary of the messages that you send between the browser and the server:
+        <ul>
+            <li>From the browser, you always send the event to the server only:
+
+                <table class="basic">
+                    <tr>
+                        <th>Description</th>
+                        <th>Event Name</th>
+                        <th>Message Content</th>
+                    </tr>
+                    <tr>
+                        <td>Request for the online user list</td>
+                        <td>get users</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Request for the chatroom messages</td>
+                        <td>get messages</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Post a new message in the chatroom</td>
+                        <td>post message</td>
+                        <td><em>text content of the message</em></td>
+                    </tr>
+                </table>
+
+            </li>
+            <li>From the server, you may send the event to one browser, or broadcast to all connected browsers:
+
+                <table class="basic">
+                    <tr>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th>Event Name</th>
+                        <th>Message Content</th>
+                    </tr>
+                    <tr>
+                        <td>Add a signed-in user to the online user list</td>
+                        <td><em>Broadcast</em></td>
+                        <td>add user</td>
+                        <td><code>{ <em>username</em>, <em>avatar</em>, <em>name</em> }</code></td>
+                    </tr>
+                    <tr>
+                        <td>Remove a disconnected user from the online user list</td>
+                        <td><em>Broadcast</em></td>
+                        <td>remove user</td>
+                        <td><code>{ <em>username</em>, <em>avatar</em>, <em>name</em> }</code></td>
+                    </tr>
+                    <tr>
+                        <td>Send the current online users</td>
+                        <td><em>Socket</em></td>
+                        <td>users</td>
+                        <td><em>JSON representation of the online user list</em></td>
+                    </tr>
+                    <tr>
+                        <td>Send the chatroom messages from the JSON file</td>
+                        <td><em>Socket</em></td>
+                        <td>messages</td>
+                        <td><em>JSON representation of the chatroom messages</em></td>
+                    </tr>
+                    <tr>
+                        <td>Add a new message to the chatroom</td>
+                        <td><em>Broadcast</em></td>
+                        <td>add message</td>
+                        <td><em>JSON representation of the chatroom message</em></td>
+                    </tr>
+                </table>
+
+            </li>
+
+        </ul>
+        </li>
+        <li>The code for the browser side has been mostly given to you in <code>socket.js</code>
+        <ul>
+            <li>It includes code responsible for both sending (i.e. <code>emit()</code>) and receiving (i.e. <code>on(...)</code>) of the events</li>
+        </ul>
+        </li>
+        <li>Your task in this lab is mainly about building up the code for the Socket.IO server</li>
+    </ul>
+
+    <h5>Data Storage</h5>
+
+    <ul>
+        <li>You still use <code>users.json</code> to store the user accounts</li>
+        <li>In addition, in this lab, a new 'database' file called <code>chatroom.json</code> is given to you</li>
+        <li>This file stores the chatroom messages that have been posted to the chatroom so far</li>
+        <li>The initial content of the file has only one message:</li>
+    </ul>
+
+    <pre><code class="javascript">[
+  {
+    "user": {
+      "username": "tony",
+      "avatar": "Owl",
+      "name": "Tony Lee"
+    },
+    "datetime": "2022-01-01T01:00:00.000Z",
+    "content": "Hi, welcome to the chatroom!"
+  }
+]</code></pre>
+
+    <ul>
+        <li>As you can see, the file contains a JavaScript array <code>[...]</code> currently with one item</li>
+        <li>The item represents a single message in the chatroom with the following data:
+        <ul>
+            <li>The user who has posted the message, in the form of <code>{ <em>username</em>, <em>avatar</em>, <em>name</em> }</code></li>
+            <li>The date and time the message was posted, and</li>
+            <li>The content of the message</li>
+        </ul>
+        <li>If any new messages are posted to the chatroom, they will be added to the end of this array</li>
+    </ul>
+
+    <h4 id="section1.4">1.4. Installing Socket.IO</h4>
+
+    <ul>
+        <li>Before using the starting code, you need to make sure the Socket.IO package is installed in your folder</li>
+        <li>You can do that using <code>npm</code> as usual, i.e.:
+            <p><code>npm install socket.io</code></p>
+        </li>
+        <li>Make sure it is installed successfully by examining the <code>package.json</code> inside the folder
+        <ul>
+            <li>It should have <code>socket.io</code> listed inside, similar to this:</li>
+        </ul>
+
+        <pre><code class="javascript">"socket.io": "^4.4.1"</code></pre>
+
+        </li>
+        <li>However, even if you install it successfully, when you access the system from the browser,
+            you will still see a related error message in the console:
+            <figure><img src="images/console_error.png" width="550px" alt="The console error"></figure>
+        </li>
+        <li>This is because you have not yet created the Socket.IO server, which you will do in the next section</li>
+    </ul>
+
+    <h4 id="section2">2. Creating the Socket.IO Server</h4>
+
+    <ul>
+        <li>At this point, you should have replaced the <code>chat_server.js</code>
+            with the file you have worked on in lab 5 from last time</li>
+        <li>If you look near the end of the file, you will find this section:</li>
+    </ul>
+
+    <pre><code class="javascript">//
+// ***** Please insert your Lab 6 code here *****
+//</code></pre>
+
+    <ul>
+        <li>You will add some code there to create a Socket.IO server</li>
+        <li>To do that, you can refer to the
+            <a href="../../2022s_notes/29_using_websocket/29_4021_using_websocket_2022s.pdf#page=10" target="blank">lecture notes</a>
+            on how to create the Socket.IO server</li>
+        <li>After adding the code, you should have your Socket.IO server created in the <code>io</code> variable</li>
+        <li>Apart from those lines of code, it is important that the web server is started
+            using the http server, i.e. <code>httpServer</code>, instead of the Express app, i.e. <code>app</code></li>
+        <li>So you will need to change this code:
+
+        <pre style="line-height:24px"><code class="javascript">app.listen(8000, () =&gt; {
+    console.log("The chat server has started...");
+});</code></pre>
+
+            to this:
+
+        <pre style="line-height:24px"><code class="javascript">httpServer.listen(8000, () =&gt; {
+    console.log("The chat server has started...");
+});</code></pre>
+
+        </li>
+        <li>After doing this, your server is ready to accept new WebSocket connections, which you will create in the next section</li>
+    </ul>
+
+    <h5>Using the Session</h5>
+
+    <ul>
+        <li>In the previous lab, you have set up a session for any user who has signed in the system</li>
+        <li>Here is a reminder of the code that you should have done:</li>
+    </ul>
+
+    <pre><code class="javascript">const chatSession = session({
+    secret: "game",
+    resave: false,
+    saveUninitialized: false,
+    rolling: true,
+    cookie: { maxAge: 300000 }
+});
+app.use(chatSession);
+</code></pre>
+
+    <ul>
+        <li>Also, you should have stored the user information in the session data using <code>req.session.user</code></li>
+        <li>Unfortunately, the Socket.IO server does not automatically make use of the current session</li>
+        <li>You need to explicitly ask the server to 'use' the session that you have created above, using this code:</li>
+    </ul>
+
+    <pre><code class="javascript">io.use((socket, next) => {
+    chatSession(socket.request, {}, next);
+});</code></pre>
+
+    <ul>
+        <li>This above code asks the Socket.IO server, i.e. <code>io</code>, to use the session object for each socket</li>
+        <li>After setting it up, you will be able to access the user in the session data using <code>socket.request.session.user</code> within the Socket.IO server</li>
+    </ul>
+
+    <h4 id="section3">3. The Online User List</h4>
+
+    <ul>
+        <li>The online user list displays the current users connected to the Socket.IO server</li>
+        <li>You need to maintain this list of online users by yourself so that:</li>
+        <ul>
+            <li>When a user signs in the system, you add the user to the list</li>
+            <li>When a user signs out or disconnects from the server, e.g. reload the page, you remove the user from the list</li>
+        </ul>
+        </li>
+        <li>Since the online users exist only when the server is running, you do not need to store them in a permanent location, i.e. a JSON file</li>
+        <li>You only need to store them in memory</li>
+        <li>In this lab, you will put the users in a simple JavaScript object, where:
+        <ul>
+            <li>the keys of the object are the usernames, and</li>
+            <li>the values are the corresponding avatar and name of the user</li>
+        </ul>
+        <li>For example, if the current online users are Tony and May (remember them from the previous lab?), the online users object will contain:</li>
+    </ul>
+
+    <pre><code class="javascript">{
+    "tony": { avatar: "Owl",    name: "Tony Lee" },
+    "may":  { avatar: "Rabbit", name: "May Wong" }
+}</code></pre>
+
+    <ul>
+        </li>
+        <li>Let's make this object available in the server, which is obviously empty at the start:</li>
+    </ul>
+
+    <pre><code class="javascript">const onlineUsers = {};</code></pre>
+
+    <ul>
+        <li>You should put the above line of code in <code>chat_server.js</code> in an appropriate place</li>
+    </ul>
+
+    <h4 id="section3.1">3.1. Managing the Online User List</h4>
+
+    <ul>
+        <li>As described above, you need to maintain an online user list in the form of a JavaScript object</li>
+        <li>JavaScript code has already been given to you so that the browser will
+            connect to the Socket.IO server when a user signs in, as shown below in <code>ui.js</code>:</li>
+    </ul>
+
+    <pre><code class="javascript">Authentication.signin(username, password,
+    () =&gt; {
+        hide();
+        UserPanel.update(Authentication.getUser());
+        UserPanel.show();
+
+        Socket.connect(); // Connect to the Socket.IO server here
+    },
+    (error) =&gt; { $("#signin-message").text(error); }
+);
+</code></pre>
+
+    <ul>
+        <li>Similarly, when a user signs out from the server,
+            the following code is used to disconnect the user from the Socket.IO server</li>
+    </ul>
+
+    <pre><code class="javascript">Authentication.signout(
+    () =&gt; {
+        Socket.disconnect(); // Disconnect from the Socket.IO server here
+
+        hide();
+        SignInForm.show();
+    }
+);</code></pre>
+
+    <ul>
+        <li>You can listen for the corresponding 'connect' and 'disconnect' events on the server to manage the online user list</li>
+    </ul>
+
+    <h5>Adding a New User</h5>
+
+    <ul>
+        <li>You add a new user to the online user list when a user connects to the Socket.IO server</li>
+        <li>From the 
+            <a href="../../2022s_notes/29_using_websocket/29_4021_using_websocket_2022s.pdf#page=13" target="blank">lecture notes</a>,
+            you know you can wait for a new connection using the <code>connection</code> event on the server</li>
+        <li>So in this task, you can use this event to add a new user to the online user list, i.e:</li>
+    </ul>
+
+    <pre><code class="javascript">io.on("connection", (socket) =&gt; {
+    // Add a new user to the online user list
+    ...
+});</code></pre>
+
+    <ul>
+        <li>The user to be added to the online user list is the user who has currently signed in the system</li>
+        <li>That means you can find the user's information from the session data <code>socket.request.session.user</code></li>
+        <li>You may want to make sure that you will add the user to <code>onlineUsers</code>,
+            only if <code>socket.request.session.user</code> is available, i.e. using an if statement</li>
+        <li>If you want to, you can keep track of the online users in the system by printing it out, for example,
+            by doing a <code>console.log()</code> every time, i.e.:</li>
+    </ul>
+
+    <pre><code class="javascript">io.on("connection", (socket) =&gt; {
+    // Add a new user to the online user list
+    ...
+    console.log(onlineUsers);
+});</code></pre>
+    <br>
+
+    <h5>Removing a User</h5>
+
+    <ul>
+        <li>The code in the previous step keeps on adding users to the online user list</li>
+        <li>Even if a user signs out or disconnects from the server, the user will
+            still remain in the list</li>
+        <li>It would be great if you can remove the user when that happens</li>
+        <li>To do that, you can make use of the <code>disconnect</code> event of the browser's socket
+        <ul>
+            <li>Note that the <code>connection</code> event in the previous part occurs to the Socket.IO server,
+                whereas in this part, you need to work on the browser's socket</li>
+        </ul>
+        </li>
+        <li>You can do that by adding this code <strong>inside the <code>connection</code> event</strong>,
+            where the <code>socket</code> variable is available:</li>
+    </ul>
+
+    <pre><code class="javascript">socket.on("disconnect", () =&gt; {
+    // Remove the user from the online user list
+    ...
+    console.log(onlineUsers);
+});</code></pre>
+
+    <ul>
+        <li>Again, you can get the current user from the session data, just like what you do when you add the user</li>
+        <li>To remove the user from <code>onlineUsers</code>, you can use the <code>delete</code> command on the key (i.e. username) of the object, e.g.:</li>
+    </ul>
+
+    <pre><code class="javascript">delete onlineUsers["may"];</code></pre>
+
+    <ul>
+        <li>The <code>console.log()</code> in the above code is just for debugging purpose, so that
+            the content of the online user list is shown every time a user disconnects from the server</li>
+    </ul>
+
+    <h5>Testing the Code</h5>
+
+    <ul>
+        <li>Once you finished the previous two parts of the code, you can test them to see
+            if your online user list contains the correct content</li>
+        <li>You cannot use the same browser to test that because the same browser will give
+            you the same session even if you use a new window/tab</li>
+        <li>To keep things simple, you can, for example:
+        <ul>
+            <li>Use two different browsers, or</li>
+            <li>Use the same browser but one is in a normal mode and another one is in incognito mode</li>
+        </ul>
+        </li>
+        <li>After starting the server, you should see the following output in the terminal:
+            <figure><pre><code class="terminal">&gt; node chat_server.js
+The chat server has started...</code></pre></figure>
+        </li>
+        <li>You can use the following sequence to test things out:
+        <ol>
+            <li>When the user Tony signs in the system, the output is:
+                <figure><pre><code class="terminal">{ tony: { avatar: 'Owl', name: 'Tony Lee' } }</code></pre></figure>
+            </li>
+            <li>Then when the user May signs in the system, the output is:
+                <figure><pre><code class="terminal">{
+  tony: { avatar: 'Owl', name: 'Tony Lee' },
+  may: { avatar: 'Rabbit', name: 'May Wong' }
+}</code></pre></figure>
+            </li>
+            <li>Afterwards, when Tony signs out from the system, the output is:
+                <figure><pre><code class="terminal">{ may: { avatar: 'Rabbit', name: 'May Wong' } }</code></pre></figure>
+            </li>
+            <li>Finally, when Tony signs out from the system, the output is:
+                <figure><pre><code class="terminal">{}</code></pre></figure>
+            </li>
+        </ol>
+        </li>
+        <li>If you are sure everything is working correctly, you may delete the <code>console.log()</code></li>
+    </ul>
+
+    <h4 id="section3.2">3.2. Showing the Online User List</h4>
+
+    <ul>
+        <li>After signing in the system, the online user list should show the currently signed-in users</li>
+        <li>However, the previous code only shows the online users in the terminal</li>
+        <li>In this task, you will write the code to send the the online user list to the browser
+            so that the browser can display the list properly</li>
+        <li>The events/messages that you need to use in this part is shown below:
+
+            <table class="basic">
+                <tr>
+                    <th>Direction</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Event Name</th>
+                    <th>Message Content</th>
+                </tr>
+                <tr>
+                    <td><em>Browser to Server</em></td>
+                    <td>Request for the online user list</td>
+                    <td>-</td>
+                    <td>get users</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><em>Server to Browser</em></td>
+                    <td>Send the current online users</td>
+                    <td><em>Socket</em></td>
+                    <td>users</td>
+                    <td><em>JSON representation of the online user list</em></td>
+                </tr>
+            </table>
+
+        </li>
+        <li>The code to do that on the browser side has been given to you, 
+            which you can find in <code>socket.js</code>:</li>
+    </ul>
+
+    <pre><code class="javascript">socket = io();
+
+// Wait for the socket to connect successfully
+socket.on("connect", () =&gt; {
+    // Get the online user list
+    socket.emit("get users");
+
+    ...
+});
+
+// Set up the users event
+socket.on("users", (onlineUsers) =&gt; {
+    onlineUsers = JSON.parse(onlineUsers);
+    OnlineUsersPanel.update(onlineUsers);
+});</code></pre>
+
+    <ul>
+        <li>The above code sends a message <code>get users</code> to the server when the browser connects to the server successfully</li>
+        <li>Then, the browser expects to get back the online user list from the server in a <code>users</code> event</li>
+        <li>However, the code in the server is not yet implemented</li>
+        <li>You need to write the corresponding listener so that all online users
+            can be sent back to the browser</li>
+        <li>Based on the above code, you can see the event name that you need to listen for on the server is <code>get users</code></li>
+        <li>Note that this event does not carry any message content</li>
+        <li>Over to <code>chat_server.js</code>, you can write your event listener, like this:</li>
+    </ul>
+
+    <pre><code class="javascript">socket.on("get users", () =&gt; {
+    // Send the online users to the browser
+    ...
+});</code></pre>
+
+    <ul>
+        <li>Remember to put this code inside the <code>connection</code> event</li>
+        <li>Inside the above code, you send the online users back to the browser
+        <ul>
+            <li>The online user list is sent using a JSON representation, i.e. using <code>JSON.stringify()</code></li>
+            <li>The event name you need to use is <code>users</code>, which corresponds to the code you have seen in the browser</li>
+        </ul>
+        </li>
+        <li>After finishing the event listener, you should be able to see the online users right after signing in
+            when you have more than one users on the system, like this:
+            <figure><img src="images/example_online_users.png" width="250px" alt="Example Online Users"></figure>
+        </li>
+        <li>In the above example, three users have already signed in the system</li>
+    </ul>
+
+    <h4 id="section3.3">3.3. Broadcasting When Users Sign In and Out</h4>
+
+    <ul>
+        <li>After finishing the previous sections, the online user list seems to be working now</li>
+        <li>However, while you are in the system, if another user signs in, you will not see his/her name in the online user list</li>
+        <li>Similarly, you do not see anyone removed from the list when a user signs out from the system</li>
+        <li>Simply speaking, your online user list never changes once you have signed in!</li>
+        <li>It is simply because you (or the server) have not told anyone when a new user comes in, or a signed-in user leaves</li>
+        <li>You have already written some code when those two situations happen,
+            i.e. inside the <code>connection</code> and <code>disconnect</code> events</li>
+        <li>You just need to tell everybody about them</li>
+        <li>In this task, you will add some code to broadcast when a new user signing in, as well as broadcast when a user signs out</li>
+        <li>The broadcast events/messages that you will use are shown below:
+
+            <table class="basic">
+                <tr>
+                    <th>Direction</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Event Name</th>
+                    <th>Message Content</th>
+                </tr>
+                <tr>
+                    <td><em>Server to Browsers</em></td>
+                    <td>Add a signed-in user to the online user list</td>
+                    <td><em>Broadcast</em></td>
+                    <td>add user</td>
+                    <td><code>{ <em>username</em>, <em>avatar</em>, <em>name</em> }</code></td>
+                </tr>
+                <tr>
+                    <td><em>Server to Browsers</em></td>
+                    <td>Remove a disconnected user from the online user list</td>
+                    <td><em>Broadcast</em></td>
+                    <td>remove user</td>
+                    <td><code>{ <em>username</em>, <em>avatar</em>, <em>name</em> }</code></td>
+                </tr>
+            </table>
+
+        </li>
+        <li>The code on the browser has been given to you for listening to these two broadcast events inside <code>socket.js</code>:</li>
+    </ul>
+
+    <pre><code class="javascript">socket.on("add user", (user) =&gt; {
+    user = JSON.parse(user);
+    OnlineUsersPanel.addUser(user);
+});
+
+socket.on("remove user", (user) =&gt; {
+    user = JSON.parse(user);
+    OnlineUsersPanel.removeUser(user);
+});</code></pre>
+
+    <ul>
+        <li>You can refer to the above event listeners and construct the events that you need to send from the server</li>
+        <li>Remember that you are doing a broadcast so you need to use <code>io.emit()</code> instead of <code>socket.emit()</code></li>
+        <li>The user in both events is sent in the following form:
+            <p>
+            <code>{ <em>username</em>, <em>avatar</em>, <em>name</em> }</code>
+            </p>
+        </li>
+        <li>After completing the broadcast messages, the online user list is totally working so that:
+        <ul>
+            <li>You see the currently signed-in users in the system when you sign in</li>
+            <li>When a user signs in, you see the user added to the online user list</li>
+            <li>When a user signs out or disconnects, you see the user removed from the online user list</li>
+        </ul>
+        </li>
+    </ul>
+
+    <h4 id="section4">4. The Chatroom</h4>
+
+    <ul>
+        <li>After finishing the online user list, you can now work on the chatroom content</li>
+        <li>Here are your tasks:
+        <ol>
+            <li>Showing the chatroom content when a user successfully signs in</li>
+            <li>Posting a new message by entering the message in the new message input and pressing Enter</li>
+            <li>Updating the chatroom for everyone whenever a new message is posted to the server</li>
+        </ol>
+        </li>
+        <li>Some of the tasks are similar to what you have done for the online user list,
+            and some of them are similar to what you have done for the previous lab!</li>
+    </ul>
+
+    <h4 id="section4.1">4.1. Getting the Chatroom Messages</h4>
+
+    <ul>
+        <li>The events/messages that you will use in this part is shown below:
+
+            <table class="basic">
+                <tr>
+                    <th>Direction</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Event Name</th>
+                    <th>Message Content</th>
+                </tr>
+                <tr>
+                    <td><em>Browser to Server</em></td>
+                    <td>Request for the chatroom messages</td>
+                    <td>-</td>
+                    <td>get messages</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><em>Server to Browser</em></td>
+                    <td>Send the chatroom messages from the JSON file</td>
+                    <td><em>Socket</em></td>
+                    <td>messages</td>
+                    <td><em>JSON representation of the chatroom messages</em></td>
+                </tr>
+            </table>
+
+        </li>
+        <li>When a user signs in, the browser will send a <code>get messages</code> event to the server</li>
+        <li>The code to do that has been given in <code>socket.js</code> here:</li>
+    </ul>
+
+    <pre><code class="javascript">socket = io();
+
+// Wait for the socket to connect successfully
+socket.on("connect", () =&gt; {
+    ...
+
+    // Get the chatroom messages
+    socket.emit("get messages");
+});
+
+socket.on("messages", (chatroom) =&gt; {
+    chatroom = JSON.parse(chatroom);
+    ChatPanel.update(chatroom);
+});
+</code></pre>
+
+    <ul>
+        <li>The structure of the code is similar to what you have done for the online user list</li>
+        <li>Therefore, you can complete this part by writing the corresponding event listener in the server
+            so that the content of the chatroom can be sent back to the browser, as shown below:</li>
+    </ul>
+
+    <pre><code class="javascript">socket.on("get messages", () =&gt; {
+    // Send the chatroom messages to the browser
+    ...
+});</code></pre>
+
+    <ul>
+        <li>Unlike the online user list, the chatroom messages are stored inside the JSON file <code>chatroom.json</code></li>
+        <li>So to send the content back to the browser, you need to read the file back and
+            then send it</li>
+        <li>You have already written code to read <code>users.json</code> in the previous lab</li>
+        <li>Here you can use similar code, i.e.:
+        <ol>
+            <li>Use <code>readFileSync()</code>, to get the file content back, e.g.:</li>
+        </ol>
+
+        <pre><code class="javascript">const chatroom = JSON.parse(fs.readFileSync(...));</code></pre>
+
+        <ol>
+            <li value="2">Send it to the browser using <code>JSON.stringify()</code></li>
+        </ol>
+        </li>
+        <li>You may find it funny that the above code uses <code>readFileSync()</code> and <code>JSON.parse()</code>
+            to change the JSON data to an JavaScript object</li>
+        <li>And then immediately change the object back to JSON using <code>JSON.stringify()</code></li>
+        <li>It looks like the two JSON commands are redundant; however, if you only use <code>readFileSync()</code>,
+            it will not work</li>
+        <li>In case you want to save a bit of redundant JSON processing,
+            you can consider adding an additional 'encoding' parameter to <code>readFileSync()</code>, which looks like this:</li>
+    </ul>
+
+    <pre><code class="javascript">fs.readFileSync(..., "utf-8")</code></pre>
+
+    <ul>
+        <li>After finishing the event listener, you will see the following chatroom content if you sign in the system:
+            <figure><img src="images/initial_chatroom_content.png" width="330px" alt="Example chatroom content"></figure>
+        </li>
+        <li>This is the initial content of <code>chatroom.json</code></li>
+    </ul>
+
+    <h4 id="section4.2">4.2. Posting a New Message</h4>
+
+    <ul>
+        <li>Now that the chatroom is ready, the user can post a message by
+            entering the message in the new message input and then pressing Enter</li>
+        <li>This is handled in the <code>socket.js</code> file with the following code:</li>
+    </ul>
+
+    <pre><code class="javascript">const postMessage = function(content) {
+    if (socket &amp;&amp; socket.connected) {
+        socket.emit("post message", content);
+    }
+};</code></pre>
+
+    <ul>
+        <li>The above code sends a <code>post message</code> event, which is shown below:
+            <table class="basic">
+                <tr>
+                    <th>Direction</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Event Name</th>
+                    <th>Message Content</th>
+                </tr>
+                <tr>
+                    <td><em>Browser to Server</em></td>
+                    <td>Post a new message in the chatroom</td>
+                    <td>-</td>
+                    <td>post message</td>
+                    <td><em>text content of the message</em></td>
+                </tr>
+            </table>
+        </li>
+        <li>It is a very simple text message without using any JSON in the code</li>
+        <li>In the server, you need to write the event listener in the same way as before, i.e.:</li>
+    </ul>
+
+    <pre><code class="javascript">socket.on("post message", (content) =&gt; {
+    // Add the message to the chatroom
+    ...
+});</code></pre>
+
+    <ul>
+        <li>The message content is sent using plain text so you can add the message directly to the chatroom JSON file</li>
+        <li>Before you do that, you need to construct the chatroom message in this form:</li>
+    </ul>
+
+    <pre><code class="javascript">{
+    user:     /* { username, avatar, name } */,
+    datetime: /* date and time when the message is posted */,
+    content:  /* content of the message */
+}</code></pre>
+
+    <ul>
+        <li>In the above object:
+        <ul>
+            <li>You can get back the user information from the session data</li>
+            <li>You can get the current date/time using the JavaScript Date object this way: <code>new Date()</code></li>   
+            <li>The content of the message is simply the content of the Socket.IO event</li>
+        </ul>
+        </li>
+        <li>After creating the message, you can add it to the chatroom JSON file, i.e.:
+        <ol>
+            <li>Read the chatroom JSON file</li>
+            <li>Add the message to the end of the chatroom, i.e. <code>chatroom.push(...)</code></li>
+            <li>Write the chatroom JSON file</li>
+        </ol>
+        </li>
+        <li>After finishing the code, you can test your system by:
+        <ul>
+            <li>Signing in as the user May</li>
+            <li>Posting a new message with the content "Hi everyone!" using the new message input</li>
+        </ul>
+        </li>
+        <li>The chatroom JSON will then be updated with the following content:</li>
+    </ul>
+
+    <pre><code class="javascript">[
+  {
+    "user": {
+      "username": "tony",
+      "avatar": "Owl",
+      "name": "Tony Lee"
+    },
+    "datetime": "2022-01-01T01:00:00.000Z",
+    "content": "Hi, welcome to the chatroom!"
+  },
+  {
+    "user": {
+      "username": "may",
+      "avatar": "Rabbit",
+      "name": "May Wong"
+    },
+    "datetime": "2022-03-28T01:05:13.138Z",
+    "content": "Hi everyone!"
+  }
+]</code></pre>
+    <br>
+
+    <h4 id="section4.3">4.3. Broadcasting New Messages</h4>
+
+    <ul>
+        <li>At this stage, you have only updated the JSON file on the server</li>
+        <li>If you post something to the chatroom, you and other online users
+            will not be able to see it in the browser</li>
+        <li>To let everyone seeing the new message, you need to broadcast the message to everyone</li>
+        <li>This would be similar to what you have done for the online user list when a user signs in/out</li>
+        <li>The message that you will use is this one:
+
+            <table class="basic">
+                <tr>
+                    <th>Direction</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Event Name</th>
+                    <th>Message Content</th>
+                </tr>
+                <tr>
+                    <td><em>Server to Browsers</em></td>
+                    <td>Add a new message to the chatroom</td>
+                    <td><em>Broadcast</em></td>
+                    <td>add message</td>
+                    <td><em>JSON representation of the chatroom message</em></td>
+                </tr>
+            </table>
+
+        </li>
+        <li>The code to handle the new message on the browser has been given in <code>socket.js</code>, as shown below:</li>
+    </ul>
+
+    <pre><code class="javascript">socket.on("add message", (message) =&gt; {
+    message = JSON.parse(message);
+    ChatPanel.addMessage(message);
+});</code></pre>
+
+    <ul>
+        <li>As you should already have the message object from the previous step, you can easily broadcast this
+            new message to everyone using the Socket.IO server</li>
+        <li>After doing this, the new messages should be shown correctly and immediately after they are posted:
+            <figure><img src="images/showing_new_messages.png" width="330px" alt="Showing new messages"></figure>
+        </li>
+    </ul>
+
+    <h4 id="section5">5. Improvement</h4>
+
+    <ul>
+        <li>In the previous sections, you mostly work on the server program so that the WebSocket communication can be completed</li>
+        <li>In this final part of the lab, you will need to add a feature to the chatroom on both the browser and server completely by yourself</li>
+        <li>The idea is simple:
+        <ul>
+            <li>When a user types something in the new message input,
+                every other users will see a message immediately
+                above the field showing "XXX is typing...",
+                where XXX is the name of the user</li>
+            <li>When that user stops typing, the message will 
+                disappear after a while, say 3 seconds</li>
+        </ul>
+        </li>
+        <li>Here is an example when the 'typing' message is shown:
+            <figure><img src="images/typing_status.png" width="200px" alt="The typing status"></figure>
+        </li>
+        <li>To do that, you probably need to:
+        <ol>
+            <li>Add a <code>&lt;div&gt;...&lt;/div&gt;</code> above the input field for showing the message</li>
+            <li>Use appropriate styles for the <code>&lt;div&gt;...&lt;/div&gt;</code></li>
+            <li>Add a keydown listener to the input field</li>
+            <li>Send a WebSocket message to the server when a key is pressed in the input field</li>
+            <li>Broadcast a corresponding WebSocket message to everyone after receiving the above message in the server</li>
+            <li>Show the "XXX is typing..." message inside the <code>&lt;div&gt;...&lt;/div&gt;</code> created above for anyone who receives the broadcast message
+            <ul>
+                <li>However, probably not on the browser where the user is typing though as it will be odd to see your own name showing up above the input while you are typing</li>
+            </ul>
+            </li>
+            <li>Clear the <code>&lt;div&gt;...&lt;/div&gt;</code> after 3 seconds when no more 'typing' message is received</li>
+        </ol>
+        </li>
+        <li>You can:
+        <ul>
+            <li>choose to work in the JavaScript file such as <code>socket.js</code> and <code>ui.js</code>, or</li>
+            <li>write everything in <code>document.ready()</code>, as long as it works correctly</li>
+        </ul>
+        </li>
+    </ul>
+
+    <h2><a class="anchor" name="marking"></a>Marking and submission</h2>
+
+    <ul>
+        <li>The submission is the combined work from both lab 5 and lab 6</li>
+        <li>When you have completely finished your work:
+        <ol>
+            <li>Check <b><a href="marking_scheme.html">the marking scheme</a></b></li>
+            <li><b>Double check</b> everything in your project works correctly, fix it if it doesn't!
+            <ul>
+                <li>Use <code>F12</code> then <i>Console</i> in Chrome to check no JavaScript errors are generated</li>
+                <li>We will only use <b>Chrome</b> to mark your work, because it is the most commonly used browser</li>
+            </ul>
+            </li>
+            <li>You need to submit all your files by putting them in one single zip file</li>
+            <li>You <b>don't</b> need to submit the node_modules folder though</li>
+            <li>Submit your file in 
+                <a href="https://canvas.ust.hk/courses/42327/assignments/207875" target="blank">canvas</a></li>
+        </ol>
+        </li>
+        <li>Please check the submission deadline on canvas</b>
+        <ul>
+            <li><b>Submit early!</b> - well before the deadline</li>
+            <li>You can submit as many times as you like <b>before</b> the deadline</li>
+            <li>We won't mark work submitted after the deadline unless there is some kind of exceptional situation
+            <ul>
+                <li>e.g. if the canvas system is down for a few hours</li>
+            </ul>
+            </li>
+        </ul>
+        </li>
+    </ul>
+
+</body>
+</html>

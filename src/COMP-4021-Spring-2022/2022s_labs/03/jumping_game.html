@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jumping Game</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- This is the font returned from Google font -->
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+    /* Style to make the svg fit in the browser */
+    body { padding: 0; margin: 0; }
+    svg  { width: 100%; height: auto; }
+
+    /* The container moves the text to the middle of the screen */
+    #gameover-container {
+        transform: translate(500px,200px);
+    }
+    #gameover {
+        font-family: Dosis, sans-serif;
+    }
+    </style>
+    <script>
+    // Check whether the game is over if the player is near the obstacle
+    function checkGameover() {
+
+        // You need to keep on checking for the gameover situation here
+
+        // Read the transform property of the player and obstacle
+
+        // Extract the appropriate numbers
+
+        // Compare the numbers for the gameover situation
+
+        // Request to check again
+        setTimeout(checkGameover, 100);
+    }
+
+    // Make an obstacle by starting the obstacle animation
+    function makeObstacle() {
+
+        // You need to show the obstacle and start the animation here
+
+    }
+
+    // Make the player jump by starting the player animation
+    function jump() {
+
+        // You need to start the player jumping animation here
+
+    }
+
+    $(document).ready(function () {
+        // Handle the spacebar key for controlling the player
+        $(document).on("keydown", function(e) {
+            // The player jumps if the spacebar key is down
+            if (e.keyCode == 32)
+                jump();
+        });
+
+        // The obstacle animation has finished
+        $("#obstacle").on("animationend", function() {
+
+            // You need to hide the obstacle and stop the animation here
+
+            // You will make another obstacle later
+
+        });
+
+        // The player animation has finished
+        $("#player").on("animationend", function() {
+
+            // You need to stop the animation here
+
+        });
+
+        // Start the obstacle animation
+        setTimeout(makeObstacle, Math.random() * 2000);
+
+        // Start the game over checking
+        setTimeout(checkGameover, 100);
+    });
+    </script>
+</head>
+<body>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400">
+        <!-- The game over text -->
+        <g id="gameover-container">
+            <text id="gameover" x="0" y="0" fill="red"
+                  font-size="80px" text-anchor="middle">Game Over</text>
+        </g>
+    </svg>
+</html>
