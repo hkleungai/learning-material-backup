@@ -1,3 +1,4 @@
+/** TODO: Change "code" from string into { dept, code }             */
 /** TODO: Change "semesters" from string[] into { year, season }    */
 /** TODO: Show surprise "sucks" message upon clicking headers       */
 /** TODO: Study ts-doc                                              */

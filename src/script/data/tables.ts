@@ -86,6 +86,10 @@ const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
     category: 'Data Analysis',
     courses: [
       {
+        code: 'COMP 337',
+        semesters: ['Fall 2010'],
+      },
+      {
         code: 'COMP 4331',
         semesters: ['Fall 2021'],
       },

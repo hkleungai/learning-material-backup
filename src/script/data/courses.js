@@ -152,8 +152,8 @@ const FETCHED_COURSES = {
         description: 'Text retrieval models, vector space model, document ranking, performance evaluation; indexing, pattern matching, relevance feedback, clustering; web search engines, authority-based ranking; enterprise data management, content creation, meta data, taxonomy, ontology; semantic web, digital libraries and knowledge management applications.'
     },
     'COMP 337': {
-        title: '',
-        description: '',
+        title: 'Introduction to Data Mining',
+        description: 'This course will provide an introduction to concepts and techniques in the field of data mining. Material include an introduction to data preprocessing and the techniques used to explore the large quantities of data for the discovery of predictive models and knowledge.  The course will include data mining techniques such as nearest neighbor, decision trees, neural networks, Bayesian networks and Naïve Bayes, rule-based methods, association analysis and clustering, as well as social networks and data mining applications in business and finance applications.  We will also cover emerging data mining areas and applications. Students learn the material by attending lectures and implementing and applying different data analysis and data mining techniques to large datasets.',
     },
     'COMP 341': {
         title: 'Computer Graphics',
