@@ -1,0 +1,2728 @@
+%!PS-Adobe-2.0
+%%Creator: dvips(k) 5.94b Copyright 2004 Radical Eye Software
+%%Title: M:/Work/CLASSES/COMP572_Fall2006/Notes/Heaps/Amortized.dvi
+%%CreationDate: Wed Aug 30 15:46:06 2006
+%%Pages: 18
+%%PageOrder: Ascend
+%%BoundingBox: 0 0 596 842
+%%DocumentFonts: Helvetica-Bold Helvetica Helvetica-Oblique CMMI8 CMSY8
+%%+ LCMSS8 CMEX10
+%%EndComments
+%DVIPSWebPage: (www.radicaleye.com)
+%DVIPSCommandLine: C:\texmf\MiKTeX\bin\dvips.exe -P pdf
+%+ M:/Work/CLASSES/COMP572_Fall2006/Notes/Heaps/Amortized.dvi
+%DVIPSParameters: dpi=8000
+%DVIPSSource:  TeX output 2006.08.30:1546
+%%BeginProcSet: tex.pro 0 0
+%!
+/TeXDict 300 dict def TeXDict begin/N{def}def/B{bind def}N/S{exch}N/X{S
+N}B/A{dup}B/TR{translate}N/isls false N/vsize 11 72 mul N/hsize 8.5 72
+mul N/landplus90{false}def/@rigin{isls{[0 landplus90{1 -1}{-1 1}ifelse 0
+0 0]concat}if 72 Resolution div 72 VResolution div neg scale isls{
+landplus90{VResolution 72 div vsize mul 0 exch}{Resolution -72 div hsize
+mul 0}ifelse TR}if Resolution VResolution vsize -72 div 1 add mul TR[
+matrix currentmatrix{A A round sub abs 0.00001 lt{round}if}forall round
+exch round exch]setmatrix}N/@landscape{/isls true N}B/@manualfeed{
+statusdict/manualfeed true put}B/@copies{/#copies X}B/FMat[1 0 0 -1 0 0]
+N/FBB[0 0 0 0]N/nn 0 N/IEn 0 N/ctr 0 N/df-tail{/nn 8 dict N nn begin
+/FontType 3 N/FontMatrix fntrx N/FontBBox FBB N string/base X array
+/BitMaps X/BuildChar{CharBuilder}N/Encoding IEn N end A{/foo setfont}2
+array copy cvx N load 0 nn put/ctr 0 N[}B/sf 0 N/df{/sf 1 N/fntrx FMat N
+df-tail}B/dfs{div/sf X/fntrx[sf 0 0 sf neg 0 0]N df-tail}B/E{pop nn A
+definefont setfont}B/Cw{Cd A length 5 sub get}B/Ch{Cd A length 4 sub get
+}B/Cx{128 Cd A length 3 sub get sub}B/Cy{Cd A length 2 sub get 127 sub}
+B/Cdx{Cd A length 1 sub get}B/Ci{Cd A type/stringtype ne{ctr get/ctr ctr
+1 add N}if}B/CharBuilder{save 3 1 roll S A/base get 2 index get S
+/BitMaps get S get/Cd X pop/ctr 0 N Cdx 0 Cx Cy Ch sub Cx Cw add Cy
+setcachedevice Cw Ch true[1 0 0 -1 -.1 Cx sub Cy .1 sub]{Ci}imagemask
+restore}B/D{/cc X A type/stringtype ne{]}if nn/base get cc ctr put nn
+/BitMaps get S ctr S sf 1 ne{A A length 1 sub A 2 index S get sf div put
+}if put/ctr ctr 1 add N}B/I{cc 1 add D}B/bop{userdict/bop-hook known{
+bop-hook}if/SI save N @rigin 0 0 moveto/V matrix currentmatrix A 1 get A
+mul exch 0 get A mul add .99 lt{/QV}{/RV}ifelse load def pop pop}N/eop{
+SI restore userdict/eop-hook known{eop-hook}if showpage}N/@start{
+userdict/start-hook known{start-hook}if pop/VResolution X/Resolution X
+1000 div/DVImag X/IEn 256 array N 2 string 0 1 255{IEn S A 360 add 36 4
+index cvrs cvn put}for pop 65781.76 div/vsize X 65781.76 div/hsize X}N
+/p{show}N/RMat[1 0 0 -1 0 0]N/BDot 260 string N/Rx 0 N/Ry 0 N/V{}B/RV/v{
+/Ry X/Rx X V}B statusdict begin/product where{pop false[(Display)(NeXT)
+(LaserWriter 16/600)]{A length product length le{A length product exch 0
+exch getinterval eq{pop true exit}if}{pop}ifelse}forall}{false}ifelse
+end{{gsave TR -.1 .1 TR 1 1 scale Rx Ry false RMat{BDot}imagemask
+grestore}}{{gsave TR -.1 .1 TR Rx Ry scale 1 1 false RMat{BDot}
+imagemask grestore}}ifelse B/QV{gsave newpath transform round exch round
+exch itransform moveto Rx 0 rlineto 0 Ry neg rlineto Rx neg 0 rlineto
+fill grestore}B/a{moveto}B/delta 0 N/tail{A/delta X 0 rmoveto}B/M{S p
+delta add tail}B/b{S p tail}B/c{-4 M}B/d{-3 M}B/e{-2 M}B/f{-1 M}B/g{0 M}
+B/h{1 M}B/i{2 M}B/j{3 M}B/k{4 M}B/w{0 rmoveto}B/l{p -4 w}B/m{p -3 w}B/n{
+p -2 w}B/o{p -1 w}B/q{p 1 w}B/r{p 2 w}B/s{p 3 w}B/t{p 4 w}B/x{0 S
+rmoveto}B/y{3 2 roll p a}B/bos{/SS save N}B/eos{SS restore}B end
+
+%%EndProcSet
+%%BeginProcSet: alt-rule.pro 0 0
+%!
+% Patch by TVZ
+% Makes dvips files draw rules with stroke rather than fill.
+% Makes narrow rules more predictable at low resolutions
+% after distilling to PDF.
+% May have unknown consequences for very thick rules.
+% Tested only with dvips 5.85(k).
+TeXDict begin
+/QV {
+  gsave newpath /ruleY X /ruleX X
+  Rx Ry gt
+  { ruleX ruleY Ry 2 div sub moveto Rx 0 rlineto Ry }
+  { ruleX Rx 2 div add ruleY moveto 0 Ry neg rlineto Rx }
+  ifelse
+  setlinewidth 0 setlinecap stroke grestore
+} bind def
+end
+
+%%EndProcSet
+%%BeginProcSet: pstricks.pro 0 0
+%!
+% PostScript prologue for pstricks.tex.
+% Version 97 patch 6, 05/05/20
+% For distribution, see pstricks.tex.
+%
+/tx@Dict 200 dict def tx@Dict begin
+/ADict 25 dict def
+/CM { matrix currentmatrix } bind def
+/SLW /setlinewidth load def
+/CLW /currentlinewidth load def
+/CP /currentpoint load def
+/ED { exch def } bind def
+/L /lineto load def
+/T /translate load def
+/TMatrix { } def
+/RAngle { 0 } def
+/Atan { /atan load stopped { pop pop 0 } if } def
+/ATAN1 {neg -1 atan 180 sub } def		% atan(x) (only one parameter)
+/Div { dup 0 eq { pop } { div } ifelse } def  	% control the division
+/NET { neg exch neg exch T } def	      	% change coordinate system to the negative one		
+/Pyth { dup mul exch dup mul add sqrt } def   	% Pythagoras, epects 2 parameter
+/PtoC { 2 copy cos mul 3 1 roll sin mul } def 	% Polar to Cartesian
+%----------------- hv added 20050516 ---------------
+/Pi 3.14159265359 def 
+/TwoPi 6.28318530718 def
+/Euler 2.71828182846 def 
+/RadtoDeg { 180 mul Pi div } def % convert from radian to degrees
+/DegtoRad { Pi mul 180 div } def % viceversa
+%----------------- hv end---------------------------
+/PathLength@ { /z z y y1 sub x x1 sub Pyth add def /y1 y def /x1 x def } def
+/PathLength { flattenpath /z 0 def 
+  { /y1 ED /x1 ED /y2 y1 def /x2 x1 def
+  }{ /y ED /x ED PathLength@ } {} { /y y2 def /x x2 def PathLength@ }
+  /pathforall load stopped { pop pop pop pop } if z } def
+/STP { .996264 dup scale } def
+/STV { SDict begin normalscale end STP  } def
+%
+%%-------------- DG begin patch 15 ---------------%%
+%/DashLine { dup 0 gt { /a .5 def PathLength exch div } { pop /a 1 def
+%PathLength } ifelse /b ED /x ED /y ED /z y x add def b a .5 sub 2 mul y
+%mul sub z Div round z mul a .5 sub 2 mul y mul add b exch Div dup y mul
+%/y ED x mul /x ED x 0 gt y 0 gt and { [ y x ] 1 a sub y mul } { [ 1 0 ]
+%0 } ifelse setdash stroke } def
+/DashLine {
+  dup 0 gt { /a .5 def PathLength exch div } { pop /a 1 def PathLength } ifelse
+  /b ED /x1 ED /y1 ED /x ED /y ED 
+  /z y x add y1 add x1 add def
+  /Coef b a .5 sub 2 mul y mul sub z Div round 
+    z mul a .5 sub 2 mul y mul add b exch Div def 
+  /y y Coef mul def 
+  /x x Coef mul def 
+  /y1 y1 Coef mul def 
+  /x1 x1 Coef mul def
+  x1 0 gt y1 0 gt or x 0 gt or y 0 gt and 
+    { [ y x y1 x1 ] 1 a sub y mul }
+    { [ 1 0 ] 0 } ifelse 
+  setdash stroke
+} def
+%%-------------- DG end patch 15 ---------------%%
+/DotLine { 
+  /b PathLength def 
+  /a ED /z ED /y CLW def 
+  /z y z add def 
+  a 0 gt { 
+    /b b a div def 
+  }{ 
+    a 0 eq { 
+      /b b y sub def 
+    }{ a -3 eq { 
+      /b b y add def } if 
+    } ifelse 
+  } ifelse 
+  [ 0 b b z Div round Div dup 0 le { pop 1 } if ] 
+  a 0 gt { 0 }{ y 2 div a -2 gt { neg }if } ifelse 
+  setdash 1 setlinecap stroke 
+} def
+/LineFill { gsave abs CLW add /a ED a 0 dtransform round exch round exch
+2 copy idtransform exch Atan rotate idtransform pop /a ED .25 .25
+% DG/SR modification begin - Dec. 12, 1997 - Patch 2
+%itransform translate pathbbox /y2 ED a Div ceiling cvi /x2 ED /y1 ED a
+itransform pathbbox /y2 ED a Div ceiling cvi /x2 ED /y1 ED a
+% DG/SR modification end
+Div cvi /x1 ED /y2 y2 y1 sub def clip newpath 2 setlinecap systemdict
+/setstrokeadjust known { true setstrokeadjust } if x2 x1 sub 1 add { x1
+% DG/SR modification begin - Jun.  1, 1998 - Patch 3 (from Michael Vulis)
+% a mul y1 moveto 0 y2 rlineto stroke /x1 x1 1 add def } repeat grestore }
+% def
+a mul y1 moveto 0 y2 rlineto stroke /x1 x1 1 add def } repeat grestore
+pop pop } def
+% DG/SR modification end
+/BeginArrow { ADict begin /@mtrx CM def gsave 2 copy T 2 index sub neg
+exch 3 index sub exch Atan rotate newpath } def
+/EndArrow { @mtrx setmatrix CP grestore end } def
+/Arrow { CLW mul add dup 2 div /w ED mul dup /h ED mul /a ED { 0 h T 1 -1
+scale } if w neg h moveto 0 0 L w h L w neg a neg rlineto gsave fill
+grestore } def
+/Tbar { CLW mul add /z ED z -2 div CLW 2 div moveto z 0 rlineto stroke 0
+CLW moveto } def
+/Bracket { CLW mul add dup CLW sub 2 div /x ED mul CLW add /y ED /z CLW 2
+div def x neg y moveto x neg CLW 2 div L x CLW 2 div L x y L stroke 0
+CLW moveto } def
+/RoundBracket { CLW mul add dup 2 div /x ED mul /y ED /mtrx CM def 0 CLW
+2 div T x y mul 0 ne { x y scale } if 1 1 moveto .85 .5 .35 0 0 0
+curveto -.35 0 -.85 .5 -1 1 curveto mtrx setmatrix stroke 0 CLW moveto }
+def
+/SD { 0 360 arc fill } def
+/EndDot { { /z DS def } { /z 0 def } ifelse /b ED 0 z DS SD b { 0 z DS
+CLW sub SD } if 0 DS z add CLW 4 div sub moveto } def
+/Shadow { [ { /moveto load } { /lineto load } { /curveto load } {
+/closepath load } /pathforall load stopped { pop pop pop pop CP /moveto
+load } if ] cvx newpath 3 1 roll T exec } def
+/NArray { aload length 2 div dup dup cvi eq not { exch pop } if /n exch
+cvi def } def
+/NArray { % holds the coordinates and on top of stack the showpoints boolean
+  /f ED 
+  counttomark 2 div dup cvi /n ED 
+  n eq not { exch pop } if
+  f { ] aload /Points ED } { n 2 mul 1 add -1 roll pop } ifelse 
+} def
+/Line { 
+  NArray n 0 eq not 
+    { n 1 eq { 0 0 /n 2 def } if ArrowA /n n 2 sub def 
+      n { Lineto } repeat 
+      CP 4 2 roll ArrowB L pop pop 
+    } if 
+} def
+/Arcto { /a [ 6 -2 roll ] cvx def a r /arcto load stopped { 5 } { 4 }
+ifelse { pop } repeat a } def
+/CheckClosed { dup n 2 mul 1 sub index eq 2 index n 2 mul 1 add index eq
+and { pop pop /n n 1 sub def } if } def
+/Polygon { NArray n 2 eq { 0 0 /n 3 def } if n 3 lt { n { pop pop }
+repeat } { n 3 gt { CheckClosed } if n 2 mul -2 roll /y0 ED /x0 ED /y1
+ED /x1 ED x1 y1 /x1 x0 x1 add 2 div def /y1 y0 y1 add 2 div def x1 y1
+moveto /n n 2 sub def n { Lineto } repeat x1 y1 x0 y0 6 4 roll Lineto
+Lineto pop pop closepath } ifelse } def
+/Diamond { 
+  /mtrx CM def 
+  T rotate 
+  /h ED 
+  /w ED 
+  dup 0 eq { pop } { CLW mul neg 
+    /d ED 
+    /a w h Atan def 
+    /h d a sin Div h add def 
+    /w d a cos Div w add def } ifelse 
+  mark w 2 div h 2 div w 0 0 h neg w neg 0 0 h w 2 div h 2 div 
+  /ArrowA { moveto } def 
+  /ArrowB { } def 
+  false Line 
+  closepath mtrx setmatrix } def
+% DG modification begin - Jan. 15, 1997
+%/Triangle { /mtrx CM def translate rotate /h ED 2 div /w ED dup 0 eq {
+%pop } { CLW mul /d ED /h h d w h Atan sin Div sub def /w w d h w Atan 2
+%div dup cos exch sin Div mul sub def } ifelse mark 0 d w neg d 0 h w d 0
+%d /ArrowA { moveto } def /ArrowB { } def false Line closepath mtrx
+%setmatrix } def
+/Triangle { /mtrx CM def translate rotate /h ED 2 div /w ED dup
+CLW mul /d ED /h h d w h Atan sin Div sub def /w w d h w Atan 2
+div dup cos exch sin Div mul sub def mark 0 d w neg d 0 h w d 0
+d /ArrowA { moveto } def /ArrowB { } def false Line closepath mtrx
+% DG/SR modification begin - Jun.  1, 1998 - Patch 3 (from Michael Vulis)
+% setmatrix } def
+setmatrix pop } def
+% DG/SR modification end
+/CCA { /y ED /x ED 2 copy y sub /dy1 ED x sub /dx1 ED /l1 dx1 dy1 Pyth
+def } def
+/CCA { /y ED /x ED 2 copy y sub /dy1 ED x sub /dx1 ED /l1 dx1 dy1 Pyth
+def } def
+/CC { /l0 l1 def /x1 x dx sub def /y1 y dy sub def /dx0 dx1 def /dy0 dy1
+def CCA /dx dx0 l1 c exp mul dx1 l0 c exp mul add def /dy dy0 l1 c exp
+mul dy1 l0 c exp mul add def /m dx0 dy0 Atan dx1 dy1 Atan sub 2 div cos
+abs b exp a mul dx dy Pyth Div 2 div def /x2 x l0 dx mul m mul sub def
+/y2 y l0 dy mul m mul sub def /dx l1 dx mul m mul neg def /dy l1 dy mul
+m mul neg def } def
+/IC { /c c 1 add def c 0 lt { /c 0 def } { c 3 gt { /c 3 def } if }
+ifelse /a a 2 mul 3 div 45 cos b exp div def CCA /dx 0 def /dy 0 def }
+def
+/BOC { IC CC x2 y2 x1 y1 ArrowA CP 4 2 roll x y curveto } def
+/NC { CC x1 y1 x2 y2 x y curveto } def
+/EOC { x dx sub y dy sub 4 2 roll ArrowB 2 copy curveto } def
+/BAC { IC CC x y moveto CC x1 y1 CP ArrowA } def
+/NAC { x2 y2 x y curveto CC x1 y1 } def
+/EAC { x2 y2 x y ArrowB curveto pop pop } def
+/OpenCurve { 
+  NArray n 3 lt 
+    { n { pop pop } repeat } 
+    { BOC /n n 3 sub def n { NC } repeat EOC } ifelse 
+} def
+/AltCurve { { false NArray n 2 mul 2 roll [ n 2 mul 3 sub 1 roll ] aload
+/Points ED n 2 mul -2 roll } { false NArray } ifelse n 4 lt { n { pop
+pop } repeat } { BAC /n n 4 sub def n { NAC } repeat EAC } ifelse } def
+/ClosedCurve { NArray n 3 lt { n { pop pop } repeat } { n 3 gt {
+CheckClosed } if 6 copy n 2 mul 6 add 6 roll IC CC x y moveto n { NC }
+repeat closepath pop pop } ifelse } def
+/SQ { /r ED r r moveto r r neg L r neg r neg L r neg r L fill } def
+/ST { /y ED /x ED x y moveto x neg y L 0 x L fill } def
+/SP { /r ED gsave 0 r moveto 4 { 72 rotate 0 r L } repeat fill grestore }
+def
+/FontDot { DS 2 mul dup matrix scale matrix concatmatrix exch matrix
+rotate matrix concatmatrix exch findfont exch makefont setfont } def
+/Rect { x1 y1 y2 add 2 div moveto x1 y2 lineto x2 y2 lineto x2 y1 lineto
+x1 y1 lineto closepath } def
+/OvalFrame { x1 x2 eq y1 y2 eq or { pop pop x1 y1 moveto x2 y2 L } { y1
+y2 sub abs x1 x2 sub abs 2 copy gt { exch pop } { pop } ifelse 2 div
+exch { dup 3 1 roll mul exch } if 2 copy lt { pop } { exch pop } ifelse
+/b ED x1 y1 y2 add 2 div moveto x1 y2 x2 y2 b arcto x2 y2 x2 y1 b arcto
+x2 y1 x1 y1 b arcto x1 y1 x1 y2 b arcto 16 { pop } repeat closepath }
+ifelse } def
+/Frame { CLW mul /a ED 3 -1 roll 2 copy gt { exch } if a sub /y2 ED a add
+/y1 ED 2 copy gt { exch } if a sub /x2 ED a add /x1 ED 1 index 0 eq {
+pop pop Rect } { OvalFrame } ifelse } def
+/BezierNArray { /f ED counttomark 2 div dup cvi /n ED n eq not { exch pop
+} if n 1 sub neg 3 mod 3 add 3 mod { 0 0 /n n 1 add def } repeat f { ]
+aload /Points ED } { n 2 mul 1 add -1 roll pop } ifelse } def
+/OpenBezier { BezierNArray n 1 eq { pop pop } { ArrowA n 4 sub 3 idiv { 6
+2 roll 4 2 roll curveto } repeat 6 2 roll 4 2 roll ArrowB curveto }
+ifelse } def
+/ClosedBezier { BezierNArray n 1 eq { pop pop } { moveto n 1 sub 3 idiv {
+6 2 roll 4 2 roll curveto } repeat closepath } ifelse } def
+/BezierShowPoints { gsave Points aload length 2 div cvi /n ED moveto n 1
+sub { lineto } repeat CLW 2 div SLW [ 4 4 ] 0 setdash stroke grestore }
+def
+/Parab { /y0 exch def /x0 exch def /y1 exch def /x1 exch def /dx x0 x1
+sub 3 div def /dy y0 y1 sub 3 div def x0 dx sub y0 dy add x1 y1 ArrowA
+x0 dx add y0 dy add x0 2 mul x1 sub y1 ArrowB curveto /Points [ x1 y1 x0
+y0 x0 2 mul x1 sub y1 ] def } def
+/Grid { newpath /a 4 string def /b ED /c ED /n ED cvi dup 1 lt { pop 1 }
+if /s ED s div dup 0 eq { pop 1 } if /dy ED s div dup 0 eq { pop 1 } if
+/dx ED dy div round dy mul /y0 ED dx div round dx mul /x0 ED dy div
+round cvi /y2 ED dx div round cvi /x2 ED dy div round cvi /y1 ED dx div
+round cvi /x1 ED /h y2 y1 sub 0 gt { 1 } { -1 } ifelse def /w x2 x1 sub
+0 gt { 1 } { -1 } ifelse def b 0 gt { /z1 b 4 div CLW 2 div add def
+/Helvetica findfont b scalefont setfont /b b .95 mul CLW 2 div add def }
+if systemdict /setstrokeadjust known { true setstrokeadjust /t { } def }
+{ /t { transform 0.25 sub round 0.25 add exch 0.25 sub round 0.25 add
+exch itransform } bind def } ifelse gsave n 0 gt { 1 setlinecap [ 0 dy n
+div ] dy n div 2 div setdash } { 2 setlinecap } ifelse /i x1 def /f y1
+dy mul n 0 gt { dy n div 2 div h mul sub } if def /g y2 dy mul n 0 gt {
+dy n div 2 div h mul add } if def x2 x1 sub w mul 1 add dup 1000 gt {
+pop 1000 } if { i dx mul dup y0 moveto b 0 gt { gsave c i a cvs dup
+stringwidth pop /z2 ED w 0 gt {z1} {z1 z2 add neg} ifelse h 0 gt {b neg}
+{z1} ifelse rmoveto show grestore } if dup t f moveto g t L stroke /i i
+w add def } repeat grestore gsave n 0 gt
+% DG/SR modification begin - Nov. 7, 1997 - Patch 1
+%{ 1 setlinecap [ 0 dx n div ] dy n div 2 div setdash }
+{ 1 setlinecap [ 0 dx n div ] dx n div 2 div setdash }
+% DG/SR modification end
+{ 2 setlinecap } ifelse /i y1 def /f x1 dx mul
+n 0 gt { dx n div 2 div w mul sub } if def /g x2 dx mul n 0 gt { dx n
+div 2 div w mul add } if def y2 y1 sub h mul 1 add dup 1000 gt { pop
+1000 } if { newpath i dy mul dup x0 exch moveto b 0 gt { gsave c i a cvs
+dup stringwidth pop /z2 ED w 0 gt {z1 z2 add neg} {z1} ifelse h 0 gt
+{z1} {b neg} ifelse rmoveto show grestore } if dup f exch t moveto g
+exch t L stroke /i i h add def } repeat grestore } def
+/ArcArrow { /d ED /b ED /a ED gsave newpath 0 -1000 moveto clip newpath 0
+1 0 0 b grestore c mul /e ED pop pop pop r a e d PtoC y add exch x add
+exch r a PtoC y add exch x add exch b pop pop pop pop a e d CLW 8 div c
+mul neg d } def
+/Ellipse { /mtrx CM def T scale 0 0 1 5 3 roll arc mtrx setmatrix } def
+/Rot { CP CP translate 3 -1 roll neg rotate NET  } def
+/RotBegin { tx@Dict /TMatrix known not { /TMatrix { } def /RAngle { 0 }
+def } if /TMatrix [ TMatrix CM ] cvx def /a ED a Rot /RAngle [ RAngle
+dup a add ] cvx def } def
+/RotEnd { /TMatrix [ TMatrix setmatrix ] cvx def /RAngle [ RAngle pop ]
+cvx def } def
+/PutCoor { gsave CP T CM STV exch exec moveto setmatrix CP grestore } def
+/PutBegin { /TMatrix [ TMatrix CM ] cvx def CP 4 2 roll T moveto } def
+/PutEnd { CP /TMatrix [ TMatrix setmatrix ] cvx def moveto } def
+/Uput { /a ED add 2 div /h ED 2 div /w ED /s a sin def /c a cos def /b s
+abs c abs 2 copy gt dup /q ED { pop } { exch pop } ifelse def /w1 c b
+div w mul def /h1 s b div h mul def q { w1 abs w sub dup c mul abs } {
+h1 abs h sub dup s mul abs } ifelse } def
+/UUput { /z ED abs /y ED /x ED q { x s div c mul abs y gt } { x c div s
+mul abs y gt } ifelse { x x mul y y mul sub z z mul add sqrt z add } { q
+{ x s div } { x c div } ifelse abs } ifelse a PtoC h1 add exch w1 add
+exch } def
+/BeginOL { dup (all) eq exch TheOL eq or { IfVisible not { Visible
+/IfVisible true def } if } { IfVisible { Invisible /IfVisible false def
+} if } ifelse } def
+/InitOL { /OLUnit [ 3000 3000 matrix defaultmatrix dtransform ] cvx def
+/Visible { CP OLUnit idtransform T moveto } def /Invisible { CP OLUnit
+neg exch neg exch idtransform T moveto } def /BOL { BeginOL } def
+/IfVisible true def } def
+end
+% END pstricks.pro
+
+%%EndProcSet
+%%BeginProcSet: pst-dots.pro 0 0
+%!PS-Adobe-2.0
+%%Title: Dot Font for PSTricks
+%%Creator: Timothy Van Zandt <tvz@Princeton.EDU>
+%%Creation Date: May 7, 1993
+%% Version 97 patch 1, 99/12/16
+%% Modified by Etienne Riga <etienne.riga@skynet.be> - Dec. 16, 1999
+%% to add /Diamond, /SolidDiamond and /BoldDiamond
+10 dict dup begin
+  /FontType 3 def
+  /FontMatrix [ .001 0 0 .001 0 0 ] def
+  /FontBBox [ 0 0 0 0 ] def
+  /Encoding 256 array def
+  0 1 255 { Encoding exch /.notdef put } for
+  Encoding
+    dup (b) 0 get /Bullet put
+    dup (c) 0 get /Circle put
+    dup (C) 0 get /BoldCircle put
+    dup (u) 0 get /SolidTriangle put
+    dup (t) 0 get /Triangle put
+    dup (T) 0 get /BoldTriangle put
+    dup (r) 0 get /SolidSquare put
+    dup (s) 0 get /Square put
+    dup (S) 0 get /BoldSquare put
+    dup (q) 0 get /SolidPentagon put
+    dup (p) 0 get /Pentagon put
+    dup (P) 0 get /BoldPentagon put
+% DG/SR modification begin - Dec. 16, 1999 - From Etienne Riga
+    dup (l) 0 get /SolidDiamond put
+    dup (d) 0 get /Diamond put
+        (D) 0 get /BoldDiamond put
+% DG/SR modification end
+  /Metrics 13 dict def
+  Metrics begin
+    /Bullet        1000   def
+    /Circle        1000   def
+    /BoldCircle    1000   def
+    /SolidTriangle 1344   def
+    /Triangle      1344   def
+    /BoldTriangle  1344   def
+    /SolidSquare    886   def
+    /Square         886   def
+    /BoldSquare     886   def
+    /SolidPentagon 1093.2 def
+    /Pentagon      1093.2 def
+    /BoldPentagon  1093.2 def
+% DG/SR modification begin - Dec. 16, 1999 - From Etienne Riga
+    /SolidDiamond  1008   def
+    /Diamond       1008   def
+    /BoldDiamond   1008   def
+% DG/SR modification end
+    /.notdef 0 def
+  end
+  /BBoxes 13 dict def
+  BBoxes begin
+    /Circle        { -550 -550 550 550 } def
+    /BoldCircle    /Circle load def
+    /Bullet        /Circle load def
+    /Triangle      { -571.5 -330 571.5 660 } def
+    /BoldTriangle  /Triangle load def
+    /SolidTriangle /Triangle load def
+    /Square        { -450 -450 450 450 } def
+    /BoldSquare    /Square load def
+    /SolidSquare   /Square load def
+    /Pentagon      { -546.6 -465 546.6 574.7 } def
+    /BoldPentagon  /Pentagon load def
+    /SolidPentagon /Pentagon load def
+% DG/SR modification begin - Dec. 16, 1999 - From Etienne Riga
+    /Diamond       { -428.5 -742.5 428.5 742.5 } def
+    /BoldDiamond   /Diamond load def
+    /SolidDiamond  /Diamond load def
+% DG/SR modification end
+    /.notdef { 0 0 0 0 } def
+  end
+  /CharProcs 20 dict def
+  CharProcs begin
+    /Adjust {
+      2 copy dtransform floor .5 add exch floor .5 add exch idtransform
+      3 -1 roll div 3 1 roll exch div exch scale
+    } def
+    /CirclePath    { 0 0 500 0 360 arc closepath } def
+    /Bullet        { 500 500 Adjust CirclePath fill } def
+    /Circle        { 500 500 Adjust CirclePath .9 .9 scale CirclePath
+                     eofill } def
+    /BoldCircle    { 500 500 Adjust CirclePath .8 .8 scale CirclePath
+                     eofill } def
+    /BoldCircle    { CirclePath .8 .8 scale CirclePath eofill } def
+    /TrianglePath  { 0  660 moveto -571.5 -330 lineto 571.5 -330 lineto
+                     closepath } def
+    /SolidTriangle { TrianglePath fill } def
+    /Triangle      { TrianglePath .85 .85 scale TrianglePath eofill } def
+    /BoldTriangle  { TrianglePath .7 .7 scale TrianglePath eofill } def
+    /SquarePath    { -450 450 moveto 450 450 lineto 450 -450 lineto
+                     -450 -450 lineto closepath } def
+    /SolidSquare   { SquarePath fill } def
+    /Square        { SquarePath .89 .89 scale SquarePath eofill } def
+    /BoldSquare    { SquarePath .78 .78 scale SquarePath eofill } def
+    /PentagonPath  {
+      -337.8 -465   moveto
+       337.8 -465   lineto
+       546.6  177.6 lineto
+         0    574.7 lineto
+      -546.6  177.6 lineto
+      closepath
+    } def
+    /SolidPentagon { PentagonPath fill } def
+    /Pentagon      { PentagonPath .89 .89 scale PentagonPath eofill } def
+    /BoldPentagon  { PentagonPath .78 .78 scale PentagonPath eofill } def
+% DG/SR modification begin - Dec. 16, 1999 - From Etienne Riga
+    /DiamondPath   { 0 742.5 moveto -428.5 0 lineto 0 -742.5 lineto
+                     428.5 0 lineto closepath } def
+    /SolidDiamond  { DiamondPath fill } def
+    /Diamond       { DiamondPath .85 .85 scale DiamondPath eofill } def
+    /BoldDiamond   { DiamondPath .7 .7 scale DiamondPath eofill } def
+% DG/SR modification end
+    /.notdef { } def
+  end
+  /BuildGlyph {
+    exch
+    begin
+      Metrics 1 index get exec 0
+      BBoxes 3 index get exec
+      setcachedevice
+      CharProcs begin load exec end
+    end
+  } def
+  /BuildChar {
+    1 index /Encoding get exch get
+    1 index /BuildGlyph get exec
+  } bind def
+end
+/PSTricksDotFont exch definefont pop
+%END pst-dots.pro
+
+%%EndProcSet
+%%BeginProcSet: 8r.enc 0 0
+% File 8r.enc  TeX Base 1 Encoding  Revision 2.0  2002-10-30
+%
+% @@psencodingfile@{
+%   author    = "S. Rahtz, P. MacKay, Alan Jeffrey, B. Horn, K. Berry,
+%                W. Schmidt, P. Lehman",
+%   version   = "2.0",
+%   date      = "30 October 2002",
+%   filename  = "8r.enc",
+%   email     = "tex-fonts@@tug.org",
+%   docstring = "This is the encoding vector for Type1 and TrueType
+%                fonts to be used with TeX.  This file is part of the
+%                PSNFSS bundle, version 9"
+% @}
+% 
+% The idea is to have all the characters normally included in Type 1 fonts
+% available for typesetting. This is effectively the characters in Adobe
+% Standard encoding, ISO Latin 1, Windows ANSI including the euro symbol,
+% MacRoman, and some extra characters from Lucida.
+% 
+% Character code assignments were made as follows:
+% 
+% (1) the Windows ANSI characters are almost all in their Windows ANSI
+% positions, because some Windows users cannot easily reencode the
+% fonts, and it makes no difference on other systems. The only Windows
+% ANSI characters not available are those that make no sense for
+% typesetting -- rubout (127 decimal), nobreakspace (160), softhyphen
+% (173). quotesingle and grave are moved just because it's such an
+% irritation not having them in TeX positions.
+% 
+% (2) Remaining characters are assigned arbitrarily to the lower part
+% of the range, avoiding 0, 10 and 13 in case we meet dumb software.
+% 
+% (3) Y&Y Lucida Bright includes some extra text characters; in the
+% hopes that other PostScript fonts, perhaps created for public
+% consumption, will include them, they are included starting at 0x12.
+% These are /dotlessj /ff /ffi /ffl.
+% 
+% (4) hyphen appears twice for compatibility with both ASCII and Windows.
+%
+% (5) /Euro was assigned to 128, as in Windows ANSI
+%
+% (6) Missing characters from MacRoman encoding incorporated as follows:
+%
+%     PostScript      MacRoman        TeXBase1
+%     --------------  --------------  --------------
+%     /notequal       173             0x16
+%     /infinity       176             0x17
+%     /lessequal      178             0x18
+%     /greaterequal   179             0x19
+%     /partialdiff    182             0x1A
+%     /summation      183             0x1B
+%     /product        184             0x1C
+%     /pi             185             0x1D
+%     /integral       186             0x81
+%     /Omega          189             0x8D
+%     /radical        195             0x8E
+%     /approxequal    197             0x8F
+%     /Delta          198             0x9D
+%     /lozenge        215             0x9E
+%
+/TeXBase1Encoding [
+% 0x00
+ /.notdef /dotaccent /fi /fl
+ /fraction /hungarumlaut /Lslash /lslash
+ /ogonek /ring /.notdef /breve
+ /minus /.notdef /Zcaron /zcaron
+% 0x10
+ /caron /dotlessi /dotlessj /ff
+ /ffi /ffl /notequal /infinity
+ /lessequal /greaterequal /partialdiff /summation
+ /product /pi /grave /quotesingle
+% 0x20
+ /space /exclam /quotedbl /numbersign
+ /dollar /percent /ampersand /quoteright
+ /parenleft /parenright /asterisk /plus
+ /comma /hyphen /period /slash
+% 0x30
+ /zero /one /two /three
+ /four /five /six /seven
+ /eight /nine /colon /semicolon
+ /less /equal /greater /question
+% 0x40
+ /at /A /B /C
+ /D /E /F /G
+ /H /I /J /K
+ /L /M /N /O
+% 0x50
+ /P /Q /R /S
+ /T /U /V /W
+ /X /Y /Z /bracketleft
+ /backslash /bracketright /asciicircum /underscore
+% 0x60
+ /quoteleft /a /b /c
+ /d /e /f /g
+ /h /i /j /k
+ /l /m /n /o
+% 0x70
+ /p /q /r /s
+ /t /u /v /w
+ /x /y /z /braceleft
+ /bar /braceright /asciitilde /.notdef
+% 0x80
+ /Euro /integral /quotesinglbase /florin
+ /quotedblbase /ellipsis /dagger /daggerdbl
+ /circumflex /perthousand /Scaron /guilsinglleft
+ /OE /Omega /radical /approxequal
+% 0x90
+ /.notdef /.notdef /.notdef /quotedblleft
+ /quotedblright /bullet /endash /emdash
+ /tilde /trademark /scaron /guilsinglright
+ /oe /Delta /lozenge /Ydieresis
+% 0xA0
+ /.notdef /exclamdown /cent /sterling
+ /currency /yen /brokenbar /section
+ /dieresis /copyright /ordfeminine /guillemotleft
+ /logicalnot /hyphen /registered /macron
+% 0xD0
+ /degree /plusminus /twosuperior /threesuperior
+ /acute /mu /paragraph /periodcentered
+ /cedilla /onesuperior /ordmasculine /guillemotright
+ /onequarter /onehalf /threequarters /questiondown
+% 0xC0
+ /Agrave /Aacute /Acircumflex /Atilde
+ /Adieresis /Aring /AE /Ccedilla
+ /Egrave /Eacute /Ecircumflex /Edieresis
+ /Igrave /Iacute /Icircumflex /Idieresis
+% 0xD0
+ /Eth /Ntilde /Ograve /Oacute
+ /Ocircumflex /Otilde /Odieresis /multiply
+ /Oslash /Ugrave /Uacute /Ucircumflex
+ /Udieresis /Yacute /Thorn /germandbls
+% 0xE0
+ /agrave /aacute /acircumflex /atilde
+ /adieresis /aring /ae /ccedilla
+ /egrave /eacute /ecircumflex /edieresis
+ /igrave /iacute /icircumflex /idieresis
+% 0xF0
+ /eth /ntilde /ograve /oacute
+ /ocircumflex /otilde /odieresis /divide
+ /oslash /ugrave /uacute /ucircumflex
+ /udieresis /yacute /thorn /ydieresis
+] def
+
+
+%%EndProcSet
+%%BeginProcSet: texps.pro 0 0
+%!
+TeXDict begin/rf{findfont dup length 1 add dict begin{1 index/FID ne 2
+index/UniqueID ne and{def}{pop pop}ifelse}forall[1 index 0 6 -1 roll
+exec 0 exch 5 -1 roll VResolution Resolution div mul neg 0 0]/Metrics
+exch def dict begin Encoding{exch dup type/integertype ne{pop pop 1 sub
+dup 0 le{pop}{[}ifelse}{FontMatrix 0 get div Metrics 0 get div def}
+ifelse}forall Metrics/Metrics currentdict end def[2 index currentdict
+end definefont 3 -1 roll makefont/setfont cvx]cvx def}def/ObliqueSlant{
+dup sin S cos div neg}B/SlantFont{4 index mul add}def/ExtendFont{3 -1
+roll mul exch}def/ReEncodeFont{CharStrings rcheck{/Encoding false def
+dup[exch{dup CharStrings exch known not{pop/.notdef/Encoding true def}
+if}forall Encoding{]exch pop}{cleartomark}ifelse}if/Encoding exch def}
+def end
+
+%%EndProcSet
+%%BeginProcSet: special.pro 0 0
+%!
+TeXDict begin/SDict 200 dict N SDict begin/@SpecialDefaults{/hs 612 N
+/vs 792 N/ho 0 N/vo 0 N/hsc 1 N/vsc 1 N/ang 0 N/CLIP 0 N/rwiSeen false N
+/rhiSeen false N/letter{}N/note{}N/a4{}N/legal{}N}B/@scaleunit 100 N
+/@hscale{@scaleunit div/hsc X}B/@vscale{@scaleunit div/vsc X}B/@hsize{
+/hs X/CLIP 1 N}B/@vsize{/vs X/CLIP 1 N}B/@clip{/CLIP 2 N}B/@hoffset{/ho
+X}B/@voffset{/vo X}B/@angle{/ang X}B/@rwi{10 div/rwi X/rwiSeen true N}B
+/@rhi{10 div/rhi X/rhiSeen true N}B/@llx{/llx X}B/@lly{/lly X}B/@urx{
+/urx X}B/@ury{/ury X}B/magscale true def end/@MacSetUp{userdict/md known
+{userdict/md get type/dicttype eq{userdict begin md length 10 add md
+maxlength ge{/md md dup length 20 add dict copy def}if end md begin
+/letter{}N/note{}N/legal{}N/od{txpose 1 0 mtx defaultmatrix dtransform S
+atan/pa X newpath clippath mark{transform{itransform moveto}}{transform{
+itransform lineto}}{6 -2 roll transform 6 -2 roll transform 6 -2 roll
+transform{itransform 6 2 roll itransform 6 2 roll itransform 6 2 roll
+curveto}}{{closepath}}pathforall newpath counttomark array astore/gc xdf
+pop ct 39 0 put 10 fz 0 fs 2 F/|______Courier fnt invertflag{PaintBlack}
+if}N/txpose{pxs pys scale ppr aload pop por{noflips{pop S neg S TR pop 1
+-1 scale}if xflip yflip and{pop S neg S TR 180 rotate 1 -1 scale ppr 3
+get ppr 1 get neg sub neg ppr 2 get ppr 0 get neg sub neg TR}if xflip
+yflip not and{pop S neg S TR pop 180 rotate ppr 3 get ppr 1 get neg sub
+neg 0 TR}if yflip xflip not and{ppr 1 get neg ppr 0 get neg TR}if}{
+noflips{TR pop pop 270 rotate 1 -1 scale}if xflip yflip and{TR pop pop
+90 rotate 1 -1 scale ppr 3 get ppr 1 get neg sub neg ppr 2 get ppr 0 get
+neg sub neg TR}if xflip yflip not and{TR pop pop 90 rotate ppr 3 get ppr
+1 get neg sub neg 0 TR}if yflip xflip not and{TR pop pop 270 rotate ppr
+2 get ppr 0 get neg sub neg 0 S TR}if}ifelse scaleby96{ppr aload pop 4
+-1 roll add 2 div 3 1 roll add 2 div 2 copy TR .96 dup scale neg S neg S
+TR}if}N/cp{pop pop showpage pm restore}N end}if}if}N/normalscale{
+Resolution 72 div VResolution 72 div neg scale magscale{DVImag dup scale
+}if 0 setgray}N/psfts{S 65781.76 div N}N/startTexFig{/psf$SavedState
+save N userdict maxlength dict begin/magscale true def normalscale
+currentpoint TR/psf$ury psfts/psf$urx psfts/psf$lly psfts/psf$llx psfts
+/psf$y psfts/psf$x psfts currentpoint/psf$cy X/psf$cx X/psf$sx psf$x
+psf$urx psf$llx sub div N/psf$sy psf$y psf$ury psf$lly sub div N psf$sx
+psf$sy scale psf$cx psf$sx div psf$llx sub psf$cy psf$sy div psf$ury sub
+TR/showpage{}N/erasepage{}N/copypage{}N/p 3 def @MacSetUp}N/doclip{
+psf$llx psf$lly psf$urx psf$ury currentpoint 6 2 roll newpath 4 copy 4 2
+roll moveto 6 -1 roll S lineto S lineto S lineto closepath clip newpath
+moveto}N/endTexFig{end psf$SavedState restore}N/@beginspecial{SDict
+begin/SpecialSave save N gsave normalscale currentpoint TR
+@SpecialDefaults count/ocount X/dcount countdictstack N}N/@setspecial{
+CLIP 1 eq{newpath 0 0 moveto hs 0 rlineto 0 vs rlineto hs neg 0 rlineto
+closepath clip}if ho vo TR hsc vsc scale ang rotate rwiSeen{rwi urx llx
+sub div rhiSeen{rhi ury lly sub div}{dup}ifelse scale llx neg lly neg TR
+}{rhiSeen{rhi ury lly sub div dup scale llx neg lly neg TR}if}ifelse
+CLIP 2 eq{newpath llx lly moveto urx lly lineto urx ury lineto llx ury
+lineto closepath clip}if/showpage{}N/erasepage{}N/copypage{}N newpath}N
+/@endspecial{count ocount sub{pop}repeat countdictstack dcount sub{end}
+repeat grestore SpecialSave restore end}N/@defspecial{SDict begin}N
+/@fedspecial{end}B/li{lineto}B/rl{rlineto}B/rc{rcurveto}B/np{/SaveX
+currentpoint/SaveY X N 1 setlinecap newpath}N/st{stroke SaveX SaveY
+moveto}N/fil{fill SaveX SaveY moveto}N/ellipse{/endangle X/startangle X
+/yrad X/xrad X/savematrix matrix currentmatrix N TR xrad yrad scale 0 0
+1 startangle endangle arc savematrix setmatrix}N end
+
+%%EndProcSet
+%%BeginProcSet: color.pro 0 0
+%!
+TeXDict begin/setcmykcolor where{pop}{/setcmykcolor{dup 10 eq{pop
+setrgbcolor}{1 sub 4 1 roll 3{3 index add neg dup 0 lt{pop 0}if 3 1 roll
+}repeat setrgbcolor pop}ifelse}B}ifelse/TeXcolorcmyk{setcmykcolor}def
+/TeXcolorrgb{setrgbcolor}def/TeXcolorgrey{setgray}def/TeXcolorgray{
+setgray}def/TeXcolorhsb{sethsbcolor}def/currentcmykcolor where{pop}{
+/currentcmykcolor{currentrgbcolor 10}B}ifelse/DC{exch dup userdict exch
+known{pop pop}{X}ifelse}B/GreenYellow{0.15 0 0.69 0 setcmykcolor}DC
+/Yellow{0 0 1 0 setcmykcolor}DC/Goldenrod{0 0.10 0.84 0 setcmykcolor}DC
+/Dandelion{0 0.29 0.84 0 setcmykcolor}DC/Apricot{0 0.32 0.52 0
+setcmykcolor}DC/Peach{0 0.50 0.70 0 setcmykcolor}DC/Melon{0 0.46 0.50 0
+setcmykcolor}DC/YellowOrange{0 0.42 1 0 setcmykcolor}DC/Orange{0 0.61
+0.87 0 setcmykcolor}DC/BurntOrange{0 0.51 1 0 setcmykcolor}DC
+/Bittersweet{0 0.75 1 0.24 setcmykcolor}DC/RedOrange{0 0.77 0.87 0
+setcmykcolor}DC/Mahogany{0 0.85 0.87 0.35 setcmykcolor}DC/Maroon{0 0.87
+0.68 0.32 setcmykcolor}DC/BrickRed{0 0.89 0.94 0.28 setcmykcolor}DC/Red{
+0 1 1 0 setcmykcolor}DC/OrangeRed{0 1 0.50 0 setcmykcolor}DC/RubineRed{
+0 1 0.13 0 setcmykcolor}DC/WildStrawberry{0 0.96 0.39 0 setcmykcolor}DC
+/Salmon{0 0.53 0.38 0 setcmykcolor}DC/CarnationPink{0 0.63 0 0
+setcmykcolor}DC/Magenta{0 1 0 0 setcmykcolor}DC/VioletRed{0 0.81 0 0
+setcmykcolor}DC/Rhodamine{0 0.82 0 0 setcmykcolor}DC/Mulberry{0.34 0.90
+0 0.02 setcmykcolor}DC/RedViolet{0.07 0.90 0 0.34 setcmykcolor}DC
+/Fuchsia{0.47 0.91 0 0.08 setcmykcolor}DC/Lavender{0 0.48 0 0
+setcmykcolor}DC/Thistle{0.12 0.59 0 0 setcmykcolor}DC/Orchid{0.32 0.64 0
+0 setcmykcolor}DC/DarkOrchid{0.40 0.80 0.20 0 setcmykcolor}DC/Purple{
+0.45 0.86 0 0 setcmykcolor}DC/Plum{0.50 1 0 0 setcmykcolor}DC/Violet{
+0.79 0.88 0 0 setcmykcolor}DC/RoyalPurple{0.75 0.90 0 0 setcmykcolor}DC
+/BlueViolet{0.86 0.91 0 0.04 setcmykcolor}DC/Periwinkle{0.57 0.55 0 0
+setcmykcolor}DC/CadetBlue{0.62 0.57 0.23 0 setcmykcolor}DC
+/CornflowerBlue{0.65 0.13 0 0 setcmykcolor}DC/MidnightBlue{0.98 0.13 0
+0.43 setcmykcolor}DC/NavyBlue{0.94 0.54 0 0 setcmykcolor}DC/RoyalBlue{1
+0.50 0 0 setcmykcolor}DC/Blue{1 1 0 0 setcmykcolor}DC/Cerulean{0.94 0.11
+0 0 setcmykcolor}DC/Cyan{1 0 0 0 setcmykcolor}DC/ProcessBlue{0.96 0 0 0
+setcmykcolor}DC/SkyBlue{0.62 0 0.12 0 setcmykcolor}DC/Turquoise{0.85 0
+0.20 0 setcmykcolor}DC/TealBlue{0.86 0 0.34 0.02 setcmykcolor}DC
+/Aquamarine{0.82 0 0.30 0 setcmykcolor}DC/BlueGreen{0.85 0 0.33 0
+setcmykcolor}DC/Emerald{1 0 0.50 0 setcmykcolor}DC/JungleGreen{0.99 0
+0.52 0 setcmykcolor}DC/SeaGreen{0.69 0 0.50 0 setcmykcolor}DC/Green{1 0
+1 0 setcmykcolor}DC/ForestGreen{0.91 0 0.88 0.12 setcmykcolor}DC
+/PineGreen{0.92 0 0.59 0.25 setcmykcolor}DC/LimeGreen{0.50 0 1 0
+setcmykcolor}DC/YellowGreen{0.44 0 0.74 0 setcmykcolor}DC/SpringGreen{
+0.26 0 0.76 0 setcmykcolor}DC/OliveGreen{0.64 0 0.95 0.40 setcmykcolor}
+DC/RawSienna{0 0.72 1 0.45 setcmykcolor}DC/Sepia{0 0.83 1 0.70
+setcmykcolor}DC/Brown{0 0.81 1 0.60 setcmykcolor}DC/Tan{0.14 0.42 0.56 0
+setcmykcolor}DC/Gray{0 0 0 0.50 setcmykcolor}DC/Black{0 0 0 1
+setcmykcolor}DC/White{0 0 0 0 setcmykcolor}DC end
+
+%%EndProcSet
+%%BeginFont: CMEX10
+%!PS-AdobeFont-1.1: CMEX10 1.00
+%%CreationDate: 1992 Jul 23 21:22:48
+% Copyright (C) 1997 American Mathematical Society. All Rights Reserved.
+11 dict begin
+/FontInfo 7 dict dup begin
+/version (1.00) readonly def
+/Notice (Copyright (C) 1997 American Mathematical Society. All Rights Reserved) readonly def
+/FullName (CMEX10) readonly def
+/FamilyName (Computer Modern) readonly def
+/Weight (Medium) readonly def
+/ItalicAngle 0 def
+/isFixedPitch false def
+end readonly def
+/FontName /CMEX10 def
+/PaintType 0 def
+/FontType 1 def
+/FontMatrix [0.001 0 0 0.001 0 0] readonly def
+/Encoding 256 array
+0 1 255 {1 index exch /.notdef put} for
+dup 0 /parenleftbig put
+dup 1 /parenrightbig put
+dup 22 /floorleftbigg put
+dup 23 /floorrightbigg put
+dup 88 /summationdisplay put
+readonly def
+/FontBBox{-24 -2960 1454 772}readonly def
+/UniqueID 5000774 def
+currentdict end
+currentfile eexec
+D9D66F633B846A97B686A97E45A3D0AA052A014267B7904EB3C0D3BD0B83D891
+016CA6CA4B712ADEB258FAAB9A130EE605E61F77FC1B738ABC7C51CD46EF8171
+9098D5FEE67660E69A7AB91B58F29A4D79E57022F783EB0FBBB6D4F4EC35014F
+D2DECBA99459A4C59DF0C6EBA150284454E707DC2100C15B76B4C19B84363758
+469A6C558785B226332152109871A9883487DD7710949204DDCF837E6A8708B8
+2BDBF16FBC7512FAA308A093FE5CF5B8CAC6A7BEB5D02276E511FFAF2AE11910
+DE076F24311D94D07CACC323F360887F1EA11BDDA7927FF3325986FDB0ABDFC8
+8E4B40E7988921D551EC0867EBCA44C05657F0DC913E7B3004A5F3E1337B6987
+FEBC45F989C8DC6DC0AD577E903F05D0D54208A0AE7F28C734F130C133B48422
+BED48639A2B74E4C08F2E710E24A99F347E0F4394CE64EACB549576E89044E52
+EABE595BC964156D9D8C2BAB0F49664E951D7C1A3D1789C47F03C7051A63D5E8
+DF04FAAC47351E82CAE0794AA9692C6452688A74A7A6A7AD09B8A9783C235EC1
+EA2156261B8FB331827145DE315B6EC1B3D8B67B3323F761EAF4C223BB214C4C
+6B062D1B281F5041D068319F4911058376D8EFBA59884BA3318C5BC95684F281
+E0591BC0D1B2A4592A137FF301610019B8AC46AE6E48BC091E888E4487688350
+E9AD5074EE4848271CE4ACC38D8CBC8F3DB32813DDD5B341AF9A6601281ABA38
+4A978B98483A63FCC458D0E3BCE6FD830E7E09B0DB987A6B63B74638FC9F21A5
+8C68479E1A85225670D79CDDE5AC0B77F5A994CA700B5F0FF1F97FC63EFDE023
+8135F04A9D20C31998B12AE06676C362141AAAA395CDEF0A49E0141D335965F2
+FB4198499799CECCC8AA5D255264784CD30A3E8295888EFBC2060ADDD7BAC45A
+EEEECDFF7A47A88E69D84C9E572616C1AC69A34B5F0D0DE8EE4EDF9F4ADE0387
+680924D8D5B73EF04EAD7F45977CA8AD73D4DD45DE1966A3B8251C0386164C35
+5880DD2609C80E96D1AB861C9259748E98F6711D4E241A269ED51FF328344664
+3AF9F18DCE671611DB2F5D3EA77EE734D2BED623F973E6840B8DAD1E2C3C2666
+DD4DD1C1CC71EF3BE29E7C9EC47F20088C52CAEC511F41B45F7509B28A1BA4ED
+78E9D656DF95B33E05CA5B72E17AA1C71CBDF86C4898E423C90CD96C0C0A57FC
+A0449901E95197CFADA55DCF6659ED00E72C2232A967D0072E4685101C4A1206
+36E17049FD4D9C69C1D73637CFB212B99F1F1A570BFA3D11E00BD6F73A17A086
+B2A4DB80E34CFC44FFD029A0F298F51C839800F40A1FE030C008CF9B540596DC
+5F37C8876695818CFDCA443D3505951FC46E174C516AD6602B8193A55340308C
+CFF181EB9CD7FCFFB33B1ECF57ED8F36AACBFF7B8339F23E356AF9DC8E8CEB74
+FDDD557D99AA1781ADB3289353C3182E06E678A160D79670A3DE37253AD42816
+FB3EA782A043E6BA62A89C527634B36B54B5A5C991090791028147D44140C410
+B5AD970F15C53C3A6F8D787E326A37B91BF6F04BA152B19F880B755EDEC4D089
+EA302F4F56F9C50EC1C7B115D072097F9F7273C76B0F2D65F94FC3142F0C4C6C
+C50C4E9B15868D33042B129C2842B04CBFF48A3CD6077A2EA685C28BEFDD9591
+BCFC98D7347AC219C9E0579BD829884A17A7687D36DAA91AB1386752AD971626
+3DAFE3E78E5C1F5BD5C17BB80D2EF6DAAF8A3112595AD70A24E42C2682E54D97
+3BE53F5EFC97B24857ACEAFFC3B3CC2D6A77FED72A656268BA3B665288406F46
+0416A312846D66A28AB28DA07EF6AC40474961BF1731692A7BCD59EEA2AEB9C0
+7926EA8BAA2801E63BDBD1BEC994437CBDA22C524149CD1B4A3F163A34228151
+DF566A5DC640AC6E1BF9F95B9A2D4B25191960B78593B04810E8900061F99E82
+3E70DA0602C7C0DAC0FE41CA2A54B3DA09438F215B4E23E78BC971245F3078C1
+2590D45D2645F8D270021FBC774197AA64D0A8213E16AAE62F5C2F181CE98DA5
+E5B1CA0D86B7FEDC4AF1838F5992A365FEA7A9E554297B31B20F01DE2036B65A
+6645AD6574121450497289B6D0842D94C608896A356F66541120047DED6F36D9
+A3C112D4C504B7B49558435369268837447E7FC707E636A435566E106E1338BA
+1949B1158DB139B768080E68B7C23CEA75AA7F945B33B77463C6133D6DD68E7B
+31348D76D6FF6E0BBBD10F51200D9C4167914BE5E14AFB85B8D5CF
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+cleartomark
+%%EndFont 
+%%BeginFont: LCMSS8
+%!PS-AdobeFont-1.1: LCMSS8 1.01
+%%CreationDate: 1992 Jun 07 22:46:24
+% Copyright (C) 1997 American Mathematical Society. All Rights Reserved.
+11 dict begin
+/FontInfo 7 dict dup begin
+/version (1.01) readonly def
+/Notice (Copyright (C) 1997 American Mathematical Society. All Rights Reserved.) readonly def
+/FullName (LCMSS8) readonly def
+/FamilyName (Computer Modern) readonly def
+/Weight (Medium) readonly def
+/ItalicAngle 0 def
+/isFixedPitch false def
+end readonly def
+/FontName /LCMSS8 def
+/PaintType 0 def
+/FontType 1 def
+/FontMatrix [0.001 0 0 0.001 0 0] readonly def
+/Encoding 256 array
+0 1 255 {1 index exch /.notdef put} for
+dup 2 /Theta put
+dup 8 /Phi put
+dup 40 /parenleft put
+dup 41 /parenright put
+dup 43 /plus put
+dup 48 /zero put
+dup 49 /one put
+dup 50 /two put
+dup 51 /three put
+dup 52 /four put
+dup 53 /five put
+dup 54 /six put
+dup 55 /seven put
+dup 56 /eight put
+dup 58 /colon put
+dup 61 /equal put
+dup 91 /bracketleft put
+dup 93 /bracketright put
+dup 94 /circumflex put
+dup 103 /g put
+dup 105 /i put
+dup 108 /l put
+dup 109 /m put
+dup 110 /n put
+dup 111 /o put
+readonly def
+/FontBBox{-87 -208 1285 857}readonly def
+/UniqueID 5029034 def
+currentdict end
+currentfile eexec
+D9D66F633B846A97B686A97E45A3D0AA052A014267B7904EB3C0D3BD0B83D891
+016CA6CA4B712ADEB258FAAB9A130EE605E61F77FC1B738ABC7C51CD46EF8171
+9098D5FEE67660E69A7AB91B58F29A4D79E57022F783EB0FBBB6D4F4EC35014F
+D2DECBA99459A4C59DF0C6EBA150284454E707DC2100C15B76B4C19B84363758
+469A6C558785B226332152109871A9883487DD7710949204DDCF837E6A8708B8
+2BDBF16FBC7512FAA308A093FE5CF4E9D2405B169B077C51B8CEC58A64F93279
+93461255C3731B4964C586F0ECB1D4C4C11A8DE9455681C3D6AA88DB5D5CB0E9
+E61D0F2ACDB447F7E49A41DE0DC2CC77A92307FA6A537D9C89200285DCECD31F
+7A27378A7C8FE034B7D97170D6726FBF822C1AE63089907009D50CB0CC866635
+3219425C3FB9C4F5EDA7689F91874E7A4EC808BD8049E8A6CFC64E302287D4D5
+B644489738732002D249E2747E7DC11795BF966921D2E61E0C05256B71694853
+290DF3A86D07AB423A0CCFC39634293BF07D3B8AA140A9B12B291454BA7BCEB4
+F0EC576E89C8DDCCA6449C94AC2229A8D64B0D26F811A0B0DB8913A2524051E8
+76420339699D91F262A1F227C82E0EFE4459F4B367B0820572700FA5D89884E7
+91A29A7048089836FCF88784E64AC6B6B19B55928AFFBFA5269A8DB8AC9506A8
+788C8C5508CE0DAD2185EE7E2B530374C21B8800686D96862A621759E2984DFB
+FEC6ADE490672F0D7F6814525930961A841DE5B002EC3DD47EAC6C35ECCB29F6
+A9FE3A5900A6CFA164066FE572C0C9941EDEEC5FB4059D394461AECD3639DDD0
+4A64579AF5E545CA5A5B5AAE2459DA49885D00B7EE3DD9418D6FE413B5B5A6CE
+31FF6DD11E1533D94899DECDA802056546C95B1401114C88A8756AE64EC7E4C6
+13985ED6FF61C00AF5F01079EB583386462E197376A1025400B0A6156AA3F0D6
+755D8F26B2E4CA7238202CBC9DB2A2A972759AA069A41EEED25AAF2A77A9A9B5
+5CDBF2B3FCE985ECB47DFA88D1BB317EFBB6376D17E7295FD94BBBFFB483B8D3
+6C355570A70C393231DFD03E5770136A2AF1645970BD173AC93C25E2D8480C0B
+0AE863CE6C65AD8229A26274FC87C1396D526264F455EBA00A74D1F4FF5F7E26
+3F62C9D9CD5028DD7F4C5EEEC0E0A67CB21D52B632FE30FFEAC30D548CC72D2D
+9D92F749CA1F30CF6C43CB17FFC8D668881FC9BE54CD83D5036E24BE0548281C
+E76CD121CCB13AE69F3C8D060F0547866ED2C667391B64758AA4E12BA03AF7A5
+5D19BA4AC8427816C526A61AFA6DB49767DB34BB9AE1CB006C78A33C558FCA58
+B849EB4B47501CEE90344445ED0E6372CCEE6014096038D69723E19D413E9912
+3797D3247181E304F75220FE64FF7F8C150D82EE89A3ABA63FB1CBC0A339EC6F
+8B9F385DD439C47205BA557E566C1DE33A0412C14AE16E17EFE8460A8F3F1182
+793E6A65B35AA4768E6DB38CF6F28690C744ECD3D5E6EAD6538F0FA1D69B9D4D
+528725252F495A5CFAAC3C339A56DFE2DE135F57B44508F1181C115AFB1FAAAA
+26BA66EA7C50F20124771F7E5B21C30DA6D75945FB8A34C39741875FC110F047
+CDCE27FFF932C8854687B593017DFB862FCDD333F414F2CED8B96BD21B117359
+68DC2AC4406F79344C463B6682D86718D2FCC247AD4D92237B945053BF9AE678
+FAEAEBE5EB584B125F31299A8BE65C7527DCFC489C74A05918F1602BAF0D7B5C
+F2CC922DB354850BA12CBDDFB6553F0B8562347AA903265A5BE0A0A033E3BC9D
+64BCA9F66161D31B64A71D0B1E6915BFB217565CCD025DB0CE1EB7C2ABD8DE3D
+EBB5A58A5F11AAE307AB8178C53648CC6DA61FEEEE0F3E17EBB7370EFD7F511E
+1AD4580A7F4A8FF53215FEE4BB627043FDD2E6F78C80BC14A199E0E93F562A45
+28FE4587723C9B039B29A8371F589800298BBBB87915B48183D5A5EB492782BA
+8AABE4B73CBD4A3283D7197ABAC76C049C83E35E0786ED11330820BE979DDA7A
+4BBAC154AED726E1D8D3F5EFA837C34125FDB7D6E8B9427E46D6C6E24FCDECAD
+9F29DC6E651367E359DB5066C5CBEB1FC2C4015315A0039A07DB26ADADDF1F8F
+25D16FA1B7B71E4D18DB8371C50F085D65F0F9E43A4F3E199C12880A2F6FE4B2
+5ACF119DC110379B683D0DF5F8060D959E06DB8EB5B545D738766169264093CC
+6E13D1FF100289C72F02210C4363BDCBBCE2B59C8D4ED8679A9E3E3091253AF8
+C22A87A0E1A63771377395DC041A47293730071BCFAF12C4D3915140CC091DDA
+2A210BD5171D13EB59EE3F82FACAF91EBC7CD7C5C49C3E23286BE7C628E671BF
+F8B4E963C62F781B181AFB1F52D041B5F2A6DDA5354FEFF8578F63E966FA3361
+68E7EDCFE3AAC416FB6A732ACADFEF412CEAD6D360905D5597B0D9F44CEE7185
+7054B64D166BD863DC3058928D4FC895E451AB9EF21BD36A03BB5F1FF3EC54F3
+EE14A8343F4FB85D604097597441A4840A8C1E51D351B63E8572E79688F7F225
+723583C0D8A7A60751A46CF5D86B47184C726F78ADEADE58AAC3354212930464
+2A78A9AF34E2D00E4EB6B5CA02129B41D551F28F687B0FB9C9E6FE566DB6E5F7
+B491FFCD63C3E215CE61CD8B35CE7DBE834656DAD17D61A4CEFFC86CE383DF3F
+15E6285990D775C6723864A3637A3384BC7DA3A26A7727B6FEB68F264242FF42
+2C1FCDFC15E21EEB57214113DB04F0EC75F9DB37A7DEC256503F0631B0E2DF1F
+C6C1347DB00EE87B79C57BD6E7F4E1664FAA2D3F0C1B86D08009D79BDF2E3553
+086F5EF634557035AA8DD4A422EFF837976204A5B0A90A7F37D1DE10D8EB17BA
+6F007190E5AAD1772991EDED58E27D2C0D09E33F66A0E18CBA96D0BE391CD400
+D244B1636A73C1F83157F8707D79915535F03433B18B0B3732F38D84FAD8B8B4
+854E87BB5596E0355EFCE70A2C1E909D654F9FB9D47BA29242EA0535546FB898
+E49383181E82F88A6F71C267A836824217C8B229F27A1C2D551352FF8A2F78F4
+8744E0AB7495EC9567B18C236CEF68D1113DA5474F5B631F0E9E4C80E4B3CA8A
+4FB468C7FA2DF9EC110484A5431B6383CBCF287BB30CBC691785080AB37F5F2C
+7ACF7A6FF918CDF71089336C1D31C91EEDF51E51014E28B8551C2D12BD338445
+27E74C4F974CD1B95ED61880236B8070EEB3875901E70A74109BA89D6E380628
+D39F9F297358EB163ADF3822197626253F46A3274BDD940FCD0F00D582235773
+37D85DAA8C980FD658E69493F7894ED3EA27C6DB7F16C48FE014F2EEAC240464
+590360E2D0398834BA9B06B82B34313CFDAA89A2A00EF2EB548F75E3BBDCF68D
+56CA3EF57F567F309C6CC3CAFD3CEBF247F5D82A8EE3A935D0834F241ABD632E
+05DFB53B5BE6B84436F30E2A5F5F0CB95B4E53BF0A10A81FAED589B42376F5B2
+506A2A48AEE2F9AB9456576D0E002C8DE2855CC52B5C14FF05AA28767ADBF7D9
+88C3D8EC2EE0352DF04889E46E26D43D9D5E79F0E83094F8A4775B6A927EAC68
+3E2292ACFDAE533FB62C2A87FEF4D74289B71DBC3524295DF1839D5FC1829D2A
+1F12581E851E9BD65D9E7784DA29A9B13B29B4C34FB073D501B2D6D3F8B98649
+312D3C6F0215A80340E84694C5393BC9F3B33D272CDC57FA791136283500C9BD
+37E6013F627848A58CCC1F322E04BAE81A167D702466F3C0E0EA20C037CEEAB0
+99D3D19E7C3F47133DE26F988C8143D022AAA4FDC7D2247D42D674684F2BE66E
+FAC5A80B379CED04DA74CC734EE5BAF4F3072852574F204AD7CA1DF8C66833AE
+DC4AB3F0B5E0651400194D1C910D0578234759C817D9808C4FA5CB68310631C6
+6EDDB856D9BF8C68FB2E1138C3A47DD0A10F7D5556D365623B5D7080A1321695
+E6AC44AB083AE1E321162F4B4EB877A55205D5961FC5A641C5886E2C3D2E22CF
+31077EE993A0F8BC68287EBA46AD2CA13000148E3691B9F9EDC692EF0B78B032
+4688F8E725824A3E4E72CB831C140643BF18B0142FB07B9C5003D76F47B7FCAA
+AF436F33D8B23B8ADE51165C1618DC6242CA6522EC89EFEB2568A0A7DDC26A0B
+92F00D21A7D630D3B9684AC0514DB58D82874DD5EFAE7EA5146021B53A5D6731
+F26DBEE746603C6EF9E8B43D9733693DC8BEA93EBBBA1A2F879649689BC682B9
+4BE18EF41C25E8C12BA434FA7C2F2E41033F3127E6CE6C61DC03DDE37E93D4EB
+53D6A4156D2CB006BB1FC1007455F7ACCFC5B271ACB2704BF411FFC7979F96EC
+DC96805DE4206C2B5074AAE9CD654BB6010AF1F261EB4FD2221D51B6808F550C
+3E48A37038C38BC804E1D8913E14E7AC28273B6D6C8BF1A19C04EF29A6B610F5
+97E343F48D5B885EF09546893000810D6BDB90F335CA39524865826312E83D1A
+4241B483E949A72F07554B7EF1D59189C7C017E1345452245C43FCE2AEFB2C17
+96F1D28EBBE4F29F473A9FF6DB061E70EFDFCE0C10DD541AD88FACF3BC6D6D62
+8C97ABE54FE863500A08B21E4C88F8F24B05926F583CB8BD64F2A0564848790B
+D6D561F0CC2B737C76212E5EDC3E223C9F55E85E976226851BDCFB288A117477
+2D98217FE446AFE7CC7BFBF579AE2D04282EE57F9F53E7ECA3C740B48019B40C
+3636C10F3D954AD519956401C0A67EB57A38AD1A3B53C743685241CB866DD462
+ED1AE491BFCC5B88F24969678021388A345056B2A8EE3247D12361DC7C12E099
+AED410CBF98ACB0546796056C1A9F38349AD42C8D66C5A108133A89D63AB445C
+6455A02B16AAF09051E81E6DCF2E0DAA2A9C923EA1356738FAE509599A64628D
+5273B2390E2B85BD33B8981A9B71DADD1A262871412A868748894D57B3BA3B1C
+1F1EB450A9B8DFD3645C65337BC2BB96376E33FAC18F18F48D24FD9C4C6B783E
+16BD9D9E68CB288E58D0405CCD08E201F8B15D07F7FC6F58A367B121B3DCED77
+4B2822EC62D1F60A8031B982BA6A07D8A9D13DBAF569EF2F617B0341AAC6A7D1
+CAC9C6B0D38CCAB863E04319DF04E173850D452FED8C988EC66833688F137EA2
+6F8CBE8F325A6C7724AA6C822696653571EA11CDE81A7BCA5C1F11A05D9B20FD
+E74D90CB13D974706F93AF235622D773D6118D4CC5BDDD0C7DCA2DC8379D2EAB
+927826D2C64F5D059C4BA8DEC9081EDF0B22AFBAD676A78FF908CA26E6617F42
+837502F6B526243B6D1B73DF9B56DBE51BEB7A65A38E97C1CE915DF755CCA266
+87248809ADCA0713DE7AFA02ED89B3623F7160EDE4BF2D269B03B221695C9E68
+E1899A345D53D196FB58C0CDBEC8064F687574EBE2BBAD8CD95C685FB5DE4550
+D457901F6239E4D29EC541B209E73CBC2A4D179FF449CDE78BD37B5DD4C2C23C
+02E476CFDB21B312F43736DD2FA115A7950C0FFB992F73EEF77155F60E332B5A
+C6DFB05D5B9E47AFF79C220C68A658D20B40573CBFBB5362794DDF29CA960AFE
+29EC46734F72D6A1AE59D9740702E9104EF19C383234A47DDA4D79ED4A9B545F
+BB0B9788744F314AC11ECA376167DE8B236B245694E8F51FD55BE63CEE6DAFA4
+09AF1E29540001E8C790C1AFF989E39AE28A529CA87087F3EB2451B978394E21
+4441DEA3D68B2287EE8BA8BDBEADF546969FD78A92BAFA60B3EC6CF275060007
+794BE00A59E0757288D0A04F5F8B2B95DAC8FBB7D9F48A0B1A6B5A6F1B400E6F
+482AC657869C1C8DED9E1412BFC6AC9F1320ECAA840C018343471E2C3F80EFCB
+88765F50915AF18BACABFCB9053739ECAF99CC36DA58D4BA6A0C1624C4E02BAC
+5BD68C6D21213DBF76C5EBB10596868DC7473A0BC5E4E3137C38A2311E159FAE
+67BDE759A6A2075F6775E270D46A71E52066A96675CDD92B15731F7C7A2ABAA4
+31AE505C586B6DDEDEF764B1F81639164CF557ABCD69A6AF7CD7D98E5A0D5C9B
+7C32388FC9053C38A84CC002E8278DCC1FA94B857B14629036066D5D215A5F8A
+2AB5466F46ACC785C595904058F60654B6D91C7FB39CCB473EAE8FB1C804
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+cleartomark
+%%EndFont 
+%%BeginFont: CMMI8
+%!PS-AdobeFont-1.1: CMMI8 1.100
+%%CreationDate: 1996 Jul 23 07:53:54
+% Copyright (C) 1997 American Mathematical Society. All Rights Reserved.
+11 dict begin
+/FontInfo 7 dict dup begin
+/version (1.100) readonly def
+/Notice (Copyright (C) 1997 American Mathematical Society. All Rights Reserved) readonly def
+/FullName (CMMI8) readonly def
+/FamilyName (Computer Modern) readonly def
+/Weight (Medium) readonly def
+/ItalicAngle -14.04 def
+/isFixedPitch false def
+end readonly def
+/FontName /CMMI8 def
+/PaintType 0 def
+/FontType 1 def
+/FontMatrix [0.001 0 0 0.001 0 0] readonly def
+/Encoding 256 array
+0 1 255 {1 index exch /.notdef put} for
+dup 58 /period put
+dup 59 /comma put
+dup 60 /less put
+dup 61 /slash put
+dup 62 /greater put
+dup 65 /A put
+dup 68 /D put
+dup 69 /E put
+dup 79 /O put
+dup 83 /S put
+dup 84 /T put
+dup 86 /V put
+dup 98 /b put
+dup 99 /c put
+dup 101 /e put
+dup 103 /g put
+dup 104 /h put
+dup 105 /i put
+dup 107 /k put
+dup 108 /l put
+dup 110 /n put
+dup 115 /s put
+dup 116 /t put
+dup 120 /x put
+readonly def
+/FontBBox{-24 -250 1110 750}readonly def
+/UniqueID 5087383 def
+currentdict end
+currentfile eexec
+D9D66F633B846A97B686A97E45A3D0AA0529731C99A784CCBE85B4993B2EEBDE
+3B12D472B7CF54651EF21185116A69AB1096ED4BAD2F646635E019B6417CC77B
+532F85D811C70D1429A19A5307EF63EB5C5E02C89FC6C20F6D9D89E7D91FE470
+B72BEFDA23F5DF76BE05AF4CE93137A219ED8A04A9D7D6FDF37E6B7FCDE0D90B
+986423E5960A5D9FBB4C956556E8DF90CBFAEC476FA36FD9A5C8175C9AF513FE
+D919C2DDD26BDC0D99398B9F4D03D6A8F05B47AF95EF28A9C561DBDC98C47CF5
+5250011D19E9366EB6FD153D3A100CAA6212E3D5D93990737F8D326D347B7EDC
+4391C9DF440285B8FC159D0E98D4258FC57892DDF753642CD526A96ACEDA4120
+788F22B1D09F149794E66DD1AC2C2B3BC6FEC59D626F427CD5AE9C54C7F78F62
+C36F49B3C2E5E62AFB56DCEE87445A12A942C14AE618D1FE1B11A9CF9FAA1F32
+617B598CE5058715EF3051E228F72F651040AD99A741F247C68007E68C84E9D1
+D0BF99AA5D777D88A7D3CED2EA67F4AE61E8BC0495E7DA382E82DDB2B009DD63
+532C74E3BE5EC555A014BCBB6AB31B8286D7712E0E926F8696830672B8214E9B
+5D0740C16ADF0AFD47C4938F373575C6CA91E46D88DE24E682DEC44B57EA8AF8
+4E57D45646073250D82C4B50CBBB0B369932618301F3D4186277103B53B3C9E6
+DB42D6B30115F67B9D078220D5752644930643BDF9FACF684EBE13E39B65055E
+B1BD054C324962025EC79E1D155936FE32D9F2224353F2A46C3558EF216F6BB2
+A304BAF752BEEC36C4440B556AEFECF454BA7CBBA7537BCB10EBC21047333A89
+8936419D857CD9F59EBA20B0A3D9BA4A0D3395336B4CDA4BA6451B6E4D1370FA
+D9BDABB7F271BC1C6C48D9DF1E5A6FAE788F5609DE3C48D47A67097C547D9817
+AD3A7CCE2B771843D69F860DA4059A71494281C0AD8D4BAB3F67BB6739723C04
+AE05F9E35B2B2CB9C7874C114F57A185C8563C0DCCA93F8096384D71A2994748
+A3C7C8B8AF54961A8838AD279441D9A5EB6C1FE26C98BD025F353124DA68A827
+AE2AF8D25CA48031C242AA433EEEBB8ABA4B96821786C38BACB5F58C3D5DA011
+85B385124C3E73794FBA53D62DC0504D1560C2F15442EECE5157600EAAE5E0B4
+C374B5FED961C3AA560A6E88A9042D5C213DE78533E58F32F35F6ABC8853B7FB
+1C28C721B121126BF29DE5F8DF40D892A52A29E642796DF3F00E5011561B9379
+57429E6BD72D659ECCFE7BBA63396B89D55C0E7EE37BE2AEE7CD7CC50DD8A164
+8315381D4F09B3222B3BBBAED38730F398F5FDC7716DF12E6A1B8376BDEFE261
+24129C4187BD7089C8A82A43E4F25CCF91D22CE26D512B23A20CEE13B0A24A44
+FAA5420D223970661A0292A8188DD80A37D2C7DBC1AAC79AC82965984B453362
+6DBCA373370F7A3D45FAB1750D369BBB24954FAFF9F1F9B42704A15B7A6F1966
+856940876A9DCCB97EEF8CF7FA7CE054D20FC2E122798FC6066D428C784A055B
+CBE8F4ABF1E88086FD2A25499A9EA7D6D4FBF1326350FB3627BA189455A08313
+B585666ABC2FAE3522C90AEF2F8153CAEED327007F3A00F4996E32570743ED91
+032D2672F8AD7CC4970BC6F7C5D87CA83FB552DD2F87577EC6AEF8B558B514FC
+043E001E37D5BB17996DE63F1E1E63861A0A329D8F883E98B72F0742BC531432
+A87BD2773E2853FC6875C298FCE1F8FDC28F2239C6F460F7228B0CC6E60488A9
+3A5630017283785338BB84A68C596F0BBED7675AF9ACBC6B9DF31EC59B8BDB7D
+837EF16C4306B8C0FFA4F61FFC758C5A5598D4EC46ABF46BFD140D90B611D2EF
+E2C3353D0FD1989FB79388B76B94340D158B5DE8477B1384FA73FFB49864DC8F
+4B9D9E751E7B253A212E7F815B1A1408182587FE6191D06EAB78D951281AD56F
+66219EB8FCCE2F3D0A739999D3BD489E0DFE66D1B55CEAA9587C076AA2219DA2
+98EF41067E1FD2A18D59FBECE805C62877272962EB89B1B9264A0E313729B4AF
+E40E284397A76FF7FB85DD3A9A53C5FA6017E3AF971609BBD145CB0FFC117C06
+5A5D0628FD50F4CD03078387C2D5045BBD7BF7E93B89F9748F357FC167B5C4A2
+062C9A33A62114EA6C96A594BCDC0A86E2330D94D35E7270EE57C7389CB9DF3F
+478341D4DA13A0F87E35DA0E04F4FC353662904EC73EE9D31AD1BA432FB05B87
+0A0CB19FD9C486D10F24E43B648F8825F2E919489A8FFDC322066AE19A1BE652
+95598BEA62272406213D5EDB0C304C869CD1983763A479AB609F53CE9ED091ED
+D14A77A0082652C5F914AE434D17270D33F2B7EA339D3F96DA44F64713F64D98
+37AAA9F3C436E598C85AFDAF11B7BB108831122FE25A8980FF78356F3555219A
+3915695E354A087A12361AFF293FEC033A8407D999B77CAAFA53C27D5B28D8E0
+87FE2A62D9BAC18A87D1EBE413FE0623E34CB53A61B112011285978AA9FA4B30
+677964E00342ABA34F1266ACB8F06DF9DDC45AB2776FAB1904D4BFB59BE4453D
+7658B942C9ECC49F44428EA37EBE6B9363CE9A1F7DD93FE46300468DC85220E8
+2F32BBBB90BCC774BCAF8DD6C98D3FD1BC8C2135BD7BBA68365DEF8D395C2EAA
+01C96F0B0B9785C6B2B5E4A5EA1270C06791B9DC4C0765648676F1FE1FAA3016
+C46B6D8EE34F99A01B276178CBE9AE11A00B5B82FB2EB3CF29169F9461020EE1
+81B869B7A347AEF284F11C021F0A7CA781EF4F3ED6BD06B1563606A76173E4BA
+A4B2CB220490F195EAA23038A0572530128D06E89D29AD6EF28E58B16D106A44
+6319C4AFDA0F4C2BDDFE93011C4E31A5D73C9A149E3640F03A02763F1FECC21C
+E499FD1C1E94C0F2BCD341702482FA9CB0617B5D77275888F9B17ABDA81AF185
+96773CFFF4A953AEFB43D6EAB0CA6E66FE5F3AE66BAD1C17DC2B1CB69F2A221E
+7F745330B31E6B170E2E6ADCEB66AA28875504B4A66F23A843CFA9CB077BD758
+B412A91204099E7D8B624E45CA8F94E5D2E60250F1E35FA462FFBA3B45D10480
+336C0B973DFCAB0EB59CE080DF80328AF5D91AFB54809FD3C393D8F48A23BD62
+AF74795DCC5C6DCA594BB558BCDE8D4852BE18E709907EAF2704A80A9233EEC8
+20EEFE4612B050BB1552C65A414CD75D61B948C1F34E03B071A368D68E9E8F3B
+B75822997B898F3F6E8C18D30D9C9402F67053286145E746EBDC797ABE709938
+A4D17969EC5ACEC75037B4C8C67AF8AC31C3D4058B9385D336AC795B238A9D93
+8EA5A4F17FCBB0BCF5702BCB7041ADFA2EEF53E6B8675E3036BB54F16562C220
+ECA3368AA4B5AABCEFEBC460FC9275819DDF22A7D85863CD3B9A12DE9A096CF3
+C96AEE48134BEA0E7E2E818DB0DBB93D90A7910867DFA236E8FC81F0387DF25F
+77B8CF1E85E70DC0C1AB699B06391AC3D570A6E996D2D41662C590C52A8AF7BB
+A3DA3D0308B93B4991D2A20D59F063F82782C739C4F50538004B26F898768F40
+765D33847B25476F4A49B87899356A95A97187B7A62FC627B4A7BD22775B637B
+8D7F3AB1C398470D632E0F9551E7DD250CEFE3E53B9EFC51367BF4A59EFEB5CF
+E79500B4840DDF7A86C158207A1155AE6E6D9FA3DA1EA5CC236908DD54C24E42
+803FC1DF5D51337003BE6489D37C341732BC23C163244901B3064E186E3838AE
+E36DDFE4799CAE75CA0DA749A3647CB294F68FA1CD9834B2F0D1A85F8003608C
+1AE00D2D7A2C01854622478C91FADE397DF53C4AD273C0B1AADD757A975D4D29
+D577DAC2CB338FC32267CEA50F56D4E5C89E964010D1A096F1FC12DF055FE237
+04BD041A023FBBB747358D25EF0050DE8C83BC06358BF9FE17BEF3C026FFF6C8
+6934B99C75E218E7BC6C3DB4AC97B21D608FFC283002501CD85D5059964A704B
+C3D5C2AD686B90FC13C86ACBD45B27BD48BB7C5A0485075646FEF02017BE2F29
+79ABD2545AB07C62694790B2671C1F8475A0026B004FD8A3EE8C7AF73D7AFB48
+52424A2E5551F57E867FFF3792AB1C51A270D97225FE2096B099225A9981A443
+D58A4BB9FB40D01075EAEF68AD7792C57D297E72F513B1032AF971DFE5FCC786
+58DE0ACE3F2D51F6250101F4F65BEBA83D31D64468472A9A6F1147108AF6B043
+CED058F587F643A77EB54141196C178E6198BE2C8EA4D433D2C09CD4C27C58AA
+263D9E906896DD9AF890FB5F45C13B0394A952003069D0C4864B8C9CEB042ECE
+5F792FEF7B250A99D9B203148DAE112C960B6B71C49E04840D23230A9086C824
+2951DC352DC77600BD9CD28B2D29C20B6496DD484B189D037DA5667816DB0C93
+BEC316A6C37B3FE4552E09E0CF7C1CDBA48351B1E22D4E136A937834A0FCD190
+A4EA21C5FA187DA7E9EB65F147D681B934A08F5281ADA0F67A44475292FE9AD1
+6C30B458E78F77F98BA2523276DE42B51299304DCA445BD02ECCBEF89F69BF2E
+1CB9CEDAA537ADC329EA39B9B56AAE2CAF12503B44CB47AC821EB5112F14AD2A
+A36390AFC350F38E819136584941CEBF575B7AD9DBF7DE95F09843256DFD8386
+AA559913C36DF1B7958B4678792BDF4672AD9A587626DFC5F39E2E2D21D43AB1
+B266EF9A512101592B60BE4AEBFA6BA398D06BC006B204092F392D23521A592C
+EDA764956C594E7D0A1B0333830C429DA6C01C0DCA7204BC080F454E1F1AAE33
+1A34471ABEFD29884349FBF892F62937251E7CC723C2291355BDE849A8805BF9
+7625B61B85B1157C45D8D7A70E675BDDA386EFC9B37A472A38EB67A15A0B07AB
+D97EE1FA7FD10A0AA9AF815B668DFB87B3021053C3DB43AAD669CA2892EC3EC0
+1EB0FE2D0554E323D4573E8F6E67883A4EE421C449CC2E98682A58667C6C6769
+EF373A17FAFAC88AC122B1029B48BD837BA38CBCEF565D74E2C9CC5A2A23D402
+F0D81A76431AD42B7AFEC029AF6EA6612A497C39006759289A48D2BC5C97B9D2
+E49414DDFAC74395144A4A26AE901F98A798F90863D243DE6BEF86E8CBFFDD82
+3BEEA9C9ACFCB5587ACAB4C182815B38CAD70EEE047337916B320A0298ED6139
+9AA00EC16AA0A0ED2DF4D4546DCC1061E53EAB0E86E8BA28E40115D17E4EF86B
+0F48E596BD5166ED22C7B62A8DED7EDE2334399CEAE0D331656B9126F3698197
+79598CBA456E8DC52B00B1DFE89F7E41253A1A67C92DA74338B5C6B60AC24EF0
+0821B94CA18A0CB14D7F58A7E07F7991BF5793C5BBAEDBD7A8926599F9A230DB
+EAA4BAC9C9F8C894C572A7B17519D6180C1D67CC568C158EA6CFC493FF5975CE
+A0866D921E2E0C1F66D42BC8CF8217CE304731FD88C757148C2A021603438BBB
+E03B759D24640B22A675D668307872202FFBA789FF998BBBF126A2992ED6A544
+F461328C22EA47376807FD62CE8299C46F2356850EEABDA4E1D8BA2869283C5D
+E6CD34F15FCEA4B111F110B3B50BD299E8EF5E821576A8EC92B003EC2DE753E2
+AC088F63870828B2DDB7AF238B7C454A04A485A82DD85846C906929ACC7E792A
+139EAD36C5D0A25CC9C2C160EEA0211E86CC242CF5A57DF45D783D4C1818B32D
+1870AF3E1F4F8BC129799921727045C8C2244C4567B427C0DC25D8B8F5B3B029
+97AD55E0B1AA5E1445CD3D69D8989C8FC24859D503DEEA6EE2254E0836727B8D
+95A4F9F53FFE37DBBC29B91F5EC2CBBEE606D47A155CB39F210A83B58ACB2F16
+DE6A55C79BEFC352658B7940A2A262CDA4DFEF37AE47524625EEFBDD2CEBC1EF
+0002044254A875E3FC4E2310F38E0915A48974D9572FEBAB25A3236881119856
+4A37406CC7B43E0D1C32ED5EB84C3ED88D4992366F5F2163068675671881C2AA
+9794FE67939573E2C9EF409205271B9153BCEA83FEAD607CA4856460D13C0765
+EBAD6668F7F3AA2252EB8FD776C4FF43571C3602CEE2CF53369A4F99EE3251C9
+59D9C560ECFACF9535096DB05E6AE9D89BF64B2920984F73707A143F91D81000
+AB0AB02100F84AF33E852FCD9254F6A34F3000C250725566F1FF8E628E54B07D
+63B54CD6A00E21C5A84CD9131A0D97F1D46C1B6408BCF161D3B733E6CE1906B4
+2B6ABDF1D58E125822C7DE66197D41E3EB2D88D9534234E34010547F284BAE10
+589759CB566106ECC1BEFC103F7A37B0054615FB426E98C7D63245D893122B26
+F9A30B409012650097F3F26835B62BC354040FDD3B9F08AB716A5961814F94DA
+17D21C5D55B210D44203E029F9B3EF5CF93552460ACBE0D4A4D82E99D8CFA8EF
+2931C8774F03BA243D07A5429E4C34A39A12D771318B07A6FA8E952251BF729D
+19DF67E9EECB848D96E13B03F69FB54E9B0645E00738F575F085E0C9862E1353
+84479746E7EDAD9FC66173F0CBA24452AEF1F1C587884749374D027F00D293B9
+37A53260F1565A6376E21981CAF714C7B1B4F326982A43A1420386435879D27D
+80159CDB5ADC3B25211E243134FDC3CC4176D8EB73F87727FC15FDE2D1DE3ADF
+705B8185664532A7EB701CAA03EA41615A82073FC59385810F6D68B71BE88479
+6D102E185822D558372B7E0D3B4ABDB149D43A9DCF49F7C8200B1149AD1003C1
+704EF8CDF4CCE8BA9348CDFF8CD34870712E4D81C2BB839056FAE865063B4FF5
+613EE4BF77E15B41C24C6852E16D4545DA33EEBAE5CF349538679A82BF2FE06E
+BC2CBBD998963EEC99F993CBAE4385DA85BE9F2F1A8FA41BCB1F3221F88E6D0C
+835CF6213755E817E4A6612DA022403FADC84DA9F79954F9A952C5388E983B7D
+6F3A68B6A82EC6064DCF7D35AF583C8AFECC1DDCC994216F70EABDCE9A374B31
+A14C019D33B2BAD88CC39E5E287BB6B3DC4920E18ABC08148B7FFB1BD9C48DA9
+34695927FF77C1AD420570D44F0BC98D269D1E5AEB88ED49A2A91CD577ECC146
+880A4D3529FB79F77F4812817CE69D9C68B521FD951A2A254D7272E6FF84769F
+B1F5D99533F92EC7FAFA39CB75ED45AE847D8EBF2CEB4370DFA0DEE155777233
+233DDD5644A701B4E7C0C0B971278517244A2909C63116247BC881957B97FB3D
+337FFAE7002CF5ADE4EB2A5D79C0221E40F25808FA644637129998616CE470CB
+E7A2534CE495A2077AD50E96C1B4FEDC5244F0CE2760E10B741AE033A7A23A8A
+DB581ED94B2C655117E96E3A560B1FC72B08872C147A86D2741AFACDD358D1CE
+59F57091F518BA4177108B62F7D3BEC792180BCD60CD1C10A25DF611FF94BE53
+7B5710FD506BC3C36A7AB3D41F924D85F537B7D14FCFDD5D1CD66B14F1EF8B6E
+8AD79A4809C9305456621FCEB00CA1FEFE659133193CB742A0F7088CF7D08E61
+C3ED79E798AA2F5D2E07189D677552DC9D22EC1430832A2CEB590FA83755F411
+A4A217F8466F18EE7AC8CFD2A7919387E882D10CF9EC9F059E20C0FBCCCC64BA
+E9523460FEE7B38F6C119B29CCB7425E5D3076CA58BEA49364E263E4DBC48ABA
+98C5BED4F0BC2D9671F16632FC94052C63C15423C2365AB5C39DD7859A80D7C0
+E8
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+cleartomark
+%%EndFont 
+%%BeginFont: CMSY8
+%!PS-AdobeFont-1.1: CMSY8 1.0
+%%CreationDate: 1991 Aug 15 07:22:10
+% Copyright (C) 1997 American Mathematical Society. All Rights Reserved.
+11 dict begin
+/FontInfo 7 dict dup begin
+/version (1.0) readonly def
+/Notice (Copyright (C) 1997 American Mathematical Society. All Rights Reserved) readonly def
+/FullName (CMSY8) readonly def
+/FamilyName (Computer Modern) readonly def
+/Weight (Medium) readonly def
+/ItalicAngle -14.035 def
+/isFixedPitch false def
+end readonly def
+/FontName /CMSY8 def
+/PaintType 0 def
+/FontType 1 def
+/FontMatrix [0.001 0 0 0.001 0 0] readonly def
+/Encoding 256 array
+0 1 255 {1 index exch /.notdef put} for
+dup 0 /minus put
+dup 15 /bullet put
+dup 20 /lessequal put
+dup 21 /greaterequal put
+dup 32 /arrowleft put
+dup 48 /prime put
+dup 54 /negationslash put
+dup 56 /universal put
+dup 106 /bar put
+readonly def
+/FontBBox{-30 -955 1185 779}readonly def
+/UniqueID 5000818 def
+currentdict end
+currentfile eexec
+D9D66F633B846A97B686A97E45A3D0AA052F09F9C8ADE9D907C058B87E9B6964
+7D53359E51216774A4EAA1E2B58EC3176BD1184A633B951372B4198D4E8C5EF4
+A213ACB58AA0A658908035BF2ED8531779838A960DFE2B27EA49C37156989C85
+E21B3ABF72E39A89232CD9F4237FC80C9E64E8425AA3BEF7DED60B122A52922A
+221A37D9A807DD01161779DDE7D5FC1B2109839E5B52DFBB2A7C1B5D8E7E8AA0
+5B10EA43D6A8ED61AF5B23D49920D8F79DAB6A59062134D84AC0100187A6CD1F
+80F5DDD9D222ACB1C23326A7656A635C4A241CCD32CBFDF8363206B8AA36E107
+1477F5496111E055C7491002AFF272E46ECC46422F0380D093284870022523FB
+DA1716CC4F2E2CCAD5F173FCBE6EDDB874AD255CD5E5C0F86214393FCB5F5C20
+9C3C2BB5886E36FC3CCC21483C3AC193485A46E9D22BD7201894E4D45ADD9BF1
+CC5CF6A5010B5654AC0BE0DA903DB563B13840BA3015F72E51E3BC80156388BA
+F83C7D393392BCBC227771CDCB976E93302532471AAA096BDB7D3D00544FCEAE
+86A3196E1683DB53C308F865EE7F6C22EC40D307AE114E328CC80446A3F982AF
+9F6D58B72F017CA3A5E4241120081E58FA971E59192E4671C7792406813C6BB6
+A9D5CF1CDD3F0B6889740B58F1B2CA31719250C637BC873704BEC9A71079FA13
+C07A811CFF90CE0078E4FE4EC820B43732D00F4DE704A6B6DAA3A6A667AE8BFD
+3CF4F8147C8F5F5A72BA48031E35A84B20CC961321B5F298DE8C3CFE63C49AD2
+F9025DF09B1C478C401ABF1B401510773C519E9E58E53C091230D00E3DB458B7
+6266B27CF33E96869255839B8C09E8655CFFA6615579140B0E421615B9DDFBC6
+042A05964A7C1F0FD20A445E9816584445487218C68C5653C0E8025B3E380EC3
+CBD5C7EAB63C353F84921CCDA4E363352AC0277F0A111F4E064941DE35EEBE53
+30823853ADC253CE3E7B57CA4C75557216D00231FBF3780A72C9869F391E00B0
+BA8D78789EFE8D612D09530603BA48048FC3AB9782E81E67447B2EE96629DAA1
+DAB700A6A63CC1E1A298043266E268C2F28690083140176005263CBCA8E5A1B9
+6353BB3AA1E80320D87592B32A71EBCEB725DF800BB5C423CD866CCB83AEB444
+6333A38C7E1E94D34370BD22FA15044797266C184830DD89F5AFF2F6D6E7E9B3
+3D60291340A6CE646675CDC6A9DACAB1A93A4517144278E56E2AE97C8E37A821
+A167793A1A444D1CB1D71D3C050DFA9AFCDD9711E05C2F6E7FF299433280CF00
+BBB5B562A2F7A31AFD2A48D1CCFC5C5E9E0ABBE778DC3A93F6993945335528F4
+9A57F329930CB2B96F7B9C5E61C415B9B1F59CAE439AD35D9A9774863ABB4282
+727F4490211B7B98B57FC807ADEB499AAABDEEB9C564B287A6CDC4BCDB9C68D7
+4722391E32B77D38078F44975B7AD0B29471C11AA921CAE0DE751FC71DDC9A38
+431418F90BB2F4D252D9360C9FE405C4CA3B57DB29E363DEB00D715570B1D5AA
+652D320E98C9B799F2F2107A75B88BDD3B86DC6E5E603599BC5D7184418009DE
+159EFF4CCF94789F6376803B45E7811E499C68DC04DD9064394C1A0B3E89F42F
+2689B8C2421187478AD0CDCD2D57DBAB56EE7684A9DBA6E79DA05DFB2E21BA0D
+E47D8D5977CDD9C91520BF14C5576CC1D254BBDF792847A49A146175247B8058
+82FA8909A24D8C4CD960C5CE79226048777D8EC41AB597BBE9347A48B059C7C1
+9A82D38E57AD8A2F60596D0F0367414000572E65E567C314CCD3D72578F01D61
+13AE6EE6DA788A0D01BC5B5BD65EA41A81C2CF7702E93FA9647484AC1CC90148
+9DF9473DEF73549DE689394ED2CEA49FE5B7A6030973311C373CED5F7A441F3F
+ED254846B53CFB08CD7564CE966DAB3B0BFD0E54B745D24EDA0B6F0043092386
+AFD7DEF3FF594A4C5CE8775E172A2C3FA49D4FF2950CB0B92969FCA141AE6C29
+6A1D8D6A32CEF7C92B9C0CBFAFD61CFD01DD74D792F46F0E1B2CAF411793666E
+EFEA3E1AA243B635E901F3C0A5022496FB4A9152837785B073C24195B8C97E0F
+7E550EBE363145AC4DC868EFD49D601CAE4CD05B84CAD19FACB62983E4CE446C
+13D630E06C12AD3DB6C075AE3302808120A4572972961558D2E9BF5718FB5ED3
+6285AF404788D96AA4AD
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+cleartomark
+%%EndFont 
+TeXDict begin 39158280 55380996 1000 8000 8000
+(M:/Work/CLASSES/COMP572_Fall2006/Notes/Heaps/Amortized.dvi)
+@start /Fa 167[2763 64[1116 1116 20[877 877{}5 1912.83
+/CMEX10 rf /Fb 133[918 918 4[511 918 612 1[1021 1021
+1021 1530 408 2[408 1[1021 1[1021 1021 918 1[1021 55[612
+612 40[{ TeXBase1Encoding ReEncodeFont }18 1836.45 /Helvetica-Oblique
+rf /Fc 162[539 1[539 35[956 956 956 956 956 956 956 956
+48[{}10 1529.82 /LCMSS8 rf /Fd 190[1217 65[{}1 1529.82
+/CMMI8 rf /Fe 134[1021 1[1429 1[1122 612 1021 714 2[1122
+1122 1[511 2[511 1122 1122 612 1021 1122 1021 1[1021
+12[1122 3[1225 2[1530 11[1326 6[612 58[{ TeXBase1Encoding ReEncodeFont }
+22 1836.45 /Helvetica-Bold rf /Ff 147[510 4[1148 9[647
+1[647 29[1785 11[1148 1148 4[1785 1[893 893 37[1785 2[{}11
+1836.45 /LCMSS8 rf /Fg 207[529 15[1951 10[1518 1518 4[976
+14[1518{}6 1836.45 /CMSY8 rf /Fh 139[705 5[1184 1[582
+1016 1[664 1124 929 1[905 16[1136 4[1481 13[1462 3[976
+1518 1[542 58[{}14 1836.45 /CMMI8 rf /Fi 133[918 918
+918 1326 918 1021 511 918 612 1021 1021 1021 1021 1530
+408 918 1[408 1021 1021 511 1021 1021 918 1021 1021 11[1326
+1122 1225 2[1225 2[1530 1021 1225 1[511 1326 1[1122 1225
+1326 1[1225 11[1021 1021 1021 1021 1021 1021 2[511 612
+511 2[612 612 37[918 2[{ TeXBase1Encoding ReEncodeFont }50
+1836.45 /Helvetica rf /Fj 171[898 1[1061 3[1061 1224
+7[980 1[1061 67[{ TeXBase1Encoding ReEncodeFont }6 1469.16
+/Helvetica rf /Fk 144[1377 1377 2142 612 2[612 1[1377
+8[1377 777 1[777 29[2142 2[765 1[1377 3[1377 1377 1377
+1377 1377 4[2142 1[1071 1071 31[1989 5[2142 2[{}22 2203.63
+/LCMSS8 rf /Fl 149[650 49[1301 1[0 32[1821 1821 19[1821{}6
+2203.63 /CMSY8 rf /Fm 135[1318 3[845 1083 4[1421 2[1219
+1[797 5[1014 1002 11[1364 1[1363 1424 3[1777 9[1716 1921
+2[1754 2[1821 1171 1821 650 650 58[{}20 2203.63 /CMMI8
+rf /Fn 133[1102 1102 1102 1591 1102 1225 613 1102 734
+1225 1225 1225 1225 1836 489 1[489 489 1225 1225 613
+1225 1225 1102 1225 1225 19[1836 1[1470 1[613 3[1470
+1591 22[734 45[{ TeXBase1Encoding ReEncodeFont }31 2203.63
+/Helvetica-Oblique rf /Fo 137[765 851 425 765 509 2[851
+851 1[340 6[851 1[765 1[851 12[935 16[1105 9[851 851
+851 851 851 851 851 851 851 851 48[{ TeXBase1Encoding ReEncodeFont }23
+1529.82 /Helvetica rf /Fp 133[1102 1102 1102 1591 1102
+1225 613 1102 734 1225 1225 1225 1225 1836 489 1102 489
+489 1225 1225 613 1225 1225 1102 1225 1225 9[2080 2[1346
+1470 2[1470 1714 1591 1[1225 2[613 2[1346 1470 1591 1591
+1[1470 1[1225 3[613 613 3[1225 2[1225 1225 1225 1225
+1[613 734 613 2[734 734 489 35[1102 1102 2[{
+ TeXBase1Encoding ReEncodeFont }55 2203.63 /Helvetica
+rf /Fq 133[1102 1225 1[1714 1225 1346 734 1225 857 1346
+1346 1346 1346 1959 613 1225 1[613 1346 1346 734 1225
+1346 1225 1346 1225 11[1591 1346 1470 1591 1[1470 1714
+1[1836 1346 2[613 1591 4[1591 1591 1591 6[734 2[1225
+5[1225 2[613 734 613 2[734 734 36[1346 3[{
+ TeXBase1Encoding ReEncodeFont }46 2203.63 /Helvetica-Bold
+rf end
+%%EndProlog
+%%BeginSetup
+%%Feature: *Resolution 8000dpi
+TeXDict begin
+%%PaperSize: A4
+ end
+%%EndSetup
+%%Page: 1 1
+TeXDict begin 1 0 bop Black Black Black Black 5393 33877
+41214 67 v 5393 37080 67 3204 v 0 0 1 TeXcolorrgb 6013
+36063 a Fq(Amor)44 b(tiz)22 b(ed)613 b(Anal)-33 b(ysis:)759
+b(CLRS)612 b(Chapter)i(17)p Black 46540 37080 V 5393
+37146 41214 67 v 11417 39163 a Fp(Last)e(re)-66 b(vised:)758
+b(A)-66 b(ugust)612 b(30,)h(2006)p Black 47369 71620
+a Fo(1)p Black eop end
+%%Page: 2 2
+TeXDict begin 2 1 bop Black Black 42 9395 a Fp(In)p 0 0 1
+TeXcolorrgb 862 w(amor)88 b(tiz)-33 b(ed)863 b(analysis)p
+Black 863 w(w)-22 b(e)863 b(tr)66 b(y)862 b(to)h(analyz)-33
+b(e)863 b(the)g(time)f(re-)42 12494 y(quired)684 b(b)-44
+b(y)683 b(a)p 1 0 0 TeXcolorrgb 683 w Fn(sequence)p Black
+684 w Fp(of)g(oper)-22 b(ations)-33 b(.)969 b(There)684
+b(are)f(man)-33 b(y)42 15594 y(situations)834 b(in)h(which,)890
+b(e)-66 b(v)-55 b(en)835 b(though)g(it)g(is)f(possib)-44
+b(le)836 b(f)-66 b(or)834 b(an)42 18693 y(individual)546
+b(oper)-22 b(ation)544 b(to)g(be)h(v)-55 b(er)66 b(y)544
+b(e)-66 b(xpensiv)-55 b(e)-33 b(,)558 b(the)544 b(a)-44
+b(v)-55 b(er)-22 b(age)42 21793 y(cost)969 b(of)g(an)h(oper)-22
+b(ation)970 b(\(tak)-44 b(en)970 b(o)-33 b(v)-55 b(er)969
+b(all)h(oper)-22 b(ations)970 b(per-)42 24892 y(f)-66
+b(or)55 b(med\))612 b(can)h(be)g(sho)-33 b(wn)613 b(to)f(be)h(small.)42
+31313 y(Another)977 b(w)-33 b(a)-66 b(y)977 b(of)f(sa)-66
+b(ying)978 b(this)e(is)h(that)p 1 0 0 TeXcolorrgb 977
+w Fn(amor)88 b(tiz)-33 b(ed)977 b(analy-)42 34412 y(sis)527
+b(guar)-22 b(antees)528 b(the)f(a)-44 b(v)-55 b(er)-22
+b(age)528 b(case)f(perf)-66 b(or)55 b(mance)527 b(of)g(each)42
+37512 y(oper)-22 b(ation)613 b(in)g(the)g(w)-22 b(orst)612
+b(case)p Black Fp(.)42 43932 y(Note)829 b(that)g(this)h(is)f(v)-55
+b(er)66 b(y)829 b(diff)-66 b(erent)829 b(from)g(what)g(is)h(nor)55
+b(mally)42 47031 y(meant)580 b(b)-44 b(y)p 0 0 1 TeXcolorrgb
+580 w Fn(a)g(v)-55 b(er)-22 b(age-case)581 b(analysis)p
+Black Fp(;)591 b(there)581 b(is)f(no)h(probabil-)42 50131
+y(ity)612 b(at)g(w)-22 b(or)33 b(k)613 b(here)-33 b(.)42
+56551 y(W)-66 b(e)1015 b(will)h(introduce)g(the)f(main)g(ideas)h
+(behind)g(amor)88 b(tiz)-33 b(ed)42 59651 y(analysis)770
+b(through)f(the)h(study)e(of)i(tw)-22 b(o)769 b(diff)-66
+b(erent)768 b(prob)-44 b(lems:)p 1 0 0 TeXcolorrgb 42
+62750 a(stac)g(k)623 b(oper)-22 b(ations)624 b(with)f(m)-22
+b(ultipop)p Black 624 w(and)p 1 0 0 TeXcolorrgb 624 w(incrementing)624
+b(a)g(bi-)42 65850 y(nar)66 b(y)612 b(counter)p Black(.)p
+Black 47369 71620 a Fo(2)p Black eop end
+%%Page: 3 3
+TeXDict begin 3 2 bop Black Black Black Black 16463 5262
+19074 67 v 16463 8466 67 3204 v 0 0 1 TeXcolorrgb 17083
+7448 a Fq(Stac)-44 b(k-operations)p Black 35470 8466
+V 16463 8532 19074 67 v 42 13869 a Fp(W)-66 b(e)613 b(allo)-33
+b(w)613 b(three)g(oper)-22 b(ations:)p 0 0 1 TeXcolorrgb
+Black 1303 18750 a(1.)p 0 0 1 TeXcolorrgb 1107 w Fq(PUSH\()p
+Fm(S)-7 b(;)390 b(x)p Fq(\):)p Black 758 w Fp(Push)613
+b Fm(x)f Fp(onto)h(stac)-44 b(k)612 b Fm(S)123 b Fp(.)p
+0 0 1 TeXcolorrgb Black 1303 23631 a(2.)p 0 0 1 TeXcolorrgb
+1107 w Fq(POP\()p Fm(S)g Fq(\):)p Black 758 w Fp(P)-110
+b(op)612 b(top)h(of)f Fm(S)736 b Fp(and)613 b(retur)55
+b(ns)613 b(popped)g(item)p 0 0 1 TeXcolorrgb Black 1303
+28511 a(3.)p 0 0 1 TeXcolorrgb 1107 w Fq(MUL)-198 b(TIPOP\()p
+Fm(S)-7 b(;)390 b(k)59 b Fq(\):)p Black 4248 31611 a
+Fp(while)614 b Fm(S)735 b Fp(is)613 b(not)g(empty)f(and)h
+Fm(k)709 b Fl(6)p Fk(=)651 b(0)8061 34710 y Fp(POP\()p
+Fm(S)123 b Fp(\))8061 37810 y Fm(k)709 b Fk(:=)651 b
+Fm(k)579 b Fl(\000)520 b Fk(1)p Fm(:)42 45891 y Fp(Note)467
+b(that)p 0 0 1 TeXcolorrgb 467 w Fq(PUSH\()p Fm(S)-7
+b(;)390 b(x)p Fq(\))p Black 467 w Fp(and)p 0 0 1 TeXcolorrgb
+468 w Fq(POP\()p Fm(S)123 b Fq(\))p Black 466 w Fp(each)468
+b(tak)-44 b(e)467 b(only)p 1 0 0 TeXcolorrgb 467 w Fm(O)65
+b Fk(\(1\))p Black 42 48990 a Fp(w)-22 b(orst)562 b(case)h(time)f(b)-44
+b(ut)p 0 0 1 TeXcolorrgb 563 w Fq(MUL)-198 b(TIPOP\()p
+Fm(S)-7 b(;)390 b(k)59 b Fq(\))p Black 563 w Fp(can)563
+b(tak)-44 b(e)563 b(up)g(to)p 1 0 0 TeXcolorrgb 563 w
+Fm(n)p Black 42 52090 a Fp(time)633 b(in)h(the)g(w)-22
+b(orst)632 b(case)-33 b(,)639 b(where)634 b Fm(n)f Fp(is)h(the)f(total)
+h(n)-22 b(umber)633 b(of)42 55189 y(items)612 b(in)h(the)f(stac)-44
+b(k.)42 61610 y(Ev)-55 b(en)840 b(though)h(a)p 0 0 1
+TeXcolorrgb 841 w Fq(MUL)-198 b(TIPOP)p Black 840 w Fp(can)841
+b(tak)-44 b(e)p 1 0 0 TeXcolorrgb 840 w Fk(\002\()p Fm(n)p
+Fk(\))p Black 841 w Fp(time)840 b(it)g(is)42 64709 y(not)738
+b(hard)g(to)g(sho)-33 b(w)738 b(that)g Fn(an)-33 b(y)738
+b Fp(sequence)h(of)e Fm(n)h Fp(oper)-22 b(ations)-33
+b(,)42 67809 y(can)613 b(use)f(at)h(most)p 1 0 0 TeXcolorrgb
+612 w Fm(O)65 b Fk(\()p Fm(n)p Fk(\))p Black 612 w Fp(time)-33
+b(.)p Black 47369 71620 a Fo(3)p Black eop end
+%%Page: 4 4
+TeXDict begin 4 3 bop Black Black Black Black 9267 2359
+33466 67 v 9267 5577 67 3219 v 0 0 1 TeXcolorrgb 9887
+4545 a Fq(Incrementing)614 b(a)f(Binar)22 b(y)613 b(Counter)p
+Black 42666 5577 V 9267 5643 33466 67 v 42 10687 a Fp(The)g(f)-66
+b(ollo)-33 b(wing)614 b(code)f(increments)f(a)h(counter)66
+b(:)p 0 0 1 TeXcolorrgb 0 0 1 TeXcolorrgb 0 0 1 TeXcolorrgb
+88 14279 a Fi(I)92 b Fj(N)e(C)g(R)g(E)i(M)g(E)g(N)e(T)44
+b Fi(\()p Fh(A)p Fi(\))42 16393 y(1)1836 b Fh(i)543 b
+Fg( )f Ff(0)42 18507 y Fi(2)1836 b Fe(while)510 b Fh(i)542
+b(<)g(l)22 b(eng)66 b(th)p Ff([)p Fh(A)p Ff(])510 b Fi(and)h
+Fh(A)p Ff([)p Fh(i)p Ff(])542 b(=)g(1)42 20622 y Fi(3)6940
+b Fe(do)510 b Fh(A)p Ff([)p Fh(i)p Ff(])543 b Fg( )f
+Ff(0)42 22736 y Fi(4)9694 b Fh(i)543 b Fg( )f Fh(i)434
+b Ff(+)g(1)42 24850 y Fi(5)1836 b Fe(if)510 b Fh(i)542
+b(<)g(l)22 b(eng)66 b(th)p Ff([)p Fh(A)p Ff(])42 26964
+y Fi(6)6940 b Fe(then)510 b Fh(A)p Ff([)p Fh(i)p Ff(])542
+b Fg( )g Ff(1)p Black 1574 30309 a Fo(Counter)424 b(v)-38
+b(alue)423 b Fd(A)p Fc([7])j Fd(A)p Fc([6])h Fd(A)p Fc([5])f
+Fd(A)p Fc([4])g Fd(A)p Fc([3])g Fd(A)p Fc([2])g Fd(A)p
+Fc([1])h Fd(A)p Fc([0])f Fo(T)-184 b(otal)424 b(cost)37225
+32617 y
+ 0.75 setgray
+ 37225 32617 a 37225 32617 3678 1550 v 40903 32617
+a
+ 0 setgray
+ 40903 32617 a 5678 32174 a Fo(0)6156 b(0)2826 b(0)g(0)g(0)h(0)f(0)g
+(0)g(0)4425 b(0)33547 34167 y
+ 0.75 setgray
+ 33547 34167 a 33547 34167
+3678 1550 v 37225 34167 a
+ 0 setgray
+ 37225 34167 a 37225 34167 a
+ 0.75 setgray
+
+37225 34167 a 37225 34167 3678 1550 v 40903 34167 a
+ 0 setgray
+ 40903
+34167 a 5678 33724 a Fo(1)6156 b(0)2826 b(0)g(0)g(0)h(0)f(0)g(0)g(1)
+4425 b(1)37225 35716 y
+ 0.75 setgray
+ 37225 35716 a 37225 35716 3678
+1550 v 40903 35716 a
+ 0 setgray
+ 40903 35716 a 5678 35274 a Fo(2)6156
+b(0)2826 b(0)g(0)g(0)h(0)f(0)g(1)g(0)4425 b(3)29870 37266
+y
+ 0.75 setgray
+ 29870 37266 a 29870 37266 3678 1550 v 33548 37266 a
+ 0 setgray
+
+33548 37266 a 33547 37266 a
+ 0.75 setgray
+ 33547 37266 a 33547 37266
+3678 1550 v 37225 37266 a
+ 0 setgray
+ 37225 37266 a 37225 37266 a
+ 0.75 setgray
+
+37225 37266 a 37225 37266 3678 1550 v 40903 37266 a
+ 0 setgray
+ 40903
+37266 a 5678 36823 a Fo(3)6156 b(0)2826 b(0)g(0)g(0)h(0)f(0)g(1)g(1)
+4425 b(4)37225 38816 y
+ 0.75 setgray
+ 37225 38816 a 37225 38816 3678
+1550 v 40903 38816 a
+ 0 setgray
+ 40903 38816 a 5678 38373 a Fo(4)6156
+b(0)2826 b(0)g(0)g(0)h(0)f(1)g(0)g(0)4425 b(7)33547 40366
+y
+ 0.75 setgray
+ 33547 40366 a 33547 40366 3678 1550 v 37225 40366 a
+ 0 setgray
+
+37225 40366 a 37225 40366 a
+ 0.75 setgray
+ 37225 40366 a 37225 40366
+3678 1550 v 40903 40366 a
+ 0 setgray
+ 40903 40366 a 5678 39923 a
+Fo(5)6156 b(0)2826 b(0)g(0)g(0)h(0)f(1)g(0)g(1)4425 b(8)37225
+41915 y
+ 0.75 setgray
+ 37225 41915 a 37225 41915 3678 1550 v 40903 41915
+a
+ 0 setgray
+ 40903 41915 a 5678 41473 a Fo(6)6156 b(0)2826 b(0)g(0)g(0)h(0)f(1)g
+(1)g(0)3999 b(10)26193 43465 y
+ 0.75 setgray
+ 26193 43465 a 26193 43465
+3678 1550 v 29871 43465 a
+ 0 setgray
+ 29871 43465 a 29870 43465 a
+ 0.75 setgray
+
+29870 43465 a 29870 43465 3678 1550 v 33548 43465 a
+ 0 setgray
+ 33548
+43465 a 33547 43465 a
+ 0.75 setgray
+ 33547 43465 a 33547 43465 3678
+1550 v 37225 43465 a
+ 0 setgray
+ 37225 43465 a 37225 43465 a
+ 0.75 setgray
+ 37225
+43465 a 37225 43465 3678 1550 v 40903 43465 a
+ 0 setgray
+ 40903 43465
+a 5678 43022 a Fo(7)6156 b(0)2826 b(0)g(0)g(0)h(0)f(1)g(1)g(1)3999
+b(11)37225 45015 y
+ 0.75 setgray
+ 37225 45015 a 37225 45015 3678 1550
+v 40903 45015 a
+ 0 setgray
+ 40903 45015 a 5678 44572 a Fo(8)6156
+b(0)2826 b(0)g(0)g(0)h(1)f(0)g(0)g(0)3999 b(15)33547
+46565 y
+ 0.75 setgray
+ 33547 46565 a 33547 46565 3678 1550 v 37225 46565
+a
+ 0 setgray
+ 37225 46565 a 37225 46565 a
+ 0.75 setgray
+ 37225 46565 a 37225 46565
+3678 1550 v 40903 46565 a
+ 0 setgray
+ 40903 46565 a 5678 46122 a
+Fo(9)6156 b(0)2826 b(0)g(0)g(0)h(1)f(0)g(0)g(1)3999 b(16)37225
+48114 y
+ 0.75 setgray
+ 37225 48114 a 37225 48114 3678 1550 v 40903 48114
+a
+ 0 setgray
+ 40903 48114 a 5253 47672 a Fo(10)5730 b(0)2826 b(0)g(0)g(0)h(1)f(0)g
+(1)g(0)3999 b(18)29870 49664 y
+ 0.75 setgray
+ 29870 49664 a 29870 49664
+3678 1550 v 33548 49664 a
+ 0 setgray
+ 33548 49664 a 33547 49664 a
+ 0.75 setgray
+
+33547 49664 a 33547 49664 3678 1550 v 37225 49664 a
+ 0 setgray
+ 37225
+49664 a 37225 49664 a
+ 0.75 setgray
+ 37225 49664 a 37225 49664 3678
+1550 v 40903 49664 a
+ 0 setgray
+ 40903 49664 a 5253 49221 a Fo(11)5730
+b(0)2826 b(0)g(0)g(0)h(1)f(0)g(1)g(1)3999 b(19)37225
+51214 y
+ 0.75 setgray
+ 37225 51214 a 37225 51214 3678 1550 v 40903 51214
+a
+ 0 setgray
+ 40903 51214 a 5253 50771 a Fo(12)5730 b(0)2826 b(0)g(0)g(0)h(1)f(1)g
+(0)g(0)3999 b(22)33547 52764 y
+ 0.75 setgray
+ 33547 52764 a 33547 52764
+3678 1550 v 37225 52764 a
+ 0 setgray
+ 37225 52764 a 37225 52764 a
+ 0.75 setgray
+
+37225 52764 a 37225 52764 3678 1550 v 40903 52764 a
+ 0 setgray
+ 40903
+52764 a 5253 52321 a Fo(13)5730 b(0)2826 b(0)g(0)g(0)h(1)f(1)g(0)g(1)
+3999 b(23)37225 54313 y
+ 0.75 setgray
+ 37225 54313 a 37225 54313 3678
+1550 v 40903 54313 a
+ 0 setgray
+ 40903 54313 a 5253 53871 a Fo(14)5730
+b(0)2826 b(0)g(0)g(0)h(1)f(1)g(1)g(0)3999 b(25)22516
+55863 y
+ 0.75 setgray
+ 22516 55863 a 22516 55863 3678 1550 v 26194 55863
+a
+ 0 setgray
+ 26194 55863 a 26193 55863 a
+ 0.75 setgray
+ 26193 55863 a 26193 55863
+3678 1550 v 29871 55863 a
+ 0 setgray
+ 29871 55863 a 29870 55863 a
+ 0.75 setgray
+
+29870 55863 a 29870 55863 3678 1550 v 33548 55863 a
+ 0 setgray
+ 33548
+55863 a 33547 55863 a
+ 0.75 setgray
+ 33547 55863 a 33547 55863 3678
+1550 v 37225 55863 a
+ 0 setgray
+ 37225 55863 a 37225 55863 a
+ 0.75 setgray
+ 37225
+55863 a 37225 55863 3678 1550 v 40903 55863 a
+ 0 setgray
+ 40903 55863
+a 5253 55420 a Fo(15)5730 b(0)2826 b(0)g(0)g(0)h(1)f(1)g(1)g(1)3999
+b(26)37225 57413 y
+ 0.75 setgray
+ 37225 57413 a 37225 57413 3678 1550
+v 40903 57413 a
+ 0 setgray
+ 40903 57413 a 5253 56970 a Fo(16)5730
+b(0)2826 b(0)g(0)g(1)h(0)f(0)g(0)g(0)3999 b(31)42 62354
+y Fp(An)p 0 0 1 TeXcolorrgb 701 w(Increment)p Black 701
+w(oper)-22 b(ation)702 b(can)g(require)g(as)g(man)-33
+b(y)701 b(as)p 1 0 0 TeXcolorrgb 701 w Fm(k)868 b Fk(=)42
+65368 y Fp(length)p Fk([)p Fm(A)p Fk(])p Black 1006 w
+Fp(bit)1006 b(\003ips)-33 b(.)1940 b(W)-66 b(e)1007 b(claim,)1104
+b(though,)i(that)1006 b(an)-33 b(y)1006 b Fn(se-)42 68381
+y(quence)613 b Fp(of)g Fm(n)p 0 0 1 TeXcolorrgb 612 w
+Fp(Increment)p Black(s)e(requires)i(only)p 1 0 0 TeXcolorrgb
+613 w Fm(O)65 b Fk(\()p Fm(n)p Fk(\))p Black 613 w Fp(bit)612
+b(\003ips)-33 b(.)p Black 47369 71620 a Fo(4)p Black
+eop end
+%%Page: 5 5
+TeXDict begin 5 4 bop Black Black 42 4692 a Fp(3)613
+b(diff)-66 b(erent)612 b(approaches)h(to)f(Amor)88 b(tiz)-33
+b(ed)613 b(Analysis)-33 b(.)p 0 0 1 TeXcolorrgb Black
+2166 9212 a Fg(\017)p 0 0 1 TeXcolorrgb 1106 w Fe(Ag)-18
+b(gregate)511 b(Anal)-28 b(ysis:)p Black 4248 11306 a
+Fi(Let)p 1 0 0 TeXcolorrgb 669 w Fh(T)271 b Ff(\()p Fh(n)p
+Ff(\))p Black 668 w Fi(be)669 b(the)p 0 1 0 0 TeXcolorcmyk
+669 w Fb(total)p Black 668 w Fi(cost)g(of)f(some)h(sequence)h(of)e
+Fh(n)h Fi(oper)-18 b(a-)4248 13400 y(tions)-28 b(.)621
+b(In)479 b(the)g(w)-18 b(orst)479 b(case)h(the)f(a)-37
+b(v)-46 b(er)-18 b(age)480 b(cost,)485 b(or)p 0 1 0 0
+TeXcolorcmyk 479 w Fb(amor)73 b(tiz)-28 b(ed)479 b(cost)p
+Black 4248 15494 a Fi(per)489 b(oper)-18 b(ation,)491
+b(is)e Fh(T)271 b Ff(\()p Fh(n)p Ff(\))p Fh(=n:)488 b
+Fi(In)h(this)f(type)h(of)g(analysis)-28 b(,)493 b(e)-55
+b(v)-46 b(er)55 b(y)490 b(op-)4248 17588 y(er)-18 b(ation)509
+b(will)h(ha)-37 b(v)-46 b(e)511 b(the)f(same)h(amor)73
+b(tiz)-28 b(ed)510 b(cost.)p 0 0 1 TeXcolorrgb Black
+2166 22107 a Fg(\017)p 0 0 1 TeXcolorrgb 1106 w Fe(The)h(Accounting)f
+(Method:)p Black 4248 24201 a Fi(Each)466 b(oper)-18
+b(ation)465 b(is)h(charged)f(an)p 0 1 0 0 TeXcolorcmyk
+466 w Fb(amor)73 b(tiz)-28 b(ed)p Black 466 w Fi(cost,)474
+b(which)466 b(can)g(be)4248 26295 y(diff)-55 b(erent)509
+b(than)h(actual)g(cost.)4248 29220 y(Diff)-55 b(erence)729
+b(betw)-18 b(een)730 b(actual)h(cost)f(and)h(amor)73
+b(tiz)-28 b(ed)730 b(cost)h(is)f(e)-55 b(x-)4248 31314
+y(pressed)474 b(in)g(credits)-28 b(.)619 b(Extr)-18 b(a)472
+b(credits)i(are)f(placed)h(in)g(speci\002c)g(par)73 b(ts)4248
+33408 y(of)791 b(data)f(str)28 b(ucture)-28 b(.)1470
+b(Lac)-37 b(k)792 b(of)e(credits)g(are)g(made)h(up)g(b)-37
+b(y)791 b(using)4248 35502 y(credits)510 b(pre)-55 b(viously)510
+b(placed)h(in)f(data)g(str)28 b(ucture)-28 b(.)4248 38426
+y(Diff)-55 b(erent)509 b(oper)-18 b(ations)509 b(can)i(ha)-37
+b(v)-46 b(e)511 b(diff)-55 b(erent)508 b(amor)73 b(tiz)-28
+b(ed)511 b(costs)-28 b(.)4248 40520 y(Sum)553 b(of)f(the)g(amor)73
+b(tiz)-28 b(ed)553 b(costs)g(of)f(a)h(sequence)g(of)g(oper)-18
+b(ations)551 b(is)4248 42614 y Fg(\024)510 b Fi(total)g(cost)g(of)g
+(the)g(sequence)p 0 0 1 TeXcolorrgb Black 2166 47134
+a Fg(\017)p 0 0 1 TeXcolorrgb 1106 w Fe(The)h(P)-73 b(otential)508
+b(Method:)p Black 4248 49228 a Fi(The)821 b(data)g(str)28
+b(ucture)819 b(is)i(assigned)g(a)p 0 1 0 0 TeXcolorcmyk
+821 w Fb(potential)e(\(energy\))h Fg(\025)1093 b Ff(0)p
+Black 4248 51322 a Fi(based)511 b(on)g(its)f(current)f(con\002gur)-18
+b(ation.)4248 54246 y(P)-92 b(otential)509 b(of)i(or)28
+b(iginal)508 b(con\002gur)-18 b(ation)510 b(is)g(usually)p
+1 0 0 TeXcolorrgb 511 w Ff(0)p Black Fi(.)4248 56340
+y(The)p 0 1 0 0 TeXcolorcmyk 717 w Fb(amor)73 b(tiz)-28
+b(ed)716 b(cost)p Black 716 w Fi(of)g(an)g(oper)-18 b(ation)715
+b(will)g(be)h(the)g(sum)g(of)g(its)4248 58434 y(actual)493
+b(cost)g(plus)g(the)g(diff)-55 b(erence)491 b(betw)-18
+b(een)493 b(the)f(potential)g(bef)-55 b(ore)4248 60528
+y(the)510 b(oper)-18 b(ation)510 b(and)g(the)g(potential)g(after)f(the)
+h(oper)-18 b(ation.)4248 63452 y(Diff)-55 b(erent)509
+b(oper)-18 b(ations)509 b(can)i(ha)-37 b(v)-46 b(e)511
+b(diff)-55 b(erent)508 b(amor)73 b(tiz)-28 b(ed)511 b(costs)-28
+b(.)4248 65546 y(Sum)553 b(of)f(the)g(amor)73 b(tiz)-28
+b(ed)553 b(costs)g(of)f(a)h(sequence)g(of)g(oper)-18
+b(ations)551 b(is)4248 67640 y Fg(\024)510 b Fi(total)g(cost)g(of)g
+(the)g(sequence)p Black 47369 71620 a Fo(5)p Black eop
+end
+%%Page: 6 6
+TeXDict begin 6 5 bop Black Black Black Black 5274 4278
+41452 67 v 5274 7496 67 3219 v 0 0 1 TeXcolorrgb 5894
+6465 a Fq(Ag)-22 b(gregate)615 b(Anal)-33 b(ysis:)758
+b(Stac)-44 b(k-Operations)p Black 46659 7496 V 5274 7562
+41452 67 v 0 0 1 TeXcolorrgb Black 1303 11346 a Fp(1.)p
+0 0 1 TeXcolorrgb 1107 w Fq(PUSH\()p Fm(S)-7 b(;)390
+b(x)p Fq(\):)p Black 758 w Fp(Push)613 b Fm(x)f Fp(onto)h(stac)-44
+b(k)612 b Fm(S)123 b Fp(.)p 0 0 1 TeXcolorrgb Black 1303
+16227 a(2.)p 0 0 1 TeXcolorrgb 1107 w Fq(POP\()p Fm(S)g
+Fq(\):)p Black 758 w Fp(P)-110 b(op)612 b(top)h(of)f
+Fm(S)736 b Fp(and)613 b(retur)55 b(ns)613 b(popped)g(item)p
+0 0 1 TeXcolorrgb Black 1303 21107 a(3.)p 0 0 1 TeXcolorrgb
+1107 w Fq(MUL)-198 b(TIPOP\()p Fm(S)-7 b(;)390 b(k)59
+b Fq(\):)p Black 4248 24207 a Fp(while)614 b Fm(S)735
+b Fp(is)613 b(not)g(empty)f(and)h Fm(k)709 b Fl(6)p Fk(=)651
+b(0)8061 27306 y Fp(POP\()p Fm(S)123 b Fp(\))8061 30406
+y Fm(k)709 b Fk(:=)651 b Fm(k)579 b Fl(\000)520 b Fk(1)p
+Fm(:)42 38487 y Fp(It)640 b(is)g(easy)h(to)f(see)h(that)p
+0 1 0 0 TeXcolorcmyk 641 w Fn(an)-33 b(y)p Black 640
+w Fp(sequence)642 b(of)e Fm(n)p 0 0 1 TeXcolorrgb 641
+w Fq(PUSH)p Black Fp(,)p 0 0 1 TeXcolorrgb 640 w Fq(POP)p
+Black Fp(,)42 41586 y(and)p 0 0 1 TeXcolorrgb 641 w Fq(MUL)-198
+b(TIPOP)p Black 640 w Fp(oper)-22 b(ations)641 b(tak)-44
+b(es)p 1 0 0 TeXcolorrgb 640 w Fm(T)325 b Fk(\()p Fm(n)p
+Fk(\))701 b(=)f Fm(O)65 b Fk(\()p Fm(n)p Fk(\))p Black
+641 w Fp(time)42 44686 y(so)469 b(the)h(a)-44 b(v)-55
+b(er)-22 b(age)469 b(time)g(per)h(oper)-22 b(ation)470
+b(is)p 1 0 0 TeXcolorrgb 470 w Fm(T)325 b Fk(\()p Fm(n)p
+Fk(\))p Fm(=n)650 b Fk(=)h Fm(O)65 b Fk(\(1\))p Fm(:)p
+Black 42 51106 a Fp(W)-66 b(e)1028 b(theref)-66 b(ore)1028
+b(can)g(assign)g(each)g(oper)-22 b(ation)1029 b(in)f(the)g(se-)42
+54206 y(quence)613 b(an)p 0 1 0 0 TeXcolorcmyk 613 w(amor)88
+b(tiz)-33 b(ed)613 b(cost)p Black 612 w(of)p 1 0 0 TeXcolorrgb
+612 w Fm(O)65 b Fk(\(1\))p Black Fp(.)42 60626 y(Note)844
+b(that)h(there)f(is)h(no)p 0 1 0 0 TeXcolorcmyk 845 w
+Fn(probability)p Black 845 w Fp(in)-44 b(v)-55 b(olv)g(ed.)1454
+b(As)845 b(stated)p 1 0 0 TeXcolorrgb 42 63725 a Fq(amor)44
+b(tiz)22 b(ed)904 b(anal)-33 b(ysis)905 b(guarantees)h(the)e(a)-33
+b(vera)-22 b(g)22 b(e)905 b(case)42 66825 y(perf)-44
+b(ormance)615 b(of)d(eac)-22 b(h)614 b(operation)g(in)f(the)g(w)-44
+b(or)-33 b(st)613 b(case)p Black Fp(.)p Black 47369 71620
+a Fo(6)p Black eop end
+%%Page: 7 7
+TeXDict begin 7 6 bop Black Black Black Black 2192 1564
+47617 67 v 2192 4757 67 3193 v 0 0 1 TeXcolorrgb 2812
+3725 a Fq(Ag)-22 b(gregate)614 b(Anal)-33 b(ysis:)758
+b(Incrementing)614 b(a)f(counter)p Black 49742 4757 V
+2192 4823 47617 67 v 1574 6922 a Fo(Counter)424 b(v)-38
+b(alue)423 b Fd(A)p Fc([7])j Fd(A)p Fc([6])h Fd(A)p Fc([5])f
+Fd(A)p Fc([4])g Fd(A)p Fc([3])g Fd(A)p Fc([2])g Fd(A)p
+Fc([1])h Fd(A)p Fc([0])f Fo(T)-184 b(otal)424 b(cost)37225
+9229 y
+ 0.75 setgray
+ 37225 9229 a 37225 9229 3678 1550 v 40903 9229
+a
+ 0 setgray
+ 40903 9229 a 5678 8786 a Fo(0)6156 b(0)2826 b(0)g(0)g(0)h(0)f(0)g(0)g
+(0)4425 b(0)33547 10779 y
+ 0.75 setgray
+ 33547 10779 a 33547 10779 3678
+1550 v 37225 10779 a
+ 0 setgray
+ 37225 10779 a 37225 10779 a
+ 0.75 setgray
+ 37225
+10779 a 37225 10779 3678 1550 v 40903 10779 a
+ 0 setgray
+ 40903 10779
+a 5678 10336 a Fo(1)6156 b(0)2826 b(0)g(0)g(0)h(0)f(0)g(0)g(1)4425
+b(1)37225 12329 y
+ 0.75 setgray
+ 37225 12329 a 37225 12329 3678 1550
+v 40903 12329 a
+ 0 setgray
+ 40903 12329 a 5678 11886 a Fo(2)6156
+b(0)2826 b(0)g(0)g(0)h(0)f(0)g(1)g(0)4425 b(3)29870 13878
+y
+ 0.75 setgray
+ 29870 13878 a 29870 13878 3678 1550 v 33548 13878 a
+ 0 setgray
+
+33548 13878 a 33547 13878 a
+ 0.75 setgray
+ 33547 13878 a 33547 13878
+3678 1550 v 37225 13878 a
+ 0 setgray
+ 37225 13878 a 37225 13878 a
+ 0.75 setgray
+
+37225 13878 a 37225 13878 3678 1550 v 40903 13878 a
+ 0 setgray
+ 40903
+13878 a 5678 13435 a Fo(3)6156 b(0)2826 b(0)g(0)g(0)h(0)f(0)g(1)g(1)
+4425 b(4)37225 15428 y
+ 0.75 setgray
+ 37225 15428 a 37225 15428 3678
+1550 v 40903 15428 a
+ 0 setgray
+ 40903 15428 a 5678 14985 a Fo(4)6156
+b(0)2826 b(0)g(0)g(0)h(0)f(1)g(0)g(0)4425 b(7)33547 16978
+y
+ 0.75 setgray
+ 33547 16978 a 33547 16978 3678 1550 v 37225 16978 a
+ 0 setgray
+
+37225 16978 a 37225 16978 a
+ 0.75 setgray
+ 37225 16978 a 37225 16978
+3678 1550 v 40903 16978 a
+ 0 setgray
+ 40903 16978 a 5678 16535 a
+Fo(5)6156 b(0)2826 b(0)g(0)g(0)h(0)f(1)g(0)g(1)4425 b(8)37225
+18527 y
+ 0.75 setgray
+ 37225 18527 a 37225 18527 3678 1550 v 40903 18527
+a
+ 0 setgray
+ 40903 18527 a 5678 18085 a Fo(6)6156 b(0)2826 b(0)g(0)g(0)h(0)f(1)g
+(1)g(0)3999 b(10)26193 20077 y
+ 0.75 setgray
+ 26193 20077 a 26193 20077
+3678 1550 v 29871 20077 a
+ 0 setgray
+ 29871 20077 a 29870 20077 a
+ 0.75 setgray
+
+29870 20077 a 29870 20077 3678 1550 v 33548 20077 a
+ 0 setgray
+ 33548
+20077 a 33547 20077 a
+ 0.75 setgray
+ 33547 20077 a 33547 20077 3678
+1550 v 37225 20077 a
+ 0 setgray
+ 37225 20077 a 37225 20077 a
+ 0.75 setgray
+ 37225
+20077 a 37225 20077 3678 1550 v 40903 20077 a
+ 0 setgray
+ 40903 20077
+a 5678 19634 a Fo(7)6156 b(0)2826 b(0)g(0)g(0)h(0)f(1)g(1)g(1)3999
+b(11)37225 21627 y
+ 0.75 setgray
+ 37225 21627 a 37225 21627 3678 1550
+v 40903 21627 a
+ 0 setgray
+ 40903 21627 a 5678 21184 a Fo(8)6156
+b(0)2826 b(0)g(0)g(0)h(1)f(0)g(0)g(0)3999 b(15)33547
+23177 y
+ 0.75 setgray
+ 33547 23177 a 33547 23177 3678 1550 v 37225 23177
+a
+ 0 setgray
+ 37225 23177 a 37225 23177 a
+ 0.75 setgray
+ 37225 23177 a 37225 23177
+3678 1550 v 40903 23177 a
+ 0 setgray
+ 40903 23177 a 5678 22734 a
+Fo(9)6156 b(0)2826 b(0)g(0)g(0)h(1)f(0)g(0)g(1)3999 b(16)37225
+24726 y
+ 0.75 setgray
+ 37225 24726 a 37225 24726 3678 1550 v 40903 24726
+a
+ 0 setgray
+ 40903 24726 a 5253 24284 a Fo(10)5730 b(0)2826 b(0)g(0)g(0)h(1)f(0)g
+(1)g(0)3999 b(18)29870 26276 y
+ 0.75 setgray
+ 29870 26276 a 29870 26276
+3678 1550 v 33548 26276 a
+ 0 setgray
+ 33548 26276 a 33547 26276 a
+ 0.75 setgray
+
+33547 26276 a 33547 26276 3678 1550 v 37225 26276 a
+ 0 setgray
+ 37225
+26276 a 37225 26276 a
+ 0.75 setgray
+ 37225 26276 a 37225 26276 3678
+1550 v 40903 26276 a
+ 0 setgray
+ 40903 26276 a 5253 25833 a Fo(11)5730
+b(0)2826 b(0)g(0)g(0)h(1)f(0)g(1)g(1)3999 b(19)37225
+27826 y
+ 0.75 setgray
+ 37225 27826 a 37225 27826 3678 1550 v 40903 27826
+a
+ 0 setgray
+ 40903 27826 a 5253 27383 a Fo(12)5730 b(0)2826 b(0)g(0)g(0)h(1)f(1)g
+(0)g(0)3999 b(22)33547 29376 y
+ 0.75 setgray
+ 33547 29376 a 33547 29376
+3678 1550 v 37225 29376 a
+ 0 setgray
+ 37225 29376 a 37225 29376 a
+ 0.75 setgray
+
+37225 29376 a 37225 29376 3678 1550 v 40903 29376 a
+ 0 setgray
+ 40903
+29376 a 5253 28933 a Fo(13)5730 b(0)2826 b(0)g(0)g(0)h(1)f(1)g(0)g(1)
+3999 b(23)37225 30925 y
+ 0.75 setgray
+ 37225 30925 a 37225 30925 3678
+1550 v 40903 30925 a
+ 0 setgray
+ 40903 30925 a 5253 30483 a Fo(14)5730
+b(0)2826 b(0)g(0)g(0)h(1)f(1)g(1)g(0)3999 b(25)22516
+32475 y
+ 0.75 setgray
+ 22516 32475 a 22516 32475 3678 1550 v 26194 32475
+a
+ 0 setgray
+ 26194 32475 a 26193 32475 a
+ 0.75 setgray
+ 26193 32475 a 26193 32475
+3678 1550 v 29871 32475 a
+ 0 setgray
+ 29871 32475 a 29870 32475 a
+ 0.75 setgray
+
+29870 32475 a 29870 32475 3678 1550 v 33548 32475 a
+ 0 setgray
+ 33548
+32475 a 33547 32475 a
+ 0.75 setgray
+ 33547 32475 a 33547 32475 3678
+1550 v 37225 32475 a
+ 0 setgray
+ 37225 32475 a 37225 32475 a
+ 0.75 setgray
+ 37225
+32475 a 37225 32475 3678 1550 v 40903 32475 a
+ 0 setgray
+ 40903 32475
+a 5253 32032 a Fo(15)5730 b(0)2826 b(0)g(0)g(0)h(1)f(1)g(1)g(1)3999
+b(26)37225 34025 y
+ 0.75 setgray
+ 37225 34025 a 37225 34025 3678 1550
+v 40903 34025 a
+ 0 setgray
+ 40903 34025 a 5253 33582 a Fo(16)5730
+b(0)2826 b(0)g(0)g(1)h(0)f(0)g(0)g(0)3999 b(31)1149 38691
+y Fp(Ev)-55 b(er)66 b(y)8417 b Fm(A)p Fk([0])612 b Fp(bit)h(gets)f
+(\003ipped.)1149 41836 y(Ev)-55 b(er)66 b(y)2213 b Fk(2)10383
+41058 y Fp(nd)15210 41836 y Fm(A)p Fk([1])612 b Fp(bit)h(gets)f
+(\003ipped.)1149 44981 y(Ev)-55 b(er)66 b(y)2213 b Fk(4)10383
+44203 y Fp(th)15210 44981 y Fm(A)p Fk([2])612 b Fp(bit)h(gets)f
+(\003ipped.)1149 48125 y(Ev)-55 b(er)66 b(y)2213 b Fk(8)10383
+47348 y Fp(th)15210 48125 y Fm(A)p Fk([3])612 b Fp(bit)h(gets)f
+(\003ipped.)1149 51270 y(Ev)-55 b(er)66 b(y)2213 b Fk(2)10383
+50492 y Fh(i)56 b Fp(th)15210 51270 y Fm(A)p Fk([)p Fm(i)p
+Fk(])612 b Fp(bit)g(gets)h(\003ipped.)42 56454 y(So)809
+b(the)g(total)g(n)-22 b(umber)810 b(of)f(bits)g(\003ipped)h(after)f
+Fm(n)f Fp(increment)42 59217 y(oper)-22 b(ations)613
+b(will)g(be)p 1 0 0 TeXcolorrgb 14374 62772 a Fh(k)13525
+63346 y Fa(X)13108 67748 y Fh(i)p Ff(=0)17095 62466 y
+Fa(\026)18682 63701 y Fm(n)p 18344 64723 2097 77 v 18344
+66886 a Fk(2)19721 66259 y Fh(i)20574 62466 y Fa(\027)22340
+65236 y Fl(\024)650 b Fm(n)27889 62772 y Fh(k)27040 63346
+y Fa(X)26622 67748 y Fh(i)p Ff(=0)31103 63701 y Fk(1)p
+30743 64723 V 30743 66886 a(2)32120 66259 y Fh(i)33623
+65236 y Fm(<)h Fk(2)p Fm(n)p Black Black 47369 71620
+a Fo(7)p Black eop end
+%%Page: 8 8
+TeXDict begin 8 7 bop Black Black 1149 14815 a Fp(Ev)-55
+b(er)66 b(y)8417 b Fm(A)p Fk([0])612 b Fp(bit)h(gets)f(\003ipped.)1149
+17960 y(Ev)-55 b(er)66 b(y)2213 b Fk(2)10383 17182 y
+Fp(nd)15210 17960 y Fm(A)p Fk([1])612 b Fp(bit)h(gets)f(\003ipped.)1149
+21105 y(Ev)-55 b(er)66 b(y)2213 b Fk(4)10383 20327 y
+Fp(th)15210 21105 y Fm(A)p Fk([2])612 b Fp(bit)h(gets)f(\003ipped.)1149
+24249 y(Ev)-55 b(er)66 b(y)2213 b Fk(8)10383 23472 y
+Fp(th)15210 24249 y Fm(A)p Fk([3])612 b Fp(bit)h(gets)f(\003ipped.)1149
+27394 y(Ev)-55 b(er)66 b(y)2213 b Fk(2)10383 26616 y
+Fh(i)56 b Fp(th)15210 27394 y Fm(A)p Fk([)p Fm(i)p Fk(])612
+b Fp(bit)g(gets)h(\003ipped.)42 33335 y(So)809 b(the)g(total)g(n)-22
+b(umber)810 b(of)f(bits)g(\003ipped)h(after)f Fm(n)f
+Fp(increment)42 36435 y(oper)-22 b(ations)613 b(will)g(be)p
+1 0 0 TeXcolorrgb 14374 40243 a Fh(k)13525 40817 y Fa(X)13108
+45219 y Fh(i)p Ff(=0)17095 39937 y Fa(\026)18682 41172
+y Fm(n)p 18344 42194 2097 77 v 18344 44357 a Fk(2)19721
+43730 y Fh(i)20574 39937 y Fa(\027)22340 42706 y Fl(\024)650
+b Fm(n)27889 40243 y Fh(k)27040 40817 y Fa(X)26622 45219
+y Fh(i)p Ff(=0)31103 41172 y Fk(1)p 30743 42194 V 30743
+44357 a(2)32120 43730 y Fh(i)33623 42706 y Fm(<)h Fk(2)p
+Fm(n)42 51667 y Fq(This)666 b(means)h(that)f(e)-33 b(ver)22
+b(y)667 b(operation)g(requires)g(at)f(most)42 54766 y
+Fk(2)p Fm(n=n)872 b Fq(bit)i(\003ips)g(on)g(a)-33 b(vera)-22
+b(g)22 b(e)g(,)940 b(i.e)44 b(.,)937 b(has)874 b(an)h(amor)44
+b(tiz)22 b(ed)42 57866 y(cost)613 b(of)g Fm(O)65 b Fk(\(1\))p
+Fm(:)p Black Black 47369 71620 a Fo(8)p Black eop end
+%%Page: 9 9
+TeXDict begin 9 8 bop Black Black Black Black 2923 1731
+46154 67 v 2923 4949 67 3219 v 0 0 1 TeXcolorrgb 3543
+3917 a Fq(The)614 b(Accounting)g(method:)759 b(Stac)-44
+b(k-Operations)p Black 49010 4949 V 2923 5015 46154 67
+v 42 9431 a Fp(In)808 b(the)p 1 0 0 TeXcolorrgb 809 w(Accounting)h
+(method)p Black 808 w(w)-22 b(e)809 b(assign)g(each)g(oper)-22
+b(ation)42 12251 y(an)p 1 0 0 TeXcolorrgb 591 w(amor)88
+b(tiz)-33 b(ed)590 b(cost)538 b Fk(^)-1325 b Fm(c)p Black
+Fp(,)595 b(which)590 b(can)h(be)g(diff)-66 b(erent)590
+b(f)-66 b(or)590 b(the)g(dif-)42 15072 y(f)-66 b(erent)612
+b(oper)-22 b(ations)-33 b(.)42 20585 y(Let)612 b Fm(c)h
+Fp(be)g(the)g(actual)f(cost)g(of)h(some)f(oper)-22 b(ation.)42
+26099 y(If)p 1 0 0 TeXcolorrgb 443 w Fk(^)-1325 b Fm(c)651
+b(>)f(c)p Black 496 w Fp(then)497 b(the)f(algor)33 b(ithm)496
+b(places)p 1 0 0 TeXcolorrgb 445 w Fk(^)-1325 b Fm(c)104
+b Fl(\000)g Fm(c)p Black 496 w Fp(credits)496 b(on)h(items)42
+28919 y(in)613 b(the)f(data)h(str)33 b(ucture)-33 b(.)42
+34433 y(If)p 1 0 0 TeXcolorrgb 613 w Fk(^)-1325 b Fm(c)745
+b(<)g(c)p Black 666 w Fp(then)666 b(the)g(algor)33 b(ithm)666
+b(m)-22 b(ust)665 b(be)h(ab)-44 b(le)666 b(to)g(tak)-44
+b(e)p 1 0 0 TeXcolorrgb 666 w Fm(c)558 b Fl(\000)507
+b Fk(^)-1326 b Fm(c)p Black 42 37253 a Fp(credits)697
+b(off)h(of)f(the)h(data)g(str)33 b(ucture)697 b(at)h(that)f(time)h(to)g
+(pa)-66 b(y)698 b(f)-66 b(or)42 40073 y(the)612 b(rest)g(of)h(the)f
+(oper)-22 b(ation.)42 45587 y(Essentially)-220 b(,)588
+b(ear)33 b(lier)585 b(actual)f(cheap)g(\(real)g(cost\))f(oper)-22
+b(ations)42 48407 y(are)p 1 0 0 TeXcolorrgb 979 w Fn(prepa)-66
+b(ying)p Black 980 w Fp(the)979 b(e)-66 b(xpense)979
+b(of)g(later)g(more)g(e)-66 b(xpensiv)-55 b(e)42 51228
+y(\(real)613 b(cost\))e(oper)-22 b(ations)-33 b(.)42
+56741 y(Let)765 b Fk(^)-1555 b Fm(c)4706 57196 y Fh(i)6012
+56741 y Fp(be)588 b(the)e(giv)-55 b(en)588 b(amor)88
+b(tiz)-33 b(ed)587 b(cost)f(of)g(the)h Fm(i)40313 55963
+y Fp(th)42793 56741 y(oper)-22 b(ation)42 59562 y(and)613
+b Fm(c)5344 60017 y Fh(i)6676 59562 y Fp(its)g(actual)f(cost.)757
+b(Then)p 0 0 1 TeXcolorrgb 19599 62671 a Fh(n)18810 63245
+y Fa(X)18392 67647 y Fh(i)p Ff(=1)22558 65135 y Fk(^)-1555
+b Fm(c)23394 65590 y Fh(i)24764 65135 y Fl(\025)28443
+62671 y Fh(n)27653 63245 y Fa(X)27236 67647 y Fh(i)p
+Ff(=1)31224 65135 y Fm(c)32238 65590 y Fh(i)32957 65135
+y Fm(:)p Black Black 47369 71620 a Fo(9)p Black eop end
+%%Page: 10 10
+TeXDict begin 10 9 bop Black Black 42 10848 a Fp(In)798
+b(the)h(stac)-44 b(k)798 b(prob)-44 b(lem)799 b(w)-22
+b(e)799 b(use)g(the)g(f)-66 b(ollo)-33 b(wing)799 b(amor)88
+b(tiz)-33 b(ed)42 13947 y(costs:)p 0 0 1 TeXcolorrgb
+1149 19408 a Fq(Operation)p Black 1 0 0 TeXcolorrgb 8198
+w(Real)613 b(Cost)g Fm(c)p Black 0 1 0 0 TeXcolorcmyk
+2214 w Fq(Amor)44 b(tiz)22 b(ed)613 b(Cost)562 b Fk(^)-1326
+b Fm(c)p Black 42 20249 52798 67 v 0 0 1 TeXcolorrgb
+1149 22131 a Fq(PUSH\()p Fm(S)-7 b(;)390 b(x)p Fq(\))p
+Black 1 0 0 TeXcolorrgb 12446 w Fk(1)p Black 0 1 0 0
+TeXcolorcmyk 15719 w(2)p Black 0 0 1 TeXcolorrgb 1149
+24788 a Fq(POP\()p Fm(S)123 b Fq(\))p Black 1 0 0 TeXcolorrgb
+16142 w Fk(1)p Black 0 1 0 0 TeXcolorcmyk 15719 w(0)p
+Black 0 0 1 TeXcolorrgb 1149 27444 a Fq(MUL)-198 b(TIPOP\()p
+Fm(S)-7 b(;)390 b(k)59 b Fq(\))p Black 1 0 0 TeXcolorrgb
+2388 w Fk(min)q(\()p Fm(k)g(;)390 b Fl(j)p Fm(S)123 b
+Fl(j)p Fk(\))p Black 0 1 0 0 TeXcolorcmyk 10689 w(0)p
+Black 42 33394 a Fp(When)871 b(doing)h(a)p 0 0 1 TeXcolorrgb
+871 w Fq(PUSH\()p Fm(S)-7 b(;)390 b(x)p Fq(\))p Black
+Fp(,)935 b Fk(1)871 b Fp(unit)g(of)f(amor)88 b(tiz)-33
+b(ed)871 b(cost)42 36494 y(cost)560 b(pa)-66 b(ys)560
+b(f)-66 b(or)560 b(the)g(actual)p 0 0 1 TeXcolorrgb 560
+w Fq(PUSH\()p Fm(S)-7 b(;)390 b(x)p Fq(\))p Black 561
+w Fp(and)560 b(the)h(1)f(remain-)42 39593 y(ing)727 b(unit)f(of)g
+(credit)h(gets)f(placed)h(on)g(the)f(item)g(in)h(the)f(stac)-44
+b(k)42 42693 y(that)612 b(w)-33 b(as)613 b(just)f(pushed.)42
+49113 y(Whene)-66 b(v)-55 b(er)612 b(an)g(item)f(in)h(the)g(stac)-44
+b(k)610 b(is)p 0 0 1 TeXcolorrgb 612 w Fq(\(MUL)-198
+b(TI\)POP)p Black Fp(ed,)611 b(it)g(is)42 52213 y(paid)i(f)-66
+b(or)612 b(b)-44 b(y)613 b(the)f(unit)h(of)g(credit)f(sitting)g(on)h
+(it.)42 58633 y(It)549 b(is)g(easy)h(to)g(see)g(that)f(there)h(are)g
+(alw)-33 b(a)-66 b(ys)550 b(credits)f(a)-44 b(v)-55 b(ailab)-44
+b(le)42 61732 y(to)480 b(pa)-66 b(y)480 b(f)-66 b(or)479
+b(a)p 0 0 1 TeXcolorrgb 480 w Fq(POP)p Black 480 w Fp(or)p
+0 0 1 TeXcolorrgb 480 w Fq(MUL)-198 b(TIPOP)p Black 479
+w Fp(so)480 b(the)g(amor)88 b(tiz)-33 b(ed)480 b(costs)42
+64832 y(are)613 b(w)-22 b(ell)613 b(de\002ned.)p Black
+47369 71620 a Fo(10)p Black eop end
+%%Page: 11 11
+TeXDict begin 11 10 bop Black Black Black Black 42 2969
+53298 67 v 42 6187 67 3219 v 0 0 1 TeXcolorrgb 662 5156
+a Fq(The)613 b(Accounting)i(method:)759 b(Incrementing)614
+b(a)f(Counter)p Black 53273 6187 V 42 6253 53298 67 v
+1574 10328 a Fo(Counter)424 b(v)-38 b(alue)423 b Fd(A)p
+Fc([7])j Fd(A)p Fc([6])h Fd(A)p Fc([5])f Fd(A)p Fc([4])g
+Fd(A)p Fc([3])g Fd(A)p Fc([2])g Fd(A)p Fc([1])h Fd(A)p
+Fc([0])f Fo(T)-184 b(otal)424 b(cost)37225 12636 y
+ 0.75 setgray
+ 37225
+12636 a 37225 12636 3678 1550 v 40903 12636 a
+ 0 setgray
+ 40903 12636
+a 5678 12193 a Fo(0)6156 b(0)2826 b(0)g(0)g(0)h(0)f(0)g(0)g(0)4425
+b(0)33547 14186 y
+ 0.75 setgray
+ 33547 14186 a 33547 14186 3678 1550
+v 37225 14186 a
+ 0 setgray
+ 37225 14186 a 37225 14186 a
+ 0.75 setgray
+ 37225 14186
+a 37225 14186 3678 1550 v 40903 14186 a
+ 0 setgray
+ 40903 14186 a
+5678 13743 a Fo(1)6156 b(0)2826 b(0)g(0)g(0)h(0)f(0)g(0)g(1)4425
+b(1)37225 15735 y
+ 0.75 setgray
+ 37225 15735 a 37225 15735 3678 1550
+v 40903 15735 a
+ 0 setgray
+ 40903 15735 a 5678 15293 a Fo(2)6156
+b(0)2826 b(0)g(0)g(0)h(0)f(0)g(1)g(0)4425 b(3)29870 17285
+y
+ 0.75 setgray
+ 29870 17285 a 29870 17285 3678 1550 v 33548 17285 a
+ 0 setgray
+
+33548 17285 a 33547 17285 a
+ 0.75 setgray
+ 33547 17285 a 33547 17285
+3678 1550 v 37225 17285 a
+ 0 setgray
+ 37225 17285 a 37225 17285 a
+ 0.75 setgray
+
+37225 17285 a 37225 17285 3678 1550 v 40903 17285 a
+ 0 setgray
+ 40903
+17285 a 5678 16842 a Fo(3)6156 b(0)2826 b(0)g(0)g(0)h(0)f(0)g(1)g(1)
+4425 b(4)37225 18835 y
+ 0.75 setgray
+ 37225 18835 a 37225 18835 3678
+1550 v 40903 18835 a
+ 0 setgray
+ 40903 18835 a 5678 18392 a Fo(4)6156
+b(0)2826 b(0)g(0)g(0)h(0)f(1)g(0)g(0)4425 b(7)33547 20385
+y
+ 0.75 setgray
+ 33547 20385 a 33547 20385 3678 1550 v 37225 20385 a
+ 0 setgray
+
+37225 20385 a 37225 20385 a
+ 0.75 setgray
+ 37225 20385 a 37225 20385
+3678 1550 v 40903 20385 a
+ 0 setgray
+ 40903 20385 a 5678 19942 a
+Fo(5)6156 b(0)2826 b(0)g(0)g(0)h(0)f(1)g(0)g(1)4425 b(8)37225
+21934 y
+ 0.75 setgray
+ 37225 21934 a 37225 21934 3678 1550 v 40903 21934
+a
+ 0 setgray
+ 40903 21934 a 5678 21492 a Fo(6)6156 b(0)2826 b(0)g(0)g(0)h(0)f(1)g
+(1)g(0)3999 b(10)26193 23484 y
+ 0.75 setgray
+ 26193 23484 a 26193 23484
+3678 1550 v 29871 23484 a
+ 0 setgray
+ 29871 23484 a 29870 23484 a
+ 0.75 setgray
+
+29870 23484 a 29870 23484 3678 1550 v 33548 23484 a
+ 0 setgray
+ 33548
+23484 a 33547 23484 a
+ 0.75 setgray
+ 33547 23484 a 33547 23484 3678
+1550 v 37225 23484 a
+ 0 setgray
+ 37225 23484 a 37225 23484 a
+ 0.75 setgray
+ 37225
+23484 a 37225 23484 3678 1550 v 40903 23484 a
+ 0 setgray
+ 40903 23484
+a 5678 23041 a Fo(7)6156 b(0)2826 b(0)g(0)g(0)h(0)f(1)g(1)g(1)3999
+b(11)37225 25034 y
+ 0.75 setgray
+ 37225 25034 a 37225 25034 3678 1550
+v 40903 25034 a
+ 0 setgray
+ 40903 25034 a 5678 24591 a Fo(8)6156
+b(0)2826 b(0)g(0)g(0)h(1)f(0)g(0)g(0)3999 b(15)33547
+26584 y
+ 0.75 setgray
+ 33547 26584 a 33547 26584 3678 1550 v 37225 26584
+a
+ 0 setgray
+ 37225 26584 a 37225 26584 a
+ 0.75 setgray
+ 37225 26584 a 37225 26584
+3678 1550 v 40903 26584 a
+ 0 setgray
+ 40903 26584 a 5678 26141 a
+Fo(9)6156 b(0)2826 b(0)g(0)g(0)h(1)f(0)g(0)g(1)3999 b(16)37225
+28133 y
+ 0.75 setgray
+ 37225 28133 a 37225 28133 3678 1550 v 40903 28133
+a
+ 0 setgray
+ 40903 28133 a 5253 27691 a Fo(10)5730 b(0)2826 b(0)g(0)g(0)h(1)f(0)g
+(1)g(0)3999 b(18)29870 29683 y
+ 0.75 setgray
+ 29870 29683 a 29870 29683
+3678 1550 v 33548 29683 a
+ 0 setgray
+ 33548 29683 a 33547 29683 a
+ 0.75 setgray
+
+33547 29683 a 33547 29683 3678 1550 v 37225 29683 a
+ 0 setgray
+ 37225
+29683 a 37225 29683 a
+ 0.75 setgray
+ 37225 29683 a 37225 29683 3678
+1550 v 40903 29683 a
+ 0 setgray
+ 40903 29683 a 5253 29240 a Fo(11)5730
+b(0)2826 b(0)g(0)g(0)h(1)f(0)g(1)g(1)3999 b(19)37225
+31233 y
+ 0.75 setgray
+ 37225 31233 a 37225 31233 3678 1550 v 40903 31233
+a
+ 0 setgray
+ 40903 31233 a 5253 30790 a Fo(12)5730 b(0)2826 b(0)g(0)g(0)h(1)f(1)g
+(0)g(0)3999 b(22)33547 32783 y
+ 0.75 setgray
+ 33547 32783 a 33547 32783
+3678 1550 v 37225 32783 a
+ 0 setgray
+ 37225 32783 a 37225 32783 a
+ 0.75 setgray
+
+37225 32783 a 37225 32783 3678 1550 v 40903 32783 a
+ 0 setgray
+ 40903
+32783 a 5253 32340 a Fo(13)5730 b(0)2826 b(0)g(0)g(0)h(1)f(1)g(0)g(1)
+3999 b(23)37225 34332 y
+ 0.75 setgray
+ 37225 34332 a 37225 34332 3678
+1550 v 40903 34332 a
+ 0 setgray
+ 40903 34332 a 5253 33890 a Fo(14)5730
+b(0)2826 b(0)g(0)g(0)h(1)f(1)g(1)g(0)3999 b(25)22516
+35882 y
+ 0.75 setgray
+ 22516 35882 a 22516 35882 3678 1550 v 26194 35882
+a
+ 0 setgray
+ 26194 35882 a 26193 35882 a
+ 0.75 setgray
+ 26193 35882 a 26193 35882
+3678 1550 v 29871 35882 a
+ 0 setgray
+ 29871 35882 a 29870 35882 a
+ 0.75 setgray
+
+29870 35882 a 29870 35882 3678 1550 v 33548 35882 a
+ 0 setgray
+ 33548
+35882 a 33547 35882 a
+ 0.75 setgray
+ 33547 35882 a 33547 35882 3678
+1550 v 37225 35882 a
+ 0 setgray
+ 37225 35882 a 37225 35882 a
+ 0.75 setgray
+ 37225
+35882 a 37225 35882 3678 1550 v 40903 35882 a
+ 0 setgray
+ 40903 35882
+a 5253 35439 a Fo(15)5730 b(0)2826 b(0)g(0)g(0)h(1)f(1)g(1)g(1)3999
+b(26)37225 37432 y
+ 0.75 setgray
+ 37225 37432 a 37225 37432 3678 1550
+v 40903 37432 a
+ 0 setgray
+ 40903 37432 a 5253 36989 a Fo(16)5730
+b(0)2826 b(0)g(0)g(1)h(0)f(0)g(0)g(0)3999 b(31)42 42165
+y Fp(Note)730 b(that)g(e)-66 b(v)-55 b(er)66 b(y)730
+b(increment)h(\003ips)f(e)-66 b(xactly)730 b(one)p 1 0 0
+TeXcolorrgb 731 w Fk(0)p Black 731 w Fp(to)g(be)h(a)p
+1 0 0 TeXcolorrgb 42 45079 a Fk(1)p Black Fp(;)560 b(e)-66
+b(v)-55 b(er)66 b(y)p 1 0 0 TeXcolorrgb 535 w Fk(1)p
+Black 535 w Fp(that)535 b(is)g(\003ipped)h(to)e(be)i(a)p
+1 0 0 TeXcolorrgb 535 w Fk(0)p Black 535 w Fp(w)-33 b(as)535
+b(or)33 b(iginally)536 b(made)42 47992 y(into)613 b(a)p
+1 0 0 TeXcolorrgb 612 w Fk(1)p Black 613 w Fp(in)g(a)g(pre)-66
+b(vious)613 b(oper)-22 b(ation.)42 53808 y(In)688 b(this)g(case)h(w)-22
+b(e)688 b(will)h(charge)g(e)-66 b(v)-55 b(er)66 b(y)688
+b(increment)h(an)g(amor-)42 56721 y(tiz)-33 b(ed)584
+b(cost)f(of)h Fk(2)h Fp(units)f(of)g(which)g Fk(1)h Fp(unit)f(will)h
+(be)f(charged)h(f)-66 b(or)42 59634 y(\003ipping)701
+b(the)g(one)p 1 0 0 TeXcolorrgb 701 w Fk(0)p Black 701
+w Fp(to)f(be)h(a)p 1 0 0 TeXcolorrgb 701 w Fk(1)p Black
+701 w Fp(and)g(the)f(other)h(unit)g(wil)g(lbe)42 62548
+y(left)612 b(as)h(a)f(credit)h(on)g(the)p 1 0 0 TeXcolorrgb
+612 w Fk(1)p Black Fp(.)p 0 0 1 TeXcolorrgb 42 65461
+a Fq(All)702 b(of)h(the)g(\003ips)h(of)p 1 0 0 TeXcolorrgb
+703 w Fk(1)p 0 0 1 TeXcolorrgb Fq(s)f(into)p 1 0 0 TeXcolorrgb
+703 w Fk(0)p 0 0 1 TeXcolorrgb Fq(s)h(will)e(be)h(paid)h(f)-44
+b(or)703 b(using)42 68375 y(the)613 b(credits)g(alread)-33
+b(y)614 b(sitting)e(on)h(those)h(bits.)p Black Black
+47369 71620 a Fo(11)p Black eop end
+%%Page: 12 12
+TeXDict begin 12 11 bop Black Black Black Black 14283
+18266 23435 67 v 14283 21003 67 2737 v 0 0 1 TeXcolorrgb
+14903 20427 a Fq(The)613 b(P)-88 b(otential)613 b(Method)p
+Black 37651 21003 V 14283 21069 23435 67 v 42 26848 a
+Fp(In)725 b(the)p 0 0 1 TeXcolorrgb 725 w Fq(The)h(P)-88
+b(otential)724 b(Method)p Black Fp(,)754 b(w)-22 b(e)725
+b(assign)g(a)p 1 0 0 TeXcolorrgb 726 w Fq(P)-88 b(otential)42
+29947 y Fk(\010)p Black 650 w Fp(to)651 b(the)f(data)g(str)33
+b(ucture)-33 b(.)870 b(The)651 b(potential)g(can)f(be)h(thought)42
+33047 y(of)704 b(as)h(stored)f(up)h(energy)-220 b(,)727
+b(or)705 b(credit,)727 b(that)704 b(can)h(be)f(used)h(to)42
+36146 y(pa)-66 b(y)612 b(f)-66 b(or)613 b(e)-66 b(xpensiv)-55
+b(e)613 b(oper)-22 b(ations)-33 b(.)42 42567 y(The)468
+b(diff)-66 b(erence)467 b(betw)-22 b(een)468 b(this)f(and)g(the)g
+(accounting)h(method)42 45666 y(is)722 b(that)g(in)h(the)f(accounting)h
+(method)f(the)g(credits)g(w)-22 b(ere)722 b(as-)42 48766
+y(signed)536 b(to)g Fn(objects)g Fp(in)g(the)g(data)g(str)33
+b(ucture)535 b(while)-33 b(,)552 b(in)536 b(the)g(po-)42
+51865 y(tential)782 b(method,)825 b(the)782 b(potential)h(is)g(a)f
+(function)h(of)f(the)g(total)42 54965 y(data)613 b(str)33
+b(ucture)-33 b(,)p Black 47369 71620 a Fo(12)p Black
+eop end
+%%Page: 13 13
+TeXDict begin 13 12 bop Black Black Black Black 10917
+1722 30167 67 v 10917 4900 67 3179 v 0 0 1 TeXcolorrgb
+11537 3883 a Fq(The)613 b(P)-88 b(otential)613 b(Method)g(\(cont\))p
+Black 41017 4900 V 10917 4966 30167 67 v 42 9227 a Fp(Star)88
+b(ting)612 b(with)h(an)g(initial)g(data)g(str)33 b(ucture)p
+0 0 1 TeXcolorrgb 611 w Fm(D)37601 9679 y Ff(0)p Black
+38804 9227 a Fp(.)42 11995 y(Let)p 0 0 1 TeXcolorrgb
+581 w Fm(D)5607 12450 y Fh(i)p Black 6907 11995 a Fp(be)582
+b(the)f(data)g(str)33 b(ucture)580 b(after)g(applying)i(oper)-22
+b(ation)582 b Fm(i)42 14763 y Fp(in)613 b(a)g(sequence)g(to)p
+0 0 1 TeXcolorrgb 612 w Fm(D)18745 15218 y Fh(i)p Fg(\000)p
+Ff(1)22130 14763 y Fm(:)p Black 0 0 1 TeXcolorrgb 42
+17532 a Fk(\010)p Black 613 w Fp(maps)f(e)-66 b(v)-55
+b(er)66 b(y)p 0 0 1 TeXcolorrgb 612 w Fm(D)p Black 678
+w Fp(to)612 b(a)h(real)g(n)-22 b(umber)p 0 0 1 TeXcolorrgb
+613 w Fk(\010\()p Fm(D)65 b Fk(\))p Fm(:)p Black 42 22875
+a Fp(Let)p 1 0 0 TeXcolorrgb 612 w Fm(c)4731 23331 y
+Fh(i)p Black 6064 22875 a Fp(be)613 b(the)f(real)h(cost)f(of)h(oper)-22
+b(ation)613 b Fm(i)p Fp(.)42 25644 y(The)p 1 0 0 TeXcolorrgb
+613 w(amor)88 b(tiz)-33 b(ed)613 b(cost)790 b Fk(^)-1555
+b Fm(c)20461 26099 y Fh(i)p Black 21793 25644 a Fp(of)612
+b(oper)-22 b(ation)614 b Fm(i)e Fp(is)p 1 0 0 TeXcolorrgb
+11270 29824 a Fk(^)-1555 b Fm(c)12106 30279 y Fh(i)13476
+29824 y Fk(=)651 b Fm(c)17283 30279 y Fh(i)18523 29824
+y Fk(+)521 b(\010\()p Fm(D)26167 30279 y Fh(i)26887 29824
+y Fk(\))f Fl(\000)h Fk(\010\()p Fm(D)35801 30279 y Fh(i)p
+Fg(\000)p Ff(1)39186 29824 y Fk(\))p Fm(:)p Black 654
+33451 a Fp(The)614 b(total)e(amor)88 b(tiz)-33 b(ed)613
+b(cost)f(of)g Fm(n)g Fp(oper)-22 b(ations)613 b(is)g(then)p
+1 0 0 TeXcolorrgb 6444 36526 a Fh(n)5654 37099 y Fa(X)5237
+41502 y Fh(i)p Ff(=1)9403 38989 y Fk(^)-1555 b Fm(c)10239
+39444 y Fh(i)12730 38989 y Fk(=)17850 36526 y Fh(n)17060
+37099 y Fa(X)16643 41502 y Fh(i)p Ff(=1)20631 37367 y
+Fa(\000)21508 38989 y Fm(c)22522 39444 y Fh(i)23762 38989
+y Fk(+)520 b(\010\()p Fm(D)31405 39444 y Fh(i)32126 38989
+y Fk(\))g Fl(\000)g Fk(\010\()p Fm(D)41039 39444 y Fh(i)p
+Fg(\000)p Ff(1)44425 38989 y Fk(\))45496 37367 y Fa(\001)12730
+45692 y Fk(=)17850 43228 y Fh(n)17060 43802 y Fa(X)16643
+48204 y Fh(i)p Ff(=1)20631 45692 y Fm(c)21645 46147 y
+Fh(i)22885 45692 y Fk(+)h(\010\()p Fm(D)30529 45967 y
+Fh(n)31768 45692 y Fk(\))g Fl(\000)f Fk(\010\()p Fm(D)40682
+46145 y Ff(0)41886 45692 y Fk(\))p Black 42 54663 a Fp(If)612
+b(w)-22 b(e)612 b(de\002ne)i Fk(\010)e Fp(so)h(that)f
+Fl(8)p Fm(n;)390 b Fk(\010\()p Fm(D)30474 54938 y Fh(n)31714
+54663 y Fk(\))651 b Fl(\025)f Fk(\010\()p Fm(D)40888
+55115 y Ff(0)42092 54663 y Fk(\))612 b Fp(w)-22 b(e)613
+b(get)p 1 0 0 TeXcolorrgb 19924 57768 a Fh(n)19135 58342
+y Fa(X)18718 62744 y Fh(i)p Ff(=1)22705 60232 y Fm(c)23719
+60687 y Fh(i)25089 60232 y Fl(\024)28768 57768 y Fh(n)27978
+58342 y Fa(X)27561 62744 y Fh(i)p Ff(=1)31727 60232 y
+Fk(^)-1555 b Fm(c)32563 60687 y Fh(i)p Black 934 65625
+a Fp(so)893 b(the)g(amor)88 b(tiz)-33 b(ed)892 b(cost)g(of)h(a)g
+(sequence)g(of)g(oper)-22 b(ations)42 68393 y(upper-bounds)614
+b(the)e(real)h(cost.)p Black 47369 71620 a Fo(13)p Black
+eop end
+%%Page: 14 14
+TeXDict begin 14 13 bop Black Black Black Black 4190
+1480 43620 67 v 4190 4684 67 3204 v 0 0 1 TeXcolorrgb
+4810 3667 a Fq(The)614 b(P)-88 b(otential)612 b(Method:)759
+b(Stac)-44 b(k)612 b(Operations)p Black 47743 4684 V
+4190 4750 43620 67 v 42 8930 a Fp(Let)p 1 0 0 TeXcolorrgb
+612 w Fk(\010\()p Fm(D)65 b Fk(\))p Black 614 w Fp(be)613
+b(the)f(n)-22 b(umber)613 b(of)f(items)g(on)h(stac)-44
+b(k)612 b Fm(D)65 b(:)42 11673 y Fp(Star)88 b(ting)612
+b(with)h(empty)f(stac)-44 b(k)611 b Fm(D)27112 12126
+y Ff(0)28928 11673 y Fp(giv)-55 b(es)613 b(us)f(that)p
+1 0 0 TeXcolorrgb 42 14416 a Fl(8)p Fm(D)65 b(;)390 b
+Fk(\010\()p Fm(D)65 b Fk(\))651 b Fl(\025)g Fk(0)f(=)h(\010\()p
+Fm(D)23410 14869 y Ff(0)24614 14416 y Fk(\))p Black 42
+17160 a Fp(so)1004 b(the)g(amor)88 b(tiz)-33 b(ed)1004
+b(cost)g(of)g(a)h(sequence)g(of)f(oper)-22 b(ations)42
+19903 y(upper-bounds)614 b(the)e(real)h(cost.)42 25166
+y(What)704 b(are)f(the)h(amor)88 b(tiz)-33 b(ed)703 b(costs)g(of)h(the)
+f(oper)-22 b(ations?)1032 b(As-)42 27910 y(sume)612 b(that)g
+Fm(D)12251 28365 y Fh(i)p Fg(\000)p Ff(1)16249 27910
+y Fp(currently)g(has)h Fm(s)f Fp(items)g(on)h(the)g(stac)-44
+b(k.)42 30653 y(W)-66 b(e)613 b(split)f(into)h(the)g(cases)f(that)g
+(the)h Fm(i)31394 29875 y Fp(th)33900 30653 y(oper)-22
+b(ation)613 b(is:)p 0 0 1 TeXcolorrgb 42 35916 a Fq(PUSH\()p
+Fm(S)-7 b(;)390 b(x)p Fq(\):)p Black 1 0 0 TeXcolorrgb
+42 38659 a Fk(\010\()p Fm(D)5023 39114 y Fh(i)5743 38659
+y Fk(\))520 b Fl(\000)h Fk(\010\()p Fm(D)14657 39114
+y Fh(i)p Fg(\000)p Ff(1)18042 38659 y Fk(\))651 b(=)g(\()p
+Fm(s)520 b Fk(+)h(1\))f Fl(\000)h Fm(s)650 b Fk(=)h(1)p
+Black Fp(.)42 41403 y(Actual)612 b(cost)g(is)p 1 0 0
+TeXcolorrgb 613 w Fm(c)14650 41858 y Fh(i)16020 41403
+y Fk(=)651 b(1)p Black Fp(.)758 b(Amor)88 b(tiz)-33 b(ed)612
+b(cost)g(is)p 1 0 0 TeXcolorrgb 220 44146 a Fk(^)-1555
+b Fm(c)1056 44601 y Fh(i)2426 44146 y Fk(=)651 b Fm(c)6233
+44601 y Fh(i)7231 44146 y Fk(+)279 b(\010\()p Fm(D)14633
+44601 y Fh(i)15354 44146 y Fk(\))g Fl(\000)g Fk(\010\()p
+Fm(D)23785 44601 y Fh(i)p Fg(\000)p Ff(1)27170 44146
+y Fk(\))651 b(=)f(1)279 b(+)g(\()p Fm(s)g Fk(+)g(1\))g
+Fl(\000)g Fm(s)651 b Fk(=)f(2)p Fp(.)p Black 0 0 1 TeXcolorrgb
+42 49409 a Fq(Multipop\()p Fm(S)-7 b(;)390 b(k)59 b Fq(\):)p
+Black 42 52153 a Fp(Set)p 1 0 0 TeXcolorrgb 612 w Fm(k)5240
+51375 y Fg(0)6475 52153 y Fk(=)651 b(min\()p Fm(k)59
+b(;)391 b(s)p Fk(\))p Black Fp(,)612 b(no)-88 b(.)758
+b(items)612 b(popped)i(off)e(stac)-44 b(k.)p 1 0 0 TeXcolorrgb
+42 54896 a Fk(\010\()p Fm(D)5023 55351 y Fh(i)5743 54896
+y Fk(\))520 b Fl(\000)h Fk(\010\()p Fm(D)14657 55351
+y Fh(i)p Fg(\000)p Ff(1)18042 54896 y Fk(\))651 b(=)g(\()p
+Fm(s)520 b Fl(\000)g Fm(k)28850 54118 y Fg(0)29435 54896
+y Fk(\))g Fl(\000)h Fm(s)650 b Fk(=)h Fl(\000)p Fm(k)40993
+54118 y Fg(0)p Black 41577 54896 a Fp(.)42 57639 y(Actual)612
+b(cost)g(is)p 1 0 0 TeXcolorrgb 613 w Fm(c)14650 58094
+y Fh(i)16020 57639 y Fk(=)651 b Fm(k)20091 56862 y Fg(0)p
+Black 20675 57639 a Fp(.)758 b(Amor)88 b(tiz)-33 b(ed)612
+b(cost)g(is)p 1 0 0 TeXcolorrgb 220 60383 a Fk(^)-1555
+b Fm(c)1056 60838 y Fh(i)2426 60383 y Fk(=)651 b Fm(c)6233
+60838 y Fh(i)7473 60383 y Fk(+)521 b(\010\()p Fm(D)15117
+60838 y Fh(i)15837 60383 y Fk(\))f Fl(\000)h Fk(\010\()p
+Fm(D)24751 60838 y Fh(i)p Fg(\000)p Ff(1)28136 60383
+y Fk(\))651 b(=)f Fm(k)33928 59605 y Fg(0)35033 60383
+y Fl(\000)521 b Fm(k)38653 59605 y Fg(0)39887 60383 y
+Fk(=)651 b(0)p Fm(:)p Black 0 0 1 TeXcolorrgb 42 65646
+a Fq(POP\()p Fm(S)123 b Fq(\):)p Black 1 0 0 TeXcolorrgb
+42 68389 a Fk(0)p Black Fp(,)612 b(same)h(as)p 0 0 1
+TeXcolorrgb 612 w Fq(Multipop\()p Fm(S)-7 b(;)391 b Fk(1)p
+Fq(\))p Black Fp(.)p Black 47369 71620 a Fo(14)p Black
+eop end
+%%Page: 15 15
+TeXDict begin 15 14 bop Black Black 42 28945 a Fp(Combining,)681
+b(w)-22 b(e)667 b(get)f(the)h(same)g(amor)88 b(tiz)-33
+b(ed)666 b(costs)g(as)h(with)42 32045 y(the)612 b(accounting)i(method:)
+p 0 0 1 TeXcolorrgb 1149 37959 a Fq(Operation)p Black
+1 0 0 TeXcolorrgb 8198 w(Real)f(Cost)g Fm(c)p Black 0 1 0 0
+TeXcolorcmyk 2214 w Fq(Amor)44 b(tiz)22 b(ed)613 b(Cost)562
+b Fk(^)-1326 b Fm(c)p Black 42 38801 52798 67 v 0 0 1
+TeXcolorrgb 1149 40682 a Fq(PUSH\()p Fm(S)-7 b(;)390
+b(x)p Fq(\))p Black 1 0 0 TeXcolorrgb 12446 w Fk(1)p
+Black 0 1 0 0 TeXcolorcmyk 15719 w(2)p Black 0 0 1 TeXcolorrgb
+1149 43339 a Fq(POP\()p Fm(S)123 b Fq(\))p Black 1 0 0
+TeXcolorrgb 16142 w Fk(1)p Black 0 1 0 0 TeXcolorcmyk
+15719 w(0)p Black 0 0 1 TeXcolorrgb 1149 45996 a Fq(MUL)-198
+b(TIPOP\()p Fm(S)-7 b(;)390 b(k)59 b Fq(\))p Black 1 0 0
+TeXcolorrgb 2388 w Fk(min)q(\()p Fm(k)g(;)390 b Fl(j)p
+Fm(S)123 b Fl(j)p Fk(\))p Black 0 1 0 0 TeXcolorcmyk
+10689 w(0)p Black Black 47369 71620 a Fo(15)p Black eop
+end
+%%Page: 16 16
+TeXDict begin 16 15 bop Black Black Black Black 1353
+2362 49294 67 v 1353 5555 67 3193 v 0 0 1 TeXcolorrgb
+1973 4523 a Fq(The)614 b(P)-88 b(otential)612 b(Method:)759
+b(Incrementing)614 b(a)e(counter)p Black 50580 5555 V
+1353 5621 49294 67 v 42 10786 a Fp(In)g(this)h(case)f(w)-22
+b(e)613 b(let)p 1 0 0 TeXcolorrgb 42 13837 a Fk(\010\()p
+Fm(D)65 b Fk(\))651 b(=)1263 b Fp(the)613 b(n)-22 b(umber)613
+b(of)p 1 0 0 TeXcolorrgb 612 w Fk(1)p 1 0 0 TeXcolorrgb
+Fp(s)g(in)g(the)f(counter)p Fm(:)p Black 42 20099 a Fp(Suppose)518
+b(that)g(the)g Fm(i)17829 19321 y Fp(th)20240 20099 y(increment)g(oper)
+-22 b(ation)519 b(\003ips)f Fm(t)45396 20554 y Fh(i)p
+1 0 0 TeXcolorrgb 46634 20099 a Fk(1)p Black 518 w Fp(bits)42
+23150 y(to)p 1 0 0 TeXcolorrgb 549 w Fk(0)p Black Fp(;)570
+b(let)550 b Fm(b)8868 23605 y Fh(i)10136 23150 y Fp(be)g(the)g(n)-22
+b(umber)549 b(of)p 1 0 0 TeXcolorrgb 549 w Fk(1)p Black
+Fp(s)h(in)g(the)f(counter)g(after)g(the)42 26201 y(oper)-22
+b(ation.)42 32463 y(Actual)612 b(cost)g(is)p 1 0 0 TeXcolorrgb
+613 w Fm(c)14650 32918 y Fh(i)16020 32463 y Fl(\024)650
+b Fm(t)19336 32918 y Fh(i)20577 32463 y Fk(+)521 b(1)p
+Black Fp(.)42 38725 y(If)542 b Fm(b)2812 39180 y Fh(i)4182
+38725 y Fk(=)650 b(0)544 b Fp(then)f(increment)g(totally)f(resets)h
+(the)g(counter)g(and)p 1 0 0 TeXcolorrgb 42 41776 a Fm(b)1044
+42231 y Fh(i)p Fg(\000)p Ff(1)5079 41776 y Fk(=)651 b
+Fm(t)8717 42231 y Fh(i)10087 41776 y Fk(=)g Fm(k)p Black
+59 w Fp(.)42 44827 y(If)612 b Fm(b)2882 45282 y Fh(i)4251
+44827 y Fm(>)651 b Fk(0)613 b Fp(then)p 1 0 0 TeXcolorrgb
+612 w Fm(b)14615 45282 y Fh(i)15985 44827 y Fk(=)651
+b Fm(b)19780 45282 y Fh(i)p Fg(\000)p Ff(1)23685 44827
+y Fl(\000)520 b Fm(t)26871 45282 y Fh(i)28112 44827 y
+Fk(+)g(1)p Black Fp(.)42 47878 y(In)612 b(both)h(cases)p
+1 0 0 TeXcolorrgb 612 w Fm(b)14763 48333 y Fh(i)16133
+47878 y Fl(\024)650 b Fm(b)19606 48333 y Fh(i)p Fg(\000)p
+Ff(1)23511 47878 y Fl(\000)521 b Fm(t)26698 48333 y Fh(i)27938
+47878 y Fk(+)g(1)p Black 613 w Fp(so)p 1 0 0 TeXcolorrgb
+42 52553 a Fk(\010\()p Fm(D)5023 53008 y Fh(i)5743 52553
+y Fk(\))441 b Fl(\000)f Fk(\010\()p Fm(D)14497 53008
+y Fh(i)p Fg(\000)p Ff(1)17883 52553 y Fk(\))651 b Fl(\024)f
+Fm(b)23078 53008 y Fh(i)p Fg(\000)p Ff(1)26903 52553
+y Fl(\000)441 b Fm(t)30010 53008 y Fh(i)31171 52553 y
+Fk(+)g(1)g Fl(\000)f Fm(b)38835 53008 y Fh(i)p Fg(\000)p
+Ff(1)42870 52553 y Fk(=)651 b(1)441 b Fl(\000)g Fm(t)50588
+53008 y Fh(i)51308 52553 y Fm(:)p Black 654 56674 a Fp(Amor)88
+b(tiz)-33 b(ed)612 b(cost)g(is)h(then,)p 1 0 0 TeXcolorrgb
+10360 61349 a Fk(^)-1555 b Fm(c)11196 61804 y Fh(i)13687
+61349 y Fk(=)1771 b Fm(c)18614 61804 y Fh(i)19854 61349
+y Fk(+)521 b(\010\()p Fm(D)27498 61804 y Fh(i)28218 61349
+y Fk(\))g Fl(\000)f Fk(\010\()p Fm(D)37132 61804 y Fh(i)p
+Fg(\000)p Ff(1)40518 61349 y Fk(\))13847 64732 y Fl(\024)1932
+b Fk(\()p Fm(t)19516 65187 y Fh(i)20757 64732 y Fk(+)521
+b(1\))f(+)h(\(1)g Fl(\000)f Fm(t)35206 65187 y Fh(i)35927
+64732 y Fk(\))650 b(=)h(2)p Black Black 47369 71620 a
+Fo(16)p Black eop end
+%%Page: 17 17
+TeXDict begin 17 16 bop Black Black 42 7808 a Fp(W)-66
+b(e)747 b(just)g(sa)-44 b(w)747 b(that)g(with)g(the)g(giv)-55
+b(en)747 b(potential)h(function)p 1 0 0 TeXcolorrgb 747
+w Fk(\010)p Black 42 10908 a Fp(the)612 b(amor)88 b(tiz)-33
+b(ed)613 b(cost)f(per)p 0 0 1 TeXcolorrgb 613 w(Increment)p
+Black 611 w(is)p 1 0 0 TeXcolorrgb 613 w Fk(2)p Black
+Fp(.)42 17328 y(This)h(means)g(that)p 1 0 0 TeXcolorrgb
+8197 20228 a Fh(n)7408 20802 y Fa(X)6990 25204 y Fh(i)p
+Ff(=1)10978 22692 y Fm(c)11992 23147 y Fh(i)13362 22692
+y Fl(\024)17041 20228 y Fh(n)16251 20802 y Fa(X)15834
+25204 y Fh(i)p Ff(=1)20000 22692 y Fk(^)-1555 b Fm(c)20836
+23147 y Fh(i)22076 22692 y Fl(\000)24417 22753 y Fk(\()25488
+22692 y(\010\()p Fm(D)30469 22967 y Fh(n)31709 22692
+y Fk(\))521 b Fl(\000)f Fk(\010\()p Fm(D)40623 23145
+y Ff(0)41826 22692 y Fk(\))42897 22753 y(\))44359 22692
+y Fm(;)p Black 42 33319 a Fp(Star)88 b(ting)612 b(with)h(an)g(empty)f
+(counter)-110 b(,)p 1 0 0 TeXcolorrgb 612 w Fk(\010\()p
+Fm(D)35988 33771 y Ff(0)37191 33319 y Fk(\))651 b(=)g(0)p
+Black 612 w Fp(so)p 1 0 0 TeXcolorrgb 19924 36673 a Fh(n)19135
+37247 y Fa(X)18718 41649 y Fh(i)p Ff(=1)22705 39137 y
+Fm(c)23719 39592 y Fh(i)25089 39137 y Fl(\024)28768 36673
+y Fh(n)27978 37247 y Fa(X)27561 41649 y Fh(i)p Ff(=1)31727
+39137 y Fk(^)-1555 b Fm(c)32563 39592 y Fh(i)p Black
+42 49763 a Fp(Ev)-55 b(en)783 b(if)h(w)-22 b(e)784 b(don't)g(star)88
+b(t)783 b(with)h(an)g(empty)f(counter)h(w)-22 b(e)784
+b(can)42 52863 y(still)612 b(analyz)-33 b(e)614 b(the)e(r)33
+b(un)613 b(time)f(b)-44 b(y)613 b(noting)g(that)p 1 0 0
+TeXcolorrgb 6526 56217 a Fh(n)5736 56791 y Fa(X)5319
+61193 y Fh(i)p Ff(=1)9307 58681 y Fm(c)10321 59136 y
+Fh(i)11691 58681 y Fl(\024)15369 56217 y Fh(n)14580 56791
+y Fa(X)14162 61193 y Fh(i)p Ff(=1)18328 58681 y Fk(^)-1555
+b Fm(c)19164 59136 y Fh(i)20404 58681 y Fk(+)521 b(\010\()p
+Fm(D)28048 59133 y Ff(0)29251 58681 y Fk(\))651 b Fl(\024)f
+Fk(2)p Fm(n)521 b Fk(+)f(\010\()p Fm(D)44406 59133 y
+Ff(0)45610 58681 y Fk(\))p Black 858 64337 a Fp(So)816
+b(if)g Fm(n)1012 b(>)g(k)875 b Fp(\(the)816 b(counter)g(siz)-33
+b(e\),)867 b(the)816 b(total)g(cost)f(of)h(the)42 67436
+y(sequence)613 b(of)g(oper)-22 b(ations)613 b(will)g(alw)-33
+b(a)-66 b(ys)613 b(be)g Fm(O)65 b Fk(\()p Fm(n)p Fk(\))p
+Fm(:)p Black 47369 71620 a Fo(17)p Black eop end
+%%Page: 18 18
+TeXDict begin 18 17 bop Black Black 0 0 1 TeXcolorrgb
+12191 2818 a Fi(Binar)55 b(y)510 b(heap)1999 b(Binomial)510
+b(heap)1771 b(Fibonacci)511 b(heap)-1103 4933 y(Procedure)4822
+b(\(w)-18 b(orst-case\))1769 b(\(w)-18 b(orst-case\))3323
+b(\(amor)73 b(tiz)-28 b(ed\))p -1989 5619 52779 67 v
+-1104 7113 a(Mak)-37 b(e-Heap)p 1 0 0 TeXcolorrgb 3841
+w Ff(\002\(1\))p 0 0 1 TeXcolorrgb 0 0 1 TeXcolorrgb
+7134 w(\002\(1\))p 0 0 1 TeXcolorrgb 0 1 0 0 TeXcolorcmyk
+8688 w(\002\(1\))p 0 0 1 TeXcolorrgb -1104 9228 a Fi(Inser)73
+b(t)p 1 0 0 TeXcolorrgb 8628 w Ff(\002\(lg)325 b Fh(n)p
+Ff(\))p 0 0 1 TeXcolorrgb 0 0 1 TeXcolorrgb 5115 w Fh(O)54
+b Ff(\(lg)325 b Fh(n)p Ff(\))p 0 0 1 TeXcolorrgb 0 1 0 0
+TeXcolorcmyk 6919 w(\002\(1\))p 0 0 1 TeXcolorrgb -1104
+11342 a Fi(Minim)-18 b(um)p 1 0 0 TeXcolorrgb 5865 w
+Ff(\002\(1\))p 0 0 1 TeXcolorrgb 0 0 1 TeXcolorrgb 7134
+w Fh(O)54 b Ff(\(lg)325 b Fh(n)p Ff(\))p 0 0 1 TeXcolorrgb
+0 1 0 0 TeXcolorcmyk 6919 w(\002\(1\))p 0 0 1 TeXcolorrgb
+-1104 13456 a Fi(Extr)-18 b(act-Min)p 1 0 0 TeXcolorrgb
+4026 w Ff(\002\(lg)325 b Fh(n)p Ff(\))p 0 0 1 TeXcolorrgb
+0 0 1 TeXcolorrgb 5115 w(\002\(lg)g Fh(n)p Ff(\))p 0 0 1
+TeXcolorrgb 0 1 0 0 TeXcolorcmyk 6669 w Fh(O)54 b Ff(\(lg)324
+b Fh(n)p Ff(\))p 0 0 1 TeXcolorrgb -1104 15570 a Fi(Union)p
+1 0 0 TeXcolorrgb 8498 w Ff(\002\()p Fh(n)p Ff(\))p 0 0 1
+TeXcolorrgb 0 0 1 TeXcolorrgb 7098 w Fh(O)54 b Ff(\(lg)325
+b Fh(n)p Ff(\))p 0 0 1 TeXcolorrgb 0 1 0 0 TeXcolorcmyk
+6919 w(\002\(1\))p 0 0 1 TeXcolorrgb -1104 17685 a Fi(Decrease-K)-73
+b(e)-37 b(y)p 1 0 0 TeXcolorrgb 1771 w Ff(\002\(lg)325
+b Fh(n)p Ff(\))p 0 0 1 TeXcolorrgb 0 0 1 TeXcolorrgb
+5115 w(\002\(lg)g Fh(n)p Ff(\))p 0 0 1 TeXcolorrgb 0 1 0 0
+TeXcolorcmyk 6669 w(\002\(1\))p 0 0 1 TeXcolorrgb -1104
+19799 a Fi(Delete)p 1 0 0 TeXcolorrgb 7987 w Ff(\002\(lg)g
+Fh(n)p Ff(\))p 0 0 1 TeXcolorrgb 0 0 1 TeXcolorrgb 5115
+w(\002\(lg)g Fh(n)p Ff(\))p 0 0 1 TeXcolorrgb 0 1 0 0
+TeXcolorcmyk 6669 w Fh(O)54 b Ff(\(lg)324 b Fh(n)p Ff(\))p
+0 0 1 TeXcolorrgb Black 42 26858 a Fp(W)-66 b(e)643 b(star)88
+b(ted)641 b(this)i(section)f(with)g(the)h(tab)-44 b(le)643
+b(abo)-33 b(v)-55 b(e)-33 b(.)847 b(W)-66 b(e)643 b(no)-33
+b(w)42 29658 y(can)916 b(understand)g(the)g(last)g(column.)1667
+b(In)916 b(par)88 b(ticular)-110 b(,)991 b(Dijk-)42 32457
+y(str)-22 b(a')-110 b(s)1072 b(algor)33 b(ithm)1074 b(f)-66
+b(or)1073 b(solving)h(the)g(single-source)g(shor)88 b(t-)42
+35257 y(est)600 b(path)h(prob)-44 b(lem)601 b(and)g(Pr)33
+b(im')-110 b(s)600 b(similar)h(algor)33 b(ithm)601 b(f)-66
+b(or)600 b(con-)42 38057 y(str)33 b(ucting)612 b(a)h(minim)-22
+b(um)612 b(spanning-tree)h(use)42 43503 y Fl(j)p Fm(V)520
+b Fl(j)p 0 0 1 TeXcolorrgb 613 w Fn(Inser)88 b(t)p Black
+Fp(s;)1224 b Fl(j)p Fm(V)520 b Fl(j)p 0 0 1 TeXcolorrgb
+613 w Fn(Extr)-22 b(act-Min)p Black Fp(s;)1836 b Fl(j)p
+Fm(E)124 b Fl(j)p 0 0 1 TeXcolorrgb 612 w Fn(Decrease-K)-88
+b(e)-44 b(y)p Black Fp(s)-33 b(.)42 48949 y(The)551 b(amor)88
+b(tiz)-33 b(ed)550 b(time)g(bounds)h(giv)-55 b(en)550
+b(f)-66 b(or)p 0 1 0 0 TeXcolorcmyk 550 w(Fibonacci)552
+b(heaps)p Black 42 51749 a(tells)735 b(us)h(that)f(this)p
+0 0 1 TeXcolorrgb 736 w(sequence)p Black 736 w(of)h(oper)-22
+b(ations)736 b(can)g(actually)42 54548 y(be)g(perf)-66
+b(or)55 b(med)736 b(in)p 0 1 0 0 TeXcolorcmyk 736 w Fk(\002\()p
+Fl(j)p Fm(V)521 b Fl(j)391 b Fk(log)g Fl(j)p Fm(V)520
+b Fl(j)608 b Fk(+)h Fl(j)p Fm(E)124 b Fl(j)p Fk(\))p
+Black 736 w Fp(instead)736 b(of)g(the)p 1 0 0 TeXcolorrgb
+42 57348 a Fk(\002\(\()p Fl(j)p Fm(E)124 b Fl(j)550 b
+Fk(+)f Fl(j)p Fm(V)520 b Fl(j)p Fk(\))391 b(log)g Fl(j)p
+Fm(V)520 b Fl(j)p Fk(\))p Black 654 w Fp(that)652 b(an)h(analysis)h
+(using)f(w)-22 b(orst-)42 60148 y(case)612 b(oper)-22
+b(ation)614 b(time)e(yields)-33 b(.)42 65594 y(In)577
+b(the)f(ne)-66 b(xt)577 b(par)88 b(t)577 b(of)g(this)f(section)h(w)-22
+b(e)578 b(will)f(see)g(ho)-33 b(w)578 b(to)e(b)-44 b(uild)42
+68393 y(Fibonacci)614 b(heaps)-33 b(.)p Black 47369 71620
+a Fo(18)p Black eop end
+%%Trailer
+
+userdict /end-hook known{end-hook}if
+%%EOF
