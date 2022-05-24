@@ -1,0 +1,241 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>COMP152h lab11</title>
+<meta name="Microsoft Theme" content="blends 011">
+
+<style>
+<!--
+H4 {
+	FONT-WEIGHT: bold; FONT-SIZE: 18pt; FONT-FAMILY: "Arial", "Helvetica", "sans-serif"
+}
+-->
+</style>
+</head>
+
+<body background="blegtext.gif" bgcolor="#CCCCCC" text="#000000" link="#993300" vlink="#0000FF" alink="#FF9900">
+
+<!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+
+<blockquote>
+  <!--mstheme--></font>
+  <h2 align="center" style="line-height: 200%; margin-top: 5">
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <font face="Tahoma" size="5">Lab11</font><font face="Tahoma"><span lang="zh-cn">&nbsp;</span>
+  Function Templates and Class Templates (2)</font><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <p style="line-height: 100%; margin-top: 0px; margin-bottom: 0px">&#12288; </p>
+  <!--mstheme--></font>
+  <h2 style="margin-top: 30px"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Objective<!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <font face="Trebuchet MS" size="4">More exercises on function templates and class 
+      templates</font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <p style="line-height: 100%; margin-top: 0px; margin-bottom: 0px">
+  &nbsp;</p>
+  <p style="line-height: 100%; margin-top: 0px; margin-bottom: 0px">
+  <font face="Arial">&#12288;</font></p>
+  <!--mstheme--></font>
+  <h2 style="line-height: 100%; margin-top: 0px; margin-bottom: 0px">
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <font face="Trebuchet MS">Review</font><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <font face="Arial">Function Templates</font><!--mstheme--></font></h3>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <p><font face="Arial" size="3">C++ supports <i>generic programming</i> through 
+  the <b><i>template</i></b> mechanism.</font></p>
+  <p><font face="Arial" size="3">Definition:</font></p>
+  <blockquote>
+    <blockquote>
+      <p style="margin-top: 0px; margin-bottom: 0px">
+      <font face="Arial" size="3"><b><font color="#0000ff">template</font>&lt;<font color="#0000ff">typename</font> 
+      T&gt;</b></font></p>
+      <!--mstheme--></font>
+      <pre style="margin-top: 0px; margin-bottom: 0px"><font face="Arial" size="3">T max(const T&amp; a, const T&amp; b)</font></pre>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <pre style="margin-top: 0px; margin-bottom: 0px"><font face="Arial" size="3">{</font></pre>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <pre style="margin-top: 0px; margin-bottom: 0px"><font face="Arial" size="3">&nbsp;&nbsp;&nbsp; ... ...
+    return (a&gt;b) ? a : b;</font></pre>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <pre style="margin-top: 0px; margin-bottom: 0px"><font face="Arial" size="3">}</font></pre>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+    </blockquote>
+  </blockquote>
+  <p><font face="Arial">The template with <i>formal argument </i><b>T</b> will 
+  be <i>instantiated</i> by the compiler with the <i>actual argument</i>, e.g.
+  <font color="#0000ff">int</font>.&nbsp;</font></p>
+  <p><font face="Arial">Note:</font></p>
+  <!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font face="Arial">There is NO automatic type conversion for template 
+      arguments. E.g. <font color="#0000ff">cout </font>&lt;&lt; max(4, 5.5)&nbsp; <i>// 
+      Error!</i> </font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font face="Arial">You can help by <i>explicitly instantiating</i> the 
+      function template. E.g. <font color="#0000ff">cout </font>&lt;&lt; max&lt;<font color="#0000ff">double</font>&gt;(4, 
+      5.5) </font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font face="Arial">Another way is to use more than one formal arguments. 
+      E.g. template &lt;typename <b>T1</b>, typename <b>T2</b>&gt; </font>
+      <!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font face="Arial">The type <b>T</b> should have operator&gt;(const <b>T</b>&amp;) 
+      to compare a and b in <b>T</b> max (const <b>T</b>&amp;, const <b>T</b>&amp;)
+      </font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <p>&nbsp;</p>
+  <!--mstheme--></font>
+  <h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <font face="Arial">Class Templates</font><!--mstheme--></font></h3>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <p><font face="Arial" size="3"><b><i>Class template</i></b>: a prescription 
+  for creating a class in which one or more types or values are parameterized.</font></p>
+  <p><font face="Arial" size="3">Definition:</font></p>
+  <blockquote>
+    <blockquote>
+      <p style="margin-top: 0px; margin-bottom: 0px"><b>
+      <font face="Arial" size="3"><font color="#0000ff">template</font> &lt;<font color="#0000ff">class</font> 
+      T&gt;</font></b></p>
+      <!--mstheme--></font>
+      <pre style="margin-top: 0px; margin-bottom: 0px"><font face="Arial" size="3"><font color="#0000ff">class</font> Queue&nbsp;</font></pre>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <pre style="margin-top: 0px; margin-bottom: 0px"><font face="Arial" size="3">{</font></pre>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <pre style="margin-top: 0px; margin-bottom: 0px"><font face="Arial" size="3">&nbsp;&nbsp;&nbsp; <font color="#0000ff">public</font>:</font></pre>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <pre style="margin-top: 0px; margin-bottom: 0px"><font face="Arial" size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Queue();</font></pre>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <pre style="margin-top: 0px; margin-bottom: 0px"><font face="Arial" size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ~Queue();</font></pre>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <pre style="margin-top: 0px; margin-bottom: 0px"><font face="Arial" size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T&amp;  remove();</font></pre>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <pre style="margin-top: 0px; margin-bottom: 0px"><font face="Arial" size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void add( <font color="#0000ff">const</font> <b>T</b>&amp;);
+        Queue&amp; operator=(const Queue&amp; q);</font></pre>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <pre style="margin-top: 0px; margin-bottom: 0px"><font face="Arial" size="3">&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0000ff">private</font>:</font></pre>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <pre style="margin-top: 0px; margin-bottom: 0px"><font face="Arial" size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>T</b>* _data;
+          int _size;
+          ...      ...</font></pre>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <pre style="margin-top: 0px; margin-bottom: 0px"><font face="Arial" size="3">};
+
+<b><font color="#0000ff">template</font> &lt;<font color="#0000ff">class</font> T&gt;</b> 
+Queue&lt;<b>T</b>&gt;::Queue() {
+    _size = MAX_SIZE;
+	 _data = new <b>T</b> [_size];
+    ...
+}
+
+<b><font color="#0000ff">template</font> &lt;<font color="#0000ff">class</font> T&gt;</b> 
+Queue&lt;<b>T</b>&gt;::~Queue() {
+    
+    ...
+    if (_data != NULL) {
+    	delete [] _data;
+   	_size  = 0;
+    }
+}
+
+<b><font color="#0000ff">template</font> &lt;<font color="#0000ff">class</font> T&gt;</b> 
+<b>T</b>&amp; Queue&lt;<b>T</b>&gt;::remove() {    
+    ...
+    return _data[_size--];
+}
+
+<b><font color="#0000ff">template</font> &lt;<font color="#0000ff">class</font> T&gt;</b>
+void Queue&lt;<b>T</b>&gt;::add( <font color="#0000ff">const</font> <b>T</b>&amp;) {
+     ...
+}
+
+<b><font color="#0000ff">template</font> &lt;<font color="#0000ff">class</font> T&gt;</b></font></pre>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <p style="margin-top: 0px; margin-bottom: 0px">
+      <font face="Arial" size="3">Queue&lt;<b>T</b>&gt;&amp; Queue&lt;<b>T</b>&gt;::operator=(const 
+      Queue&amp; q) {</font></p>
+      <!--mstheme--></font>
+      <pre style="margin-top: 0px; margin-bottom: 0px"><font face="Arial">	...</font></pre>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <pre style="margin-top: 0px; margin-bottom: 0px"><font face="Arial" size="3">    return (*this);</font></pre>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <pre style="margin-top: 0px; margin-bottom: 0px"><font face="Arial" size="3">}</font></pre>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+    </blockquote>
+  </blockquote>
+  <p><font face="Arial" size="3">Usages of class template:</font></p>
+  <blockquote>
+    <blockquote>
+      <p style="margin-top: 0px; margin-bottom: 0px">
+      <font face="Arial" size="3">Queue&lt;<font color="#0000ff">int</font>&gt; qa;</font></p>
+      <p style="margin-top: 0px; margin-bottom: 0px">
+      <font face="Arial" size="3">Queue&lt;<font color="#0000ff">string</font>&gt; qb;</font></p>
+    </blockquote>
+  </blockquote>
+  <p><font face="Arial">The <i><b>template</b></i> keyword tells the compiler 
+  that the class definition that follows will manipulate one or more unspecified 
+  types. At the time the actual class code is generated from the template, those 
+  types must be specified so that the compiler can substitute them. A function 
+  or a class is instantiated only if it is used. </font></p>
+  <p><font face="Arial">Remind: The declaration and definition parts of template 
+  functions and template classes must be put into <b>one</b> header file. </font>
+  </p>
+  <p>&nbsp;</p>
+  <!--mstheme--></font>
+  <h2><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Tasks<!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <p><b><font face="Arial">Exercise 1:</font></b><font face="Arial"> </font></p>
+  <p><font face="Arial">Here is a template &lt;class <b>T</b>&gt; class Array in
+  <a href="lab11/Array.h">Array.h</a> and <a href="lab11/main.cpp">main.cpp</a>. The Array class is a First Class type generic array with 
+  boundary checking. First-class data can be kept in variables, and passed to 
+  and returned from functions. Therefore, you can pass or return the object of 
+  this array type to or from functions. You can also assign this object to 
+  another variables. In order to being a First Class data type, the class Array 
+  have to implement the copy constructor and assignment operator. Here, we have 
+  implemented these functions. However, most codes are organized poorly inside 
+  class declaration. To separate the definition part from the declaration, you 
+  should move the function implementations outside the declaration part like the
+  <b><i>default constructor</i></b>, <i><b>Size</b></i> or <b><i>Append</i></b> 
+  funtions.</font></p>
+  <p><b><font face="Arial">Exercise 2: </font></b></p>
+  <p><font face="Arial">In order to the merge two arrays together in
+  <a href="lab11/merge.cpp">merge.cpp</a>, please implements <i><b>Array::operator+=(const Array&amp; b)</b></i> 
+  of Array template class to append a array b to the end of another Array 
+  object.  </font></p>
+  <p><font face="Arial">The solution is <!--a href="lab11/Array2.h"-->here</a>.</font></p>
+</blockquote>
+
+<!--mstheme--></font>
+
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Brief Information about Function Pointer </title>
+</head>
+
+<body text="#ffffff" bgcolor="#000000">
+
+<h1>Brief Introduction to Function Pointer</h1>
+<h2>Pointer Review</h2>
+<p>As mentioned in lectures, pointer is used to store the memory address. 
+Example:</p>
+<p>int i = 0;<br>
+int* p = &amp;i;</p>
+<p>p now will contain the address of the variable i.</p>
+<p><br>
+You will learn in COMP180 that a program will reserve a portion of memory for 
+data, while another portion for coding. Each function defined in your program 
+will be stored in the "code portion" of the memory. Hence, each function will 
+also have an address, which specify the entry point of the code of the function 
+in the main memory.</p>
+<p>&nbsp;</p>
+<h2>Function Pointer Introduction</h2>
+<p>In C++, we can store the address of the function, as well as the variable, in 
+a <font color="#ffff00">function pointer variable</font>. For example:</p>
+<p>void swap(int&amp; a, int&amp; b) {}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+// define a function, which takes two integer reference as argument<br>
+<br>
+void main( )<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*<font color="#00ff00">funcPointer</font>)(int&amp;, int&amp;) = 
+  swap;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+// define a function pointer, which point to swap<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i = 3, j =
+       4;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#00ff00">funcPointer</font>(i,j);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+// invoke the function swap, through the function pointer<br>
+}</p>
+<p>The above example will define a function pointer, with the type <b>
+<font color="#ffff00">void (*) (int&amp;, int&amp;)</font></b>. The name of the variable 
+is <b><font color="#ffff00">funcPointer</font></b>. Note that the identifier is 
+not written at the right of the type, as in normal variable definition. Instead, 
+it is written in the middle of the type, which might be not very readable.</p>
+<p>&nbsp;</p>
+<p>Another example with a non-primitive type argument and return type (<b><font color="#ffff00">typedef</font></b> 
+is also used to have a more readable code):</p>
+<p>class LargeObj {};&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+// define a class<br>
+const LargeObj* f1(const LargeObj&amp; a) { return &amp;a; }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+// define a function<br>
+typedef const LargeObj* (*<font color="#00ff00">funcPointerType</font>) (const 
+LargeObj&amp;);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 
+define an alias of the type of the function pointer<br>
+<br>
+void main( )<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#00ff00">funcPointerType</font>
+<font color="#66ffff">funcPointer</font> = 
+  f1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+// define a function pointer, with the type defined above<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LargeObj myObject;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cout &lt;&lt; <font color="#66ffff">
+funcPointer</font>(myObject) &lt;&lt; endl;<br>
+}</p>
+<p>&nbsp;</p>
+<h2>Hash Function</h2>
+<p>In project 1, you are required to use several hash tables, with different 
+hash functions. </p>
+<p>One of the methods for defining the hash table class (with different hash 
+functions) is function pointer. You can create the class for the hash table, 
+which requires a function pointer as an argument in the constructor of the hash 
+table class. Then, define functions for computing the hash value for the student 
+and the course. Finally, pass the function address into the constructor of the 
+hash table correspondingly. </p>
+<p>Now, the hash table can support different hash functions.</p>
+<p>&nbsp;</p>
+<h2>Further Reading</h2>
+<p>This introduction only briefly talk about the function pointer. You are 
+advised to read the following material for a depth-understanding.</p>
+<table border="1" cellpadding="0" cellspacing="0" style="BORDER-COLLAPSE: collapse" bordercolor="#111111" width="100%" id="AutoNumber1">
+  <tr>
+    <td width="22%">&nbsp;</td>
+    <td width="32%"><font color="#0000cc">C++ Primer (3rd Edition)</font></td>
+    <td width="96%">
+      <P><font color="#0000cc">Thinking in C++ (2nd Edition) 
+      <BR>    </font><FONT color=yellow>[can be download from course 
+      website]</FONT></P></td>
+  </tr>
+  <tr>
+    <td width="22%"><font color="#ff0000">Basic Concept</font></td>
+    <td width="32%">Section 7.9</td>
+    <td width="96%">Chapter 3 (Function addresses)</td>
+  </tr>
+  <tr>
+    <td width="22%"><font color="#ff0000">Point to overloaded functions</font></td>
+    <td width="32%">Section 9.1.6</td>
+    <td width="96%">Not found</td>
+  </tr>
+  <tr>
+    <td width="22%"><font color="#ff0000">Point to class member functions</font></td>
+    <td width="32%">Section 13.6</td>
+    <td width="96%">Chapter 11 (Pointers to members)</td>
+  </tr>
+</table>
+<p>Also, an online resource can be found at
+<a href="http://www.function-pointer.org/">The Function Pointer Tutorials</a> 
+</p>
+<p>&nbsp;</p>
+<h2>Related Term</h2>
+<p>Function Object (another concept, which is very similar to function pointer 
+in term of their functionality)</p>
+
+</body>
+
+</html>
+

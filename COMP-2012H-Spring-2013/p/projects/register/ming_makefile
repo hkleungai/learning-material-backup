@@ -1,0 +1,18 @@
+CPP = g++
+
+Register: main.o Records.o RegistrationManager.o ReportGeneration.o utility.o DoublyLinkedList.h
+	$(CPP) -o Register main.o Records.o RegistrationManager.o ReportGeneration.o utility.o
+main.o: main.cpp ReportGeneration.h RegistrationManager.h utility.h DoublyLinkedList.h HashTable.h Records.h
+	$(CPP) -c main.cpp
+Records.o: Records.h Records.cpp HashTable.h utility.h
+	$(CPP) -c Records.cpp
+RegistrationManager.o: RegistrationManager.cpp RegistrationManager.h Records.h HashTable.h DoublyLinkedList.h Pair.h utility.h
+	$(CPP) -c RegistrationManager.cpp
+ReportGeneration.o: ReportGeneration.cpp ReportGeneration.h RegistrationManager.h DoublyLinkedList.h
+	$(CPP) -c ReportGeneration.cpp
+utility.o: utility.cpp utility.h
+	$(CPP) -c utility.cpp 
+clean: 
+	rm -f *.o Register 
+version:
+	$(CPP) -v

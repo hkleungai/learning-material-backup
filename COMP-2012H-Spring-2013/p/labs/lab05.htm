@@ -1,0 +1,244 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>COMP152h lab05</title>
+<meta name="Microsoft Theme" content="blends 011">
+<style>
+<!--
+H4 {
+	FONT-WEIGHT: bold; FONT-SIZE: 18pt; FONT-FAMILY: "Arial", "Helvetica", "sans-serif"
+}
+-->
+</style>
+</head>
+
+<body background="blegtext.gif" bgcolor="#CCCCCC" text="#000000" link="#993300" vlink="#0000FF" alink="#FF9900">
+
+<!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+
+<blockquote>
+  <!--mstheme--></font>
+  <h2 align="center" style="line-height: 200%; margin-top: 5">
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <font face="Tahoma" size="5">Lab0<span lang="zh-cn">5</span></font><span lang="zh-cn"><font face="Tahoma">&nbsp; Bitmaps and Mouse 
+  Click Events</font></span><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <h2 style="margin-top: 30px"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Objective<!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><font size="4">Loading and Rendering Bitmaps</font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><font size="4">Mouse Click Events</font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+  <p style="margin-top: 30px">In this lab, we will introduce the concept of 
+  window programming. The most different thing between window programs and 
+  console programs is that a console program has a command prompt only, while a 
+  window program has one or several windows or graphics interface. We have 
+  learned some basic techniques about Qt in
+  <a href="lab02.htm">Lab 2</a>. We will 
+  use the Qt toolkit as an API for GUI programming. Unlike a conventional 
+  program which begins executing when the operating system (OS) calls main() and 
+  stops when main() returns or when the program calls exit(), a program that 
+  uses the mouse for input and a graphical display for output must respond to 
+  events or messages from the OS.&nbsp; These events include mouse clicks and 
+  timer events. </p>
+  <p style="margin-top: 30px">We first take a look at the simplest example given 
+  in Lab 2.</p>
+
+  <!--mstheme--></font>
+  <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="650" id="AutoNumber2">
+    <tr>
+      <td bgcolor="#FFFF99"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><FONT COLOR="#000099">#include &lt;qapplication.h&gt;<br>
+      #include &lt;qlabel.h&gt;<br>
+</FONT><FONT COLOR="#FF6633"><br>
+int</FONT><FONT COLOR="#990000"> main</FONT><B><FONT COLOR="#663300">(</FONT></B><FONT COLOR="#FF6633">int</FONT> argc<B><FONT COLOR="#663300">,</FONT></B><FONT COLOR="#FF6633"> char</FONT><B><FONT COLOR="#663300">*</FONT></B> argv<B><FONT COLOR="#663300">[])<br>
+      {</FONT></B><I><FONT COLOR="#999999"><br>
+      	// Create an application object.<br>
+</FONT></I>	QApplication a<B><FONT COLOR="#663300">(</FONT></B>argc<B><FONT COLOR="#663300">,</FONT></B> argv<B><FONT COLOR="#663300">);</FONT></B><I><FONT COLOR="#999999"><br>
+      <br>
+      	// Create a label.<br>
+      	// The second parameter should be its parent widget.<br>
+      	// Since it's the main widget and has no parent,<br>
+      	// we just set it to NULL.<br>
+</FONT></I>	QLabel<B><FONT COLOR="#663300">*</FONT></B> label<B><FONT COLOR="#663300"> =</FONT></B><FONT COLOR="#990000"> new</FONT> QLabel<B><FONT COLOR="#663300">(</FONT></B><FONT COLOR="#009900">"Hello"</FONT><B><FONT COLOR="#663300">,</FONT></B> NULL<B><FONT COLOR="#663300">);</FONT></B><I><FONT COLOR="#999999"><br>
+      <br>
+      	// To set the label as the main UI component.<br>
+</FONT></I>	a<B><FONT COLOR="#663300">.</FONT></B>setMainWidget<B><FONT COLOR="#663300">(</FONT></B>label<B><FONT COLOR="#663300">);</FONT></B><I><FONT COLOR="#999999"><br>
+      <br>
+      	// Resize the label<br>
+</FONT></I>	label<B><FONT COLOR="#663300">-&gt;</FONT></B>resize<B><FONT COLOR="#663300">(</FONT></B><FONT COLOR="#999900">120</FONT><B><FONT COLOR="#663300">,</FONT></B><FONT COLOR="#999900"> 30</FONT><B><FONT COLOR="#663300">);</FONT></B><I><FONT COLOR="#999999"><br>
+      <br>
+      	// Let the system to draw the label in the application.<br>
+</FONT></I>	label<B><FONT COLOR="#663300">-&gt;</FONT></B>show<B><FONT COLOR="#663300">();</FONT></B><I><FONT COLOR="#999999"><br>
+      <br>
+      	// enter the window event loop<br>
+</FONT></I><FONT COLOR="#FF0000">	return</FONT> a<B><FONT COLOR="#663300">.</FONT></B>exec<B><FONT COLOR="#663300">();<br>
+      };</FONT></B><br>
+      <!--mstheme--></font></td>
+    </tr>
+  </table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+
+<PRE>&nbsp;</PRE>
+
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+
+  </blockquote>
+  <!--mstheme--></font>
+  <h2 style="margin-top: 30px"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099"><font size="5">Loading and rendering bitmaps and 
+  handling mouse click events</font><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+All Qt user interface classes are inherits from <a href="http://doc.qt.digia.com/3.2/qwidget.html"><strong>QWidget</strong></a>.<p><strong>void <a href="http://doc.qt.digia.com/3.2/qwidget.html#paintEvent">QWidget::paintEvent</a> 
+    (<a href="http://doc.qt.digia.com/3.2/qpaintevent.html">QPaintEvent</a>* 
+    e)</strong> is a member function that acts as a repaint handler (i.e. it will 
+    be called by the system if that widget need to be drawn). This function will 
+    only fill up the space by its background color.</p>
+To customize our repaint handler of our UI classes, you can add a member 
+    function <strong>void MyMainWindow::paintEvent (QPaintEvent * e)</strong> 
+    in order to override<strong> void QWidget::paintEvent (QPaintEvent* e)</strong>.<p>You definitely need<strong> <a href="http://doc.qt.digia.com/3.2/qpainter.html">QPainter</a></strong> 
+    to do some low-level painting in <strong>MyMainWindow::paintEvent(QPaintEvent*)</strong>.</p>
+<p>You can click the &quot;Load image...&quot; menu item, it pops up a file 
+    dialog box (provided by <a href="http://doc.qt.digia.com/3.2/qfiledialog.html"><strong>QFileDialog</strong></a>). 
+    Select any BMP file, then the image will be shown on our window.</p>
+        <p>The event handler <b>void
+        <a href="http://doc.qt.digia.com/3.2/qwidget.html#mousePressEvent">
+        QWidget::mousePressEvent</a> (<a href="http://doc.qt.digia.com/3.2/qmouseevent.html">QMouseEvent</a>&nbsp;*&nbsp;e)</b> 
+        can be reimplemented in a subclass to receive mouse press events for the 
+        widget. There are other event handlers, such as <b>
+        <a href="http://doc.qt.digia.com/3.2/qwidget.html#mouseReleaseEvent">
+        mouseReleaseEvent()</a></b>, <b>
+        <a href="http://doc.qt.digia.com/3.2/qwidget.html#mouseDoubleClickEvent">
+        mouseDoubleClickEvent()</a></b>, <b>
+        <a href="http://doc.qt.digia.com/3.2/qwidget.html#mouseMoveEvent">
+        mouseMoveEvent()</a></b>.</p>
+        <p>The <b><a href="http://doc.qt.digia.com/3.2/qmouseevent.html">QMouseEvent</a></b> class contains parameters that describe a mouse 
+        event.</p>
+        <p>Download the codes here: <a href="lab05/bitmap/bitmap.pro">bitmap.pro</a>
+        <a href="lab05/bitmap/main.cpp">main.cpp</a>
+        <a href="lab05/bitmap/my_widget.h">my_widget.h</a>
+        <a href="lab05/bitmap/my_widget.cpp">my_widget.cpp</a></p>
+
+<!--mstheme--></font>
+
+<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="650" id="AutoNumber1">
+  <tr>
+    <td width="100%" bgcolor="#FFFF99"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><FONT COLOR="#000099">#include &lt;iostream&gt;<br>
+</FONT><FONT COLOR="#990000">using namespace</FONT> std<B><FONT COLOR="#663300">;</FONT></B><FONT COLOR="#000099"><br>
+    <br>
+    #include "my_widget.h"<br>
+    <br>
+    #include &lt;qfiledialog.h&gt;<br>
+    #include &lt;qpainter.h&gt;<br>
+    #include &lt;qmessagebox.h&gt;<br>
+</FONT><br>
+MyMainWindow<B><FONT COLOR="#663300">::</FONT></B>MyMainWindow<B><FONT COLOR="#663300">(</FONT></B>QWidget<B><FONT COLOR="#663300">*</FONT></B> parent<B><FONT COLOR="#663300">,</FONT></B><FONT COLOR="#990000"> const</FONT><FONT COLOR="#FF6633"> char</FONT><B><FONT COLOR="#663300">*</FONT></B> name<B><FONT COLOR="#663300">)<br>
+    :</FONT></B>QMainWindow<B><FONT COLOR="#663300">(</FONT></B>parent<B><FONT COLOR="#663300">,</FONT></B> name<B><FONT COLOR="#663300">)<br>
+    {</FONT></B><br>
+    	QPopupMenu<B><FONT COLOR="#663300">*</FONT></B> file<B><FONT COLOR="#663300"> =</FONT></B><FONT COLOR="#990000"> new</FONT> QPopupMenu<B><FONT COLOR="#663300">(</FONT></B><FONT COLOR="#990000">this</FONT><B><FONT COLOR="#663300">);</FONT></B><br>
+    	file<B><FONT COLOR="#663300">-&gt;</FONT></B>insertItem<B><FONT COLOR="#663300">(</FONT></B><FONT COLOR="#009900">"Load image..."</FONT><B><FONT COLOR="#663300">,</FONT></B><FONT COLOR="#990000"> this</FONT><B><FONT COLOR="#663300">,</FONT></B> SLOT<B><FONT COLOR="#663300">(</FONT></B>OnLoadImage<B><FONT COLOR="#663300">()));</FONT></B><br>
+    	menuBar<B><FONT COLOR="#663300">()-&gt;</FONT></B>insertItem<B><FONT COLOR="#663300">(</FONT></B><FONT COLOR="#009900">"File"</FONT><B><FONT COLOR="#663300">,</FONT></B> file<B><FONT COLOR="#663300">);</FONT></B><br>
+    <br>
+    	
+	image<B><FONT COLOR="#663300"> =</FONT></B><FONT COLOR="#990000"> new</FONT> QPixmap<B><FONT COLOR="#663300">();<br>
+    }</FONT></B><br>
+    <br>
+
+MyMainWindow<B><FONT COLOR="#663300">::~</FONT></B>MyMainWindow<B><FONT COLOR="#663300">()<br>
+    {</FONT></B><FONT COLOR="#990000"><br>
+    	delete</FONT> image<B><FONT COLOR="#663300">;<br>
+    }</FONT></B><FONT COLOR="#FF6633"><br>
+    <br>
+
+void</FONT> MyMainWindow<B><FONT COLOR="#663300">::</FONT></B>paintEvent<B><FONT COLOR="#663300">(</FONT></B>QPaintEvent<B><FONT COLOR="#663300">*</FONT></B> e<B><FONT COLOR="#663300">)<br>
+    {</FONT></B><br>
+    	QPainter paint<B><FONT COLOR="#663300">(</FONT></B><FONT COLOR="#990000">this</FONT><B><FONT COLOR="#663300">);</FONT></B><FONT COLOR="#FF0000"><br>
+    	if</FONT><B><FONT COLOR="#663300"> (!</FONT></B> image<B><FONT COLOR="#663300">-&gt;</FONT></B>isNull<B><FONT COLOR="#663300">())<br>
+    	{</FONT></B><br>
+    		paint<B><FONT COLOR="#663300">.</FONT></B>drawPixmap<B><FONT COLOR="#663300">(</FONT></B><FONT COLOR="#999900">0</FONT><B><FONT COLOR="#663300">,</FONT></B> menuBar<B><FONT COLOR="#663300">()-&gt;</FONT></B>height<B><FONT COLOR="#663300">(), (*</FONT></B>image<B><FONT COLOR="#663300">));<br>
+    	}<br>
+    }</FONT></B><FONT COLOR="#FF6633"><br>
+    <br>
+
+void</FONT> MyMainWindow<B><FONT COLOR="#663300">::</FONT></B>OnLoadImage<B><FONT COLOR="#663300">()<br>
+    {</FONT></B><br>
+    	QString s<B><FONT COLOR="#663300"> =</FONT></B> QFileDialog<B><FONT COLOR="#663300">::</FONT></B>getOpenFileName<B><FONT COLOR="#663300">(</FONT></B><FONT COLOR="#009900">""</FONT><B><FONT COLOR="#663300">,</FONT></B><FONT COLOR="#009900"> "*.bmp"</FONT><B><FONT COLOR="#663300">,</FONT></B><FONT COLOR="#990000"> this</FONT><B><FONT COLOR="#663300">,</FONT></B><FONT COLOR="#009900"> ""</FONT><B><FONT COLOR="#663300">,</FONT></B><FONT COLOR="#009900"> "Load image..."</FONT><B><FONT COLOR="#663300">);</FONT></B><FONT COLOR="#FF0000"><br>
+    	if</FONT><B><FONT COLOR="#663300"> (!</FONT></B> s<B><FONT COLOR="#663300">.</FONT></B>isNull<B><FONT COLOR="#663300">())<br>
+    	{</FONT></B><br>
+    		image<B><FONT COLOR="#663300">-&gt;</FONT></B>load<B><FONT COLOR="#663300">(</FONT></B>s<B><FONT COLOR="#663300">);<br>
+    	}<br>
+    }</FONT></B><FONT COLOR="#FF6633"><br>
+    <br>
+
+void</FONT> MyMainWindow<B><FONT COLOR="#663300">::</FONT></B>mousePressEvent<B><FONT COLOR="#663300">(</FONT></B>QMouseEvent<B><FONT COLOR="#663300"> *</FONT></B> e<B><FONT COLOR="#663300">)<br>
+    {</FONT></B><br>
+    	QMessageBox<B><FONT COLOR="#663300">::</FONT></B>about<B><FONT COLOR="#663300">(</FONT></B><FONT COLOR="#990000"> this</FONT><B><FONT COLOR="#663300">,</FONT></B><FONT COLOR="#009900"> "bitmap"</FONT><B><FONT COLOR="#663300">,</FONT></B><FONT COLOR="#009900"> "Mouse click event!"</FONT><B><FONT COLOR="#663300">);<br>
+    }</FONT></B><br>
+    <!--mstheme--></font>
+    </td>
+  </tr>
+</table>
+
+<!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+
+<PRE>&nbsp;</PRE>
+
+        <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+
+        </blockquote>
+  <!--mstheme--></font>
+  <h2><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Task<!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+<P><font face="Arial">You are asked to rewrite the mouse click event function of 
+the above program to handle the following three different situations:</font></P>
+    <!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <!--msthemelist--><tr>
+    <!--msthemelist--><td valign="top" width="42">
+    <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+    <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+    <font face="Arial">No bitmap file is loaded when the user clicks the mouse. 
+    Ask to load a bitmap file.</font><!--mstheme--></font><!--msthemelist--></td>
+  </tr>
+  <!--msthemelist--><tr>
+    <!--msthemelist--><td valign="baseline" width="42">
+    <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+    <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+    <font face="Arial">There's a bitmap loaded, and the user clicks inside the 
+    bitmap. Display a message.</font><!--mstheme--></font><!--msthemelist--></td>
+  </tr>
+  <!--msthemelist--><tr>
+    <!--msthemelist--><td valign="baseline" width="42">
+    <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+    <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+    <font face="Arial">There's a bitmap loaded, but the user clicks outside the 
+    bitmap. Do nothing.</font><!--mstheme--></font><!--msthemelist--></td>
+  </tr>
+  <!--msthemelist--></table>
+<!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+<p><font face="Arial">To do this task, you may need to refer to some
+<a href="http://doc.qt.digia.com/3.2/classes.html">Qt's classes</a>, for 
+example QPixmap, QMouseEvent, and QMessageBox.</font></p>
+<p><font face="Arial">The solution is <!---a href="lab05/bitmap/my_widget.cpp.solution"--->
+here</a>.</font></p>
+    </blockquote>
+</blockquote>
+
+<!--mstheme--></font>
+
+</body>
+
+</html>

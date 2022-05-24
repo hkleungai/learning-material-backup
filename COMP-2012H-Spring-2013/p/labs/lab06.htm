@@ -1,0 +1,172 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>COMP152h lab06</title>
+<meta name="Microsoft Theme" content="blends 011">
+<style>
+<!--
+H4 {
+	FONT-WEIGHT: bold; FONT-SIZE: 18pt; FONT-FAMILY: "Arial", "Helvetica", "sans-serif"
+}
+-->
+</style>
+</head>
+
+<body background="blegtext.gif" bgcolor="#CCCCCC" text="#000000" link="#993300" vlink="#0000FF" alink="#FF9900">
+
+<!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+
+<blockquote>
+  <!--mstheme--></font>
+  <h2 align="center" style="line-height: 200%; margin-top: 5">
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <font face="Tahoma" size="5">Lab0<span lang="zh-cn">6</span></font><span lang="zh-cn"><font face="Tahoma">&nbsp; 
+  Timer Events</font></span><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+  <p style="margin-top: 30px">In this lab, we will review the concept of 
+  signals and slots, and use it together with timer events. We will go through 
+  an example and write a simple Qt program at the end.</p>
+  </blockquote>
+  <!--mstheme--></font>
+  <h2 style="margin-top: 30px"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Review<!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><font size="4">Signals and Slots</font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+  <p style="margin-top: 30px">We have learned signals and slots in
+  <a href="lab02.htm">Lab 2</a>. &quot;<a href="http://doc.qt.digia.com/3.2/signalsandslots.html">Signals 
+  and slots</a> are used for communication between objects. The signal/slot 
+  mechanism is a central feature of Qt and probably the part that differs most 
+  from other toolkits.&quot; </p>
+
+  </blockquote>
+  <!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><font size="4">Timer Events</font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+  <p style="margin-top: 30px">The
+  <a href="http://doc.qt.digia.com/3.2/qtimer.html">QTimer</a> class provides 
+  timer signals and single-shot timers. <br>
+  <br>
+  It uses <a href="http://doc.qt.digia.com/3.2/qtimerevent.html">timer events</a> 
+  internally to provide a more versatile timer. QTimer is very easy to use: 
+  create a QTimer, call <b>start()</b> to start it and connect its <b>timeout()</b> 
+  to the appropriate slots. When the time is up it will emit the timeout() 
+  signal. <br>
+  <br>
+  Note that a QTimer object is destroyed automatically when its parent object is 
+  destroyed. </p>
+        <p>Download the files here: <a href="lab06/bitmap/bitmap.pro">bitmap.pro</a>
+        <a href="lab06/bitmap/main.cpp">main.cpp</a>
+        <a href="lab06/bitmap/my_widget.h">my_widget.h</a>
+        <a href="lab06/bitmap/my_widget.cpp">my_widget.cpp</a>
+        <a href="lab06/bitmap/c12.bmp">c12.bmp</a></p>
+
+  <!--mstheme--></font>
+
+<table width="80%" border="0%" cellpadding="1%" cellspacing="0%">
+  <tr>
+    <td bgcolor="#FFFFFF">
+    <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font><pre>1    <font color="#008800">//</font>
+2    <font color="#008800">// my_widget.cpp</font>
+3    <font color="#008800">//</font>
+4    
+5    <font color="#0000FF">using</font> <font color="#0000FF">namespace</font> std<font color="#888888">;</font>
+6    
+7    <font color="#000060">#include "my_widget.h"</font>
+8    
+9    <font color="#000060">#include &lt;qpainter.h&gt;</font>
+10   
+11   MyMainWindow<font color="#888888">::</font>MyMainWindow<font color="#888888">(</font>QWidget<font color="#888888">*</font> parent<font color="#888888">,</font> <font color="#0000FF">const</font> <font color="#0000FF">char</font><font color="#888888">*</font> name<font color="#888888">)</font>
+12   <font color="#888888">:</font>QMainWindow<font color="#888888">(</font>parent<font color="#888888">,</font> name<font color="#888888">)</font>
+13   <font color="#888888">{</font>
+14   	<font color="#008800">// load a bitmap and set its display position to (0,0)</font>
+15   	image <font color="#888888">=</font> <font color="#0000FF">new</font> QPixmap<font color="#888888">();</font>
+16   	image<font color="#888888">-&gt;</font>load<font color="#888888">(</font><font color="#990099">"c12.bmp"</font><font color="#888888">);</font>
+17   	x <font color="#888888">=</font> 0<font color="#888888">;</font>
+18   	y <font color="#888888">=</font> 0<font color="#888888">;</font>
+19   
+20   	<font color="#008800">// create a timer to change the image display position.</font>
+21   	<font color="#008800">// note: timer should be destroyed automatically here,</font>
+22   	<font color="#008800">// and MyMainWindow's destructor is not required.</font>
+23   	<font color="#008800">// reference: http://doc.qt.digia.com/3.2/qtimer.html</font>
+24   	timer <font color="#888888">=</font> <font color="#0000FF">new</font> QTimer<font color="#888888">(</font><font color="#0000FF">this</font><font color="#888888">);</font>
+25   	QObject<font color="#888888">::</font>connect<font color="#888888">(</font>timer<font color="#888888">,</font> SIGNAL<font color="#888888">(</font>timeout<font color="#888888">()),</font> <font color="#0000FF">this</font><font color="#888888">,</font> SLOT<font color="#888888">(</font>UpdateImagePosition<font color="#888888">()));</font>
+26       <font color="#008800">// start to generate timer events</font>
+27       timer<font color="#888888">-&gt;</font>start<font color="#888888">(</font>1000 <font color="#008800">/* milliseconds */</font><font color="#888888">,</font> <font color="#0000FF">false</font> <font color="#008800">/* generate continously */</font><font color="#888888">);</font>
+28   <font color="#888888">}</font>
+29   
+30   MyMainWindow<font color="#888888">::~</font>MyMainWindow<font color="#888888">()</font>
+31   <font color="#888888">{</font>
+32   	<font color="#0000FF">delete</font> image<font color="#888888">;</font>
+33   <font color="#888888">}</font>
+34   
+35   <font color="#0000FF">void</font> MyMainWindow<font color="#888888">::</font>paintEvent<font color="#888888">(</font>QPaintEvent<font color="#888888">*</font> e<font color="#888888">)</font>
+36   <font color="#888888">{</font>
+37   	QPainter paint<font color="#888888">(</font><font color="#0000FF">this</font><font color="#888888">);</font>
+38   	paint<font color="#888888">.</font>drawPixmap<font color="#888888">(</font>x<font color="#888888">,</font> y<font color="#888888">,</font> <font color="#888888">(*</font>image<font color="#888888">));</font>
+39   <font color="#888888">}</font>
+40   
+41   <font color="#0000FF">void</font> MyMainWindow<font color="#888888">::</font>UpdateImagePosition<font color="#888888">()</font>
+42   <font color="#888888">{</font>
+43   	<font color="#008800">// randomly assign the image display position</font>
+44   	x <font color="#888888">=</font> <font color="#888888">(</font><font color="#0000FF">int</font><font color="#888888">)(</font> <font color="#888888">(</font><font color="#0000FF">float</font><font color="#888888">)</font> rand<font color="#888888">()</font> <font color="#888888">/</font> RAND_MAX <font color="#888888">*</font> <font color="#888888">(</font> width<font color="#888888">()</font> <font color="#888888">-</font> image<font color="#888888">-&gt;</font>width<font color="#888888">()</font> <font color="#888888">));</font>
+45   	y <font color="#888888">=</font> <font color="#888888">(</font><font color="#0000FF">int</font><font color="#888888">)(</font> <font color="#888888">(</font><font color="#0000FF">float</font><font color="#888888">)</font> rand<font color="#888888">()</font> <font color="#888888">/</font> RAND_MAX <font color="#888888">*</font> <font color="#888888">(</font> height<font color="#888888">()</font> <font color="#888888">-</font> image<font color="#888888">-&gt;</font>height<font color="#888888">()</font> <font color="#888888">));</font>
+46   	<font color="#008800">// generate a paint request</font>
+47   	repaint<font color="#888888">();</font>
+48   <font color="#888888">}</font>
+</pre><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+    </td>
+  </tr>
+</table>
+
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+
+<PRE>&nbsp;</PRE>
+
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+
+  </blockquote>
+  <!--mstheme--></font>
+  <h2><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Task<!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+<P><font face="Arial">You are asked to  write a Qt program. This program accepts 
+a positive integer at command line, which specifies the time duration in 
+seconds. The program then display a &quot;countdown&quot; in a window. It uses a timer to 
+update the display each second. </font></P>
+<p><font face="Arial">You may use the minimal example in <a href="lab02.htm">
+Lab02</a> as your framework. You can define a your own label class with a 
+&quot;countdown&quot; number text. You may need to refer to some
+<a href="http://doc.qt.digia.com/3.2/classes.html">Qt's classes</a>, for 
+example <a href="http://doc.qt.digia.com/3.2/qlabel.html">QLabel</a>, 
+<a href="http://doc.qt.digia.com/3.2/qtimer.html">QTimer</a>, and 
+<a href="http://doc.qt.digia.com/3.2/qstring.html">QString</a>.</font></p>
+<p><font face="Arial">The solution is here: <!--a href="lab06/minimal/minimal.pro"-->
+minimal.pro</a> <!--a href="lab06/minimal/minimal.cpp"-->minimal.cpp</a>
+<!--a href="lab06/minimal/mylabel.h"-->mylabel.h</a>
+<!--a href="lab06/minimal/mylabel.cpp"-->mylabel.cpp</a></font></p>
+    </blockquote>
+</blockquote>
+
+<!--mstheme--></font>
+
+</body>
+
+</html>

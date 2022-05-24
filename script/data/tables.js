@@ -32,7 +32,7 @@ const CATEGORIZED_PRE_COURSES = [
             },
             {
                 code: 'COMP 2711H',
-                semesters: ['Fall 2021'],
+                semesters: ['Fall 2015', 'Fall 2021'],
             },
         ],
     },
@@ -151,7 +151,7 @@ const CATEGORIZED_PRE_COURSES = [
             },
             {
                 code: 'COMP 2012H',
-                semesters: ['Fall 2021'],
+                semesters: ['Spring 2013', 'Fall 2021'],
             },
         ],
     },

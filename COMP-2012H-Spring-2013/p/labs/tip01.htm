@@ -1,0 +1,289 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Some tips for working faster in Unix</title>
+<meta name="Microsoft Theme" content="blends 011">
+</head>
+
+<body background="blegtext.gif" bgcolor="#CCCCCC" text="#000000" link="#993300" vlink="#0000FF" alink="#FF9900">
+
+<!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+<blockquote>
+  <!--mstheme--></font>
+  <h1><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Some tips for working faster in Unix<!--mstheme--></font></h1>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <p>Congratulations! You now have the chance to use a development environment 
+  that winners use. Happy programming in Unix! :-)</p>
+  <!--mstheme--></font>
+  <h2><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <b>Things to do</b><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <ol>
+    <li>Activate your Unix account by changing password
+    <a href="https://cas.ust.hk:8443/cas/login?service=https%3a%2f%2fpassword.cse.ust.hk%3a8443%2fpass.html">here</a>. When prompted, 
+    enter your <b><i>ITSC</i></b> account and password.&nbsp; </li>
+    <li>Note that your ITSC account, CS department PC account (i.e., Windows 
+    2000 account), and CS department Unix account are <b><i>different</i></b>. 
+    The reason that you've got the same username for all three accounts are just 
+    for convenience. You can set different passwords to different accounts. </li>
+    <li>Find an empty workstation, sit down and try to login. You should 
+    automatically enter a window environment. To get a new command window, type
+    <b>xterm &amp; </b>in cmdtool/console/terminal. To start Netscape, type <b>
+    netscape &amp;</b>. </li>
+    <li>Go to the official page for <a href="https://course.cse.ust.hk/comp152h/S10/Password_Only/labs/lab01.htm"> 
+    Lab 1</a></li>.
+    <li>To edit a file, use a text editor. You can choose from
+    <ol>
+      <li><b>pico my_file.cpp</b> </li>
+      <li><b>vi my_file.cpp</b> </li>
+      <li><b>emacs my_file.cpp</b> </li>
+      <li><b>xedit my_file.cpp &amp;</b> </li>
+    </ol>
+    </li>
+    <li>When you have time, check out
+    <a href="http://cssystem.cse.ust.hk/home.php?docbase=UGuides/UG/hkust_only&req_url=UGuides/UG/hkust_only/UG_Facilities.html">CSD Computing Facilities Usage Policy for Undergraduate Students</a> </li>
+    <li>Remember to logout afterwards. Click the leftmost button of your mouse, 
+    and you should see a menu with an option for you to quit. </li>
+  </ol>
+  <!--mstheme--></font>
+  <h2><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <b>Proper behavior in Unix lab</b><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <ol>
+    <li><b><i>NEVER</i></b> reboot the workstation. <b><i>NEVER</i></b>. You'll 
+    blow up other's people work if you do so, and you can also crash the file 
+    system (i.e. hard disk). Talk to the TA or send an email to system staff
+    <a href="mailto:(cssystem@cs.ust.hk">cssystem@cs.ust.hk</a> for help if you 
+    have trouble with a workstation. </li>
+    <li>Do not left the computer you've login unattended. Otherwise, other 
+    people can access your files. It has happened before that someone has login 
+    to a computer and then left it unattended. Later he found out that his 
+    solution for a programming assignment was sent out as a broadcast email to 
+    everybody in the class. </li>
+    <li>If you really need to leave for a short time, say, going to the 
+    washroom, you can lock the workstation by the command <b>xlock</b>. However, 
+    it is extremely <b>selfish and inconsiderate</b> if you lock your 
+    workstation and then leave for a long time, say, going to have 
+    lunch/tea/dinner, or attending lectures/tutorials. If you find anyone 
+    committing this offence, report to <a href="mailto:cssystem@cs.ust.hk">
+    cssystem@cs.ust.hk</a>. </li>
+    <li>Note that you need to keep the door of lab 2 closed. If it is left open 
+    for more than 30 seconds, it'll beep. </li>
+  </ol>
+  <!--mstheme--></font>
+  <h2><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <b>Basic ideas on Unix</b><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <ol>
+    <li>Unix is a command-line driven operating system. This is quite different 
+    from windows, where you do many tasks by clicking and dragging. </li>
+    <li>To get a new command window, type <b>xterm &amp; </b>in cmdtool/console/terminal.
+    </li>
+    <li>To start Netscape, type <b>netscape &amp;</b> </li>
+    <li>The symbol &quot;&amp;&quot; means &quot;background&quot;. For the time being, just remember 
+    that whenever your command results in creating a new window, add the symbol 
+    &quot;&amp;&quot; at the end. </li>
+    <li>Unix is a multi-user operating system. This means that all users can use 
+    the machine that you are using now. In addition, other users may be able to 
+    read your files if you do not protect them. </li>
+    <li>The initial directory (folder) you are at when you login is called &quot;home 
+    directory&quot;. Its pathname is &quot;/homes/&lt;your username&gt;&quot; and it is also 
+    represented by the symbol &quot;~&quot;. </li>
+    <li>In your home directory there should be a directory called &quot;DOS&quot;. The 
+    files that you placed in the network drive in the Windows environment for 
+    CSD are located there. Do not touch it unless you know what you are doing.
+    </li>
+    <li>Try the command <b>ls -ld ~ </b>Other people cannot read your file if 
+    you get something started by &quot;drwx------ &quot;, such as </li>
+  </ol>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drwx------ 6 martin 512 Feb 5 15:52 /homes/martin</p>
+  <!--mstheme--></font>
+  <h2><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <b>Common trouble for beginners of Unix</b><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <ol>
+    <li>Unix is case-sensitive. This means that &quot;A&quot; and &quot;a&quot; are different. Most 
+    Unix commands consist of lower-case letters only. If your password consists 
+    of both upper-case and lower-case letters (which is a good practice), make 
+    sure that you type your password in the correct case. Also, when you are 
+    asked to create a directory &quot;comp151&quot; under your home directory, do <b>NOT</b> 
+    create COMP151. They are different. </li>
+    <li>Sometimes your terminal may set suddenly locked up. Try press ctrl-q, 
+    and this may unfreeze the terminal. If this is the case, you have just 
+    accidentally pressed ctrl-s, which locks the terminal. </li>
+    <li>Unix do not have a recycle bin. Everything you delete or overwrite is <b>
+    immediately</b> lost. To give yourself some protection, you can add the 
+    command <b>alias rm rm -i; alias cp cp -i </b>and then put this into a file 
+    .cshrc_user under your home directory. </li>
+    <li>&quot;Space&quot; is usually significant in UNIX. When there is no space, do not 
+    add one. When there is one, do not forget them. Also &quot;tab&quot; is <b>different</b> 
+    from white space! Newline cannot be added arbitrary, too! </li>
+    <li>Many symbols in Unix have special meaning. Some of them look very alike 
+    but are&nbsp; different. For example, there are three types of quote: forward 
+    quote `, backward quote ' and double quote &quot;. There are also two types of 
+    slash: slash / and backslash \. Be careful on this! </li>
+    <li>You have a disk quota of 8M. Use <b>quota -v</b> to see how much space 
+    you have. When you are full of disc quota, the system may response weirdly.
+    </li>
+    <li>To print in the CSD, use the command <b>lpr</b>. You can check your 
+    print quota in CSD by <b>ckpq</b>.&nbsp; </li>
+  </ol>
+  <!--mstheme--></font>
+  <h2><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <b>Some Unix tips</b><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <b>Some nice features in tcsh</b><!--mstheme--></font></h3>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">You can use &quot;up-arrow&quot; and &quot;down-arrow&quot; to scroll through previous 
+      commands. If this doesn't work, ctrl-p and ctrl-n can be used instead.<!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">Ctrl-a brings you to the start of a line. Ctrl-e brings you to the end.<!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">When you want to type in the name of a file, you may not need to type in 
+      all the characters. Press &lt;tab&gt;, and the system can complete the filename 
+      as much as it can. In case of ambiguity, you can type ctrl-d to see the 
+      list of potential filenames. This also works for command, too.<!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">If you want to repeat the latest command that begins with <b>l</b>, you 
+      can type <b>!l</b> as a shortcut.<!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <b>Some nice features in xterm</b><!--mstheme--></font></h3>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">You can change the font size by&nbsp;
+      <ol>
+        <li>Let your mouse point to somewhere in the xterm window. </li>
+        <li>Press the control key and hold it. </li>
+        <li>Press the rightmost mouse bottom. </li>
+        <li>Then a menu of font size appears. Change to huge if you like large 
+        fonts. </li>
+      </ol>
+      <!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">Note that there are other types of menus if you press the leftmost or 
+      middle button while holding the control key. You can try them yourself.<!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">Copy-and-paste in xterm
+      <ol>
+        <li>Use the leftmost button to select the text you want to copy. </li>
+        <li>Move the cursor (usually <b>NOT</b> by mouse) to the position you 
+        want to paste. </li>
+        <li>Press the middle mouse button </li>
+      </ol>
+      <!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <b>Working remotely</b><!--mstheme--></font></h3>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <p>You can also work remotely by using <b>SSH</b> clients under Microsoft Windows. Just enter &quot;csl2wk??.cs.ust.hk&quot; when you are 
+  prompted for a hostname, where ?? stands for a number from 1 to 40. You can 
+  also work at home this way. Note that this is the recommended way to work at 
+  home: if you do your assignments using Visual C++, you are <b><i>at your own 
+  risk</i></b>!!</p>
+  <!--mstheme--></font>
+  <h2><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <font size="3">using SSH</font><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <font face="Trebuchet MS">
+  <p>The most basic data files which can easily be accessed remotely are the 
+  files stored on UNIX file servers. E.g. User home directory, project 
+  directory. Users can <b>SSH</b> to anyone of the departmental UNIX 
+  workstations and access the files directly or easily copy the files around.
+  </p>
+  </font><!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <a href="http://cssystem.cse.ust.hk/Facilities/ras.html">General remote 
+      access workstations</a> <!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <a href="http://cssystem.cse.ust.hk/FAQ/hkust_only/displayx.html">
+      Displaying X application to PC runing X-Win32</a> <!--mstheme--></font>
+      <!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <a href="http://cssystem.cse.ust.hk/UGuides/RemoteAccess/ssh.html">Quick 
+      Start on SSH/SCP/SFTP</a> <!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <p>SSH can be download either from <a href="http://www.ssh.com">SSH.com</a> or 
+  you may get it from
+  <a href="https://www.cse.ust.hk/cssystem/Software/Password_Only/SSHSecureShellClient-3.2.3.exe">
+  here locally</a>. This requires your CSD UNIX username and password. </p>
+  <!--mstheme--></font>
+<h2><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">&nbsp;<!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+
+<h2><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+<b>More links</b><!--mstheme--></font></h2>
+
+
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+<h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+<b>Tutorial for the emacs editor</b><!--mstheme--></font></h3>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+<p><a href="http://www.math.utah.edu/lab/unix/emacs-brief-tutorial.html">Brief
+<b>Emacs</b> <b>Tutorial</b></a></p>
+<p><a href="http://www.lib.uchicago.edu/keith/tcl-course/emacs-tutorial.html">A
+<b>Tutorial</b> Introduction to <b>Emacs</b></a></p>
+<p><font face="Trebuchet MS"><a href="http://www.indiana.edu/~ucspubs/b131/"><b>Emacs</b> <b>reference</b> 
+card</a></font></p>
+<p><a href="http://www.delorie.com/gnu/docs/elisp-manual-19/elisp_toc.html">GNU
+<b>Emacs</b> Lisp <b>Reference</b> Manual - Table of Contents</a></p>
+  <!--mstheme--></font>
+<h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+<b>Tutorial for the vi editor</b><!--mstheme--></font></h3>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+<p><a href="http://www.ust.hk/itsc/unix/unix.pdf">
+http://www.ust.hk/itsc/unix/unix.pdf</a>&nbsp; (Chapter 7 of this pdf file covers vi 
+editor)</p>
+<p><a href="http://www.eng.hawaii.edu/Tutor/vi.html">Mastering the <b>VI</b> 
+editor</a></p>
+</blockquote>
+<p>&nbsp;</p>
+<!--mstheme--></font>
+
+</body>
+
+</html>

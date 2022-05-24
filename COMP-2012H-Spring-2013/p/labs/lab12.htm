@@ -1,0 +1,181 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>COMP152h lab12</title>
+<meta name="Microsoft Theme" content="blends 011">
+<style>
+<!--
+H4 {
+	FONT-WEIGHT: bold; FONT-SIZE: 18pt; FONT-FAMILY: "Arial", "Helvetica", "sans-serif"
+}
+-->
+</style>
+</head>
+
+<body background="blegtext.gif" bgcolor="#CCCCCC" text="#000000" link="#993300" vlink="#0000FF" alink="#FF9900">
+
+<!--mstheme--><font face="trebuchet ms,arial,helvetica">
+
+<blockquote>
+  <!--mstheme--></font>
+  <h2 align="center" style="line-height: 200%; margin-top: 5">
+  <!--mstheme--><font face="trebuchet ms,arial,helvetica">
+  <font face="Tahoma" size="5">Lab 12 STL Algorithms</font><!--mstheme--></font></h2>
+  <!--mstheme--><font face="trebuchet ms,arial,helvetica"><!--mstheme--></font>
+  <h2 style="margin-top: 30px">
+  <!--mstheme--><font face="trebuchet ms,arial,helvetica">
+  <span lang="zh-cn">Contents</span><!--mstheme--></font></h2>
+  <!--mstheme--><font face="trebuchet ms,arial,helvetica"><!--mstheme--></font>
+	<!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<!--msthemelist--><tr>
+		<!--msthemelist--><td valign="top" width="42">
+		<img src="blebul1a.gif" width="15" height="15" hspace="13" alt="&#39033;&#30446;&#31526;&#21495;"></td>
+		<td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms,arial,helvetica">
+      <span lang="zh-cn"><font size="4">Algorithms</font></span><!--mstheme--></font><!--msthemelist--></td>
+	</tr>
+	<!--msthemelist--><tr>
+		<!--msthemelist--><td valign="baseline" width="42">
+		<img src="blebul1a.gif" width="15" height="15" hspace="13" alt="&#39033;&#30446;&#31526;&#21495;"></td>
+		<td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms,arial,helvetica">
+      <span lang="zh-cn"><font size="4">Iterators</font></span><!--mstheme--></font><!--msthemelist--></td>
+	</tr>
+	<!--msthemelist--><tr>
+		<!--msthemelist--><td valign="baseline" width="42">
+		<img src="blebul1a.gif" width="15" height="15" hspace="13" alt="&#39033;&#30446;&#31526;&#21495;"></td>
+		<td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms,arial,helvetica">
+      <span lang="zh-cn"><font size="4">Function Objects</font></span><!--mstheme--></font><!--msthemelist--></td>
+	</tr>
+	<!--msthemelist--></table>
+	<!--mstheme--><font face="trebuchet ms,arial,helvetica"><!--mstheme--></font>
+  <h2 style="margin-top: 30px"><!--mstheme--><font face="trebuchet ms,arial,helvetica"><span lang="zh-cn">Review</span><!--mstheme--></font></h2>
+  <!--mstheme--><font face="trebuchet ms,arial,helvetica"><!--mstheme--></font>
+	<!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<!--msthemelist--><tr>
+		<!--msthemelist--><td valign="top" width="42">
+		<img src="blebul1a.gif" width="15" height="15" hspace="13" alt="&#39033;&#30446;&#31526;&#21495;"></td>
+		<td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms,arial,helvetica">
+		<!--mstheme--></font>
+      <h3>
+      <!--mstheme--><font face="trebuchet ms,arial,helvetica" color="#000000">
+      <font size="5">Algorithms</font><!--mstheme--></font></h3>
+      	<!--mstheme--><font face="trebuchet ms,arial,helvetica"><!--mstheme--></font>
+		<!--msthemelist--></td>
+	</tr>
+	<!--msthemelist--></table>
+	<!--mstheme--><font face="trebuchet ms,arial,helvetica">
+  <blockquote>
+<P><font face="Arial"><b><i>Algorithms:</i></b> The
+<a href="http://www.sgi.com/tech/stl/table_of_contents.html">Standard Template 
+Library (STL)</a> not only includes container classes,<br>
+but also a large collection of algorithms that manipulate the data stored in 
+containers.<br>
+<br>
+For example, the following codes reverse the order of elements in a
+<a href="http://www.sgi.com/tech/stl/Vector.html">vector</a> by using the
+<a href="http://www.sgi.com/tech/stl/reverse.html">reverse</a> algorithm.</font></P>
+<blockquote>
+<P><font face="Arial"><i><b>vector&lt;<font color="#0000FF">int</font>&gt; v(3);</b> 
+// Declare a vector of 3 elements.<b><br>
+v[0] = 7;<br>
+v[1] = 3;<br>
+v[2] = 10;&nbsp;</b>// v[0] == 7, v[1] == 3, v[2] == 10<b><br>
+<font color="#0000FF"><br>
+</font>reverse(v.begin(), v.end());
+</b>// v[0] == 10, v[1] == 3, v[2] == 7</i></font></P>
+</blockquote>
+<P><font face="Arial">Notice that <i>reverse()</i> is a global function, not a 
+member function.</font></P>
+        </blockquote>
+          <p>&nbsp;<!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<!--msthemelist--><tr>
+		<!--msthemelist--><td valign="top" width="42">
+		<img src="blebul1a.gif" width="15" height="15" hspace="13" alt="&#39033;&#30446;&#31526;&#21495;"></td>
+		<td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms,arial,helvetica">
+		<!--mstheme--></font>
+      <h3>
+      <!--mstheme--><font face="trebuchet ms,arial,helvetica" color="#000000">
+      <font size="5">Iterators</font><!--mstheme--></font></h3>
+      	<!--mstheme--><font face="trebuchet ms,arial,helvetica"><!--mstheme--></font>
+		<!--msthemelist--></td>
+	</tr>
+	<!--msthemelist--></table>
+	<!--mstheme--><font face="trebuchet ms,arial,helvetica">
+  <blockquote>
+<P><font face="Arial"><i><b>It</b></i><b><i>erators:</i></b> In the example 
+above, the arguments to reverse are iterators, which are a generalization of 
+pointers. Pointers themselves are iterators, which is why it is possible to 
+reverse the elements of a C array like the following.</font></P>
+<blockquote>
+<P><font face="Arial"><i><b>double A[6] = { 1.2, 1.3, 1.4, 1.5, 1.6, 1.7 };<br>
+reverse(A, A + 6);</b></i></font></P>
+</blockquote>
+<p><font face="Arial">Similarly, vector declares the nested types <i>iterator</i> 
+and <i>const_iterator</i>. In the example at the beginning, the type returned by
+<i>v.begin()</i> and <i>v.end()</i> is <i>vector&lt;int&gt;::iterator</i>. There are 
+also some iterators, such as
+<a href="http://www.sgi.com/tech/stl/istream_iterator.html">istream_iterator</a> 
+and <a href="http://www.sgi.com/tech/stl/ostream_iterator.html">ostream_iterator</a>, 
+that aren't associated with containers at all.<br>
+<br>
+Iterators are the mechanism that makes it possible to decouple algorithms from 
+containers: algorithms are templates, and are parameterized by the type of 
+iterator, so they are not restricted to a single type of container.</font></p>
+          </blockquote>
+          <p>&nbsp;<!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<!--msthemelist--><tr>
+		<!--msthemelist--><td valign="top" width="42">
+		<img src="blebul1a.gif" width="15" height="15" hspace="13" alt="&#39033;&#30446;&#31526;&#21495;"></td>
+		<td valign="top" width="100%"><!--mstheme--><font face="trebuchet ms,arial,helvetica">
+		<!--mstheme--></font>
+<h3>
+<!--mstheme--><font face="trebuchet ms,arial,helvetica" color="#000000">
+<font size="5">Function Objects</font><!--mstheme--></font></h3>
+      	<!--mstheme--><font face="trebuchet ms,arial,helvetica"><!--mstheme--></font>
+		<!--msthemelist--></td>
+	</tr>
+	<!--msthemelist--></table>
+	<!--mstheme--><font face="trebuchet ms,arial,helvetica">
+  <blockquote>
+    <font face="Arial"><i><b>Function Object</b></i><b><i>s:</i></b> The STL 
+    includes a large collection of <i>
+    <a href="http://www.sgi.com/tech/stl/functors.html">function objects</a></i>, 
+    also known as <i>functors</i>. A function object is simply any object that 
+    can be called as if it is a function. An ordinary function is a function 
+    object, and so is a function pointer; more generally, so is an object of a 
+    class that defines <i>operator()</i>.<br>
+    <br>
+    The <a href="lab12/find_if2.cpp">
+    find_if</a> example includes a function object </font><i>Greater_Than(350)</i><font face="Arial">, 
+    which is an object of the class </font><i>Greater_Than</i><font face="Arial"> 
+    that defines <i>operator()</i>.<br>
+&nbsp;</font></blockquote>
+  <!--mstheme--></font>
+  <h2><!--mstheme--><font face="trebuchet ms,arial,helvetica">Task<!--mstheme--></font></h2>
+  <!--mstheme--><font face="trebuchet ms,arial,helvetica">
+  <blockquote>
+<P><font face="Arial"><a href="lab12/building.h">building.h</a>,
+<a href="lab12/building.cpp">building.cpp</a>, <a href="lab12/CheckBuilding.cpp">
+CheckBuilding.cpp</a> are an incomplete program for creating a building with 
+certain number of floors and rooms. Then you can put persons identified by their 
+names and IDs into the rooms, or move persons out of their rooms. You need to 
+store the names and IDs in an string vectors.</font></P>
+<P><font face="Arial">There are two member variables in class <i>building: names 
+&amp; ids</i>. They are 2D array using <i>vector</i> to implement them. <i>names[i]</i> 
+is an array/vector of class string (i.e. <i>vector&lt;string&gt;</i>), which contains 
+all the occupants' name at floor (i+1). <i>names[i][j] </i>refers to the 
+occupant name at the floor (i+1) in room (j+1). The type is class string.</font></P>
+<P><font face="Arial"><b>Your task:</b> Complete the missing code marked with 
+&quot;//...&quot; in building.cpp.</font></P>
+<P>&nbsp;</P>
+    </blockquote>
+</blockquote>
+
+<!--mstheme--></font>
+
+</body>
+
+</html>

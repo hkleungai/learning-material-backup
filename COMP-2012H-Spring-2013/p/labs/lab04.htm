@@ -1,0 +1,357 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Lab 04 Construction and Initialization</title>
+<meta name="Microsoft Theme" content="blends 011">
+</head>
+
+<body background="blegtext.gif" bgcolor="#CCCCCC" text="#000000" link="#993300" vlink="#0000FF" alink="#FF9900">
+
+<!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+
+<blockquote>
+  <!--mstheme--></font>
+  <h2 align="center" style="line-height: 200%; margin-top: 5">
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <font face="Tahoma" size="5">Lab 04 Construct</font><font face="Tahoma">ion 
+  and Initialization</font><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <h2 style="margin-top: 30px"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Objective<!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font size="4">Constructors </font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font size="4">Memberwise 
+  Assignment </font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font size="4">Function 
+  Overloading and Default Arguments </font><!--mstheme--></font>
+      <!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font size="4">Member 
+  Initialization List </font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <h2 style="margin-top: 30px"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099"><span lang="zh-cn">Review</span><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <FONT face="Arial"><I><B>Constructors</B></I> are special member 
+  functions having the same name as the class and used to initialize data 
+  members for a class object. </FONT>
+      <!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <FONT face="Arial">A constructor is automatically invoked when a 
+  class object is created. </FONT>
+      <!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <FONT face="Arial">A constructor must NOT specify a return type 
+  or explicitly returns a value. </FONT><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <FONT face="Arial">A class can have more than one constructor, 
+  but each constructor should take different parameters. 
+</FONT><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+<h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+<FONT face="Arial">Default Constructor</FONT><!--mstheme--></font></h3>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <FONT face="Arial">A <B><I>default constructor</I></B> is a constructor 
+    that is called with NO argument. E.g. X::X() for class X. </FONT>
+      <!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font face="Arial">It is given by compiler automatically if no 
+    other constructor is defined. </font>
+      <!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font face="Arial">It only creates a record with space for class 
+    member variables, but their initial values CANNOT be trusted. </font>
+      <!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font face="Arial">If you overload the default constructor, 
+    then you can specify default value as initial values for member variables.</font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+<h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+<FONT face="Arial">Type Conversion 
+Constructor</FONT><!--mstheme--></font></h3>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <FONT face="Arial">A constructor accepting arguments specify a 
+    <B><I>conversion</I></B> from its argument type to the type of its class. </FONT>
+      <!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+<h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+<FONT face="Arial">Copy Constructor</FONT><!--mstheme--></font></h3>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <FONT face="Arial">A <B><I>copy constructor</I></B> creates a 
+  clone of an existing object by initializing a new object, with an existing 
+  object of the same class. </FONT>
+      <!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <FONT face="Arial">If you had no copy constructor defined, then 
+  the compiler would supply a default "copy constructor" to create the clone. 
+  </FONT>
+      <!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <FONT face="Arial">Copying an object using the default copy 
+  constructor may work for simple objects. However, if there were pointers in 
+  the original object, only the pointers would be duplicated, not the data that 
+  was being pointed to. </FONT><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <FONT face="Arial">Memberwise Assignment</FONT><!--mstheme--></font></h3>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <FONT face="Arial">If you DON'T write your own memberwise assignment, 
+    the compiler will provide the default <B><I>memberwise copy</I></B>. </FONT>
+      <!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <FONT face="Arial">Memberwise assignment/copy does NOT work 
+  whenever memory allocation is required for the class members. </FONT>
+      <!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <FONT face="Arial">Both copy constructor and default memberwise 
+  assignment are <B>shallow copy</B>. </FONT>
+  <P><FONT face="Arial">Example: </FONT></P>
+      <!--mstheme--></font>
+  <TABLE cellSpacing=1 cellPadding=5 width="79%" border=1 height="152" bordercolorlight="#999999" bordercolordark="#000000">
+    <TBODY>
+    <TR>
+      <TD width="59%" bgColor=#ffffcc colSpan=2 height="57"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <FONT 
+        face="Arial">class Word { </FONT>
+        <P><FONT 
+        face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        Public: Word (const char* s, int k=0);</FONT></P>
+        <P><FONT face="Arial">};</FONT></P><!--mstheme--></font></TD></TR>
+    <TR>
+      <TD width="26%" bgColor=#ffffcc height="53"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <FONT face="Arial">Default 
+        copy constructor</FONT><!--mstheme--></font></TD>
+      <TD width="33%" bgColor=#ffffcc height="53"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><CODE>
+      <FONT face="Arial">Word 
+        movie ("Titanic");</FONT></CODE><font face="Arial"> </font>
+      <!--mstheme--></font>
+          <pre><CODE><FONT face="Arial">Word song (movie); // is equivalent  to </FONT></CODE><font face="Arial">
+
+</font><CODE><FONT face="Arial">                                //Word song = movie;</FONT></CODE></pre>
+        <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+        </TD></TR>
+    <TR>
+      <TD width="26%" bgColor=#ffffcc height="3"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <FONT face="Arial">Default 
+        memberwise assignment</FONT><!--mstheme--></font></TD>
+        <TD width="33%" bgColor=#ffffcc height="3"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><CODE>
+        <FONT face="Arial">Word 
+          movie ("Titanic"), song;</FONT></CODE><font face="Arial"> </font> 
+          <P><CODE><FONT face="Arial"> song = movie;</FONT></CODE></P>
+        <!--mstheme--></font>
+        </TD></TR></TBODY></TABLE><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+<h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+<FONT face="Arial" size="4">Function Overloading and 
+Default Arguments</FONT><!--mstheme--></font></h3>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <FONT face="Arial"><I><B>Function overloading</B></I> allows 
+  functions use the same name but with different input arguments. </FONT>
+      <!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <FONT face="Arial">However, specifying <I><B>default arguments 
+  </B></I>is a better option than using overloading. </FONT><!--mstheme--></font>
+      <!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <FONT face="Arial">All arguments without default values MUST be 
+  declared to the left of default arguments. </FONT><!--mstheme--></font>
+      <!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+<h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+<FONT face="Arial">Member Initialization 
+List</FONT><!--mstheme--></font></h3>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <FONT face="Arial">Class members may be initialized through <B><I>member 
+    initialization list</I></B> as well as inside the body of constructors. </FONT>
+      <!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font face="Arial">Example is <a href="lab04/test.cpp">here</a>.</font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+<P>&nbsp;</P>
+  <!--mstheme--></font>
+<h2><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+<font face="Trebuchet MS">Lab work</font><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+<P><FONT face="Arial">Please complete the following exercises to get 
+some feeling of constructor.</FONT></P>
+<P><FONT face="Arial">1. Download the following files: <a href="lab04/Money.h">money.h,</a>
+<a href="lab04/Money.cpp">money.cpp</a> and <a href="lab04/main.cpp">main.cpp</a>. 
+</FONT></P>
+<P><FONT face="Arial">2. Overload the default constructor of <B>class 
+  MoneyType</B> to set the initial value of member variables to zero. </FONT></P>
+<P><FONT face="Arial">3. Replace the member funtion MoneyType::Initialize(long 
+  newDollars,long newCents) by another constructor. Then modify <B>money1</B> 
+  and <B>money2</B> using the type conversion constructor.</FONT></P>
+<P><FONT face="Arial">What is the value of <B>money3</B> before and 
+  after the call to member function <B>Add</B>?</FONT></P>
+<P><FONT face="Arial">4. Implement a member function, <B>Normalize</B>, 
+  to <B>class MoneyType</B> that normalizes the cents to between 0 and 99 and 
+  adjusts the dollar amount accordingly. &#12288;</FONT></P>
+<P><font face="Arial">Then what is the new value of <b>money3 
+  </b>?</font></P>
+<P><font face="Arial">The solution is <!--a href="lab04/solution1.cpp"-->here</a>.</font></P>
+<P>&nbsp;</P>
+  <!--mstheme--></font>
+<h2><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+<font face="Trebuchet MS">Task</font><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+<P><FONT face="Arial">Download<a href="lab04/grid.zip"> grid.zip</a> and unzip 
+  it. There are three files </FONT></P>
+<P><FONT face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --"grid3d.h": 
+  class header file for the class <B>grid3d</B><BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --"grid3d.cpp": definition file for implementation 
+  of the class <B>grid3d</B><BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --"main.cpp": a testing program for <B>grid3d</B> 
+  </FONT></P>
+<P><FONT face="Arial">&nbsp;Information on "main.cpp":</FONT></P>
+<OL>
+  <LI><FONT face="Arial"><B>findCentroid</B> is used to compute the 
+    centroid of a triangle, which is just an "average" of its three vertices. 
+    </FONT> 
+  <LI><FONT face="Arial"><B>findArea</B> is used to compute the area 
+    of a triangle using Heron's formula. </FONT> 
+  <LI><FONT face="Arial">When an array of objects is created, each element 
+    is initialized by the default constructor. An error message will be given 
+    by the compiler if no default constructor is provided, assuming that you have 
+    provided at least one type of constructor. </FONT></LI>
+  <LI><font face="Arial">Notice modify the file &quot;grid3d.cpp&quot; 
+    only.</font></LI>
+</OL>
+<P><FONT face="Arial"><B>Your task</B>: complete the missing parts in 
+  the "grid3d.cpp".</FONT></P>
+<P><FONT face="Arial">The <B>output</B> of the program: </FONT></P>
+<P><font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img border="0" src="lab04/output.JPG" width="618" height="464"></font></P>
+<P><font face="Arial">The solution is <!---a href="lab04/solution2.cpp"--->here</a>.</font></P>
+</blockquote>
+
+<!--mstheme--></font>
+
+</body>
+
+</html>

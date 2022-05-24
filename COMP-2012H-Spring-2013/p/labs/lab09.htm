@@ -1,0 +1,515 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>COMP152h lab09</title>
+<meta name="Microsoft Theme" content="blends 011">
+
+<style>
+<!--
+H4 {
+	FONT-WEIGHT: bold; FONT-SIZE: 18pt; FONT-FAMILY: "Arial", "Helvetica", "sans-serif"
+}
+-->
+</style>
+</head>
+
+<body background="blegtext.gif" bgcolor="#CCCCCC" text="#000000" link="#993300" vlink="#0000FF" alink="#FF9900">
+
+<!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+
+<blockquote>
+  <!--mstheme--></font>
+  <h2 align="center" style="line-height: 200%; margin-top: 5">
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <font face="Tahoma" size="5">Lab0</font><font face="Tahoma">9</font><span lang="zh-cn"><font face="Tahoma">&nbsp; </font></span>
+  <font face="Tahoma">Maze Design and Key Press Event</font><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <h2 style="margin-top: 30px"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Objective<!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font size="4">How to Display Maze</font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font size="4">How to Control Movement of Objects</font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+  <!--mstheme--></font>
+
+<h2><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">&nbsp;<!--mstheme--></font></h2>
+
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+
+  </blockquote>
+  <!--mstheme--></font>
+
+<h2><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+<font face="Trebuchet MS">How to Display Maze</font><!--mstheme--></font></h2>
+
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+
+<h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Simplified version of <a href="lab09/pacman">Pacman</a>
+<!--mstheme--></font>
+  </h3>
+
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+
+<p><font face="Arial">All game objects are simply represented as colored 
+squares: <b>yellow</b> for <i>Pacman</i>, <b>blue</b> for the <i>ghosts</i>, <b>
+grey</b> for the <i>little pills</i>, and <b>white</b> for the <i>power pills</i>.&nbsp; 
+There is no fruit in this version.</font></p>
+
+  <blockquote>
+    <blockquote>
+      <blockquote>
+
+<p><img border="0" src="lab09/game.JPG" width="270" height="337"></p>
+
+      </blockquote>
+    </blockquote>
+  </blockquote>
+  <!--mstheme--></font>
+
+<h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Maze File<!--mstheme--></font></h3>
+
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+
+<p style="margin-top: 0; margin-bottom: 0"><font face="Arial">The home of 
+Pacman ---- 'm';&nbsp;&nbsp;&nbsp; the home of the ghosts ---- 'g';</font></p>
+
+<p style="margin-top: 0; margin-bottom: 0"><font face="Arial">&nbsp;the little 
+pills -------------- 'o';&nbsp;&nbsp;&nbsp; and the power pills --------- 'p'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+(See the <a href="lab09/test.maze">maze file</a> for above game)</font></p>
+
+  <!--mstheme--></font>
+  <h3 style="margin-top: 30px"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Display Maze<!--mstheme--></font></h3>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <p style="margin-top: 1; margin-bottom:1"><font face="Arial">An example to 
+  display maze is here.&nbsp; </font></p>
+  <p style="margin-top: 1; margin-bottom:1">&nbsp;</p>
+  <p style="margin-top: 1; margin-bottom:1"><font face="Arial">Dowload
+  <a href="lab09/maze/maze.h">maze.h</a> <a href="lab09/maze/maze.cpp">maze.cpp</a>
+  <a href="lab09/maze/MazeWindow.h">MazeWindow.h</a>
+  <a href="lab09/maze/MazeWindow.cpp">MazeWindow.cpp</a>
+  <a href="lab09/maze/main.cpp">main.cpp</a> and <a href="lab09/maze/test.maze">
+  maze file</a></font></p>
+  <p style="margin-top: 1; margin-bottom:1">&nbsp;</p>
+  <p style="margin-top: 1; margin-bottom:1"><font face="Arial">HTML:&nbsp;
+  <a href="lab09/maze.h.html">maze.h.html</a>&nbsp;
+  <a href="lab09/maze.cpp.html">maze.cpp.html</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  Executable file: <a href="lab09/maze/maze">maze</a></font></p>
+  <p style="margin-top: 1; margin-bottom:1">&nbsp;</p>
+  <div align="center">
+    <center><!--mstheme--></font>
+    <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="55%" id="AutoNumber1" height="80">
+      <tr>
+        <td width="100%" height="80" bgcolor="#FFFF99" align="left">
+        <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+        <pre><tt>
+<font color="#009900">bool</font> Maze::Load(<b><font color="#0000FF">const</font></b> <font color="#009900">char</font>* filename)
+{
+	ifstream fin(filename);
+	<b><font color="#0000FF">if</font></b> (! fin) {
+		cerr &lt;&lt; <font color="#FF0000">&quot;error: cannot load &quot;</font> &lt;&lt; filename &lt;&lt; endl;
+		<b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b>;
+	}
+
+	<font color="#009900">int</font> x, y;
+	<font color="#009900">char</font> buffer[BUFFER_SIZE];
+
+	fin &gt;&gt; numOfColumn &gt;&gt; numOfRow;
+	fin.getline(buffer, BUFFER_SIZE); <i><font color="#9A1900">// remove the '\n'
+</font></i>	
+	cout &lt;&lt; <font color="#FF0000">&quot;number of column = &quot;</font> &lt;&lt; numOfColumn &lt;&lt; endl;
+	cout &lt;&lt; <font color="#FF0000">&quot;number of row = &quot;</font> &lt;&lt; numOfRow &lt;&lt; endl;
+
+	<i><font color="#9A1900">// build a 2D array
+</font></i>	cells.resize(numOfColumn);
+	<b><font color="#0000FF">for</font></b> (x = <font color="#993399">0</font>; x &lt; numOfColumn; ++x) {
+		cells[x].resize(numOfRow);
+	}
+
+	<i><font color="#9A1900">// load the values to the array
+</font></i>	<b><font color="#0000FF">for</font></b> (y = <font color="#993399">0</font>; y &lt; numOfRow; ++y) {
+		fin.getline(buffer, BUFFER_SIZE);
+		<b><font color="#0000FF">for</font></b> (x = <font color="#993399">0</font>; x &lt; numOfColumn; ++x) {
+			<font color="#009900">char</font> ch = buffer[x];
+
+			Cell* pC = GetCell(x, y);
+			pC-&gt;x = x;
+			pC-&gt;y = y;
+
+			<b><font color="#0000FF">if</font></b> (ch == <font color="#FF0000">'x'</font>) {
+				pC-&gt;state = Cell::State_Wall;
+			} <b><font color="#0000FF">else</font></b> <b><font color="#0000FF">if</font></b> (ch == <font color="#FF0000">' '</font>) {
+				pC-&gt;state = Cell::State_Empty;
+			} 
+			<b><font color="#0000FF">else</font></b> {
+				assert(<b><font color="#0000FF">false</font></b>);
+			}
+		}
+	}
+	fin.close();
+
+	<i><font color="#9A1900">// resize the window according to the dimension of the maze
+</font></i>	<b><font color="#0000FF">this</font></b>-&gt;resize(numOfColumn * CELL_WIDTH, numOfRow * CELL_HEIGHT);
+
+	repaint();
+
+	<b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b>;
+}
+
+<font color="#009900">void</font> Maze::paintEvent(QPaintEvent* e)
+{
+
+	QPainter paint(<b><font color="#0000FF">this</font></b>);
+
+	<font color="#009900">int</font> x, y;
+	<b><font color="#0000FF">for</font></b> (y = <font color="#993399">0</font>; y &lt; numOfRow; ++y) {
+	     <b><font color="#0000FF">for</font></b> (x = <font color="#993399">0</font>; x &lt; numOfColumn; ++x) {
+		Cell* pC = GetCell(x, y);
+
+		QColor color;
+
+		<b><font color="#0000FF">switch</font></b> (pC-&gt;state)
+		{
+			<b><font color="#0000FF">case</font></b> Cell::State_Wall:
+			{
+				color.setRgb(<font color="#993399">200</font>, <font color="#993399">0</font>, <font color="#993399">0</font>);  <i><font color="#9A1900">//red color for wall
+</font></i>				<b><font color="#0000FF">break</font></b>;
+			}
+			<b><font color="#0000FF">case</font></b> Cell::State_Empty:
+			{
+   				color.setRgb(<font color="#993399">0</font>, <font color="#993399">0</font>, <font color="#993399">0</font>);  <i><font color="#9A1900">// black color for space
+</font></i>                        }
+		}
+		paint.fillRect(x*CELL_WIDTH, y*CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT, color);
+            }
+	}	
+}</tt>
+</pre>
+        <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+        </td>
+      </tr>
+    </table>
+    <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"></center>
+  </div>
+  <!--mstheme--></font>
+  <h5 style="margin-top: 30px"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <font size="3" face="Arial">Explanations:</font><!--mstheme--></font></h5>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font face="Arial"><b>istream&amp; istream::getline(char *line, streamsize 
+      size, char delimiter='\n')</b> </font>
+      <p style="margin-top: 2; margin-bottom: 2">&nbsp;</p>
+      <p style="margin-top: 2; margin-bottom: 2"><font face="Arial">Read a 
+      number of characters from the input stream. </font><!--mstheme--></font>
+      <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <!--msthemelist--><tr>
+          <!--msthemelist--><td valign="top" width="42">
+          <img src="blebul2a.gif" width="12" height="12" hspace="15" alt="bullet"></td>
+          <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+          <p style="margin-top: 2; margin-bottom: 2"><font face="Arial"><i>line</i> is 
+          a character array which holds the characters read </font>
+          <!--mstheme--></font><!--msthemelist--></td>
+        </tr>
+        <!--msthemelist--><tr>
+          <!--msthemelist--><td valign="baseline" width="42">
+          <img src="blebul2a.gif" width="12" height="12" hspace="15" alt="bullet"></td>
+          <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+          <font face="Arial"><i>size</i> is the maximal number of characters to read
+          </font><!--mstheme--></font><!--msthemelist--></td>
+        </tr>
+        <!--msthemelist--><tr>
+          <!--msthemelist--><td valign="baseline" width="42">
+          <img src="blebul2a.gif" width="12" height="12" hspace="15" alt="bullet"></td>
+          <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+          <font face="Arial"><i>delimiter</i> indicates the character, when 
+          encountered, that will terminate reading from the istream</font><!--mstheme--></font><!--msthemelist--></td>
+        </tr>
+        <!--msthemelist--></table>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <p>&nbsp;<!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font face="Arial"><b>void QPainter::fillRect ( int&nbsp;x, int&nbsp;y, int&nbsp;w, int&nbsp;h, 
+      const&nbsp;<a href="http://doc.qt.digia.com/3.2/qbrush.html" style="color: #004faf; text-decoration: none">QBrush</a>&nbsp;&amp;&nbsp;brush 
+      ) </b></font>
+      <p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0"><font face="Arial">Fills the 
+      rectangle <em>(x, y, w, h)</em> with the <em>brush</em>. </font></p>
+      <p style="margin-top: 0; margin-bottom: 0"><font face="Arial">You can 
+      specify a
+      <a style="color: #004faf; text-decoration: none" href="http://doc.qt.digia.com/3.2/qcolor.html">QColor</a> as <em>brush</em>, since there is a
+      <a href="http://doc.qt.digia.com/3.2/qbrush.html" style="color: #004faf; text-decoration: none">
+      QBrush</a> constructor that takes a QColor argument and creates a solid 
+      pattern brush. </font>
+      <p style="margin-top: 0; margin-bottom: 0">&nbsp;<!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font face="Arial"><b>void QColor::setRgb ( int&nbsp;r, int&nbsp;g, int&nbsp;b ) </b>
+      </font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+    <p><font face="Arial">Sets the RGB value to <em>r</em>, <em>g</em>, <em>b</em>. 
+    The arguments, <em>r</em>, <em>g</em> and <em>b</em> must all be in the 
+    range 0..255. If any of them are outside the legal range, the color is not 
+    changed.</font></p>
+  </blockquote>
+  <!--mstheme--></font>
+  <h2 style="margin-top: 30px"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">How to Control Movement of Objects<!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <p style="margin-top: 30px"><font face="Arial">Download
+  <a href="lab09/move/main.cpp">main.cpp</a> <a href="lab09/move/my_widget.h">
+  my_widget.h</a> <a href="lab09/move/my_widget.cpp">my_widget.cpp</a> and the
+  <a href="lab09/move/move">executable file</a>.</font></p>
+  <p><font face="Arial">To control movement of objects by key press, we should 
+  overload the following virtual function:</font></p>
+  <p><font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+  <b><font face="Arial">void QWidget::keyPressEvent (
+  <a href="http://doc.qt.digia.com/3.2/qkeyevent.html" style="color: #004faf; text-decoration: none">
+  QKeyEvent</a>&nbsp;*&nbsp;e )</font><tt><font face="Arial"> [virtual protected]</font></tt><font face="Arial">
+  </font></b></p>
+  <p><font face="Arial">This event handler, for event <em>e</em>, can be 
+  re-implemented in a subclass to receive key press events for the widget.
+  </font></p>
+  <div align="center">
+    <center><!--mstheme--></font>
+    <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="75%" id="AutoNumber1" height="80">
+      <tr>
+        <td width="100%" height="80" bgcolor="#FFFF99"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+        <!--mstheme--></font>
+        <pre><tt>
+<b><font color="#0000FF">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std;
+
+<b><font color="#0000FF">#include</font></b> <font color="#FF0000">&quot;my_widget.h&quot;</font>
+
+<b><font color="#0000FF">#include</font></b> <font color="#FF0000">&lt;qpainter.h&gt;</font>
+<b><font color="#0000FF">#include</font></b> <font color="#FF0000">&lt;qmessagebox.h&gt;</font>
+
+MyMainWindow::MyMainWindow(QWidget* parent, <b><font color="#0000FF">const</font></b> <font color="#009900">char</font>* name)
+:QMainWindow(parent, name)
+{
+	image = <b><font color="#0000FF">new</font></b> QPixmap();
+	image-&gt;load(<font color="#FF0000">&quot;s1.JPG&quot;</font>);
+	x = <font color="#993399">0</font>;
+	y = <font color="#993399">0</font>;
+	step = <font color="#993399">10</font>;
+
+    <i><font color="#9A1900">//setFocusPolicy(QWidget::ClickFocus);
+</font></i>
+}
+
+MyMainWindow::~MyMainWindow()
+{
+	<b><font color="#0000FF">delete</font></b> image;
+}
+
+<font color="#009900">void</font> MyMainWindow::paintEvent(QPaintEvent* e)
+{
+	QPainter paint(<b><font color="#0000FF">this</font></b>);
+	<b><font color="#0000FF">if</font></b> (! image-&gt;isNull())
+	{
+		paint.drawPixmap(x, y, (*image));
+	}
+}
+
+<font color="#009900">void</font> MyMainWindow::keyPressEvent(QKeyEvent* e)
+{
+	<b><font color="#0000FF">const</font></b> <font color="#009900">int</font> k = e-&gt;key();
+
+	<b><font color="#0000FF">switch</font></b> (k)
+	{
+	<b><font color="#0000FF">case</font></b> Qt::Key_Left:  
+		{
+			<b><font color="#0000FF">if</font></b> (x - step &gt;= <font color="#993399">0</font>) 
+				x = x - step;
+			<b><font color="#0000FF">else</font></b> 
+				x = <font color="#993399">0</font>;
+			<b><font color="#0000FF">break</font></b>;		
+		}
+	<b><font color="#0000FF">case</font></b> Qt::Key_Up: 
+		{   
+			<b><font color="#0000FF">if</font></b> (y - step &gt;= <font color="#993399">0</font>) 
+				y = y - step; 
+			<b><font color="#0000FF">else</font></b>
+				y = <font color="#993399">0</font>;
+			<b><font color="#0000FF">break</font></b>;	
+		}			
+	<b><font color="#0000FF">case</font></b> Qt::Key_Right: 
+		{
+			<b><font color="#0000FF">if</font></b> (x+image-&gt;width()+step &lt;= <b><font color="#0000FF">this</font></b>-&gt;width()) 
+				x = x + step; 
+			<b><font color="#0000FF">else</font></b>
+				x = <b><font color="#0000FF">this</font></b>-&gt;width() - image-&gt;width();
+			<b><font color="#0000FF">break</font></b>; 
+		}
+	<b><font color="#0000FF">case</font></b> Qt::Key_Down: 
+		{ 
+		    <b><font color="#0000FF">if</font></b> (y+image-&gt;height()+step &lt;= <b><font color="#0000FF">this</font></b>-&gt;height()) 
+			    y = y + step; 
+		    <b><font color="#0000FF">else</font></b>
+                y = <b><font color="#0000FF">this</font></b>-&gt;height() - image-&gt;height();
+		    <b><font color="#0000FF">break</font></b>; 
+		}
+	}
+	cout &lt;&lt; <font color="#FF0000">&quot;Position: (&quot;</font> &lt;&lt; x &lt;&lt; <font color="#FF0000">&quot;, &quot;</font> &lt;&lt; y &lt;&lt; <font color="#FF0000">&quot;)&quot;</font> &lt;&lt; endl;
+	repaint();
+}</tt>
+</pre>
+        <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+        <p>&nbsp;<!--mstheme--></font></td>
+      </tr>
+    </table>
+    <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"></center>
+  </div>
+  <!--mstheme--></font>
+  <h5><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <font face="Arial" size="3">Explanations:</font><!--mstheme--></font></h5>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <p style="margin-top: 0; margin-bottom: 0"><b>void QWidget::setFocusPolicy 
+      (
+      <a href="http://doc.qt.digia.com/3.2/qwidget.html#FocusPolicy-enum" style="color: #004faf; text-decoration: none">
+      FocusPolicy</a> )<tt> [virtual]</tt> </b></p>
+      <p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0">A widget must call <b>
+      setFocusPolicy</b>() to accept focus initially and have focus in order to 
+      receive a key press event.</p>
+      <p style="margin-top: 0; margin-bottom: 0">The FocusPolicy property holds 
+      the way the widget accepts
+      <a href="http://doc.qt.digia.com/3.2/focus.html#keyboard-focus" style="color: #004faf; text-decoration: none">
+      keyboard focus</a>. The policy is
+      <a href="#FocusPolicy-enum" style="color: #004faf; text-decoration: none">
+      QWidget::TabFocus</a> if the widget accepts keyboard focus by tabbing,
+      <a href="#FocusPolicy-enum" style="color: #004faf; text-decoration: none">
+      QWidget::ClickFocus</a> if the widget accepts focus by clicking,
+      <a href="#FocusPolicy-enum" style="color: #004faf; text-decoration: none">
+      QWidget::StrongFocus</a> if it accepts both, and
+      <a href="#FocusPolicy-enum" style="color: #004faf; text-decoration: none">
+      QWidget::NoFocus</a> (the default) if it does not accept focus at all. </p>
+      <p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+      <!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+    <p style="margin-top: 0; margin-bottom: 0"><b><font face="Arial">
+    Qt::Key</font></b><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+    <p style="margin-top: 0; margin-bottom: 0"><font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font></p>
+    <p style="margin-top: 0; margin-bottom: 0"><font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The
+    <a href="http://doc.qt.digia.com/3.2/qt.html#Key-enum">key names</a> used 
+    by <b>Qt</b>.</font></p>
+    <blockquote>
+    <p style="margin-top: 0; margin-bottom: 0"><font face="Arial">Public Members 
+    of Qt class:</font></p>
+    <p style="margin-top: 0; margin-bottom: 0"><b><font color="#000080">enum</font></b>
+    <b>Key</b> { Key_Escape = 0x1000, Key_Tab = 0x1001, Key_Backtab = 0x1002, 
+    Key_BackTab = Key_Backtab, Key_Backspace = 0x1003, Key_BackSpace = 
+    Key_Backspace, Key_Return = 0x1004, ...}</p>
+    <p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+    </blockquote>
+  <!--mstheme--></font>
+  <h2><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Task<!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font face="Arial">You are asked to rewrite the second program (<a href="lab09/move/main.cpp">main.cpp</a>
+      <a href="lab09/move/my_widget.h">my_widget.h</a>
+      <a href="lab09/move/my_widget.cpp">my_widget.cpp</a>) to following two 
+    versions:</font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+<blockquote>
+  <!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><font face="Arial">Define a class for color squares&nbsp; and replace the bitmap image in the 
+  window with a color square,&nbsp; and also&nbsp; use key press to&nbsp; control its 
+  movement.&nbsp; </font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><font face="Arial">Add self-movement to the color square, that is, when there is no key press 
+  event, the square can move in its own way at some regular speed.
+For example, After a certain time out, the color square will 
+randomly move around.
+
+</font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+</blockquote>
+  <!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font face="Arial">Combine the above program with the maze display program 
+      (<a href="lab09/maze/maze.h">maze.h</a> <a href="lab09/maze/maze.cpp">
+      maze.cpp</a> <a href="lab09/maze/MazeWindow.h">MazeWindow.h</a>
+      <a href="lab09/maze/MazeWindow.cpp">MazeWindow.cpp</a>&nbsp;&nbsp;&nbsp;
+      <a href="lab09/maze/main.cpp">main.cpp</a> and
+      <a href="lab09/maze/test.maze">maze file</a>) , thus let the small color 
+      square can move inside the maze instead of the Qt window.&nbsp;&nbsp;
+      </font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <p><font face="Arial">Solutions are <!----a href="lab09/solution.zip"-->here</a> (The 
+  &quot;pacman&quot; can be moved inside the maze by key press).&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </font></p>
+  <p><font face="Arial">Executable file: <a href="lab09/solution/pacman">pacman</a></font></p>
+  <p>&nbsp;</p>
+</blockquote>
+
+<!--mstheme--></font>
+
+</body>
+
+</html>

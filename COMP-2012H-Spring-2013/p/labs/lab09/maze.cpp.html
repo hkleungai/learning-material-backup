@@ -1,0 +1,123 @@
+<pre>
+<tt>
+<b><font color=#0000FF>#include</font></b> <font color=#FF0000>&lt;qpainter.h&gt;</font>
+<b><font color=#0000FF>#include</font></b> <font color=#FF0000>&lt;qtimer.h&gt;</font>
+<b><font color=#0000FF>#include</font></b> <font color=#FF0000>&lt;cassert&gt;</font>
+<b><font color=#0000FF>#include</font></b> <font color=#FF0000>&lt;iostream&gt;</font>
+<b><font color=#0000FF>#include</font></b> <font color=#FF0000>&lt;fstream&gt;</font>
+<b><font color=#0000FF>using</font></b> <b><font color=#0000FF>namespace</font></b> std;
+
+<b><font color=#0000FF>#include</font></b> <font color=#FF0000>"maze.h"</font>
+
+<b><font color=#0000FF>const</font></b> <font color=#009900>int</font> BUFFER_SIZE=<font color=#993399>4096</font>;
+<b><font color=#0000FF>const</font></b> <font color=#009900>int</font> CELL_WIDTH=<font color=#993399>26</font>; 
+<b><font color=#0000FF>const</font></b> <font color=#009900>int</font> CELL_HEIGHT=<font color=#993399>26</font>;
+
+
+Maze::Maze(QWidget* parent, <b><font color=#0000FF>const</font></b> <font color=#009900>char</font>* name)
+:QWidget(parent, name)
+{
+}
+
+Maze::~Maze()
+{
+}
+
+<font color=#009900>bool</font> Maze::Load(<b><font color=#0000FF>const</font></b> <font color=#009900>char</font>* filename)
+{
+	ifstream fin(filename);
+	<b><font color=#0000FF>if</font></b> (! fin) {
+		cerr &lt;&lt; <font color=#FF0000>"error: cannot load "</font> &lt;&lt; filename &lt;&lt; endl;
+		<b><font color=#0000FF>return</font></b> <b><font color=#0000FF>false</font></b>;
+	}
+
+	<font color=#009900>int</font> x, y;
+	<font color=#009900>char</font> buffer[BUFFER_SIZE];
+
+	fin &gt;&gt; numOfColumn &gt;&gt; numOfRow;
+	fin.getline(buffer, BUFFER_SIZE); <i><font color=#9A1900>// remove the '\n'
+</font></i>	
+	cout &lt;&lt; <font color=#FF0000>"number of column = "</font> &lt;&lt; numOfColumn &lt;&lt; endl;
+	cout &lt;&lt; <font color=#FF0000>"number of row = "</font> &lt;&lt; numOfRow &lt;&lt; endl;
+
+	<i><font color=#9A1900>// build a 2D array
+</font></i>	cells.resize(numOfColumn);
+	<b><font color=#0000FF>for</font></b> (x = <font color=#993399>0</font>; x &lt; numOfColumn; ++x) {
+		cells[x].resize(numOfRow);
+	}
+
+	<i><font color=#9A1900>// load the values to the array
+</font></i>	<b><font color=#0000FF>for</font></b> (y = <font color=#993399>0</font>; y &lt; numOfRow; ++y) {
+		fin.getline(buffer, BUFFER_SIZE);
+		<b><font color=#0000FF>for</font></b> (x = <font color=#993399>0</font>; x &lt; numOfColumn; ++x) {
+			<font color=#009900>char</font> ch = buffer[x];
+
+			Cell* pC = GetCell(x, y);
+			pC-&gt;x = x;
+			pC-&gt;y = y;
+
+			<b><font color=#0000FF>if</font></b> (ch == <font color=#FF0000>'x'</font>) {
+				pC-&gt;state = Cell::State_Wall;
+			} <b><font color=#0000FF>else</font></b> <b><font color=#0000FF>if</font></b> (ch == <font color=#FF0000>' '</font>) {
+				pC-&gt;state = Cell::State_Empty;
+			} 
+			<b><font color=#0000FF>else</font></b> {
+				assert(<b><font color=#0000FF>false</font></b>);
+			}
+		}
+	}
+	fin.close();
+
+	<i><font color=#9A1900>// resize the window according to the dimension of the maze
+</font></i>	<b><font color=#0000FF>this</font></b>-&gt;resize(numOfColumn * CELL_WIDTH, numOfRow * CELL_HEIGHT);
+
+	repaint();
+
+	<b><font color=#0000FF>return</font></b> <b><font color=#0000FF>true</font></b>;
+}
+
+<font color=#009900>void</font> Maze::paintEvent(QPaintEvent* e)
+{
+
+	QPainter paint(<b><font color=#0000FF>this</font></b>);
+
+	<font color=#009900>int</font> x, y;
+	<b><font color=#0000FF>for</font></b> (y = <font color=#993399>0</font>; y &lt; numOfRow; ++y) {
+		<b><font color=#0000FF>for</font></b> (x = <font color=#993399>0</font>; x &lt; numOfColumn; ++x) {
+			Cell* pC = GetCell(x, y);
+
+			QColor color;
+
+			<b><font color=#0000FF>switch</font></b> (pC-&gt;state)
+			{
+				<b><font color=#0000FF>case</font></b> Cell::State_Wall:
+				{
+					color.setRgb(<font color=#993399>200</font>, <font color=#993399>0</font>, <font color=#993399>0</font>);  <i><font color=#9A1900>//red color for wall
+</font></i>					<b><font color=#0000FF>break</font></b>;
+				}
+				<b><font color=#0000FF>case</font></b> Cell::State_Empty:
+				{
+   					color.setRgb(<font color=#993399>0</font>, <font color=#993399>0</font>, <font color=#993399>0</font>);  <i><font color=#9A1900>// black color for space
+</font></i>                }
+			}
+
+			paint.fillRect(x * CELL_WIDTH, y * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT, color);
+		}
+	}	
+}
+
+Cell* Maze::GetCell(<font color=#009900>int</font> col, <font color=#009900>int</font> row) {
+	<b><font color=#0000FF>return</font></b> &amp;(cells[col][row]);
+}
+
+
+<font color=#009900>int</font> Maze::GetPixelWidth() <b><font color=#0000FF>const</font></b> {
+	<b><font color=#0000FF>return</font></b> numOfColumn * CELL_WIDTH;
+}
+
+<font color=#009900>int</font> Maze::GetPixelHeight() <b><font color=#0000FF>const</font></b> {
+	<b><font color=#0000FF>return</font></b> numOfRow * CELL_HEIGHT;
+}
+
+</tt>
+</pre>

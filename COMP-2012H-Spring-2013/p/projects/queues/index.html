@@ -1,0 +1,343 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>CS 2012h Project 3: Queues </TITLE>
+<META content="text/html; charset=iso-8859-1" http-equiv=Content-Type>
+<META content="Microsoft FrontPage 6.0" name=GENERATOR></HEAD>
+<BODY bgColor=#ffffff>
+<STYLE type=text/css>BODY {
+        FONT-FAMILY: Arial,Helvetica,sans-serif; FONT-SIZE: 10pt
+}
+TD {
+        FONT-FAMILY: Arial,Helvetica,sans-serif; FONT-SIZE: 10pt
+}
+LI {
+        FONT-FAMILY: Arial,Helvetica,sans-serif; FONT-SIZE: 10pt
+}
+.no_ul {
+        TEXT-DECORATION: none
+}
+</STYLE>
+
+<TABLE border=0 cellPadding=0 cellSpacing=5 width="100%">
+  <TBODY>
+  <TR>
+    <TD width=80><A
+      href="../../index.html"><IMG
+      border=0 height=130 src="../../img_files/logo_eye.gif" width=80></A></TD>
+    <TD vAlign=bottom>
+      <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
+        <TBODY>
+        <TR>
+          <TD><A class=no_ul
+            href="../../index.html"><FONT
+            color=#003366 face=Verdana,Arial,Helvetica,sans-serif size=4><B>
+            <FONT color=#ff9900>Object Oriented Programming and Data Structures</FONT></B></FONT> </A></TD></TR>
+        <TR>
+          <TD vAlign=top><IMG border=0 height=2 src="../../img_files/6699cc.gif"
+            width="100%"> </TD></TR>
+        <TR>
+          <TD><FONT color=#003366 face=Verdana,Arial,Helvetica,sans-serif
+            size=2><B>Spring Semester 2013</B></FONT>
+  </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE><!-- Body -->
+
+<TABLE border=0 cellPadding=0 cellSpacing=10 width="100%">
+  <TBODY>
+  <TR>
+    <TD>
+      <BLOCKQUOTE>&nbsp;
+        <TABLE cellPadding=10 width="100%">
+          <TBODY>
+          <TR>
+            <TD width=500><IMG src="queues.jpg" width=200></TD>
+            <TD width="100%">
+              <HR>
+
+              <H2>Project 3 : Queues</H2>
+	      
+              <TABLE>
+                <TBODY>
+                <TR>
+                  <TD><B>Assigned : Mar 29 </B> <BR><B>Due : Apr 12</B>
+                    <P style="MARGIN-BOTTOM: -5px; MARGIN-TOP: 0px">
+                    <P style="MARGIN-BOTTOM: -5px; MARGIN-TOP: 0px">
+                    <P style="MARGIN-BOTTOM: -5px; MARGIN-TOP: 0px">
+                    <BLOCKQUOTE>&nbsp;</BLOCKQUOTE>
+                  <TD width=50>
+                  <TD>
+                    <!---TABLE border=1>
+                      <TBODY>
+                      <TR>
+                        <TD colSpan=7>
+                          <CENTER><B> April/May</B></CENTER>
+                      <TR>
+                        <TD><B>S </B>
+                        <TD><B>M </B>
+                        <TD><B>T </B>
+                        <TD><B>W </B>
+                        <TD><B>T </B>
+                        <TD><B>F </B>
+                        <TD><B>S </B>
+                      <TR>
+						<TD>
+                        <TD>16
+                        <TD>17
+                        <TD >18
+                        <TD>19
+                        <TD >20
+                        <TD>21
+                        
+                      <TR>
+					    <TD >22
+                        <TD>23
+                        <TD >24
+                        <TD bgColor=#88ff88>25
+                        <TD>26
+                        <TD>27
+                        <TD>28
+                        
+                      <TR>
+					    <TD>29
+                        <TD>30
+                        <TD>1
+                        <TD>2
+                        <TD>3
+                        <TD>4
+                        <TD>5
+                        
+                      <TR>
+					    <TD>6
+                        <TD>7
+                        <TD>8
+                        <TD>9
+                        <TD>10
+                        <TD>11
+                        <TD>12
+					</TR>
+					<TR>
+						<TD>13
+						<TD >14
+						<TD >15
+						<TD bgcolor=#ff0000>16
+</TR></TBODY></TABLE----></TR></TBODY></TABLE>
+              <HR>
+            </TD></TR></TBODY></TABLE>
+        <H2>Quick Links</H2>
+        <OL> 
+	<!---LI><a href="prj4group.txt">Project 4 groups</a--->
+	<!---LI><a href="http://cssystem.cse.ust.hk/home.php?docbase=FAQ/hkust_only&req_url=FAQ/hkust_only/displayx.html">Displaying X applications to PC running Xwin32</a--->
+          <!--LI> <a href="assign_tetris_stuff/tetris.linux">Sample solution</a> 
+<font size=-2>(only runs on Linux!)</font--->
+          <LI> <a href="marking_scheme.htm">Marking Scheme</a>
+	<LI> Two main programs for checking your implementations: <a href="main_deque.cpp"><tt>main_deque.cpp</tt></a>, <a href="main_rand.cpp"><tt>main_rand.cpp</tt></a>
+          <LI> <a href="Subset">Sample Subset executable</a><font size=-2> (only runs on Linux!)</font> 
+          <LI> <a href="Palindrome">Sample Palindrome executable</a> <font size=-2> (only runs on Linux!)</font>
+</OL>
+
+        <H2>Project Description</H2>
+
+<font size=-2>This programming assignment is adopted from an assignment of a similar course offered at Princeton and
+is gratefully acknowledged.</font>
+<p>
+ 
+Write a generic data type for a deque (call the header file <tt>deque.h</tt>) and a randomized queue
+(call it <tt>randomized_queue.h</tt>). We also provided two main programs for testing your implementation:  <a href="main_deque.cpp"><tt>main_deque</tt></a>, <a href="main_rand.cpp"><tt>main_rand.cpp</tt></a>.
+
+The goal of this assignment is to implement elementary data structures
+using arrays and linked lists, and to introduce you to generics and
+iterators. 
+ 
+ 
+<p>
+<b>Dequeue.</b>
+A <em>double-ended queue</em> or <em>deque</em> (pronounced "deck")
+is a generalization of a 
+stack and a queue that supports inserting and removing items 
+from either the front or the back of the data structure.
+Create a data type <tt>Deque</tt>
+that supports the following API. 
+(Note: the following API is expressed in Java but you can easily implement it using C++ class).
+ 
+<blockquote>
+<pre>
+public class Deque&lt;Item&gt; implements Iterable&lt;Item&gt; {
+   public Deque()                    // construct an empty deque
+   public boolean isEmpty()          // is the deque empty?
+   public int size()                 // return the number of items on the deque
+   public void addFirst(Item item)   // insert the item at the front of the queue
+   public void addLast(Item item)    // insert the item at the end of the queue
+   public Item removeFirst()         // delete and return the first item in queue
+   public Item removeLast()          // delete and return the last item in queue
+   public Iterator&lt;Item&gt; iterator()  // return an iterator that examines the 
+                                     // items in order from front to back
+}
+</pre>
+</blockquote>
+ 
+<p>
+Throw a <tt>RuntimeException</tt> if the client attempts to remove an item
+from an empty deque. Again, if you prefer, you may alternatively use <tt> assert</tt> or if-then-else. The point is that your program should not crash if this exception occurs.
+ 
+<p>
+Your deque implementation should support each deque operation
+in <em>constant worst-case time</em>
+and use space proportional to the number of items <em>currently</em> in
+the deque.
+Additionally, your iterator implementation should support each iteration
+operation (including construction) in constant worst-case time,
+and use a constant amount of extra space per iterator.
+ 
+ 
+<p><b>Randomized queue.</b>
+A <em>randomized queue</em> is similar to a stack or queue, except that
+the item removed is chosen uniformly at random from items in
+the data structure.
+Create a generic data type <tt>RandomizedQueue</tt>
+that supports the following API.
+(Again note the following API is expressed in Java but you can easily implement it using C++ class).
+ 
+<blockquote>
+<pre>
+public class RandomizedQueue&lt;Item&gt; implements Iterable&lt;Item&gt; {
+   public RandomizedQueue()          // construct an empty randomized queue
+   public boolean isEmpty()          // is the queue empty?
+   public int size()                 // return the number of items on the queue
+   public void enqueue(Item item)    // add the item
+   public Item dequeue()             // delete and return a random item
+   public Item sample()              // return (but do not delete) a random item
+   public Iterator&lt;Item&gt; iterator()  // return an iterator that returns the items in random order
+}
+</pre>
+</blockquote>
+ 
+<p>
+Throw a <tt>RuntimeException</tt> if the client attempts to dequeue or sample from
+an empty randomized queue. 
+If you prefer, you may alternatively use <tt> assert</tt> or if-then-else. The point is that your program should not crash if this exception occurs.
+
+<p>
+Your randomized queue implementation should support each randomized queue operation
+(besides creating an iterator) in <em>constant amortized time</em> and
+use space proportional to number of items <em>currently</em> in the queue.
+That is, any sequence of <em>M</em> randomized queue operations (starting from
+an empty queue) should take at most <em>cM</em> steps for some constant <em>c</em>.
+Additionally, your iterator implementation should support each iteration
+operation (besides construction) in constant worst-case time,
+and use a linear amount of extra space per iterator.
+ 
+ 
+ 
+<p>
+<b>Clients.</b>
+Write a client program to solve each of the following problems.
+Use one variable of either type <tt>Deque</tt> or <tt>RandomizedQueue</tt> in
+each client.
+Use generics to avoid casting in your clients.
+ 
+<ul>
+ 
+<p><li>
+Write a program <tt>Subset</tt> that takes a command-line argument <tt>k</tt>, 
+reads in a sequence of strings from standard input, and prints out a subset of
+exactly <tt>k</tt> of them, uniformly at random.
+<font color = red>Each element from the set can appear in a
+subset at most once.</font>
+ 
+<blockquote>
+<pre>
+% <b>echo A B C D E F G H I | Subset 3</b>
+C
+G
+A
+ 
+% <b>echo A B C D E F G H I | Subset 3</b>
+E
+F
+G
+</pre>
+</blockquote>
+ 
+ 
+<p><li>
+Write a program <tt>Palindrome</tt> that
+reads in a sequence of characters from standard input
+using <tt>StdIn.readChar()</tt> and determines 
+whether that sequence represents a <em>Watson-Crick
+complemented palindrome</em>: the {A, C, T, G}-sequence
+equals its reverse
+when you replace each base with its complement: A-T, C-G).
+Palindromes in DNA have many important biological roles.
+For example, tumor cells frequently amplify their genes by
+forming DNA palindromes.
+ 
+<blockquote>
+<pre>
+% <b>echo AAAACGTTTT | Palindrome</b>       % <b>echo AAAACTTTT | Palindrome</b>
+true                                 false
+ 
+% <b>echo AGCTAGCT | Palindrome</b>         % <b>echo agctagct | Palindrome</b>
+true                                 false
+ 
+% <b>echo | Palindrome</b>                  % <b>echo A | Palindrome</b>
+true                                 false
+</pre>
+</blockquote>
+ 
+ 
+</ul>
+ 
+<p>
+<b>Deliverables.</b>
+Submit the data types <tt>RandomizedQueue</tt> and <tt>Deque</tt>.
+Each data type should include its own <tt>main()</tt> that thoroughly 
+tests the associated operations.
+You may not call any library functions other than those in the standard library.
+Also submit the client programs <tt>Subset</tt>  and <tt>Palindrome</tt>.
+Finally, submit a <a href = "readme.txt">
+readme.txt</a> file and answer the questions.
+ 
+
+
+<h2><font size="5">What to submit</font></h2>
+    <ol>
+      <li>All the source code (.cpp and .h), but not the object code or
+      executable</li>
+      <li>Makefile and readme.txt
+            <li>Zip (1) and (2) inside a file called <b>queues.zip</b>, and upload
+		the file to CASS before 23:59:00 on the due date.
+                <i>Warning: If your submitted project fails to compile,
+                your assignment will be treated as <b>late</b> (where late policy applies). </i></li>
+
+</li>
+    </ol>
+
+<p>&nbsp;</p>
+
+  <TR>
+      <TD vAlign=top><IMG border=0 height=2 src="../img_files/6699cc.gif" width="100%"> </TD></TR>
+        </TABLE>
+      <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
+        <TBODY>
+        <TR>
+          <TD vAlign=top><FONT color=#999999 size=1>&nbsp;&nbsp;&nbsp;design by
+            <A href="http://www.cse.ust.hk/~pang">Tai Pang WU</A>, maintenance
+            by <A href="http://www.cse.ust.hk/~cktang/">Chi Keung Tang</A>.
+</FONT></TD>
+          <TD align=right vAlign=top><A class=no_ul
+            href="../../index.html"><FONT
+            color=#000000><B>CS 2012h Object Oriented Programming and Data Structures</B>
+            </FONT></A><BR>Spring Semester 2013<BR>&nbsp; </TD>
+          <TD>&nbsp;</TD>
+          <TD vAlign=top width=40><A
+            href="../../index.html"><IMG
+            border=0 height=40 src="../../img_files/pixel_cube.gif" width=40></A>
+          </TD></TR>
+        <TR>
+          <TD>&nbsp;</TD>
+          <TD align=right vAlign=top><FONT color=#999999>Last modified:
+Fri Feb  4 17:18:13 HKT 2013
+            </FONT> </TD>
+          <TD>&nbsp;</TD>
+          <TD>&nbsp;</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></BODY></HTML>
+
+
+</body>
+</html>

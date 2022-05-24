@@ -1,0 +1,400 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Lab 07 Data Display Debugger</title>
+<meta name="Microsoft Theme" content="blends 011">
+</head>
+
+<body background="blegtext.gif" bgcolor="#CCCCCC" text="#000000" link="#993300" vlink="#0000FF" alink="#FF9900">
+
+<!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+<blockquote>
+  <!--mstheme--></font>
+  <h2 align="center" style="line-height: 200%; margin-top: 5">
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <font face="Tahoma" size="5">Lab 07 Data Display Debugger (DDD)</font><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <h2 style="margin-top: 30px"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Objective<!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font size="4">Use DDD for program debugging</font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font size="4">Assertion</font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <h2><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Lab Work<!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <p><font face="Arial">The purpose of debugger such as DDD is to allow you to 
+  see what is going on &quot;inside&quot; another program while it executes ---- or what 
+  another program was doing at the moment it crashed.</font></p>
+  <!--mstheme--></font>
+  <h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Summary of DDD<!--mstheme--></font></h3>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <p><font face="Arial">DDD can do four main kinds of things (plus other things 
+  in support of these) to help you catch bugs in the act:</font></p>
+  <!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font face="Arial">Start your program, specifying anything that might 
+      affect its behavior.</font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font face="Arial">Make your program stop on specified conditions.</font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font face="Arial">Examine what has happened, when your program has 
+      stopped.</font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font face="Arial">Change things in your program, so you can experiment 
+      with correcting the effects of one bug and go on to learn about another.</font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <h2 style="margin-top: 30px"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <font face="Trebuchet MS" size="4">A sample DDD session</font><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <p style="margin-top: 30px"><font face="Arial">Download the program
+  <a href="lab07/sample.cpp">sample.cpp</a>. Compile it to generate executable 
+  file: sample </font></p>
+  <p ALIGN="LEFT">Normally, sample should sort and print its arguments 
+  numerically, as in the following example:</p>
+  <p ALIGN="LEFT"><b><font color="#000080">&gt;&gt; ./sample 8 7 5 4 1 3</font></b></p>
+  <p ALIGN="LEFT"><b><font color="#000080">1 3 4 5 7 8</font></b></p>
+  <p ALIGN="LEFT">However, with certain arguments, this goes wrong:</p>
+  <p ALIGN="LEFT"><b><font color="#000080">&gt;&gt; ./sample 8000 7000 5000 1000 4000</font></b></p>
+  <p ALIGN="LEFT"><b><font color="#000080">0 1000&nbsp; 4000 5000 7000</font></b></p>
+  <p ALIGN="LEFT">Let us use ddd to see what is going on:</p>
+  <!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <p ALIGN="LEFT">First, you must compile ‘sample.c’ for debugging, giving 
+      the ‘<b>-g</b>’ flag while compiling: (see
+      <a href="#compiling for debugging">compiling for debugging</a>)<!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <font SIZE="3" face="Arial" color="#000080">
+  <p ALIGN="LEFT"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  &gt;&gt; gcc -g -o sample sample.cpp</b></p>
+  </font><font FACE="Courier" SIZE="3"><!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <p ALIGN="LEFT">Then, you can invoke ddd on the sample executable: (see
+      <a href="#in and out">getting in and out of DDD</a>)<!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <p ALIGN="LEFT"><b><font color="#000080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  &gt;&gt; ddd sample</font></b></p>
+</blockquote>
+<p ALIGN="LEFT">
+<img border="0" src="lab07/initial.JPG" width="870" height="624" hspace="6"></p>
+</font>
+<blockquote>
+  <font FACE="Courier" SIZE="3"><b><!--mstheme--></font>
+  <h3 ALIGN="LEFT"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">&nbsp;<!--mstheme--></font></h3>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"></font>
+  <font SIZE="3" face="Arial">
+  <p ALIGN="LEFT">And then begin debugging ... ...</p>
+  </font>
+  <p ALIGN="LEFT">&nbsp;</p>
+  <!--mstheme--></font>
+  <h3 ALIGN="LEFT"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <a name="in and out"></a>Getting In and Out of DDD<!--mstheme--></font></h3>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"></b>
+  <!--mstheme--></font><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+      <td valign="top" width="42">
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"><!--mstheme--></font></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <p ALIGN="LEFT">Type ‘<b>ddd</b>’ to start ddd <!--mstheme--></font></td>
+    </tr>
+    <tr>
+      <td valign="baseline" width="42">
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"><!--mstheme--></font></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <p ALIGN="LEFT">Use ‘<b>File&gt; Exit</b>’ or <b>Ctrl</b>+</font><b><font SIZE="3" face="Arial">Q</font><i><font SIZE="3" face="Arial">
+      </font></i></b><font FACE="Courier" SIZE="3"><font FACE="Arial" SIZE="3">
+      to exit </font></font></font><!--mstheme--></font></td>
+    </tr>
+    <font FACE="Courier" SIZE="3"></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><b><!--mstheme--></font>
+  <h3 ALIGN="LEFT"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">The DDD Windows<!--mstheme--></font></h3>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"></b>
+  <font FACE="Arial" SIZE="3">
+  <p ALIGN="LEFT">ddd is composed of three main windows. From top to bottom, we 
+  have:</p>
+  </font>
+    </font>
+    <font SIZE="3"><font SIZE="3" face="Arial"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <p ALIGN="LEFT">The <i>Data Window</i> shows the current data of the 
+      debugged program. <!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <p ALIGN="LEFT">The <i>Source Window</i> shows the current source code of 
+      the debugged program. <!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <p ALIGN="LEFT">The <i>Debugger Console</i> accepts debugger commands and 
+      shows debugger messages. <!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"></font>
+    </font>
+    <font FACE="Courier" SIZE="3"><b><!--mstheme--></font>
+  <h3 ALIGN="LEFT"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <a name="compiling for debugging"></a>Navigating through the Code<!--mstheme--></font></h3>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"></b>
+  <font FACE="Courier" SIZE="3"><font FACE="Arial"><b>
+  <p ALIGN="LEFT">Compiling for Debugging</p>
+  </b></font><font FACE="Arial" SIZE="3">
+  <p ALIGN="LEFT">In order to debug a program effectively, you need to generate
+  <i>debugging information</i> when you compile it. This debugging information 
+  is stored in the object file; it describes the data type of each variable or 
+  function and the correspondence between source line numbers and addresses in 
+  the executable code.</font></p>
+  </font><font SIZE="3" face="Arial">
+  <p ALIGN="LEFT">To request debugging information, specify the ‘<b>-g</b>’ 
+  option when you run the compiler.</p>
+  <p ALIGN="LEFT">Note: When you debug a program compiled with ‘<b>-g -o</b>’, 
+  remember that the optimizer is rearranging your code; the debugger shows you 
+  what is really there. Do not be too surprised when the execution path does not 
+  exactly match your source file! An extreme example: if you define a variable, 
+  but never use it, ddd never sees that variable—because the compiler optimizes 
+  it out of existence.</p>
+  </font><!--mstheme--></font>
+  <h3 ALIGN="LEFT"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Stopping the Progran<!--mstheme--></font></h3>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+      <td valign="top" width="42">
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"><!--mstheme--></font></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <!--mstheme--></font>
+      <h4 ALIGN="LEFT"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Breakpoints<!--mstheme--></font></h4>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font><table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+          <td valign="top" width="42">
+          <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+          <img src="blebul2a.gif" width="12" height="12" hspace="15" alt="bullet"><!--mstheme--></font></td>
+          <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+          <p ALIGN="LEFT" style="margin-top: 2"><font face="Arial">setting breakpoints by location</font></p>
+          <font SIZE="3" face="Arial">
+          <p ALIGN="LEFT" style="margin-top: 0; margin-bottom: 0">If the source 
+          line is visible, click on the left of the source line and then on the 
+          ‘Break’ button.</font></p>
+          <p ALIGN="LEFT" style="margin-top: 0; margin-bottom: 0">
+          <font face="Arial">
+          <font SIZE="3">or, you can simply right click on the left of the 
+          source line and select the ‘Set Breakpoint</font>’ item from the line 
+          popup menu.</font></p>
+          <p ALIGN="LEFT" style="margin-top: 0; margin-bottom: 0">
+          <font face="Arial">or,&nbsp; you 
+          can simply double-click on the left of the source line to set a 
+          breakpoint.</font></p>
+          <p ALIGN="LEFT" style="margin-top: 0; margin-bottom: 0">&nbsp;<!--mstheme--></font></td>
+        </tr>
+        <font SIZE="3"><tr>
+          <td valign="baseline" width="42">
+          <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+          <img src="blebul2a.gif" width="12" height="12" hspace="15" alt="bullet"><!--mstheme--></font></td>
+          <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+          <p ALIGN="LEFT"><font face="Arial">setting breakpoints by name</font></p>
+          <p ALIGN="LEFT" style="margin-top: 0; margin-bottom: 0">
+          <font face="Arial">Click on the 
+          function name. The function name is then copied to the argument field. 
+          Click on the ‘Break’ button to set a breakpoint there.</font></p>
+          <p ALIGN="LEFT" style="margin-top: 0; margin-bottom: 0">
+          <font face="Arial">or, you can 
+          simply right click<i> </i>on the function name and select the ‘Break 
+          at’ item from the popup menu.</font></p>
+          <p ALIGN="LEFT" style="margin-top: 0; margin-bottom: 0">
+          <font face="Arial">or, you can 
+          click on ‘Break...’ from the Breakpoint editor (invoked through 
+          ‘Source&gt;Breakpoints’) and enter the function name.</font></p>
+          <p ALIGN="LEFT" style="margin-top: 0; margin-bottom: 0">&nbsp;<!--mstheme--></font></td>
+        </tr>
+        <tr>
+          <td valign="baseline" width="42">
+          <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+          <img src="blebul2a.gif" width="12" height="12" hspace="15" alt="bullet"><!--mstheme--></font></td>
+          <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+          <p ALIGN="LEFT" style="margin-top: 0; margin-bottom: 0">
+          <font face="Arial">deleting 
+          breakpoints</font></p>
+          <font SIZE="3" face="Arial">
+          <p ALIGN="LEFT" style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+          <font SIZE="3">
+          <p ALIGN="LEFT" style="margin-top: 0; margin-bottom: 0">Right click on 
+          the breakpoint and select the ‘Delete Breakpoint’ item from the popup 
+          menu.</p>
+          <p ALIGN="LEFT" style="margin-top: 0; margin-bottom: 0">or, you can 
+          select the breakpoint and click on ‘Delete’ in the Breakpoint editor 
+          (invoked through ‘Source&gt;Breakpoints’).</p>
+          <p ALIGN="LEFT" style="margin-top: 0; margin-bottom: 0">or, you can 
+          simply double-click on the breakpoint while holding </font></font>
+          <font face="Arial">
+          </font></font>'Ctrl' 
+          button.</font></p>
+          <p ALIGN="LEFT" style="margin-top: 0; margin-bottom: 0">&nbsp;<!--mstheme--></font></td>
+        </tr>
+        </table>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font></td>
+    </tr>
+    </font><font SIZE="3" face="Arial"><tr>
+      <td valign="baseline" width="42">
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"><!--mstheme--></font></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <!--mstheme--></font>
+      <h4 ALIGN="LEFT"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Watchpoints<!--mstheme--></font></h4>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font><table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+          <td valign="top" width="42">
+          <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+          <img src="blebul2a.gif" width="12" height="12" hspace="15" alt="bullet"><!--mstheme--></font></td>
+          <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+          <p ALIGN="LEFT" style="margin-top: 2"><font face="Arial">setting watchpoints</font></p>
+          <p ALIGN="LEFT" style="margin-top: 0; margin-bottom: 0">
+          <font face="Arial">If the 
+          variable name is visible, click on the variable name. The variable 
+          name is copied to the argument field. </font> </p>
+          <p ALIGN="LEFT" style="margin-top: 0; margin-bottom: 0">
+          <font face="Arial">Otherwise, 
+          enter the variable name in the argument field. Click on the ‘Watch’ 
+          button to set a watchpoint there.</font></p>
+          <p ALIGN="LEFT" style="margin-top: 0; margin-bottom: 0">&nbsp;<!--mstheme--></font></td>
+        </tr>
+        <font SIZE="3"><tr>
+          <td valign="baseline" width="42">
+          <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+          <img src="blebul2a.gif" width="12" height="12" hspace="15" alt="bullet"><!--mstheme--></font></td>
+          <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+          <p ALIGN="LEFT"><font face="Arial">deleting watchpoints</font></p>
+          <p ALIGN="LEFT"><font face="Arial">To delete a watchpoint, enter the name of the watched 
+          variable in the argument field and click the ‘Unwatch’ button.</font></p>
+          <font SIZE="3" face="Arial">
+          <p ALIGN="LEFT">&nbsp;</font><!--mstheme--></font></td>
+        </tr>
+        </table>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font></td>
+    </tr>
+    <tr>
+      <td valign="baseline" width="42">
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"><!--mstheme--></font></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <!--mstheme--></font>
+      <h4 ALIGN="LEFT" style="margin-top: -1; margin-bottom: 0"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Interrupting<!--mstheme--></font></h4>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font></td>
+    </tr>
+    </table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"></font>
+  <font SIZE="3" face="Arial"><font SIZE="3">
+  <blockquote>
+    <p ALIGN="LEFT" style="line-height: 150%; margin-top: 0; margin-bottom: 0">
+    If the program is already running, you can interrupt it any time by clicking 
+    the ‘Interrupt’ button.</font></p>
+    <font SIZE="3">
+    <p ALIGN="LEFT" style="line-height: 150%; margin-top: 0; margin-bottom: 0">
+    ‘Interrupt’ and </font></font><font face="Arial">'ESC'</font><font SIZE="3" face="Arial"><font SIZE="1">
+    </font><font SIZE="3">button also interrupt a running debugger command, such 
+    as printing data.</p>
+  </blockquote>
+  </font>
+  <p ALIGN="LEFT">&nbsp;</p>
+  </font><!--mstheme--></font>
+  <h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <font face="Trebuchet MS">Assertion</font><!--mstheme--></font></h3>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <font SIZE="3" face="Arial">
+  <p>Instead of using debugger in C++. Many of the techniques used in writing 
+  robust in C++ code. For example, if you have a function that is supposed to be 
+  passed a person's name, as a char*, it would be wise to say: </p>
+  <blockquote>
+  <p><br>
+  <b><font color="#000080">#include &lt;assert.h&gt;</font></b></p>
+  <p><b><font color="#000080">void f (char* name)<br>
+  {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; assert(name &amp;&amp; *name);</font></b></p>
+  <p><b><font color="#000080">...<br>
+  }</font></b></p>
+  </blockquote>
+  <p>to perform basic checks on the passed-in pointer. assert() is a function 
+  (actually a macro) that checks whether its argument is true (non-zero), and 
+  aborts the program if not. </p>
+  <p><br>
+  C++ offers additional opportunities to the designer interested in producing 
+  quality code. For example, consider a common problem in C++, where array 
+  boundary index are not checked during a dereference operation, and a bad 
+  location is accessed or written to. </p>
+  <blockquote>
+  <p><b><font color="#000080">int arr[3];<br>
+  i = 103; <br>
+  assert (i &lt; 3); <br>
+  arr[i] = 151;</font></b></p>
+  </blockquote>
+  <p>Then assert () will abort the program and report the line of error occur as 
+  the index of this array is out of bound. </p>
+  </font><!--mstheme--></font>
+<h2><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">&nbsp;<!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+<h2><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+<font face="Trebuchet MS">Task</font><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+<p><font face="Arial">Download program: <a href="lab07/test2.cpp">test2.cpp</a> 
+and file <a href="lab07/mark.txt">mark.txt</a> (input file in the program).
+</font></p>
+<p><font face="Arial">Try to use the debugging tools to find out the error in 
+the program and correct it.&nbsp; The output file should be:
+<a href="lab07/grade.txt">grade.txt</a>.</font></p>
+<p><font face="Arial">Here is the <!--a href="lab07/Solution2.cpp"-->solution</a>.</font></p>
+<p>&nbsp;</p>
+  </blockquote>
+<!--mstheme--></font>
+
+</body>
+
+</html>

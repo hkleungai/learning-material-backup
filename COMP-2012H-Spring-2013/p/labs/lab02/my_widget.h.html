@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<TITLE>my_widget.h.html</TITLE>
+</HEAD>
+<BODY BGCOLOR=#FFFFFF TEXT=#000000>
+<PRE>
+<FONT COLOR=#a020f0>#include </FONT><FONT COLOR=#ff00ff>&lt;qmainwindow.h&gt;</FONT>
+<FONT COLOR=#a020f0>#include </FONT><FONT COLOR=#ff00ff>&lt;qmessagebox.h&gt;</FONT>
+<FONT COLOR=#a020f0>#include </FONT><FONT COLOR=#ff00ff>&lt;qpopupmenu.h&gt;</FONT>
+<FONT COLOR=#a020f0>#include </FONT><FONT COLOR=#ff00ff>&lt;qmenubar.h&gt;</FONT>
+<FONT COLOR=#a020f0>#include </FONT><FONT COLOR=#ff00ff>&lt;qpushbutton.h&gt;</FONT>
+<FONT COLOR=#a020f0>#include </FONT><FONT COLOR=#ff00ff>&lt;qapplication.h&gt;</FONT>
+
+<FONT COLOR=#a020f0>#ifndef _MY_WIDGET_H</FONT>
+<FONT COLOR=#a020f0>#define _MY_WIDGET_H</FONT>
+
+<B><FONT COLOR=#2e8b57>class MyMainWindow:</FONT></B> <B><FONT COLOR=#853e26>public</FONT></B> QMainWindow {
+	<FONT COLOR=#5151fb>// All classes that contain signals or slots</FONT>
+	<FONT COLOR=#5151fb>// must mention Q_OBJECT in their declaration.</FONT>
+	Q_OBJECT
+
+	<B><FONT COLOR=#853e26>public</FONT></B>:
+	MyMainWindow(QWidget* parent = <FONT COLOR=#ff00ff>0</FONT>, <B><FONT COLOR=#2e8b57>const</FONT></B> <B><FONT COLOR=#2e8b57>char</FONT></B>* name = <FONT COLOR=#ff00ff>0</FONT>);
+
+	<FONT COLOR=#5151fb>// user defined slots</FONT>
+	<B><FONT COLOR=#853e26>public</FONT></B> slots:
+	<B><FONT COLOR=#2e8b57>void</FONT></B> OnTesting();
+	<B><FONT COLOR=#2e8b57>void</FONT></B> OnExit();
+	<B><FONT COLOR=#2e8b57>void</FONT></B> OnAbout();
+
+	<B><FONT COLOR=#853e26>private</FONT></B>:
+	<FONT COLOR=#5151fb>// build the menu</FONT>
+	<B><FONT COLOR=#2e8b57>void</FONT></B> CreateMenu();
+
+	QPushButton* buttonExit;
+};
+
+<FONT COLOR=#a020f0>#endif</FONT>
+</PRE>
+</BODY>
+</HTML>
