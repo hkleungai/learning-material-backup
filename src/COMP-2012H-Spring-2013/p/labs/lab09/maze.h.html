@@ -1,0 +1,66 @@
+<pre>
+<tt>
+<b><font color=#0000FF>#include</font></b> <font color=#FF0000>&lt;qwidget.h&gt;</font>
+<b><font color=#0000FF>#include</font></b> <font color=#FF0000>&lt;cassert&gt;</font>
+<b><font color=#0000FF>#include</font></b> <font color=#FF0000>&lt;vector&gt;</font>
+<b><font color=#0000FF>using</font></b> <b><font color=#0000FF>namespace</font></b> std;
+
+<b><font color=#0000FF>#ifndef</font></b> _MAZE_H
+<b><font color=#0000FF>#define</font></b> _MAZE_H
+
+<i><font color=#9A1900>// the coordinate system is:
+</font></i><i><font color=#9A1900>// (x = 0, y = 0) is at the top-left corner.
+</font></i><i><font color=#9A1900>// x is the horizontal axis, y is the vertical axis.
+</font></i>
+<b><font color=#0000FF>class</font></b> Maze;
+
+<b><font color=#0000FF>class</font></b> Cell {
+	<b><font color=#0000FF>friend</font></b> <b><font color=#0000FF>class</font></b> Maze;
+
+	<b><font color=#0000FF>public</font></b>:
+
+	<font color=#009900>int</font> GetX() <b><font color=#0000FF>const</font></b> { <b><font color=#0000FF>return</font></b> x; }
+	<font color=#009900>int</font> GetY() <b><font color=#0000FF>const</font></b> { <b><font color=#0000FF>return</font></b> y; }
+
+	<b><font color=#0000FF>private</font></b>:
+	<b><font color=#0000FF>enum</font></b> State {State_Wall, State_Empty};
+	State state;
+
+	<font color=#009900>int</font> x, y;
+};
+
+<b><font color=#0000FF>class</font></b> Maze: <b><font color=#0000FF>public</font></b> QWidget
+{
+	Q_OBJECT
+
+	<b><font color=#0000FF>public</font></b>:
+	<i><font color=#9A1900>// constructor
+</font></i>	Maze(QWidget* parent = <font color=#993399>0</font>, <b><font color=#0000FF>const</font></b> <font color=#009900>char</font>* name = <font color=#993399>0</font>);
+
+	<i><font color=#9A1900>// destructor
+</font></i>	~Maze();
+
+	<i><font color=#9A1900>// load the maze information from filename
+</font></i>	<font color=#009900>bool</font> Load(<b><font color=#0000FF>const</font></b> <font color=#009900>char</font>* filename);
+
+	<i><font color=#9A1900>///////////////////
+</font></i>	<i><font color=#9A1900>// event handlers
+</font></i>	<i><font color=#9A1900>///////////////////
+</font></i>	<b><font color=#0000FF>virtual</font></b> <font color=#009900>void</font> paintEvent(QPaintEvent* e);
+
+	Cell* GetCell(<font color=#009900>int</font> x, <font color=#009900>int</font> y);
+
+	<i><font color=#9A1900>// get the graphical width/height of this widget
+</font></i>	<font color=#009900>int</font> GetPixelWidth() <b><font color=#0000FF>const</font></b>;
+	<font color=#009900>int</font> GetPixelHeight() <b><font color=#0000FF>const</font></b>;
+
+	<b><font color=#0000FF>private</font></b>:
+
+	vector&lt;vector&lt;Cell&gt; &gt; cells;
+	<font color=#009900>int</font> numOfColumn;
+	<font color=#009900>int</font> numOfRow;
+};
+
+<b><font color=#0000FF>#endif</font></b>
+</tt>
+</pre>

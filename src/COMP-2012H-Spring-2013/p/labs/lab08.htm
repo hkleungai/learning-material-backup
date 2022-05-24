@@ -1,0 +1,249 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>COMP152h lab08</title>
+<meta name="Microsoft Theme" content="blends 011">
+<style>
+<!--
+H4 {
+	FONT-WEIGHT: bold; FONT-SIZE: 18pt; FONT-FAMILY: "Arial", "Helvetica", "sans-serif"
+}
+-->
+</style>
+</head>
+
+<body background="blegtext.gif" bgcolor="#CCCCCC" text="#000000" link="#993300" vlink="#0000FF" alink="#FF9900">
+
+<!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+
+<blockquote>
+  <!--mstheme--></font>
+  <h2 align="center" style="line-height: 200%; margin-top: 5">
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <font face="Tahoma" size="5">Lab 0<span lang="zh-cn">8</span>
+  <span lang="zh-cn">Class Inheritance</span></font><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <h2 style="margin-top: 30px"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <span lang="zh-cn">Contents</span><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <span lang="zh-cn"><font size="4">Introduction to Class Inheritance</font></span><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <span lang="zh-cn"><font size="4">Access Control in Class Inheritance</font></span><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <span lang="zh-cn"><font size="4">Constructor and Destructor</font></span><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <span lang="zh-cn"><font size="4">Substitution Principle</font></span><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <h2 style="margin-top: 30px"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099"><span lang="zh-cn">Review</span><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <!--mstheme--></font>
+      <h3>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+      <font size="5">Class Inheritance </font><!--mstheme--></font></h3>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+<P><font face="Arial">Using inheritance permits us to reuse code. Rather than 
+reimplementing shared characteristics, a class inherits the data members and 
+member functions of its parent class.</font></P>
+<p><b><i><font face="Arial">Class derivation</font></i></b></p>
+<font face="Arial">In C++, inheritance is supported through a mechanism referred 
+to as class derivation. The class that is being inherited is called <b>base 
+class</b> and the new class is called <b>derived class</b>. In order to derive 
+class from a base class, we should declare the derived class as follow: </font>
+<blockquote>
+<p><i><font face="Arial"><b><font color="#0000FF">class</font> 
+derived_class_name : <font color="#0000FF">public</font> base_class_name {<br>
+</b>// member functions, and variables, etc.<br>
+// ...<br>
+<b>}</b></font></i></p>
+</blockquote>
+<p><font face="Arial">For example, we have: </font></p>
+<blockquote>
+<p><i><font face="Arial"><b><font color="#0000FF">class</font> B {<br>
+</b>// ...<br>
+<b>}; <br>
+<br>
+<font color="#0000FF">class</font> D : <font color="#0000FF">public</font> B {<br>
+</b>// ...<br>
+<b>};</b></font></i></p>
+        </blockquote>
+<p><font face="Arial">then B is a base class; D is a derived class of B.<br>
+<br>
+Further, if we have:</font></p>
+<blockquote>
+<p><i><font face="Arial"><b><font color="#0000FF">class</font> DD :
+<font color="#0000FF">public</font> D {<br>
+</b>// ...<br>
+<b>};</b></font></i></p>
+        </blockquote>
+<p><font face="Arial">the DD is a derived class of D, and an indirect derived 
+class of B.</font></p>
+        </blockquote>
+      <p>&nbsp;<!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <!--mstheme--></font>
+      <h3>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+      <font size="5">Access Control</font><!--mstheme--></font></h3>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+<p><font face="Arial">Let's see an example: <a href="lab08/derive.cpp">
+derive.cpp</a>. (see <a href="lab08/out1.txt">output</a>) </font></p>
+<p><b><i><font face="Arial">Member Accessibility</font></i></b></p>
+<p><font face="Arial">A <b>public</b> member would be accessed within or outside 
+the class; While a <b>private</b> member would only be accessed within the 
+class.<br>
+<br>
+<b>Protected</b> members are similar to private members, its only difference 
+occurs when deriving classes. Protected members could not be accessed outside 
+the base class, but it would be accessed within derived classes deriving the 
+base class.<br>
+<br>
+In the above example, width and height are protected member of CPolygon. They 
+could not be accessed directly in main( ). They would, however, be accessed in 
+the derived class; i.e. CRectangle and CTriangle.<br>
+<br>
+Noted that:<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private members (cannot access by the 
+derived class)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; constructors<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; destructors<br>
+<br>
+in base class would never be inherited in derived class</font></p>
+          </blockquote>
+          <p>&nbsp;<!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <!--mstheme--></font>
+<h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099"><font size="5">
+Construction and Destruction</font><!--mstheme--></font></h3>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+    <font face="Arial">Although constructers are not inherited in class 
+    derivation, the default constructor are called when a object of a derived 
+    class is created.<br>
+    <br>
+    If the base class has no default constructor (it then has an overloaded 
+    constructor) or we want to call an specified overloaded constructor when a 
+    object of a derived class is created, we could use the &quot;<b>colon syntax</b>&quot;:</font><blockquote>
+<p><i><font face="Arial"><b>derived_class_name</b></font></i><font face="Arial"><i><b> 
+(parameters)</b></i></font><i><font face="Arial"><b> : base_class_name</b></font></i><font face="Arial"><i><b> 
+(parameters)</b></i></font><i><font face="Arial"><b> {<br>
+</b>// ...<br>
+<b>}</b></font></i></p>
+    </blockquote>
+    <p><font face="Arial"><b><i>Order<br>
+    </i></b><br>
+    The order of calling the constructor when a object of derived class is 
+    created:<br>
+    <br>
+&nbsp;&nbsp;&nbsp;&nbsp; 1. base class constructor <br>
+&nbsp;&nbsp;&nbsp;&nbsp; 2. member constructors (in the order according to class 
+    declaration) <br>
+&nbsp;&nbsp;&nbsp;&nbsp; 3. derived class constructor <br>
+    <br>
+    The order of destructor calling is the reverse of the order constructor be 
+    calling. <br>
+    <br>
+    Let's see an example: <a href="lab08/order.cpp">order.cpp</a>. (see
+    <a href="lab08/out2.txt">output</a>)<br>
+&nbsp;</font></p>
+  </blockquote>
+      <!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <!--mstheme--></font>
+<h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+<font size="5">Substitution principle</font><!--mstheme--></font></h3>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+    <font face="Arial">In class derivation, all non-private members in base 
+    class are inherited in derived class. Every function provided by the base 
+    would also be provided by the derived class. A <b>&quot;is-a&quot; relation </b>is 
+    maintain between the classes. We would say every object of a derived class 
+    is a object of its base class. Where an object of base class needed, an 
+    object of the derived class would be used instead.</font><P>
+    <font face="Arial">Let's see an example: <a href="lab08/sub.cpp">sub.cpp</a>. 
+    (see <a href="lab08/out3.txt">output</a>)</font></P>
+    </blockquote>
+  <!--mstheme--></font>
+  <h2><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Task<!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+<P><font face="Arial">Download files: <a href="lab08/Money.h">Money.h</a> and
+<a href="lab08/Money.cpp">Money.cpp</a>, <a href="lab08/ExtMoney.h">ExtMoney.h</a> 
+and <a href="lab08/main.cpp">main.cpp</a>.<br>
+<br>
+Your tasks:<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp; 1. Write &quot;ExtMoney.cpp&quot; to implement member functions 
+for derived class <b>ExtMoneyType</b>. <br>
+&nbsp;&nbsp;&nbsp;&nbsp; 2. Compile and run these files. What is printed by &quot;main.cpp&quot;?
+<br>
+<br>
+Notice:<br>
+<br>
+Although <b>ExtMoneyType</b> inherits the private member variables from its base 
+class, it does not have direct access to them. <b>ExtMoneyType</b> must use the 
+public member functions of <b>MoneyType</b> to access its inherited member 
+variables.</font></P>
+    </blockquote>
+</blockquote>
+
+<!--mstheme--></font>
+
+</body>
+
+</html>

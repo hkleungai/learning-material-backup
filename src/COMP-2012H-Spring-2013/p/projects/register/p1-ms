@@ -1,0 +1,451 @@
+Correctness mark distribution
+0_compile	 70
+1_init		 45
+2_iformat	 34
+3_cformat	 21
+4_student	120
+5_course	120
+6_register	108
+7_regdel	 52
+8_io		 50
+9_html		 50
+others		 30
+--------------------
+Total		700
+
+-----------------------------------------------------------------------
+0_compile 	{70}       
+- compile successfully
+- shows main menu
+-----------------------------------------------------------------------
+1_init 		{45}
+** All cases are independent
+1. Student Information (ID = 12345678)
+   1a Modify student information (student not exist)	
+   1b Delete student information (student not exist)	
+   1c Query student information  (student not exist)	
+2. Course Information (Code = COMP151)
+   2a Modify course information (course not exist)	
+   2b Delete course information (course not exist)	
+   2c Query course information (course not exist)	
+3. Register Course (ID = 12345678)
+   3a Add a course (student not exist)	
+   3b Drop a course (student not exist)	
+   3c Modify a course (student not exist)	
+   3d Query registeration (student not exist)	
+4. Report Management
+   4a List all student information (Students.html)	
+      - shows "No student" in Students.html
+   4b List all course information (Courses.html)	
+      - show "No course" in Courses.html
+   4c List all course of a student (ID = 12345678)	
+      - (student not exist)
+   4d List all students of a course (code = COMP151)	
+      - (course not exist)
+5. Save to database	
+   - (filename=data0.dat)
+   - check data0.dat exists
+---------------------------------------------------------------------------
+2_iformat (incorrect format)	{34}
+** All cases are independent
+1. Student information (add student)
+   1a student ID
+      i) kd123456	     
+      ii) 123456789	
+      iii) 1234	
+   1b student name (ID=12345678)
+      i) a string with 33 characters	              
+      ii) NULL string (0 character)	  
+   1c student year (ID=12345678, name=ABCD)               
+      i) 0	                       	    
+      ii) 4	                           
+   1d student gender (ID=12345678, name=ABCD, year=1)
+      i) h	
+2. Course information (add course)   
+   2a course code                                
+      i) COMP10456	
+      ii) ABCD12	
+      iii) comp151	
+      iv) COMP151d	
+      v) COM1234	
+   2b course name
+      i) a string with 51 characters	
+      ii) NULL string	                              
+   2c course credit
+      i) -1	                                      
+      ii) 6	                                      
+-------------------------------------------------------------------
+3_cformat (correct format)	{21}
+** All cases are independent
+1. Student information (add student)
+   1a ID=12345678, Name=a b c d e f, Year=1, Gender=M	
+   1b ID=12341234, Name=Alfred Hitchcock, Year=1, Gender=M	
+   1c ID=12340000, Name=AlfredHitchcock, Year=1, Gender=F	
+2. Course information (add course)
+   2a code=ABCD123, Name=ABC, Credit=1	
+   2b code=ABCD1234, Name=ABC, Credit=1	
+   2c code=ABCDEFG, Name=ABC, Credit=1	
+   2d code=ABCDEFGH, Name=ABC, Credit=1	
+   2e code=ABCDEFG1, Name=ABC, Credit=1	
+   2f code=COMP151, Name=Programming, Credit=0	
+---------------------------------------------------------------------
+4_student	{120}
+** 1.2 ~ 1.7 are dependent on 1.1
+1. Single case
+   1.1 insert a student 	
+       - (ID=00000001, Name=Student1, Year=1, Gender=M)
+       1.1a Query student (ID=00000001)	
+   1.2 insert duplicated student 	
+       - (ID=00000001) 
+   1.3 modify student information 	
+       - (ID=00000001, Name=Hello, Year=3, Gender=F)
+       - Query student (ID=00000001)
+   1.4 modify student information, with invalid input
+       1.4a (ID=00000001, Name=a 33 character string)	
+       1.4b (ID=00000001, Name=NULL string)	                    
+       1.4c (ID=00000001, Name=Student1, Year=0)	            
+       1.4d (ID=00000001, Name=Student1, Year=10)	            
+       1.4e (ID=00000001, Name=Student1, Year=2, Gender=R)	
+   1.5 modify non-existing student	
+       - (ID=00000009)
+   1.6 delete a student	
+       - (ID=00000001)
+       - Query student (ID=00000001)
+   1.7 delete a non-existing student	
+       - (ID=00000009)
+
+** 2.2 ~ 2.7 are dependent on 2.1
+2. Multiple cases
+   2.1 insert 5 students	
+       - (ID=00000001, Name=Student1, Year=1, Gender=M)
+       - (ID=00000002, Name=Student2, Year=2, Gender=F)
+       - (ID=00000003, Name=Student3, Year=3, Gender=M)
+       - (ID=00000004, Name=Student4, Year=2, Gender=M)
+       - (ID=00000005, Name=Student5, Year=1, Gender=F)
+       2.1a Query all the 5 students (ID=00000001 ~ 5)	
+   ** if 2.1 fails, goto "5_course"
+   2.2 insert duplicated student	
+        - (ID=00000001)
+   2.3 modify student information	
+       - (ID=00000001, Name=Hello, Year=3, Gender=F)
+       - (ID=00000002, Name=Hello2, Year=2, Gender=M)
+       - Query all the 5 students (ID=00000001 ~ 5)
+   2.4 modify student information with invalid input
+       2.4a (ID=00000001, Name=a 33 character string)	
+       2.4b (ID=00000001, Name=NULL string)	                   
+       2.4c (ID=00000001, Name=Student1, Year=10)	           
+       2.4d (ID=00000001, Name=Student1, Year=0)	           
+       2.4e (ID=00000001, Name=Student1, Year=2, Gender=R)	
+   2.5 modify non-existing student	
+       - (ID=00000009)
+   2.6 delete students	
+       - (ID=00000001)
+       - (ID=00000005)
+       - Query all the 5 students (ID=00000001 ~ 5)
+   2.7 delete a non-existing student	
+       - (ID=00000009)
+-----------------------------------------------------------------------
+5_course	{120}
+** 1.2 ~ 1.7 are dependent on 1.1
+1. Single case
+   1.1 insert a course	
+       - (Code=COMP101, Name=Course1, Credit=1)
+       1.1a Query the course (Code=COMP101)	
+   1.2 insert duplicated course	
+       - (Code=COMP101)
+   1.3 modify the course	
+       - (Code=COMP101, Name=Hello, Credit=3)
+       - Query the course (Code=COMP101)
+   1.4 modify course with invalid input
+       1.4a (Code=COMP101, Name=NULL string)	               
+       1.4b (Code=COMP101, Name=a 51 character string)	
+       1.4c (Code=COMP101, Name=Hello, Credit=-1)	       
+       1.4d (Code=COMP101, Name=Hello, Credit=6)	       
+   1.5 modify non-existing course	
+       - (Code=COMP151)
+   1.6 delete course	
+       - (Code=COMP101)
+       - Query course (Code=COMP101)
+   1.7 delete non-existing course	
+       - (Code=COMP151)
+
+** 2.2 ~ 2.7 are dependent on 2.1
+2. Multiple cases
+   2.1 insert 5 courses	
+       - (Code=COMP101, Name=Course1, Credit=1)
+       - (Code=COMP102, Name=Course2, Credit=2)
+       - (Code=COMP103, Name=Course3, Credit=3)
+       - (Code=COMP104, Name=Course4, Credit=4)
+       - (Code=COMP105, Name=Course5, Credit=5)
+       2.1a Query all the 5 courses (Code=COMP101 ~ 5)	
+   2.2 insert duplicated course	
+       - (Code=COMP101)
+   2.3 modify the courses	
+       - (ID=COMP101, Name=Hello, Credit=3)
+       - (ID=COMP103, Name=Hello3, Credit=1)
+       - Query all the 5 courses (Code=COMP101 ~ 5)
+   2.4 modify course with invalid input
+       2.4a (Code=COMP103, Name=NULL string)	
+       2.4b (Code=COMP103, Name=a 51 character string)	
+       2.4c (Code=COMP103, Name=Hello3, Credit=6)	
+       2.4d (Code=COMP103, Name=Hello3, Credit=-1)
+   2.5 modify non-existing course	
+       - (Code=COMP151)
+   2.6 delete course	
+       - (Code=COMP101)
+       - (Code=COMP104)
+       - Query all the 5 course (Code=COMP101 ~ 5)
+   2.7 delete non-existing course	
+       - (Code=COMP151)
+-----------------------------------------------------------------------
+6_register	{108}
+** 1.2 ~ 1.6 are dependent on 1.1
+1. Single case
+   ** if 4_student->1.1 or 5_course->1.1 fails, goto "8_io"
+   1.1 Add course	
+       - insert a student (ID=00000001, Name=Student1, Year=1, Gender=M)
+       - insert a course (Code=COMP101, Name=Course1, Credit=1)
+       - add course (ID=00000001, Code=COMP101)
+       1.1a Query registration (ID=00000001, Code=COMP101)	
+   1.2 Add course with invalid input
+       1.2a (ID=00000008)	
+       1.2b (ID=00000001, Code=COMP109)	
+       1.2c (ID=00000001, Code=COMP101)	
+   1.3 Modify marks	
+       - (ID=00000001, Code=COMP101, 50)
+       - Query registration (ID=00000001, Code=COMP101)
+   1.4 Modify mark with invalid input
+       1.4a (ID=00000009)	
+       1.4b (ID=00000001, Code=COMP109)	
+       1.4c (ID=00000001, Code=COMP101, Mark=-1)	
+       1.4d (ID=00000001, Code=COMP101, Mark=101)	
+   1.5 drop course	
+       - (ID=00000001, Code=COMP101)
+       - Query registration (ID=00000001, Code=COMP101)
+   1.6 drop course with invalid input
+       1.6a (ID=00000009)	
+       1.6b (ID=00000001, Code=COMP109)	
+
+** 2.2 ~ 2.6 are dependent on 2.1
+2. Multiple cases
+   ** if 4_student->2.1 or 5_course->2.1 fails, goto "8_io"
+   2.1 Add 4 courses	
+       - insert 5 students
+       - insert 5 courses
+       - add courses 
+         - (ID=00000001, Code=COMP101)
+         - (ID=00000001, Code=COMP102)
+         - (ID=00000002, Code=COMP102)
+         - (ID=00000002, Code=COMP103)
+       2.1a Query the 4 registrations	
+   2.2 Add course with invalid input
+       2.2a (ID=00000008)	
+       2.2b (ID=00000001, Code=COMP109)	
+       2.2c (ID=00000001, Code=COMP101)	
+   2.3 Modify marks
+       2.3a (ID=00000001, Code=COMP101, Mark=100)	
+       2.3b (ID=00000002, Code=COMP103, Mark=0)	
+       - Query all the 4 registrations
+   2.4 Modify mark with invalid input
+       2.4a (ID=00000009)	
+       2.4b (ID=00000001, Code=COMP109)	
+       2.4c (ID=00000001, Code=COMP104)	
+   2.5 Drop course	
+       - (ID=00000001, Code=COMP101)
+       - Query all the 4 registrations
+   2.6 Drop course with invalid input
+       2.6a (ID=00000009)	
+       2.6b (ID=00000001, Code=COMP109)	
+       2.6c (ID=00000001, Code=COMP104)	
+--------------------------------------------------------------------
+7_regdel (Registration Delete)	{52}
+** all cases are independent
+1. Single case
+   1.1 delete course with student	
+       - insert a student (ID=00000001, Name=Student1, Year=1, Gender=M)
+       - insert a course (Code=COMP101, Name=Course1, Credit=1)
+       - register course (ID=00000001, Code=COMP101)
+       - del course (Code=COMP101)
+   1.2 delete student	
+       - (ID=00000001)
+       - Query Student (ID=00000001)
+       - Query Registration (ID=00000001)
+       - Query course (Code=COMP101)
+   1.3 delete course after student drop course	
+       - drop course (ID=00000001, Code=COMP101)
+       - delete course (Code=COMP101)
+       - Query Registration (ID=00000001)
+       - Query Student (ID=00000001)
+       - Query course (Code=COMP101)
+
+2. Multiple cases
+   2.1 delete course with student	
+       - insert 5 students
+       - insert 5 courses
+       - add courses 
+         - (ID=00000001, Code=COMP101)
+         - (ID=00000001, Code=COMP102)
+         - (ID=00000002, Code=COMP102)
+         - (ID=00000002, Code=COMP103)
+       - delete course (Code=COMP101)
+   2.2 delete student	
+       - (ID=00000001)
+       - Query student (ID=00000001)
+       - Query Registration (ID=00000001)
+       - Query course (Code=COMP101)
+       - Query course (Code=COMP102)
+   2.3 delete course after student drop course	
+       - drop course (ID=00000001, Code=COMP101)
+       - delete course (Code=COMP101)
+       - Query Registration (ID=00000001)
+       - Query Student (ID=00000001)
+       - Query course (Code=COMP101)
+--------------------------------------------------------------------
+8_io Database I/O	{50}
+1. Save DB with single data
+   1a DB with a student	
+      - insert a student (ID=00000001, Name=ABC, Year=1, Gender=M)
+      - save file (filename=db1Stu.dat)
+      - check if db1Stu.dat exists
+   1b DB with a course	
+      - insert a course (Code=COMP101, Name=c1, Credit=1)
+      - save file (filename=db1Cou.dat)
+      - check if db1Cou.dat exists
+   1c DB with a registration	
+      - insert a course and a student
+      - add the student to course
+      - save file (filename=db1Reg.dat)
+      - check if db1Reg.dat exists
+2. Load DB with single data
+   2a db1Stu.dat	
+      - Load file 
+      - Query student (ID=0000001)
+   2b db1Cou.dat	
+      - Load file
+      - Query course (Code=COMP101)
+   2c db1Reg.dat	
+      - Load file
+      - Query registration (ID=00000001, Code=COMP101)
+3. Modify loaded DB with single data and then save/load
+   3a db1Stu.dat	
+      - load file
+      - modify student (ID=00000001, Name:ABC->DEF, Year:1->3, Gender:M->F)
+      - save file (filename=db1Stu1.dat)
+      - restart and load db1Stu1.dat
+      - Query student (ID=0000001)
+   3b db1Cou.dat	
+      - load file
+      - modify course (Code=COMP101, Name:c1->Course1, Credit:1->3)
+      - save file (filename=db1Cou1.dat)
+      - restart and load db1Cou1.dat
+      - Query course (Code=COMP101)
+   3c db1Reg.dat	
+      - load file
+      - modify mark (ID=00000001, Code=COMP101, Mark=99)
+      - save file (filename=db1Reg1.dat)
+      - restart and load db1Reg1.dat
+      - Query registration (ID=00000001, Code=COMP101)
+4. Save DB with multiple data
+   4a DB with 5 students	
+      - (filename=db5Stu.dat)
+   4b DB with 5 courses	
+      - (filename=db5Cou.dat)
+   4c DB with registrations	
+      - add 4 registrations
+      - save file (filename=db4Reg.dat)
+5. Load DB with multiple data
+   - if 3x fails, skip 5x
+   5a db5Stu.dat	
+      - Load file
+      - Query the 5 students (ID=00000001 ~ 5)
+   5b db5Cou.dat	
+      - Load file
+      - Query the 5 courses (Code=COMP101 ~ 5)
+   5c db4Reg.dat	
+      - Load file
+      - Query the 5 students
+      - Query the 5 courses
+      - Query the 4 registrations
+6. Modify loaded DB with multiple data and then save/load
+   6a db5Stu.dat	
+      - load file
+      - modify student (ID=00000001, Name:Student1->DEF, Year:1->3, Gender:M->F)
+      - save file (filename=db5Stu1.dat)
+      - restart and load db5Stu1.dat
+      - Query the 5 students
+   6b db5Cou.dat	
+      - load file
+      - modify course (Code=COMP101, Name:Course1->Programming, Credit:1->3)
+      - save file (filename=db5Cou1.dat)
+      - restart and load db5Cou1.dat
+      - Query the 5 courses
+   6c db4Reg.dat	
+      - load file
+      - drop course (ID=00000001, Code=COMP101)
+      - add course (ID=0000003, Code=COMP105)
+      - save file (filename=db4Re1g.dat)
+      - restart and load db4Reg1.dat
+      - Query the 5 registrations
+-------------------------------------------------------------------------
+9_html	{50}
+1. Students.html
+   1a with single student	
+      - insert a student
+      - List all student information
+      - compare Students.html
+   1b with multiple students	
+      - insert 5 students
+      - List all student information
+      - compare Students.html
+2. Courses.html
+   2a with single course	
+      - insert a course
+      - List all course information
+      - compare Courses.html
+   2b with multiple courses	
+      - insert 5 courses
+      - List all course information
+      - compare Courses.html
+3. Particular Student
+   3a with single registration (ID=00000001)	
+      - insert a student and a course
+      - add the student to the course
+      - List all course of a student
+      - compare 00000001.html
+   3b with multiple registration 	
+      - insert 5 student and 5 course
+      - add 4 registrations
+      - List all course of a student (ID=00000001)
+      - compare 00000001.html
+4. Particular Course
+   4a with single registration 	
+      - insert a student and a course
+      - add the student to the course
+      - List all student of a course (Code=COMP101)
+      - compare COMP101.html
+   4b with multiple registration 	
+      - insert 5 student and 5 course
+      - add 4 registrations
+      - List all student of a course (Code=COMP101)
+      - compare COMP101.html
+-----------------------------------------------------------------------
+other (read code)	{30}
+** if 4_student, 5_course, and 6_register get FULL marks, check the followings:
+1. hash function (no overflow)	
+2. linked list (sorted)	
+3. linked list (doubly linked)	
+-----------------------------------------------------------------------
+Correctness ends!
+
+========================================================================
+Style	{150}
+- used template
+- used more than one .cpp/.h
+
+========================================================================
+Documentation {150}
+- appropriate comments inbetween codes
+
+========================================================================
+
+done!

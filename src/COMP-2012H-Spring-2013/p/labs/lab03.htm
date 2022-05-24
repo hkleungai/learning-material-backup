@@ -1,0 +1,848 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>COMP152h lab03</title>
+<meta name="Microsoft Theme" content="blends 011">
+<style>
+<!--
+H4 {
+	FONT-WEIGHT: bold; FONT-SIZE: 18pt; FONT-FAMILY: "Arial", "Helvetica", "sans-serif"
+}
+-->
+</style>
+</head>
+
+<body background="blegtext.gif" bgcolor="#CCCCCC" text="#000000" link="#993300" vlink="#0000FF" alink="#FF9900">
+
+<!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+
+<blockquote>
+  <!--mstheme--></font>
+  <h2 align="center" style="line-height: 200%; margin-top: 5">
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <font face="Tahoma" size="5">Lab 0<span lang="zh-cn">3</span> </font>
+  <span lang="zh-cn"><font face="Tahoma">Pointers and Reference Variables</font></span><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <h2 style="margin-top: 30px"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Objective<!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font size="4">Pointers and Arrays</font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <font size="4">Reference Variables</font><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <h2 style="margin-top: 30px"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099"><span lang="zh-cn">Review</span><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <!--mstheme--></font>
+      <h3>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+      <font size="5">Pointers 
+  and Memory Addresses </font><!--mstheme--></font></h3>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+<P><font face="Arial">We can look at the main memory as a large array. In order 
+to manipulate this large array, C++ programmers often use a pointer as the index 
+of the array.</font></P>
+<p><b><i><font face="Arial">int a = 3;<br>
+  int *p = &amp;a; // <span lang="zh-cn">let p be </span>the address of a<br>
+  *p = 4; // assign the value 4 to the memory location pointed to by p</font></i></b></p>
+compare:
+<p><b><i><font face="Arial">int memory[5] = {20, 1, 3, 40, 1776};<br>
+  int p = 2; // <span lang="zh-cn">let</span> p be the index 2 of this array &quot;memory&quot;<br>
+  memory[p] = 4; // assign the value of 4 to &quot;memory&quot; indicated by index 
+  p </font></i></b></p>
+        </blockquote>
+      <p>&nbsp;<!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <!--mstheme--></font>
+      <h3>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+      <font size="5">Address-of Operator (<i>&amp;</i>)</font><!--mstheme--></font></h3>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+<p><font face="Arial">At the moment in which we declare 
+  a variable this one must be stored in a concrete location in this succession 
+  of cells (the memory). We generally do not decide where the variable is to be 
+  placed - fortunately that is something automatically done by the C++ compiler 
+  on runtime, but once the variable has been assigned an address there are some 
+  cases in which we may be interested in knowing where the variable is stored. 
+  This can be done by preceding the variable identifier by an ampersand sign (<b><i>&amp;</i></b>), 
+  which literally means &quot;address of&quot;. For example: </font></p>
+<p><b><i><font face="Arial">int a = 3;<br>
+  int *p= &amp;a;</font></i></b></p>
+<!--mstheme--></font>
+<table width="75%" border="1" bordercolorlight="#999999" bordercolordark="#000000">
+  <tr> 
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><font face="Times New Roman, Times, serif"><b>Variable</b></font></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><font face="Times New Roman, Times, serif"><b>Memory 
+        Address</b></font></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><font face="Times New Roman, Times, serif"><b>Memory 
+        Content</b></font></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+  <tr> 
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><b><i><font face="Times New Roman, Times, serif">a</font></i></b></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><b><i><font face="Times New Roman, Times, serif">1776</font></i></b></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><b><i><font face="Times New Roman, Times, serif">3</font></i></b></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+  <tr> 
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><b><i><font face="Times New Roman, Times, serif">p</font></i></b></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><b><i><font face="Times New Roman, Times, serif">1780</font></i></b></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><b><i><font face="Times New Roman, Times, serif">1776</font></i></b></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+</table>
+
+<!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+
+<p><font face="Arial">would assign to variable <i><b>p</b></i> 
+  the address of variable <i><b>a</b></i>, since when preceding the name of the variable 
+<i><b>a</b></i> with the ampersand (<i><b>&amp;</b></i>) character we are no longer talking about 
+  the content of the variable, but about its address in memory. We are going to 
+  assume that <i><b>a</b></i> has been placed in the memory address <b><i>1776</i></b> and that we 
+  write the following: </font></p>
+<p><b><i><font face="Arial">a = 25; // a is assigned with value 
+  of 25<br>
+  int b = a; // b copies the value of 25 from a<br>
+  </font></i></b></p>
+<!--mstheme--></font>
+<table width="75%" border="1" bordercolorlight="#999999" bordercolordark="#000000">
+  <tr> 
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><font face="Times New Roman, Times, serif"><b>Variable</b></font></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><font face="Times New Roman, Times, serif"><b>Memory 
+        Address</b></font></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><font face="Times New Roman, Times, serif"><b>Memory 
+        Content</b></font></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+  <tr> 
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><b><i><font face="Times New Roman, Times, serif">a</font></i></b></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">1776</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">25</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+  <tr> 
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">p</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">1780</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">1776</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+  <tr> 
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">b</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">1784</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">25</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+</table>
+<!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+<p><font face="Arial">What is the output value of <b><i>*p</i></b> ?</font></p>
+<P><font face="Arial">The variable that stores the address 
+  of another variable (like <b><i>p</i></b> in the previous example) is what we call 
+  a pointer.</font></P>
+          </blockquote>
+          <p>&nbsp;<!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <!--mstheme--></font>
+<h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099"><font size="5">Dereference 
+  Operator (<i>*</i>)</font><!--mstheme--></font></h3>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+    <font face="Arial">Using a pointer we can access directly 
+  to the value stored in the variable pointed by it just by preceding the pointer 
+  identifier with the reference operator asterisk (<b><i>*</i></b>), that can be literally translated 
+  to &quot;value pointed by&quot;. Thus, following with the values of the previous 
+  example, if we write:</font><P><i><b><font face="Arial">a = 7;</font></b></i></P>
+    <!--mstheme--></font>
+<table width="676" border="1" bordercolorlight="#999999" bordercolordark="#000000">
+  <tr> 
+    <td width="129"> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><font face="Times New Roman, Times, serif"><b>Variable</b></font></div>
+      <!--mstheme--></font>
+    </td>
+    <td width="266"> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><font face="Times New Roman, Times, serif"><b>Memory 
+        Address</b></font></div>
+      <!--mstheme--></font>
+    </td>
+    <td width="259"> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><font face="Times New Roman, Times, serif"><b>Memory 
+        Content</b></font></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+  <tr> 
+    <td width="129"> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">a</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td width="266"> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">1776</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td width="259"> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">7</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+  <tr> 
+    <td width="129"> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">p</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td width="266"> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">1780</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td width="259"> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">1776</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+  <tr> 
+    <td width="129"> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">b</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td width="266"> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">1784</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td width="259"> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">25</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+</table>
+    <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+<P><i><b><font face="Arial">b = *p; </font></b></i></P>
+<P><font face="Arial">(that we could read as: &quot;<b><i>b</i></b> 
+  equal to value pointed by <b><i>p</i></b>&quot;) <b><i>b</i></b> would take the value 
+<b><i>7</i></b>, since <b><i>p</i></b> is <i><b>1776</b></i>, 
+  and the value pointed by <i><b>1776</b></i> is <i><b>7</b></i>. </font></P>
+    <!--mstheme--></font>
+<table width="75%" border="1" bordercolorlight="#999999" bordercolordark="#000000">
+  <tr> 
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><font face="Times New Roman, Times, serif"><b>Variable</b></font></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><font face="Times New Roman, Times, serif"><b>Memory 
+        Address</b></font></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><font face="Times New Roman, Times, serif"><b>Memory 
+        Content</b></font></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+  <tr> 
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><b><i><font face="Times New Roman, Times, serif">a</font></i></b></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><b><i><font face="Times New Roman, Times, serif">1776</font></i></b></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><b><i><font face="Times New Roman, Times, serif">7</font></i></b></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+  <tr> 
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><b><i><font face="Times New Roman, Times, serif">p</font></i></b></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><b><i><font face="Times New Roman, Times, serif">1780</font></i></b></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><b><i><font face="Times New Roman, Times, serif">1776</font></i></b></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+  <tr> 
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><b><i><font face="Times New Roman, Times, serif">b</font></i></b></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><b><i><font face="Times New Roman, Times, serif">1784</font></i></b></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><b><i><font face="Times New Roman, Times, serif">7</font></i></b></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+</table>
+    <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  </blockquote>
+      <p>&nbsp;<!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <!--mstheme--></font>
+<h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099"><font size="5">Reference 
+  Variables</font><!--mstheme--></font></h3>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+    <font face="Arial">A reference is an alterative name 
+  (alias) for an object. Notice that a reference must always be bound to an object. 
+  Therefore, it must be initialized when it is created.</font><P><b><i><font face="Arial">int &amp;r = a;<br>
+  a = 8;</font></i></b></P>
+    <!--mstheme--></font>
+<table width="75%" border="1" bordercolorlight="#999999" bordercolordark="#000000">
+  <tr> 
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><font face="Times New Roman, Times, serif"><b>Variable</b></font></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><font face="Times New Roman, Times, serif"><b>Memory 
+        Address</b></font></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><font face="Times New Roman, Times, serif"><b>Memory 
+        Content</b></font></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+  <tr> 
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">a</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">1776</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">8</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+  <tr> 
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">p</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">1780</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">1776</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+  <tr> 
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">b</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">1784</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">7</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+  <tr> 
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">r</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">1776</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">8</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+</table>
+    <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+<p><i><b><font face="Arial">r = b;</font></b></i></p>
+    <!--mstheme--></font>
+<table width="75%" border="1" bordercolorlight="#999999" bordercolordark="#000000">
+  <tr> 
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><font face="Times New Roman, Times, serif"><b>Variable</b></font></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><font face="Times New Roman, Times, serif"><b>Memory 
+        Address</b></font></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><font face="Times New Roman, Times, serif"><b>Memory 
+        Content</b></font></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+  <tr> 
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">a</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">1776</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">7</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+  <tr> 
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">p</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">1780</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">1776</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+  <tr> 
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">b</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">1784</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">7</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+  <tr> 
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">r</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">1776</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+    <td> 
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"> 
+      <div align="center"><i><b><font face="Times New Roman, Times, serif">7</font></b></i></div>
+      <!--mstheme--></font>
+    </td>
+  </tr>
+</table>
+    <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+<p><font face="Arial">Assignment changes the value of 
+  both <i><b>r</b></i> and <i><b>a</b></i> here!</font></p>
+<P><font face="Arial">There is a simple <a href="lab03/pointer.cpp">program</a> 
+  to demonstrate the differences between a pointer and a reference variable.</font></P>
+    </blockquote>
+  <!--mstheme--></font>
+  <h2 style="margin-top: 30px"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Lab Work<!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <!--mstheme--></font>
+<h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099"><font size="5">Pointers and 
+  Arrays</font><!--mstheme--></font></h3>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+    <font face="Arial">The concept of a array is bound 
+  to a constant pointer. In fact, the identifier of an array is equivalent to 
+  the address of its first element, like a pointer is equivalent to the address 
+  of the first element that it points to, so in fact they are the same thing. 
+  For example, supposing these two declarations:</font><p><b><i><font face="Arial">int numbers[20];<br>
+  int *p;</font></i></b></p>
+<p><font face="Arial">the following allocation would be 
+  valid: </font></p>
+<p><i><b><font face="Arial">p = numbers; </font></b></i></p>
+<p><font face="Arial">At this point <i><b>p</b></i> and <i><b>numbers</b></i> are equivalent and they have the same properties, 
+  with the only difference that we could assign another value to the pointer <i>
+<b>p</b></i> 
+  whereas <i><b>numbers</b></i> will always point to the first of the 20 integer numbers of 
+  type int with which it was defined. So, unlike <i><b>p</b></i>, that is an ordinary variable 
+  pointer, numbers is a constant pointer (indeed that is an Array: a constant 
+  pointer). Therefore, although the previous expression was valid, the following 
+  allocation is not: </font></p>
+<p><i><b><font face="Arial">numbers = p;</font></b></i></p>
+<p><font face="Arial">because <i><b>numbers</b></i> is an array (constant 
+  pointer), and no values can be assigned to constant identifiers. Due to its 
+  character of variables all the expressions that include pointers in the following 
+  example are perfectly valid:</font></p>
+<p></p>
+<p><b><i><font face="Arial">// more pointers<br>
+  #include &lt;iostream&gt;</font></i></b></p>
+<p><b><i><font face="Arial">using namespace std;<br>
+  </font></i></b></p>
+<p><b><i><font face="Arial">int main ()<br>
+  {</font></i></b></p>
+<blockquote> 
+  <p><b><i><font face="Arial">int numbers[5];<br>
+    int * p;<br>
+    p = numbers;<br>
+    *p = 10; // number[0] = 10<br>
+    p++;<br>
+    *p = 20; // number[1] = 20<br>
+    p = &amp;numbers[2];<br>
+    *p = 30; // number[2] = 30<br>
+    p = numbers + 3;<br>
+    *p = 40; // number[3] = 40<br>
+    p = numbers;<br>
+    *(p+4) = 50; // number[4] = 50<br>
+    for (int n=0; n&lt;5; n++)<br>
+    cout &lt;&lt; numbers[n] &lt;&lt; &quot;, &quot;;<br>
+    return 0;</font></i></b></p>
+</blockquote>
+<p><b><i><font face="Arial">}</font></i></b></p>
+<p><font face="Arial">What is the output?</font></p>
+<p><font face="Arial">&quot;Arrays&quot; we used with 
+  bracket signs <i><b>[<span lang="zh-cn"> </span>]</b></i> in order to specify the index of the element from the Array 
+  that we wanted to refer. Well, the bracket signs operator&nbsp; <i><b>[<span lang="zh-cn">
+</span>]</b></i> are known as offset 
+  operators and they are equivalent to add the number within brackets to the address 
+  of a pointer. For example, both following expressions: </font></p>
+<p><b><i><font face="Arial">a[5] = 0; // a [offset of 5] = 0<br>
+  *(a+5) = 0; // pointed by (a+5) = 0</font></i></b></p>
+<p><font face="Arial">are equivalent and valid either 
+  if <i><b>a</b></i> is a pointer or if it is an array. </font></p>
+    </blockquote>
+      <p>&nbsp;<!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <!--mstheme--></font>
+<h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099"><font size="5">Operators new 
+  and new[ ]</font><!--mstheme--></font></h3>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+    <font face="Arial">In order to request dynamic memory 
+  we use the operator <b><i>new</i></b>. The operator <b><i>new<span lang="zh-cn">
+    </span></i></b>is followed by a data type and optionally 
+  the number of elements required within brackets&nbsp; <i><b>[<span lang="zh-cn">
+    </span>]</b></i>. It returns a pointer to 
+  the beginning of the new block of assigned memory. Its form is: </font>
+<p><font face="Arial"><b><i>type *pointer = new type</i></b></font></p>
+<p>or </p>
+<p><font face="Arial"><i><b>type *pointer = new type [elements]</b></i></font></p>
+<p><font face="Arial">The first expression is used to 
+  assign memory to contain one single element of type. The second one is used 
+  to assign a block (an array) of elements of type.<span lang="zh-cn"> </span>For example:</font></p>
+<p><i><b><font face="Arial">int * barr;<br>
+  barr = new int [5];</font></b></i></p>
+<p><font face="Arial">in this case, the operating system 
+  has assigned space for 5 elements of type int in the heap and it has returned 
+  a pointer to its beginning that has been assigned to <i><b>barr</b></i>. Therefore, now, 
+<i><b>barr</b></i> 
+  points to a valid block of memory with space for 5 int elements. </font></p>
+<p><font face="Arial">You could ask what is the difference 
+  between declaring a normal array and assigning memory to a pointer as we have 
+  just done. The most important one is that <b>the size of an array must be a 
+  constant value</b>, which limits its size to what we decide at the moment of 
+  designing the program before its execution, whereas the <b>dynamic memory allocation</b> 
+  allows to <b>assign memory during the execution of the program</b> using any 
+  variable, constant or combination of both as size. The dynamic memory is generally 
+  managed by the operating system, and in the multitask interfaces can be shared 
+  between several applications, so there is a possibility that it runs out of 
+  memory. If this happens and the operating system cannot assign the memory that 
+  we request with the operator new, a null pointer will be returned. For that 
+  reason is recommendable to always verify if after a call to instruction new 
+  the returned pointer is null: </font></p>
+<p><b><i><font face="Arial">int * barr;<br>
+  barr = new int [5];<br>
+  if (barr == NULL) {<br>
+  // error assigning memory. Take measures.<br>
+  }; </font></i></b></p>
+    </blockquote>
+      <p>&nbsp;<!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <!--mstheme--></font>
+<h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099"><font size="5">Operator delete</font><!--mstheme--></font></h3>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+    <font face="Arial">Since the necessity of dynamic memory 
+  is usually limited to concrete moments within a program, once this one is no 
+  longer needed it shall be freed so that it become available for future requests 
+  of dynamic memory. For this exists the operator delete, whose form is:</font>
+  <p><b><i>delete pointer;</i></b></p>
+  <p>or</p>
+  <p><font face="Arial"><i><b>delete [] pointer;</b></i></font></p>
+<p><font face="Arial">The first expression should be used to delete memory 
+allocated for a single 
+  element, and the second one for memory allocated for multiple elements (arrays).
+</font></p>
+    </blockquote>
+      <p>&nbsp;<!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <!--mstheme--></font>
+<h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099"><font size="5">Linked Lists</font><!--mstheme--></font></h3>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+    <font face="Arial">From the above, we can find that 
+  dynamic array is a continuous allocated memory buffer. Once the buffer is allocated, 
+  the size of this buffer is fixed. This is problematic if some new blocks have 
+  to added into the buffer. Instead of continuous dynamic memory allocation, there 
+  is a structure to solve this problem. Linked list is a list of node, for each 
+  node there is a link to next node. To transverse the list, we need to keep the 
+  head node in order to trace the whole list.</font><p><font face="Arial">The structure is like the following:</font></p>
+<p><font face="Times New Roman, Times, serif"><img src="lab03/list.gif" width="640" height="147"></font></p>
+<p><font face="Arial">like a train traveling starts from 
+  head to another city one by one.</font></p>
+<p><font face="Arial">The class is defined like that:</font></p>
+<p><b><i>class List {<br>
+  private:</i></b></p>
+<blockquote> 
+  <p><b><i>struct Node {<br>
+    string str;<br>
+    Node* ptrNext;<br>
+    };<br>
+    Node* m_Head; </i></b></p>
+</blockquote>
+<p><b><i>public:</i></b></p>
+<blockquote> 
+  <p><b><i>List();<br>
+    ~List(); <br>
+    void Print();<br>
+    bool Insert(string str);<br>
+    .....</i></b></p>
+</blockquote>
+<p><b><i>};</i></b></p>
+    </blockquote>
+  <!--mstheme--></font>
+  <h2><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Task<!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+<P><font face="Arial">The 
+  structure of a linked list likes a list of stations in MTR. Each station is 
+  linked by previous station. Once the first station is lost, then the following 
+  stations will be lost. Therefore, every time we transverse the list of MTR stations, 
+  we have to keep the information of the current station and the link to the next 
+  station. The <a href="lab03/main">sample program</a> is to count the number 
+  of stations from the Po Lam MTR station in the new MTR Tseung Kwan O line. The 
+  <span lang="zh-cn">task</span> is to implement a function Access in List.cpp. The project 
+  is zipped <a href="lab03/ex.zip">here</a> and the data file is <a href="lab03/station.txt">here</a>. 
+  The solution is <!--a href="lab03/List.cpp"-->here</a>.</font></P>
+<P><font face="Arial">Notice that you only need to 
+  modify the code in List::Access.</font></P>
+    </blockquote>
+</blockquote>
+
+<!--mstheme--></font>
+
+</body>
+
+</html>

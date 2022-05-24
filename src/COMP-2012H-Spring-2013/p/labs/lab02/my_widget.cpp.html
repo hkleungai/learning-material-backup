@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<TITLE>my_widget.cpp.html</TITLE>
+</HEAD>
+<BODY BGCOLOR=#FFFFFF TEXT=#000000>
+<PRE>
+<FONT COLOR=#a020f0>#include </FONT><FONT COLOR=#ff00ff>&lt;iostream&gt;</FONT>
+using namespace std;
+
+<FONT COLOR=#a020f0>#include </FONT><FONT COLOR=#ff00ff>&quot;my_widget.h&quot;</FONT>
+
+<FONT COLOR=#008b8b>MyMainWindow::MyMainWindow</FONT>(QWidget* parent, <B><FONT COLOR=#2e8b57>const</FONT></B> <B><FONT COLOR=#2e8b57>char</FONT></B>* name)
+:QMainWindow(parent, name)
+{
+	CreateMenu();
+
+	<FONT COLOR=#5151fb>// create a button</FONT>
+	buttonExit = <B><FONT COLOR=#853e26>new</FONT></B> QPushButton(<FONT COLOR=#ff00ff>&quot;Exit&quot;</FONT>, <B><FONT COLOR=#853e26>this</FONT></B>, <FONT COLOR=#ff00ff>0</FONT>);
+	buttonExit-&gt;setGeometry(<FONT COLOR=#ff00ff>60</FONT>, <FONT COLOR=#ff00ff>60</FONT>, <FONT COLOR=#ff00ff>100</FONT>, <FONT COLOR=#ff00ff>40</FONT>);
+
+	<FONT COLOR=#5151fb>// connect the &quot;clicked&quot; signal of the QPushButton buttonExit</FONT>
+	<FONT COLOR=#5151fb>// to the &quot;OnExit()&quot; slot of this MyMainWindow object.</FONT>
+	<FONT COLOR=#5151fb>// So, if buttonExit is clicked, this-&gt;OnExit() will be called.</FONT>
+	QObject::connect(buttonExit, SIGNAL(clicked()), <B><FONT COLOR=#853e26>this</FONT></B>, SLOT(OnExit()));
+
+	<FONT COLOR=#5151fb>// PS: connect() is a static member function of QObject.</FONT>
+}
+
+<B><FONT COLOR=#2e8b57>void</FONT></B> MyMainWindow::CreateMenu()
+{
+	QPopupMenu* file = <B><FONT COLOR=#853e26>new</FONT></B> QPopupMenu(<B><FONT COLOR=#853e26>this</FONT></B>);
+
+	<FONT COLOR=#5151fb>// this MyMainWindow object's OnTesting slot/function</FONT>
+	<FONT COLOR=#5151fb>// will be called if &quot;Testing&quot; menu item is clicked.</FONT>
+	file-&gt;insertItem(<FONT COLOR=#ff00ff>&quot;Testing&quot;</FONT>, <B><FONT COLOR=#853e26>this</FONT></B>, SLOT(OnTesting()));
+
+	file-&gt;insertItem(<FONT COLOR=#ff00ff>&quot;Exit&quot;</FONT>, <B><FONT COLOR=#853e26>this</FONT></B>, SLOT(OnExit()));
+	menuBar()-&gt;insertItem(<FONT COLOR=#ff00ff>&quot;File&quot;</FONT>, file);
+
+	QPopupMenu* help = <B><FONT COLOR=#853e26>new</FONT></B> QPopupMenu(<B><FONT COLOR=#853e26>this</FONT></B>);
+	help-&gt;insertItem(<FONT COLOR=#ff00ff>&quot;About&quot;</FONT>, <B><FONT COLOR=#853e26>this</FONT></B>, SLOT(OnAbout()));
+	menuBar()-&gt;insertItem(<FONT COLOR=#ff00ff>&quot;Help&quot;</FONT>, help);
+}
+
+<B><FONT COLOR=#2e8b57>void</FONT></B> MyMainWindow::OnTesting()
+{
+	QString caption(<FONT COLOR=#ff00ff>&quot;Testing&quot;</FONT>);
+	QString text(<FONT COLOR=#ff00ff>&quot;Testing is clicked.&quot;</FONT>);
+
+	<FONT COLOR=#5151fb>// prompt a modal dialog</FONT>
+	QMessageBox::information(<B><FONT COLOR=#853e26>this</FONT></B>, caption, text, QMessageBox::Ok);
+
+	cout &lt;&lt; <FONT COLOR=#ff00ff>&quot;You could also use cout here! &quot;</FONT> &lt;&lt; endl;
+}
+
+<B><FONT COLOR=#2e8b57>void</FONT></B> MyMainWindow::OnExit()
+{
+	<FONT COLOR=#5151fb>// qApp is a global pointer points to</FONT>
+	<FONT COLOR=#5151fb>// our application object (QApplication)</FONT>
+	qApp-&gt;quit(); <FONT COLOR=#5151fb>// quit this application program</FONT>
+}
+
+<B><FONT COLOR=#2e8b57>void</FONT></B> MyMainWindow::OnAbout()
+{
+	QMessageBox::about(<B><FONT COLOR=#853e26>this</FONT></B>, <FONT COLOR=#ff00ff>&quot;About&quot;</FONT>, <FONT COLOR=#ff00ff>&quot;Type something here...&quot;</FONT>);
+}
+</PRE>
+</BODY>
+</HTML>

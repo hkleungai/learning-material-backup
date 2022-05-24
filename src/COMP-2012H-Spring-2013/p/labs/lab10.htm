@@ -1,0 +1,259 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>COMP152h lab10</title>
+<meta name="Microsoft Theme" content="blends 011">
+<style>
+<!--
+H4 {
+	FONT-WEIGHT: bold; FONT-SIZE: 18pt; FONT-FAMILY: "Arial", "Helvetica", "sans-serif"
+}
+-->
+</style>
+</head>
+
+<body background="blegtext.gif" bgcolor="#CCCCCC" text="#000000" link="#993300" vlink="#0000FF" alink="#FF9900">
+
+<!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+
+<blockquote>
+  <!--mstheme--></font>
+  <h2 align="center" style="line-height: 200%; margin-top: 5">
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <font face="Tahoma" size="5">Lab 10 Function Templates<span lang="zh-cn"> &amp; 
+  Class </span>Templates (1)</font><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <h2 style="margin-top: 30px"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+  <span lang="zh-cn">Contents</span><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <span lang="zh-cn"><font size="4">Container Classes</font></span><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <span lang="zh-cn"><font size="4">Generic Programming</font></span><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <span lang="zh-cn"><font size="4">Function Templates</font></span><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="baseline" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <span lang="zh-cn"><font size="4">Class Templates</font></span><!--mstheme--></font><!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <h2 style="margin-top: 30px"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099"><span lang="zh-cn">Review</span><!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+  <!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <!--mstheme--></font>
+      <h3>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+      <font size="5">Container Classes</font><!--mstheme--></font></h3>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+<P><font face="Arial"><b><i>Container Classes:</i></b> classes that maintain 
+collections of objects.<br>
+<br>
+Example:</font></P>
+<blockquote>
+<P><font face="Arial"><i><b><font color="#0000FF">class</font> Person_Container<br>
+{<br>
+&nbsp; <font color="#0000FF">public</font>:<br>
+</b>&nbsp; ... ...<br>
+<b>&nbsp; <font color="#0000FF">private</font>:<br>
+&nbsp;&nbsp;&nbsp; Person* array;<br>
+</b>&nbsp; ... ...<br>
+<b>}</b></i></font></P>
+</blockquote>
+<P><font face="Arial"><br>
+The operations on <i>container classes</i> can be:</font></P>
+<blockquote>
+<P><font face="Arial">member functions of the container class. <br>
+global functions that take a container argument. </font></P>
+</blockquote>
+<P><font face="Arial">Three concepts of <i>container classes:</i></font></P>
+<blockquote>
+<P><font face="Arial">the kind of container (list-based, array-based) <br>
+the kind of objects stored in the container (Person, int) <br>
+the kind of operations on the elements stored in the container (&quot;do something 
+for each element&quot;) </font></P>
+</blockquote>
+<P><font face="Arial">Usually, there is a strong coupling between the three 
+concepts.</font><br>
+&nbsp;</P>
+        </blockquote>
+      <!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <!--mstheme--></font>
+      <h3>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+      <font size="5">Generic Programming</font><!--mstheme--></font></h3>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+<p><font face="Arial"><i><b>Generic Programming:</b></i> programming with types 
+as parameters.<br>
+<br>
+<i>Generic programming</i> is a method through which we can remove (or strongly 
+reduce) the strong coupling between containers, container elements and 
+operations on the elements of the container.</font></p>
+          </blockquote>
+          <p>&nbsp;<!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <!--mstheme--></font>
+<h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+<font size="5">Function Templates</font><!--mstheme--></font></h3>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+    <font face="Arial">C++ supports <i>generic programming</i> through the <i>
+    template</i> mechanism.<br>
+    <br>
+    Definition:</font><blockquote>
+      <p><i>
+    <font face="Arial"><b><font color="#0000FF">template</font>&lt;<font color="#0000FF">typename</font> 
+      T&gt;<br>
+      T max(<font color="#0000FF">const</font> T&amp; a, <font color="#0000FF">const</font> 
+      T&amp; b)<br>
+      {<br>
+&nbsp; </b>... ...<br>
+      <b>}</b></font></i></p>
+    </blockquote>
+    <p>
+    <font face="Arial">The template with formal argument <b>T</b> will be 
+    instantiated by the compiler with the actual argument, e.g. <b>int</b>. <br>
+    <br>
+    Note:</font></p>
+    <blockquote>
+      <p>
+    <font face="Arial">There is NO automatic type conversion for template 
+      arguments. E.g. <b><i>cout &lt;&lt; max(4, 5.5)</i> // Error! </b><br>
+      You can help by explicitly instantiating the function template. E.g. <b>
+      <i>cout &lt;&lt; max&lt;double&gt;(4, 5.5) </i></b><br>
+      Another way is to use more than one formal arguments. E.g. <b><i>template 
+      &lt;typename T1, typename T2&gt; </i></b></font></p>
+    </blockquote>
+    <p>
+    <font face="Arial">Please see a small <a href="lab10/function.cpp">example</a> 
+    of function template.<br>
+&nbsp;</font></p>
+  </blockquote>
+      <!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <!--msthemelist--><tr>
+      <!--msthemelist--><td valign="top" width="42">
+      <img src="blebul1a.gif" width="15" height="15" hspace="13" alt="bullet"></td>
+      <td valign="top" width="100%"><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+      <!--mstheme--></font>
+<h3><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">
+<font size="5">Class Templates</font><!--mstheme--></font></h3>
+      <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica"><!--mstheme--></font>
+      <!--msthemelist--></td>
+    </tr>
+    <!--msthemelist--></table>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+    <font face="Arial"><i><b>Class template: </b></i>a prescription for creating 
+    a class in which one or more types or values are parameterized.<br>
+    <br>
+    Definition:</font><blockquote>
+      <p>
+    <font face="Arial"><i><b><font color="#0000FF">template</font> &lt;<font color="#0000FF">class</font> 
+      T&gt;<br>
+      <font color="#0000FF">class</font> Queue <br>
+      {<br>
+      <font color="#0000FF">&nbsp; public</font>:<br>
+&nbsp;&nbsp;&nbsp; Queue();<br>
+&nbsp;&nbsp;&nbsp; ~Queue();<br>
+&nbsp;&nbsp;&nbsp; T&amp; remove();<br>
+&nbsp;&nbsp;&nbsp; void add( <font color="#0000FF">const</font> T&amp;)<br>
+      <font color="#0000FF">&nbsp; private</font>:<br>
+&nbsp;&nbsp;&nbsp; </b>... ...<br>
+      <b>};</b></i></font></p>
+    </blockquote>
+    <p>
+    <font face="Arial">Usages of class template:</font></p>
+    <blockquote>
+      <p><b><i>
+    <font face="Arial">Queue&lt;<font color="#0000FF">int</font>&gt; qa;<br>
+      Queue&lt;string&gt; qb;</font></i></b></p>
+    </blockquote>
+    <p>
+    <font face="Arial">The <i>template</i> keyword tells the compiler that the 
+    class definition that follows will manipulate one or more unspecified types. 
+    At the time the actual class code is generated from the template, those 
+    types must be specified so that the compiler can substitute them. <br>
+    <br>
+    To demonstrate the syntax, here’s a small <a href="lab10/example1.cpp">
+    example</a> that produces a bounds-checked array.<br>
+&nbsp;</font></p>
+    </blockquote>
+  <!--mstheme--></font>
+  <h2><!--mstheme--><font face="Trebuchet MS, Arial, Helvetica" color="#330099">Task<!--mstheme--></font></h2>
+  <!--mstheme--><font face="Trebuchet MS, Arial, Helvetica">
+  <blockquote>
+<P><b><font face="Arial">Exercise 1:</font></b></P>
+<P><font face="Arial">Templatize the <i><a href="lab10/FibonacciOriginal.cpp">
+Fibonacci( )</a></i> function on the type of value that it produces (so it can 
+produce <b><i>long</i></b>, <b><i>float</i></b>, etc. instead of just <b><i>int</i></b>). 
+Modify <i>main()</i> function to test the templatized <i>Fibonacci()</i> 
+function with different type of value. </font></P>
+<P><b><font face="Arial">Exercise 2: </font></b></P>
+<P><font face="Arial">Download <a href="lab10/IntStack.h">IntStack.h</a>,
+<a href="lab10/Fibonacci.cpp">Fibonacci.cpp</a>,
+<a href="lab10/IntStackTest.cpp">IntStackTest.cpp</a>.</font></P>
+<P><font face="Arial">A class named<i><b> IntStack</b></i> created which hold 
+array of integers as its data member. In the <i>main( ) </i>function, we first 
+add some integers to the stack, and then pop them off again. To make the example 
+more interesting, the integers are created with the <i>Fibonacci( ) </i>
+function. </font></P>
+<P><font face="Arial">Your tasks:</font></P>
+    <blockquote>
+<P><font face="Arial">Modify the <i>IntStack.h</i> using class template to let 
+the stack can deal with other type of objects other than integers. Modify the <i>
+main()</i> function in <i>IntStackTest.cpp</i> to test on types of <i>int</i> 
+and <i>string</i> respectively. </font></P>
+<P>&nbsp;</P>
+    </blockquote>
+    </blockquote>
+</blockquote>
+
+<!--mstheme--></font>
+
+</body>
+
+</html>
