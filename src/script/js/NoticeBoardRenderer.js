@@ -4,15 +4,15 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var _NoticeBoardRenderer_instances, _NoticeBoardRenderer_buildGitLogs, _NoticeBoardRenderer_buildLog, _NoticeBoardRenderer_buildDailyLogs;
-import BaseRenderer from './BaseRenderer.js';
-export default class NoticeBoardRenderer extends BaseRenderer {
-    constructor(props) {
-        super(props);
+import BaseRenderer from 'https:/hkleungai.github.io/mini-web-component/BaseRenderer.js';
+export class NoticeBoardRenderer extends BaseRenderer {
+    constructor() {
+        super('NoticeBoard');
         _NoticeBoardRenderer_instances.add(this);
     }
     ;
     build() {
-        const gitLogs = __classPrivateFieldGet(this, _NoticeBoardRenderer_instances, "m", _NoticeBoardRenderer_buildGitLogs).call(this, this.props.__GIT_LOGS);
+        const gitLogs = __classPrivateFieldGet(this, _NoticeBoardRenderer_instances, "m", _NoticeBoardRenderer_buildGitLogs).call(this, this.props.GIT_LOGS);
         const dailyLogs = gitLogs.map((gitLog) => __classPrivateFieldGet(this, _NoticeBoardRenderer_instances, "m", _NoticeBoardRenderer_buildDailyLogs).call(this, gitLog));
         const notices = dailyLogs.join('\n');
         this.innerHTML = (`
@@ -29,8 +29,8 @@ export default class NoticeBoardRenderer extends BaseRenderer {
     }
     attachEvent() { return this; }
 }
-_NoticeBoardRenderer_instances = new WeakSet(), _NoticeBoardRenderer_buildGitLogs = function _NoticeBoardRenderer_buildGitLogs(__GIT_LOGS) {
-    const logEntries = Object.entries(__GIT_LOGS);
+_NoticeBoardRenderer_instances = new WeakSet(), _NoticeBoardRenderer_buildGitLogs = function _NoticeBoardRenderer_buildGitLogs(GIT_LOGS) {
+    const logEntries = Object.entries(GIT_LOGS);
     const dailyLogObject = logEntries.reduce((acc, [key, rawLog]) => {
         const dateString = key.split(' ')[0];
         const log = rawLog.replace(/^.*:\s+/, '');
@@ -63,3 +63,4 @@ _NoticeBoardRenderer_instances = new WeakSet(), _NoticeBoardRenderer_buildGitLog
       </div>
       `);
 };
+export default new NoticeBoardRenderer();

@@ -1,4 +1,5 @@
 const GIT_LOGS = {
+    '2022-05-28 17:35:46': 'refactor: introduce object-style renderer for children props',
     '2022-05-25 00:21:59': 'feat: add COMP 2012H (13s)',
     '2022-05-24 23:53:45': 'feat: add COMP 2711H (15f)',
     '2022-05-24 23:12:27': 'chore: minor change on node dependencies',

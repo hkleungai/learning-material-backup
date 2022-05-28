@@ -1,18 +1,18 @@
+import BaseRenderer, { BaseProps } from 'https://hkleungai.github.io/mini-web-component/BaseRenderer.js';
 import {
   Categorized,
   Course,
   FetchedCourses,
   PreCourse,
 } from '../interface/types';
-import BaseRenderer from './BaseRenderer';
 
-interface TableRendererProps {
-  __CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[],
-  __FETCHED_COURSES: FetchedCourses,
+export interface TableProps extends BaseProps {
+  CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[],
+  FETCHED_COURSES: FetchedCourses,
 }
-export default class TableRenderer extends BaseRenderer<TableRendererProps> {
-  constructor(props: TableRendererProps) {
-    super(props);
+export class TableRenderer extends BaseRenderer<TableProps> {
+  constructor() {
+    super('Table');
   }
   #buildSemesterCell(code: string, semester: string) {
     const link = `./${code} ${semester}/index.html`.replace(/\s/g, '-');
@@ -102,10 +102,10 @@ export default class TableRenderer extends BaseRenderer<TableRendererProps> {
     );
   };
   build(): this {
-    const categorizedTables = this.props.__CATEGORIZED_PRE_COURSES.map(({ category, courses }) => {
+    const categorizedTables = this.props.CATEGORIZED_PRE_COURSES.map(({ category, courses }) => {
       const fullCourses = courses.map((course) => ({
         ...course,
-        ...this.props.__FETCHED_COURSES[course.code],
+        ...this.props.FETCHED_COURSES[course.code],
       }));
       return this.#buildTableWithCategory(category, fullCourses)
     });
@@ -168,3 +168,5 @@ export default class TableRenderer extends BaseRenderer<TableRendererProps> {
     return this;
   }
 }
+
+export default new TableRenderer();

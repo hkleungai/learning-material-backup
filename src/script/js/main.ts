@@ -7,35 +7,50 @@
 /** TODO: Study browser / html test tools                           */
 /** TODO: Share __temp_commit var among git hooks                   */
 
-import TableRenderer from './TableRenderer';
-import NoticeBoardRenderer from './NoticeBoardRenderer';
-import { CATEGORIZED_PRE_COURSES, FETCHED_COURSES, GIT_LOGS } from '../data';
+import mainRenderer from './MainRenderer';
+import cssScriptRenderer from './CssScriptRender';
+import {
+  CATEGORIZED_PRE_COURSES,
+  CSS_LINKS,
+  FETCHED_COURSES,
+  GIT_LOGS
+} from '../data';
 
 main();
 
-function main() {
+async function main() {
   try {
-    _main();
+    appendCssScripts();
+    // Prevent element renders before css is properly setup
+    await sleep(50);
+    appendElements();
   }
   catch (error: unknown) {
     alert((error as Error).message);
     throw error;
   }
+};
+
+async function sleep(time: number) {
+  return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-function _main() {
-  const mainDivClosingElement = document.querySelector('div.main h4.closing');
-  if (!mainDivClosingElement) {
-    throw new Error('No closing div can be found!!');
+function appendCssScripts() {
+  const head = document.querySelector('head');
+  if (!head || !(head instanceof HTMLHeadElement)) {
+    throw new Error('[ERROR]: No html head can be found!!');
   }
-  const renderers = [
-    new NoticeBoardRenderer({ __GIT_LOGS: GIT_LOGS }),
-    new TableRenderer({
-      __CATEGORIZED_PRE_COURSES: CATEGORIZED_PRE_COURSES,
-      __FETCHED_COURSES: FETCHED_COURSES,
-    })
-  ];
-  renderers.forEach((renderer) => {
-    mainDivClosingElement.before(renderer.render().fragment);
-  })
+  const cssScriptProps = { CSS_LINKS };
+  const cssScriptFragment = cssScriptRenderer.render(cssScriptProps).fragment;
+  head.append(cssScriptFragment);
+}
+
+function appendElements() {
+  const body = document.querySelector('body');
+  if (!body || !(body instanceof HTMLBodyElement)) {
+    throw new Error('[ERROR]: No html body can be found!!');
+  }
+  const mainProps = { GIT_LOGS, FETCHED_COURSES, CATEGORIZED_PRE_COURSES };
+  const mainFragment = mainRenderer.render(mainProps).fragment;
+  body.append(mainFragment);
 }
