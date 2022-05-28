@@ -1,15 +1,15 @@
+import BaseRenderer, { BaseProps } from 'https://hkleungai.github.io/mini-web-component/BaseRenderer.js';
 import { DailyGitLog, DailyGitLogEntries, GitLogs } from '../interface/types';
-import BaseRenderer from './BaseRenderer';
 
-interface NoticeBoardRendererProps {
-  __GIT_LOGS: GitLogs;
+export interface NoticeBoardProps extends BaseProps {
+  GIT_LOGS: GitLogs;
 }
-export default class NoticeBoardRenderer extends BaseRenderer<NoticeBoardRendererProps> {
-  constructor(props: NoticeBoardRendererProps) {
-    super(props);
+export class NoticeBoardRenderer extends BaseRenderer<NoticeBoardProps> {
+  constructor() {
+    super('NoticeBoard');
   }
-  #buildGitLogs(__GIT_LOGS: GitLogs): DailyGitLog[] {
-    const logEntries = Object.entries(__GIT_LOGS);
+  #buildGitLogs(GIT_LOGS: GitLogs): DailyGitLog[] {
+    const logEntries = Object.entries(GIT_LOGS);
     const dailyLogObject = logEntries.reduce<DailyGitLogEntries>((acc, [key, rawLog]) => {
       const dateString = key.split(' ')[0];
       // Get rid of conventional commits' prefixes with the form "...: "
@@ -51,7 +51,7 @@ export default class NoticeBoardRenderer extends BaseRenderer<NoticeBoardRendere
     )
   };
   build(): this {
-    const gitLogs = this.#buildGitLogs(this.props.__GIT_LOGS);
+    const gitLogs = this.#buildGitLogs(this.props.GIT_LOGS);
     const dailyLogs = gitLogs.map((gitLog) => this.#buildDailyLogs(gitLog));
     const notices = dailyLogs.join('\n');
     this.innerHTML = (
@@ -70,3 +70,5 @@ export default class NoticeBoardRenderer extends BaseRenderer<NoticeBoardRendere
   }
   attachEvent(): this { return this; }
 }
+
+export default new NoticeBoardRenderer();

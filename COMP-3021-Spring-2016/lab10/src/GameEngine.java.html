@@ -1,0 +1,810 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title></title>
+  <style type="text/css">
+    <!--code { font-family: Courier New, Courier; font-size: 10pt; margin: 0px; }-->
+  </style>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+</head>
+<body>
+<!-- ======================================================== --><!-- = Java Sourcecode to HTML automatically converted code = --><!-- =   Java2Html Converter V4.1 2004 by Markus Gebhard  markus@jave.de   = -->
+<!-- =     Further information: http://www.java2html.de     = -->
+<div class="java" align="left">
+<table bgcolor="#ffffff" border="0" cellpadding="3" cellspacing="0">
+  <tbody>
+    <tr>
+<!-- start source code --> <td align="left" nowrap="nowrap"
+ valign="top"> <code><font color="#808080">001</font>&nbsp;<font
+ color="#0000c0"><b>import&nbsp;</b></font><font color="#000000">java.awt.*;</font><br>
+      <font color="#808080">002</font>&nbsp;<font color="#0000c0"><b>import&nbsp;</b></font><font
+ color="#000000">java.awt.event.*;</font><br>
+      <font color="#808080">003</font>&nbsp;<font color="#0000c0"><b>import&nbsp;</b></font><font
+ color="#000000">java.awt.geom.*;</font><br>
+      <font color="#808080">004</font>&nbsp;<font color="#0000c0"><b>import&nbsp;</b></font><font
+ color="#000000">java.util.*;</font><br>
+      <font color="#808080">005</font>&nbsp;<font color="#0000c0"><b>import&nbsp;</b></font><font
+ color="#000000">javax.swing.*;</font><br>
+      <font color="#808080">006</font>&nbsp;<font color="#0000c0"><b>import&nbsp;</b></font><font
+ color="#000000">javax.swing.BorderFactory;&nbsp;</font><br>
+      <font color="#808080">007</font>&nbsp;<font color="#0000c0"><b>import&nbsp;</b></font><font
+ color="#000000">javax.swing.border.Border;</font><br>
+      <font color="#808080">008</font>&nbsp;<font color="#0000c0"><b>import&nbsp;</b></font><font
+ color="#000000">javax.swing.border.TitledBorder;</font><br>
+      <font color="#808080">009</font>&nbsp;<font color="#0000c0"><b>import&nbsp;</b></font><font
+ color="#000000">javax.swing.border.EtchedBorder;</font><br>
+      <font color="#808080">010</font>&nbsp;<br>
+      <font color="#808080">011</font>&nbsp;<font color="#008000">/**</font><br>
+      <font color="#808080">012</font>&nbsp;<font color="#ffffff">&nbsp;</font><font
+ color="#008000">*&nbsp;This&nbsp;class&nbsp;works&nbsp;as&nbsp;a&nbsp;game&nbsp;engine&nbsp;which&nbsp;loops&nbsp;to&nbsp;do&nbsp;updates.</font><br>
+      <font color="#808080">013</font>&nbsp;<font color="#ffffff">&nbsp;</font><font
+ color="#008000">*</font><br>
+      <font color="#808080">014</font>&nbsp;<font color="#ffffff">&nbsp;</font><font
+ color="#008000">*/</font><br>
+      <font color="#808080">015</font>&nbsp;<font color="#0000c0"><b>class&nbsp;</b></font><font
+ color="#000000">GameEngine&nbsp;</font><font color="#0000c0"><b>extends&nbsp;</b></font><font
+ color="#000000">JPanel&nbsp;</font><font color="#0000c0"><b>implements&nbsp;</b></font><font
+ color="#000000">Runnable&nbsp;</font><font color="#000000">{</font><br>
+      <font color="#808080">016</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">017</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;Field&nbsp;variables</font><br>
+      <font color="#808080">018</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;static&nbsp;final&nbsp;</b></font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">NUM_BLOCKS&nbsp;=&nbsp;</font><font
+ color="#990000">32</font><font color="#000000">;&nbsp;</font><font
+ color="#008000">//&nbsp;4&nbsp;X&nbsp;8</font><br>
+      <font color="#808080">019</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;static&nbsp;final&nbsp;</b></font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">BLOCK_SPACE&nbsp;=&nbsp;</font><font
+ color="#990000">5</font><font color="#000000">;</font><br>
+      <font color="#808080">020</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;static&nbsp;final&nbsp;</b></font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">WIDTH&nbsp;=&nbsp;</font><font
+ color="#000000">(</font><font color="#000000">Block.WIDTH+BLOCK_SPACE</font><font
+ color="#000000">)</font><font color="#000000">*</font><font
+ color="#990000">8</font><font color="#000000">+BLOCK_SPACE;</font><br>
+      <font color="#808080">021</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;static&nbsp;final&nbsp;</b></font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">HEIGHT&nbsp;=&nbsp;</font><font
+ color="#990000">364</font><font color="#000000">;</font><br>
+      <font color="#808080">022</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;static&nbsp;final&nbsp;</b></font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">THRESHOLD&nbsp;=&nbsp;BouncerFrame.HEIGHT&nbsp;-&nbsp;</font><font
+ color="#990000">2</font><font color="#000000">*Ball.RADIUS;</font><br>
+      <font color="#808080">023</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;static&nbsp;final&nbsp;</b></font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">BALL_START_XPOS&nbsp;=&nbsp;</font><font
+ color="#990000">20</font><font color="#000000">;</font><br>
+      <font color="#808080">024</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;static&nbsp;final&nbsp;</b></font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">BALL_START_YPOS&nbsp;=&nbsp;</font><font
+ color="#990000">280</font><font color="#000000">;</font><br>
+      <font color="#808080">025</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;static&nbsp;final&nbsp;</b></font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">BAR_START_XPOS&nbsp;=&nbsp;</font><font
+ color="#990000">0</font><font color="#000000">;</font><br>
+      <font color="#808080">026</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;static&nbsp;final&nbsp;</b></font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">BAR_START_YPOS&nbsp;=&nbsp;</font><font
+ color="#990000">300</font><font color="#000000">;</font><br>
+      <font color="#808080">027</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;static&nbsp;final&nbsp;</b></font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">LEVEL1_INTERVAL&nbsp;=&nbsp;</font><font
+ color="#990000">100</font><font color="#000000">;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;speed&nbsp;of&nbsp;level&nbsp;1</font><br>
+      <font color="#808080">028</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;static&nbsp;final&nbsp;</b></font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">LEVEL2_INTERVAL&nbsp;=&nbsp;</font><font
+ color="#990000">90</font><font color="#000000">;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;speed&nbsp;of&nbsp;level&nbsp;2</font><br>
+      <font color="#808080">029</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;static&nbsp;final&nbsp;</b></font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">LEVEL3_INTERVAL&nbsp;=&nbsp;</font><font
+ color="#990000">80</font><font color="#000000">;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;speed&nbsp;of&nbsp;level&nbsp;3</font><br>
+      <font color="#808080">030</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;static&nbsp;final&nbsp;</b></font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">LEVEL4_INTERVAL&nbsp;=&nbsp;</font><font
+ color="#990000">70</font><font color="#000000">;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;speed&nbsp;of&nbsp;level&nbsp;4</font><br>
+      <font color="#808080">031</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;static&nbsp;final&nbsp;</b></font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">LEVEL5_INTERVAL&nbsp;=&nbsp;</font><font
+ color="#990000">60</font><font color="#000000">;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;speed&nbsp;of&nbsp;level&nbsp;5</font><br>
+      <font color="#808080">032</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">033</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;static&nbsp;</b></font><font
+ color="#c00000"><b>boolean&nbsp;</b></font><font color="#000000">isHitBottom&nbsp;=&nbsp;</font><font
+ color="#0000c0"><b>false</b></font><font color="#000000">;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;indicates&nbsp;if&nbsp;the&nbsp;ball&nbsp;hits&nbsp;the&nbsp;bottom</font><br>
+      <font color="#808080">034</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;&nbsp;set&nbsp;as&nbsp;global&nbsp;for&nbsp;simplicity</font><br>
+      <font color="#808080">035</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;static&nbsp;</b></font><font
+ color="#c00000"><b>boolean&nbsp;</b></font><font color="#000000">isCheat&nbsp;=&nbsp;</font><font
+ color="#0000c0"><b>false</b></font><font color="#000000">;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;tooggle&nbsp;cheat&nbsp;mode</font><br>
+      <font color="#808080">036</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;set&nbsp;as&nbsp;global&nbsp;for&nbsp;simplicity</font><br>
+      <font color="#808080">037</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">blocksDestroyed&nbsp;=&nbsp;</font><font
+ color="#990000">0</font><font color="#000000">;</font><br>
+      <font color="#808080">038</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#c00000"><b>boolean&nbsp;</b></font><font color="#000000">gameStarted&nbsp;=&nbsp;</font><font
+ color="#0000c0"><b>false</b></font><font color="#000000">;</font><br>
+      <font color="#808080">039</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#c00000"><b>boolean&nbsp;</b></font><font color="#000000">stopRequested&nbsp;=&nbsp;</font><font
+ color="#0000c0"><b>false</b></font><font color="#000000">;</font><br>
+      <font color="#808080">040</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#c00000"><b>boolean&nbsp;</b></font><font color="#000000">suspendRequested&nbsp;=&nbsp;</font><font
+ color="#0000c0"><b>false</b></font><font color="#000000">;</font><br>
+      <font color="#808080">041</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">Ball&nbsp;ball;</font><br>
+      <font color="#808080">042</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">Block</font><font color="#000000">[]&nbsp;</font><font
+ color="#000000">blockArray;</font><br>
+      <font color="#808080">043</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">Bar&nbsp;bar;</font><br>
+      <font color="#808080">044</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">currentInterval;</font><br>
+      <font color="#808080">045</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">score;</font><br>
+      <font color="#808080">046</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">047</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>private&nbsp;</b></font><font color="#000000">SuspendRequestor&nbsp;suspender&nbsp;=&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>new&nbsp;</b></font><font color="#000000">SuspendRequestor</font><font
+ color="#000000">()</font><font color="#000000">;</font><br>
+      <font color="#808080">048</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">049</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;</b></font><font color="#000000">GameEngine</font><font
+ color="#000000">()&nbsp;{</font><br>
+      <font color="#808080">050</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">051</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">currentInterval&nbsp;=&nbsp;LEVEL1_INTERVAL;</font><br>
+      <font color="#808080">052</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">score&nbsp;=&nbsp;</font><font color="#990000">0</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">053</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">setSize</font><font color="#000000">(</font><font
+ color="#000000">WIDTH,&nbsp;HEIGHT</font><font color="#000000">)</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">054</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">setBorder</font><font color="#000000">(</font><font
+ color="#000000">BorderFactory.createEtchedBorder</font><font
+ color="#000000">(</font><font color="#000000">EtchedBorder.RAISED</font><font
+ color="#000000">))</font><font color="#000000">;</font><br>
+      <font color="#808080">055</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">blockArray&nbsp;=&nbsp;</font><font color="#0000c0"><b>new&nbsp;</b></font><font
+ color="#000000">Block</font><font color="#000000">[</font><font
+ color="#000000">GameEngine.NUM_BLOCKS</font><font color="#000000">]</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">056</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">x&nbsp;=&nbsp;</font><font
+ color="#990000">10&nbsp;</font><font color="#000000">,&nbsp;y&nbsp;=&nbsp;</font><font
+ color="#990000">10</font><font color="#000000">;</font><br>
+      <font color="#808080">057</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>for</b></font><font color="#000000">(</font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">i=</font><font
+ color="#990000">0</font><font color="#000000">;&nbsp;i&lt;</font><font
+ color="#990000">4</font><font color="#000000">;&nbsp;i++</font><font
+ color="#000000">)&nbsp;{</font><br>
+      <font color="#808080">058</font>&nbsp;<br>
+      <font color="#808080">059</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>for</b></font><font color="#000000">(</font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">j=</font><font
+ color="#990000">0</font><font color="#000000">;&nbsp;j&lt;</font><font
+ color="#990000">8&nbsp;</font><font color="#000000">;&nbsp;j++</font><font
+ color="#000000">)&nbsp;{</font><br>
+      <font color="#808080">060</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">blockArray</font><font color="#000000">[</font><font
+ color="#000000">i*</font><font color="#990000">8&nbsp;</font><font
+ color="#000000">+&nbsp;j</font><font color="#000000">]&nbsp;</font><font
+ color="#000000">=&nbsp;</font><font color="#0000c0"><b>new&nbsp;</b></font><font
+ color="#000000">Block</font><font color="#000000">(</font><font
+ color="#000000">x,&nbsp;y,&nbsp;Color.YELLOW</font><font
+ color="#000000">)</font><font color="#000000">;</font><br>
+      <font color="#808080">061</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">x&nbsp;=&nbsp;x&nbsp;+&nbsp;Block.WIDTH&nbsp;+&nbsp;BLOCK_SPACE;</font><br>
+      <font color="#808080">062</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}</font><br>
+      <font color="#808080">063</font>&nbsp;<br>
+      <font color="#808080">064</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">x&nbsp;=&nbsp;</font><font color="#990000">10</font><font
+ color="#000000">;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#008000">//&nbsp;reset&nbsp;the&nbsp;x&nbsp;position&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">065</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">y&nbsp;=&nbsp;y&nbsp;+&nbsp;Block.HEIGHT&nbsp;+&nbsp;</font><font
+ color="#990000">5</font><font color="#000000">;</font><br>
+      <font color="#808080">066</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}&nbsp;</font><br>
+      <font color="#808080">067</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">bar&nbsp;=&nbsp;</font><font color="#0000c0"><b>new&nbsp;</b></font><font
+ color="#000000">Bar</font><font color="#000000">(</font><font
+ color="#000000">BAR_START_XPOS,&nbsp;BAR_START_YPOS,&nbsp;Color.BLACK</font><font
+ color="#000000">)</font><font color="#000000">;</font><br>
+      <font color="#808080">068</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;position&nbsp;the&nbsp;ball&nbsp;above&nbsp;the&nbsp;center&nbsp;of&nbsp;the&nbsp;bar</font><br>
+      <font color="#808080">069</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">ball&nbsp;=&nbsp;</font><font color="#0000c0"><b>new&nbsp;</b></font><font
+ color="#000000">Ball</font><font color="#000000">(</font><font
+ color="#000000">bar.getXPos</font><font color="#000000">()</font><font
+ color="#000000">+Bar.WIDTH/</font><font color="#990000">2</font><font
+ color="#000000">-ball.RADIUS,&nbsp;bar.getYPos</font><font
+ color="#000000">()</font><font color="#000000">-</font><font
+ color="#990000">2</font><font color="#000000">*Ball.RADIUS,&nbsp;Color.RED,&nbsp;</font><font
+ color="#990000">10</font><font color="#000000">,&nbsp;</font><font
+ color="#990000">10</font><font color="#000000">)</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">070</font>&nbsp;<br>
+      <font color="#808080">071</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">repaint</font><font color="#000000">()</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">072</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">073</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">requestFocus</font><font color="#000000">()</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">074</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">addKeyListener</font><font color="#000000">(</font><font
+ color="#0000c0"><b>new&nbsp;</b></font><font color="#000000">KeyHandler</font><font
+ color="#000000">())</font><font color="#000000">;</font><br>
+      <font color="#808080">075</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">076</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}&nbsp;</font><font color="#008000">//&nbsp;end&nbsp;of&nbsp;GameEngine(RecordPanel)</font><br>
+      <font color="#808080">077</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">078</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;</b></font><font color="#c00000"><b>void&nbsp;</b></font><font
+ color="#000000">startGame</font><font color="#000000">()&nbsp;{</font><br>
+      <font color="#808080">079</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">080</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>if</b></font><font color="#000000">(</font><font
+ color="#000000">!gameStarted</font><font color="#000000">)&nbsp;{</font><br>
+      <font color="#808080">081</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">gameStarted&nbsp;=&nbsp;</font><font color="#0000c0"><b>true</b></font><font
+ color="#000000">;</font><br>
+      <font color="#808080">082</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">stopRequested&nbsp;=&nbsp;</font><font color="#0000c0"><b>false</b></font><font
+ color="#000000">;</font><br>
+      <font color="#808080">083</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">suspendRequested&nbsp;=&nbsp;</font><font
+ color="#0000c0"><b>false</b></font><font color="#000000">;</font><br>
+      <font color="#808080">084</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">ball.setXPos</font><font color="#000000">(</font><font
+ color="#000000">bar.getXPos</font><font color="#000000">()</font><font
+ color="#000000">+Bar.WIDTH/</font><font color="#990000">2</font><font
+ color="#000000">)</font><font color="#000000">;</font><br>
+      <font color="#808080">085</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">ball.setYPos</font><font color="#000000">(</font><font
+ color="#000000">bar.getYPos</font><font color="#000000">()</font><font
+ color="#000000">-Ball.RADIUS</font><font color="#000000">)</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">086</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">087</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//*******Add&nbsp;something&nbsp;here&nbsp;to&nbsp;make&nbsp;the&nbsp;game&nbsp;start*****</font><br>
+      <font color="#808080">088</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">089</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//*****************************************************</font><br>
+      <font color="#808080">090</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}</font><br>
+      <font color="#808080">091</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">092</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}&nbsp;</font><font color="#008000">//&nbsp;end&nbsp;of&nbsp;startGame()</font><br>
+      <font color="#808080">093</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">094</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;</b></font><font color="#c00000"><b>void&nbsp;</b></font><font
+ color="#000000">suspendResumeGame</font><font color="#000000">()&nbsp;{</font><br>
+      <font color="#808080">095</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">096</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">suspendRequested&nbsp;=&nbsp;!suspendRequested;</font><br>
+      <font color="#808080">097</font>&nbsp;<br>
+      <font color="#808080">098</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>if</b></font><font color="#000000">(</font><font
+ color="#000000">gameStarted</font><font color="#000000">)&nbsp;{</font><br>
+      <font color="#808080">099</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//********Handle&nbsp;the&nbsp;request&nbsp;according&nbsp;to&nbsp;the&nbsp;state&nbsp;of&nbsp;the&nbsp;game*******</font><br>
+      <font color="#808080">100</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//**********Only&nbsp;need&nbsp;to&nbsp;write&nbsp;codes&nbsp;inside&nbsp;this&nbsp;if-block*************</font><br>
+      <font color="#808080">101</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}</font><br>
+      <font color="#808080">102</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">103</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}&nbsp;</font><font color="#008000">//&nbsp;end&nbsp;of&nbsp;suspendResumeGame()</font><br>
+      <font color="#808080">104</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">105</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;</b></font><font color="#c00000"><b>void&nbsp;</b></font><font
+ color="#000000">requestSuspend</font><font color="#000000">()&nbsp;{&nbsp;</font><br>
+      <font color="#808080">106</font>&nbsp;<br>
+      <font color="#808080">107</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//*********Write&nbsp;your&nbsp;code&nbsp;here*************</font><br>
+      <font color="#808080">108</font>&nbsp;<br>
+      <font color="#808080">109</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}&nbsp;</font><font color="#008000">//&nbsp;end&nbsp;of&nbsp;requestSuspend()</font><br>
+      <font color="#808080">110</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">111</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;synchronized&nbsp;</b></font><font
+ color="#c00000"><b>void&nbsp;</b></font><font color="#000000">requestResume</font><font
+ color="#000000">()&nbsp;{&nbsp;</font><br>
+      <font color="#808080">112</font>&nbsp;<br>
+      <font color="#808080">113</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//*********Write&nbsp;your&nbsp;code&nbsp;here*************</font><br>
+      <font color="#808080">114</font>&nbsp;<br>
+      <font color="#808080">115</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}&nbsp;</font><font color="#008000">//&nbsp;end&nbsp;of&nbsp;requestResume()</font><br>
+      <font color="#808080">116</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">117</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;</b></font><font color="#c00000"><b>void&nbsp;</b></font><font
+ color="#000000">stopGame</font><font color="#000000">()&nbsp;{</font><br>
+      <font color="#808080">118</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">119</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">stopRequested&nbsp;=&nbsp;</font><font color="#0000c0"><b>true</b></font><font
+ color="#000000">;</font><br>
+      <font color="#808080">120</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">gameStarted&nbsp;=&nbsp;</font><font color="#0000c0"><b>false</b></font><font
+ color="#000000">;</font><br>
+      <font color="#808080">121</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">122</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}&nbsp;</font><font color="#008000">//&nbsp;end&nbsp;of&nbsp;stopGame()</font><br>
+      <font color="#808080">123</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">124</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">125</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;</b></font><font color="#c00000"><b>void&nbsp;</b></font><font
+ color="#000000">paintComponent</font><font color="#000000">(</font><font
+ color="#000000">Graphics&nbsp;g</font><font color="#000000">)&nbsp;{</font><br>
+      <font color="#808080">126</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">127</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>super</b></font><font color="#000000">.paintComponent</font><font
+ color="#000000">(</font><font color="#000000">g</font><font
+ color="#000000">)</font><font color="#000000">;</font><br>
+      <font color="#808080">128</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">Graphics2D&nbsp;g2&nbsp;=&nbsp;</font><font
+ color="#000000">(</font><font color="#000000">Graphics2D</font><font
+ color="#000000">)</font><font color="#000000">g;</font><br>
+      <font color="#808080">129</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">130</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;draw&nbsp;the&nbsp;ball</font><br>
+      <font color="#808080">131</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">ball.draw</font><font color="#000000">(</font><font
+ color="#000000">g2</font><font color="#000000">)</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">132</font>&nbsp;<br>
+      <font color="#808080">133</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;draw&nbsp;the&nbsp;blocks</font><br>
+      <font color="#808080">134</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>for</b></font><font color="#000000">(</font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">i=</font><font
+ color="#990000">0</font><font color="#000000">;&nbsp;i&lt;blockArray.length;&nbsp;i++</font><font
+ color="#000000">)&nbsp;{</font><br>
+      <font color="#808080">135</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>if</b></font><font color="#000000">(</font><font
+ color="#000000">!blockArray</font><font color="#000000">[</font><font
+ color="#000000">i</font><font color="#000000">]</font><font
+ color="#000000">.isDestroyed</font><font color="#000000">()){</font><br>
+      <font color="#808080">136</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">blockArray</font><font color="#000000">[</font><font
+ color="#000000">i</font><font color="#000000">]</font><font
+ color="#000000">.draw</font><font color="#000000">(</font><font
+ color="#000000">g2</font><font color="#000000">)</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">137</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//System.out.println(i&nbsp;+&nbsp;"th&nbsp;block&nbsp;drawn");</font><br>
+      <font color="#808080">138</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}</font><br>
+      <font color="#808080">139</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}</font><br>
+      <font color="#808080">140</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">141</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;draw&nbsp;the&nbsp;bar</font><br>
+      <font color="#808080">142</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">bar.draw</font><font color="#000000">(</font><font
+ color="#000000">g2</font><font color="#000000">)</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">143</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">144</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;debug&nbsp;message&nbsp;for&nbsp;showing&nbsp;the&nbsp;dimension&nbsp;of&nbsp;the&nbsp;game&nbsp;panel</font><br>
+      <font color="#808080">145</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//System.out.println(getWidth()+"&nbsp;X&nbsp;"+getHeight());</font><br>
+      <font color="#808080">146</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">147</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}&nbsp;</font><font color="#008000">//&nbsp;end&nbsp;of&nbsp;paintComponent(Graphics)</font><br>
+      <font color="#808080">148</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">149</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">150</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;</b></font><font color="#c00000"><b>void&nbsp;</b></font><font
+ color="#000000">run</font><font color="#000000">()&nbsp;{</font><br>
+      <font color="#808080">151</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">152</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;loop&nbsp;thoughout&nbsp;the&nbsp;whole&nbsp;game,&nbsp;unless&nbsp;stop&nbsp;is&nbsp;requested</font><br>
+      <font color="#808080">153</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>while</b></font><font color="#000000">(</font><font
+ color="#000000">!stopRequested</font><font color="#000000">)&nbsp;{</font><br>
+      <font color="#808080">154</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">155</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//******Add&nbsp;something&nbsp;here&nbsp;to&nbsp;make&nbsp;the&nbsp;suspend/resume&nbsp;work*******</font><br>
+      <font color="#808080">156</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">157</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//***************************************************************</font><br>
+      <font color="#808080">158</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">159</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;check&nbsp;if&nbsp;the&nbsp;ball&nbsp;hits&nbsp;any&nbsp;block</font><br>
+      <font color="#808080">160</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">blockResult;</font><br>
+      <font color="#808080">161</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>for</b></font><font color="#000000">(</font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">i=</font><font
+ color="#990000">0</font><font color="#000000">;&nbsp;i&lt;blockArray.length;&nbsp;i++</font><font
+ color="#000000">)&nbsp;{</font><br>
+      <font color="#808080">162</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>if</b></font><font color="#000000">(</font><font
+ color="#000000">!blockArray</font><font color="#000000">[</font><font
+ color="#000000">i</font><font color="#000000">]</font><font
+ color="#000000">.isDestroyed</font><font color="#000000">())&nbsp;{</font><br>
+      <font color="#808080">163</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">blockResult&nbsp;=&nbsp;blockArray</font><font
+ color="#000000">[</font><font color="#000000">i</font><font
+ color="#000000">]</font><font color="#000000">.isHit</font><font
+ color="#000000">(</font><font color="#000000">ball</font><font
+ color="#000000">)</font><font color="#000000">;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">164</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>if</b></font><font color="#000000">(</font><font
+ color="#000000">blockResult&nbsp;==&nbsp;Block.TOP_OR_BOTTOM</font><font
+ color="#000000">)&nbsp;{</font><br>
+      <font color="#808080">165</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">blockArray</font><font color="#000000">[</font><font
+ color="#000000">i</font><font color="#000000">]</font><font
+ color="#000000">.setDestroyed</font><font color="#000000">(</font><font
+ color="#0000c0"><b>true</b></font><font color="#000000">)</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">166</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">ball.setYVel</font><font color="#000000">(</font><font
+ color="#000000">-ball.getYVel</font><font color="#000000">())</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">167</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;increase&nbsp;score</font><br>
+      <font color="#808080">168</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">score&nbsp;+=&nbsp;currentInterval;</font><br>
+      <font color="#808080">169</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">blocksDestroyed++;</font><br>
+      <font color="#808080">170</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}&nbsp;</font><br>
+      <font color="#808080">171</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>else&nbsp;if</b></font><font color="#000000">(</font><font
+ color="#000000">blockResult&nbsp;==&nbsp;Block.LEFT_OR_RIGHT</font><font
+ color="#000000">)&nbsp;{</font><br>
+      <font color="#808080">172</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">blockArray</font><font color="#000000">[</font><font
+ color="#000000">i</font><font color="#000000">]</font><font
+ color="#000000">.setDestroyed</font><font color="#000000">(</font><font
+ color="#0000c0"><b>true</b></font><font color="#000000">)</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">173</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">ball.setXVel</font><font color="#000000">(</font><font
+ color="#000000">-ball.getXVel</font><font color="#000000">())</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">174</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;increase&nbsp;score</font><br>
+      <font color="#808080">175</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">score&nbsp;+=&nbsp;currentInterval;</font><br>
+      <font color="#808080">176</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">blocksDestroyed++;</font><br>
+      <font color="#808080">177</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}</font><br>
+      <font color="#808080">178</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>else&nbsp;</b></font><font color="#000000">{&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;do&nbsp;nothing</font><br>
+      <font color="#808080">179</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}</font><br>
+      <font color="#808080">180</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">181</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}</font><br>
+      <font color="#808080">182</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">183</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;check&nbsp;if&nbsp;all&nbsp;the&nbsp;blocks&nbsp;are&nbsp;destroyed</font><br>
+      <font color="#808080">184</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>if</b></font><font color="#000000">(</font><font
+ color="#000000">blocksDestroyed&nbsp;&gt;=&nbsp;NUM_BLOCKS</font><font
+ color="#000000">)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">185</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;repaint&nbsp;all&nbsp;the&nbsp;things</font><br>
+      <font color="#808080">186</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">repaint</font><font color="#000000">()</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">187</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">stopGame</font><font color="#000000">()</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">188</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">JOptionPane.showMessageDialog</font><font
+ color="#000000">(</font><font color="#000000">this,&nbsp;</font><font
+ color="#990000">"You've&nbsp;won!\nScore&nbsp;=&nbsp;"</font><font
+ color="#000000">+score</font><font color="#000000">)</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">189</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">System.exit</font><font color="#000000">(</font><font
+ color="#990000">0</font><font color="#000000">)</font><font
+ color="#000000">;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">190</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}</font><br>
+      <font color="#808080">191</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">192</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;check&nbsp;if&nbsp;the&nbsp;ball&nbsp;hits&nbsp;the&nbsp;bar</font><br>
+      <font color="#808080">193</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">barResult&nbsp;=&nbsp;bar.isHit</font><font
+ color="#000000">(</font><font color="#000000">ball</font><font
+ color="#000000">)</font><font color="#000000">;</font><br>
+      <font color="#808080">194</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>if</b></font><font color="#000000">(</font><font
+ color="#000000">barResult==Bar.LEFT_SIDE&nbsp;||&nbsp;barResult==Bar.RIGHT_SIDE</font><font
+ color="#000000">)&nbsp;{</font><br>
+      <font color="#808080">195</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;make&nbsp;it&nbsp;move&nbsp;faster&nbsp;horizontally</font><br>
+      <font color="#808080">196</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">ball.setXVel</font><font color="#000000">(</font><font
+ color="#000000">ball.getXVel</font><font color="#000000">()</font><font
+ color="#000000">+</font><font color="#990000">2</font><font
+ color="#000000">)</font><font color="#000000">;</font><br>
+      <font color="#808080">197</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">ball.setYVel</font><font color="#000000">(</font><font
+ color="#000000">-ball.getYVel</font><font color="#000000">())</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">198</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}&nbsp;</font><br>
+      <font color="#808080">199</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>else&nbsp;if</b></font><font color="#000000">(</font><font
+ color="#000000">barResult&nbsp;==&nbsp;Bar.MIDDLE</font><font
+ color="#000000">)&nbsp;{</font><br>
+      <font color="#808080">200</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">ball.setYVel</font><font color="#000000">(</font><font
+ color="#000000">-ball.getYVel</font><font color="#000000">())</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">201</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}</font><br>
+      <font color="#808080">202</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>else&nbsp;</b></font><font color="#000000">{</font><br>
+      <font color="#808080">203</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;do&nbsp;nothing,&nbsp;since&nbsp;no&nbsp;hit&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">204</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}</font><br>
+      <font color="#808080">205</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">206</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;check&nbsp;if&nbsp;the&nbsp;ball&nbsp;has&nbsp;hit&nbsp;the&nbsp;bottom</font><br>
+      <font color="#808080">207</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>if</b></font><font color="#000000">(</font><font
+ color="#000000">!isCheat&nbsp;&amp;&amp;&nbsp;isHitBottom</font><font
+ color="#000000">)&nbsp;{</font><br>
+      <font color="#808080">208</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">stopGame</font><font color="#000000">()</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">209</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">JOptionPane.showMessageDialog</font><font
+ color="#000000">(</font><font color="#000000">this,&nbsp;</font><font
+ color="#990000">"Game&nbsp;Over!\nScore&nbsp;=&nbsp;"</font><font
+ color="#000000">+score</font><font color="#000000">)</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">210</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">System.exit</font><font color="#000000">(</font><font
+ color="#990000">0</font><font color="#000000">)</font><font
+ color="#000000">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">211</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}</font><br>
+      <font color="#808080">212</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">213</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">214</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;move&nbsp;the&nbsp;ball</font><br>
+      <font color="#808080">215</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">ball.move</font><font color="#000000">(</font><font
+ color="#000000">getWidth</font><font color="#000000">()</font><font
+ color="#000000">,&nbsp;getHeight</font><font color="#000000">())</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">216</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">217</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;repaint&nbsp;all&nbsp;the&nbsp;things</font><br>
+      <font color="#808080">218</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">repaint</font><font color="#000000">()</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">219</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">220</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;sleep&nbsp;for&nbsp;delay</font><br>
+      <font color="#808080">221</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>try&nbsp;</b></font><font color="#000000">{</font><br>
+      <font color="#808080">222</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">Thread.sleep</font><font color="#000000">(</font><font
+ color="#000000">currentInterval</font><font color="#000000">)</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">223</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}&nbsp;</font><font color="#0000c0"><b>catch</b></font><font
+ color="#000000">(</font><font color="#000000">InterruptedException&nbsp;ie</font><font
+ color="#000000">)&nbsp;{}</font><br>
+      <font color="#808080">224</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}</font><br>
+      <font color="#808080">225</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">226</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}&nbsp;</font><font color="#008000">//&nbsp;end&nbsp;of&nbsp;run()</font><br>
+      <font color="#808080">227</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">228</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;public&nbsp;boolean&nbsp;isFocusTraversable()&nbsp;&lt;-&nbsp;Deprecated&nbsp;since&nbsp;JDK1.4</font><br>
+      <font color="#808080">229</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;</b></font><font color="#c00000"><b>boolean&nbsp;</b></font><font
+ color="#000000">isFocusable</font><font color="#000000">()&nbsp;{</font><br>
+      <font color="#808080">230</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">231</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>return&nbsp;true</b></font><font color="#000000">;&nbsp;</font><font
+ color="#008000">//&nbsp;allow&nbsp;panel&nbsp;to&nbsp;get&nbsp;input&nbsp;focus</font><br>
+      <font color="#808080">232</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">233</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}</font><br>
+      <font color="#808080">234</font>&nbsp;<br>
+      <font color="#808080">235</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">/**</font><br>
+      <font color="#808080">236</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">*&nbsp;Inner&nbsp;class&nbsp;for&nbsp;handling&nbsp;the&nbsp;left&nbsp;and&nbsp;right&nbsp;button&nbsp;events</font><br>
+      <font color="#808080">237</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">*</font><br>
+      <font color="#808080">238</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">*/</font><br>
+      <font color="#808080">239</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>private&nbsp;class&nbsp;</b></font><font
+ color="#000000">KeyHandler&nbsp;</font><font color="#0000c0"><b>extends&nbsp;</b></font><font
+ color="#000000">KeyAdapter&nbsp;</font><font color="#000000">{</font><br>
+      <font color="#808080">240</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">241</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;</b></font><font color="#c00000"><b>void&nbsp;</b></font><font
+ color="#000000">keyPressed</font><font color="#000000">(</font><font
+ color="#000000">KeyEvent&nbsp;event</font><font color="#000000">)&nbsp;{</font><br>
+      <font color="#808080">242</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">243</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#c00000"><b>int&nbsp;</b></font><font color="#000000">keyCode&nbsp;=&nbsp;event.getKeyCode</font><font
+ color="#000000">()</font><font color="#000000">;</font><br>
+      <font color="#808080">244</font>&nbsp;<br>
+      <font color="#808080">245</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>if&nbsp;</b></font><font color="#000000">(</font><font
+ color="#000000">keyCode&nbsp;==&nbsp;KeyEvent.VK_LEFT&nbsp;&amp;&amp;&nbsp;!suspendRequested</font><font
+ color="#000000">)&nbsp;{</font><br>
+      <font color="#808080">246</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//System.out.println("left&nbsp;pressed");</font><br>
+      <font color="#808080">247</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">bar.move</font><font color="#000000">(</font><font
+ color="#000000">getWidth</font><font color="#000000">()</font><font
+ color="#000000">,&nbsp;getHeight</font><font color="#000000">()</font><font
+ color="#000000">,&nbsp;Bar.LEFT</font><font color="#000000">)</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">248</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>if</b></font><font color="#000000">(</font><font
+ color="#000000">!gameStarted</font><font color="#000000">)</font><br>
+      <font color="#808080">249</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">ball.setXPos</font><font color="#000000">(</font><font
+ color="#000000">bar.getXPos</font><font color="#000000">()</font><font
+ color="#000000">+Bar.WIDTH/</font><font color="#990000">2</font><font
+ color="#000000">-Ball.RADIUS</font><font color="#000000">)</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">250</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}</font><br>
+      <font color="#808080">251</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>else&nbsp;if&nbsp;</b></font><font color="#000000">(</font><font
+ color="#000000">keyCode&nbsp;==&nbsp;KeyEvent.VK_RIGHT&nbsp;&amp;&amp;&nbsp;!suspendRequested</font><font
+ color="#000000">)&nbsp;{</font><br>
+      <font color="#808080">252</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//System.out.println("right&nbsp;pressed");</font><br>
+      <font color="#808080">253</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">bar.move</font><font color="#000000">(</font><font
+ color="#000000">getWidth</font><font color="#000000">()</font><font
+ color="#000000">,&nbsp;getHeight</font><font color="#000000">()</font><font
+ color="#000000">,&nbsp;Bar.RIGHT</font><font color="#000000">)</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">254</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>if</b></font><font color="#000000">(</font><font
+ color="#000000">!gameStarted</font><font color="#000000">)</font><br>
+      <font color="#808080">255</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">ball.setXPos</font><font color="#000000">(</font><font
+ color="#000000">bar.getXPos</font><font color="#000000">()</font><font
+ color="#000000">+Bar.WIDTH/</font><font color="#990000">2</font><font
+ color="#000000">-Ball.RADIUS</font><font color="#000000">)</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">256</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}</font><br>
+      <font color="#808080">257</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>else&nbsp;if&nbsp;</b></font><font color="#000000">(</font><font
+ color="#000000">keyCode&nbsp;==&nbsp;KeyEvent.VK_UP</font><font
+ color="#000000">)&nbsp;{</font><br>
+      <font color="#808080">258</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//System.out.println("up&nbsp;pressed");</font><br>
+      <font color="#808080">259</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>if</b></font><font color="#000000">(</font><font
+ color="#000000">!gameStarted</font><font color="#000000">)</font><br>
+      <font color="#808080">260</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">startGame</font><font color="#000000">()</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">261</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}</font><br>
+      <font color="#808080">262</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>else&nbsp;if&nbsp;</b></font><font color="#000000">(</font><font
+ color="#000000">keyCode&nbsp;==&nbsp;KeyEvent.VK_C</font><font
+ color="#000000">)&nbsp;{</font><br>
+      <font color="#808080">263</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">isCheat&nbsp;=&nbsp;!isCheat;</font><br>
+      <font color="#808080">264</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>if</b></font><font color="#000000">(</font><font
+ color="#000000">isCheat</font><font color="#000000">)&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">ball.setColor</font><font color="#000000">(</font><font
+ color="#000000">Color.BLUE</font><font color="#000000">)</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">265</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>else&nbsp;</b></font><font color="#000000">ball.setColor</font><font
+ color="#000000">(</font><font color="#000000">Color.RED</font><font
+ color="#000000">)</font><font color="#000000">;</font><br>
+      <font color="#808080">266</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}</font><br>
+      <font color="#808080">267</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>else&nbsp;if&nbsp;</b></font><font color="#000000">(</font><font
+ color="#000000">keyCode&nbsp;==&nbsp;KeyEvent.VK_P</font><font
+ color="#000000">)&nbsp;{</font><br>
+      <font color="#808080">268</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">suspendResumeGame</font><font color="#000000">()</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">269</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}</font><br>
+      <font color="#808080">270</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>else&nbsp;</b></font><font color="#000000">{</font><br>
+      <font color="#808080">271</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#008000">//&nbsp;do&nbsp;nothing</font><br>
+      <font color="#808080">272</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}</font><br>
+      <font color="#808080">273</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">274</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">repaint</font><font color="#000000">()</font><font
+ color="#000000">;</font><br>
+      <font color="#808080">275</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">276</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}&nbsp;</font><font color="#008000">//&nbsp;end&nbsp;of&nbsp;keyPressed(KeyEvent)</font><br>
+      <font color="#808080">277</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">278</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">}&nbsp;</font><font color="#008000">//&nbsp;end&nbsp;of&nbsp;KeyHandler&nbsp;inner&nbsp;class&nbsp;definition</font><br>
+      <font color="#808080">279</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">280</font>&nbsp;<font color="#000000">}&nbsp;</font><font
+ color="#008000">//&nbsp;end&nbsp;of&nbsp;GameEngine&nbsp;class&nbsp;definition</font><br>
+      <font color="#808080">281</font>&nbsp;<br>
+      <font color="#808080">282</font>&nbsp;<font color="#008000">//&nbsp;The&nbsp;class&nbsp;for&nbsp;us&nbsp;to&nbsp;use&nbsp;its&nbsp;objects&nbsp;as&nbsp;locks</font><br>
+      <font color="#808080">283</font>&nbsp;<font color="#0000c0"><b>class&nbsp;</b></font><font
+ color="#000000">SuspendRequestor</font><br>
+      <font color="#808080">284</font>&nbsp;<font color="#000000">{&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;synchronized&nbsp;</b></font><font
+ color="#c00000"><b>void&nbsp;</b></font><font color="#000000">set&nbsp;</font><font
+ color="#000000">(&nbsp;</font><font color="#c00000"><b>boolean&nbsp;</b></font><font
+ color="#000000">b</font><font color="#000000">)</font><br>
+      <font color="#808080">285</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;</font><font
+ color="#000000">{&nbsp;&nbsp;</font><font color="#000000">suspendRequested&nbsp;=&nbsp;b;</font><br>
+      <font color="#808080">286</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#000000">notifyAll</font><font color="#000000">()</font><font
+ color="#000000">;</font><font color="#000000">}</font><br>
+      <font color="#808080">287</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;</font><br>
+      <font color="#808080">288</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>public&nbsp;synchronized&nbsp;</b></font><font
+ color="#c00000"><b>void&nbsp;</b></font><font color="#000000">waitForResume</font><font
+ color="#000000">()</font><br>
+      <font color="#808080">289</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>throws&nbsp;</b></font><font color="#000000">InterruptedException</font><br>
+      <font color="#808080">290</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;</font><font
+ color="#000000">{&nbsp;&nbsp;</font><font color="#0000c0"><b>while&nbsp;</b></font><font
+ color="#000000">(&nbsp;</font><font color="#000000">suspendRequested</font><font
+ color="#000000">)&nbsp;</font><font color="#000000">wait&nbsp;</font><font
+ color="#000000">()</font><font color="#000000">;&nbsp;</font><font
+ color="#000000">}</font><br>
+      <font color="#808080">291</font>&nbsp;<br>
+      <font color="#808080">292</font>&nbsp;<font color="#ffffff">&nbsp;&nbsp;</font><font
+ color="#0000c0"><b>private&nbsp;</b></font><font color="#c00000"><b>boolean&nbsp;</b></font><font
+ color="#000000">suspendRequested;</font><br>
+      <font color="#808080">293</font>&nbsp;<font color="#000000">}</font></code>
+      </td>
+<!-- end source code --> </tr>
+<!-- start Java2Html link --> <tr>
+      <td align="right"><small>
+      <a href="http://www.java2html.de" target="_blank">Java2html</a>
+      </small> </td>
+    </tr>
+<!-- end Java2Html link -->
+  </tbody>
+</table>
+</div>
+<!-- =       END of automatically generated HTML code       = -->
+<!-- ======================================================== -->
+</body>
+</html>

@@ -13,18 +13,18 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var _TableRenderer_instances, _TableRenderer_buildSemesterCell, _TableRenderer_buildCourseRow, _TableRenderer_buildTable, _TableRenderer_buildCategory, _TableRenderer_buildTableWithCategory, _TableRenderer_attachSingleDescriptionEvent, _TableRenderer_attachDescriptionEvent, _TableRenderer_attachSingleCopyLinkEvent, _TableRenderer_attachCopyLinkEvent;
-import BaseRenderer from './BaseRenderer.js';
-export default class TableRenderer extends BaseRenderer {
-    constructor(props) {
-        super(props);
+import BaseRenderer from 'https:/hkleungai.github.io/mini-web-component/BaseRenderer.js';
+export class TableRenderer extends BaseRenderer {
+    constructor() {
+        super('Table');
         _TableRenderer_instances.add(this);
     }
     ;
     ;
     ;
     build() {
-        const categorizedTables = this.props.__CATEGORIZED_PRE_COURSES.map(({ category, courses }) => {
-            const fullCourses = courses.map((course) => (Object.assign(Object.assign({}, course), this.props.__FETCHED_COURSES[course.code])));
+        const categorizedTables = this.props.CATEGORIZED_PRE_COURSES.map(({ category, courses }) => {
+            const fullCourses = courses.map((course) => (Object.assign(Object.assign({}, course), this.props.FETCHED_COURSES[course.code])));
             return __classPrivateFieldGet(this, _TableRenderer_instances, "m", _TableRenderer_buildTableWithCategory).call(this, category, fullCourses);
         });
         this.innerHTML = categorizedTables.join('\n');
@@ -152,3 +152,4 @@ _TableRenderer_instances = new WeakSet(), _TableRenderer_buildSemesterCell = fun
     }
     titles.forEach(title => __classPrivateFieldGet(this, _TableRenderer_instances, "m", _TableRenderer_attachSingleCopyLinkEvent).call(this, title));
 };
+export default new TableRenderer();

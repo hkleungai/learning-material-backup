@@ -93,6 +93,15 @@ const CATEGORIZED_PRE_COURSES = [
         ],
     },
     {
+        category: 'Hacking / Security',
+        courses: [
+            {
+                code: 'COMP 4632',
+                semesters: ['Fall 2015'],
+            }
+        ]
+    },
+    {
         category: 'Internet / Multimedia',
         courses: [
             {
@@ -181,5 +190,18 @@ const CATEGORIZED_PRE_COURSES = [
             }
         ],
     },
+    {
+        category: 'Software Design',
+        courses: [
+            {
+                code: 'COMP 3021',
+                semesters: ['Spring 2016'],
+            },
+            {
+                code: 'COMP 3111',
+                semesters: ['Spring 2016'],
+            }
+        ]
+    }
 ];
 export default CATEGORIZED_PRE_COURSES;
