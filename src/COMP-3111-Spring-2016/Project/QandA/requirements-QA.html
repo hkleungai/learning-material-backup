@@ -1,0 +1,511 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>System Requirements Specification Q&amp;A</title>
+<style type="text/css">
+<!--
+.Red-Bold {
+	color: #FF0000;
+	font-weight: bold;
+}
+.Red-Regular {color: #FF0000}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF">
+<center>
+  &nbsp;
+</center>
+<h2>
+  <center>
+    COMP 3111: Software Engineering
+  </center>
+</h2>
+<h3>
+  <center>
+    <p>System Requirements Specification</p>
+    <p>Questions and Answers </p>
+  </center>
+</h3>
+<p><img src="../../images/line-color.gif" width="100%" height="3" align="bottom"></p>
+<h4>
+  <center>
+    Posted Date
+  </center>
+</h4>
+<center>
+  <p>| <a href="requirements-QA.html#Apr08">Apr. 8</a> | <a href="requirements-QA.html#Apr15">Apr. 15</a> | <a href="requirements-QA.html#Apr17">Apr. 17</a> | <a href="requirements-QA.html#Apr23">Apr. 23</a> | <a href="requirements-QA.html#May06">May 6 </a>|</p>
+</center>
+<p><img src="../../images/eye-rule.gif" width="100%" height="11" align="bottom"></p>
+<h4><a name="Apr08" id="Apr08"></a>Posted Apr. 8<br></h4>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>SRS Requirement:</strong> Suppose that a use case involves two actors, A and B, whose interaction  with the use case is basically the same. Do we need to write a separate basic  flow of this use case for A and B or  we should make on  of them an alternative flow?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>You should only write the description once and indicate where and how  the flows differ for the different actors. There is no fixed way for how  to do this. You just need to make it clear and understandable to  everyone who will read your use-case description.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 1: </strong>Is the account number entered by the employee         or generated automatically by the system?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>It should be generated automatically by the system.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 1:</strong> In  assigning the number part of an account number, do we need to take into account the first two letters when determining the account number as in the following example: AU00000001, AU00000002, AK00000001, AK00000002 etc.?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>Yes.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 1: </strong>Can the same client hold several           security accounts?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>No. As far as we can, we restrict each client to hold at most one security     account. We see no good reason to allow a client to hold more than     one security account.</td>
+  </tr>
+</table>
+<h4><a name="Apr15" id="Apr15"></a>Posted Apr. 15<br>
+</h4>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 2: </strong>You         said that&nbsp;we restrict each client to hold at           most one account.  Is the         account you mean the login account or security account.</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>It is the security account.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 3: </strong>What is the valid range of price for each type of security?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>For bonds and stocks it is 0.00 to 999.99. For unit  trusts it is 0.00 to 9999.99. <br>
+      [<strong>Aside:</strong> You can determine this yourself by looking at the table definitions in  the ExternalDatabases. You can look at the table definitions, you just  should not modify them.]</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 4: </strong>If a&nbsp;buy or sell order is cancelled, should we send an             invoice? Are there any fees in this             case?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>If there is no purchase or sale of securities, then there is no     invoice, so nothing needs to be sent and no fees should be charged.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 4:</strong> For a buy or sell order that was executed, should the fees&nbsp;= minimum           fee&nbsp;+ (% &nbsp; order type in the table * amount bought&nbsp;or sold)?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>The fee that should be charged is the max(minimum fee, % order type     in the table * amount bought&nbsp;or sold).</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 4: </strong>Do we need to check whether an account's remaining balance is  sufficient for executing a buy order when the client submits the  buy order or does the external system check whether the account's  remaining balance is sufficient for execution when it executes  a transaction? Also, when a client pays for buying/selling a security, will the external system  add/subtract the account's balance automatically when the transaction  is executed?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>The external system has absolutely no access to your system's database, so cannot access  a client's account. Allowing this would be a security nightmare! All that the external system does is provide security and currency data to your system and accept and  execute orders from your system. Beyond that, everything else is for  your system to do.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 5(c):</strong> (1) Can a client  cancel a particular alert that he/she set? (2) Should  an alert be automatically cancelled if it is triggered?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>(1) Yes. (2) Yes.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 5(c):</strong> If the client sets an alert on a security and then sells all shares  of the security that he holds, should the system delete  the alert automatically when the transaction  finishes?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>That would be nice and user friendly and also would meet the requirement that a client can only set an alert on a security that he/she holds.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 6(c) </strong>does not specify whether a           user should be able to reorder the listing of the status of           any active orders other than by the submission date. Is there any requirement to order the listing by other fields?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>We have no other requirement for the listing. If your development team would     like to allow the listing to be sorted by other fields, that is fine     with us, but it is not required.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 6(d)</strong> states that the order history           default start and end date should be the current date, but           that if no date range is specified than all dates should be           included. Does this means that by default only orders from the current           date should be displayed and all dates should be           included only if the user actually deletes the default dates?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>Yes.</td>
+  </tr>
+</table>
+<h4><a name="Apr17" id="Apr"></a>Posted Apr. 17</h4>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 1: </strong>Can an account number   start from 0 and be generated randomly?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>Account numbers should be generated sequentially starting from     1.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 1: </strong>Do we need to handle the case that  the client's name contains special characters like '.', '-'?&nbsp; Do we need to  handle the case that a client's name contains non-ASCII characters? </td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>There is no restriction on what can be a client's name. Any valid string is allowed that meets the following conditions.
+      <ol>
+        <li>A client's first and last names can be translated or represented in           English and relevant, reasonable, visible special characters (including whitespace).</li>
+        <li>A client's last name contains at least one English letter           for generating the account number.    </li>
+    </ol></td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 4: </strong>What is the   execution time of an order?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>An order is considered "executed" when it has either fully  completed execution (i.e., its status is "completed") or it has partially  executed and its status becomes "cancelled". An order does not  have an execution time; only its transactions have an execution time.  Taking these two facts into consideration, one can say that the execution time of an order is the  execution time of its last transaction. </td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 4:</strong> What is the total monetary amount of an executed  order?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>The total monetary amount of an executed order is the total amount of  all of its transactions (i.e., the sum of (#shares * price) for each transaction). The  total monetary amount of an  order cannot be determined until  the order finishes execution. </td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 4: </strong>If a client submits a buy order while there           are already pending buy orders, should the system regard his "free"           cash balance as (balance - total monetary amount of all pending buy           orders) when checking whether the balance is sufficient to place the buy order?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>Requirement 4 states     that a client "should be able to place an order to buy securities     provided they have sufficient cash in their account". Thus, when a     client places a buy order, he/she must have a "free" cash balance      sufficient to complete the order. The system should not     allow a client to place buy orders whose total monetary value is     greater than the client's  "free" cash balance at the time that     the order is placed. We note that this could     result in a client having a negative balance if the total monetary     amount of buy orders happens to be larger than what was anticipated     when the orders were placed. This situation is acceptable since the     overall value of a client's account (i.e., "free" cash balance plus     total monetary value of all securities held) should always be     greater than zero in the normal case.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 4: </strong>If a client buys a               security that causes the account balance to become negative and               the security's price subsequently decreases so that               the client's assets  become negative, is this acceptable?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>Yes.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 4:</strong> Can we assume that the "order reference number"  is assigned sequentially  according to the order submission time (i.e., an order submitted later has a larger order reference  number)?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>While order reference numbers are assigned sequentially according to the  time an order is received, relying on this fact  may not be a good idea as it depends on the external  system always assigning reference numbers in this way, which  could change and over which you have no control. </td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 5(c): </strong>Can the high value of an alert be lower than the low value?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>This should be an error as it makes no sense.</td>
+  </tr>
+</table>
+<h4><a name="Apr23" id="Apr23"></a>Posted Apr. 23</h4>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 2 </strong>states that clients cannot change their name  unless they send appropriate documents to the  company. Does name include the title (i.e. Mr.,  Mrs., etc.)?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>Title can be changed by the client.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 4 </strong>states that for calculating the fee for each order  &quot;the assets of an account should include the total current value  of all security holdings plus the free credit balance&quot;. What  is the definition of the &quot;current value of all securities&quot;. Should it be the  value of all securities at the  time when the order is detected as completed? </td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>Yes.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 4:</strong> Can         we place an order to buy or sell 0.01 share of a security?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>Yes, except for buying stocks.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 5(a) </strong>states that the profit/loss is expected to  be shown in 'absolute dollar amount'. How should the profit/loss be shown as an absolute dollar value?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>When showing profit/loss as a value, there are some standard ways to  show a negative value such as with a preceding minus sign or the value  enclosed in parentheses () and possibly in red.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 5(a) </strong>states that the previously held securities  of a client should be included when calculating the profit/loss.  Therefore, should we allow a client to display the profit/loss of  an individual security that has already been sold?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>Yes.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td>In <strong>Requirement 5(c)</strong>, does "passes through" mean  the price change should be from one side to the other side of the alert  value to trigger the alert (e.g., if the security price is at 5HKD and  a  low value alert is then set  at 10HKD, will the alert be triggered immediately or is it triggered when  the price goes from above 10HKD to below 10HKD)?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>The value has to actually "pass through" the alert value, either going  up for high value alerts or coming down for low value alerts for the alert to trigger. In this case, since the alert is a low value alert, the security value has  not "passed through" the alert value (i.e., from above the alert value to below the alert value) so nothing is triggered.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 5(c): </strong>How can the  system    check the current price of the securities and compare it with the  values of the alerts set by clients?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>You need to program this check.</td>
+  </tr>
+</table>
+<h4><a name="May06" id="May062"></a>Posted May 6</h4>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 3:</strong> I have found  that some of the unit trusts do not have a price value. Is   this  expected and what is its meaning?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>It is expected and it means that the unit trust is not yet available for purchase. You still need to show these securities in the search results.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 3: </strong>Is           it possible that a client could possess some of the bonds and unit trusts           which are&nbsp;not available for purchase (i.e.,           have no price in the database)?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>No one can own them because are not yet available for purchase.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td>In <strong>Requirement 4</strong>, which currency should we use in the invoice when           displaying
+      <ol>
+        <li>total executed dollar amount<br>
+        </li>
+        <li>fee charged<br>
+        </li>
+        <li>price per share<br>
+        </li>
+    </ol>    </td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td><ol>
+      <li>total executed dollar amount -&gt; HKD<br>
+      </li>
+      <li>fee charged  -&gt; HKD<br>
+      </li>
+      <li>price per share -&gt; base currency</li>
+    </ol>    </td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td>In <strong>Requirement 4</strong>, does "assets" mentioned in the service fee           refer to the "balance" of an account or "the total value of           securities held&nbsp;plus the balance" of an account?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>The second one is the usual meaning of some ones assets (i.e., the     value of everything that one owns).</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td>For <strong>Requirement 4</strong>, I have correctly submitted an order           (it is stored in the external system), but&nbsp;I still don't have           transactions for this order when using getOrderTransaction.           Does it take some time for an order to be executed?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>Orders are executed manually, not automatically. You need to open     the ControlCenter.aspx web page inside the ExternalSystems folder     and use the "Execute Orders" menu in the navigation bar to retrieve     the order and to execute it. Thereafter, you will find any     transactions for the order are available to retrieve in your system.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td>For <strong>Requirement 4</strong>, if we have placed an order  and part of the order is executed, how do we calculate the service fee? Should  the service fee be calculated for the whole order or for every transaction?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>As stated in requirement 4,  an invoice is generated  <u>after</u> the processing of an order ends. Moreover, an invoice shows the service fee  for the order, not for every transaction.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td>For<strong> Requirement 4</strong>, if a client submits a stock buy  limit order, which price should be used to determine if a client has enough balance to place the order? Should it be <br>
+    the high price or the current price?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>It should be the current price.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 5(a)</strong> states that&nbsp;"A client should be able to           display the current profit/loss as a percentage." How is           the  percentage  calculated?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>You may refer to this article: <a href="http://www.investopedia.com/ask/answers/05/stockgainsandlosses.asp">http://www.investopedia.com/ask/answers/05/stockgainsandlosses.asp</a></td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 5(b) </strong>states that &quot;A client should be able to show any total monetary               value in any of the currencies available from an             external system that maintains currency exchange rates.&quot; In Activity 1 we were supposed to have completed             this requirement. So,  where <u>exactly </u>do we need currency conversion support?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>In Activity 1 you completed the requirement to implement the     currency conversion function, but not the requirement to be able to     show any total monetary value in any of the currencies       available from an external system that maintains currency exchange       rates.<br>
+      <br>
+      You need to provide currency conversion for all the       reports in requirement 6 that deal with a client's security       holdings that show total monetary value, namely, reports 6(a) and       6(b). It is <u>not</u> required for security searching (requirement 3).</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 5(c): </strong>Should we not allow a client to set the low alert higher than the current price?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>No. Why do you want to prevent this?</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 5(c) </strong>When  setting  high/low alerts,           what is the currency of the price that the client&nbsp;enters?           Is it HKD or the base currency of the security?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>It is the base currency of the security.</td>
+  </tr>
+</table>
+<br>
+<table border="1" cellspacing="0" cellpadding="3" width="550">
+  <tr>
+    <td valign="top" width="15"><b>Q:</b></td>
+    <td><strong>Requirement 6(a) </strong>states that "the submission date             of the last executed order" should be shown. How is  the term "last executed order" defined?</td>
+  </tr>
+  <tr>
+    <td valign="top" width="15"><b>A:</b></td>
+    <td>In the usual way. The most recent (last) order that was fully     executed according to date and time.</td>
+  </tr>
+</table>
+<center>
+</center>
+<center>
+  <br>
+  <hr>
+</center>
+</body>
+</html>

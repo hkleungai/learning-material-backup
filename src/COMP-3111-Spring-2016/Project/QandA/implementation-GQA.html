@@ -1,0 +1,563 @@
+<HTML>
+<HEAD>
+   <TITLE>COMP 3111: Implementation General Questions and Answers</TITLE>
+<style type="text/css">
+.Red-font {
+	color: #F00;
+}
+.font-10pt {
+	font-size: 12px;
+}
+.Code-font {
+	font-family: Courier New, Courier, monospace;
+	font-size: 12px;
+}
+</style>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<CENTER>&nbsp;</CENTER>
+
+<H2><CENTER>
+COMP 3111: Software Engineering
+</CENTER></H2>
+
+<H3><CENTER>
+  <p> Implementation</p>
+  <p>General Questions and Answers<br />
+    <font size="-2">(from previous course projects)</font></p>
+</CENTER>
+</H3>
+<P><IMG SRC="../../images/line-color.gif" WIDTH="100%" HEIGHT=3 ALIGN=bottom /></P>
+
+<DL>
+   <DT>
+     <div align="center"><FONT SIZE="-1">| <A HREF="implementation-GQA.html#AuthorizationandPasswords">Authorization
+            and Passwords</A> | <A href="implementation-GQA.html#SystemImplementation">System Implementation</A> | <A href="implementation-GQA.html#aspnet">ASP.NET</A> | <a href="implementation-GQA.html#email">Email Sending</a> |</FONT></div>
+   </DT>
+   
+   <DT>
+     <div align="center"><FONT SIZE="-1">| <A HREF="implementation-GQA.html#ProgrammingLanguage">Programming
+       Language</A> | <A HREF="implementation-GQA.html#Database">Database</A>
+       | <A href="implementation-GQA.html#CrystalReports">Crystal Reports</A> | <A HREF="implementation-GQA.html#Hardware">Hardware</A>
+       | <A HREF="implementation-GQA.html#ExternalSystems">External
+         Systems</A> |</FONT>     </div>
+   </DT>
+</DL>
+<P align="center"><A NAME="AuthorizationandPasswords" id="AuthorizationandPasswords"></A><BR />
+<IMG SRC="../../images/eye-rule.gif" WIDTH="100%" HEIGHT=11 ALIGN=bottom /></P>
+
+<H4 align="center">Authorization and Passwords</H4>
+
+<div align="center">
+  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3 WIDTH=550>
+    <TR>
+      <TD VALIGN=top WIDTH=15>
+        <P><B>Q:</B></P>
+        </TD>
+      <TD>
+        <P>Does the system require a login procedure for different
+          users so that it provides different functions for different
+          users and has security?</P>
+        </TD>
+      </TR>
+    <TR>
+      <TD VALIGN=top WIDTH=15>
+        <P><B>A:</B></P>
+        </TD>
+      <TD>
+        <P>Yes, this should be provided if it is specified in the
+          problem statement.</P>
+        </TD>
+      </TR>
+  </TABLE>
+  <BR />
+  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3 WIDTH=550>
+    <TR>
+      <TD VALIGN=top WIDTH=15>
+        <P><B>Q:</B></P>
+        </TD>
+      <TD>
+        <P>Do we have to keep a password for different users or just
+          let the user key in their user name and assume he is the person?</P>
+        </TD>
+      </TR>
+    <TR>
+      <TD VALIGN=top WIDTH=15>
+        <P><B>A:</B></P>
+        </TD>
+      <TD>
+        <P>You should use a user name and password scheme to verify a user as specified in the problem statement.</P>
+        </TD>
+      </TR>
+  </TABLE>
+</div>
+<P align="center"><A NAME=SystemImplementation id="SystemImplementation"></A><BR />
+  <IMG SRC="../../images/eye-rule.gif" WIDTH="100%" HEIGHT=11 ALIGN=bottom /></P>
+<H4 align="center">System Implementation</H4>
+<div align="center">
+  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3 WIDTH=550>
+    <TR>
+      <TD VALIGN=top WIDTH=15><P><B>Q:</B></P></TD>
+      <TD><P>Does our system need to support access by multiple users
+        at the same time?</P></TD>
+      </TR>
+    <TR>
+      <TD VALIGN=top WIDTH=15><P><B>A:</B></P></TD>
+      <TD><P>While a real system would need to support access by multiple users,
+        for the course project,  you can assume that only one
+        user will be accessing the system at any one time. Thus, you need to
+        implement only a <I>single-user system</I>.</P></TD>
+      </TR>
+  </TABLE>
+  <br />
+  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3 WIDTH=550>
+    <TR>
+      <TD VALIGN=top WIDTH=15><P><B>Q:</B></P></TD>
+      <TD><P>Should the  system be built in an object-oriented way?</P></TD>
+      </TR>
+    <TR>
+      <TD VALIGN=top WIDTH=15><P><B>A:</B></P></TD>
+      <TD><P>A major emphasis of the course is that  software systems should be modeled in an object-oriented way (i.e.,  requirements capture, system analysis
+        and system design are documented using an object-oriented modeling language).  So, you also should build the system  in an object-oriented way.</P></TD>
+      </TR>
+  </TABLE>
+  <br />
+  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3 WIDTH=550>
+    <TR>
+      <TD VALIGN=top WIDTH=15><B>Q:</B></TD>
+      <TD>Are we allowed to use some site template from Microsoft or other websites in our home page? </TD>
+      </TR>
+    <TR>
+      <TD VALIGN=top WIDTH=15><B>A:</B></TD>
+      <TD> You can use any resources that you find on the Web and that you are legally allowed to copy and use. </TD>
+      </TR>
+  </TABLE>
+  <BR />
+  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3 WIDTH=550>
+    <TR>
+      <TD VALIGN=top WIDTH=15><B>Q:</B></TD>
+      <TD>If we make our website fancy as well as completing all the functionality, can we get extra marks?</TD>
+      </TR>
+    <TR>
+      <TD VALIGN=top WIDTH=15><B>A:</B></TD>
+      <TD>No, you will not get extra marks. You should concentrate on making  your system work, not on making it fancy. You will have more than  enough work to do just to get your system to work correctly. We do not  want you wasting time on non-essential things. We are just looking for  a basic, <em>usable</em> website.</TD>
+      </TR>
+  </TABLE>
+</div>
+<P align="center"><A NAME="aspnet" id="aspnet"></A><BR />
+  <IMG SRC="../../images/eye-rule.gif" WIDTH="100%" HEIGHT=11 ALIGN=bottom /></P>
+
+<H4 align="center">ASP.NET</H4>
+<div align="center">
+  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3 WIDTH=550>
+    <TR>
+      <TD VALIGN=top WIDTH=15>
+        <P><B>Q:</B></P>
+        </TD>
+      <TD>
+        <P>Should I use FormsAuthentication (in web.config setting)
+          to do the login authentication?</P>
+        </TD>
+      </TR>
+    <TR>
+      <TD VALIGN=top WIDTH=15>
+        <P><B>A:</B></P>
+        </TD>
+      <TD>
+        <P>Yes.</P>
+        </TD>
+      </TR>
+  </TABLE>
+  <BR />
+  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3 WIDTH=550>
+    <TR>
+      <TD VALIGN=top WIDTH=15>
+        <P><B>Q:</B></P>
+        </TD>
+      <TD>
+        <P>Can we use the .NET Session object in our course project?</P>
+        </TD>
+      </TR>
+    <TR>
+      <TD VALIGN=top WIDTH=15>
+        <P><B>A:</B></P>
+        </TD>
+      <TD>
+        <P>Yes. Managing system state will be covered in one of the labs.</P>
+        </TD>
+      </TR>
+  </TABLE>
+  <BR />
+  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3 WIDTH=550>
+    <TR>
+      <TD VALIGN=top WIDTH=15><P><B>Q:</B></P></TD>
+      <TD><P>Can we use cookies in our course project?</P></TD>
+      </TR>
+    <TR>
+      <TD VALIGN=top WIDTH=15><P><B>A:</B></P></TD>
+      <TD><P>Yes. </P></TD>
+      </TR>
+  </TABLE>
+  <br />
+  <table border="1" cellspacing="0" cellpadding="3" width="550">
+    <tr>
+      <td valign="top" width="15"><p><b>Q:</b></p></td>
+      <td><p>Do we need to handle the case that the user's browser setting does
+        not accept cookies? </p></td>
+      </tr>
+    <tr>
+      <td valign="top" width="15"><p><b>A:</b></p></td>
+      <td>You should handle all potential problems with cookies. At a minimum you
+        should warn the user that some functionality is not available unless he
+        enables cookies.</td>
+      </tr>
+  </table>
+  <br />
+  <table border="1" cellspacing="0" cellpadding="3" width="550">
+    <tr>
+      <td valign="top" width="15"><p><b>Q:</b></p></td>
+      <td><p>Can we use wizards to generate code?</p></td>
+      </tr>
+    <tr>
+      <td valign="top" width="15"><p><b>A:</b></p></td>
+      <td><p>Yes, you can use the wizards in Visual Studio  to generate code.</p></td>
+      </tr>
+  </table>
+  <br />
+  <table border="1" cellspacing="0" cellpadding="3" width="550">
+    <tr>
+      <td valign="top" width="15"><p><b>Q:</b></p></td>
+      <td><p>Can we assume that the client's server will never
+        go down?</p></td>
+      </tr>
+    <tr>
+      <td valign="top" width="15"><p><b>A:</b></p></td>
+      <td>No, you cannot make this assumption since it is not realistic.</td>
+      </tr>
+  </table>
+  <br />
+  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3 WIDTH=550>
+    <TR>
+      <TD VALIGN=top WIDTH=15><P><B>Q:</B></P></TD>
+      <TD>Can we set the server to schedule a specific task to be carried out at
+        a specific time, such as instruct the server to run a certain page at a
+        certain time?</TD>
+      </TR>
+    <TR>
+      <TD VALIGN=top WIDTH=15><P><B>A:</B></P></TD>
+      <TD><p>While it is possible in ASP.NET to schedule a task to run at a specific
+        time, to do so requires administrator rights on the computer on which
+        the task is running. Since you will do the testing in Lab 4, you do not
+        have such rights on those computers. Therefore, you cannot use this function of ASP.NET. </p>
+        <p>However, you can create threads that run concurrently and that can be awakened periodically to run  tasks. To create a thread that runs periodically, do the following in the &quot;Global.asax.cs&quot; file.</p>
+        <ol>
+          <li>Add the statement &quot;using System.Threading;&quot; at the top of the file.</li>
+          <li>Place the following code inside the &quot;Application_Start&quot; method.</li>
+          <pre class="font-10pt">Thread mythread = new Thread(PeriodicTasks);
+mythread.IsBackground = true;
+mythread.Start();</pre>
+          <li>Place the following method inside "public class Global :  HttpApplication" after the "Application_Start" method.</li>
+        </ol>
+          <blockquote>
+            <pre class="font-10pt">private void PeriodicTasks()
+{
+  do
+  {
+    // Place the method call for the periodic task here.
+    Thread.Sleep(time-in-milliseconds);
+  } while (true);
+}        </pre>
+          </blockquote>
+      </TD>
+      </TR>
+  </TABLE>
+</div>
+<p align="center"><A NAME="email" id="aspnet2"></A><BR />
+  <IMG SRC="../../images/eye-rule.gif" alt="" WIDTH="100%" HEIGHT=11 ALIGN=bottom X-CLARIS-USEIMAGEHEIGHT /></p>
+<H4 align="center">Email Sending</H4>
+<div align="center">
+  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3 WIDTH=550>
+    <TR>
+      <TD VALIGN=top WIDTH=15><P><B>Q:</B></P></TD>
+      <TD><p>How can we   send email  from our system?</p></TD>
+      </TR>
+    <TR>
+      <TD VALIGN=top WIDTH=15><P><B>A:</B></P></TD>
+      <TD><p>You can send email directly from a  program in ASP.NET.</p>
+        <p>First, place the following code in the Web.config file.        </p>
+        <pre class="font-10pt">&lt;system.net&gt;
+  &lt;mailSettings&gt;
+    &lt;smtp deliveryMethod=&quot;Network&quot; from=&quot;<span class="Red-font">&lt;team-email-address&gt;</span>@cse.ust.hk&quot;&gt;
+      &lt;network defaultCredentials=&quot;false&quot; host=&quot;smtp.cse.ust.hk&quot; enableSsl=&quot;true&quot; 
+       port=&quot;587&quot; userName=&quot;<span class="Red-font">&lt;team-email-address&gt;</span>@cse.ust.hk&quot; 
+       password=&quot;<span class="Red-font">&lt;team-email-password&gt;</span>&quot; /&gt;
+    &lt;/smtp&gt;
+  &lt;/mailSettings&gt;
+&lt;/system.net&gt;</pre>
+        <p>Then, in Visual C#  use  the following code.        </p>
+        <pre class="font-10pt">// Add namespaces to allow use of the mail sending functionality.
+using System.Net;
+using System.Net.Mail;</pre>
+        <pre class="font-10pt">// Create an instance of MailMessage named mail.
+MailMessage mail = new MailMessage();
+   
+// Create an instance of SmtpClient named emailServer.
+// Set the mail server to use as &quot;smtp.ust.hk&quot;.
+SmtpClient emailServer = new SmtpClient(&quot;smtp.ust.hk&quot;);</pre>
+        <pre class="font-10pt">// Set the sender (From), receiver (To), subject and 
+// message body fields of the mail message.
+mail.From = new MailAddress(&quot;<span class="Red-font">&lt;team-email-address&gt;</span>@cse.ust.hk&quot;, 
+     &quot;<span class="Red-font">&lt;sender name&gt;</span>&quot;);
+mail.To.Add(&quot;<span class="Red-font">&lt;team-email-address&gt;</span>@cse.ust.hk&quot;);
+mail.Subject = &quot;<span class="Red-font">&lt;subject&gt;</span>&quot;;
+mail.Body = &quot;<span class="Red-font">&lt;message body&gt;</span>&quot;; </pre>
+<pre class="font-10pt">// Send the message.
+emailServer.Send(mail);</pre>
+<p>------------------------------------- </p>
+  <p><b><i><font color="#FF0000">When testing the above code, be sure to
+    replace all items in &lt;angle brackets and red font&gt; with the values you want to use.</font></i></b></p>
+      <p><b><font color="#FF0000">EXTREMELY IMPORTANT! </font></b>You must use valid email addresses in the recipient list (i.e., mail.To.Add()). If  you specify invalid/non-existent recipient email addresses, then the    CSE mail server will detect this, consider you are trying to send junk  messages and automatically block your email address from sending further email.</p></TD>
+      </TR>
+  </TABLE>
+  <br />
+  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3 WIDTH=550>
+    <TR>
+      <TD VALIGN=top WIDTH=15><P><B>Q:</B></P></TD>
+      <TD><P>Must we use the UST email server to send email? Can we use other email servers like the gmail email server?</P></TD>
+      </TR>
+    <TR>
+      <TD VALIGN=top WIDTH=15><P><B>A:</B></P></TD>
+      <TD><P>Only the CSE (smtp.cse.ust.hk) or ITSC (smtp.ust.hk) mail servers can be used to send mail from the computer in Lab 4. The CSE mail server can only be used using your team email accounts.</P></TD>
+      </TR>
+  </TABLE>
+  <br />
+  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3 WIDTH=550>
+    <TR>
+      <TD VALIGN=top WIDTH=15><P><B>Q:</B></P></TD>
+      <TD><P>How can we read the email sent using our team email account?</P></TD>
+    </TR>
+    <TR>
+      <TD VALIGN=top WIDTH=15><P><B>A:</B></P></TD>
+      <TD><P>The CSE mail server is an imap mail server, so you can set up an imap email account in your favourite email client using the team email account's user name and password. <br>
+          <br>
+      You can also use CSE WebMail  (<a href="https://imail.cse.ust.hk/sqmail/src/login.php">https://imail.cse.ust.hk/sqmail/src/login.php</a>) using  your team email acount's user name and password.</P></TD>
+    </TR>
+  </TABLE>
+</div>
+<P align="center"><A NAME="ProgrammingLanguage" id="ProgrammingLanguage"></A><BR />
+  <IMG SRC="../../images/eye-rule.gif" WIDTH="100%" HEIGHT=11 ALIGN=bottom /></P>
+
+<H4 align="center">Programming Language</H4>
+<div align="center">
+  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3 WIDTH=550>
+    <TR>
+      <TD VALIGN=top WIDTH=15><P><B>Q:</B></P></TD>
+      <TD>Can we use some development environment other than Visual Studio 
+        to write programs?</TD>
+      </TR>
+    <TR>
+      <TD VALIGN=top WIDTH=15><P><B>A:</B></P></TD>
+      <TD>We suppose that you could write   code outside
+        of Visual Studio (e.g., using a text editor). However, your 
+        website must  run on
+        the computers in Lab 4 under Visual Studio. <font color="#FF0000"><b>No exceptions.</b></font></TD>
+      </TR>
+  </TABLE>
+  <br />
+  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3 WIDTH=550>
+    <TR>
+      <TD VALIGN=top WIDTH=15>
+        <P><B>Q:</B></P>
+        </TD>
+      <TD>
+        <P>ASP.NET can call other language's code (e.g., Java). Can we use
+          all these languages in the project or we just can use the languages
+          available in Visual Studio?</P>
+        </TD>
+      </TR>
+    <TR>
+      <TD VALIGN=top WIDTH=15>
+        <P><B>A:</B></P>
+        </TD>
+      <TD>
+        <P>You can only use the programming languages available in Visual Studio.
+          <B><font color="#FF0000">This is a requirement of the client</font></B> and you cannot
+          change it.</P>
+        </TD>
+      </TR>
+  </TABLE>
+  <BR />
+  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3 WIDTH=550>
+    <TR>
+      <TD VALIGN=top WIDTH=15>
+        <P><B>Q:</B></P>
+        </TD>
+      <TD>
+        <P>Can we use some scripting languages so that the system could
+          be more user friendly, such as JavaScript to make a popup
+          menu or CSS to generalize the style?</P>
+        </TD>
+      </TR>
+    <TR>
+      <TD VALIGN=top WIDTH=15>
+        <P><B>A:</B></P>
+        </TD>
+      <TD>
+        <P>Yes. However, you should first concentrate on implementing all the requirements correctly before expending effort on making your system more user friendly.</P>
+        </TD>
+      </TR>
+  </TABLE>
+  <br />
+  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3 WIDTH=550>
+    <TR>
+      <TD VALIGN=top WIDTH=15><P><B>Q:</B></P></TD>
+      <TD><P>May I use both C# and Visual Basic for my project if it is possible? </P></TD>
+      </TR>
+    <TR>
+      <TD VALIGN=top WIDTH=15><P><B>A:</B></P></TD>
+      <TD><P>When you create a web application in Visual Studio you need to specify the language that you will use for the website. So, it is not possible to mix languages within one web application.</P></TD>
+      </TR>
+  </TABLE>
+</div>
+<P align="center"><A NAME=Database></A><BR />
+  <IMG SRC="../../images/eye-rule.gif" WIDTH="100%" HEIGHT=11 ALIGN=bottom /></P>
+
+<H4 align="center">Database</H4>
+<div align="center">
+  <TABLE border="1" cellspacing="0" cellpadding="3" width="550">
+    <TR>
+      <TD valign="top" width="15"><B>Q:</B></TD>
+      <TD>Is there any fixed structure for the database and layout design of  the project and page?</TD>
+      </TR>
+    <TR>
+      <TD valign="top" width="15"><B>A:</B></TD>
+      <TD>Designing the database and the web pages is part of what you will be graded on. You need to design a database and web pages that will satisfy the given requirements.</TD>
+      </TR>
+  </TABLE>
+  <br />
+  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3 WIDTH=550>
+    <TR>
+      <TD VALIGN=top WIDTH=15>
+        <P><B>Q:</B></P>
+        </TD>
+      <TD>
+        <P>Can we use other database systems such as MySql
+          or Oracle for the project?</P>
+        </TD>
+      </TR>
+    <TR>
+      <TD VALIGN=top WIDTH=15>
+        <P><B>A:</B></P>
+        </TD>
+      <TD>
+        <P>The client has specified that Microsoft SQL Server  be used
+          and this is what you must use. Often (in the real world) you
+          have no choice about what software tools you must use for
+          software development. It is the same in this course.</P>
+        </TD>
+      </TR>
+  </TABLE>
+  <br />
+  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3 WIDTH=550>
+    <TR>
+      <TD VALIGN=top WIDTH=15>
+        <P><B>Q:</B></P>
+        </TD>
+      <TD>
+        <P>Do we need to enforce the integrity constraints in the
+          SQL Server  database (i.e., if rollback will occur)?</P>
+        </TD>
+      </TR>
+    <TR>
+      <TD VALIGN=top WIDTH=15>
+        <P><B>A:</B></P>
+        </TD>
+      <TD>
+        <P>In general, in a real application you would have to deal
+          with this. For the course project you can ignore this
+          issue.</P>
+        </TD>
+      </TR>
+  </TABLE>
+</div>
+<P align="center"><A NAME=CrystalReports id="CrystalReports"></A><BR />
+  <IMG SRC="../../images/eye-rule.gif" WIDTH="100%" HEIGHT=11 ALIGN=bottom /></P>
+<H4 align="center">Crystal Reports</H4>
+<div align="center">
+  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3 WIDTH=550>
+    <TR>
+      <TD VALIGN=top WIDTH=15><P><B>Q:</B></P></TD>
+      <TD><P>Can we use Crystal Reports for the reports?</P></TD>
+      </TR>
+    <TR>
+      <TD VALIGN=top WIDTH=15><P><B>A:</B></P></TD>
+      <TD><P>Yes, but it is <B>not</B> required to use Crystal Reports. If you
+        want to use GridViews or some other means to display your reports, that
+        is O.K.</P></TD>
+      </TR>
+  </TABLE>
+</div>
+<P align="center"><A NAME=Hardware></A><BR />
+  <IMG SRC="../../images/eye-rule.gif" WIDTH="100%" HEIGHT=11 ALIGN=bottom /></P>
+
+<H4 align="center">Hardware</H4>
+
+<div align="center">
+  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3 WIDTH=550>
+    <TR>
+      <TD VALIGN=top WIDTH=15>
+        <P><B>Q:</B></P>
+        </TD>
+      <TD>
+        <P>Can we assume a fixed screen resolution for the machines of the
+          client?</P>
+        </TD>
+      </TR>
+    <TR>
+      <TD VALIGN=top WIDTH=15>
+        <P><B>A:</B></P>
+        </TD>
+      <TD>
+        <P>You can assume that the screen resolution is
+          the same as that in  Lab 4.</P>
+        </TD>
+      </TR>
+  </TABLE>
+</div>
+<P align="center"><A NAME="ExternalSystems" id="ExternalSystems"></A><BR />
+  <IMG SRC="../../images/eye-rule.gif" WIDTH="100%" HEIGHT=11 ALIGN=bottom /></P>
+
+<H4 align="center">External Systems</H4>
+
+<div align="center">
+  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3 WIDTH=550>
+    <TR>
+      <TD VALIGN=top WIDTH=15>
+        <P><B>Q:</B></P>
+        </TD>
+      <TD>
+        <P>How do we deal with accessing an external system in our
+          project?</P>
+        </TD>
+      </TR>
+    <TR>
+      <TD VALIGN=top WIDTH=15>
+        <P><B>A:</B></P>
+        </TD>
+      <TD>
+        <P>Please see the &quot;Other requirements&quot; section of the problem statement.</P>
+        </TD>
+      </TR>
+  </TABLE>
+</div>
+<p></P>
+
+<CENTER><IMG SRC="../../images/USTlogo-small.gif" WIDTH=95 HEIGHT=74 ALIGN=bottom />
+</CENTER>
+
+<P><FONT SIZE="-1"><SCRIPT LANGUAGE=JavaScript><!--
+document.write("Last Modified : ")
+document.write(document.lastModified)
+//--></SCRIPT></FONT></P>
+</BODY>
+</HTML>
