@@ -181,5 +181,14 @@ const CATEGORIZED_PRE_COURSES = [
             }
         ],
     },
+    {
+        category: 'Software Design',
+        courses: [
+            {
+                code: 'COMP 3021',
+                semesters: ['Spring 2016'],
+            },
+        ]
+    }
 ];
 export default CATEGORIZED_PRE_COURSES;

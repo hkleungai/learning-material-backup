@@ -1,0 +1,311 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html;
+      charset=windows-1252">
+    <title>COMP3021: Java Programming</title>
+</head>
+
+<body bgcolor="#ffffff" link="#005bb7" text="#000000" vlink="#005bb7">
+    <p> <font face="helvetica">
+        <!--table border=0 hspace=4 cellspacing=2 width="100%" cellpadding=3>
+<tr><td align="center" valign="bottom"> <h2>COMP3021: Java Programming (Spring 2012) </h2></td></tr>
+</table--> </font></p>
+    <center><font face="helvetica">
+        <h2><a href="../index.html">COMP3021: Java Programming (Spring 2016) </a></h2>
+        <p> </p>
+        <h4> Lab 1(Date 12/02/2016) </h4>
+      </font></center>
+    <font face="helvetica"> </font>
+    <p>
+        <br clear="all">
+        <table border="0" cellpadding="3" cellspacing="2" hspace="4" width="100%">
+            <tbody>
+                <tr bgcolor="#e0e0e8">
+                    <td width="100%">
+                        <nobr><b><font face="helvetica">Objectives</font></b></nobr>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <font face="helvetica"> </font></p>
+    <blockquote><font face="helvetica">
+        <ul>
+          	<li>
+          		Java Development Environment Setup
+        		<ul>
+          			<li>Set up Java in local machine</li>
+          			<li>Try to run Sample Java programs in Environment</li>
+        		</ul>
+        	</li>
+        </ul>
+
+        <ul>
+		          <li>Debugging Basics
+		          	<ul>
+				       <li>Learn some simple but efficient tricks for debugging Java programs</li>
+        			</ul>
+
+		          </li>
+        </ul>
+        <ul>
+		          <li>
+		          Eclipse Tutorial
+		          <ul>
+				  	<li>Get familiar with Eclipse IDE </li>
+				  	<li>Java development in Eclipse  </li>
+				  </ul>
+
+		          </li>
+        </ul>
+        <ul>
+		          <li>Assessment
+		          	 <ul>
+									  	<li>Try to fix all the bugs in few demo programs</li>
+
+				  		</ul>
+		          </li>
+        </ul>
+      </font></blockquote>
+    <table border="0" cellpadding="3" cellspacing="2" hspace="4" width="100%">
+        <tbody>
+            <tr bgcolor="#e0e0e8">
+                <td width="100%">
+                    <nobr><b><font face="helvetica">Procedure to set up Environment</font></b></nobr>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <font face="helvetica"> </font></p>
+
+    <blockquote>
+        <font face="helvetica">
+      <p> <a name="course">
+
+	      <UL>
+		    <LI>
+		    <H4>Set up Java development environment in local machine</H4>
+		    <UL>
+		      <LI>Download and install Java Development Kit (JDK) on your local machine.
+		      <A href="https://www.youtube.com/watch?v=CijsBUrIkw4">Helpful video for installation</A>
+
+		      <LI>The bin folder contains all the java tools like compilation (javac),
+		      execution (java/javaw), applet viewer (appletviewer) and so on. To use the
+		      command <CODE>javac</CODE> to compile Java source code, you need to set the
+		      system environment variable: <FONT
+		      color=#ff0000><B><CODE>PATH</CODE></B></FONT> and
+        <FONT color=#ff0000><B><CODE>CLASSPATH</CODE></B></FONT>, so that the system knows where to find the command and the class (libraries).
+        <LI>In Windows 95/98/ME, add the following lines at the end of
+            <CODE>c:\autoexec.bat</CODE>
+            <UL>
+                <LI>
+                    <CODE>set PATH=C:\Program Files\Java\jdk1.7.0_18\bin;%PATH%</CODE>
+                    <LI>
+                        <CODE>set CLASSPATH=.;C:\Program
+		        Files\Java\jdk1.7.0_18\jre\lib;%CLASSPATH%</CODE>
+                        <LI>
+                            <CODE>set JAVA_HOME=C:\Program Files\Java\jdk1.7.0_18</CODE> </LI>
+            </UL>
+            <LI>In Windows 2000/XP professional:
+                <UL>
+                    <LI>Click Control Panel &gt; System &gt; Advanced &gt; Environment Variables.
+                        <LI>Double click
+                            <CODE>PATH</CODE>,
+                            <CODE>CLASSPATH</CODE> and
+                            <CODE>JAVA_HOME</CODE>, to edit the values; or click "New..." to add a new variable. </LI>
+                </UL>
+                <LI>Windows 7:
+                    <UL>
+                        <LI>Select Computer from the Start menu
+                            <LI>Choose System Properties from the context menu
+                                <LI>Click Advanced system settings > Advanced tab
+                                    <LI>Click on Environment Variables, under System Variables, find PATH, and click on it.
+                                        <LI>In the Edit windows, modify PATH by adding the location of the class to the value
+                                            for PATH. If you do not have the item PATH, you may select to add a new variable
+                                            and add PATH as the name and the location of the class as the value. Reopen Command
+                                            prompt window, and run your java code.
+                    </UL>
+                    <LI>
+                        <A href="http://www.java.com/en/download/help/path.xml">Helpful Site to set or change the PATH system variable (Windows)</A>
+                        <LI>In Unix, edit
+                            <CODE>~/.cshrc_user</CODE>
+                            <UL>
+                                <LI>
+                                    <CODE>setenv PATH /usr/local/packages/java/bin:${PATH}</CODE>
+                                    <LI>
+                                        <CODE>setenv CLASSPATH .:/usr/local/packages/java/jre/lib</CODE>
+                                        <LI>
+                                            <CODE>setenv JAVA_HOME /usr/local/packages/java</CODE>
+                                            <LI>
+                                                <A href="http://www.cyberciti.biz/faq/linux-unix-set-java_home-path-variable/">Helpful Site to Set JAVA_HOME / PATH variables Under Linux Bash Profile</A>
+                                            </LI>
+                            </UL>
+                            <LI>Mac OSX 10.5 or later,
+                                <UL>
+                                    <LI>
+                                        <CODE>$ vim .bash_profile </CODE>
+                                        <LI>
+                                            <CODE>export JAVA_HOME=$(/usr/libexec/java_home)</CODE>
+                                            <LI>
+                                                <CODE>$ source .bash_profile</CODE>
+                                                <LI>
+                                                    <CODE>$ echo $JAVA_HOME /Library/Java/JavaVirtualMachines/1.7.0.jdk/Contents/Home</CODE>
+                                                    <LI>
+                                                        <A href="http://www.mkyong.com/java/how-to-set-java_home-environment-variable-on-mac-os-x/">Helpful Site  to Set $JAVA_HOME environment variable on Mac OS X</A>
+                                                    </LI>
+                                </UL>
+
+                                </LI>
+                                </UL>
+
+
+                                <LI>
+                                    <H4>Try two toy Java programs</H4>
+                                    <UL>
+                                        <LI>Download
+                                            <A href="src/HelloWorld.java.html">HelloWorld.java Program</A>
+                                            </CODE>
+                                            <LI>Open a command prompt by clicking: start &gt; run &gt; type in "
+                                                <CODE>cmd</CODE>" &gt; OK
+                                                <LI>To compile HelloWorld.java, type: (.java is needed)
+                                                    <UL>
+                                                        <LI>
+                                                            <CODE>javac</CODE>
+                                                            <A href="src/HelloWorld.java.html">HelloWorld.java</A>
+                                                        </LI>
+                                                    </UL>
+                                                    <LI>To execute it, type: (.class
+                                                        <B><FONT color=#ff0000>CANNOT</FONT></B> be specified)
+                                                        <UL>
+                                                            <LI>
+                                                                <CODE>java HelloWorld</CODE> </LI>
+                                                        </UL>
+                                                        <LI>To compile and run
+                                                            <A href="src/StdIOTest.java.html">StdIOTest.java</A>:
+
+                                                            <UL>
+                                                                <LI>
+                                                                    <CODE>javac StdIOTest.java</CODE>
+                                                                    <LI>
+                                                                        <CODE>java StdIOTest &gt; StdIOTest.html</CODE>
+                                                                    </LI>
+                                                            </UL>
+                                                            <LI>To end std input, use ctrl+Z in Windows, or ctrl+D in Linux.
+                                                            </LI>
+                                    </UL>
+                                    </LI>
+                                    </UL>
+
+    </blockquote>
+
+    <table border="0" cellpadding="3" cellspacing="2" hspace="4" width="100%">
+        <tbody>
+            <tr bgcolor="#e0e0e8">
+                <td width="100%">
+                    <nobr><b><font face="helvetica">Useful Tricks for Debugging</font></b></nobr>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <font face="helvetica"> </font></p>
+
+    <blockquote>
+        <UL>
+            <LI>Here we introduce some simple tricks for debugging Java programs. For more sophisticated debugging techniques,
+                refer to Eclipse tutorial
+
+                <LI>An efficient&nbsp; way for tracking Java programs is to print or log the values of the variables with code
+                    like this:
+                    <UL>
+                        <LI>
+                            <CODE>System.out.println("x=" + x);</CODE>
+                            <LI>
+                                <CODE>mylogger.info("x=" + x);</CODE> after creating a Logger named "mylogger" using
+                                <CODE> Logger mylogger = Logger.getLogger("mylogger"); </CODE>
+                            </LI>
+                    </UL>
+                    <LI>We can set the level to which the messages will be logged:
+                        <UL>
+                            <LI>
+                                <CODE>mylogger.setLevel(Level.ALL);</CODE>
+                                <LI>
+                                    <CODE>mylogger.setLevel(Level.OFF);&nbsp; // turns off the
+				       logger</CODE> </LI>
+                        </UL>
+                        <LI>Here is an example,
+                            <A href="src/FactorialLog.java.html">FactorialLog.java</A>, which uses
+                            <CODE>Logger</CODE> to track the computation of factorials.
+                            <LI>Instead of the default
+                                <CODE>Logger</CODE>, we can use customized loggers for advanced features. An example is given in
+                                <A href="./src/HelloWorldLog.java.html">HelloWorldLog.java</A>.
+                            </LI>
+        </UL>
+        </LI>
+        </UL>
+
+    </blockquote>
+    </font>
+    </p>
+
+    <font face="helvetica">
+      <p> <a name="course">
+	      <table border="0" cellpadding="3" cellspacing="2" hspace="4"
+		  		  	          width="100%">
+		  		  	          <tbody>
+		  		  	            <tr bgcolor="#e0e0e8">
+		  		  	              <td width="100%"><nobr><b><font face="helvetica">Eclipse Tutorial</font></b>
+    </nobr>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    <font face="helvetica"> </font></p>
+
+    <blockquote>
+
+
+        <UL>
+            <LI> Download the Eclipse tutorial
+
+                <LI>Follow the steps in the tutorial.
+
+                    <LI>
+                        <a href="pdf/lab1_presentation.pdf">Click here to download Eclipse tutorial</a>
+        </UL>
+
+    </blockquote>
+
+    <table border="0" cellpadding="3" cellspacing="2" hspace="4" width="100%">
+        <tbody>
+            <tr bgcolor="#e0e0e8">
+                <td width="100%">
+                    <nobr><b><font face="helvetica">Assessment</font></b></nobr>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <font face="helvetica"> </font></p>
+
+    <blockquote>
+
+
+        <UL>
+            <LI> Could you try to fix all the bugs in the simple programs using Eclipse?
+
+                <LI>
+                    <A href="pdf/Lab1_12_02_2016.pdf">Click here to download Lab1 Assignments </A>
+        </UL>
+
+    </blockquote>
+    </a>
+    </p>
+
+
+
+    <hr>
+    <center><img src="./ustlogo.jpg" height="74" align="bottom" width="95"> </center>
+    </font>
+</body>
+
+</html>
