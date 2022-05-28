@@ -2,6 +2,7 @@
 /** TODO: Change "semesters" from string[] into { year, season }    */
 /** TODO: Show surprise "sucks" message upon clicking headers       */
 /** TODO: Study ts-doc                                              */
+/** TODO: Make TagRender take nested json                           */
 /** TODO: Make some ts index.ts                                     */
 /** TODO: Move data to proper json                                  */
 /** TODO: Study browser / html test tools                           */

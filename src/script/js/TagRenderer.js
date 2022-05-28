@@ -31,10 +31,11 @@ export class TagRenderer extends BaseRenderer {
         this.props.children.forEach(child => {
             if (child instanceof DocumentFragment) {
                 element.appendChild(child);
+                return;
             }
-            else {
-                element.innerHTML += child;
-            }
+            const childTemplate = document.createElement('template');
+            childTemplate.innerHTML = child;
+            element.appendChild(childTemplate);
         });
         this.fragment = template.content;
         return this;
