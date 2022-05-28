@@ -35,7 +35,7 @@ export class TagRenderer extends BaseRenderer {
             }
             const childTemplate = document.createElement('template');
             childTemplate.innerHTML = child;
-            element.appendChild(childTemplate);
+            element.appendChild(childTemplate.content);
         });
         this.fragment = template.content;
         return this;

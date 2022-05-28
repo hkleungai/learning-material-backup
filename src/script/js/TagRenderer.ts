@@ -52,7 +52,7 @@ export class TagRenderer<T extends (LinkTagProps | BaseTagProps)> extends BaseRe
       }
       const childTemplate = document.createElement('template');
       childTemplate.innerHTML = child;
-      element.appendChild(childTemplate);
+      element.appendChild(childTemplate.content);
     });
     this.fragment = template.content;
     return this;
