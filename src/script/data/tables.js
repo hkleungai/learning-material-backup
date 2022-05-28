@@ -93,6 +93,15 @@ const CATEGORIZED_PRE_COURSES = [
         ],
     },
     {
+        category: 'Hacking / Security',
+        courses: [
+            {
+                code: 'COMP 4632',
+                semesters: ['Fall 2015'],
+            }
+        ]
+    },
+    {
         category: 'Internet / Multimedia',
         courses: [
             {
