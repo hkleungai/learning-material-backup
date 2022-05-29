@@ -1,0 +1,386 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>COMP2012H Lab (Arrays and Functions)</title>
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta content="Nicole Chan" name="Author">
+<meta content="Microsoft FrontPage 12.0" name="GENERATOR"></head><body alink="#ff0000" bgcolor="#ccffff" link="#cc66cc" text="#000000" vlink="#551a8b"><b><font face="Arial,Helvetica" size="+2">COMP 2012H<br>Honors OOP 
+and Data Structures</font></b> 
+<p><b><font color="#cc0000" face="Arial,Helvetica" size="+2">Lab 4: Arrays and Use of 
+Functions</font></b> <br>
+</p><hr width="100%">
+
+<center><p>&nbsp;</p>
+</center>
+
+<p style="margin-top: 0px; margin-bottom: 0px;" align="left"><i><b>
+<font face="Arial" size="5">
+<span lang="en-us">Arrays</span></font></b></i></p>
+<p style="margin-top: 0px; margin-bottom: 0px;">&nbsp;</p>
+<p style="margin-top: 0px; margin-bottom: 0px;"><font face="Arial">
+<span lang="en-us">You can imagine array is a single row of data, it is very 
+similar to one row in Excel, each "cell" is assigned an id.
+<font color="#ff0000">The id of array is started from 0.</font></span></font></p>
+<p style="margin-top: 0px; margin-bottom: 0px;">&nbsp;</p>
+<p style="margin-top: 0px; margin-bottom: 0px;"><span lang="en-us">
+<font face="Arial">Array A:</font></span></p>
+<div align="left">
+  <table id="AutoNumber1" style="border-collapse: collapse;" border="0" cellpadding="0" cellspacing="0" width="50%">
+    <tbody><tr>
+      <td width="20%"><font face="Arial"><span lang="en-us">0</span></font></td>
+      <td width="20%"><font face="Arial"><span lang="en-us">1</span></font></td>
+      <td width="20%"><font face="Arial"><span lang="en-us">2</span></font></td>
+      <td width="20%"><font face="Arial"><span lang="en-us">3</span></font></td>
+      <td width="20%"><font face="Arial"><span lang="en-us">...</span></font></td>
+    </tr>
+  </tbody></table>
+</div>
+<div align="left">
+  <table id="AutoNumber1" style="border-collapse: collapse;" bordercolordark="#cc9966" bordercolorlight="#ffcc66" border="1" cellpadding="0" cellspacing="0" width="50%">
+    <tbody><tr>
+      <td width="20%"><font face="Arial"><span lang="en-us">1st data</span></font></td>
+      <td width="20%"><font face="Arial"><span lang="en-us">2nd data</span></font></td>
+      <td width="20%"><font face="Arial"><span lang="en-us">3rd data</span></font></td>
+      <td width="20%"><font face="Arial"><span lang="en-us">4th data</span></font></td>
+      <td width="20%"><font face="Arial"><span lang="en-us">...</span></font></td>
+    </tr>
+  </tbody></table>
+</div>
+<p><span lang="en-us"><font face="Arial">To access the variable of the array 
+is the same as normal variable, the name of the first variable in array is A[0], 
+the second is A[1], ...</font></span></p>
+<p><span lang="en-us"><font face="Arial">To declare an array, it is the same 
+as declaring a variable, we type <font color="#000080">name[size]</font>:</font></span></p>
+<p><span lang="en-us"><font face="Arial">e.g. an array of char type variable 
+with size 26:</font></span></p>
+<p><span lang="en-us"><font color="#000080" face="Courier">char 
+alphabet[26];</font></span></p>
+<p><span lang="en-us"><font face="Arial">e.g. an array of int type with size 
+10:</font></span></p>
+<p><span lang="en-us"><font color="#000080" face="Courier">int digit[10];</font></span></p>
+<p><span lang="en-us"><font face="Arial">To assign or get the value of a 
+specific array variable, we need to know the position/id of the variable you 
+want:</font></span></p>
+<p><font face="Arial"><span lang="en-us">e.g. set the 24th variable in 
+alphabet to 'x'</span></font></p>
+<p><span lang="en-us"><font color="#000080" face="Courier">alphabet[23] = 
+'x';</font></span></p>
+<p><span lang="en-us"><font face="Arial">e.g. add the 5th and 7th integer and 
+store it in a new variable add:</font></span></p>
+<p><span lang="en-us"><font color="#000080" face="Courier">int add = 
+dight[4]+digit[6];</font></span></p>
+<hr>
+<p><b><font face="Arial">2D Array</font></b></p>
+<p><font face="Arial">How about multi-dimensional arrays?</font></p>
+<p><font face="Arial">array2D:</font></p>
+<table id="AutoNumber2" border="1" cellspacing="1" width="45%">
+  <tbody><tr>
+    <td width="20%"><font face="Arial">[0][0]</font></td>
+    <td width="20%"><font face="Arial">[0][1]</font></td>
+    <td width="20%"><font face="Arial">[0][2]</font></td>
+    <td width="20%"><font face="Arial">[0][3]</font></td>
+    <td width="20%"><font face="Arial">[0][4]</font></td>
+    <td width="20%"><font face="Arial">[0][5]</font></td>
+  </tr>
+  <tr>
+    <td width="20%"><font face="Arial">[1][0]</font></td>
+    <td width="20%"><font face="Arial">[1][1]</font></td>
+    <td width="20%"><font face="Arial">...</font></td>
+    <td width="20%"><font face="Arial">...</font></td>
+    <td width="20%"><font face="Arial">...</font></td>
+    <td width="20%"><font face="Arial">...</font></td>
+  </tr>
+  <tr>
+    <td width="20%"><font face="Arial">[2][0]</font></td>
+    <td width="20%"><font face="Arial">...</font></td>
+    <td width="20%"><font face="Arial">...</font></td>
+    <td width="20%"><font face="Arial">...</font></td>
+    <td width="20%"><font face="Arial">...</font></td>
+    <td width="20%"><font face="Arial">...</font></td>
+  </tr>
+  <tr>
+    <td width="20%"><font face="Arial">[3][0]</font></td>
+    <td width="20%"><font face="Arial">...</font></td>
+    <td width="20%"><font face="Arial">...</font></td>
+    <td width="20%"><font face="Arial">...</font></td>
+    <td width="20%"><font face="Arial">...</font></td>
+    <td width="20%"><font face="Arial">...</font></td>
+  </tr>
+  <tr>
+    <td width="20%"><font face="Arial">[4][0]</font></td>
+    <td width="20%"><font face="Arial">...</font></td>
+    <td width="20%"><font face="Arial">...</font></td>
+    <td width="20%"><font face="Arial">...</font></td>
+    <td width="20%"><font face="Arial">...</font></td>
+    <td width="20%"><font face="Arial">[4][5]</font></td>
+  </tr>
+</tbody></table>
+<p><font face="Arial">For example:<br>
+&nbsp;</font></p>
+<p><font face="Arial">The above array is declared by: </font></p>
+<p><font color="#000080" face="Courier">int array2D[6][5]</font></p>
+<p><font face="Arial">Similarly, you can write </font>
+<font color="#000080" face="Arial">array2D[1][2]</font><font face="Arial"> 
+for accessing the data located at the 3rd element of the 2nd row.</font></p>
+<p><font face="Arial">However, you should never attempt to access data past 
+the last element of the array, such as when<br>
+you have a 10-element array, and you try to access the 11th element. The memory 
+for the array<br>
+that was allocated for it will only be 10 locations in memory, but the 11th 
+could be anything, which could crash your computer.</font></p>
+<p><font face="Arial">When we write programs with 2D array, we often use 
+for-loop to access the it, consider the code below:</font></p>
+<p style="margin-top: 0pt; margin-bottom: 0pt;">
+<font color="#000080" face="Courier">#include &lt;iostream.h&gt;<br>
+int main()<br>
+{<br>
+&nbsp;&nbsp;&nbsp; int x, y, array2D[8][8], i;</font><font color="#008000" face="Courier">//declares 
+a 8x8 array </font><font color="#000080" face="Courier"><br>
+&nbsp;&nbsp;&nbsp; for(x=0; x&lt;8; x++)<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for(y=0; y&lt;8; y++)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+array2D[x][y]=i++;</font><font color="#008000" face="Courier">//sets the 
+element to zero; </font><font color="#000080" face="Courier"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; for(x=0; x&lt;8;x++)<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for(y=0; y&lt;8; y++)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cout&lt;&lt;array2D[x][y]&lt;&lt;" 
+";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+&nbsp;&nbsp;&nbsp; cout &lt;&lt; endl;<br>
+&nbsp;&nbsp;&nbsp; }</font></p>
+<p style="margin-top: 0pt; margin-bottom: 0pt;">
+<font color="#000080" face="Courier">&nbsp;&nbsp;&nbsp; return 0;<br>
+}</font></p>
+<p><font face="Arial">Try to read the code carefully and answer the following 
+questions:</font></p>
+<ol>
+  <li><font face="Arial">What does the code doing actually?</font></li>
+  <li><font face="Arial">In which direction does the program access the array?</font></li>
+</ol>
+<table id="AutoNumber3" border="0" cellspacing="1" width="100%">
+  <tbody><tr>
+    <td width="50%">
+    <div align="center">
+      <center>
+      <table id="AutoNumber4" border="1" cellspacing="1" width="30%">
+        <tbody><tr>
+          <td width="25%"><font face="Arial">-</font></td>
+          <td width="25%"><font face="Arial">-</font></td>
+          <td width="25%"><font face="Arial">-</font></td>
+          <td width="25%"><font face="Arial">&gt;</font></td>
+        </tr>
+        <tr>
+          <td width="25%"><font face="Arial">-</font></td>
+          <td width="25%"><font face="Arial">-</font></td>
+          <td width="25%"><font face="Arial">-</font></td>
+          <td width="25%"><font face="Arial">&gt;</font></td>
+        </tr>
+        <tr>
+          <td width="25%"><font face="Arial">-</font></td>
+          <td width="25%"><font face="Arial">-</font></td>
+          <td width="25%"><font face="Arial">-</font></td>
+          <td width="25%"><font face="Arial">&gt;</font></td>
+        </tr>
+        <tr>
+          <td width="25%"><font face="Arial">-</font></td>
+          <td width="25%"><font face="Arial">-</font></td>
+          <td width="25%"><font face="Arial">-</font></td>
+          <td width="25%"><font face="Arial">&gt;</font></td>
+        </tr>
+      </tbody></table>
+      </center>
+    </div>
+    </td>
+    <td width="50%">
+    <div align="center">
+      <center>
+      <table id="AutoNumber5" border="1" cellspacing="1" width="30%">
+        <tbody><tr>
+          <td align="center" width="25%"><font face="Arial">|</font></td>
+          <td align="center" width="25%"><font face="Arial">|</font></td>
+          <td align="center" width="25%"><font face="Arial">|</font></td>
+          <td align="center" width="25%"><font face="Arial">|</font></td>
+        </tr>
+        <tr>
+          <td align="center" width="25%"><font face="Arial">|</font></td>
+          <td align="center" width="25%"><font face="Arial">|</font></td>
+          <td align="center" width="25%"><font face="Arial">|</font></td>
+          <td align="center" width="25%"><font face="Arial">|</font></td>
+        </tr>
+        <tr>
+          <td align="center" width="25%"><font face="Arial">|</font></td>
+          <td align="center" width="25%"><font face="Arial">|</font></td>
+          <td align="center" width="25%"><font face="Arial">|</font></td>
+          <td align="center" width="25%"><font face="Arial">|</font></td>
+        </tr>
+        <tr>
+          <td align="center" width="25%"><font face="Arial">V</font></td>
+          <td align="center" width="25%"><font face="Arial">V</font></td>
+          <td align="center" width="25%"><font face="Arial">V</font></td>
+          <td align="center" width="25%"><font face="Arial">V</font></td>
+        </tr>
+      </tbody></table>
+      </center>
+    </div>
+    </td>
+  </tr>
+</tbody></table>
+<p><font face="Arial">In learning programming languages, it is important to 
+try it by yourselves, try to edit the program above in C++ and figure out the 
+answer of the questions and other usage of array.</font></p>
+<p><font face="Arial">For example, try to change the line </font>
+<font color="#000080" face="Arial">cout&lt;&lt;array2D</font><font color="#ff0000" face="Arial">[x][y]</font><font color="#000080" face="Arial">&lt;&lt;" 
+"; </font><font face="Arial">in the last for-loop to</font><font color="#000080" face="Arial"> 
+cout&lt;&lt;array2D</font><font color="#ff0000" face="Arial">[y][x]</font><font color="#000080" face="Arial">&lt;&lt;" 
+";</font></p>
+<hr width="100%">
+
+<p align="left">&nbsp;</p><p align="left"><i><b><font size="5">Functions</font></b></i></p><p>&nbsp;</p><p><b><font face="Arial" size="4">The advantages of using function:</font></b></p><ul type="circle">
+	<li><font face="Arial">Functions make programs easier to understand</font></li>
+	<li><font face="Arial">Functions make programs easier to modify</font></li>
+	<li><font face="Arial">Functions can be called several times in the same 
+	program, allowing the code to be re-used</font></li>
+	</ul>
+	<p><b><font face="Arial" size="4">Parameter passing</font></b></p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Arial">If you want to 
+	pass parameter to a function, there will be two type of parameter passing 
+	methods. One is <i>pass by value</i>, another is <i>pass by reference</i>.
+	</font></p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Arial">
+	<font color="#0000ff">pass by value</font> : C++ will create a duplicate for 
+	the variable. All changes make inside the function will only be done only be 
+	duplicated variable, not the one passing in </font></p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Arial">
+	<font color="#0000ff">pass by reference</font> : what changes make inside 
+	the function will be done on the variable passing in, no duplication will be 
+	created </font></p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Arial">The following 
+	example shows the difference between these two methods. </font></p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Arial">pass by value 
+	-&nbsp; <font color="#ff0000">a, b</font> </font></p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Arial">pass by 
+	reference -&nbsp; <font color="#0000ff">result </font></font></p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">void add(int
+	<font color="#ff0000">a</font>, int <font color="#ff0000">b</font>, int&amp;
+	<font color="#0000ff">result</font>) {</font></p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#ff0000">a</font> = <font color="#ff0000">b</font>;
+    </font></p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#0000ff">result</font> =
+	<font color="#ff0000">a + b</font>; </font></p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">} </font></p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">void main(){
+	</font></p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	int <font color="#ff0000">a</font> = 3, <font color="#ff0000">b</font> = 5,
+	<font color="#0000ff">result</font> = 0; </font></p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	add(<font color="#ff0000">a,b</font>,<font color="#0000ff">result</font>);
+	</font></p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">} </font></p>
+	<p><font face="Arial">The value of <font color="#ff0000">a, b</font>,
+	<font color="#0000ff">result</font> will be 3,5,10. Whatever operation you 
+	had done in the function, if the parameter is passing by value, the value of 
+	the parameter remain the same after calling the function. However, the 
+	parameter which is pass by reference, the value of it will change after 
+	calling the function.</font></p>
+	<p>&nbsp;</p>
+	<p><b><font face="Arial" size="4">Recursion </font></b></p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Arial">In order to 
+	write a recursive function, you need to consider the following 2 case :
+	</font></p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Arial">1.&nbsp;&nbsp;&nbsp;&nbsp; 
+	base case </font></p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Arial">2.&nbsp;&nbsp;&nbsp;&nbsp; 
+	general case </font></p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Arial">Then, combine 
+	them into a function. </font></p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">int recursive_function(parameter){
+    </font>
+	</p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	// base case </font> </p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	if (base case condition meet) </font> </p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	return the base value; </font> </p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	// general case </font> </p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	return recursive_function(revised parameter); </font> </p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">} </font> </p>
+	<p>Write a recursive function that counts the number of zero digits in a 
+	non-negative integer. </p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">int zeros(int num){
+    </font> </p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	if (num == 0) </font> </p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	return 1; </font> </p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	if (num &lt; 10) </font> </p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	return 0; </font> </p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	if (num % 10 == 0) </font> </p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	return 1 + zeros(num/10); </font> </p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	else </font> </p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	return zeros(num/10); </font> </p>
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><font face="Courier">} </font> </p>
+	<p>&nbsp;</p>
+<p>
+</p>
+<hr style="width: 100%; height: 2px;">
+<p style="margin-top: 0pt; margin-bottom: 0pt; font-weight: bold;"><br>
+</p>
+
+<p style="margin-top: 0pt; margin-bottom: 0pt;"><big style="font-weight: bold;"><big><span style="color: rgb(51, 51, 51);">Lab Task for String Manipulation:</span></big></big><br>
+</p>
+
+<p style="margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p><font face="&#26032;&#32048;&#26126;&#39636;"><b><font color="#ff0000" face="Arial" size="5">Task: Interleaving String</font></b></font><p> 
+</p><p><b><font face="Arial,Helvetica">You </font></b><font face="Arial,Helvetica">
+<b>are required to check a string is the interleaving of two other strings by recursive function</b>.
+</font>
+	</p><p><font face="Arial,Helvetica">Given s1,s2,s3, you need to check 
+	whether s3 is constructed by interleaving s1 and s2. </font></p>
+	<p><font face="Arial,Helvetica">For example:<font color="#0000ff">
+	</font></font></p>
+	<font color="#0000ff">
+	</font><p style="margin-top: 0pt; margin-bottom: 0pt;"><font color="#0000ff"><font face="Courier">
+	Given s1 = "aabcc", s2 = "bbdcca",</font></font></p>
+<font color="#0000ff">	</font><p style="margin-top: 0pt; margin-bottom: 0pt;"><font color="#0000ff"><font face="Courier">
+	When s3 = "aabbdcbccac": return true.&nbsp; </font></font>
+	</p><p style="margin-top: 0pt; margin-bottom: 0pt;"><font color="#0000ff">
+	<font color="#0000ff">
+	</font></font></p><p style="margin-top: 0pt; margin-bottom: 0pt;"><font color="#0000ff"><font color="#0000ff"><font face="Courier">
+	When s3 = "aadbbbaccc": return false. <br>
+</font></font></font></p>
+<p style="margin-top: 0pt; margin-bottom: 0pt; font-family: Helvetica,Arial,sans-serif;"><br>
+</p>
+<p style="margin-top: 0pt; margin-bottom: 0pt; font-family: Helvetica,Arial,sans-serif; color: black;">Test case:</p>
+<p style="margin-top: 0pt; margin-bottom: 0pt;"><font color="#0000ff"><font color="#0000ff"><font face="Courier">checkinterleaving(s1,s2,s3);<br>
+</font></font></font></p>
+<div class="line number76 index75 alt1" style="border: 0px none  ! important; margin: 0px ! important; padding: 0px 1em 0px 0em ! important; background: rgb(204, 255, 255) none repeat scroll 0% ! important; overflow: visible ! important; font-size: 13px; vertical-align: baseline ! important; bottom: auto ! important; float: none ! important; height: auto ! important; left: auto ! important; line-height: 14.3px; outline-color: invert ! important; outline-style: none ! important; outline-width: 0px ! important; position: static ! important; right: auto ! important; text-align: left; top: auto ! important; width: auto ! important; font-family: Courier New,Courier,monospace; font-weight: normal; font-style: normal; direction: ltr ! important; white-space: pre ! important; color: rgb(51, 51, 255); font-variant: normal; letter-spacing: normal; text-indent: 0px; text-transform: none; widows: 1; word-spacing: 0px; -moz-background-clip: -moz-initial ! important; -moz-background-origin: -moz-initial ! important; -moz-background-inline-policy: -moz-initial ! important;"><big>checkinterleaving("XXY", "XXZ", "XXZXXXY"); return false;</big></div>
+<div class="line number77 index76 alt2" style="border: 0px none  ! important; margin: 0px ! important; padding: 0px 1em 0px 0em ! important; background: rgb(204, 255, 255) none repeat scroll 0% ! important; overflow: visible ! important; font-size: 13px; vertical-align: baseline ! important; bottom: auto ! important; float: none ! important; height: auto ! important; left: auto ! important; line-height: 14.3px; outline-color: invert ! important; outline-style: none ! important; outline-width: 0px ! important; position: static ! important; right: auto ! important; text-align: left; top: auto ! important; width: auto ! important; font-family: Courier New,Courier,monospace; font-weight: normal; font-style: normal; direction: ltr ! important; white-space: pre ! important; color: rgb(51, 51, 255); font-variant: normal; letter-spacing: normal; text-indent: 0px; text-transform: none; widows: 1; word-spacing: 0px; -moz-background-clip: -moz-initial ! important; -moz-background-origin: -moz-initial ! important; -moz-background-inline-policy: -moz-initial ! important;"><big>checkinterleaving("XY" ,"WZ" ,"WZXY");      return true;</big></div>
+<div class="line number78 index77 alt1" style="border: 0px none  ! important; margin: 0px ! important; padding: 0px 1em 0px 0em ! important; background: rgb(204, 255, 255) none repeat scroll 0% ! important; overflow: visible ! important; font-size: 13px; vertical-align: baseline ! important; bottom: auto ! important; float: none ! important; height: auto ! important; left: auto ! important; line-height: 14.3px; outline-color: invert ! important; outline-style: none ! important; outline-width: 0px ! important; position: static ! important; right: auto ! important; text-align: left; top: auto ! important; width: auto ! important; font-family: Courier New,Courier,monospace; font-weight: normal; font-style: normal; direction: ltr ! important; white-space: pre ! important; color: rgb(51, 51, 255); font-variant: normal; letter-spacing: normal; text-indent: 0px; text-transform: none; widows: 1; word-spacing: 0px; -moz-background-clip: -moz-initial ! important; -moz-background-origin: -moz-initial ! important; -moz-background-inline-policy: -moz-initial ! important;"><big>checkinterleaving("XY", "X", "XXY");        return true;</big></div>
+<div class="line number79 index78 alt2" style="border: 0px none  ! important; margin: 0px ! important; padding: 0px 1em 0px 0em ! important; background: rgb(204, 255, 255) none repeat scroll 0% ! important; overflow: visible ! important; font-size: 13px; vertical-align: baseline ! important; bottom: auto ! important; float: none ! important; height: auto ! important; left: auto ! important; line-height: 14.3px; outline-color: invert ! important; outline-style: none ! important; outline-width: 0px ! important; position: static ! important; right: auto ! important; text-align: left; top: auto ! important; width: auto ! important; font-family: Courier New,Courier,monospace; font-weight: normal; font-style: normal; direction: ltr ! important; white-space: pre ! important; color: rgb(51, 51, 255); font-variant: normal; letter-spacing: normal; text-indent: 0px; text-transform: none; widows: 1; word-spacing: 0px; -moz-background-clip: -moz-initial ! important; -moz-background-origin: -moz-initial ! important; -moz-background-inline-policy: -moz-initial ! important;"><big>checkinterleaving("YX", "X", "XXY");        return false;</big></div>
+<div class="line number80 index79 alt1" style="border: 0px none  ! important; margin: 0px ! important; padding: 0px 1em 0px 0em ! important; background: rgb(204, 255, 255) none repeat scroll 0% ! important; overflow: visible ! important; font-size: 13px; vertical-align: baseline ! important; bottom: auto ! important; float: none ! important; height: auto ! important; left: auto ! important; line-height: 14.3px; outline-color: invert ! important; outline-style: none ! important; outline-width: 0px ! important; position: static ! important; right: auto ! important; text-align: left; top: auto ! important; width: auto ! important; font-family: Courier New,Courier,monospace; font-weight: normal; font-style: normal; direction: ltr ! important; white-space: pre ! important; color: rgb(51, 51, 255); font-variant: normal; letter-spacing: normal; text-indent: 0px; text-transform: none; widows: 1; word-spacing: 0px; -moz-background-clip: -moz-initial ! important; -moz-background-origin: -moz-initial ! important; -moz-background-inline-policy: -moz-initial ! important;"><big>checkinterleaving("XXY", "XXZ", "XXXXZY");  return true;</big></div>
+<p style="margin-top: 0pt; margin-bottom: 0pt;"><font color="#0000ff"><font color="#0000ff">
+	</font></font></p><p style="margin-top: 0pt; margin-bottom: 0pt;"><font color="#0000ff"><font color="#0000ff">&nbsp;</font></font></p>
+<font color="#0000ff"><font color="#0000ff">		</font></font><p style="margin-top: 0pt; margin-bottom: 0pt; color: rgb(51, 51, 51);">Write a recursive function to output the identification as above.</p><font color="#0000ff"><font color="#0000ff"><font color="#0000ff"><font color="#0000ff"></font></font></font></font><hr>
+
+<font color="#0000ff"><font color="#0000ff"><font color="#0000ff"><font color="#0000ff">	</font></font></font></font></body></html>

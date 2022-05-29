@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>COMP2012H Lab (Hash)</title>
+        <link rel="stylesheet" type="text/css" href="../../files/style.css" />
+</head>
+    <body>
+
+        <div id="header">
+            <h1>COMP2012H</h1>
+          <h2>Honors OOP and Data Structures</h2>
+    </div>
+
+        <div id="content">
+            <h2>Bonus Lab 5: Hash Tables</h2>
+          <h3>Hashing</h3>
+          <p>Given a <strong>key</strong>, we can use a <strong>hash function</strong> to compute an index in a hash table.</p>
+          <blockquote> INDEX =  hash_function( KEY )</blockquote>
+          <p>Searching is extremely fast. Therefore, hashing is suitable for applications like compilers, spell checkers, and security tools.</p>
+          <p>But it has a limitation: The table size is limited.</p>
+          <p><strong>Collisions</strong> can occur: some keys are mapped to the same location by the hash function.</p>
+          <h3><strong>Critical Issues</strong></h3>
+          <p><strong>1. Design a good hash  function</strong></p>
+          <ul>
+            <li>It should be fast to compute</li>
+            <li>It should minimize the number of collisions</li>
+          </ul>
+          <p><strong>2. Design a method to resolve  collisions when they occur</strong></p>
+
+          <p><strong> Open Addressing</strong></p>
+          <ul>
+            <li>Linear probing
+              <ul>
+                <li> hi(K) = (hash(K) +  i) mod m</li>
+                <li>Any key that hashed into a cluster (a block of contiguously occupied table entries) will require several attempts to resolve the collision</li>
+                <li>Blocks of occupied cells start forming: <span class="red">primary clustering</span>.</li>
+              </ul>
+            </li>
+            <li>Quadratic probing
+              <ul>
+                <li> hi(K) = ( hash(K) +  i^2 ) mod m, where i is the number of
+				collisions</li>
+                <li>Two keys with different home positions will have different probe sequences</li>
+                <li>But keys that hash to the same home position will probe the same alternative cells: <span class="red">secondary clustering</span>.</li>
+              </ul>
+            </li>
+            <li> Double hashing to alleviate the problem of clustering
+              <ul>
+                <li> hi(K) = ( hash(K) + i * hash2(K)) mod m<br />
+          </li>
+              </ul>
+            </li>
+          </ul>
+
+                    <p><strong>Separate Chaining</strong></p>
+		            <ul>
+		              <li>Keep a linked list of keys that hash to the same value</li>
+		              <li>Advantage: deletion is easy</li>
+		              <li>Disadvantage: memory allocation in linked list manipulation will slow down the program</li>
+          </ul>
+
+          <hr />
+          <h2>Lab Task</h2>
+          <p>Implement a hash table structure based on the following files:</p>
+          <p><a href="link2.h">link2.h</a>: A list class that supports various list operations and is used in the hash table class. You must <span class="red">NOT</span> modify this file.</p>
+          <p><a href="table2.h">table2.h</a>: A hash table structure. Finish all parts marked with &quot;<strong>===== TO-DO =====</strong>&quot;:</p>
+          <ul>
+            <li><strong>insert()</strong></li>
+            <li><strong>remove()</strong></li>
+            <li><strong>find_node()</strong></li>
+          </ul>
+          <p><a href="grader.cpp">grader.cpp</a>: A <strong>grader</strong> program to test your hash table implementation. It should show that you get <strong>full marks</strong> after you have finished table2.h correctly. Do <span class="red">NOT</span> modify this file. Run the program and show your codes to your TA.</p>
+          <h3>References</h3>
+<ul>
+    <li>
+				<a href="http://iswsa.acm.org/mphf/openDSAPerfectHashAnimation/perfectHashAV.html">Hash</a>
+				applet</li>
+
+  </ul>
+</div>
+
+<div id="footer">
+          <div id="credits">
+                &nbsp; &copy; <a href="http://www.cse.ust.hk/">CSE</a>, <a href="http://www.ust.hk">HKUST</a> | <a href="http://www.opendesigns.org/">OpenDesign</a> </div>
+
+    </div>
+
+    </body>
+</html>

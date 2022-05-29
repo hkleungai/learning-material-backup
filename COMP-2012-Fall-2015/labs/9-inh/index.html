@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    
+<!-- Mirrored from course.cse.ust.hk/comp2012/labs/9-inh/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 20 Dec 2015 07:14:45 GMT -->
+<head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>COMP2012H Lab</title>
+        <link rel="stylesheet" type="text/css" href="../style.html" />
+		<script language="JavaScript" fptype="dynamicoutline">
+<!--
+function dynOutline() {}
+//-->
+</script>
+		<script language="JavaScript1.2" fptype="dynamicoutline" src="../../../../file/C_/Program%20Files%20(x86)/Microsoft%20Office%202003/OFFICE11/fpclass/outline.js">
+</script>
+		<script language="JavaScript1.2" fptype="dynamicoutline" for="document" event="onreadystatechange()">
+<!--
+initOutline()
+//-->
+</script>
+</head>
+    <body onclick="dynOutline()" language="Javascript1.2">
+
+        <div id="header">
+            <h1>COMP2012</h1>
+          <h2>OOP and Data Structures</h2>
+    </div>
+
+        <div id="content">
+            <h2>Lab 9: Inheritance</h2>
+          <h3>Download</h3>
+            <ul>
+              <li><a href="derive.cpp">derive.cpp</a> demonstrates class inheritance</li>
+              <li><a href="order.cpp">order.cpp</a> demonstrates the order in which base class objects and derived class objects are constructed and destructed</li>
+              <li><a href="sub.cpp">sub.cpp</a> demonstrates the substitution principle</li>
+              </ul>
+          <h3>Class Inheritance</h3>
+          <p>Inheritance makes software reuse possible. Rather than re-implementing  common characteristics, a class inherits data members and member functions  from its parent class.</p>
+          <p><strong>Class derivation</strong></p>
+          <p>In C++, inheritance is supported through a mechanism referred to as class derivation.     The class that is inherited is called the <strong>base class</strong> and the new class is     called the <strong>derived class</strong>.  To derive a new class from a base class, we define the derived class as follows:</p>
+          <pre>class B {
+   // member functions and data members, etc.
+   // ...
+} ;
+
+class D: public B {
+   // member functions and data members, etc.
+   // ...
+} ;</pre>
+          <p>Then B is a <strong>base class</strong> and D is a <strong>derived class</strong> of B.</p>
+          <p>Furthermore, if we have</p>
+          <pre>class DD : public D {
+   // ...
+} ;</pre>
+          <p>then DD is a (direct) derived class of D and an <strong>indirect derived class</strong> of B.</p>
+          <h3>Access Control</h3>
+          <p>The access specifier <strong>public</strong> may be replaced by <strong>protected</strong> or <strong>private</strong>. It specifies how the derived class inherits from its base class. We will come back to this later.</p>
+          <p>Let us first look at an example: <a href="derive.cpp">derive.cpp</a></p>
+          <p><strong>Member accessibility</strong></p>
+          <ul>
+            <li>Public members can be accessed by any functions. </li>
+            <li>Private members can be accessed only by the member functions of the current class (and their friends).</li>
+            <li>Protected  members are similar to private members with the only  difference occurred under inheritance. Not only can protected members  be accessed by member functions of the current class, but they can also  be accessed by member functions of its derived classes. </li>
+          </ul>
+          <p>In the above example, <strong>width</strong> and <strong>height</strong> are protected members of   <strong>Polygon</strong>. They cannot be accessed by the main function. They can, however, be accessed     by the member functions of its derived classes (e.g., <strong>Rectangle</strong> and <strong>Triangle</strong>).</p>
+          <p><strong>Note</strong>: the constructors and destructor of the base class <span class="red">cannot</span> be inherited to the derived class.</p>
+          <h3>Construction and Destruction</h3>
+          <p>Although constructors cannot be inherited, a constructor of the derived  class can call a constructor of its base class in the member <strong>initialization list</strong>.</p>
+          <pre>derived_class_constructor(parameters) : base_class_constructor(parameters) {
+   // ...
+} ;</pre>
+          </p>
+<p>The order of calling the constructors when an object of the derived class is created:</p>
+          <ol>
+            <li> base class constructor</li>
+            <li> data member constructors (in the order specified in the class definition)</li>
+            <li> derived class constructor</li>
+          </ol>
+          <p>The order of calling the destructors is the <strong>reverse</strong> of that of calling   the constructors. Let us look at an example: <a href="order.cpp">order.cpp</a></p>
+          <h3>Substitution Principle</h3>
+          <p>In class derivation, all non-private members of the base class are inherited and   they can be accessed directly in the derived class.  We say that every object of the derived class <strong>is an</strong> object of its base class. Wherever an object of the base class is used, an object of the derived class may also be used instead.</p>
+          <p>Here is an example: <a href="sub.cpp">sub.cpp</a></p>
+          <hr />
+          <h2>Lab Task</h2>
+          <p>In <a href="func.zip">func.zip</a>, you are provided a partially 
+			implemented inheritance hierarchy shown below:</p>
+			<p><img border="0" src="classDiagram.gif"></p>
+          <ul dynamicoutline>
+            <li>We have a base class 
+			<strong>Func</strong>. 
+			<strong>SinFunc</strong>, 
+			<strong>PolyFunc</strong> and 
+			<strong>ImpulseFunc</strong> are inherited from 
+			<strong>Func</strong> to allow software reuse.</li>
+			<li><b>CosFunc</b> 
+			is inherited from <b>SinFunc </b>(for obvious reason that cosine is 
+			a sine function with a phase shift). We 
+			define CosFunc as follows.</li>
+          </ul>
+			<blockquote>
+				<ul type="circle">
+					<li>Value: cos<font face="Times New Roman"><span lang="zh-cn">θ</span> </font>
+					= 
+					<font face="Times New Roman">
+					sin(<span lang="zh-cn">9</span>0<span lang="zh-cn">°-θ</span>) 
+					;</font></li>
+					<li>
+					<font face="Times New Roman">Derivative: cos&#39;<span lang="zh-cn">θ</span> = [sin(<span lang="zh-cn">9</span>0<span lang="zh-cn">°-θ</span>)]&#39; 
+					= (90</font><span lang="zh-cn"><font face="Times New Roman">°</font></span><font face="Times New Roman">-<span lang="zh-cn">θ</span>)&#39;sin&#39;(<span lang="zh-cn">9</span>0<span lang="zh-cn">°-θ</span>) 
+					= -sin&#39;(<span lang="zh-cn">9</span>0<span lang="zh-cn">°-θ</span>)</font> </li>
+				</ul>
+				<p>
+				<font face="Times New Roman">
+				<b>Note</b>: the 
+				implementation of class </font><b>CosFunc</b> 
+				<font face="Times New Roman">
+				is 
+				restricted to the functions of its parent (i.e., SinFunc) 
+				instead of the 
+				library cmath.</font></p>
+			</blockquote>
+			<ul>
+            <li>Each &quot;function&quot; evaluates its value and derivative at value x. </li>
+			<li>In <strong>main.cpp</strong>, there are five overloaded functions <strong>PrintFunc</strong>.   	They are almost identical except the second parameter.</li>
+            <li>In the <strong>Func</strong> implementation, <strong>Func::IsDifferentiable(double)</strong> returns true if the function is differentiable within the range.</li>
+            <li>The sine and cosine are periodic;        the polynomial and impulse functions are <span class="red">NOT</span> periodic.</li>
+            <li>The sine, cosine, and polynomial functions are differentiable;        the impulse function is differentiable <strong class="red">except</strong> 
+			at the impulse.</li>
+          </ul>
+			<p>&nbsp;</p>
+			<p>Your task for the lab assignment is to do the following:</p>
+          <ol>
+            <li>In tri_func.h and 
+			tri_func.cpp, complete the class <strong>CosFunc</strong>. 
+			You may refer to <strong>SinFunc</strong> to get some ideas (<a href="http://mathworld.wolfram.com/Derivative.html">a 
+			useful reference link</a>).</li>
+            <li>In poly_func.cpp, 
+			implement <strong>PolyFunc::DerivativeAt(double x)</strong> in order to       calculate the derivative of that polynomial function at x. You may read <strong>PolyFunc::EvaluateAt(double)</strong> too (<a href="http://mathworld.wolfram.com/Derivative.html">a useful reference link)</a>.</li>
+            <li>In impluse_func.cpp, 
+			complete <strong>ImpulseFunc::EvaluateAt(double)</strong>.</li>
+            <li>In impluse_func.h and 
+			impluse_func.cpp, override <strong>ImpulseFunc::IsDifferentiable(double)</strong>.</li>
+          </ol>
+          <p><strong>Note</strong>: To test the equality of two float/double-type variables, you  <span class="red">CANNOT</span> use the equality (==) operator (e.g., d1 == d2). This is because  float/double-type variables have numerical precision problems. Instead,  you should first get the difference between them (double diff = d1 -  d2;). If the difference is within a small range (-LIMIT &lt; diff &lt;  LIMIT), you then treat them as equal. For this purpose, you should use <strong>EQUALITY_LIMIT</strong> defined in <strong>impulse_func.cpp</strong>.</p>
+          <p>Here is the expected output if your implementation is correct:</p>
+<pre>p
+	name = poly
+	is periodic = false
+	value at 2 = 49
+	is differentiable at 2 = true
+	derivative at 2 = 72
+-----------------------------------------------
+s
+	name = sin
+	is periodic = true
+	value at 0.785398 = 0.707107
+	is differentiable at 0.785398 = true
+	derivative at 0.785398 = 0.707107
+-----------------------------------------------
+c
+	name = sin
+	is periodic = true
+	value at 1.5708 = 0
+	is differentiable at 1.5708 = true
+	derivative at 1.5708 = -2
+-----------------------------------------------
+i
+	name = impulse
+	is periodic = false
+	value at 800 = 0
+	is differentiable at 800 = true
+	derivative at 800 = 0
+i again
+	name = impulse
+	is periodic = false
+	value at 10 = 7
+	is differentiable at 10 = false</pre>
+    </div>
+
+<div id="footer">
+          <div id="credits">
+                &nbsp; &copy; <a href="http://www.cse.ust.hk/">CSE</a>, <a href="http://www.ust.hk/">HKUST</a> | <a href="http://www.opendesigns.org/">OpenDesign</a> </div>
+
+    </div>
+
+    </body>
+
+<!-- Mirrored from course.cse.ust.hk/comp2012/labs/9-inh/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 20 Dec 2015 07:14:47 GMT -->
+</html>

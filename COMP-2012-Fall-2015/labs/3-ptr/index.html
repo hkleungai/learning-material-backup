@@ -1,0 +1,741 @@
+<html>
+
+
+<!-- Mirrored from course.cse.ust.hk/comp2012/labs/3-ptr/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 20 Dec 2015 07:14:29 GMT -->
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>COMP2012H Lab</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:PMingLiU;
+	panose-1:2 2 5 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:PMingLiU;
+	panose-1:2 2 5 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:Cambria;
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"\@PMingLiU";
+	panose-1:2 2 5 0 0 0 0 0 0 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-right:0in;
+	margin-left:0in;
+	font-size:24.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-right:0in;
+	margin-left:0in;
+	font-size:18.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+h3
+	{mso-style-link:"Heading 3 Char";
+	margin-right:0in;
+	margin-left:0in;
+	font-size:13.5pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;}
+p
+	{margin-right:0in;
+	margin-left:0in;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+pre
+	{mso-style-link:"HTML Preformatted Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:SimSun;}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-link:"Balloon Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.HTMLPreformattedChar
+	{mso-style-name:"HTML Preformatted Char";
+	mso-style-link:"HTML Preformatted";
+	font-family:Consolas;}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-link:"Balloon Text";
+	font-family:"Tahoma","sans-serif";}
+p.msochpdefault, li.msochpdefault, div.msochpdefault
+	{mso-style-name:msochpdefault;
+	margin-right:0in;
+	margin-left:0in;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+.MsoChpDefault
+	{font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple>
+
+<div class=WordSection1>
+
+<h1>COMP2012</h1>
+
+<h2>OOP and Data Structures</h2>
+
+<div id=content>
+
+<h2>Lab 3: Pointers and Linked Lists</h2>
+
+<h3>Topics</h3>
+
+<ul style='margin-top:0in' type=disc>
+ <li class=MsoNormal>Pointers and arrays</li>
+ <li class=MsoNormal>Reference variables</li>
+</ul>
+
+<h3>Review</h3>
+
+<p><strong>Pointers and Memory Addresses</strong></p>
+
+<p>We can view the main memory as a large array. In order to manipulate such a
+large array, C++ programmers often use pointers as the indices of the array.</p>
+
+<pre><span style='font-size:10.0pt;font-family:"Courier New"'>int a = 3;</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>int* p = &amp;a;&nbsp; // let p be the address of a</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>*p = 4;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // assign the value 4 to the memory location pointed to by p</span></pre>
+
+<p>Compare with:</p>
+
+<pre><span style='font-size:10.0pt;font-family:"Courier New"'>int memory[5] = {20, 1, 3, 40, 1776};</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>int p = 2;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // let p be the index 2 of the array &quot;memory&quot;</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>memory[p] = 4;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // assign the value 4 to &quot;memory&quot; indicated by index p</span></pre>
+
+<p><strong>Address-of Operator (&amp;)</strong></p>
+
+<p>At the moment when we define a variable, it must be stored in a concrete
+location in a succession of cells (the memory). We generally cannot decide
+where the variable is to be placed - fortunately it is automatically done by
+the linker, but once the variable has been assigned an address, we may be
+interested in knowing where the variable is stored. This can be done by
+preceding the variable identifier by an ampersand sign (<strong>&amp;</strong>),
+which literally means &quot;address of&quot;. For example: </p>
+
+<pre><span style='font-size:10.0pt;font-family:"Courier New"'>int a = 3;</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>int* p= &amp;a;</span></pre>
+
+<table class=MsoNormalTable border=0 cellpadding=0 width=600 style='width:6.25in'>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><strong>Variable</strong></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><strong>Memory Address</strong></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><strong>Memory Content</strong></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>a</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>1776</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>3</p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>p</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>1780</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>1776</p>
+  </td>
+ </tr>
+</table>
+
+<p>would assign to variable <strong>p</strong> the address of variable <strong>a</strong>,
+since when preceding the name of the variable <strong>a</strong> with the
+ampersand (&amp;) character, we are no longer talking about the content of the
+variable, but about its address in memory. We are going to assume that <strong>a</strong>
+has been placed in the memory address <strong>1776</strong> and that we write
+the following:</p>
+
+<pre><span style='font-size:10.0pt;font-family:"Courier New"'>a = 25;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // a is assigned the value 25</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>int b = a;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // b copies the value of 25 from a</span></pre>
+
+<table class=MsoNormalTable border=0 cellpadding=0 width=600 style='width:6.25in'>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><strong>Variable</strong></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><strong>Memory Address</strong></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><strong>Memory Content</strong></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>a</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>1776</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>25</p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>p</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>1780</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>1776</p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>b</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>1784</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>25</p>
+  </td>
+ </tr>
+</table>
+
+<p>The variable that stores the address of another variable (like <strong>p</strong>
+in the previous example) is what we call a pointer.</p>
+
+<blockquote style='margin-top:5.0pt;margin-bottom:5.0pt'>
+
+<p class=MsoNormal><strong>Question</strong>: What is the output value of <strong>*p</strong>?</p>
+
+</blockquote>
+
+<p><strong>Dereferencing Operator (</strong><em><b>*</b></em><strong>)</strong></p>
+
+<p>Using a pointer, we can access directly the value stored in the variable
+just by preceding the pointer identifier with the dereferencing operator as an
+asterisk (*), which can be literally translated to &quot;<strong>value pointed
+by</strong>&quot;. Thus, following the previous example, if we write: </p>
+
+<pre><span style='font-size:10.0pt;font-family:"Courier New"'>a = 7;</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>b = *p;</span></pre>
+
+<p>(that we could read as: &quot;<strong>b</strong> gets the value pointed to
+by <strong>p</strong>&quot;)</p>
+
+<p><strong>b</strong> would take value <strong>7</strong>, since <strong>p</strong>
+has value <strong>1776</strong>, and the value at location <strong>1776</strong>
+is <strong>7</strong>. </p>
+
+<table class=MsoNormalTable border=0 cellpadding=0 width=600 style='width:6.25in'>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><strong>Variable</strong></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><strong>Memory Address</strong></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><strong>Memory Content</strong></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>a</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>1776</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>7</p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>p</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>1780</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>1776</p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>b</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>1784</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>7</p>
+  </td>
+ </tr>
+</table>
+
+<p><strong>Reference Variables</strong></p>
+
+<p>A reference is an alterative name (<strong>alias</strong>) for an object.
+Notice that a reference <span class=red>must</span> always be bound to an
+object. Therefore, it <span class=red>must</span> be initialized when it is
+created. </p>
+
+<pre><span style='font-size:10.0pt;font-family:"Courier New"'>int&amp; r = a;&nbsp;&nbsp; // r is an alias of a</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>a = 8;</span></pre>
+
+<table class=MsoNormalTable border=0 cellpadding=0 width=600 style='width:6.25in'>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><strong>Variable</strong></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><strong>Memory Address</strong></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><strong>Memory Content</strong></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>a</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>1776</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>8</p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>p</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>1780</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>1776</p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>b</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>1784</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>7</p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>r</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>1776</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>8</p>
+  </td>
+ </tr>
+</table>
+
+<pre><span style='font-size:10.0pt;font-family:"Courier New"'>r = b;</span></pre>
+
+<table class=MsoNormalTable border=0 cellpadding=0 width=600 style='width:6.25in'>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><strong>Variable</strong></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><strong>Memory Address</strong></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><strong>Memory Content</strong></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>a</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>1776</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>7</p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>p</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>1780</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>1776</p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>b</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>1784</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>7</p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>r</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>1776</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>7</p>
+  </td>
+ </tr>
+</table>
+
+<p>Assignment changes the value of both <strong>r</strong> and <strong>a</strong>
+here!</p>
+
+<p>Here is a simple <a href="pointer.cpp">program</a> that demonstrates the
+differences between a pointer and a reference variable.</p>
+
+<p><strong>Pointers and Arrays</strong></p>
+
+<p>In fact, the identifier of an array is a <strong>constant</strong> pointer
+that refers to the first element of the array. </p>
+
+<p>For example, after defining two variables:</p>
+
+<pre><span style='font-size:10.0pt;font-family:"Courier New"'>int numbers[20];</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>int* p;</span></pre>
+
+<p>we have the following assignment statement:</p>
+
+<pre><span style='font-size:10.0pt;font-family:"Courier New"'>p = numbers; </span></pre>
+
+<p>This is valid because <strong>p</strong> and <strong>numbers</strong> are
+both pointers of the same base type (int). Now we can use <strong>p</strong> to
+refer to the array elements as can <strong>numbers</strong>. (Some examples
+will be given below)</p>
+
+<p>However, the following assignment statement is <span class=red>invalid</span>:</p>
+
+<pre><span style='font-size:10.0pt;font-family:"Courier New"'>numbers = p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+class=red><span style='font-family:"Courier New"'>// WRONG</span></span></span></pre>
+
+<p>because <strong>numbers</strong> is a constant pointer (no values can be
+assigned to a constant variable).</p>
+
+<p>We use brackets <strong>[]</strong> to specify the index of the element of
+the array, and such index is an offset relative to the first element of the
+array. So the bracket operator <strong>[]</strong> is also known as an offset operator.
+The function of an offset operator can be mimicked by adding the index in the
+brackets to the pointer which is initialized by the array identifier.</p>
+
+<p>For example, the following two expressions </p>
+
+<pre><span style='font-size:10.0pt;font-family:"Courier New"'>numbers[5] = 0;&nbsp;&nbsp;&nbsp; // numbers[offset of 5] = 0</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>*(p+5) = 0;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // value pointed by (p+5) = 0</span></pre>
+
+<p>are equivalent if the offset is within the scope of the array.</p>
+
+<pre><span style='font-size:10.0pt;font-family:"Courier New"'>// more pointers</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>#include &lt;iostream&gt;</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>using namespace std;</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>int main ()</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>{</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp; int numbers[5];</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp; int* p;</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp; p = numbers;</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp; *p = 10;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // number[0] = 10</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp; p++;</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp; *p = 20;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // number[1] = 20</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp; p = &amp;numbers[2];</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp; *p = 30;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // number[2] = 30</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp; p = numbers + 3;</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp; *p = 40;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // number[3] = 40</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp; p = numbers;</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp; *(p+4) = 50;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // number[4] = 50</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp; for (int n=0; n&lt;5; n++)</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cout &lt;&lt; numbers[n] &lt;&lt; &quot;, &quot;;</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp; return 0;</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>}</span></pre>
+
+<blockquote style='margin-top:5.0pt;margin-bottom:5.0pt'>
+
+<p class=MsoNormal><strong>Question</strong>: What is the output?</p>
+
+</blockquote>
+
+<p><strong>Operators new and new [ ]</strong></p>
+
+<p>In order to realize dynamic memory management, the operator <strong>new</strong>
+is used. Itis followed by a data type and optionally the number of elements in
+brackets <strong>[]</strong>. It returns a pointer to the beginning of the new
+block of assigned memory. The syntax is: </p>
+
+<pre><span style='font-size:10.0pt;font-family:"Courier New"'>type* pointer = new type;</span></pre>
+
+<p>or </p>
+
+<pre><span style='font-size:10.0pt;font-family:"Courier New"'>type* pointer = new type [number of elements];</span></pre>
+
+<p>The first expression is used to assign memory to contain one single element
+of that type. The second one is used to assign a block (an array) of elements
+of that type.<span xml:lang=zh-cn> </span>For example:</p>
+
+<pre><span style='font-size:10.0pt;font-family:"Courier New"'>int* barr;</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>barr = new int [5];</span></pre>
+
+<p>In this case, we have assigned a space for 5 elements of type int and it has
+returned a pointer to the beginning of the block that has been assigned to <strong>barr</strong>.
+Therefore, <strong>barr</strong> points to a block of memory with space for 5
+int elements. </p>
+
+<p>You may wonder what is the difference between defining an ordinary array and
+allocating memory via a pointer as we have just done. The most important one is
+that <strong>the size of an ordinary array must be a constant value</strong>,
+which limits its size to what we decide at the moment of designing the program
+before its execution, whereas <strong>dynamic memory allocation</strong> allows
+us to <strong>allocate memory during the execution of the program</strong>
+using any variable, constant or combination of both as size. The dynamic memory
+is generally managed by the operating system, and in a multitasking interface
+can be shared between several applications, so there is a possibility of
+running out of memory. If this happens and the operating system cannot allocate
+the memory that we request with the operator <strong>new</strong>, a null
+pointer will be returned. For that reason, it is recommended that a check for
+whether the returned pointer is null after calling the <strong>new</strong>
+operator: </p>
+
+<pre><span style='font-size:10.0pt;font-family:"Courier New"'>int* barr;</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>barr = new int [5];</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>if (barr == NULL) {</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp; // Memory allocation failure</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>};</span></pre>
+
+<p><strong>Operator delete</strong></p>
+
+<p>If a block of memory created by the operator <strong>new</strong> is no longer
+needed, it should be reclaimed for future request of dynamic memory. Otherwise
+we will be at a risk of memory leak. The operator <strong>delete</strong> can
+be used for this purpose. Its syntax is:</p>
+
+<pre><span style='font-size:10.0pt;font-family:"Courier New"'>delete pointer;</span></pre>
+
+<p>or</p>
+
+<pre><span style='font-size:10.0pt;font-family:"Courier New"'>delete [] pointer;</span></pre>
+
+<p>The first expression should be used to reclaim memory allocated for a single
+element, and the second one for a block of elements (an array).</p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<h2>Lab Task</h2>
+
+<p><strong>Linked Lists</strong></p>
+
+<p>From above, we can see that a dynamic array is a consecutively allocated
+memory buffer. Once the buffer is allocated, the size of this buffer is fixed. This
+can be a problem if some new blocks have to be appended to the buffer. Instead
+of using continuous dynamic memory allocation, a different data structure can
+be used to solve this problem. A linked list is a list of nodes in which each
+node has a link to the next node. To traverse the list, we need to keep a
+pointer to the head node in order to trace the whole list.</p>
+
+<p>Here is an example of a linked list:</p>
+
+<p><img border=0 width=640 height=147 src=list.gif></p>
+
+<p>It is like a train which travels from the starting city to other cities one
+by one.</p>
+
+<p>The list is defined as:</p>
+
+<pre><span style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; typedef struct Node {</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; string str;</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Node* ptrNext;</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } *NodePtr;</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NodePtr listHead;&nbsp;</span></pre>
+
+<p>The structure of a linked list resembles a list of MTR stations (Note: MTR
+stations are stored in a file named <b>station.txt</b>). Each station is linked
+by its previous station. Once the first station is lost, then the following
+stations will be lost. Therefore, every time we traverse the list of MTR
+stations, we have to keep the information of the current station and the link
+to the next station.</p>
+
+<p>The project files are <a href="list/main.cpp">main.cpp</a> , <a
+href="list/List.cpp">List.cpp</a> and <a href="list/List.h">List.h</a> the data
+file is <a href="station.txt">here</a>. </p>
+
+<p><b>TASK 1: Complete the Print() method defined in List.cpp</b></p>
+
+<p>This task is to implement a function Print() in List.cpp to print the
+station names from the linked list starting from the head.</p>
+
+<p><b>TASK 2: Implement an </b><b>FindDistance() method defined in List.cpp</b></p>
+
+<p>The task is to implement a function FindDistance<strong>()</strong> in <strong>List.cpp</strong>
+to count the number of stations between two stations. </p>
+
+<p>An example of the output of the program:</p>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;border:none'>
+ <tr>
+  <td width=917 valign=top style='width:688.1pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p style='margin:0in;margin-bottom:.0001pt'><span style='font-size:11.0pt;
+  font-family:"Courier New"'>Input the names of the two stations for finding
+  the distance in between (in term of station)</span></p>
+  <p style='margin:0in;margin-bottom:.0001pt'><span style='font-size:11.0pt;
+  font-family:"Courier New"'>Type q to exit </span></p>
+  <p style='margin:0in;margin-bottom:.0001pt'><span style='font-size:11.0pt;
+  font-family:"Courier New"'>&nbsp;</span></p>
+  <p style='margin:0in;margin-bottom:.0001pt'><span style='font-size:11.0pt;
+  font-family:"Courier New"'>LokFu-&gt;WongTaiSin-&gt;DiamondHill-&gt;ChoiHung-&gt;KownloonBay-&gt;NgauTauKok-&gt;KwunTong-&gt;LamTin-&gt;YauTong-&gt;NIL</span></p>
+  <p style='margin:0in;margin-bottom:.0001pt'><span style='font-size:11.0pt;
+  font-family:"Courier New"'>Station1 &gt; DiamondHill</span></p>
+  <p style='margin:0in;margin-bottom:.0001pt'><span style='font-size:11.0pt;
+  font-family:"Courier New"'>Station2 &gt; KwunTong</span></p>
+  <p style='margin:0in;margin-bottom:.0001pt'><span style='font-size:11.0pt;
+  font-family:"Courier New"'>Distance: 4</span></p>
+  <p style='margin:0in;margin-bottom:.0001pt'><span style='font-size:11.0pt;
+  font-family:"Courier New"'>&nbsp;</span></p>
+  <p style='margin:0in;margin-bottom:.0001pt'><span style='font-size:11.0pt;
+  font-family:"Courier New"'>LokFu-&gt;WongTaiSin-&gt;DiamondHill-&gt;ChoiHung-&gt;KownloonBay-&gt;NgauTauKok-&gt;KwunTong-&gt;LamTin-&gt;YauTong-&gt;NIL</span></p>
+  <p style='margin:0in;margin-bottom:.0001pt'><span style='font-size:11.0pt;
+  font-family:"Courier New"'>Station1 &gt; q</span></p>
+  </td>
+ </tr>
+</table>
+
+<p>Note that you only need to modify the code in <b>Print()</b> and <strong>FindDistance</strong><strong>()</strong>.</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<h3>References</h3>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:Symbol'>·</span><span style='font-size:
+7.0pt'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><a
+href="http://www.cplusplus.com/doc/tutorial/pointers.html">Pointers</a> and <a
+href="http://cplus.about.com/od/learning1/ss/references.htm">Reference</a></p>
+
+</div>
+
+<div id=footer>
+
+<div id=credits>
+
+<p class=MsoNormal>&nbsp; &copy; <a href="http://www.cse.ust.hk/">CSE</a>, <a
+href="http://www.ust.hk/">HKUST</a> | <a href="http://www.opendesigns.org/">OpenDesign</a>
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+
+<!-- Mirrored from course.cse.ust.hk/comp2012/labs/3-ptr/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 20 Dec 2015 07:14:30 GMT -->
+</html>

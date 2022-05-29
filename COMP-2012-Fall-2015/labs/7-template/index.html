@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    
+<!-- Mirrored from course.cse.ust.hk/comp2012/labs/7-template/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 20 Dec 2015 07:14:41 GMT -->
+<head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>COMP2012H Lab</title>
+        <link rel="stylesheet" type="text/css" href="../style.html" />
+</head>
+    <body>
+
+        <div id="header">
+            <h1>COMP2012</h1>
+          <h2>OOP and Data Structures</h2>
+    </div>
+
+        <div id="content">
+            <h2>Lab 7: Function Templates and Class Templates</h2>
+            <h3>Objectives</h3>
+            <ul>
+              <li><span lang="EN-US" xml:lang="EN-US">To learn using function templates and class templates</span></li>
+              </ul>
+          <h3>Download</h3>
+          <ul>
+            <li><a href="templatefunc.cpp">templatefunc.cpp</a> demonstrates function templates.</li>
+            <li><a href="templateclass.cpp">templateclass.cpp</a> demonstrates class templates.</li>
+            </ul>
+          <h3>Motivations</h3>
+          <p>Templates let you reuse the source code by providing the compiler a way of substituting type names in the body of a function or a class. This helps you in designing and using container class libraries, which play an important role in the development of object-oriented software.&nbsp;
+			It is a much more powerful way than using <b>typdef</b>, as it needs
+			recompilation on your definition files and turns the class into
+			using one type instead of multiple types.</p>
+          <h3>Generic Programming</h3>
+          <p><strong>What are templates?</strong></p>
+          <p>Templates are mechanisms for generating functions and classes based on <strong>type parameters</strong> (So, not surprisingly, templates are sometimes called &quot;parameterized types&quot;). Templates are relatively new additions to the C++ language. They provide a <strong>generic</strong> way to develop reusable code. There are two basic types of templates: <strong>function templates</strong> and <strong>class templates</strong>. By using templates, you can design a single class template that operates on data of many types, instead of having to create a separate class for each type. <br />
+            </p>
+          <p><strong>Advantages of using templates</strong></p>
+          <ul>
+            <li> Templates make coding simpler as you do not have to write several versions of very similar code for different purposes. You may create only one generic version of your class or function instead of manually creating specializations.</li>
+            <li> Templates are easier to understand, since they can provide a straightforward way of abstracting type information.</li>
+            <li> Templates are type-safe. This is because the types that templates act upon are known at compilation time, so the compiler can perform type checking before error occurs.</li>
+            <li>Templates help utilizing compiler optimizations to the extreme.<br />
+            </li>
+          </ul>
+          <p><strong>Developer Tip</strong>: The bottomline is that if you are writing the same code again for two or more different data types, then you should have been using templates.</p>
+          <h3>Function Templates</h3>
+          <p><strong>Working with templates</strong></p>
+          <p>We define a function template as follows. Let us take for example a simple function that returns the minimum of two <strong>integers</strong>:</p>
+          <pre>// type int
+int min(const int&amp; t1, const int&amp; t2) {
+   return t1 &lt; t2 ? t1 : t2;
+};</pre>
+          <p>This function works for all integers.</p>
+          <p>Now, suppose you are required to implement again a function for finding the minimum of two <strong>real numbers</strong>:</p>
+          <pre>// type double
+double min(const double&amp; t1, const double&amp; t2) {
+   return t1 &lt; t2 ? t1 : t2;
+};</pre>
+          <p>Now, the <strong>template solution</strong> for this is as follows (<a href="templatefunc.cpp">templatefunc.cpp</a>):</p>
+          <pre>// template function
+template&lt;typename T&gt;
+T min(const T&amp; t1, const T&amp; t2) {
+   return t1 &lt; t2 ? t1 : t2;
+};</pre>
+          <p>This defines a series of functions which can act upon <strong>all data types</strong> that satisfy the operators/conditions inside the template function. Each time the template is &quot;<strong>instantiated</strong>&quot;, we get a <strong>separate</strong> function for finding the minimum.</p>
+          <p><strong>Instantiation</strong></p>
+          <p>To &quot;<strong>instantiate</strong>&quot; a function template, call it with any of the valid data types (by &quot;valid&quot;, we refer to a data type on which the required operators are defined).</p>
+          <p>For example (write this code in the main( ) function),</p>
+          <pre>// instantiate template function with int
+int i = min(10, 20);
+
+// instantiate template function with double
+double d = min(10.0, 20.0);</pre>
+          <p>However, note that the compiler would <span class="red">not</span> allow you to mix data types, e.g., <strong>min(4, 5.5)</strong> would give you an <span class="red">error</span>. To get around it, of course sometimes you can perform type casting, or specify the instantiation of the function:</p>
+          <pre>// instantiate template function with int and double
+double d = min(4.5, 5);  <span class="red">// error</span>
+
+// instantiate template function explicitly
+double d = min&lt;double&gt;(4.5, 5);</pre>
+          <h3>Class Templates</h3>
+          <p><strong> Working with templates</strong></p>
+          <p>Suppose we want to implement a <strong>stack</strong> class template as follows (<a href="templateclass.cpp">templateclass.cpp</a>).</p>
+          <pre>template &lt;class T, int N&gt;
+   class Stack {
+      public:
+         Stack() { top = -1; }
+         virtual ~Stack(){ }
+
+         inline void Push(T var);
+             T Pop(){
+             cout &lt;&lt; &quot;Popping &quot; &lt;&lt; st[top] &lt;&lt; &quot; from &quot;;
+             cout &lt;&lt; &quot;top = &quot; &lt;&lt; top &lt;&lt; endl &lt;&lt; flush;
+             return st[top--];
+         }
+
+      protected:
+         T st[N];
+         int top;
+};
+
+//Definition of a function external to the class
+template &lt;class T, int N&gt;
+void Stack&lt;T, N&gt;::Push(T var) {
+   cout &lt;&lt; &quot;Pushing &quot; &lt;&lt; var &lt;&lt; &quot; at &quot;;
+   cout &lt;&lt; &quot;top = &quot; &lt;&lt; top+1 &lt;&lt; endl &lt;&lt; flush;
+   st[++top] = var;
+}             </pre>
+
+          <p><strong>Instantiating</strong></p>
+          <p>When you are instantiating a class template, unlike function templates, you should <strong>explicitly instantiate</strong> the class by giving the arguments for the class template. To instantiate and test our <strong>stack</strong> class template, we have to use the following.</p>
+          <pre>Stack&lt;float, 3&gt; floatStack;
+floatStack.Push(10.0);
+floatStack.Push(20.0);
+floatStack.Push(40.0);
+floatStack.Pop();
+floatStack.Pop();
+floatStack.Pop();</pre>
+          <hr />
+          <h2>Lab Task</h2>
+          <p>Download <a href="list.h">list.h</a> and <a href="main.cpp">main.cpp</a>.
+          <p><b>Part I. Change to be 
+			template</b></p>
+			<p>The current implementation of the list class is a non-template one.&nbsp; 
+			Change it to a list class based on template by modifying the list.h only.&nbsp;
+			(Do NOT change the main.cpp.)</p>
+			<p>&nbsp;</p>
+			<p><b>Part II. Implement 
+			member functions in template</b></p>
+			<p>Implement the function
+			<b>Add</b>,
+			<b>Print</b>, 
+			and <b>Find</b>.</p>
+			<ul type="circle">
+				<li><b>Add e</b>: 
+				add the element e to the head of the list</li>
+				<li><b>Print</b>: 
+				print out the whole list from head to tail</li>
+				<li><b>Find</b>: 
+				find the item in the list, and count how many elements (cost) 
+				you have visited <i>when</i> you find it. </li>
+			</ul>
+          <p>After modification, you should be able to compile and run the program. The following output should be shown:</p>
+          <pre style="margin-top: 0; margin-bottom: 0">Original:
+&lt;f b h c d e g a &gt;
+Reverse:
+&lt;a g e d c h b f &gt;
+Reverse again:
+&lt;f b h c d e g a &gt;</pre>
+			<pre style="margin-top: 0; margin-bottom: 0">Enter the item you want to find: <i><b>b</b></i>
+2</pre>
+			<pre style="margin-top: 0; margin-bottom: 0">&nbsp;</pre>
+			<div id="credits">&nbsp; &copy; <a href="http://www.cse.ust.hk/">CSE</a>,
+				<a href="http://www.ust.hk/">HKUST</a> |
+				<a href="http://www.opendesigns.org/">OpenDesign</a> </div>
+    </div>
+
+    </body>
+
+<!-- Mirrored from course.cse.ust.hk/comp2012/labs/7-template/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 20 Dec 2015 07:14:42 GMT -->
+</html>
+
+
+

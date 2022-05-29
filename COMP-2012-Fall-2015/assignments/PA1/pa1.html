@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from course.cse.ust.hk/comp2012/assignments/PA1/pa1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 20 Dec 2015 06:41:43 GMT -->
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../pure-release-0.6.0/pure-min.css">
+    <link rel="stylesheet" href="../../pure-release-0.6.0/layouts/side-menu.css">
+    <link rel="stylesheet" href="../../pure-release-0.6.0/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">  
+    <link rel = "Shortcut Icon" href="../../favicon.html"> 
+    <script type="text/javascript" src="../../../../ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../../balupton.github.io/jquery-syntaxhighlighter/scripts/jquery.syntaxhighlighter.min.js"></script>
+
+    <script type="text/javascript">$.SyntaxHighlighter.init();</script>
+    <title>PA1</title>
+</head>
+
+
+<body style="font-family:Arial, Helvetica, sans-serif;">
+    <div id="layout">
+        <!-- Menu toggle -->
+        <a href="#menu" id="menuLink" class="menu-link">
+            <!-- Hamburger icon -->
+            <span></span>
+        </a>
+
+        <div id="menu">
+            <div class="pure-menu">
+                <a class="pure-menu-heading" href="../../index.html">COMP2012</a>
+
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item"><a href="#objective" class="pure-menu-link">Objective</a></li>   
+                    <li class="pure-menu-item"><a href="#specifications" class="pure-menu-link">Specifications</a></li>
+                    <li class="pure-menu-item"><a href="#tasks" class="pure-menu-link">Tasks</a></li>
+                    <li class="pure-menu-item"><a href="#submission" class="pure-menu-link">Submission</a></li>
+                    <li class="pure-menu-item"><a href="#sample" class="pure-menu-link">Sample I/O</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="main">
+            <div class="header">
+                <h1>Programming Assignment 1</h1>
+                <h2>Due Date: 2015-10-11 23:59:00</h2>
+            </div>
+
+            <div class="content">
+                <h2 class="content-subhead" id="objective">Objective</h2>
+                <p>In this assignment, we will implement a simple calculator for polynomials in two variables using doubly linked lists.</p>
+
+                <h2 class="content-subhead" id="specifications">Specifications</h2>
+
+                <p>A polynomial in two variable, <i>x </i>and<i> y,</i> (i.e. bivariate polynomial) is defined as a finite sum of terms of the form <i>ax<sup>n</sup>y<sup>m</sup></i>, where a is a real number and the exponents, <i>n</i> and <i>m</i> are whole numbers.</p>
+
+                <p>For each term, <i>a</i> is called the coefficient, <i>n </i>is called the exponent of <i>x</i>, <i>m</i> is the called the exponent of <i>y.</i> The degree of a term is the sum of the exponents of all the variables in that term, i.e. <i>(n+m)</i>.</p>
+
+                <p>The polynomial in <i>x</i> and <i>y </i>can be expressed as follows:</p>
+
+                <img class="pure-img-responsive" src="pa1_files/image001.png">
+
+                <p>where a<sub>nm</sub>, a<sub>n(m-1)</sub>, a<sub>(n-1)m</sub>, ... , a<sub>11</sub>, a<sub>10</sub>, a<sub>01</sub>, a<sub>00</sub> are integer coefficients, <i>n</i>&#8805;0 and <i>m</i>&#8805;0. The degree of a polynomial is the largest degree of any of its terms.</p>
+
+                <p>Here is an example:</p>
+                
+                <p><i>3x<sup>2</sup>y<sup>2</sup> + 5x<sup>2</sup>y + 2xy<sup>2</sup> + 6x<sup>2</sup> + 9xy +4y<sup>2</sup> + 6x + y + 2.</i></p>
+
+                <p>In the above example, there are 9 terms. The degree of the polynomial is 4. The term <i>2xy<sup>2</sup></i> has coefficient of 2 and a degree of 3; the term <i>y</i> has coefficient of 1 and a degree of 1.</p>
+
+                <p><b>The Order of Polynomial:</b> A bivariate polynomial is usually sorted in the descending order of the degree of terms, and within a term, the variables are sorted in lexicographical order. For terms with the same degree, they are sorted in lexicographical order. For example, the following is a sorted bivariate polynomial:</p>
+                
+                <p><i>x<sup>13</sup>y<sup>2</sup> + 5x<sup>12</sup> y<sup>3</sup> + 3x<sup>11</sup> y<sup>4</sup> + 2x<sup>6</sup> y<sup>9</sup> + 5x<sup>5</sup> y<sup>10</sup> + x<sup>4</sup> y<sup>11</sup> + x<sup>6</sup> + 7x<sup>5</sup> y + 3x<sup>3</sup> y<sup>3</sup> - 3x<sup>3</sup>y - 3x<sup>2</sup> y<sup>2 </sup>- xy<sup>3 </sup>+ 4y<sup>4</sup> + x - 9y + 2.</i></p>
+
+                <p>To add or subtract polynomials we combine like terms, i.e. terms having the same total degree. To multiply polynomials, we multiply each term in the first polynomial by each term in the second polynomial.</p>
+
+                <p>In this assignment, we will represent polynomials as <u><b>doubly linked lists</b></u>. The polynomials should have integer coeiffcients and non-negative integer exponents.</p>
+
+                <p>For example, a struct definition for a polynomial of degree n, n &#8805; 0, in doubly linked list is shown as follows:</p>
+
+                <pre class="highlight">
+                struct PolyNode 
+                {
+                    int coef; // the coefficient of a term in the polynomial
+                    int exponx; // the exponent (degree) of variable x in the polynomial
+                    int expony; // the exponent (degree) of variable y in the polynomial
+                    PolyNode* prev; // the pointer to the prev term of the polynomial
+                    PolyNode* next; // the pointer to the next term of the polynomial
+                };
+                </pre>
+
+                <p>A graphical representation of the node:</p>
+
+                <img class="pure-img-responsive" src="pa1_files/image002.png">
+
+                <p>The graphical representation of the linked list for the polynomial, <i>3x<sup>3</sup> y - 3x<sup>2</sup> y<sup>2 </sup>+ 4y<sup>4</sup> - 9x + 2</i>:</p>
+
+                <img class="pure-img-responsive" src="pa1_files/image003.png">
+
+                <h2 class="content-subhead" id="tasks">Tasks</h2>
+
+                <p>Based on your definition, design and implement the following function prototypes so as to evaluate, add, subtract, and multiply polynomials.</p>
+
+                <ul>
+                    <li>If polynomial <i>a</i> is empty, return true, else return false.
+                        <pre class="highlight ">
+                            bool isEmpty(PolyPointer a);
+                        </pre>
+                    </li>
+                    <li>Erase a polynomial and deallocate the nodes.
+                        <pre class="highlight ">
+                            void erase(PolyPointer* a);
+                        </pre>
+                    </li>
+                    <li>Print the polynomial a in decreasing order of exponent.
+                        <pre class="highlight ">
+                            void printPoly(PolyNode* a);
+                        </pre>
+                    </li>
+                    <li>Print the polynomial a in ascending order of exponent.
+                        <pre class="highlight ">
+                            void printPolyReverse(PolyNode* a);
+                        </pre>
+                    </li>
+                    <li>Sort the polynomial a in decreasing order of exponent and combine terms with same exponent of <i>x</i> and <i>y</i>. You are advised to use
+                        <a href="https://en.wikipedia.org/wiki/Bubble_sort">Bubble Sort</a>.
+                        <pre class="highlight ">
+                            void sortPoly(PolyNode* a);
+                        </pre>
+                    </li>
+                    <li>Evaluate a polynomial given a particular value of <i>x</i> and <i>y</i>. 
+                        <pre class="highlight ">
+                            long eval(PolyPointer a, int x, int y);
+                        </pre>
+                        For example, the value of the polynomial <i>9x<sup>6</sup> + 2xy<sup>3</sup> + x + 2</i> at x=3 and y=-2 is <br> 9(3)<sup>6</sup> + 2(3)(-2)<sup>3</sup>+ 3 + 2 = 6518                        
+                    </li>
+                    <li>Add two polynomials to create a third polynomial.
+                        <pre class="highlight ">
+                            PolyPointer padd(PolyPointer a, PolyPointer b);
+                        </pre>
+                    </li>
+                    <li>Subtract polynomial <i>b</i> from polynomial <i>a</i> to create a third polynomial.
+                        <pre class="highlight ">
+                            PolyPointer psubtract(PolyPointer a, PolyPointer b);
+                        </pre>
+                    </li>
+                    <li>Multiply two polynomials to create a third polynomial.
+                        <pre class="highlight ">
+                            PolyPointer pmult(PolyPointer a, PolyPointer b);
+                        </pre>
+                    </li>
+
+                </ul>
+
+                <h2 class="content-subhead" id="submission">Submission</h2>
+                <p><b><u><a href="PA1.zip">Skeleton Code</a></u></b></p>
+                <p>The skeleton code is written using Visual Studio 2013. You can download it from <a href="https://www.dreamspark.com/">here</a> for free. Feel free to use your own computer/IDE to complete this assignment. However, be reminded that the skeleton code contains <a href="https://isocpp.org/wiki/faq/cpp11">C++11</a> code, you may need to upgrate to newer versions of compiler to compile it.</p>
+                <p>You should only submit <b>Polynomial.cpp</b>. You may and should add your own helper functions in <b>Polynomial.cpp</b> to help you implement other functions. You may include additional libraries if you cannot compile the code in your own environment.</p>
+                <p>Due Date: <span style="color:red">2015-10-11 23:59:00</span>. You should submit your file to <a href="../../../cass.html">CASS</a> system.</p>
+		<p>If you have any questions regarding this assignment, feel free to contact me via e-mail:lliaa@cse.ust.hk</p>
+                <p>You will receive 20% penalty if you are within 3 days late of the submission. No submission after 3 days is allowed. You are recommanded to start early. Usually it takes more than you expect to debug and test.</p>
+
+
+                <h2 class="content-subhead" id="sample">Sample Input / Output</h2>
+                        <pre class="language-html ">
+============================================================================
+COMP2012 (Fall 2015)
+Assignment 1: a simple calculator for polynomials with two variables
+Operations:
+'q' for quit
+'i' for entering two polynomials, a & b
+'p' for printing the two polynomials in sorted order
+'r' for printing the two polynomials in reverse order
+'e' for evaluating the two polynomials at give values of x and y
+'a' for adding the two polynomials (a+b)
+'s' for subtracting the polynomial b from the polynomial a (a-b)
+'m' for multiplying the two polynomials (a*b)
+============================================================================
+
+>>> Menu: q:quit, i:input, p:print, r:reversely print, e:evaluate, a:add, s:subtract, m:multiply
+>>> Command: i
+
+Input the polynomials in sorted order ...
+Input the first polynomial, a : xy+5-2x^6+7x^4y^2+5x^2-y^2
+Input the second polynomial, b : y-5+x
+
+
+>>> Menu: q:quit, i:input, p:print, r:reversely print, e:evaluate, a:add, s:subtract, m:multiply
+>>> Command: p
+
+Print the polynomials in sorted order ...
+The first polynomial, a = -2x^6+7x^4y^2+5x^2+xy-y^2+5
+The second polynomial, b = x+y-5
+
+
+>>> Menu: q:quit, i:input, p:print, r:reversely print, e:evaluate, a:add, s:subtract, m:multiply
+>>> Command: r
+
+Print the polynomials in reverse order ...
+The first polynomial, a = 5-y^2+xy+5x^2+7x^4y^2-2x^6
+The first polynomial, b = -5+y+x
+
+
+>>> Menu: q:quit, i:input, p:print, r:reversely print, e:evaluate, a:add, s:subtract, m:multiply
+>>> Command: e
+
+Evaluate the polynomials ...
+Input the value for x: 1
+Input the value for y: 2
+a(1,2) = 34
+b(1,2) = -2
+
+
+>>> Menu: q:quit, i:input, p:print, r:reversely print, e:evaluate, a:add, s:subtract, m:multiply
+>>> Command: a
+
+a + b = -2x^6+7x^4y^2+5x^2+xy-y^2+x+y
+
+
+>>> Menu: q:quit, i:input, p:print, r:reversely print, e:evaluate, a:add, s:subtract, m:multiply
+>>> Command: s
+
+a - b = -2x^6+7x^4y^2+5x^2+xy-y^2-x-y+10
+
+
+>>> Menu: q:quit, i:input, p:print, r:reversely print, e:evaluate, a:add, s:subtract, m:multiply
+>>> Command: m
+
+a * b = -2x^7-2x^6y+7x^5y^2+7x^4y^3+10x^6-35x^4y^2+5x^3+6x^2y-y^3-25x^2-5xy+5y^2+5x+5y-25
+
+
+>>> Menu: q:quit, i:input, p:print, r:reversely print, e:evaluate, a:add, s:subtract, m:multiply
+>>> Command: q
+                        </pre>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+<!-- Mirrored from course.cse.ust.hk/comp2012/assignments/PA1/pa1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 20 Dec 2015 06:41:56 GMT -->
+</html>

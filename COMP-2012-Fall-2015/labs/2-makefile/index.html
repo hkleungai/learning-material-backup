@@ -1,0 +1,686 @@
+<html>
+
+
+<!-- Mirrored from course.cse.ust.hk/comp2012/labs/2-makefile/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 20 Dec 2015 07:14:08 GMT -->
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<title>COMP2012H Lab</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Courier;
+	panose-1:2 7 4 9 2 2 5 2 4 4;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:PMingLiU;
+	panose-1:2 2 5 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:PMingLiU;
+	panose-1:2 2 5 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@PMingLiU";
+	panose-1:2 2 5 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-right:0in;
+	margin-left:0in;
+	font-size:24.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-right:0in;
+	margin-left:0in;
+	font-size:18.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+h3
+	{mso-style-link:"Heading 3 Char";
+	margin-right:0in;
+	margin-left:0in;
+	font-size:13.5pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;}
+p
+	{margin-right:0in;
+	margin-left:0in;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+pre
+	{mso-style-link:"HTML Preformatted Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:SimSun;}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-link:"Balloon Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+p.msolistparagraph0, li.msolistparagraph0, div.msolistparagraph0
+	{mso-style-name:msolistparagraph0;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+span.HTMLPreformattedChar
+	{mso-style-name:"HTML Preformatted Char";
+	mso-style-link:"HTML Preformatted";
+	font-family:Consolas;}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-link:"Balloon Text";
+	font-family:"Tahoma","sans-serif";}
+.MsoChpDefault
+	{font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+
+</head>
+
+<!--[if gte mso 9]>
+<xml><o:shapedefaults v:ext="edit" spidmax="1027"/>
+</xml><![endif]-->
+
+<body lang=EN-US link=blue vlink=purple>
+
+<div class=WordSection1>
+
+<h1>COMP2012</h1>
+
+<h2>OOP and Data Structures</h2>
+
+<h2>Lab 2: Separate Compilation</h2>
+
+<h3>Objective</h3>
+
+<p>The objective is to learn the separate compilation and the usage of Makefile
+in both Eclipse IDE and Linux command-prompt environment&nbsp;</p>
+
+<p>Please refer to the following link if you are not familiar with the common
+Linux commands: <a href="../../../../files.fosswire.com/2007/08/fwunixref.pdf"
+target="_blank">http://files.fosswire.com/2007/08/fwunixref.pdf</a></p>
+
+<p>&nbsp;</p>
+
+<h3>Walking through a Simple Example</h3>
+
+<h4>Install "open terminal from here"</h4>
+<p>Use "su" to switch to root account, the password is "comp2012". Then install
+"nautilus-open-terminal". Log out and log in the virtual machine to activate it.
+The password of user student is "student".
+</p>
+<p><img src="index_2014F_files/install.png"></p>
+
+<p>Suppose we have the following files and we want to make a color printing
+program out of them: <a href="blue.h">blue.h</a>, <a href="blue.cpp">blue.cpp</a>,
+<a href="green.h">green.h</a>, <a href="green.cpp">green.cpp</a> and <a
+href="main.cpp">main.cpp</a>.</p>
+
+<p>You may use Konqueror to browse the lab page, download the files and
+manipulate the files. In the terminal, type:</p>
+
+<p>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style='font-family:"Courier New"'>konqueror &amp;</span></p>
+
+<p><img border=0 width=554 height=424 id="Picture 12"
+src="index_2014F_files/image001.jpg"></p>
+
+<p><strong><span style='font-weight:normal'>Go to “Location”, then “Open
+Location..” to locate the files.<br>
+</span></strong><img border=0 width=553 height=389 id="Picture 13"
+src="index_2014F_files/image002.jpg"></p>
+
+<p><strong>Solution 1: put everything in one line </strong></p>
+
+<p><strong><span style='font-weight:normal'>In the console, type:</span></strong></p>
+
+<p style='text-indent:.5in'><span style='font-size:10.0pt;font-family:Courier'>g++
+blue.cpp green.cpp main.cpp -o printcolor</span></p>
+
+<p>It works.</p>
+
+<p><img border=0 width=674 height=507 id="Picture 1"
+src="index_2014F_files/image003.png"></p>
+
+<ul style='margin-top:0in' type=disc>
+ <li class=MsoNormal>Problem 1: what if we change the content of green.cpp? Do
+     we have to build everything again (including the files that remain intact,
+     like blue.cpp)?</li>
+ <li class=MsoNormal>Problem 2: what if we have another 100 colors to add to
+     our program? Every time we add a new color, we need to build the program
+     again until finally we have to type 100 filenames on the command line? It
+     is messy and error-prone.</li>
+</ul>
+
+<p><strong>Solution 2: Separate compilation and makefile</strong></p>
+
+<p>One thing at a time: </p>
+
+<pre style='margin-left:.5in'><span style='font-size:10.0pt;font-family:Courier'>g++ -c&nbsp; blue.cpp</span></pre><pre
+style='margin-left:.5in'><span style='font-size:10.0pt;font-family:Courier'>g++ -c&nbsp; green.cpp</span></pre><pre
+style='margin-left:.5in'><span style='font-size:10.0pt;font-family:Courier'>g++ blue.o green.o main.cpp -o printcolor</span></pre>
+
+<p>If we change green.cpp, we just need to rebuild green.o and printcolor,
+leaving the blue color files untouched. </p>
+
+<div style='border:none;border-bottom:solid windowtext 1.0pt;padding:0in 0in 1.0pt 0in'>
+
+<p style='border:none;padding:0in'>Use a <strong>makefile</strong> to put
+everything together, thus every time we just need to type &quot;gmake&quot; to
+do compiling, assembling and linking. </p>
+
+<p style='border:none;padding:0in'>&nbsp;</p>
+
+</div>
+
+<h3>About Makefile</h3>
+
+<h3><span style='font-size:12.0pt;font-weight:normal'>Reference material for
+the Makefile:&nbsp; <a href="makefile.pdf" target="_blank">makefile.pdf</a>&nbsp;
+(TA in your lab section will briefly go through the slides of the Makefile)</span></h3>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>It makes compilation much easier. You just need to type one
+simple short command instead of a long complicated ones. The purpose of the
+make utility is to determine automatically which pieces of a large program need
+to be recompiled and then issue the corresponding commands to recompile them.</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Most of the time software in Unix-like operating systems is
+installed using gmake/make, not by utilities like InstallShield on the Windows
+platform. If you encounter any problem during software installation, you will
+need to examine the makefile. Hence understanding how to use makefile can help
+you tremendously. </p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>To use make, you must first write a file called makefile that
+describes the relationships among the files in your program and includes the
+commands for processing the files accordingly.</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>In a program, typically the executable file is updated from the
+object files, which are in turn created by compiling the source files.</p>
+
+<p><strong>Create and Use a g++ Makefile</strong></p>
+
+<p>You can use <strong>gmake </strong>(which calls g++) to compile and link
+your program or object files. When using <strong>gmake</strong>, it looks for a
+file called <strong>makefile</strong> or <strong>Makefile</strong>. (The name <strong>Makefile</strong>
+is preferred as it can easily be distinguished from other files which typically
+have filenames in lowercase.) You can write all the rules in your makefile to
+simplify and speed up your compilation and linking process.</p>
+
+<p>Sample <a href="MakefileG%2b%2b">Makefile</a>.</p>
+
+<p>To make and use a g++ <b>makefile</b>, do the following in the console:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>1.<span style='font-size:7.0pt'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Create a text file called <b>Makefile</b></p>
+
+<p style='margin-left:.75in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·</span><span style='font-size:7.0pt'>&nbsp;&nbsp;&nbsp; </span><span
+style='font-size:10.0pt;font-family:"Courier New"'>The simplest way is to type:</span></p>
+
+<p style='margin-left:.75in'><span style='font-size:10.0pt;font-family:Courier'>pico
+Makefile</span></p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style='font-size:10.0pt;font-family:"Courier New"'>Or you can use any
+text editor like Vi or Emacs</span></p>
+
+<p class=msolistparagraph0 style='text-indent:-.25in'>2.<span style='font-size:
+7.0pt'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Edit the makefile, add:</p>
+
+<p style='margin-left:.75in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·</span><span style='font-size:7.0pt'>&nbsp;&nbsp;&nbsp; </span><span
+style='font-size:10.0pt;font-family:"Courier New"'>Variable definitions
+(optional), in the form:</span></p>
+
+<p style='margin-left:.75in'><span style='font-size:10.0pt;font-family:Courier'>VARIABLE_NAME
+= variable_definition</span></p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style='font-size:10.0pt;font-family:"Courier New"'>Such as:</span></p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <span style='font-size:10.0pt;font-family:Courier'>TARGET =
+printcolor</span></p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style='font-size:10.0pt;font-family:"Courier New"'>Use the variable by
+$(VARIABLE_NAME)</span></p>
+
+<p style='margin-left:.75in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·</span><span style='font-size:7.0pt'>&nbsp;&nbsp;&nbsp; </span><span
+style='font-size:10.0pt;font-family:"Courier New"'>Dependencies followed by
+compilation rules in the second line, such as:</span></p>
+
+<p class=msolistparagraph0 style='margin-left:.75in;text-autospace:none'><span
+style='font-size:10.0pt;font-family:Courier'>blue.o: blue.h blue.cpp</span></p>
+
+<p style='margin-left:.75in'><span style='font-size:10.0pt;font-family:Courier'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$(CXX) $(CXXFLAGS) -c blue.cpp</span></p>
+
+<p><span style='font-size:10.0pt;font-family:Courier'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style='font-size:10.0pt;font-family:"Courier New"'>Which
+translates to, <b>blue.o</b> depends on <b>blue.h</b> and <b>blue.cpp</b>,
+compile blue.o using the rule: g++ (flags) –c blue.cpp.</span></p>
+
+<p><span style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+The tag <b>all </b>and<b> clean </b>specifies the final target to make, and the
+rules to clean up.</span></p>
+
+<p class=msolistparagraph0 style='text-indent:-.25in'>3.<span style='font-size:
+7.0pt'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Save and quit editing. Use the
+makefile by typing:</p>
+
+<p><span style='font-size:10.0pt;font-family:Courier'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+make</span><span style='font-size:10.0pt;font-family:"Courier New"'> or </span><span
+style='font-size:10.0pt;font-family:Courier'>make all</span></p>
+
+<p><span style='font-size:10.0pt;font-family:Courier'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>and you should see the program being compiled and the target being
+created.</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Clean up
+all results by typing:</p>
+
+<p><span style='font-size:10.0pt;font-family:Courier'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+make clean</span></p>
+
+<p><strong>Work on Makefile with Eclipse</strong></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Create a <b>Makefile project</b> &quot;<strong>printcolor</strong>&quot;
+under Eclipse.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal><img border=0 width=445 height=492 id="Picture 14"
+src="index_2014F_files/image004.jpg"></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Copy files to the project directory.</p>
+
+<p class=MsoNormal><img border=0 width=708 height=471 id="Picture 3"
+src="index_2014F_files/image005.jpg"></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Choose New &gt; File to add a new <b>Makefile</b> to the current
+project</p>
+
+<p class=MsoNormal><img border=0 width=525 height=620 id="Picture 4"
+src="index_2014F_files/image006.png"></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Type in the content of the <b>Makefile</b>. Here is a sample <b>Makefile</b>
+based on the above description:</p>
+
+<p class=MsoNormal><img border=0 width=998 height=581 id="Picture 5"
+src="index_2014F_files/image007.jpg"></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Create a make target. Based on the rules defined on the <b>Makefile</b>,
+the target name should be equal to <b>all</b></p>
+
+<p class=MsoNormal><img border=0 width=351 height=461 id="Picture 6"
+src="index_2014F_files/image008.jpg"><img border=0 width=334 height=458
+id="Picture 7" src="index_2014F_files/image009.png"></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Build the project by clicking the hammer button </p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span>You may receive some unknown warning messages. It should be fine
+if the executable named <b>printcolor </b>is generated (can be viewed from the
+Project Explorer on the left panel)</p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span>You should notice that <b>Makefile</b> enables the separate
+compilation</p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span>Parameters </p>
+
+<p class=MsoNormal style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>-Wall means show all warning messages when compiling a cpp file</p>
+
+<p class=MsoNormal style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>OBJS stores all the intermediate object files generated during
+the compilation process</p>
+
+<p class=MsoNormal style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>LIBS stores external libraries. We don’t require external
+libraries, so we omit this variable</p>
+
+<p class=MsoNormal style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>TARGET is the name of the final executable</p>
+
+<p class=MsoNormal><img border=0 width=1044 height=715 id="Picture 8"
+src="index_2014F_files/image010.png"></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Run the executable <b>printcolor</b></p>
+
+<p class=MsoNormal><img border=0 width=1044 height=715 id="Picture 9"
+src="index_2014F_files/image011.png"></p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<h2>Lab Task</h2>
+
+<h3>Download</h3>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><a href="array_all.cpp">array_all.cpp</a> contains the definition
+and implementation of the array structure with utility functions as well as the
+main function</p>
+
+<h3>Lab Work</h3>
+
+<p><strong>Declaration, Definition and Implementation</strong></p>
+
+<p>In practice, programmers always separate a segment of program source code
+into three parts: <strong>declaration, definition and implementation</strong>.<strong>
+</strong>The purpose is to separate the interface from the actual
+implementation to make the program easier to understand and reuse.&nbsp; The
+objectives are to achieve:</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Clean and concise header files (*.h)</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Separate the compilation process to avoid unnecessary recompilation
+(or to achieve minimum recompilation) when some of the program files are
+changed</p>
+
+<p>For example, consider the structure Array.</p>
+
+<p><strong>Declaration</strong>: Introduce a structure called <strong>Array</strong>
+to the compiler, but with only function prototypes without any detailed information
+provided yet</p>
+
+<pre><span style='font-size:10.0pt;font-family:"Courier New"'>struct</span><span
+style='font-size:10.0pt;font-family:"Courier New"'> </span><span
+style='font-size:10.0pt;font-family:"Courier New"'>Array</span><span
+style='font-size:10.0pt;font-family:"Courier New"'> {</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp; // ... </span><span
+style='font-size:10.0pt;font-family:"Courier New"'>m</span><span
+style='font-size:10.0pt;font-family:"Courier New"'>ember variables</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>};</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>// ... function prototypes</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>void ArrayInit(Array&amp; a);</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>...</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></pre>
+
+<p><strong>Definition or implementation</strong>: Define the functions so that
+codes can be generated.&nbsp; They are in the form of the following</p>
+
+<pre><span style='font-size:10.0pt;font-family:"Courier New"'>void ArrayInit(Array&amp; a) {</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp; // ... detailed implementation</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>};</span></pre><pre><span
+lang=ZH-CN style='font-size:10.0pt'>　</span></pre><pre><span style='font-size:
+10.0pt;font-family:"Courier New"'>// ...</span><span style='font-size:10.0pt;
+font-family:"Courier New"'> Other functions’ implementation</span></pre><pre><span
+style='font-size:10.0pt;font-family:"Courier New"'>...</span></pre>
+
+<h2><img border=0 width=647 height=394 id="Picture 10"
+src="index_2014F_files/image012.jpg"></h2>
+
+<h2><span style='font-size:14.0pt'>Part I:</span></h2>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Re-factor
+the program in <a href="array_all.cpp">array_all.cpp</a> to make use of the
+idea of separate compilation, which is to separate the class Date's definition
+and implementation in the given date_all.cpp: </p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span>Put the Array’s structure definition and function prototypes into
+<strong>array.h</strong></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span>Put the functions’ implementation into <strong>array.cpp</strong></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span>Put the main function into <strong>main.cpp</strong></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><strong><span
+style='font-weight:normal'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></strong><strong><span style='font-weight:normal'>Add a function,
+int ArrayProduct(const Array arr), which calculate the product of all the items
+in the array.</span></strong></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><strong><span
+style='font-weight:normal'>Create a g++ </span>Makefile</strong><strong><span
+style='font-weight:normal'> so that it can:</span></strong> </p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span>Compile array.cpp to generate an object file array.o</p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span>Compile main.cpp to generate an object file main.o</p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in'><strong><span
+style='font-size:10.0pt;font-family:"Courier New";font-weight:normal'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></strong>Link
+the object files and generate the executable code with filename lab02<strong> </strong></p>
+
+<ol style='margin-top:0in' start=4 type=1>
+ <li class=MsoNormal><strong><span style='font-weight:normal'>Execute lab02,
+     where the sample output of the program is:</span></strong></li>
+</ol>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+ style='margin-left:.5in;border-collapse:collapse;border:none'>
+ <tr>
+  <td width=638 valign=top style='width:6.65in;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal><span style='font-size:11.0pt;font-family:"Courier New"'>Enter
+  the number of items: 4</span></p>
+  <p class=MsoNormal><span style='font-size:11.0pt;font-family:"Courier New"'>Array
+  items: 34 37 28 16 </span></p>
+  <p class=MsoNormal><span style='font-size:11.0pt;font-family:"Courier New"'>Sum
+  of items: 115</span></p>
+  <p class=MsoNormal><span style='font-size:11.0pt;font-family:"Courier New"'>Remove
+  the number: 28</span></p>
+  <p class=MsoNormal><span style='font-size:11.0pt;font-family:"Courier New"'>Array
+  items: 34 37 16 </span></p>
+  <p class=MsoNormal><span style='font-size:11.0pt;font-family:"Courier New"'>Product
+  of items: 20128</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-left:.5in'>&nbsp;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal><strong><span style='font-size:14.0pt'>Part II: (Optional)</span></strong></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>In
+Eclipse, create a Makefile project called &quot;<strong>array</strong>&quot;.</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Copy
+the re-factored source and header files (<strong>array.h</strong><strong><span
+style='font-weight:normal'>,</span> </strong><strong>array.cpp</strong><strong><span
+style='font-weight:normal'>,</span> main.cpp</strong><strong><span
+style='font-weight:normal'>)</span></strong> to the project.</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Complete
+the <strong>Makefile</strong> created by Eclipse, so that it can do the same
+thing as the g++ Makefile created in <b>Part I</b>.</p>
+
+<p>&nbsp;</p>
+
+<h3>References</h3>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>A short and easy <a
+href="http://www.cs.indiana.edu/classes/c304/Makefiles.html">introduction</a>
+to Makefile</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Another easy <a href="http://www.cs.cmu.edu/~tom7/211/make.html">page</a></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>A <a href="http://oucsace.cs.ohiou.edu/~bhumphre/makefile.html">version</a>
+with a bit more information</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·</span><span style='font-size:7.0pt'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><!-- <li><a href="http://www.ummon.org/Linux/Tools/make/make_toc.html">Makefile tutorial</a></li>-->For
+more information of g++, please see the reference <a
+href="http://www.mrs.umn.edu/~mcphee/Courses/C_C++_notes/Glossary/g++_command_line_args.html">g++
+command line arguments</a>.</p>
+
+<p class=MsoNormal>&nbsp;&copy; <a href="http://www.cse.ust.hk/">CSE</a>, <a
+href="http://www.ust.hk/">HKUST</a> | <a href="http://www.opendesigns.org/">OpenDesign</a>
+</p>
+
+</div>
+
+</body>
+
+
+<!-- Mirrored from course.cse.ust.hk/comp2012/labs/2-makefile/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 20 Dec 2015 07:14:29 GMT -->
+</html>

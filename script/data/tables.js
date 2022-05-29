@@ -34,6 +34,14 @@ const CATEGORIZED_PRE_COURSES = [
                 code: 'COMP 2711H',
                 semesters: ['Fall 2015', 'Fall 2021'],
             },
+            {
+                code: 'COMP 3711',
+                semesters: ['Fall 2015'],
+            },
+            {
+                code: 'COMP 3711H',
+                semesters: ['Fall 2015'],
+            }
         ],
     },
     {
@@ -62,11 +70,11 @@ const CATEGORIZED_PRE_COURSES = [
             },
             {
                 code: 'COMP 2611',
-                semesters: ['Spring 2022'],
+                semesters: ['Fall 2015', 'Spring 2022'],
             },
             {
                 code: 'COMP 3511',
-                semesters: ['Spring 2022'],
+                semesters: ['Fall 2015', 'Spring 2022'],
             },
         ],
     },
@@ -156,11 +164,11 @@ const CATEGORIZED_PRE_COURSES = [
             },
             {
                 code: 'COMP 2012',
-                semesters: ['Spring 2022'],
+                semesters: ['Fall 2015', 'Spring 2022'],
             },
             {
                 code: 'COMP 2012H',
-                semesters: ['Spring 2013', 'Fall 2021'],
+                semesters: ['Spring 2013', 'Fall 2015', 'Fall 2021'],
             },
         ],
     },

@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    
+<!-- Mirrored from course.cse.ust.hk/comp2012/labs/8-stl/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 20 Dec 2015 07:14:42 GMT -->
+<head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>COMP2012H Lab</title>
+        <link rel="stylesheet" type="text/css" href="../style.html" />
+        <style type="text/css">
+<!--
+.style1 {font-weight: bold}
+-->
+        </style>
+</head>
+    <body>
+
+        <div id="header">
+            <h1>COMP2012</h1>
+          <h2>OOP and Data Structures</h2>
+    </div>
+
+        <div id="content">
+            <h2>Lab 8: Standard Template Library (STL)</h2>
+            <h3>Objectives</h3>
+            <ul>
+              <li>To demonstrate the use of various container classes  in STL.</li>
+              <li>To demonstrate the use of generic algorithms.</li>
+            </ul>
+          <h3>STL Containers</h3>
+          <p>A <a href="http://www.sgi.com/tech/stl/Container.html">container</a> is an <a href="http://www.sgi.com/tech/stl/index.html">STL</a> template class that manages a sequence of elements. Such elements can be of any object type that supplies a default constructor, a destructor, and an assignment operator.</p>
+          <h3><strong>Some Container Classes</strong><br />
+          </h3>
+          <p><strong><a href="http://www.sgi.com/tech/stl/Vector.html">vector</a></strong></p>
+          <p>It is the STL container that may be regarded as an <strong>enhanced array</strong>. It is arguably the container used most frequently.<br />
+            </p>
+          <p><a href="http://www.sgi.com/tech/stl/Deque.html"><strong>deque</strong></a></p>
+          <p>deque provides the same behavior as a vector but is specialized to support <strong>efficient insertion and deletion at the beginning and the end</strong> of a list. A deque is preferred over a vector, for example, in the implementation of a queue, an abstraction in which the first element is retrieved each time.<br />
+            </p>
+          <p><strong><a href="http://www.sgi.com/tech/stl/List.html">list</a>
+			(doubly-linked)</strong></p>
+          <p>A doubly-linked list represents <strong>noncontiguous memory doubly linked</strong> through a pair of pointers that address the elements to the front and back allowing for both forward and backward traversal. Insertion and deletion of elements at any position within the list are efficient; the pointers must be reassigned, but no elements need to be moved by copying. Random access, on the other hand, is <span class="red">not</span> well supported: accessing an element requires traversal of intervening elements. In addition, there is space overhead of the two pointers per element.<br />
+            </p>
+          <p><a href="http://www.sgi.com/tech/stl/Map.html"><strong>map</strong></a></p>
+          <p>A map is an associative container, possessing a <strong>key/value pair</strong>: the key is used for lookup, and the value is the actual item. It supports the syntax of &quot;associative array&quot;. This means that if we define <strong>x</strong> by &quot;<strong>map&lt;string, Student&gt; x;</strong>”, then <strong>x[&quot;00123456&quot;]</strong> refers to the Student object with ID &quot;<strong>00123456</strong>&quot;. If no such Student object exists, a new one is created using the Student default constructor.<br />
+          </p>
+          <p><a href="http://www.sgi.com/tech/stl/set.html"><strong>set</strong></a></p>
+          <p>A set is an associative container that contains an <strong>ordered</strong> set of objects. The container is represented in a way that permits lookup, insertion, and removal of an arbitrary element with a number of operations proportional to the logarithm of the number of elements in the sequence (logarithmic time).</p>
+          <p><span class="style1"><a href="http://www.sgi.com/tech/stl/Multimap.html">multimap</a>/<a href="http://www.sgi.com/tech/stl/multiset.html">multiset</a></span></p>
+          <p>Both map and set can contain only a single occurrence of each key. A multimap is similar to a map, and a multiset is similar to a set, except that multimap and multiset support <strong>multiple occurrences</strong> of the same key. Note that multimap doesn't support the associative array syntax.</p>
+          <p><a href="http://www.sgi.com/tech/stl/queue.html">queue</a> and <a href="http://www.sgi.com/tech/stl/stack.html">stack</a> are also in STL. Hence, there is no need to re-implement them.</p>
+          <h3>Which Container to Use?</h3>
+          <p>There are so many containers... so which one is appropriate for my program?</p>
+          <p>Before you decide which container to use, you should first think about what operations you are going to act on the container. You should then choose the container that is most efficient for those operations.</p>
+          <p>Following are some guidelines for choosing a suitable container:</p>
+          <p>If you need an array-like container, <strong>vector</strong> is the choice.</p>
+          <p>If you need random access (i.e. a[5]) and new items are only inserted/removed at the end, use <strong>vector</strong>.</p>
+          <p>If you need random access and new items are inserted/removed at either the start or the end, use <strong>deque</strong>.</p>
+          <p>If you need to represent something like &quot;index, item&quot;, use <strong>map</strong>. For example, if you want to use a container storing student records such that you can retrieve the record of a student by his or her student ID, map is the best container. If the index is not unique, use <strong>multimap</strong> instead.</p>
+          <p>If you need to do a lot of search, insertion and deletion of items at different positions, <strong>set</strong> is an efficient container. If an item can occur multiple times, use <strong>multiset</strong> instead.</p>
+          <p>Use <strong>list</strong> when you need a linked list and the functionalities of the containers above are unnecessary.</p>
+          <h3>Example Programs</h3>
+          <p><a href="deque.cpp">deque.cpp</a> demonstrates the basic usage of deque</p>
+          <p><a href="list.cpp">list.cpp</a> demonstrates the basic usage of list</p>
+          <p><a href="set.cpp">set.cpp</a> demonstrates the basic usage of set</p>
+          <p><a href="map.cpp">map.cpp</a> demonstrates the basic usage of map and multimap</p>
+          <p><a href="algorithms.cpp">algorithms.cpp</a> demonstrates the usage of some generic algorithms based on STL containers such as vector, list and deque</p>
+          <p><a href="map_search.cpp">map_search.cpp</a> demonstrates how to search for an element via its unique key in a map.</p>
+          <p>It creates a map from int to string. The mapping is from digits to their string equivalents (1 -&gt; &quot;One&quot;, 2 -&gt; &quot;Two&quot;, etc.). The program reads in a number from the user, finds the word equivalent for each digit (using the map), and prints the number as a series of words.</p>
+          <p>For example, if the user enters 25463, the program responds with: Two Five Four Six Three. If the user enters 1a2d34, the program responds with: One [err] Two [err] Three Four.</p>
+          <p><a href="multimap_search.cpp">multimap_search.cpp</a> demonstrates how to search in multimap. Multiple values can be associated with a single key.</p>
+          <p>This program first defines a class Student, which consists of name, student ID, and department. The student ID field can uniquely represent an individual student, but name or department field can't. So if you want to find a student by specifying his (her) name or department, you will probably get multiple results, which can be implemented by multimap, as demonstrated in this program.</p>
+          <p>The program accepts the commands of user, and performs the corresponding functions. If the user inputs 'd' and the department name, which means to search students via department, the program will search in the multimap and output the result. If the user inputs 'q', the whole program will quit.</p>
+          <h3>Algorithms</h3>
+          <p>STL also includes a large collection of algorithms that manipulate the data stored in containers.</p>
+          <p>For example, the following codes reverse the order of elements in a vector by using the reverse algorithm.</p>
+          <br/><pre>vector&lt;int&gt; v(3); // Declare a vector of 3 elements.
+v[0] = 7;
+v[1] = 3;
+v[2] = 10; // v[0] == 7, v[1] == 3, v[2] == 10
+reverse(v.begin(), v.end()); // v[0] == 10, v[1] == 3, v[2] == 7</pre><br/>
+          <p>Note that reverse() is a global function, not a member function.</p>
+          <h3>Iterators</h3>
+          <p>In the example above, the arguments to reverse are <a href="http://www.sgi.com/tech/stl/Iterators.html">iterators</a>, which are a generalization of pointers. Pointers themselves are iterators, which is why it is possible to reverse the elements of a C array like the following.</p>
+          <pre>double A[6] = { 1.2, 1.3, 1.4, 1.5, 1.6, 1.7 };
+reverse(A, A + 6);</pre>
+          <p> Similarly, vector declares the nested types <strong>iterator</strong> and <strong>const_iterator</strong>. In the example at the beginning, the type returned by <strong>v.begin()</strong> and <strong>v.end()</strong> is <strong>vector&lt;int&gt;::iterator</strong>. There are also some iterators, such as <a href="http://www.sgi.com/tech/stl/istream_iterator.html">istream_iterator</a> and <a href="http://www.sgi.com/tech/stl/ostream_iterator.html">ostream_iterator</a>, that aren't associated with containers at all.</p>
+          <p> Iterators are the mechanism that makes it possible to <strong>decouple</strong> algorithms from containers: algorithms are templates, and are parameterized by the type of iterator, so they are not restricted to a single type of container.</p>
+          <h3>Function Objects</h3>
+          <p> The STL includes a large collection of <a href="http://www.sgi.com/tech/stl/functors.html">function objects</a>, also known as functors. A function object is simply any object that can be called as if it is a function. An ordinary function is a function object, and so is a function pointer; more generally, so is an object of a class that defines operator().</p>
+          <p> The <a href="find_if.cpp">find_if example</a> includes a function object <strong>Greater_Than(350)</strong>, which is an object of the class <strong>Greater_Than</strong> that defines operator().</p>
+          <hr />
+          <h2>Lab Task</h2>
+          <p><a href="building.h">building.h</a>, <a href="building.cpp">building.cpp</a>, <a href="CheckBuilding.cpp">CheckBuilding.cpp</a> are sources of an incomplete program for creating a building
+			(you may think of it as a hotel) with certain numbers of floors and rooms. Then you can put persons identified by their names and IDs into the rooms, or move persons out of their rooms. You need to store the names and IDs in  string vectors.</p>
+          <p>There are two member variables in class <strong>building</strong>: <strong>names</strong> and <strong>ids</strong>. They are 2D arrays (vector class is used for implementation). <strong>names[i]</strong> is an array/vector of class string (i.e. vector&lt;string&gt;), which contains all the occupants' name at floor <strong>i</strong>. <strong>names[i][j]</strong> refers to the occupant name at the floor <strong>i</strong> in room <strong>j</strong>. The type is class string. And <strong>ids</strong> is the corresponding identity number of that occupant. The type of <strong>ids</strong> is the same as that of <strong>names</strong>.</p>
+          <p>Complete the missing code marked with &quot;//...&quot; in building.cpp.&nbsp;
+			Do NOT modify the other files.</p>
+          <p>Following is the sample output that your program should produce:</p>
+          <br/>
+          <pre>My name 12345678
+
+Number of vacancies in Mine is 9
+The building is empty
+Number of vacancies in Mine is now 6
+
+Display()
+Occupant of Room 1 on floor 0 is John, Identity number 234567
+Occupant of Room 2 on floor 0 is Dora, Identity number 123456
+Occupant of Room 2 on floor 1 is Daisy, Identity number 345678
+
+Display(0)
+Occupant of Room 1 on floor 0 is John, Identity number 234567
+Occupant of Room 2 on floor 0 is Dora, Identity number 123456
+
+Display(1)
+Occupant of Room 2 on floor 1 is Daisy, Identity number 345678
+
+Display(2)
+Floor 2 is empty
+
+Put Jane
+Occupant of Room 1 on floor 0 is Jane, Identity number 4567891
+Occupant of Room 2 on floor 0 is Dora, Identity number 123456
+Occupant of Room 2 on floor 1 is Daisy, Identity number 345678
+
+Put Maple
+Floor 3 is out of range!
+Room 1 on floor 3 is out of range!
+Occupant of Room 1 on floor 0 is Jane, Identity number 4567891
+Occupant of Room 2 on floor 0 is Dora, Identity number 123456
+Occupant of Room 2 on floor 1 is Daisy, Identity number 345678
+
+Put Maple Again
+Occupant of Room 1 on floor 0 is Jane, Identity number 4567891
+Occupant of Room 2 on floor 0 is Dora, Identity number 123456
+Occupant of Room 2 on floor 1 is Daisy, Identity number 345678
+Occupant of Room 1 on floor 3 is Maple, Identity number 5678912
+
+Remove Room 2 on Floor 1
+Occupant of Room 1 on floor 0 is Jane, Identity number 4567891
+Occupant of Room 2 on floor 0 is Dora, Identity number 123456
+Occupant of Room 1 on floor 3 is Maple, Identity number 5678912
+
+Add Room 3 on Floor 0
+Occupant of Room 1 on floor 0 is Jane, Identity number 4567891
+Occupant of Room 2 on floor 0 is Dora, Identity number 123456
+Occupant of Room 3 on floor 0 is Beryl, Identity number 6789123
+Occupant of Room 1 on floor 3 is Maple, Identity number 5678912
+
+Switching to Yours:
+Occupant of Room 0 on floor 0 is Lisa, Identity number 333333
+
+Occupant of Room 0 on floor 0 is Lisa, Identity number 333333
+Occupant of Room 1 on floor 1 is Paul, Identity number 24987
+Occupant of Room 2 on floor 1 is Harry, Identity number 543216
+Occupant of Room 3 on floor 2 is Bryce, Identity number 876543
+
+Names of all occupants of Yours:
+Bryce Harry Lisa Paul</pre>
+          <h3>References</h3>
+          <ul>
+            <li><a href="http://www.sgi.com/tech/stl/table_of_contents.html">The Standard Template Library</a></li>
+            <li><a href="http://www.sgi.com/tech/stl/index.html">Standard Template Library Programmer's Guide</a></li>
+            <li><a href="http://www.josuttis.com/libbook/idx.html">The C++ Standard Library - A Tutorial and Reference</a></li>
+          </ul>
+    </div>
+
+<div id="footer">
+          <div id="credits">
+                &nbsp; &copy; <a href="http://www.cse.ust.hk/">CSE</a>, <a href="http://www.ust.hk/">HKUST</a> | <a href="http://www.opendesigns.org/">OpenDesign</a> </div>
+
+    </div>
+
+    </body>
+
+<!-- Mirrored from course.cse.ust.hk/comp2012/labs/8-stl/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 20 Dec 2015 07:14:45 GMT -->
+</html>

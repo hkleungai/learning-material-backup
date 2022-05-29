@@ -1,0 +1,637 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Assignment 5: Animal War - Inheritance and Polymorphism</title>
+
+<style type="text/css">
+html {
+background: repeat #f5f5f4;
+height: 100%;
+}
+body {
+padding: 0;
+font-family: Arial, Helvetica, sans-serif;
+font-size: 14px;
+margin: 20px auto 20px auto;
+color: #484848;
+height: 100%;
+max-width: 950px;
+}
+div {
+margin: 20px auto 20px auto;
+}
+a {
+color: #0091ed;
+text-decoration: none;
+}
+a:hover {
+text-decoration: none;
+}
+li {
+line-height: 20px;
+}
+p {
+text-align: justify;
+padding: 5px 0 5px 0;
+margin: 0px;
+line-height: 20px;
+}
+.clear {
+clear: both;
+}
+h1 {
+padding: 15px 0px 0 0;
+margin: 0px;
+color: #484848;
+font-weight: bold;
+font-size: 28px;
+}
+h2 {
+padding: 20px 0px 10px 0;
+margin: 0px;
+color: #484848;
+font-weight: bold;
+font-size: 20px;
+}
+h3 {
+padding: 20px 0px 0 0;
+margin: 0px;
+color: #484848;
+font-weight: bold;
+font-size: 20px;
+}
+h4 {
+padding: 0px 0px 0 0;
+margin: 0px;
+color: #484848;
+font-weight: bold;
+font-size: 16px;
+}
+
+#news { 
+    background-color: yellow;
+}
+
+pre {
+    display: block;
+    font-family: monospace;
+    white-space: pre;
+    margin: 1em 0;
+    background-color: lightgrey;
+} 
+.auto-style1 {
+color: #FF0000;
+}
+</style>
+</head>
+<body>
+<div style="margin: 20px auto; max-width: 950px;">
+<div>
+<h1><strong>Assignment 5: Animal War - Inheritance and
+Polymorphism</strong></h1>
+</div>
+<div>
+<h2> Contents </h2>
+<ul>
+<li><a href="#news">News</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#structure">Animals</a></li>
+<li><a href="#requirement">Assignment Requirements</a></li>
+<li><a href="#grading">Grading Scheme</a></li>
+<li><a href="#bonus">Bonus</a></li>
+</ul>
+</div>
+<div id="news">
+<h2> News </h2>
+<p><strong>Submission deadline: 11:59pm, Saturday, Nov. 21,
+2015</strong></p>
+<ol>
+<li>You may change the <strong><code>takeDamage</code></strong> and <strong><code>die</code></strong> functions to virtual functions to help you implement the bonus part. However, it is not recommended to change those if you are not going to work on the bonus part.</li>
+<li>You do not need to handle this case: 
+<pre>
+<code>
+Dragon Dead Dead Dead Dead
+Dead Dead Dead Dead Dragon
+</code>
+</pre>
+But if you want to handle it nicely, you may make it a draw condition.
+</li>
+<li>All animals once dead (HP drops to or below zero), cannot be healed and become alive again. i.e. A bat with zero HP cannot heal itself, an Army Ant Queen cannot heal dead ants.</li>
+<li><a href="http://www.cprogramming.com/tutorial/virtual_inheritance.html">Virtual Inheritance</a> may help while implementing Phoenix and Cerberus.</li>
+<li>You may add any data members/functions to help but you <strong>SHOULD NOT</strong> alter any existing data members/functions in the skeleton code, unless otherwise specified.</li>
+<li>Special moves always happen after normal attacks. If there are more than 1 special move triggered, the triggering order does not matter. </li>
+<li>You may want to hand in more files than those stated in <a href="#requirement">Assignment Requirements</a> to help design your inheritance relations. If you have altered Animal.h/ Animal.cpp to include some advanced features, please hand in those as well.</li>
+<li>Clarification of Dragon's attack: If the Dragon is positioned at the boundary ,index 0 or 4, then it will only attack 0,1 or 3,4 on the opposite side respectively. </li>
+<li>Dragon's defend behaviour is now updated as "<strong>Takes only 80% of the damages as flying animals are agile</strong>" to avoid confusion.</li>
+<li>Army Ant(Queen)'s defend behaviour is updated from "Other alive ants on the battle field" to "Other alive ants of the same team" to avoid confusion</li>
+<li>Swimming animals and flying animals are now clearly defined: Only Turtle and Shark are swimming animals. Only Bat, Hawk and Dragon (and Phoenix in the bonus part) are flying animals.</li> 
+<li>If you are unsure about the details of this assignment, feel free to email me at kwau@cse.ust.hk (David) to ask for the clarifications.</li>
+</ol>
+
+</div>
+<div id="introduction">
+<h2> Introduction </h2>
+<p>In this assignment you will design the game "<b>Animal
+War</b>" based on your OOP knowledge on inheritance and
+polymorphism, and simulate the game given an input.</p>
+<p>Animal Wars is a turn-based game consisting of 2 players. At
+the beginning of the game, each of the two players P1 and P2 starts
+with 5 animals with positions labelled from i = 0 to 4.</p>
+<p>Fig 1:</p>
+<img src="pa5_ex1.png"> <br>
+
+<p>Upon object instantiation, all the position information of the animal, its allies and enemies will be injected into the object for you to implement the more complicated game logics described later.
+The constructor of the class Animal (the base class of all other animal classes):</p>
+<pre><code>
+Animal::Animal(Game* game, int player, int position) {
+	allies = game->animals[player];
+	enemies = game->animals[!player];
+	pos = position;
+	is_dead = false;
+
+}
+</code></pre>
+
+<p>All animals have the following attributes:</p>
+<ol>
+<li><code><strong>hp</strong></code>: an integer value
+that determines how many damage points the animal can take before it
+dies</li>
+<li><code><strong>atk_damage</strong></code>: an integral point of the
+damage dealt (incurred) on its attacking opponent</li>
+</ol>
+<p>Furthermore, all the animals <b>MUST</b> have the
+following behaviours:</p>
+<ol>
+<li><code><strong>attack</strong></code>: deal (incur) damage to an
+enemy/enemies on the opposite side, if the damage dealt is larger than
+the opponent's current HP, the opponent <code><strong>die</strong></code>s.</li>
+<li><code><strong>defend</strong></code>:
+alter the final damage dealt on oneself, or respond to the attacker
+according to its defensive skill</li>
+<li><code><strong>takeDamage</strong></code>:
+Deduct HP according to&nbsp; a "damage value" defined by the
+animal's <code><strong>defend</strong></code>
+behaviour</li>
+<li><code><strong>die</strong></code>,
+can no longer attack or become a target of the enemies' attacks</li>
+</ol>
+<p>If you take a look at the Animal.h file in the provided skeleton code, the declarations of the Animal's behaviours look like this:</p>
+<pre><code>
+	virtual void attack() = 0;
+	virtual void defend(Animal* opponent, int damage);
+
+	void takeDamage(int damage);
+	void die();
+</code></pre>
+<p>Since different animals should behave differently when <code><strong>attack</strong></code> and <code><strong>defend</strong></code>, you should override these 2 methods in the derived classes to implement the specific behaviour of each animal.</p>
+<p>However, the <code><strong>takeDamage</strong></code> and <code><strong>die</strong></code> behaviour should be <strong>THE SAME FOR ALL ANIMALS</strong>. 
+You may use these 2 methods in your implementation of the <code><strong>attack</strong></code> and <code><strong>defend</strong></code> behaviours of other animals, 
+but you should not override <code><strong>takeDamage</strong></code> and <code><strong>die</strong></code> in the derived classes.</p>
+<br>
+<h4>Position Rule:</h4>
+<p>An animal will attack the enemy of the same position index on
+the other side, and it will attack whoever else closest to it if the
+opposite enemy is dead, break ties by choosing an enemy with the
+smallest position index. The distance between 2 animals is defined as
+the absolute value of the difference of their position index.<span class="auto-style1"> </span></p>
+<p>Using the Fig.1 above as an example, <b>Shark</b>
+of Player 2 (at position 2) should attack:</p>
+<ol>
+<li><b>Bat</b> (at position 2 on the player 1 side,
+distance = 0), if the Bat is alive;</li>
+<li><b>Hawk</b> (at position 1 on the player 1
+side, distance = 1), if the Bat is dead but the Hawk is alive;</li>
+<li><b>Dog</b> (at position 3 on the player 1 side,
+distance = 1), if both the Bat and the Hawk are dead, and the Dog is
+alive.&nbsp;</li>
+<li><span style="font-weight: bold;">Dog</span>
+(at position 0 on the player 1 side, distance = 2),&nbsp; if the
+animals above (Bat, Hawk and Dog(at position 3) ) are all dead</li>
+<li><span style="font-weight: bold;">Shark</span>
+(at position 4 on the player 1 side, distance = 2), if other animals
+are all dead</li>
+</ol>
+<p>Unless otherwise stated, the above <b>Position Rule</b>
+applies to all animals.</p><br>
+<h4>Example - Dog:</h4>
+Dog's <code><strong>attack</strong></code> behaviour:<br>
+<pre><code>
+// Attack according to the Position Rule.
+// Note that the enemy's <strong>defend</strong> method is passively called in the attacker's <strong>attack</strong> method.
+void Dog::attack()
+{
+	if(!enemies[pos]->isDead())
+		enemies[pos]->defend(this, atk_damage);
+	else {
+		for(int i = 1; i < 5; i++)
+		{
+			if(pos-i >= 0 && !enemies[pos-i]->isDead())
+			{
+				enemies[pos-i]->defend(this, atk_damage);
+				break;
+			}
+			else if(pos+i < 5 && !enemies[pos+i]->isDead())
+			{
+				enemies[pos+i]->defend(this, atk_damage);
+				break;
+			}
+		}
+	}
+}
+</code></pre>
+<br>
+Dog's <code><strong>defend</strong></code> behaviour (inherited from the base class Animal):<br>
+<pre><code>
+// Defend the damage from an opponent
+void Animal::defend(Animal* opponent, int damage)
+{
+	takeDamage(damage);
+}
+</code></pre>
+
+Dog's <code><strong>takeDamage</strong></code> behaviour (inherited from the base class Animal):<br>
+<pre><code>
+void Animal::takeDamage(int damage)
+{
+	hp -= damage;
+	if( hp <= 0 )
+		die();
+}
+</code></pre>
+
+Dog's <code><strong>die</strong></code> behaviour (inherited from the base class Animal):<br>
+<pre><code>
+void Animal::die()
+{
+	is_dead = true;
+}
+</code></pre>
+
+
+<p>When the game starts, P1 and P2 will take turns to attack
+(Player 1 always starts first in this game). When a player is
+attacking, the other one will be defending. During a player's attacking
+turn,
+all of his animals who are still alive will attack in ascending order of their position index. If the
+game does not end in a turn, it will proceed to the next turn where the
+attacking player will become the defending player, and vice versa. The
+game ends when <b>either one or both sides</b> are all dead.</p>
+
+<h4>Input</h4>
+<p>The input is a single line with 10 integers. The first 5 integers correspond to the animal IDs(listed in the next section) of the 5 animals from position 0 to 4 in Player 1's team.
+The last 5 integers correspond to the animal IDs of the 5 animals from position 0 to 4 in Player 2's team</p>
+<p>For example, the input corresponding to Fig.1 above is: (You should check the animal IDs in the next section)</p>
+<pre><code>0 2 3 0 5 1 4 5 1 2</code></pre>
+
+<h4>Output</h4>
+<p>The program should simulate the HP of all animals at the end of the each turn, output "DEAD" if an animal is dead (HP <= 0).
+When the game ends, it should output the winner as "Player X Wins!", or output "Draw!" if both sides are dead at the end of the game (Please refer to the next section to see how can a "draw" happen).</p>
+<p>For example, the expected output corresponding to Fig.1 is:</p>
+<pre><code>
+Turn 1 Player 1 attacks:
+Player 1
+Dog:30 Hawk:25 Bat:19 Dog:30 Shark:28 
+Player 2
+Cat:20 Turtle:30 Shark:26 Cat:20 Hawk:21 
+Turn 2 Player 2 attacks:
+Player 1
+Dog:24 Hawk:24 Bat:14 Dog:24 Shark:23 
+Player 2
+Cat:20 Turtle:29 Shark:25 Cat:20 Hawk:21 
+Turn 3 Player 1 attacks:
+Player 1
+Dog:24 Hawk:24 Bat:13 Dog:24 Shark:21 
+Player 2
+Cat:15 Turtle:24 Shark:21 Cat:15 Hawk:17 
+Turn 4 Player 2 attacks:
+Player 1
+Dog:18 Hawk:23 Bat:8 Dog:18 Shark:16 
+Player 2
+Cat:15 Turtle:23 Shark:20 Cat:15 Hawk:17 
+Turn 5 Player 1 attacks:
+Player 1
+Dog:18 Hawk:23 Bat:7 Dog:18 Shark:14 
+Player 2
+Cat:10 Turtle:18 Shark:16 Cat:10 Hawk:13 
+Turn 6 Player 2 attacks:
+Player 1
+Dog:9 Hawk:22 Bat:2 Dog:9 Shark:9 
+Player 2
+Cat:10 Turtle:17 Shark:15 Cat:10 Hawk:13 
+Turn 7 Player 1 attacks:
+Player 1
+Dog:9 Hawk:22 Bat:DEAD Dog:9 Shark:7 
+Player 2
+Cat:5 Turtle:12 Shark:11 Cat:5 Hawk:9 
+Turn 8 Player 2 attacks:
+Player 1
+Dog:DEAD Hawk:17 Bat:DEAD Dog:DEAD Shark:2 
+Player 2
+Cat:5 Turtle:11 Shark:9 Cat:5 Hawk:9 
+Turn 9 Player 1 attacks:
+Player 1
+Dog:DEAD Hawk:17 Bat:DEAD Dog:DEAD Shark:DEAD 
+Player 2
+Cat:5 Turtle:6 Shark:9 Cat:5 Hawk:5 
+Turn 10 Player 2 attacks:
+Player 1
+Dog:DEAD Hawk:DEAD Bat:DEAD Dog:DEAD Shark:DEAD 
+Player 2
+Cat:4 Turtle:5 Shark:7 Cat:5 Hawk:5 
+Player 2 Wins!
+</code></pre>
+<p>Details of this output will be explained in the next section.</p>
+
+</div>
+<div id="structure">
+<h2> Animals </h2>
+<p>Different animals have different HP and attack damage, and
+they should attack and defend differently according to their nature.</p>
+<p>In this assignment, you will need to design the classes and
+inheritance relations of the animals according to the following
+information:</p>
+<div align="center">
+<table border="1" cellpadding="5" cellspacing="2">
+<tbody>
+<tr align="center" valign="middle">
+<td>ID</td>
+<td>Name</td>
+<td>Max HP</td>
+<td>Damage</td>
+<td>Attack</td>
+<td>Defend</td>
+</tr>
+<tr>
+<td>0</td>
+<td><a href="https://en.wikipedia.org/wiki/Dog" target="_blank">Dog</a></td>
+<td>30</td>
+<td>5</td>
+<td>Deals damages normally</td>
+<td>Takes damages normally</td>
+</tr>
+<tr>
+<td>1</td>
+<td><a href="https://en.wikipedia.org/wiki/Cat" target="_blank">Cat</a></td>
+<td>25</td>
+<td>6</td>
+<td>Cats go crazy while in danger. Deals 1.5
+times damages when HP &lt; 13</td>
+<td>Takes damages normally</td>
+</tr>
+<tr>
+<td>2</td>
+<td><a href="https://en.wikipedia.org/wiki/Hawk" target="_blank">Hawk</a></td>
+<td>25</td>
+<td>5</td>
+<td>Attacks with great accuracy! Hawk's attacks are <b>indefensible</b><sup>1</sup></td>
+<td>Takes only 70% of the damages and <b>revenges</b><sup>2</sup> and deals 1 <b>indefensible</b>
+damage back as hawks are extremely agile</td>
+</tr>
+<tr>
+<td>3</td>
+<td><a href="https://en.wikipedia.org/wiki/Bat" target="_blank">Bat</a></td>
+<td>20</td>
+<td>4</td>
+<td>Drains<sup>3</sup> its enemy's HP and heals itself for 1 HP</td>
+<td>Takes only 80% of the damages as flying animals are
+agile</td>
+</tr>
+<tr>
+<td>4</td>
+<td><a href="https://en.wikipedia.org/wiki/Turtle" target="_blank">Turtle</a></td>
+<td>35</td>
+<td>2</td>
+<td>Deals damages normally</td>
+<td>With a hard shell, turtle only takes 50% of the damages</td>
+</tr>
+<tr>
+<td>5</td>
+<td><a href="https://en.wikipedia.org/wiki/Shark" target="_blank">Shark</a></td>
+<td>30</td>
+<td>7</td>
+<td>Attacks recklessly, sharks will also hurt themselves by
+1 HP in each attack<sup>4</sup></td>
+<td>Revenges fiercely and deals 2 <b>indefensible</b>
+damages to whoever attacks it</td>
+</tr>
+<tr>
+<td>6</td>
+<td><a href="https://en.wikipedia.org/wiki/Army_ant" target="_blank">Army Ant</a></td>
+<td>15</td>
+<td>1</td>
+<td>Deals damages normally</td>
+<td>Takes damages normally</td>
+</tr>
+<tr>
+<td>7</td>
+<td><a href="https://en.wikipedia.org/wiki/Army_ant#Queen" target="_blank">Army Ant(Queen)</a><sup>5</sup></td>
+<td>15</td>
+<td>0</td>
+<td>Queens does not attack, hence will not trigger
+opponent's defensive skill as well</td>
+<td>Other alive ants of the same team will revenge and
+each of them deal 2 <b>indefensible</b> damages to whoever
+attacks the queen</td>
+</tr>
+<tr>
+<td>8</td>
+<td><a href="https://en.wikipedia.org/wiki/Dragon" target="_blank">Dragon</a></td>
+<td>40</td>
+<td>4</td>
+<td>Fire breathes in a cone, dealing damages to the 3
+closest positions on the opposite side, regardless the enemies there
+are dead or alive. (i.e. Position Rule does not apply). If the dragon is positioned at the boundary, index 0 or 4, then it will only attack 0,1 or 3,4 on the opposite side respectively.</td>
+<td>Takes only 80% of the damages as flying animals are agile</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>*Notes:</p>
+<ol>
+<li>"Indefensible attack/damage" means that the attack/damage
+will not trigger the defensive skill of the opponent (i.e. Opponents must take 100% of the damage and they cannot revenge).
+For example in the Fig.1 testcase:
+<pre><code>
+Turn 1 Player 1 attacks: // Player 1's Hawk attacks in this turn, dealing 5 damages to Turtle instead of 2
+Player 1
+Dog:30 Hawk:25 Bat:19 Dog:30 Shark:28 
+Player 2
+Cat:20 Turtle:30 Shark:26 Cat:20 Hawk:21 
+Turn 2 Player 2 attacks: // Player 2's Hawk attacks Shark in this turn, and it is not revenged by the Shark 
+Player 1
+Dog:24 Hawk:24 Bat:14 Dog:24 Shark:23 
+Player 2
+Cat:20 Turtle:29 Shark:25 Cat:20 Hawk:21 
+</code></pre>
+</li>
+
+<li>Revenges occurs only if the defending animal(who has revenge ability) survives that attack. i.e. You should check whether the defending animal is still alive before revenging.</li>
+<li>Bat heals themselves after the enemy's <code><strong>defend</strong></code> behaviour, so the correct sequence will be: Bat attacks->enemy defends and takes damages->enemy revenges(if any)->Bat heals itself. Also note that Bats do not "over heal" themselves, their HP cannot exceed the Max HP after the healing.
+For example, the Turn 1 and Turn 7 of the Fig.1 testcase:
+<pre><code>
+// Bat attacks Shark-> Shark revenges for 2 damages-> Bat heals itself for 1 HP = 19HP at the end of turn 1
+Turn 1 Player 1 attacks: 
+Player 1
+Dog:30 Hawk:25 Bat:19 Dog:30 Shark:28 
+Player 2
+Cat:20 Turtle:30 Shark:26 Cat:20 Hawk:21 
+
+Turn 6 Player 2 attacks:
+Player 1
+Dog:9 Hawk:22 Bat:2 Dog:9 Shark:9 
+Player 2
+Cat:10 Turtle:17 Shark:15 Cat:10 Hawk:13 
+// Bat starts with 2 HP and attacks Shark-> Shark revenges for 2 damages ->Bat dies, cannot heal itself
+Turn 7 Player 1 attacks: 
+Player 1
+Dog:9 Hawk:22 Bat:DEAD Dog:9 Shark:7 
+Player 2
+Cat:5 Turtle:12 Shark:11 Cat:5 Hawk:9 
+</code></pre>
+</li>
+
+<li>This is how a "Draw" condition can happen. e.g. The game goes to a state that only 2 animals are standing alive. A shark with HP 1 attacks a cat with HP 1, the shark dies after it kills the cat, no animals alive on both sides after this turn therefore it is a draw.
+You may also want to take a look at the draw test case (and its expected output) provided in the skeleton code.
+</li>
+<li>It is guaranteed in the input that there will be no more
+than one Army Ant Queen in each team</li>
+</ol>
+<h4>To-Do 1:</h4>
+<p>For each of the animals listed above, complete the corresponding class header and .cpp file. Implement necessary functions as described in the above table.
+After you have implemented them, remember to include the header files in the Game.cpp and instantiate the animal in the <code>Game::load()</code> function.
+You may refer to the Dog.h and Dog.cpp files as an example.
+</p>
+<br>
+<h4>Special Moves</h4>
+<p>To make the game more interesting, several combinations of
+animals can make some special moves:</p>
+<ol>
+<li>With more than 2 (&gt;=3) flying animals (Hawk, Bat and Dragon) alive on the
+same side, they can <code><strong>harass</strong></code> the opponents and each of them deals 1
+indefensible damage to all enemies in their attacking turn</li>
+<ul>
+<li>Bats also heal themselves for 1 HP during the <code><strong>harass</strong></code></li>
+<li>Dragons <code><strong>harass</strong></code> with fire breaths, dealing 2 indefensible damages to
+all enemies instead</li>
+</ul>
+<li>With more than 2 (&gt;=3) swimming animals (Turtle, Shark) alive on the
+same side, they can <code><strong>summonTsunami</strong></code> and each of them deals 1
+indefensible damage to all enemies in their attacking turn</li>
+<ul>
+<li>Sharks are too reckless in attacking, dealing 2 indefensible damages
+to all enemies instead but at the cost of hurting themselves for 2
+damages</li>
+</ul>
+<li>With 5 Army Ants on the same side, they <code><strong>marchAndConquer</strong></code> 
+whatever in front of them, each of them deals 3 indefensible damages to all enemies
+in their attacking turn</li>
+<ul>
+<li>The Queen does not attack, but she will heal other ants
+for 2 HP(excluding herself). This healing also do not "over heal" the ants. i.e. The ants' HP can never exceed the Max HP defined above.</li>
+</ul>
+</ol>
+<h4>To-Do 2:</h4>
+<p>Implement these 3 special moves for the corresponding animals. After you finished, simulate the effect of these special moves in the
+<code>Game::start()</code> function. The special moves should be simulated after the normal attacks in each round. (See the instructions in the skeleton code, which clearly stated where should you put your codes.)</p>
+Make sure you have checked that there are <strong>enough alive animals</strong> for a special move.
+You may add data members and functions to the <code>Game</code> class to help you complete the required logics.
+</div>
+<div id="requirement">
+<h2> Assignment Requirements </h2>
+<ol>
+<li>You <strong>must</strong> use the <a href="PA5_skeleton.zip">skeleton
+code</a> provided and complete the classes of all the animals mentioned in
+the above section. The abstract base class "Animal" and the "Dog" class are already completed as
+examples for you. The zip file includes 2 test cases. 1 normal test case which is the same as the Fig.1 example. Another one is a "Draw" test case, and there is also a corresponding expected output for you to check the correctness of your program.
+Before you start, you may want to use the test case
+"<code>0 0 0 0 0 0 0 0 0 0</code>" (10 dogs, 5 on each team) to help you get a basic idea of the game play.
+ 
+
+</li>
+<li>You should design the inheritance relations according to
+the information given in the above section, as well as the polymorphic
+behaviours of the animals.</li>
+<li>After finishing the animal classes, you should simulate the
+game in the <code>Game::start()</code> method. In each
+turn, the program will output the remaining HP of the animals on each
+side. The game will proceed until either one or both sides are all
+dead. When the game ends, the program output the winner. These are
+already done by the skeleton code. Your task is to add the special
+moves of the animal combinations as described in the above section in
+the simulation. You may add any necessary data members to help in the
+Game.h file. Note that we will
+use our own testing program to grade your program. Therefore, please
+follow the I/O of the functions because we will use a different program
+to test your implementation.</li>
+<li>We have provided you some input test cases and the expected
+output for your basic testing only. You may need to come up with your
+own test cases. Please submit
+your good test cases if this exposes some of the unique features of
+your program, or you think they are good to be used to test other
+programs.</li>
+<li>Please submit the following files:
+<ol>
+<li>Game.h Game.cpp</li>
+<li>Cat.h Cat.cpp</li>
+<li>Hawk.h Hawk.cpp</li>
+<li>Bat.h Bat.cpp</li>
+<li>Turtle.h Turtle.cpp</li>
+<li>Shark.h Shark.cpp</li>
+<li>ArmyAnt.h ArmyAnt.cpp</li>
+<li>ArmyAntQueen.h ArmyAntQueen.cpp</li>
+<li>Dragon.h Dragon.cpp</li>
+</ol>
+<strong>You may want to hand in more files than those stated above to help design your inheritance relations. If you have altered Animal.h/ Animal.cpp to include some advanced features, please hand in those as well.</strong>
+You may want submit a README file with a few words to justify the
+design of the classes, the inheritance relations...etc. </li>
+</ol>
+</div>
+<div id="grading">
+<h2> Grading Scheme </h2>
+<ol>
+<li>The correctness of the program will worth 40 points. </li>
+<li>The design of the inheritance relations will worth 20
+points.
+<ul>
+<li>Hint: A good design should have high code reusability
+and is easy to maintain and modify</li>
+</ul>
+</li>
+<li>The design of the polymorphic behaviours will worth 20
+points.
+<ul>
+<li>Hint: A good design should avoid runtime checking of
+the class objects, but instead exercise polymorphic behaviours by
+dynamic binding.</li>
+</ul>
+</li>
+</ol>
+</div>
+<div id="bonus">
+<h2> Bonus (Maximum 10%)</h2>
+<ol>
+<li>Implement <a href="https://en.wikipedia.org/wiki/Phoenix_(mythology)" target="_blank">Phoenix</a>, <a href="https://en.wikipedia.org/wiki/Cerberus" target="_blank">Cerberus</a> and the special moves as
+described below, you may define the values of their HP, damage, and the
+behaviours of attack and defence in your own way, and with the
+following features:
+<ul>
+<li>Phoenix revives with full HP upon death, this occurs
+only once in each game</li>
+<li>Cerberus can organize a group attack(a special move)
+with other ally dogs, Cerberus deals 2 while the other dogs deals 1
+damage to all enemies</li>
+<li>With more than 2 (&gt;=3) legendary animals(Dragon,
+Phoenix and Cerberus) on the same side, they can weather the storm and
+each of them will deal 3 damages to all enemies</li>
+<li>All special moves deals indefensible damages </li>
+</ul>
+</li>
+Remember to describe the inheritance relations of them in your README
+file if you are going to implement this part! <li>Add other
+interesting features to the game, it will be graded according to the
+level of creativity and difficulty.&nbsp; </li>
+<li>Please explain clearly in your README if you have done any
+of the above.</li>
+</ol>
+</div>
+</div>
+</body></html>
