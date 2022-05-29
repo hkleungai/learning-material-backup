@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from course.cse.ust.hk/comp2012/assignments/PA2/pa2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 20 Dec 2015 07:14:53 GMT -->
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../pure-release-0.6.0/pure-min.css">
+    <link rel="stylesheet" href="../../pure-release-0.6.0/layouts/side-menu.css">
+    <link rel="stylesheet" href="../../pure-release-0.6.0/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">  
+    <link rel = "Shortcut Icon" href="../../favicon.html"> 
+    <script type="text/javascript" src="../../../../ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../../balupton.github.io/jquery-syntaxhighlighter/scripts/jquery.syntaxhighlighter.min.js"></script>
+
+    <script type="text/javascript">$.SyntaxHighlighter.init();</script>
+    <title>PA2</title>
+</head>
+
+
+<body style="font-family:Arial, Helvetica, sans-serif;">
+    <div id="layout">
+        <!-- Menu toggle -->
+        <a href="#menu" id="menuLink" class="menu-link">
+            <!-- Hamburger icon -->
+            <span></span>
+        </a>
+
+        <div id="menu">
+            <div class="pure-menu">
+                <a class="pure-menu-heading" href="../../index.html">COMP2012</a>
+
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item"><a href="#announcements" class="pure-menu-link">Announcements</a></li>
+                    <li class="pure-menu-item"><a href="#specifications" class="pure-menu-link">Specifications</a></li>
+                    <li class="pure-menu-item"><a href="#tasks" class="pure-menu-link">Tasks</a></li>
+                    <li class="pure-menu-item"><a href="#submission" class="pure-menu-link">Submission</a></li>
+                    <li class="pure-menu-item"><a href="#sample" class="pure-menu-link">Sample I/O</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="main">
+            <div class="header">
+                <h1>Programming Assignment 2</h1>
+                <h2>Due Date: 2015-11-08 23:59:00</h2>
+            </div>
+	
+            <div class="content">
+                <h2 class="content-subhead" id="announcements">Announcements</h2>
+		<p>2015/10/31 <a href="main.cpp">main.cpp</a> and <a href="input.txt">input.txt</a> are updated. Please download again.
+                <h2 class="content-subhead" id="specifications">Specifications</h2>
+                <p>Similar to the programming assignment 1 (PA1), we are implementing a polynomial calculator. 
+                For definition of polynomials, please refer to PA1.
+                Different from PA1, you are required to implement the class polynomial ADT (abstract data type) 
+                using the class linked list ADT.
+                Similar polynomial operations will be implemented in the assignment by overloading some operators, 
+                e.g. +, -, *. </p>
+
+                <p>In this assignment, we will represent polynomials using linked lists. 
+                You can use singly linked list, doubly linked list, or circular linked list. 
+                The polynomials should have integer coefficients and non-negative integer exponents. 
+                For example, in the following, the class PolyList represents 
+                a linked list with each node as the class PolyNode.
+                Each PolyNode object represents a term in a polynomial.</p>
+
+
+                <pre class="highlight">
+                class PolyNode  // given
+                {
+                  public:
+                    // constructors
+                    PolyNode() { next=NULL; prev=NULL; };
+                    PolyNode(int c, int ex, int ey): coef(c), expx(ex), expy(ey) { next=NULL; prev=NULL; };
+                    PolyNode(int c, int ex, int ey, PolyNode* p, PolyNode* n): coef(c), expx(ex), expy(ey) { next=n; prev=p; };
+                 
+                    // destructor
+                    ~PolyNode() { next=NULL; prev=NULL; };
+                 
+                    // equal-to operator
+                    bool operator==(const PolyNode& other) const {
+                      return ((coef==other.coef)&&(expx==other.expx)&&(expy==other.expy));
+                    };
+                 
+                    // member variables
+                    int coef;
+                    int expx;
+                    int expy;
+                 
+                    PolyNode* prev;
+                    PolyNode* next;
+                };
+                 
+                class PolyList
+                {
+                  public:
+                    // constructor
+                    PolyList();   // given
+                    // copy constructor
+                    PolyList(const PolyList& a);
+                    // destructor
+                    ~PolyList();
+                 
+                    // If the linked list is empty, return true, else false
+                    bool empty() const; // given
+                 
+                    // returns the number of node in the linked list
+                    int length() const;
+                 
+                    // add a node to the end of the linked list
+                    void attachNode(PolyNode*);
+                 
+                    // delete the first node in the linked list
+                    void deleteHead();
+                 
+                    // Assignment operator
+                    PolyList& operator=(const PolyList& a);
+                 
+                    // Equal-to operator
+                    bool operator==(const PolyList& a) const;
+                 
+                    // find and return the n-th node in the linked list
+                    PolyNode* operator[](int n) const;
+                 
+                  private:
+                    PolyNode *head;
+                    PolyNode *tail;
+                };
+                </pre>
+
+                <h2 class="content-subhead" id="tasks">Tasks</h2>
+                <p>You must provide the implementation of the following member functions of the PolyList class (Note: you cannot change the give function prototypes.):</p>
+
+                <ul>
+                    <li>Copy constructor
+                        <pre class="highlight ">
+                           PolyList::PolyList(const PolyList& a);
+                        </pre>
+                    </li>
+                    <li>Destructor
+                        <pre class="highlight ">
+                            PolyList::~PolyList();
+                        </pre>
+                    </li>
+                    <li>returns the number of node in the linked list
+                        <pre class="highlight ">
+                           int PolyList::length() const;
+                        </pre>
+                    </li>
+                    <li>Attach the node to the end of the linked list
+                        <pre class="highlight ">
+                            void PolyList::attachNode(PolyNode*);
+                        </pre>
+                    </li>
+                    <li>Delete the first node in the linked list
+                        <pre class="highlight ">
+                           void PolyList::deleteHead();
+                        </pre>
+                    </li>
+                    <li>find and return the n-th node in the linked list
+                        <pre class="highlight ">
+                            PolyNode* PolyList::operator[](int n) const;
+                        </pre>
+                    </li>
+                    <li>Assignment operator.
+                        <pre class="highlight ">
+                            PolyList& PolyList::operator=(const PolyList& a);
+                        </pre>
+                    </li>
+                    <li>Equal-to operator
+                        <pre class="highlight ">
+                            Bool PolyList::operator==(const PolyList& a) const;
+                    </pre>
+                    </li>
+
+                </ul>
+<p>
+Based on the above List ADT, implement the following polynomial ADT so as to perform operations, 
+e.g. evaluation, addition, subtraction, and multiplication, etc, on polynomials. 
+You may add additional member variables or functions if necessary. (Note: you cannot change the give function prototypes.)
+The readPoly funcion has given to you. You must provide the implementation of all other funcions defined in "Polynomial.h":
+ </p>
+ 
+
+<pre class="highlight ">
+
+     // Default constructor 
+     Polynomial();
+     // Constructor for constant polynomial
+     Polynomial(int c);
+     // Convert constructor to create a polynomial from a string 
+     Polynomial(const string& s);
+     // Copy constructor
+     Polynomial(const Polynomial& other);
+     // Destructor
+     ~Polynomial();
+
+/*  
+Output the polynomial to the output stream, os. The polynomial should all be on one line.
+An example of output (same as in PA1): -x^6+3xy^5-7x^2y+3x+5y-7
+*/
+     void printPoly(ostream& os) const; 
+
+     // read and create a polynomial from a string  
+     void readPoly(const string& s); //Given
+
+     // sort poly with terms in decreasing order of exponent (See the section “The Order of Polynomial” in PA1).
+     void sortPoly();
+     // return a new polynomial which is the derivative of x
+     Polynomial& dx();
+     // Equal to operator
+     bool operator==(const Polynomial& other) const;
+
+/*
+Overloading the assignment operator which performs deep copy of the given polynomial.
+e.g. a=b will copy the contents of polynomial b to polynomial a.
+*/
+     Polynomial& operator=(const Polynomial& other);
+/*
+Overloading the addition assignment operator
+e.g. a+=b will add the polynomial b to a, and assign it to a.
+*/
+     Polynomial& operator+=(const Polynomial& other);
+/*
+Overloading the subtraction assignment operator
+e.g. a-=b will subtract the polynomial b from a, and assign it to a.
+*/
+     Polynomial& operator-=(const Polynomial& other);
+/*
+Overloading the multiplication assignment operator
+e.g. a*=b will multiply the polynomial b with a, and assign it to a.
+*/
+     Polynomial& operator*=(const Polynomial& other);
+
+/*
+Evaluate a polynomial given particular values of x and y, returning a real number.
+For example, the value of the polynomial 9x^6 + 2xy^3 + x + 2 at x=3 and y=-2 is
+9(3)^6 + 2(3)(-2)^3 + 3 + 2 = 6518
+*/
+     long operator()(int x, int y) const;
+
+</pre> 
+
+<p>
+Moreover you have to implement and overload the following operators (non-member functions):
+<pre class="highlight">
+// Addition operator: Add two polynomials to create a third polynomial.
+Polynomial operator+(const Polynomial& b, const Polynomial& a);
+
+
+//Subtraction operator: Subtract polynomial a from polynomial b to create a third polynomial.
+Polynomial operator-(const Polynomial& b, const Polynomial& a);
+
+// Multiplication operator: Multiply two polynomials to create a third polynomial.
+Polynomial operator*(const Polynomial& b, const Polynomial& a);
+
+//Output operator: output polynomial with printPoly
+ostream & operator<<(ostream& os, const Polynomial& a);
+
+// Input operator: read a string from the input stream is, and invoke the member function readPoly() of Polynomial a.
+istream & operator>>(istream& is, Polynomial& a);
+
+</pre>
+
+<p> 
+The following files will be given to you:
+<ol>
+<li>
+<a href="main.cpp">main.cpp</a>
+It will read input.txt and test your program. Do not edit it.
+</li>
+<li>
+<a href="List.h">List.h</a>
+A header file containing the above PolyNode class and PolyList class definition. You cannot change the function prototypes given.
+</li>
+<li>
+<a href="List.cpp">List.cpp</a>
+A source file containing the implementation of the PolyList class. A few functions are given to you, while you have to add the remaining member functions. You may add additional functions.
+</li>
+<li>
+<a href="Polynomial.h">Polynomial.h</a>
+A header file containing the above Polynomial class definition. You cannot change the function prototypes given.
+</li>
+<li>
+<a href="Polynomial.cpp">Polynomial.cpp</a>
+A source file containing the implementation of the Polynomial class. A few functions are given to you, while you have to add the remaining member and non-member functions. You may add additional functions.
+</li>
+<li>
+<a href="Makefile">Makefile</a>
+A makefile will be provided for you. It is optional.
+</li>
+<li>
+<a href="input.txt">input.txt</a>
+An example of a text file read by main.cpp for testing, which contains a string representation of polynomial.
+</li>
+</ol>
+</p>
+
+                <h2 class="content-subhead" id="submission">Submission</h2>
+                <p>Due Date: <span style="color:red">2015-11-08 23:59:00</span>. You should submit all of your files as a ZIP to <a href="../../../cass.html">CASS</a> system.</p>
+        		<p>If you have any questions regarding this assignment, feel free to contact me via e-mail:zdai@cse.ust.hk</p>
+                <p>You will receive 20% penalty if you are within 3 days late of the submission. No submission after 3 days is allowed. You are recommanded to start early. Usually it takes more than you expect to debug and test.</p>
+
+
+                <h2 class="content-subhead" id="sample">Sample Input / Output</h2>
+                        <pre class="language-html ">
+== Testing PolyList functions: ===
+alist empty
+length of alist=2
+before delete
+alist:2,3,5
+alist:1,0,0
+after delete
+alist:1,0,0
+alist=blist
+alist is equal to blist
+=== Testing Polynomial functions: ===
+--- testing input/output operators: ---
+Input polynomial a...end
+Input polynomial b...end
+By printPoly(), polynomial a=3x^6y+7xy-5
+By operator<<, polynomial a=3x^6y+7xy-5
+By printPoly(), polynomial b=3x^3+5xy
+By operator<<. polynomial b=3x^3+5xy
+--- testing operator=: ---
+Polynomial c=3x^6y+7xy-5
+--- testing dx(): ---
+18x^5y+7y
+--- testing copy constructor: ---
+Polynomial d=3x^3+5xy
+--- testing operator(): ---
+Evaluate the polynomial a at (input two integer numbers):
+x=y=a(2,3)=613
+--- testing operator== ---
+a is not equal to b.
+--- testing operator+ ---
+a+b=3x^6y+3x^3+12xy-5
+10+b=3x^3+5xy+10
+b+10=3x^3+5xy+10
+--- testing operator- ---
+a-b=3x^6y-3x^3+2xy-5
+10-b=-3x^3-5xy+10
+b-10=3x^3+5xy-10
+--- testing operator- ---
+a*b=9x^9y+15x^7y^2+21x^4y+35x^2y^2-15x^3-25xy
+10*b=30x^3+50xy
+b*10=30x^3+50xy
+--- testing operator+= ---
+c+=b; c=3x^6y+3x^3+12xy-5
+c+=10; c=3x^6y+3x^3+12xy+5
+--- testing operator-= ---
+c-=b; c=3x^6y+7xy+5
+c-=10; c=3x^6y+7xy-5
+--- testing operator*= ---
+d*=a; d=9x^9y+15x^7y^2+21x^4y+35x^2y^2-15x^3-25xy
+d*=10; d=90x^9y+150x^7y^2+210x^4y+350x^2y^2-150x^3-250xy
+                        </pre>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+<!-- Mirrored from course.cse.ust.hk/comp2012/assignments/PA2/pa2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 20 Dec 2015 07:14:55 GMT -->
+</html>

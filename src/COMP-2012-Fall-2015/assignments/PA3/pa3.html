@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from course.cse.ust.hk/comp2012/assignments/PA3/pa3.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 20 Dec 2015 07:14:55 GMT -->
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../pure-release-0.6.0/pure-min.css">
+    <link rel="stylesheet" href="../../pure-release-0.6.0/layouts/side-menu.css">
+    <link rel="stylesheet" href="../../pure-release-0.6.0/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">  
+    <link rel = "Shortcut Icon" href="../../favicon.html"> 
+    <script type="text/javascript" src="../../../../ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../../balupton.github.io/jquery-syntaxhighlighter/scripts/jquery.syntaxhighlighter.min.js"></script>
+
+    <script type="text/javascript">$.SyntaxHighlighter.init();</script>
+    <title>PA3</title>
+</head>
+
+
+<body style="font-family:Arial, Helvetica, sans-serif;">
+    <div id="layout">
+        <!-- Menu toggle -->
+        <a href="#menu" id="menuLink" class="menu-link">
+            <!-- Hamburger icon -->
+            <span></span>
+        </a>
+
+        <div id="menu">
+            <div class="pure-menu">
+                <a class="pure-menu-heading" href="../../index.html">COMP2012</a>
+
+                <ul class="pure-menu-list">
+                    <!--<li class="pure-menu-item"><a href="#announcements" class="pure-menu-link">Announcements</a></li>-->
+                    <li class="pure-menu-item"><a href="#objectives" class="pure-menu-link">Objectives</a></li>
+                    <li class="pure-menu-item"><a href="#specifications" class="pure-menu-link">Specifications</a></li>
+                    <li class="pure-menu-item"><a href="#task1" class="pure-menu-link">Task1</a></li>
+                    <li class="pure-menu-item"><a href="#task2" class="pure-menu-link">Task2</a></li>
+                    <li class="pure-menu-item"><a href="#task3" class="pure-menu-link">Task3</a></li>
+
+                    <li class="pure-menu-item"><a href="#submission" class="pure-menu-link">Submission</a></li>
+                    <li class="pure-menu-item"><a href="#sample" class="pure-menu-link">Sample I/O</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="main">
+            <div class="header">
+                <h1>Programming Assignment 3</h1>
+                <h2>Due Date: 2015-12-06 23:59:00</h2>
+            </div>
+
+            <div class="content">
+                <!-- <h2 class="content-subhead" id="announcements">Announcements</h2>
+                <p>2015/10/31 <a href="main.cpp">main.cpp</a> and <a href="input.txt">input.txt</a> are updated. Please download again.-->
+
+                  <h2 class="content-subhead" id="objectives">Objectives</h2>
+                  <p>For this assignment, you have to complete the three files: Circle.cpp, Polygon.cpp and Rectangle.cpp, using generic programming, standard template libraries and inheritance.</p>
+
+                  <h2 class="content-subhead" id="specifications">Specifications</h2>
+                  <p>There are many different geometric shapes, e.g. circles, polygons, etc. Circles can be described by the center’s coordinates and the radius, while a polygon consists of a set of vertices and edges.  </p>
+                  <img class="pure-img-responsive" src="PA3_files/image001.png">
+
+                  <p>In terms of C++ OOP, one can implement shape, circle, polygon, and rectangle according to the inheritance graph shown in the following figure. In the figure, Shape is an abstract base class, Circle and Polygon are concrete classes derived from Shape, and Rectangle is a concrete class derived from Polygon. All the Classes are implemented using generic programming so that it could support storing values in int or double or any number types.</p>
+                  <img class="pure-img-responsive" src="PA3_files/image002.png">
+
+                  <h3>The Shape Class</h3>
+                  <p>The Shape class defines the basic properties, such as color & whether it is a filled shape, etc. The corresponding class template is:</p>
+
+                  <pre class="highlight">
+                      // Shape class : an abstract class
+                      template <class T>
+                      class Shape {
+                      public:
+                      Shape(): color(""), filled(false) { };
+                      Shape(string c, bool f=false): color(c), filled(f) { };
+                      void setColor(string c) { color = c; };
+                      string getColor() const { return color; };  
+                      bool isFilled() const { return filled; };
+                      void setFilled(bool f) { filled = f; };
+                      virtual T getPerimeter() const = 0;
+                      virtual void read(istream&) = 0;
+                      virtual void print(ostream&) const = 0; 
+
+                      protected:
+                      string color;
+                      bool filled;
+};
+              </pre>
+              <p>Moreover, two non-member operators are implemented which invoke the pure virtual functions, read() and print() of the Shape objects:</p>
+              <pre class="highlight">
+// input/output operators
+template <class T>
+istream& operator>>(istream& is, Shape<T>& s)
+{
+    s.read(is);
+    return (is);
+}
+
+template <class T>
+ostream& operator<<(ostream& os, const Shape<T>& s)
+{
+    s.print(os);
+    return (os);
+}
+      </pre>
+      <h3>The Point Class</h3>
+      <p>Both the Circle and Polygon classes, which are derived from the Shape class, have member variables of the type of Point class.  The definition of the class template of Point is given in Point.h:</p>
+      <pre class="highlight">
+          // Point class : for storing x and y coordinates
+          template <class T>
+          class Point {
+          public:
+          Point(): x(0), y(0) {};
+          Point(T a, T b): x(a), y(b) { };
+          Point(const Point& p) {
+          this->x = p.x; this->y = p.y;  
+      };
+      void operator=(const Point& p) { 
+      if (this != &p) { this->x = p.x; this->y = p.y; } 
+  };
+  bool operator==(const Point& p) const { 
+  return (compare(this->x, p.x) && compare(this->y, p.y)); 
+};
+void set(T a, T b) { x=a; y=b; };
+T getX() const { return x; };
+T getY() const { return y; };
+T findDistance(const Point& p) const { 
+T dx = (x - p.x); T dy = (y - p.y); return sqrt(pow(dx, 2) + pow(dy, 2)); 
+};
+protected: 
+T x;
+T y;
+}; </pre>
+
+
+<h3>The Circle Class</h3>
+<p>For the Circle class, it consists of two member variables, radius, which is of type T, and center, which is a Point object. </p>
+<pre class="highlight">
+  template <class T>
+  class Circle: public Shape<T> {
+  public:
+  Circle();
+  Circle(string c, bool f, T x, T y, T r);
+  Circle(const Circle& other);
+  Circle& operator=(const Circle& other);
+  bool operator==(const Circle& other) const;
+  T getArea() const;
+  T getPerimeter() const;
+  virtual void read(istream& is);
+  virtual void print(ostream& os) const;
+  private:
+  Point<T> center;
+  T radius;
+};</pre>
+
+
+<h2 class="content-subhead" id="task1">Task1</h2>
+<p>You have to implement the following functions:</p>
+
+<ul>
+    <li>The default constructor
+        <pre class="highlight ">
+            Circle();
+        </pre>
+    </li>
+    <li>The constructor which initialize the color by c, filled by f, center by (x, y) and radius by r.
+        <pre class="highlight ">
+            Circle(string c, bool f, T x, T y, T r);
+        </pre>
+    </li>
+    <li>The copy constructor (deep copy)
+        <pre class="highlight ">
+         Circle(const Circle&);
+     </pre>
+ </li>
+ <li>The assignment operator (deep copy)
+    <pre class="highlight ">
+        Circle& operator=(const Circle&);
+    </pre>
+</li>
+<li>The equal-to operator, if the two Circle objects have the same radius values, same centers (i.e. same x, y coordinates), same color and same filled values, return true; otherwise, return false.
+
+    <pre class="highlight ">
+        bool operator==(const Circle&) const;
+    </pre>
+</li>
+<li>Calculate the area of a circle using the radius: PI*(radius)^2
+    <pre class="highlight ">
+        T getArea() const;
+    </pre>
+</li>
+<li>Calculate the circumference of a circle using the radius: PI*(2*radius)
+    <pre class="highlight ">
+        T getPerimeter() const;
+    </pre>
+</li>
+<li> Get from istream(is) 5 values in the following format:
+       color filled x y r (e.g. blue 1 0.5 2.5 3.5)
+The input value of filled is 1 for true, and false otherwise.
+Update the color, filled, center and radius accordingly.
+ <pre class="highlight ">
+    virtual void read(istream& is);
+</pre>
+</li>
+<li>Output the following values to the ostream, os, for example, given a Circle object:
+   Circle<int> c;
+   c.print(cout);
+It will produce the following output (see the sample output): Circle: color: red filled: 0 center: (10, 20) radius: 30 perimeter: 188 area: 2826 
+    <pre class="highlight">
+    virtual void print(ostream&) const;
+    </pre>
+</li>
+
+</ul>
+
+<h3>The Polygon Class</h3>
+<p>The Polygon Class has a member, points, which is an STL list of Point objects of type T. </p>
+
+<pre class="highlight">
+// class Polygon: abstract base class
+template <class T>
+class Polygon: public Shape<T> {
+  public:
+    Polygon();
+    Polygon(const vector< Point<T> > ptsVector); 
+    Polygon(const Polygon& other);
+    Polygon& operator=(const Polygon& other);
+    bool operator==(const Polygon& other) const;
+    Polygon& operator+=(const Point<T>& pt);
+    Polygon& operator-=(int index);
+    void printPts(ostream&) const;
+    virtual T getPerimeter() const;
+    virtual void read(istream&);
+    virtual void print(ostream& os) const;
+        
+  protected:
+    list< Point<T> > points;
+    int numOfPoints;
+};
+</pre> 
+
+<h2 class="content-subhead" id="task2">Task2</h2>
+<p>You have to implement the following functions:</p>
+
+<ul>
+    <li>The default constructor
+        <pre class="highlight ">
+            Polygon();
+        </pre>
+    </li>
+
+    <li>The constructor which initialize list, points, from a vector, ptsVector. It inserts all the Points objects from the ptsVector to points.
+        <pre class="highlight ">
+            Polygon(const vector< Point<T> > ptsVector);
+        </pre>
+    </li>
+
+    <li>The copy constructor (deep copy)
+        <pre class="highlight ">
+            Polygon(const Polygon&);
+        </pre>
+    </li>
+
+    <li>The assignment operator (deep copy)
+        <pre class="highlight ">
+            Polygon& operator=(const Polygon&);
+        </pre>
+    </li>
+
+    <li>The equal-to operator, if the two Polygon objects have the same number of Point objects, same Point objects (i.e. same x, y coordinates), same color and same filled values, return true; otherwise, return false.
+        <pre class="highlight ">
+            bool operator==(const Polygon&) const;
+        </pre>
+    </li>
+
+    <li>Operator+=, it add a Point object, pt, to the end of the list, points.
+        <pre class="highlight ">
+            Polygon& operator+=(const Point<T>& pt);
+        </pre>
+    </li>
+
+    <li>Operator-=, it removes the item with index value of ind, from the list, points. Note that ind starts from 0.
+        <pre class="highlight ">
+            Polygon& operator-=(int ind);
+        </pre>
+    </li>
+
+    <li> Print all the x and y coordinates of all the Point objects in the list, Point in the following format to the ostream, os: points: (x1, y1) (x2, y2) (x3, y3) (x4, y4) (x5, y5) e.g. points: (6.2, 5.9) (7.12, 3.556) (6.2, 1.9) (3.512, 1.2) (1, 3.5)
+        <pre class="highlight ">
+            void printPts(ostream& os) const;
+        </pre>
+    </li>
+
+    <li>Calculate the perimeter of a polygon, by summing all the distances between consecutive two points. 
+        <pre class="highlight ">
+            virtual T getPerimeter() const;
+        </pre>
+    </li>
+
+    <li>Get from istream(is) the values in the following format:
+format: color filled #pts x1 y1 x2 y2 ...
+e.g. blue 0 3 5.5 6.5 0 0 -5.5 6.5
+The means that the polygon is in blue color, not filled (false), has 3 points, namely, (5.5, 6.5), (0, 0), (-5.5, 6.5).
+The input value of filled is 1 for true, and false for otherwise.
+Update the color, filled, points and numOfPoints accordingly.
+You can assume that points given are in clockwise order.
+        <pre class="highlight ">
+        virtual void read(istream& is);
+        </pre>
+    </li>
+
+    <li>Output the following values to the ostream, os, for example, given a Circle object:
+   Polygon<double> p;
+   p.print(cout);
+will produce the following output (see the sample output):
+Polygon:
+        numOfPoints: 3
+        points: (5.5, 6.5) (0, 0) (-5.5, 6.5) 
+        perimeter: 28.0294
+        <pre class="highlight ">
+        virtual void print(ostream& os) const;
+        </pre>
+    </li>
+</ul>
+
+<h3>The Rectangle Class</h3>
+<p>Finally, the Rectangle Class is derived from the Polygon Class. It has only 4 points in the list, point. </p>
+
+<pre class="highlight">
+template <class T>
+class Rectangle: public Polygon<T> {
+  public:
+    Rectangle();
+    Rectangle(const vector< Point<T> >& pts);
+    Rectangle(const Rectangle& other);
+    T getArea() const;
+    void read(istream& is);
+    void print(ostream& os) const;
+    T getWidth() const;
+    T getHeight() const;
+};
+</pre>
+
+<h2 class="content-subhead" id="task3">Task3</h2>
+<p>You have to implement the following functions: </p>
+<ul>
+    <li>The default constructor
+        <pre class="highlight ">
+        Rectangle();
+        </pre>
+    </li>
+
+    <li>The constructor which initialize list, points, from a vector, ptsVector. It inserts the first 4 Points objects from the ptsVector to list, points.
+        <pre class="highlight ">
+        Rectangle(const vector< Point<T> >& pts);
+        </pre>
+    </li>
+
+    <li>The copy constructor (deep copy)
+        <pre class="highlight ">
+        Rectangle(const Rectangle& other);
+        </pre>
+    </li>
+
+    <li>Find the width of the rectangle, i.e. the shorter edge’s length
+        <pre class="highlight ">
+        T getWidth() const;
+        </pre>
+    </li>
+
+    <li>Find the height of the rectangle, i.e. the longer edge’s length
+        <pre class="highlight ">
+        T getHeight() const;
+        </pre>
+    </li>
+
+    <li>Calculate the area of a rectangle using the width and height.
+        <pre class="highlight ">
+        T getArea() const;
+        </pre>
+    </li>
+
+    <li>Get from istream(is) the values in the following format:
+format: color filled #pts x1 y1 x2 y2 x3 y3 x4 y4
+e.g. blue 0 2 0 2 4 8 4 8 0
+The above means that the polygon is in blue color, not filled (false), has 4 points, namely, (2, 0), (2, 4), (8, 4), (8, 0).
+The input value of filled is 1 for true, and false for otherwise.
+Update the color, filled, and points accordingly.
+        <pre class="highlight ">
+        virtual void read(istream& is);
+        </pre>
+    </li>
+
+    <li> Output the following values to the ostream, os, for example, given a Circle object:
+   Rectangle<int> p;
+   p.print(cout);
+will produce the following output (see the sample output):
+Rectangle:
+        numOfPoints: 4
+        points: (2, 0) (2, 4) (8, 4) (8, 0) 
+        Width:4
+        Height:6
+        Perimenter:20
+        Area:24
+        <pre class="highlight ">
+        virtual void print(ostream& os) const;
+        </pre>
+    </li>
+
+</ul>
+
+
+    <p> 
+        The following files will be given to you:
+        <ol>
+            <li>
+                <a href="skeleton/main.cpp">main.cpp</a>
+                We will test with this main program and with an additional one that we have not provided.
+            </li>
+            <li>
+                <a href="skeleton/Point.h">Point.h</a>
+                A header file containing the above Point class template. You cannot change this file.
+            </li>
+            <li>
+                <a href="skeleton/Shape.h">Shape.h</a>
+                A header file containing the above Shape class template. You cannot change this file.
+            </li>
+            <li>
+                <a href="skeleton/Circle.h">Circle.h</a>
+                A header file containing the above Circle class template. You have to complete the file by providing implementation of all the member functions. Note that you cannot change this class definition. 
+            </li>
+            <li>
+                <a href="skeleton/Polygon.h">Polygon.h</a>
+                A header file containing the above Polygon class template. You have to complete the file by providing implementation of all the member functions. Note that you cannot change this class definition. 
+            </li>
+            <li>
+                <a href="skeleton/Rectangle.h">Rectangle.h</a>
+                A header file containing the above Rectangle class template. You have to complete the file by providing implementation of all the member functions. Note that you cannot change this class definition. 
+            </li>
+        </ol>
+    </p>
+
+    <h2 class="content-subhead" id="submission">Submission</h2>
+    <ol>
+    <li>Due Date: <span style="color:red">2015-12-6 23:59:00</span>. You should submit all of your files as a ZIP to <a href="../../../cass.html">CASS</a> system. The zip file should contain <span style="color:red">all the C++ code files</span> including main.cpp, Point.h, Shape.h (don not change the content of the three files), Circle.h, Polygon.h, Rectangle.h. You are encouraged, but not required, to attach some documentations and screenshots to explain your results.</li>
+    <li>You will receive 20% penalty (which means your grade will be multiplied by 0.8) if you are within 3 days late of the submission. No submission after 3 days is allowed. You are recommanded to start early. Usually it takes more than you expect to debug and test.</li>
+    <li>Make sure that your program can be compiled using the command "g++ main.cpp shape.h point.h circle.h polygon.h rectangle.h". This does not mean you cannot use IDEs such as Visual Studio. You can always do your assignment using Eclipse or Visual Studio and then test it under a linux environment on desktops in Lab2. <span style="color:red">If your source code cannot be compile, you will get a zero mark.</span></li>
+    <li>If you have any questions regarding this assignment, feel free to contact Tianwei Shen via e-mail:tshen.cs@gmail.com</li>
+    </ol>
+
+
+    <h2 class="content-subhead" id="sample">Sample Input / Output (generated by the provided main.cpp)</h2>
+    <pre class="language-html ">
+~~~ Testing the Circle Class ~~~
+Creating a Circle with radius in int type (with convert constructor):
+Creating a Circle with data in double type:
+Testing the output operator:
+c1 Circle:
+    color: red
+    filled: 0
+    center: (10, 20)
+    radius: 30
+    perimeter: 188
+    area: 2826
+
+c2 Circle:
+    color: green
+    filled: 1
+    center: (2.4, 3.6)
+    radius: 4.8
+    perimeter: 30.144
+    area: 72.3456
+
+Testing Circle copy constructor:
+c3 Circle:
+    color: green
+    filled: 1
+    center: (2.4, 3.6)
+    radius: 4.8
+    perimeter: 30.144
+    area: 72.3456
+
+Testing the input operator:
+Input the data (format: color filled x y radius; e.g. blue 0 5.5 6.5 7.5):blue 0 5.5 6.5 7.5
+Testing Circle::operator==()
+c2 is not equal to c3
+c1 Circle:
+    color: red
+    filled: 1
+    center: (20, 10)
+    radius: 5
+    perimeter: 31
+    area: 78
+
+~~~ Testing the Polygon Class ~~~
+Testing the convert constructor:
+Testing the output operator:
+p1 Polygon:
+    numOfPoints: 5
+    points: (6.2, 5.9) (7.12, 3.556) (6.2, 1.9) (3.512, 1.2) (1, 3.5) 
+    perimeter: 16.3232
+
+Testing the copy constructor:
+p2 Polygon:
+    numOfPoints: 5
+    points: (6.2, 5.9) (7.12, 3.556) (6.2, 1.9) (3.512, 1.2) (1, 3.5) 
+    perimeter: 16.3232
+
+Testing the input operator:
+Input the data (format: color filled #pts x1 y1 x2 y2 ...;  e.g. blue 0 3 5.5 6.5 0 0 -5.5 6.5):blue 0 3 5.5 6.5 0 0 -5.5 6.5
+p2 Polygon:
+    numOfPoints: 3
+    points: (5.5, 6.5) (0, 0) (-5.5, 6.5) 
+    perimeter: 28.0294
+
+Testing Polygon::operator==()
+p1 is not equal to p2
+Testing Polygon::operator+=()
+After adding (0, 9.2), p2 Polygon:
+    numOfPoints: 4
+    points: (5.5, 6.5) (0, 0) (-5.5, 6.5) (0, 9.2) 
+    perimeter: 29.2834
+
+Testing Polygon::operator-=()
+After removing the point (index=1), p2 Polygon:
+    numOfPoints: 3
+    points: (5.5, 6.5) (-5.5, 6.5) (0, 9.2) 
+    perimeter: 23.254
+
+~~~ Testing the Rectangle Class ~~~
+Testing the convert constructor:
+Testing the output operator:
+r1 Rectangle:
+    numOfPoints: 4
+    points: (6.2, 5.9) (6.2, 9.2) (10, 9.2) (10, 5.9) 
+    Width:3.3
+    Height:3.8
+    Perimenter:14.2
+    Area:12.54
+
+Testing the copy constructor:
+r2 Rectangle:
+    numOfPoints: 4
+    points: (6.2, 5.9) (6.2, 9.2) (10, 9.2) (10, 5.9) 
+    Width:3.3
+    Height:3.8
+    Perimenter:14.2
+    Area:12.54
+
+Testing the input operator:
+Input the data (format: color filled x1 y1 x2 y2 x3 y3 x4 y4; e.g. blue 0 2 0 2 4 6 4 6 0):blue 0 2 0 2 4 6 4 6 0
+r2 Rectangle:
+    numOfPoints: 4
+    points: (2, 0) (2, 4) (6, 4) (6, 0) 
+    Width:4
+    Height:4
+    Perimenter:16
+    Area:16
+
+Testing operator==()
+r1 is not equal to r2
+============== Testing all print() ============
+Circle:
+    color: green
+    filled: 1
+    center: (2.4, 3.6)
+    radius: 4.8
+    perimeter: 30.144
+    area: 72.3456
+Polygon:
+    numOfPoints: 5
+    points: (6.2, 5.9) (7.12, 3.556) (6.2, 1.9) (3.512, 1.2) (1, 3.5) 
+    perimeter: 16.3232
+Rectangle:
+    numOfPoints: 4
+    points: (2, 0) (2, 4) (6, 4) (6, 0) 
+    Width:4
+    Height:4
+    Perimenter:16
+    Area:16
+    </pre>
+
+</div>
+</div>
+</div>
+
+
+
+</body>
+
+<!-- Mirrored from course.cse.ust.hk/comp2012/assignments/PA3/pa3.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 20 Dec 2015 07:14:58 GMT -->
+</html>

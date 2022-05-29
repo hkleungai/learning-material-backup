@@ -1,0 +1,336 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+
+    
+<!-- Mirrored from course.cse.ust.hk/comp2012/labs/10-vf/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 20 Dec 2015 07:14:47 GMT -->
+<head>
+
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+        <title>COMP2012 Lab</title>
+
+        <link rel="stylesheet" type="text/css" href="../style.html" />
+
+</head>
+
+    <body>
+
+
+
+        <div id="header">
+
+            <h1>COMP2012</h1>
+
+          <h2>OOP and Data Structures</h2>
+
+    </div>
+
+
+
+        <div id="content">
+
+            <h2>Lab 10: Virtual Functions</h2>
+			
+			There are several questions regarding virtual functions on this webpage. We encourage you to think before looking at the answers; therefore, the answers are hidden. You would need to highlight the whitespace following the questions to see the corresponding answers. Alternatively you can go to <a href="index-ans.html">this page</a> to check the answers.
+			
+			<h3>Virtual Functions</h3>
+
+          <p><strong>Polygon</strong> is the base class. <strong>Rectangle</strong> and <strong>Triangle</strong> are derived classes inherited from the base class.</p>
+
+          <p><a href="no_virtual.cpp">no_virtual.cpp</a> prints the area of a polygon without using virtual funtions. Note that rectangles and triangles are also polygons (<strong>is-a</strong> relationship). We encounter a problem in choosing the right functions to call since different polygons use different formulas to calculate the area. Specifically, when <strong>polygons[i]-&gt;area( )</strong> is invoked, it 
+
+			does not work as it calls <strong>Polygon::area( )</strong> instead of <strong>Rectangle::area( )</strong> or <strong>Triangle::area( )</strong>.</p>
+
+          <p>To solve this problem, we need to use virtual functions.</p>
+
+          <p>When a virtual function is called, a mechanism called  <strong>dynamic binding</strong> takes place. The function to call is determined by the actual class type of the object which invokes the function during program execution.   	This is different from <strong>static binding</strong> in which the function to call is determined statically during program compilation.</p>
+
+          <p>In <a href="virtual.cpp">virtual.cpp</a>, the correct    functions for calculating areas are called.</p>
+
+          <p><strong>Questions</strong></p>
+
+          <blockquote> 1. The destructor of a base class is usually declared as virtual. Why?&nbsp; 
+
+			Consider the following code segment.</blockquote>
+
+          <pre>class A {
+
+public:
+
+    A() { a = new int[1000]; }
+
+    ~A() { delete[] a; }  // not virtual destructor
+
+private:
+
+    int* a;
+
+};
+
+
+
+class B: public A {
+
+public:
+
+    B() { b = new char[1024]; }
+
+    ~B() { delete [] b; }
+
+private:
+
+    char* b;
+
+};
+
+
+
+int main() {
+
+    A * x = new B;
+
+    // ...
+
+    delete x;
+
+}</pre>
+
+          <p>What destructor is called by <strong>delete x</strong>?</p>
+ <font color="#FFFFFF">
+          <p>The destructor of class A, since x is a pointer to class A! However, x is a class B object. Therefore if the constructor for class B allocate any memory dynamically 
+
+			(as in this case), they are not freed when x is deleted.</p>
+
+          <p>However, if the destructor of the base class A is virtual, the destructor of B will be called 
+
+			first (before A&#39;s destructor) when <strong>delete x</strong> is executed and this solves the problem.</p>
+</font>
+          <blockquote> 2. What should the destructor of a derived class do regarding the memory dynamically allocated by its base class?</blockquote>
+ <font color="#FFFFFF">
+
+          <p>The destructor of the derived class should only free the memory it allocates dynamically. It should <span class="red">NOT</span> free the memory that is allocated by its base class.</p>
+
+          <p>The destructor of the base class will get its turn after the derived class     destructor finishes execution. (Do you remember the lecture notes on &quot;order of construction&quot;? Order of destruction is just its reverse!) There is no     need to hurry. The base class can take care of itself.</p>
+
+          <p>In general, when we create a derived class, it is (and should be) unnecessary for us     to know all the details of the base class. How memory is de-allocated in the     base class belongs to the category that &quot;derived class ignorable&quot;.</p>
+</font>
+          <blockquote> 3. Is it possible that the following program outputs &quot;<strong>In C::f()</strong>&quot;?</blockquote>
+
+          <pre>#include &lt;iostream&gt;
+
+using namespace std;
+
+
+
+class A {
+
+public:
+
+    A() {}
+
+    void f() {cout &lt;&lt; &quot;A::f()&quot; &lt;&lt; endl;}
+
+};
+
+
+
+class B: public A {
+
+public:
+
+    B() { }
+
+    void f() { cout << "In B::f( )" << endl; }
+
+};
+
+
+
+class C: public B {
+
+public:
+
+    C() { }
+
+    void f() { cout << "In C::f( )" << endl; }
+
+};
+
+
+
+int main() {
+
+    B* x = new C;
+
+    x->f();
+
+    delete x;
+
+    
+
+    B* y = new B;
+
+    y-&gt;f();
+
+    delete y;
+
+    return 0;
+
+} </pre>
+ <font color="#FFFFFF">
+
+          <p>The output is &quot;<strong>In B::f()</strong>&quot; and &quot;<b>In 
+
+			B::f()</b>&quot;! </p>
+
+			<p>The outputs are according to the following table:</p>
+
+			<table border="1" width="65%">
+
+				<tr>
+
+					<td rowspan="2" colspan="2">&nbsp;</td>
+
+					<td colspan="2">
+
+					<p style="text-align: center"><font size="2">In class A</font></td>
+
+				</tr>
+
+				<tr>
+
+					<td width="28%"><b><font size="2">void f()</font></b><font size="2">
+
+					</font></td>
+
+					<td width="23%"><b><font size="2">virtual void f()</font></b></td>
+
+				</tr>
+
+				<tr>
+
+					<td rowspan="2" width="15%"><font size="2">In class B</font></td>
+
+					<td width="20%"><b><font size="2">void f() </font></b></td>
+
+					<td width="28%"><font size="2">&nbsp;&nbsp;&nbsp; B::f()</font><p>
+
+					<font size="2">B::f()</font></td>
+
+					<td width="23%"><font size="2">&nbsp;&nbsp;&nbsp; C::f()</font><p>
+
+					<font size="2">B::f()</font></td>
+
+				</tr>
+
+				<tr>
+
+					<td width="20%"><b><font size="2">virtual void f()</font></b></td>
+
+					<td width="28%"><font size="2">&nbsp;&nbsp;&nbsp; C::f()</font><p>
+
+					<font size="2">B::f()</font></td>
+
+					<td width="23%"><font size="2">&nbsp;&nbsp;&nbsp; C::f()</font><p>
+
+					<font size="2">B::f()</font></td>
+
+				</tr>
+
+			</table>
+
+			<p>Therefore, the output is &quot;C::f()&quot; and &quot;B::f()&quot; if f() is a virtual function 
+
+			in either class A and/or class B!&nbsp; This is because if class A has a member function f() and declares it as virtual, f() becomes virtual for class B and class C since B derives from A. It does not matter at all if class B declare f() virtual or not.</p>
+			</font>
+			
+			<p>&nbsp;</p><h3>Pure Virtual Functions</h3><p> Have you noticed a problem in <a href="virtual.cpp">virtual.cpp</a>? We need to define <strong>Polygon::area()</strong>, but it is impossible since we do not know the exact type of the polygon. <strong>Polygon::area()</strong> returns an invalid value (-1) in <a href="virtual.cpp">virtual.cpp</a>. </p>
+
+          <p>The proper solution is to declare <strong>Polygon::area( )</strong> as a <strong>pure virtual       function</strong>. In this case, there is       no need to provide an implementation for it. Therefore we can avoid the (dummy)       implementation of <strong>Polygon::area( )</strong> in <a href="virtual.cpp">virtual.cpp</a>.   	Also, the area functions in the derived classes are called instead. The code   	becomes <a href="polygons.cpp">polygons.cpp</a>.</p><p>The syntax of a pure virtual function is to add &quot;<strong>= 0</strong>&quot; after declaring       it as virtual in the class definition.</p><p><strong>Questions</strong></p><blockquote> 1. You cannot compile <a href="polygons.cpp">polygons.cpp</a>. Why?</blockquote><p>
+		   <font color="#FFFFFF">
+<p> The reason is the class Polygon is an <strong>abstract</strong> class. It is an abstract class because Polygon has one or more pure virtual function(s). You cannot create any instance of abstract classes. So, the problem is at line 11 in the main program (i.e. <strong>polygons[2] = new Polygon;</strong>). It tries to create an instance of Polygon dynamically. For class Rectangle and Triangle, they are allow to create instances. This is because they implement <strong>all</strong> pure virtual function(s) from the abstract base class already. Hence, they are <span class="red">NOT</span> abstract classes anymore.&nbsp; See the fixed version <a href="polygons_fixed.cpp">polygons_fixed.cpp</a>.</p><blockquote>  
+</font>
+			2. What do you expect to be the program output of <a href="xyz.cpp">xyz.cpp</a>?</blockquote>
+			 <font color="#FFFFFF">
+			<p>This program cannot be compiled, since implementation of a pure virtual function <strong>char Z::l() const</strong> is still missing. Remember that a constant member function is <span class="red">DIFFERENT</span> from a non-constant member function, even if they have the same name and same argument list! In other words, class Z has a new member function <strong>char l()</strong> but it has NOT implemented <strong>char l() const</strong>. </p>
+
+          <p>If we modify the code by adding &quot;<strong>const</strong>&quot; after char l() in class Z, the code can be compiled and gives the output:</p><pre>In Z::g()
+
+1 In Z:h()
+
+1.2</pre>
+</font>
+<hr />
+
+<h2>Lab Task</h2><p>In <a href="functions.zip">functions.zip</a>, you are given a 
+			partially implemented program with polymorphic behavior according to 
+			the inheritance hierarchy below:</p>
+			<p><img border="0" src="classDiagram.gif"></p><ul>
+
+            <li><strong>Func</strong> is a base class containing some virtual functions.</li><li><strong>SinFunc</strong>, <strong>CosFunc</strong>, <strong>PolyFunc,</strong> <strong>ImpulseFunc</strong> 
+			and <b>ExpFunc</b> are derived from <strong>Func</strong>, and override some virtual functions.</li>
+			<li>Each &quot;function&quot; will evaluate its value and derivative at value x.</li><li><strong>Func::Print(ostream&amp; os, double d) const </strong>prints the function       information: name, whether it is periodic or not, function value at d<em>,</em> and first derivative at d. With the help of virtual functions, one print function can be adapted to print out information for different types of Func.</li><li><strong>CreatePolyFunc(ostream&amp; os, istream&amp; is)</strong> is a global function to create a <strong> 
+			PolyFunc</strong> object dynamically. <strong> CreatePolyFunc</strong> and <strong>CreateImpulseFunc</strong> are similar.</li><li>In the main program, &quot;block A&quot; is to create the dynamic object based on the user input (from cin) and &quot;block B&quot; gives the operations for that dynamic object. &quot;block B&quot; does <span class="red">NOT</span> depend on the actual type of the object!</li></ul><p>Your task is to 
+			implement all the functions of the program. You have to do the following:</p><p>
+			1. Complete class <strong>ExpFunc</strong> in exp_func.h and exp_func.cpp, which implements the exponential function: </p>
+
+          <ul><li>f(x) = a exp(b x)</li><li>First derivative: f'(x) = a b exp(b x)</li></ul><p>
+			2. Complete global function <strong>CreateExpFunc(ostream&amp; os, istream&amp; is).</strong></p>
+			<p>3. Complete <b>
+			SinFunc</b> and <b>CosFunc</b> 
+			in tri_func.cpp and tri_func.h.</p>
+			<p>&nbsp;&nbsp;&nbsp; We 
+			define CosFunc as follows.</p>
+			<blockquote>
+				<ul type="circle">
+					<li>Value: cos<font face="Times New Roman"><span lang="zh-cn">θ</span> </font>
+					= 
+					<font face="Times New Roman">
+					sin(<span lang="zh-cn">9</span>0<span lang="zh-cn">°-θ</span>) 
+					;</font></li>
+					<li>
+					<font face="Times New Roman">Derivative: cos<span lang="zh-cn">θ</span>&#39; = [sin(<span lang="zh-cn">9</span>0<span lang="zh-cn">°-θ</span>)]&#39; 
+					= (90</font><span lang="zh-cn"><font face="Times New Roman">°</font></span><font face="Times New Roman">-<span lang="zh-cn">θ</span>)&#39;sin&#39;(<span lang="zh-cn">9</span>0<span lang="zh-cn">°-θ</span>) 
+					= -sin&#39;(<span lang="zh-cn">9</span>0<span lang="zh-cn">°-θ</span>)</font> </li>
+				</ul>
+				<p>
+				<font face="Times New Roman">
+				<b>Note</b>: the 
+				implementation of class </font><b>CosFunc</b> 
+				<font face="Times New Roman">
+				is 
+				restricted to be used the function of its parent but not the 
+				library cmath.</font></p>
+			</blockquote>
+			<p>4. In main.cpp, Complete 
+			the block B in main fuction.</p>
+			<p>To test your program, you can run it by entering the sample input <a href="in.txt">in.txt</a> and compare your program output with the correct output <a href="out.txt">out.txt</a>.</p><h3>Note:</h3> What is the purpose of the parameters in <strong>CreateExpFunc(ostream&amp; os, istream&amp; is)</strong>? Why don't we just use <strong>cin</strong> and <strong>cout</strong> directly in this function?          </blockquote>
+
+          <p>Answer: It is possible to use <strong>cin</strong> and <strong>cout</strong> directly in the function.    However, your function will be limited to get data from standard-input (keyboard by default)    and output to standard-output (your screen by default).</p><p><strong>cin</strong> is a pre-defined object, and <strong>cin</strong> is a <strong>istream</strong> object. <strong>istream</strong> implements the concept of input stream. <strong>cout</strong> is a pre-defined object, and <strong>cout</strong> is a <strong>ostream</strong> object. <strong>ostream</strong> implements the concept of output stream.</p><p>In C++ I/O library, there is a file input stream <strong>ifstream</strong> which is derived from <strong>istream</strong>,    and output file stream <strong>ofstream</strong> is derived from <strong>ostream</strong>. Hence you can call the function    as follow:</p><pre>ofstream fout(&quot;out.txt&quot;);
+
+ifstream fin(&quot;in.txt&quot;);
+
+Func* f = CreateExpFunc(fout, fin); </pre>
+
+    </div>
+
+
+
+<div id="footer">
+
+          <div id="credits">
+
+                &nbsp;© <a href="http://www.cse.ust.hk/">CSE</a>, <a href="http://www.ust.hk/">HKUST</a></div>
+
+
+
+    </div>
+
+
+
+    </body>
+
+
+<!-- Mirrored from course.cse.ust.hk/comp2012/labs/10-vf/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 20 Dec 2015 07:14:51 GMT -->
+</html>

@@ -1,0 +1,27 @@
+CXX = 	g++
+
+CXXFLAGS =	-O2 -g -Wall 
+
+OBJS =	printcolor.o blue.o green.o
+
+LIBS =
+
+TARGET =	printcolor
+
+$(TARGET):	$(OBJS)
+	$(CXX) -o $(TARGET) $(OBJS) $(LIBS)
+
+all:	$(TARGET)
+
+
+blue.o: blue.h blue.cpp
+		$(CXX) $(CXXFLAGS) -c blue.cpp
+		
+green.o: green.h green.cpp
+		$(CXX) $(CXXFLAGS) -c green.cpp
+		
+printcolor.o: main.cpp blue.h green.h
+		$(CXX) $(CXXFLAGS) -c main.cpp -o printcolor.o
+		
+clean:
+	rm -f $(OBJS) $(TARGET)
