@@ -66,7 +66,7 @@ const CATEGORIZED_PRE_COURSES = [
             },
             {
                 code: 'COMP 3511',
-                semesters: ['Spring 2022'],
+                semesters: ['Fall 2015', 'Spring 2022'],
             },
         ],
     },
