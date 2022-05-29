@@ -1,0 +1,29 @@
+(* Q1 *)
+fun indexOf(v,[]) = ~1
+  | indexOf(v,head::tail) = 
+        if v = head then 0
+        else 
+          if indexOf(v,tail) = ~1 then ~1
+          else 1 + indexOf(v,tail);
+
+val L = [1,2,3,4,5];
+indexOf(3,L);
+indexOf(6,L);
+
+(* a wrong version you may write *)
+fun indexOf2 v []= ~1
+  | indexOf2 v (head::tail) = 
+        if v = head then 0
+        else 1 + indexOf2 v tail; (* there are two situation of the sub question you should take into consideration *)
+
+indexOf2(3,L); (* this is a high order function, we will talk it in next lab *)
+(* (3,L) will be treated as a tuple *)
+(* indexOf2(3,L) [(3,L),(4,L)] *)
+
+indexOf2 6 L;
+
+(*Q2*)
+
+fun fib 1 = 1
+  | fib 2 = 1
+  | fib n = fib(n-1) + fib(n-2);

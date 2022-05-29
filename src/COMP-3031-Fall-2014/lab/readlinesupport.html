@@ -1,0 +1,97 @@
+<html>
+  
+<!-- Mirrored from course.cse.ust.hk/comp3031/lab/readlinesupport.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 Jun 2015 09:57:52 GMT -->
+<head>
+    <link rel="stylesheet" type="text/css" href="mystyle.css">
+    <title>COMP3031 Labs</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>COMP3031: Principles of Programming Languages Labs</h1>
+        <h2>Fall 2014</h2>
+      </div>
+
+      <div class="sidebar">
+        <div class="highlight">
+          <h3>Section: LA1</h3>
+          <table style="border: none;">
+            <tr>
+              <th align="right">Time:
+                <td>Tue 10:30AM-11:20AM
+            </tr>
+            <tr>
+              <th align="right">Room:
+                <td>Rm 4210, Lift 19
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="remarks">
+        <h2 style="color:black">SML Readline Support</h2>
+        <ul>
+          <li>SML does not support <a href="http://en.wikipedia.org/wiki/GNU_Readline">Readline</a> such as repeat previous commands by pressing "up" button.
+          </li>
+        <img style="margin: 15px" src="noreadline.png">
+        <li>
+          Using a wrapper is an alternative to bypass the issue. "rlwrap" is a wrapper which uses the GNU readline library to allow the editing of keyboard input for any other command.
+        </li>
+        <br>
+        <li>Steps to install and use rlwrap:
+          <ol>
+            <li>
+              Download it to your home directory: <br>
+              <div class="codeblock">
+              $ wget -c https://course.cse.ust.hk/comp3031/lab/rlwrap-0.41.tar.gz
+              </div>
+            </li>
+            <li>
+              Unzip: <br>
+              <span class="codeblock">
+              $ tar zxvf rlwrap-0.41.tar.gz
+              </span>
+            </li>
+            <li>
+              Configure & make: <br>
+              <div class="codeblock">
+                $ cd rlwrap-0.41/ <br>
+                $ ./configure && make
+              </div>
+            </li>
+            <li>
+              Add the directory of rlwrap to $PATH and apply changes.
+              <div class="codeblock">
+              $ echo 'export PATH=$PATH:~/rlwrap-0.41/src/'>> ~/.bashrc <br>
+              $ source ~/.bashrc
+              </div>
+            </li>
+            <li>
+              Execute sml with readline support:
+              <div class="codeblock">
+              $ rlwrap sml
+              </div>
+            </
+            </li>
+            Done! You can enjoy SML with readline now! :-) <br><br>
+            <font color="red">Notice: you only need to configure rlwrap once, next time you login to the machine, just type "rlwrap sml" is OK. </font>
+          </ol>
+        </li>
+        <br>
+        <li>
+          References:
+        </li>
+        <a href="http://linux.die.net/man/1/rlwrap">rlwrap man page</a>
+        </ul>
+      </div>
+      
+      <div class="footer">
+        <a href = "lab_index.html">Back to COMP3031 Labs</a>
+        <div style="float: right; margin-right: 30px;">Last updated: Sep.30, 2014</div>
+      </div>
+    </div>
+
+  </body>
+
+<!-- Mirrored from course.cse.ust.hk/comp3031/lab/readlinesupport.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 Jun 2015 09:57:52 GMT -->
+</html>

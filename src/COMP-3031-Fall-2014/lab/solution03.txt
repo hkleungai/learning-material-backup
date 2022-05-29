@@ -1,0 +1,31 @@
+datatype tree = nil | node of int * tree * tree;
+
+fun poTrav nil = []|
+    poTrav (node(I,LC,RC)) = poTrav(LC)@poTrav(RC)@[I];
+
+fun reduce f [ ] v = v| 
+    reduce f (head::tail) v = 
+    	   f (head, reduce f tail v);
+
+
+fun occurIn [] f = false|
+    occurIn (h::t) f = if h=f then true else (occurIn t f);
+
+fun dList [] = []|
+    dList (head::tail) = 
+    	  let fun lastOccur (x) = not(occurIn tail x)
+	  in if lastOccur(head) then head::(dList tail) else (dList tail)
+	  end;
+
+fun add(x,y) = 1 + y;
+fun dCount x = reduce add (dList x) 0;
+fun dCountTree T = dCount (poTrav T);
+
+val myTree = node(1,node(2,node(4,nil,nil),node(3,nil,nil)),node(3,node(1,nil,nil),nil));
+
+poTrav myTree;
+
+dCountTree myTree;
+
+*tree on slide 12*
+val myTree= node(7,node(5,node(8,nil,nil),node(7,nil,nil)),node(4,nil,node(2,nil,nil)));

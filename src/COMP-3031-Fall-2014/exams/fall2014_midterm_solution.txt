@@ -1,0 +1,71 @@
+1(a) 63
+1(b) "3457612890"
+
+2(a) val e = fn : ''a list -> ''a -> string
+2(b) val r = fn : ('a -> real) list -> (real -> 'a) -> 'a
+2(c) val sp = fn: ('a * 'b -> bool)
+    -> 'a list -> 'a list -> 'b -> 'a list -> 'a list * 'a list
+
+
+3(a)
+
+fun exist [] n = false
+  | exist (head::tail) n = if head = n then true
+                            else exist tail n;
+
+fun filter f [] = []
+  | filter f (head::tail) = if(f head) then (filter f tail)
+                            else head::(filter f tail);
+
+fun listDiff list1 list2 = 
+  let val ff = exist list2
+  in
+    filter ff list1
+  end;
+
+
+3(b)
+fun sublistReverse L = rev(map rev L);
+
+
+4(a)
+
+Yes. Derivation:
+
+<S> => 
+<I>.<I>.<I>.<I> =>
+1<D><D>.<I>.<I>.<I> =>
+14<D>.<I>.<I>.<I> =>
+143.<I>.<I>.<I> =>
+143.<N><D>.<I>.<I> =>
+143.8<D>.<I>.<I> =>
+143.89.<I>.<I> =>
+143.89.<N><D>.<I> =>
+143.89.4<D>.<I> =>
+143.89.40.<I> =>
+143.89.40.<D> =>
+143.89.40.4
+
+4(b) No, it is not ambiguous.
+
+5(a)
+
+<S>  ::= <S> MERGE <S1> | <S> DIFF <S1> | <S1>
+<S1> ::= ~<S1> | FILTER <S1> | MAP <S1> | <S2>
+<S2> ::= (<S>) | A | B | C |D | E
+
+5(b)
+
+                      MERGE
+                    /      \
+                  DIFF      MERGE         
+                  /  \       /  \
+                 ~ FILTER  C  FILTER
+                /     |          |
+               MAP    B          MAP
+               /                 |
+              A                 DIFF
+                                /  \
+                                D   E
+
+Note: it is also fine if "()" is treated as a unary operator in the tree representation. 
