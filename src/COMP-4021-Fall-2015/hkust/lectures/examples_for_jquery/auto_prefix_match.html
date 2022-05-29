@@ -1,0 +1,33 @@
+
+<html>
+<head>
+  <link rel="stylesheet" href="jquery-ui-1.11.4.custom/jquery-ui.css">
+  <script src="jquery-1.11.2.js"></script>
+  <script src="jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+<script>
+// global function execute after document ready
+$(function() {
+  var languages = ["java", "javascript", "perl", "python", "php" ];
+  $( "#searchBox" ).autocomplete( {
+    minLength: 2, // min # of chars input before suggestions are triggered
+    delay: 200, // wait 0.2 sec before trigger
+    source: function ( request, response ) {
+      var languages1 = [];
+      var term = request.term;
+      for (var i = 0; i < languages.length; i++) {
+        if (languages[i].startsWith(term)) {
+          languages1.push(languages[i]);
+        }
+      }
+      response(languages1);
+    },
+  });
+});
+</script>
+</head>
+<body>
+<div class="ui-widget">
+  <input type="text" id="searchBox" name="q" size="20" value="">
+</div>
+</body>
+</html>

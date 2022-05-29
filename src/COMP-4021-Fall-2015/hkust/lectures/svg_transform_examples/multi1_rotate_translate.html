@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     version="1.1"
+     baseProfile="full"
+     width="400" height="150">
+<defs><g id="box">
+<rect x="30" y="70" width="30" height="20"  />
+</g></defs>
+
+<line x1="0" y1="0" x2="0" y2="10" style="stroke:black;stroke-width:3pt"/>
+<line x1="0" y1="0" x2="10" y2="0" style="stroke:black;stroke-width:3pt"/>
+
+<use xlink:href="#box"  style="stroke:red;fill:pink" />
+<text x="35" y="85">(1)</text>
+
+<use xlink:href="#box" style="stroke:red;fill:pink"
+transform="translate(50,0)" />
+<text x="35" y="85" transform="translate(50,0)">(2)</text>
+
+<use xlink:href="#box" style="stroke:red;fill:pink"
+transform="rotate(-30) translate(50,0)" />
+<text x="35" y="85" transform="rotate(-30) translate(50,0)">(3)</text>
+
+<use xlink:href="#box" style="stroke:black;fill:yellow"
+transform="rotate(-30)" />
+<text x="35" y="85" transform="rotate(-30)">(a)</text>
+
+<use xlink:href="#box" style="stroke:black;fill:yellow"
+transform="translate(50,0) rotate(-30)" />
+<text x="35" y="85" transform="translate(50,0) rotate(-30)">(b)</text>
+</svg>
+
+<br/>
+<p>
+<ul>
+<li> A box is defined with x=30, y=70</li>
+<li> Box (1): no transformation, so box is displayed at (30,70)</li>
+<li> Box (2): translate(50,0) applied, so box is displayed at (30,70) of the
+<em>translated</em> coordinate system; </li>
+<li> Box (3): translate(50,0),rotate(-30) applied</li>
+<li> Box (a): rotate(-30),translate(50,0) is applied</li>
+<li> Box (b): translate(50,0),rotate(-30) applied</li>
+<li> Note: if we have transform="op2 op1" both op2 is applied to the
+<em>original coordinate</em> (black cross wire), not the coordinate system
+after op1 has been applied
+<li> <font color="red">View source and follow the code; in particular, trace how the
+coordinate system is tranformed; e.g., in the display above,
+only the origin of
+the original coordinates is shown (the black cross wire at upper
+left corner); for each transform operation, draw the origin of the
+transformed coordinates (as cross wire in another color);
+then draw the box on it and verify if it matches with the display above
+</font>
+</ul>
+</p>
+</body>
+</html>

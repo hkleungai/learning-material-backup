@@ -1,0 +1,50 @@
+<svg width='100%' height='100%'
+    xmlns='http://www.w3.org/2000/svg'
+    xmlns:xlink='http://www.w3.org/1999/xlink'
+    onload='Init(evt)'>
+  <title>Example DOM Handling</title>
+  <script><![CDATA[
+    var SVGDocument = null;
+    var SVGRoot = null;
+    var svgns = 'http://www.w3.org/2000/svg';
+    var xlinkns = 'http://www.w3.org/1999/xlink';
+
+    function message(evt)
+    {
+        evt.target.parentNode.removeChild(evt.target);
+    }
+
+    function Init(evt)
+    {
+        var i;
+        SVGDocument = evt.target.ownerDocument;
+        SVGRoot = SVGDocument.documentElement;
+
+        for (i=0;i<100;i++) {
+
+            var x=Math.floor(Math.random() * 800);
+            var y=Math.floor(Math.random() * 600);
+            var symbolRef = "#symbol";
+            var newnode = SVGDocument.createElementNS(svgns, 'use');
+            newnode.setAttribute('x', x);
+            newnode.setAttribute('y', y);
+            newnode.addEventListener('mouseover', message, false);
+            newnode.setAttributeNS(xlinkns, 'xlink:href', symbolRef);
+            SVGRoot.appendChild(newnode);
+
+        }
+
+    }
+  ]]></script>
+
+  <defs>
+    <g id='symbol' stroke='red' fill='white' stroke-width='5'>
+      <circle cx='0' cy='0' r='30'/>
+      <circle cx='-8' cy='-5' r='4' fill='red' stroke='none'/>
+      <circle cx='8' cy='-5' r='4' fill='red' stroke='none'/>
+      <line x1='-15' y1='10' x2='15' y2='10'/>
+    </g>
+  </defs>
+
+</svg>
+

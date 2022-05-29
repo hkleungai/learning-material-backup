@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>COMP4021 Lab 7 - Chat System</title>
+  <link rel="stylesheet" type="text/css" href="../lab.css" />
+</head>
+
+<body>
+
+  <h1>
+    <span class="lab">COMP4021 Lab 7</span>
+    <span class="title">Chat System</span>
+  </h1>
+
+  <h2>Overview</h2>
+
+  <ul>
+    <li>In this lab, you need to implement a chat system using Javascript and PHP
+      <ol>
+        <li><a href="index.html#section1">Implementation of the server side</a>
+          <ul class="none">
+              <li>1.1. <a href="index.html#section1.1">Handling user login</a></li>
+              <li>1.2. <a href="index.html#section1.2">Adding a message to the chat room</a></li>
+              <li>1.3. <a href="index.html#section1.3">Handling requests from the client side</a></li>
+          </ul>
+        </li>
+        <li><a href="index.html#section2">Implementation of the client side</a>
+          <ul class="none">
+            <li>2.1. <a href="index.html#section2.1">Handling user login</a></li>
+            <li>2.2. <a href="index.html#section2.2">Sending a message to the server</a></li>
+            <li>2.3. <a href="index.html#section2.3">Getting messages from the server</a>
+              <ul class="none">
+                <li>2.3.1. <a href="index.html#section2.3.1">Using AJAX technique to get XML data</a></li>
+                <li>2.3.2. <a href="index.html#section2.3.2">Displaying and updating chat message</a></li>
+              </ul>
+            </li>
+            <!--<li>2.4. <a href="#section2.4">Updating the chat area</a></li> -->
+          </ul>
+        </li>
+      </ol>
+    </li>
+    <li>The starting code, <a href="chatroom.zip">chatroom.zip</a>, is given to you.</li>
+  </ul>
+
+  <h2>Basic idea</h2>
+
+  <img src="images/overall.png" alt="Overall Idea" />
+
+  <h2>Getting Started</h2>
+
+  <h3>Apache Server Setup</h3>
+
+  <ul>
+    <ol type="I">
+        <li> Using Computers in Lab 4210</li>
+        <ul>
+          <li>Due to installation restrictions in the teaching lab, you have to use Virtual PC to install and run your Apache server</li>
+            <li>To work with the pre-installed Virtual PC for the lab:
+              <ul>
+                <li>Copy <tt>D:\image\comp4021.vmc</tt> and <tt>D:\image\comp4021.vhd</tt> to <tt>D:\temp</tt></li>
+                <li>Double-click on <tt>comp4021.vmc</tt> in <tt>D:\temp</tt> to start the Virtual PC</li>
+                <li>Wait for the Virtual PC to boot up,We will work inside the Virtual PC after it has booted up</li>
+              </ul>
+          </li>
+          <li>Download the right WAMP server for php through <a href="http://www.wampserver.com/en/">here</a>. Install it on your virtual machine.
+          <li>After installation, start the Wamp server.</li>
+          <li><b><font color="#ff0000">Notice that, if you are running Skype, the wamp server cannot work correctly. So please stop Skype, or any applications that might be occupying port 80. A post discussing this issue is <a href="http://forums.phpfreaks.com/topic/144389-solved-wamp-server-offline/">here</a>.</font></b></li>
+          <li>The copying and booting up of virtual PC is time-consuming. It is recommended to use your own computer.</li>
+          </li>
+        </ul>
+        
+        <li>Using your own computer</li>
+          <ol>
+            <li>Windows system
+              <ul>
+                <li>Download the right WAMP server for php through <a href="http://www.wampserver.com/en/">here</a>. Install it.
+          <li>After installation, start the Wamp server.</li>
+          <li><b><font color="#ff0000">Notice that, if you are running Skype, the wamp server cannot work correctly. So please stop Skype, or any applications that might be occupying port 80. A post discussing this issue is <a href="http://forums.phpfreaks.com/topic/144389-solved-wamp-server-offline/">here</a>.</font></b></li>
+          <li>Or, you can download and install XAMPP server.</li>
+              </ul>
+            </li>
+
+            <li>
+                Mac OS X
+              <ul>
+                <li>Using command line to enable the bulit-in Apache Web Server</li>
+                <li>Or, you can download and install XAMPP server for Mac</li>
+              </ul>
+            </li>
+           </ol>   
+    </ol>
+
+  <li>In this lab, we are using XAMPP server for demonstration</li>
+  <li>Copy the file <tt>helloworld.php</tt> <a href="helloworld.zip">here</a> to <tt>htdocs</tt> directory under where you install your XAMPP server</li>
+    <li>Make your browser point to this location, <tt>http://localhost/helloworld.php</tt>
+      <ul>
+        <li>You should see a message 'Hello World' in your browser</li>
+      </ul>
+    </li>
+    <li>For this lab you can use the chatroom starting files by extracting the files and putting them into the <tt>htdocs</tt> directory. For WAMP server, you can put them into  <tt>www</tt> directory</li> 
+    </ol>
+    
+
+  </ul>
+
+  <h2>Implementation</h2>
+
+  <ul>
+    <li>Here is the basic interface of the chat system developed in this lab:
+      <a name="interface"></a>
+      <p><img src="images/chatgui.png" alt="The GUI" /></p>
+    </li>
+    <li>The window is divided into two frames
+      <p><img src="images/structure.png" alt="The GUI Structure" /></p>
+    </li>
+    <li>The upper frame displays the current messages inside the chat room. The upper frame doesn't look like this, just for demonstration. We are using SVG to display, similiar to project2.</li>
+    <li>The lower frame displays the interface for login (<tt>login.html</tt>) or message input (<tt>client.php</tt>)</li>
+    <li>You need to first provide a user name in order to enter the chat room in the login page (<tt>login.html</tt>)</li>
+    <li>The chat room area will be updated immediately if you enter a message in the message input page</li>
+    <li>The basic flow of the whole operation is:
+      <ul>
+        <li><b>Step 1</b> - Load the main page, <tt>chatroom.html</tt></li>
+        <li><b>Step 2</b> - After entering the username in <tt>login.html</tt>, the name is sent to <tt>login.php</tt> and the browser is redirected to <tt>client.php</tt></li>
+        <li><b>Step 3</b> - The user enters a message in <tt>client.php</tt>, the message is sent to <tt>add_message.php</tt> for processing in the server</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>Information Flow</h2>
+
+  <ul>
+    <li>Here is an illustration of the flow of information for the system
+      <p><img src="images/flow.png" alt="Program Flow" /></p>
+    </li>
+    <li>Here is the detailed flow of information among <tt>message.php</tt> and <tt>server.php</tt>
+      <p><img src="images/html2swf_flow.png" alt="HTML to SWF Flow" /></p>
+    </li>
+  </ul>
+
+  <h2 id="section1">1. Implementation of the Server Side</h2>
+
+  <ul>
+    <li>There are three files mainly responsible for handling the operations in the server side</li>
+    <li>These files are <tt>login.php</tt>, <tt>add_message.php</tt> and <tt>server.php</tt></li>
+    <li>Because they are designed to be used for server side operations only, the output from these files are not for displaying in the client side, i.e. these files are invisible from the user's point of view</li>
+    <li>Note that we could have combined both the server operations and client display together in one file</li>
+    <li>However, in this lab, we choose to use separate files for server-side operations and client-side display, so that you can understand the system easily</li>
+  </ul>
+
+  <h3 id="section1.1">1.1. login.php - Handling user login</h3>
+
+  <ul>
+    <li>After the user enters a name in <tt>login.html</tt>, the name will be sent to this file as form data</li>
+    <li>The purpose of this php script is to set the value of this user name into a <b>cookie</b></li>
+    <li>This can be easily done by calling the <tt>setcookie</tt> function in php, for example,
+      <pre><span class="comment">// Transfer from form data into cookie</span>
+setcookie("name", $_POST["name"]);</pre>
+    </li>
+    <li>The above code sets the value from the form data "name" to a cookie with the same name</li>
+    <li>After setting the cookie, every page requested by the client in the same session can also access this cookie, i.e. we can retrieve the user name in another php script, such as <tt>add_message.php</tt></li>
+    <li>After setting the cookie, the page is redirected to <tt>client.php</tt>, which is the message input page for the user</li>
+    <li>This can be done by a <tt>Location</tt> HTTP header command, for example,
+      <pre>header("Location: client.php");</pre>
+    </li>
+  </ul>
+
+  <h3 id="section1.2">1.2. add_message.php - Adding a message to the chat room</h3>
+
+  <ul>
+    <li>This php script is responsible for updating the content of our chat room</li>
+    <li>The messages inside the chat room are stored in a single XML file called <tt>chatroom.xml</tt> located in the server</li>
+    <li>When it receives the input coming from <tt>client.php</tt>, it will add the new message to the end of the XML file</li>
+    <li>A new message consists of two values: name and message content</li>
+    <li>The following format is used for a message in the XML file
+      <pre>&lt;message name="<span class="todo">... name here ...</span>"&gt;<span class="todo">... message content here ...</span>&lt;/message&gt;</pre>
+    </li>
+    <li><span style="color: red">You need to add the code for adding a message to the XML file in this lab</span></li>
+    <li>Here is the content of XML file <tt>chatroom.xml</tt> for the chat messages in the interface figure <a href="index.html#interface">above</a>
+      <p><img src="images/xml.png" alt="The XML" /></p>
+    </li>
+    <li>The name is retrieved from the cookie set in <tt>login.php</tt> and the content is retrieved from form data</li>
+    <li>To open an XML file, you can use the following:
+      <pre>$xmlh-&gt;openFile();</pre>
+    </li>
+    <li>Then we can add a new message element to the messages group by:
+      <pre><span class="comment">// Get the 'messages' element as the current element</span>
+$messages_element = $xmlh-&gt;getElement("messages");
+
+<span class="comment">// Create a 'message' element for each message</span>
+$message_element = $xmlh-&gt;addElement($messages_element, "message");</pre>
+    </li>
+    <li>Then you can add the name and the text message:
+      <pre><span class="comment">// Add the name</span>
+$xmlh-&gt;setAttribute($message_element, "name", $name);
+
+<span class="comment">// Add the content of the message</span>
+$xmlh-&gt;addText($message_element, $message);</pre>
+    </li>
+    <li>Remember to save it:
+      <pre>$xmlh-&gt;saveFile();</pre>
+    </li>
+    <li>Again, after updating the <tt>chatroom.xml</tt>, the page is redirected back to <tt>client.php</tt> for the next message input</li>
+  </ul>
+
+  <h3 id="section1.3">1.3. server.php - Handling requests from the client side</h3>
+
+  <ul>
+    <li>This file is used as the server connection for <tt>message.php</tt></li>
+    <li>The main purpose of this file is to output the chatroom messages from <tt>chatroom.xml</tt> to <tt>message.php</tt></li>
+    <li>When this file is requested by the client, the output is not immediately sent</li>
+    <li>Instead, the output will be sent only if there is any change in the file <tt>chatroom.xml</tt></li>
+    <li>Therefore, the php script may run for a long time if there is no change in the chat room</li>
+    <li>We need to set the maximum execution time for the script because a php script cannot run forever in the server by default</li>
+    <li>Using the following code, we can set the maximum execution time to be 60 seconds
+      <pre>set_time_limit(60);</pre>
+    </li>
+    <li>Then we let a php script to run at most 30 seconds before sending the output even if the content is not changed</li>
+    <li>The file size of the XML file <tt>chatroom.xml</tt> will be obtained from the request from <tt>message.php</tt> (discussed later)</li>
+    <li>After detecting a change of file size for <tt>chatroom.xml</tt>, we need to send the XML output</li>
+    <li>The JavaScript code in <tt>message.php</tt> finds the new messages in the XML output and then displays the messages in the Flash area</li>
+  </ul>
+
+  <h2 id="section2">2. Implementation of the Client Side</h2>
+
+  <ul>
+    <li>In the client side, the user can see the output of these four files:
+      <ul>
+        <li><tt>login.html</tt></li>
+        <li><tt>client.php</tt></li>
+        <li><tt>message.php</tt></li>
+        
+      </ul>
+    </li>
+    <li>They are mainly responsible for accepting the user input and displaying the chatroom messages</li>
+    <li>After the user has entered data in a form, the data will be sent to one of the php scripts located in the server</li>
+  </ul>
+
+  <h3 id="section2.1">2.1. login.html - Handling user login</h3>
+
+  <ul>
+    <li>This is a very simple form which accepts only one value, the user name
+      <p><img src="images/login.png" alt="The Login Page" /></p>
+    </li>
+    <li>This user name will be sent to <tt>login.php</tt> for processing in the server</li>
+  </ul>
+
+  <h3 id="section2.2">2.2. client.php - Sending a message to the server</h3>
+
+  <ul>
+    <li>This is the main user input of the chat room
+      <p><img src="images/client.png" alt="The User Input" /></p>
+    </li>
+    <li>The input from this form is sent to <tt>add_message.php</tt> so that the content of <tt>chatroom.xml</tt> can be updated</li>
+  </ul>
+
+  <h3 id="section2.3">2.3. message.php - Getting messages from the server</h3>
+
+  <ul>
+    <li>This is the chat room display of the system
+      <p><img src="images/upper.png" alt="The Chatroom" /></p>
+    </li>
+   
+    <li>In this lab, we use AJAX techniques to handle the request and response, i.e. we send request to the server and process the response using JavaScript</li>
+  </ul>
+
+    <h4 id="section2.3.1">2.3.1. Using AJAX techniques to get XML data</h4>
+
+  <ul>
+    <li>AJAX stands for Asynchronous JavaScript and XML</li>
+    <li>AJAX is asynchronous which means data is requested from the server and loaded in the background without interfering with the display and behavior of the existing page</li>
+    <li>Therefore the entire web page does not have to be reloaded when new data is requested from the server</li>
+    <li>In <tt>message.php</tt> we have a function <tt>getUpdate()</tt> which is used for sending a HTTP request to <tt>server.php</tt></li>
+    <li>In <tt>getUpdate()</tt>, we need to create a HTTP request object</li>
+    <!--
+    <li>The following steps (inside the <tt>message.php</tt>) are used to create and send a HTTP request to <tt>server.php</tt>
+      <pre><span class="comment">// Create a HTTP request object</span>
+request = new ActiveXObject("Microsoft.XMLHTTP");
+
+<span class="comment">// Set the URL of the file using the POST method</span>
+request.open("POST", "server.php", true);
+
+<span class="comment">// Set the callback function for this request</span>
+request.onreadystatechange = stateChange;
+
+<span class="comment">// Set the request header</span>
+request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+<span class="comment">// Send the request with the POST data 'datasize=0'</span>
+request.send("datasize=0");</pre>
+    </li>
+    <li>The POST data '<tt>datasize=0</tt>' specifies that the amount of XML data sent from the server is zero at the beginning</li>
+    <li>Later if we send a request to <tt>server.php</tt> again to get the latest copy of XML data, the size of the XML data (not the XML data itself) sent from the server previously will be set in the POST data as follows
+      <pre>request.send("datasize=" + datasize);</pre>
+    </li>
+    <li>Then the <tt>server.php</tt> can use the data size to check whether we have got the latest copy of the data on the server</li>
+    <li>After sending the request, JavaScript code in <tt>message.php</tt> will call the callback function if any response is received</li>
+    <li>Because the output from <tt>server.php</tt> is an XML message, we need to parse this XML message and display it appropriately</li>
+    <li>We can use a function called <tt>loadXML</tt> provided by the <tt>ActiveXObject</tt> to do so
+      <pre>xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+xmlDoc.loadXML(request.responseText);</pre>
+    </li>
+    <li>This function helps us parse any XML into a nice DOM structure so that we can use normal DOM functions to traverse the data set</li>
+    <li>The parsing of the XML message is done in the Javascript callback function <tt>stateChange()</tt></li>
+    <li>When we receive the response from <tt>server.php</tt>, it will be parsed into DOM document nodes</li>
+    <li>Here is the information flow beween <tt>message.php</tt> and <tt>server.php</tt>
+      <p><img src="images/html2swf_flow.png" alt="HTML to SWF Flow" /></p>
+    </li>
+    <li>Then we need to display the messages using Flash by traversing the returned DOM document nodes and sending the information to the Flash program</li>
+   --> </ul>
+
+
+  <h4 id="section2.3.2">2.3.2. Displaying and updating chat message</h4>
+
+  <ul>
+    <li>In function <tt>updateChat()</tt>, a for-loop is used to scan through all message nodes inside the DOM tree</li>
+   <!--
+    <li><span style="color: red">In this lab, you need to add the JavaScript code for creating a string and pass it to the Flash area</span></li>
+    <li>Here is the information flow between <tt>message.php</tt> and the Flash
+      <p><img src="images/html2swf_flow1b.png" alt="HTML to SWF Flow" /></p>
+    </li>
+    <li>Because Flash operates as a black box, we cannot directly execute user-defined functions declared in the Flash program</li>
+    <li>Instead, we need to create a string and pass it to Flash</li>
+    <li>The following JavaScript code is used for each message</li>
+    <li>To create a string for the messages, we can use the following code:
+      <pre><span class="comment">// Point to the message nodes</span>
+var messages = xmlDoc.getElementsByTagName("message");
+var msgStr = "";
+for (var i = lastMsgID; i &lt; messages.length; i++) {
+    <span class="comment">// Obtain user name and message content from each message node,</span>
+    <span class="comment">// and add to the variable msg</span>
+    <span class="comment">// We use "|" as a separator to separate each user name and message content</span>
+    var msg = messages.item(i);
+    msgStr += "|" + msg.getAttribute("name");
+    msgStr += "|" + msg.firstChild.nodeValue;
+}
+msgStr += "|";
+
+<span class="comment">// Start to process the messages from here next time</span>
+lastMsgID = messages.length;
+-->
+
+</pre>
+    </li>
+    <li>For example, if there are two new messages, like this:
+      <pre>Bob: Welcome to the chat system!
+Alice: Good Morning</pre>
+    </li>
+    <li>Then the DOM tree looks like this:
+      <p><img src="images/dom_messages.png" alt="The DOM of the Messages" /></p>
+    </li>
+    <!--
+    <li>The variable <tt>msgStr</tt> will be as follows:
+      <p><img src="images/html2swf_string.png" alt="The String Format" /></p>
+    </li>
+    <li>Each user name and each message are separated by "|"</li>
+    <li>Then we need to pass the string to the Flash area
+      <pre>var chatroom = document.getElementById("chatroom");
+
+<span class="comment">// Pass the value to the variable newMessage of Flash</span>
+chatroom.SetVariable("newMessage", msgStr);</pre>
+    </li>
+    -->
+  </ul>
+
+<!--
+  <h3 id="section2.4">2.4. chat.swf - Updating the chat area</h3>
+
+  <ul>
+    <li>In the Flash, we need to create a timer to execute the function <tt>readMsg()</tt> to repectedly check whether the variable <tt>newMessage</tt> is updated</li>
+    <li>Here is the flow inside the Flash for displaying messages on the screen
+    <p><img src="images/html2swf_flow2.png" alt="HTML to SWF Flow" /></p>
+    </li>
+    <li>The following is the pseudo-code for reading the variable <tt>newMessage</tt>
+      <pre>setTimeout(readMsg, interval); <span class="comment">// Set up timer</span>
+
+function readMsg() {
+    if (newMessage.length &gt; 0) { <span class="comment">// If variable has been used</span>
+
+        loop {
+            <span class="comment">// Retrieve user name and message content from the</span>
+            <span class="comment">// variable newMessage.</span>
+            <span class="comment">// Use the value of newMessage to create text fields</span>
+            <span class="comment">// and display in the chat area.</span>
+            createMsg();
+        }
+
+        <span class="comment">// Then reset the variable newMessage to empty string</span>
+        newMessage = "";
+    }
+    setTimeout(readMsg, interval);
+}</pre>
+    </li>
+    <li>If the length of the variable <tt>newMessage</tt> is larger than zero, <tt>createMsg()</tt> will be executed</li>
+    <li><tt>createMsg()</tt> adds two text fields to the chat area for each message</li>
+    <li>The first text field is used for displaying the user name, the second text field is used for displaying the message content</li>
+    <li>For example, this is the display if the user name is <tt>"Bob"</tt> and the message is <tt>"Welcome to the chat system!"</tt>
+      <p><img src="images/message.png" alt="The Message Content" /></p>
+    </li>
+    <li>The following is the ActionScript code of <tt>createMsg()</tt>
+      <pre><span class="comment">// Create a message object</span>
+var chatMsg = _root.createEmptyMovieClip("chat" + index, depth++);
+
+<span class="comment">// Create a user field in the message object</span>
+var user_Field = chatMsg.createTextField(
+    "user_Field", user_field_depth,
+    "user_field_x, user_field_y,
+    user_field_width, user_field_height);
+user_Field.text = "<span class="todo">... user name ...</span>";
+
+<span class="comment">// Create a message field in the message object</span>
+var msg_Field = chatMsg.createTextField(
+    "msg_Field", msg_field_depth,
+    msg_field_x, msg_field_y,
+    msg_field_width, msg_field_height);
+msg_Field.text = "<span class="todo">... message content ...</span>";</pre>
+    </li>
+  </ul>
+-->
+  <h2>Submission</h2>
+
+  <ul>
+    <li>This work is the start of your assignment 3</li>
+    <li>It is essential that you complete it, and keep a copy of it for further development</li>
+  </ul>
+
+</body>
+</html>

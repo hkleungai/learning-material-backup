@@ -1,0 +1,136 @@
+
+<!-- saved from url=(0068)http://course.cse.ust.hk/comp4021/hkust/labs/01/solution/hammer.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html" charset="windows-1252">
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+
+var moving_timer, count_down_timer;	// Declare the two timers
+var score = 0;				// To store the score of the player
+var time_remaining = 10;		// To store the time remaining
+var monster_position=0;			// To store the position of the monster
+var finished=false;			// Indicate whether the game is finished or not
+var hitSound, missSound;		// Declare the two sounds
+
+function game_start(){
+	// initialize sounds
+	hitSound = document.getElementById("ouch");
+	missSound = document.getElementById("boo");
+    //alert(hitSound);
+
+	// count down after one second
+	count_down_timer = setTimeout("count_down()", 1000) ;
+	// let the monster moves
+	relocate();
+}
+
+function count_down(){
+
+	// decrease remaining time by one
+	time_remaining = time_remaining - 1 ;
+
+	// update the text disply
+	var timer_element = document.getElementById( "timer_text" ) ;
+	timer_element.innerHTML = "Time remaining: " + time_remaining + " sec" ;
+
+	// call the function again after one second or finish the game
+	if (time_remaining == 0)
+      	game_over() ;
+	else count_down_timer = setTimeout("count_down()", 1000) ;
+}
+
+function relocate(){
+
+	// clear previous image
+	document.images[monster_position].src = './hammer_files/empty.png';
+	// generate a random number between 0 and 8
+	var old_position = monster_position;
+	while (old_position == monster_position)
+		monster_position = Math.floor(Math.random()*9);
+	// move the monster to the new position
+	document.images[monster_position].src = './hammer_files/monster.png';
+	// call this function again after certain period of time
+	moving_timer = setTimeout("relocate()", 600);
+}
+
+function game_over(){
+
+	// set the variable, finished, to true
+	finished = true;
+	// clear the two timers
+	clearTimeout(moving_timer);
+	clearTimeout(count_down_timer);
+	// alert player
+	alert("Times up!!!");
+}
+
+function keyboard_event(event){
+	// transform event into key
+	var pressed_key = String.fromCharCode(event.keyCode);
+	// transform key into image index
+	var hit_box;
+	switch(pressed_key) {
+		case 'Q': hit_box=0; break;
+		case 'W': hit_box=1; break;
+		case 'E': hit_box=2; break;
+		case 'A': hit_box=3; break;
+		case 'S': hit_box=4; break;
+		case 'D': hit_box=5; break;
+		case 'Z': hit_box=6; break;
+		case 'X': hit_box=7; break;
+		case 'C': hit_box=8; break;
+	}
+	if (hit_box == monster_position){
+
+		// updates player score
+		score++;
+		var score_element = document.getElementById( "score_text" ) ;
+		score_element.innerHTML = "Score: " + score;
+
+		// clear the running timer
+		clearTimeout(moving_timer);
+		// ask the monster to relocate now
+		hitSound.pause();
+		hitSound.play();
+		relocate();
+	}
+	else {
+		missSound.pause();
+		missSound.play();
+	}
+}
+
+-->
+</script>
+<style type="text/css"></style></head>
+
+<body onload="game_start()" onkeydown="if (!finished) keyboard_event(event)">
+
+  <table border="10" width="300">
+    <tbody><tr>
+      <td height="100" width="100"> <img src="hammer_files/empty.png" height="100" width="100"> </td>
+      <td height="100" width="100"> <img src="hammer_files/empty.png" height="100" width="100"> </td>
+      <td height="100" width="100"> <img src="hammer_files/empty.png" height="100" width="100"> </td>
+    </tr>
+    <tr>
+      <td height="100" width="100"> <img src="hammer_files/empty.png" height="100" width="100"> </td>
+      <td height="100" width="100"> <img src="hammer_files/empty.png" height="100" width="100"> </td>
+      <td height="100" width="100"> <img src="hammer_files/empty.png" height="100" width="100"> </td>
+    </tr>
+    <tr>
+      <td height="100" width="100"> <img src="hammer_files/empty.png" height="100" width="100"> </td>
+      <td height="100" width="100"> <img src="hammer_files/empty.png" height="100" width="100"> </td>
+      <td height="100" width="100"> <img src="hammer_files/empty.png" height="100" width="100"> </td>
+    </tr>
+  </tbody></table>
+
+  <div id="timer_text" style="font-size:32pt">Time remaining: 0 sec</div>
+
+  <div id="score_text" style="font-size:32pt">
+    Score: 0
+  </div>
+
+<audio src="hammer_files/boo.mp3" type="audio/mpeg" width="0" height="0" id="boo"></audio>
+<audio src="hammer_files/ouch.mp3" type="audio/mpeg" width="0" height="0" id="ouch"></audio>
+
+</body></html>

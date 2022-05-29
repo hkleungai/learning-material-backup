@@ -1,0 +1,132 @@
+<html>
+<head>
+<title>Layers example - Swimming Fish</title>
+
+<script language="javascript">
+/*
+
+ This is an example of z-index and layer handling
+
+*/ 
+
+<!--
+var fish_layer, red_pole_layer, blue_pole_layer, green_pole_layer;
+var started;
+
+/* 
+	Use an integer value to represent the fish's direction
+
+	-1 means that the fish moves to the left hand side
+	1 means that the fish moves to the right hand side
+*/
+var toLeft = -1;		
+var toRight = 1;
+
+function init() {
+	started = true;
+
+	// Find and point elements
+	fish_layer = document.getElementById("fish");
+	fish_layer.currentImg = document.getElementById("currentImg");
+
+	red_pole_layer = document.getElementById("redpole");
+	blue_pole_layer = document.getElementById("bluepole");
+	green_pole_layer = document.getElementById("greenpole");
+
+	// At the beginning, set the fish's direction to 1 
+        // (= move to the right hand side)
+	fish_layer.direction = toRight;
+	fish_layer.position = 10;
+
+
+	// Move the fish
+	move_fish();
+}
+
+
+function move_fish() {      
+
+/* 
+	Update the position of the fish
+
+	Remember that:
+	if the fish.direction value is 1, the fish 
+		moves to the left hand side.
+	if the fish.direction value is -1, the fish 
+		moves to the right hand side.
+*/
+
+	fish_layer.position += 4 * fish_layer.direction;
+	fish_layer.style.left = fish_layer.position;
+
+	// Check whether the fish reaches the boundary
+	if (fish_layer.position <= 10 || fish_layer.position >= 420) {
+		change_layer_order();
+		change_direction();
+	}
+	
+	// repeat the loop using a timer
+	setTimeout("move_fish()", 50);
+    
+}
+
+// change the fish's direction
+function change_direction () {
+
+	if (fish_layer.direction == toRight) {
+		fish_layer.direction = toLeft;
+		fish_layer.currentImg.src = "images/fish_to_left.gif";
+	}
+	else {
+		fish_layer.direction = toRight;
+		fish_layer.currentImg.src = "images/fish_to_right.gif";
+	}
+}
+
+//change the depths of the poles 
+function change_layer_order () {    
+/* 
+	swap the z-index values of the blue, green pole and red pole	
+
+	In JavaScript, if we need to change the z-index of an element, 
+	we should change the value of zIndex instead.
+*/
+
+	var tmp = redpole.style.zIndex;	
+	red_pole_layer.style.zIndex = bluepole.style.zIndex;
+	blue_pole_layer.style.zIndex = tmp;
+	green_pole_layer.style.zIndex = tmp;
+}
+-->
+</script>
+</head>
+   
+<body>
+
+<h1>Layers Example - Swimming Fish</h1>
+
+<div id="bluepole" style="position:absolute; left:160; top:100; z-index:1">
+	<img src="images/bluepole.gif">
+</div>
+
+<div id="redpole" style="position:absolute; left:260; top:100; z-index:3">
+	<img src="images/redpole.gif">
+</div>
+
+<div id="greenpole" style="position:absolute; left:360; top:100; z-index:1">
+	<img src="images/greenpol.gif">
+</div>
+
+
+<div id="fish" style="position:absolute; left:10; top:170; z-index:2">
+	<img id="currentImg" src="images/fish_to_right.gif">
+</div>
+
+<form>
+	<input type="button" value="Move the fish" 
+		onclick="if (!started) init();">
+</form>
+
+</body>
+</html>
+

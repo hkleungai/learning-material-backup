@@ -1,1 +1,0 @@
-# COMP2021-Unix-Scrit-Pprogramming

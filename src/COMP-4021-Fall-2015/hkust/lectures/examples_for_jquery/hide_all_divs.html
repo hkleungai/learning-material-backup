@@ -1,0 +1,38 @@
+<html>
+<head>
+
+  <link rel="stylesheet" href="jquery-ui-1.11.4.custom/jquery-ui.css">
+  <script src="jquery-1.11.2.js"></script>
+  <script src="jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+
+<script>
+function hideAllDivs() {
+   var divs=document.getElementsByTagName('div');
+   for (i=0 ; i<divs.length; i++) {
+		divs[ i ].style.display = 'none';
+   };
+};
+
+$(function(){
+	$("#myButton").click(function(){
+		$("div").hide();
+   		return false;
+ 	});
+});
+
+
+
+</script>
+</head>
+
+<body>
+<button id="myButton">Click to hide with jQuery</button> 
+<button id="jsButton" onClick="hideAllDivs()">Click to hide with JavaScript</button> 
+<div>
+Hide me!
+</div> 
+<div>
+Hide me!
+</div>
+</body>
+</html>

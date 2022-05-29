@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     version="1.1"
+     baseProfile="full" 
+     width="1000" height="800"
+     onclick="insert_a_circle(evt)">
+
+<script type="text/javascript">
+<![CDATA[
+
+var SVGDocument = null;
+var SVGRoot = null;
+
+function insert_a_circle(event)
+{
+SVGDocument = event.target.ownerDocument;
+SVGRoot = SVGDocument.documentElement;
+
+var newnode=SVGDocument.createElementNS("http://www.w3.org/2000/svg","circle");
+var cx=Math.floor(Math.random() * 1000);
+var cy=Math.floor(Math.random() * 800);
+var r=Math.floor(Math.random() * 100);
+newnode.setAttribute('cx', cx);
+newnode.setAttribute('cy', cy);
+newnode.setAttribute('r', r);
+newnode.setAttribute('fill', "blue");
+
+SVGRoot.appendChild(newnode);
+}
+
+]]>
+
+</script>
+
+
+<text x="200" y="100" style="font-size:30px;font-family:Lucida Handwriting">Click here to add a circle</text>
+
+</svg>
+

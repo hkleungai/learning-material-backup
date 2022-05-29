@@ -1,0 +1,37 @@
+
+<html>
+<head>
+  <link rel="stylesheet" href="jquery-ui-1.11.4.custom/jquery-ui.css">
+  <script src="jquery-1.11.2.js"></script>
+  <script src="jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+
+<script>
+$(function() {
+var items = [
+	{ label: "Bianche Classic",
+      value: "Bianche Classical Bicycle",
+      price: "HKD $1000",
+    },
+	{ label: "Bianche Sport",
+      value: "Bianche Superlight Bicycle",
+      price: "HKD $2500",
+    }
+  ];
+  $( "#searchBox" ).autocomplete( {
+    source: items,
+    select: function ( event, ui ) {
+      var itemDesc = ui.item.value + " " + ": " + ui.item.price;
+      $( "#searchBox" ).val(itemDesc);
+      return false
+      }
+  });
+});
+</script>
+</head>
+<body>
+<div class="ui-widget">
+  <label>Price Check: </lable><input type="text" id="searchBox" name="q" size="40" value="">
+</div>
+<p id="details"></p>
+</body>
+</html>

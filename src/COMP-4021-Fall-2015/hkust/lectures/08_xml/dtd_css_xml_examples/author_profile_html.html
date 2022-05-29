@@ -1,0 +1,77 @@
+<html>
+<head><title>dahl.xml</title></head>
+<body>
+<xmp>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="author_profile_html.css" />
+    <script type="text/javascript">
+    function makeList(xmlDoc, name) {
+        var html = "";
+        var list = xmlDoc.getElementsByTagName(name);
+        for (var i = 0; i < list.length; i++) {
+            var el = list.item(i);
+            html += "<div class='" + name + "'>";
+            html += makeBook(el);
+            html += "</div>";
+        }
+        return html;
+    }
+
+    function makeBook(el) {
+        var html = "";
+        html += makeElement(el, "Title", "div");
+        html += makeElement(el, "Description", "div");
+        html += makeElement(el, "Comment", "span");
+        html += makeElement(el, "Pages", "span", "Pages: ");
+        html += makeElement(el, "Price", "span", "Price: ");
+        return html;
+    }
+
+    function makeElement(el, name, tag, text) {
+        var html = "";
+        if (el.getElementsByTagName(name).length > 0) {
+            html += "<" + tag + " class='" + name + "'>";
+            if (text) html += text;
+            html += el.getElementsByTagName(name).item(0).firstChild.nodeValue;
+            html += "</" + tag + ">";
+        }
+        return html;
+    }
+
+    function createDocument() {
+        try {
+            xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+        }
+        catch(e) {
+            try {
+                xmlDoc=document.implementation.createDocument("", "", null);
+            }
+            catch(e) {
+                alert(e.message);
+                return;
+            }
+        }
+        try {
+            xmlDoc.async = false;
+            xmlDoc.load("dahl.xml");
+        }
+        catch(e) {
+            alert(e.message);
+            return;
+        }
+
+        var html = "";
+        html += makeList(xmlDoc, "Autobiography");
+        html += makeList(xmlDoc, "Childrens-Book");
+        html += makeList(xmlDoc, "Short-Story-Collection");
+        document.body.innerHTML = html;
+    }
+    </script>
+</head>
+<body onload="createDocument()">
+</body>
+</html>
+</xmp>
+</body>
+</html>

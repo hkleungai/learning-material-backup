@@ -1,0 +1,49 @@
+<html>
+<head>
+    <title>Example Project Development - Click Game</title>
+    <script language="javascript" type="text/javascript">
+    <!--
+    var the_timer;
+    var count = 0;
+    var width = 400;
+    var height = 400;
+    var player_score = 0;
+    var finished = false;
+
+    function move_monster_layer() {
+        var the_monster = document.getElementById("monster");
+        var x = Math.floor(Math.random() * width);
+        var y = Math.floor(Math.random() * height);
+        the_monster.style.left = x;
+        the_monster.style.top = y;
+        count = count + 1;
+        if (count == 10) {
+            finished = true;
+            document.getElementById("score").innerHTML =
+                "Game finished! Score = " + player_score;
+        }
+        else
+            the_timer = setTimeout("move_monster_layer()",500);
+    }
+
+    function get_monster() {
+        player_score = player_score + 10;
+        document.getElementById("score").innerHTML =
+            "Score: " + player_score;
+    }
+    -->
+    </script>
+</head>
+<body onload="move_monster_layer()">
+    <h1>Get the Monster!</h1>
+    <h2>Click on the monster as many times as you can.</h2>
+    <h2>You have 10 chances.</h2>
+
+    <div id="monster" onmousedown="if (!finished) get_monster()"
+         style="position:absolute;">
+        <img src="monster.png">
+    </div>
+
+    <div id="score" style="font-size:28pt">Score: 0</div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<html>
+<head>
+<script>
+var windowObject = null;
+var oldMessage = "Child Window";
+var newMessage = "Hello, how are you?";
+
+function openWindow() {
+  windowObject = window.open("10_child_window.html", "", "height=200,width=300");
+}
+var childColor = "black";
+function triggerChildColor() {
+  if (windowObject != null) {
+    if (childColor == "black") {
+      windowObject.document.getElementById("childtest1").style.color = "red";
+      childColor = "red";
+    } else {
+      windowObject.document.getElementById("childtest1").style.color = "black";
+      childColor = "black";
+    }
+  } else {
+    alert("no child window");
+  }
+}
+
+function changeChildMessage() {
+  if (windowObject != null) {
+      currentMessage=windowObject.document.getElementById("childtest1").innerHTML;
+      if (currentMessage == oldMessage) {
+        currentMessage = newMessage;
+      } else {
+        currentMessage = oldMessage;
+      }
+      windowObject.document.getElementById("childtest1").innerHTML = currentMessage;
+  } else {
+    alert("no child window");
+  }
+}
+
+</script>
+</head>
+<body>
+<span align="center">
+<div id="parenttest1">Parent Window</div>
+<p/>
+<a href="10_parent_window.html" onClick="openWindow();return false;">Open a Child Window</a>
+<p/>
+<a href="10_parent_window.html" onClick="triggerChildColor();return false;">Change Child
+Window Color</a>
+<p/>
+<a href="10_parent_window.html" onClick="changeChildMessage();return false;">Change Child
+Message</a>
+</span>
+</body>
+</html>

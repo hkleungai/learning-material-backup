@@ -1,0 +1,85 @@
+<!--
+
+This example displays the DOM structure of a particular object once a user click the mouse
+on that object. The structure is shown by going back to the object's parent node until
+the document object (root) is reached.
+
+-->
+
+<HTML>
+<HEAD>
+<TITLE>DOM Tree Structure</TITLE>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+// Traverse the tree structure of the node
+function click() {
+	var node=this;
+	tree=node.nodeName;
+	while (node.parentNode) {
+		node = node.parentNode;
+		tree=node.nodeName+" -> "+tree;
+	}
+	alert(tree);
+}
+
+// Register the click handler for the links and form's elements
+function Init() {
+	for (var i=0; i<document.links.length; i++) {
+		document.links[i].onclick = click;
+	}
+	for (var i=0; i<document.forms.length; i++) {
+		for (var j=0; j<document.forms[i].elements.length; j++) {
+			document.forms[i].elements[j].onclick = click;
+		}
+	}
+}
+
+// -->
+</SCRIPT>
+</HEAD>
+<BODY onLoad="Init()">
+<B>Click on the link or form elements to get the DOM 
+path to that node</B>
+<P>
+
+<b>(The html that you see below is just some 'random' html which 
+helps to demonstrate the technique).</b>
+<P>
+<B>LISTS</B>
+<UL>
+<LI><A HREF="javascript:void(0)">List 1</A>
+<LI><A HREF="javascript:void(0)">List 2</A>
+<LI><A HREF="javascript:void(0)">List 3</A>
+<LI><A HREF="javascript:void(0)">List 4</A>
+<OL>
+<LI><A HREF="javascript:void(0)">Order List 1</A>
+<LI><A HREF="javascript:void(0)">Order List 2</A>
+<LI><A HREF="javascript:void(0)">Order List 3</A>
+<LI><A HREF="javascript:void(0)">Order List 4</A>
+<OL>
+</UL>
+<P>
+<B>TABLES</B>
+<TABLE BORDER=3>
+<TR>
+<TD><A HREF="javascript:void(0)">Cell 1</A></TD>
+<TD><A HREF="javascript:void(0)">Cell 2</A></TD>
+<TD><A HREF="javascript:void(0)">Cell 3</A></TD>
+<TD><A HREF="javascript:void(0)">Cell 4</A></TD>
+</TR>
+<TR>
+<TD COLSPAN=4>
+<FORM>
+<TABLE BORDER=1>
+<TD><INPUT TYPE="text"></TD>
+<TD><INPUT TYPE="button" VALUE="Click!"></TD>
+<TD><INPUT TYPE="checkbox"></TD>
+<TD><INPUT TYPE="radio"></TD>
+</TABLE>
+</FORM>
+</TD>
+</TR>
+</TABLE>
+</BODY>
+</HTML>

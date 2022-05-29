@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>jQuery UI Autocomplete functionality</title>
+  <link rel="stylesheet" href="jquery-ui-1.11.4.custom/jquery-ui.css">
+  <script src="jquery-1.11.2.js"></script>
+  <script src="jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+      <style>
+         #project-label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 1em;
+         }
+         #project-icon {
+            float: left;
+            height: 32px;
+            width: 32px;
+         }
+         #project-description {
+            margin: 0;
+            padding: 0;
+         }
+      </style>
+      <!-- Javascript -->
+      <script>
+         $(function() {
+            var projects = [
+            {
+               value: "java",
+               label: "Java",
+               desc: "write once run anywhere",
+            },
+            {
+               value: "jquery-ui",
+               label: "jQuery UI",
+               desc: "the official user interface library for jQuery",
+            },
+            {
+               value: "Bootstrap",
+               label: "Twitter Bootstrap",
+               desc: "popular front end frameworks ",
+            }
+         ];
+         $( "#project" ).autocomplete({
+            minLength: 0,
+            source: projects,
+            focus: function( event, ui ) {
+               $( "#project" ).val( ui.item.label );
+                  return false;
+               },
+            select: function( event, ui ) {
+               $( "#project" ).val( ui.item.label );
+               $( "#project-id" ).val( ui.item.value );
+               $( "#project-description" ).html( ui.item.desc );
+               return false;
+            }
+         })
+         .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+            return $( "<li>" ).append( "<a>" + item.label + "<br>" + item.desc + "</a>" ).appendTo( ul );
+         };
+         });
+      </script>
+   </head>
+   <body>
+      <div id="project-label">Select a project (type "a" for a start):</div>
+         <input id="project">
+         <input type="hidden" id="project-id">
+         <p id="project-description"></p>
+   </body>
+</html>

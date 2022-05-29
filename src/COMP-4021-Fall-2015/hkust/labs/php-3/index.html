@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>COMP4021 Lab 9 - Assignment 3 Techniques</title>
+    <link rel="stylesheet" type="text/css" href="../lab.css" />
+</head>
+
+<body>
+
+    <h1>
+        <span class="lab">COMP4021 Lab 9</span>
+        <span class="title">Assignment 3 Techniques</span>
+    </h1>
+
+    <h2>Overview</h2>
+
+    <ul>
+        <li>In this lab, we will discuss some requirements of your assignment 3</li>
+    </ul>
+
+    <h2>Assignment Requirements</h2>
+
+    <ul>
+        <li>Here are the assignment areas:
+        <ul>
+            <li>Chat Engine</li>
+            <li><b>Logging In</b></li>
+            <li>Logging Out</li>
+            <li>Chat Message Input</li>
+            <li><b>Select Message Colour</b></li>
+            <li><b>Automatic Hyperlink</b></li>
+      <!--      <li>Audio Chat – Voice Recording Upload</li>
+            <li>Accessing Audio</li> -->
+            <li><b>Online User List</b></li>
+        </ul>
+        </li>
+        <li>The areas in bold above will be discussed in this lab</li>
+        <li>Note that the discussions in this lab <b>do not</b> intend to completely cover every single requirement of the assignment</li>
+        <li>Therefore you are strongly advised to read carefully about the assignment requirements when you work on the project</li>
+    </ul>
+
+    <h3>Logging In</h3>
+
+    <ul>
+        <li>Most of the requirements for user login have been given/completed in the previous labs</li>
+        <li>Compared to the labs the major feature to be added in this part is the upload of the user's picture</li>
+        <li>This feature involves the following modifications:
+        <ol>
+            <li>Add a file upload field in the login form</li>
+            <li>Save the upload picture somewhere on the server in <tt>login.php</tt></li>
+        </ol>
+        </li>
+        <li>The picture is used in the display in the online user list which will be discussed later in this lab</li>
+    </ul>
+
+    <!--<h3>Select Message Colour</h3>
+
+    <ul>
+        <li>You can refer to the examples on the course website on how to build the GUI for colour selection</li>
+        <li>There are many different ways to do that and one of the easiest ways is to use a collection of divs and a hidden field</li>
+        <li>Each message will be displayed using its own colour</li>
+        <li>The colour of a chat message is determined by the colour selection of the user on the message input form</li>
+        <li>That means you need to store the colour in <tt>chatroom.xml</tt>
+        <ul>
+            <li>i.e. a new colour attribute should be added to each <tt>message</tt> element</li>
+        </ul>
+        </li>
+        <li>When a message is displayed inside Flash you need to pass the appropriate colour value (in the form of <tt>#rrggbb</tt>) to the function <tt>setMsgFormat()</tt></li>
+        <li>Here is the function <tt>setMsgFormat()</tt>, which has been defined and used in your <tt>chat.swf</tt>:
+        <pre>function setMsgFormat(tf:TextField, newColor:Number, font:String, fontsize:Number) {
+	var msgFormat:TextFormat = new TextFormat();
+	msgFormat.font = font;
+	msgFormat.size = fontsize;
+	msgFormat.color = newColor;
+	msgFormat.leftMargin = 0;
+	msgFormat.rightMargin = 0;
+	tf.setTextFormat(msgFormat);
+	tf.autoSize = true;
+	tf.wordWrap = true;
+}</pre>
+        </li>
+    </ul>
+-->
+    <h3>Automatic Hyperlink</h3>
+
+    <ul>
+        <li>There are several ways to add hyperlinks in the chat system</li>
+        <li>One of the ways to implement this requirement is, before a chat message is displayed in the chat area, the content of the message is changed so that every URL becomes a link</li>
+        <!--<li>To use links in a Flash text field you can change the Flash text field into an HTML-enabled text field</li> -->
+        <li>You can use SVG link to create a link inside the displaying area. <a href="http://www.w3.org/wiki/SVG_Links">SVGlinks</a> </li>
+        <!--<li>To use an HTML-enabled text field, you need to do these:
+        <ol>
+            <li>Change the <tt>html</tt> property of the Flash text field to <tt>true</tt>
+            <pre><span class="todo">textfield</span>.html = true</pre>
+            </li>
+            <li>Set the content of the Flash text field using <tt>htmlText</tt> instead of <tt>text</tt>
+            <pre><span class="todo">textfield</span>.htmlText = <span class="todo">textfield content</span></pre>
+            </li>
+        </ol>
+        </li>
+        -->
+        <li>You can make use of the <tt>indexOf()</tt> function to search for an URL inside a chat message</li>
+    </ul>
+    <h3>Online User List</h3>
+    <ul>
+        <li>The online user list is shown using a new window created from the browser</li>
+        <li>You can use <tt>window.open()</tt> with appropriate parameters to open a new window</li>
+        <li>The content of this new window is a list of online users on the system, which can be obtained by looking at the <tt>users</tt> elements in your <tt>chatroom.xml</tt></li>
+        <li>You can build the display using a simple HTML list/table, <tt>img</tt> tags and any other suitable components</li>
+        <li>You need to make the display up-to-date</li>
+        <li>There are many possible techniques to do it and here are some of them:
+        <ol>
+            <li>Using AJAX with DOM
+            <ul>
+                <li>Similar to <tt>message.php</tt> you send an AJAX request to a php program and receive the up-to-date <tt>chatroom.xml</tt></li>
+                <li>Based on the content of the <tt>users</tt> element you update the display via the HTML DOM by traversing the DOM of the XML file</li>
+	    </ul>
+            </li>
+            <li>Using AJAX and reloading the page
+            <ul>
+                <li>You send an AJAX request to a php program</li>
+                <li>The php program returns true whenever the <tt>users</tt> element is updated</li>
+                <li>The user list page then refreshes itself using JavaScript code</li>
+            	</strike>
+	    </ul>
+            </li>
+            <li>Using AJAX and a div
+            <ul>
+                <li>You put a div in the user list page which is used to contain the table of the user list</li>
+                <li>You send an AJAX request to a php program</li>
+                <li>The php program returns HTML code of a list/table containing the current user list whenever a user logs on or off from the system</li>
+                <li>You can then replace the entire content of the div by setting the <tt>innerHTML</tt> of the div to be the returned HTML code</li>
+	    </ul>
+            </li>
+        </ol>
+        </li>
+    </ul>
+</body>
+</html>

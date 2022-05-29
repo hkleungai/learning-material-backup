@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>COMP4021 Lab 5 - Extending SVG Platform Game</title>
+  <link rel="stylesheet" type="text/css" href="../lab.css" />
+</head>
+
+<body>
+
+  <h1>
+    <span class="lab">COMP4021 Lab 5</span>
+    <span class="title">Extending SVG Platform Game</span>
+  </h1>
+
+  <h2>Overview</h2>
+
+  <ul>
+    <li>In this lab, you will continue building your assignment 2 - SVG Platform Game</li>
+    <li>You need to finish the previous lab before starting this one</li>
+    <li>If you have not finished the previous lab you could use the starting code from the previous lab <a href="game.zip">here</a></li>
+    <li>After the previous lab your game can do the following:
+      <ul>
+        <li>Move the player left/right using the N/M key</li>
+        <li>Make the player jump using the Z key</li>
+        <li>Select a zoom level</li>
+      </ul>
+    </li>
+    <li>You need to add three additional features to the game:
+      <ol>
+        <li><a href="index.html#add_monster">Add monsters to the game</a></li>
+        <li><a href="index.html#shoot_bullet">Shoot a bullet</a></li>
+        <li><a href="index.html#collision">Collision detection</a></li>
+      </ol>
+    </li>
+  </ul>
+
+  <h2>The DOM Structure of the SVG</h2>
+
+  <ul>
+    <li>The following figure shows the DOM structure of the SVG for this lab (extended from the previous lab):
+      <p><img src="images/dom_structure.png" alt="DOM Structure" /></p>
+    </li>
+    <li>A monster is defined in the <tt>&lt;defs&gt;</tt> node</li>
+    <li>Monsters in the game are added in a <tt>monsters</tt> group inside the game area
+      <ul>
+        <li>The group contains all monsters in the game</li>
+        <li>The monsters are copies of the monster which is defined in the <tt>&lt;defs&gt;</tt> area</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>Task</h2>
+
+  <h3 id="add_monster">1. Add Monsters to the Game</h3>
+
+  <ul>
+    <li>In this task, you are required to dynamically add monsters to the screen using JavaScript</li>
+    <li>We will add a simple monster
+      <ul>
+        <li>For your assignment, you must change the monster to something appropriate for your theme</li>
+      </ul>
+    </li>
+    <li>The game can have more than one monster at any one time</li>
+    <li>Nevertheless because all of them look the same we only need to define the appearance of the monsters once</li>
+    <li>We can then put multiple copies of the same monster in the game area using JavaScript</li>
+  </ul>
+
+  <h4>1.1 Define a Monster in the <tt>defs</tt> Node</h4>
+
+  <ul>
+      <li>First we put a monster, which is an SVG group containing the drawing of the monster, inside the <tt>&lt;defs&gt;</tt> node</li>
+    <li>The code below shows an example of an SVG monster definition:
+      <pre>&lt;g id="monster"&gt;
+  &lt;path d="M0,30 q0,-30 20,-30 t20,30 l0,10 <span class="todo">continue to the next line...</span>
+           l-5,-7 l-5,7 l-5,-7 l-5,7 l-5,-7 l-5,7 l-5,-7 l-5,7 l0,-10"
+        style="fill:gray;fill-opacity:0.5;stroke:black;stroke-width:2"/&gt;
+  &lt;circle cx="12" cy="20" r="5"
+          style="fill:yellow;stroke:black;stroke-width:2"&gt;
+    &lt;animateColor attributeName="fill" values="yellow;red;yellow"
+                  dur="1s" repeatCount="indefinite"/&gt;
+  &lt;/circle&gt;
+  &lt;circle cx="28" cy="20" r="5"
+          style="fill:yellow;stroke:black;stroke-width:2"&gt;
+    &lt;animateColor attributeName="fill" values="yellow;red;yellow"
+                  dur="1s" repeatCount="indefinite"/&gt;
+  &lt;/circle&gt;
+&lt;/g&gt;</pre>
+    </li>
+    <li>The above SVG defines this monster:
+      <p><img src="images/monster.png" alt="A Monster" /></p>
+    </li>
+    <li>Note that the above SVG code uses <tt>animateColor</tt>; it works in the Adobe SVG plugin but it may not work in some versions of Mozilla Firefox</li>
+    <li>After it has been defined the monster in the <tt>&lt;defs&gt;</tt> node can be refered to many times</li>
+    <li>Because the monster is in the <tt>&lt;defs&gt;</tt> node you cannot see it in the SVG area yet</li>
+    <li>You need to 'use' the definition before you can see it</li>
+  </ul>
+
+  <h4>1.2 Add Monsters into the Game Area</h4>
+
+  <ul>
+      <li>You need to add a new <tt>monsters</tt> group inside the game area group, i.e.:
+      <pre>&lt;g id="gamearea"&gt;
+    . . .
+    &lt;g id="monsters"/&gt;
+    . . .
+&lt;/g&gt;</pre>
+    </li>
+    <li>To make a new monster we dynamically create the SVG <tt>use</tt> tag using JavaScript</li>
+    <li>For example, the following code creates a <tt>use</tt> tag and adds it to the <tt>monsters</tt> group:
+      <pre>var monster = svgdoc.createElementNS("http://www.w3.org/2000/svg", "use");
+svgdoc.getElementById("monsters").appendChild(monster);</pre>
+    </li>
+    <li>The above code adds a monster to the DOM structure:
+      <p><img src="images/add_node.png" alt="Add a Monster" /></p>
+    </li>
+    <li>You need to specify the position of the monster, e.g. (200, 15):
+      <pre>monster.setAttribute("x", 200);
+monster.setAttribute("y", 15);</pre>
+    </li>
+    <li>Then you need to say which object to use for the <tt>use</tt> element as follows:
+      <pre>monster.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#monster");</pre>
+    </li>
+    <li>The above few lines of JavaScript code are equivalent to adding the following SVG:
+      <pre>&lt;use x="200" y="15" xlink:href="#monster"/&gt;</pre>
+    </li>
+    <li>As soon as the code is executed, the monster will be visible in the SVG area</li>
+    <li>You can create as many monsters as you like using the same method</li>
+    <li>For example, you can make a function for creating a monster and then you can call it many times:
+    <pre>function createMonster(x, y) {
+    . . .
+}</pre>
+    </li>
+    <li>The following example shows two monsters (two <tt>use</tt> nodes) have been added to the game:
+    <p><a href="images/two_monsters.png"><img src="images/two_monsters_small.png" alt="Two Monsters" /></a><br />
+    <span class="footnote">(Click to see the image in original size)</span></p>
+    </li>
+  </ul>
+
+  <h3 id="shoot_bullet">2. Shoot a Bullet</h3>
+
+  <ul>
+    <li>A monster can be shot by the player</li>
+    <li>In this section of the lab, we explain how to program the shooting ability</li>
+    <li>When the player shoots, a bullet will be shown moving across the game area
+      <ul>
+        <li>For your assignment, you must change the bullet to something appropriate for your theme</li>
+      </ul>
+    </li>
+    <li>Similar to a monster, a bullet is first defined in the <tt>defs</tt> area and is then created dynamically using JavaScript</li>
+    <li>You can then move the bullet across the screen by updating its position continuously</li>
+  </ul>
+
+  <h4>2.1 Define a Bullet in the <tt>defs</tt> Node</h4>
+
+  <ul>
+      <li>You can add the following code to define a simple bullet in the <tt>&lt;defs&gt;</tt> node:
+      <pre>&lt;g id="bullet"&gt;
+  &lt;circle cx="5" cy="5" r="5" style="fill:red"/&gt;
+  &lt;circle cx="6" cy="3" r="1" style="fill:pink"/&gt;
+&lt;/g&gt;</pre>
+    </li>
+    <li>The above SVG creates this bullet:
+      <p><img src="images/bullet.png" alt="A Bullet" /></p>
+    </li>
+    <li>Then you need to add a bullet group to the game area group so that all bullets go into this new group, i.e.:
+      <pre>&lt;g id="gamearea"&gt;
+    . . .
+    &lt;g id="bullets"/&gt;
+    . . .
+&lt;/g&gt;</pre>
+    </li>
+    <li>In this lab, the player can shoot as many bullets as he/she wants so there may be several bullets inside the bullet group at any one time</li>
+  </ul>
+
+  <h4>2.2 Shoot a Bullet</h4>
+
+  <ul>
+      <li>In <tt>game.js</tt>, we have to declare some variables as follows:
+      <pre>var BULLET_SIZE = new Size(10, 10); // The size of a bullet
+var BULLET_SPEED = 10.0;            // The speed of a bullet
+                                    //  = pixels it moves each game loop
+var SHOOT_INTERVAL = 200.0;         // The period when shooting is disabled
+var canShoot = true;                // A flag indicating whether the player can shoot a bullet</pre>
+    </li>
+    <li>We can then decide which key will initiate shooting in the <tt>keydown()</tt> function</li>
+    <li>In the example below the spacebar is used to shoot a bullet:
+      <pre>switch (keyCode) {
+    ...
+    case 32: // spacebar = shoot
+        if (canShoot) shootBullet();
+        break;
+    ...
+}</pre>
+    </li>
+    <li>A shooting game should stop a player from shooting many bullets in a short space of time because:
+      <ul>
+        <li>Too many bullets will slow the game down</li>
+        <li>The game will be too easy as monsters can be easily hit by many bullets</li>
+      </ul>
+    </li>
+    <li>We can disable shooting many bullets in a short space of time using the following idea:
+      <p><img src="images/canshoot.png" alt="canShoot Variable" /></p>
+    </li>
+    <li>A variable <tt>canShoot</tt> is used to determine whether the player can shoot a bullet or not</li>
+    <li>It is temporarily set to false when a player shoots a bullet, i.e. he/she cannot shoot another bullet immediately after that</li>
+    <li>The variable <tt>canShoot</tt> is changed back to true after a while, i.e. the player can shoot a bullet again</li>
+    <li>The code to shoot a bullet and set the <tt>canShoot</tt> variable is defined in the <tt>shootBullet()</tt> function, which you have to add to your code:
+      <pre>function shootBullet() {
+    // Disable shooting for a short period of time
+    . . .
+
+    // Create the bullet by createing a use node
+    . . .
+
+    // Calculate and set the position of the bullet
+    . . .
+
+    // Set the href of the use node to the bullet defined in the defs node
+    . . .
+
+    // Append the bullet to the bullet group
+    . . .
+}</pre>
+    </li>
+    <li>Remember shooting is disabled only for a short period of time</li>
+    <li>We can enable shooting again by setting a timeout as follows:
+      <pre>setTimeout("canShoot = true", SHOOT_INTERVAL);</pre>
+    </li>
+    <li>The initial position of the bullet is the center of the player</li>
+  </ul>
+
+  <h4>2.3 Move the Bullets across the Screen</h4>
+
+  <ul>
+    <li>After the bullet is created it moves to the right as indicated below:
+      <table class="noborder">
+        <tr>
+          <td><img src="images/shoot_1.png" alt="Start Shooting" /></td>
+          <td><big>&#x21E8;</big></td>
+          <td><img src="images/shoot_2.png" alt="Bullet Moved to the Right" /></td>
+        </tr>
+      </table>
+    </li>
+    <li>To do that, we update the position of the bullets in the <tt>gamePlay()</tt> function</li>
+    <li>We can move the bullets by creating a new function called <tt>moveBullets()</tt> as follows:
+    <pre>function moveBullets() {
+    // Go through all bullets
+    var bullets = svgdoc.getElementById("bullets");
+    for (var i = 0; i &lt; bullets.childNodes.length; i++) {
+        var node = bullets.childNodes.item(i);
+
+        // Update the position of the bullet
+        . . .
+
+        // If the bullet is not inside the screen delete it from the group
+        . . .
+    }
+}</pre>
+    </li>
+    <li>We can then call the function at the end of the <tt>gamePlay()</tt> function</li>
+    <li>If a bullet is not inside the game area it is not useful any more</li>
+    <li>That means we can delete it from the group using the <tt>removeChild()</tt> function</li>
+  </ul>
+
+  <h3 id="collision">3. Collision Detection</h3>
+
+  <ul>
+    <li>Something should happen when the player collides with a monster, or one of the bullets collides with a monster</li>
+    <li>A collision happens when two objects overlap each other</li>
+    <li>In this lab we will use a simple 'bounding box' approach to work out if a collision occurs</li>
+    <li>A bounding box is the name given to a simple box drawn around an object
+    <ul>
+        <li>For example, the bounding box of the player consists of the player's position, i.e. <tt>player.position</tt>, and size, i.e. <tt>PLAYER_SIZE</tt></li>
+    </ul>
+    </li>
+    <li>To test if a subject has collided with an object we consider whether the bounding box of the subject overlaps with the bounding box of any other object</li>
+    <li>To do this, you need to create a <tt>collisionDetection()</tt> function as follows:
+      <pre>function collisionDetection() {
+    // Check whether the player collides with a monster
+    var monsters = svgdoc.getElementById("monsters");
+    for (var i = 0; i &lt; monsters.childNodes.length; i++) {
+        var monster = monsters.childNodes.item(i);
+
+        // For each monster check if it overlaps with the player
+        // if yes, stop the game
+        . . .
+    }
+
+    // Check whether a bullet hits a monster
+    var bullets = svgdoc.getElementById("bullets");
+    for (var i = 0; i &lt; bullets.childNodes.length; i++) {
+        var bullet = bullets.childNodes.item(i);
+
+        // For each bullet check if it overlaps with any monster
+        // if yes, remove both the monster and the bullet
+        . . .
+    }
+}</pre>
+    </li>
+    <li>The <tt>collisionDetection()</tt> function is called at the start of the <tt>gamePlay()</tt> function</li>
+    <li>In the function, we have to check two things:
+      <ol>
+        <li><b>Player collides with a monster</b>
+          <ul>
+            <li>Collision occurs when the bounding box of the player overlaps with the bounding box around a monster
+              <p><img src="images/collide_player.png" alt="Player Collides Monster" /></p>
+            </li>
+            <li>If we find the player has collided with a monster, stop the game by clearing all timers used in the game</li>
+          </ul>
+        </li>
+        <li><b>Bullet collides with a monster</b>
+          <ul>
+            <li>Collision occurs when the bounding box of a bullet overlaps with the bounding box around a monster
+              <p><img src="images/collide_bullet.png" alt="Bullet Hits Monster" /></p>
+            </li>
+            <li>If we find a bullet has collided with a monster, remove <b>both</b> the bullet and the monster using the <tt>removeChild()</tt> function</li>
+          </ul>
+        </li>
+      </ol>
+    </li>
+    <li>To specify the size of a monster we add the following variables at the top of the <tt>game.js</tt> file:
+      <pre>var MONSTER_SIZE = new Size(40, 40); // The size of a monster</pre>
+    </li>
+    <li>The sizes of the player, monsters and bullets have to be defined in the code because they are not available from the SVG DOM</li>
+    <li>You can then use the position and size of the player, bullets and monsters to detect any collision using the <tt>intersect()</tt> function</li>
+  </ul>
+
+  <h2>Submission</h2>
+
+  <ul>
+    <li>No submission is required for this lab</li>
+    <li>You now have the essential skills to do the majority of the assignment</li>
+    <li>Cookies and high score handling will be covered in the next lab</li>
+  </ul>
+
+</body>
+</html>
