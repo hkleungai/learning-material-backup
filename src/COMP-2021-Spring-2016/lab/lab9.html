@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<html style="color:#333;background-color:#eee;font-family:'Trebuchet MS'">
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-5">
+<title>COMP2021 Lab9</title>
+<style>
+ol li {
+	margin: 1.5em;
+}
+pre {
+	border: 1px grey dotted;
+	padding: 1em;
+}
+</style>
+</head>
+<body>
+<h1>COMP2021 Lab9: PHP: Object-Oriented Programming</h1>
+<hr width="100%">
+<a href="lab9/lab9.zip">Sample Code Download</a><br>
+<a href="lab9/index.php.html">Sample Demo</a>
+<ol>
+<li>First, let's look at the contents of an example file in our site, index.php:<br>
+<pre><code>&lt;?php
+    include 'stdlib.php';
+    $site = new csite();
+    // this is a function specific to this site!
+    initialise_site($site);
+    $page = new cpage("Welcome to my site!");
+    $site->setPage($page);
+    $content = "Welcome to my personal web site!";
+    $page->setContent($content);
+    $site->render();
+?&gt;
+</code></pre>
+</li>
+
+<p>The stdlib.php file will contain the site-specific information - all the information that shouldn't be inside our classes and shouldn't be repeated
+ in every page. We set $site to be an instance of our site, and then call a function called initialise_site() to set it up with our basic, 
+ site-specific settings - that function will be in stdlib.php.</p>
+
+<p>Next we create a cpage object, passing into the constructor the title of the page, then use the setPage() function of our csite class to add the
+ page to our site for rendering.</p>
+
+<p>The next few lines set up the page-specific content for our cpage, and then calls the setContent() function of the object to add the text to the 
+page. Finally, we call the render() function of our csite object to output the HTML.</p>
+
+
+<li>Let's look at stdlib.php<br>
+<pre><code>&lt;?php
+    function __autoload($class) {
+        include "$class.php";
+    }
+
+    function initialise_site(csite $site) {
+        $site->addHeader("header.php");
+        $site->addFooter("footer.php");
+    }
+?&gt;
+</code></pre>
+</li>
+
+<p>The first part is the magic __autoload() function. Note how in index.php we don't specify either csite or cpage - we just presume they exist. This is 
+accomplished through the magic __autoload() function, but, when you think about it, that function couldn't go inside one of the classes (there's a 
+recursive bit of logic there!), and neither should it be replicated inside each of the page-specific scripts, as that would be a nightmare to 
+maintain. So, it's in stdlib.php.</p>
+
+<p>The second part is the initialise_site() function, where we add site-specific header and footer files for this site. The addHeader() and addFooter() 
+functions are both part of the csite class, which we'll look at in a moment. Note that the __autoload() function will look for csite.php and 
+cpage.php, so we need to supply those two.</p> 
+
+<li>Here's csite.php:<br>
+<pre><code>&lt;?php
+    class csite {
+        private $headers;
+        private $footers;
+        private $page;
+
+        public function __construct() {
+            $this->headers = array();
+            $this->footers = array();
+        }
+
+        public function __destruct() {
+            // clean up here
+        }
+
+        public function render() {
+            foreach($this->headers as $header) {
+                include $header;
+            }
+
+            $this->page->render();
+
+            foreach($this->footers as $footer) {
+                include $footer;
+            }
+        }
+
+        public function addHeader($file) {
+            $this->headers[] = $file;
+        }
+
+        public function addFooter($file) {
+            $this->footers[] = $file;
+        }
+
+        public function setPage(cpage $page) {
+            $this->page = $page;
+        }
+    }
+?&gt;
+</code></pre>
+</li>
+
+<p>The $headers and $footers variables are both arrays that will store file names of scripts to include at render-time - they are both initialised to be 
+empty arrays when the site is created. The setPage() function takes a cpage object (note the type hint!), and stores it away for rendering.</p>
+
+<p>The main function here is clearly render(), which is what the converts the various disparate parts into a working HTML file. It does that by first 
+including each of the scripts stored in $headers, then calling the render() function of the cpage object, then including all the footer files. In 
+reality it's not likely a site will have more than one header and footer file, but there's no harm being flexible!</p>    
+
+<li>Next up, the cpage.php file<br>
+<pre><code>&lt;?php
+    class cpage {
+        private $title;
+        private $content;
+
+        public function __construct($title) {
+            $this->title = $title;
+        }
+
+        public function __destruct() {
+            // clean up here
+        }
+
+        public function render() {
+            echo "&lt;H1&gt;{$this->title}&lt;/H1&gt;";
+            echo $this->content;
+        }
+
+        public function setContent($content) {
+            $this->content = $content;
+        }
+    }
+?&gt;
+</code></pre>
+</li>
+
+<p>So we've got $title and $content variables there, which is predictable enough. Note how the constructor takes the page title as its only parameter - 
+if you look back to index.php you'll see that being used. The setContent() function is pretty predictable, as is the main render() function itself - 
+it's all very basic right now.</p> 
+
+<li>The header.php file is site-specific, and so could be anything you want.<br>
+<pre><code>
+&lt;!DOCTYPE HTML&gt;
+&lt;html style="color:#333;background-color:#eee;font-family:'Trebuchet MS'"&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Language" content="en-us"&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-5"&gt;
+&lt;title>Object-Oriented Programming Demo&lt;/title&gt;
+&lt;style&gt;
+ol li {
+	margin: 1.5em;
+}
+pre {
+	border: 1px grey dotted;
+	padding: 1em;
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+</code></pre>
+
+<li>And footer.php.<br>
+<pre><code>
+&lt;p&gt;Any inquiry please contact your TA by email&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+</li> 
+</ol>
+
+<p>Any inquiry please contact your TA by email</p>
+</body>
+</html>

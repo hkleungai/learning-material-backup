@@ -1,0 +1,61 @@
+
+<!DOCTYPE HTML>
+<html style="color:#333;background-color:#eee;font-family:&#39;Trebuchet MS&#39;"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-5">
+<meta http-equiv="Content-Language" content="en-us">
+<head>
+<title>COMP2021 Lab 8 Sample: Google Map (HKUST)</title>
+<script src="https://maps.googleapis.com/maps/api/js"></script>
+<script>
+function initialize() {
+  var myCenter=new google.maps.LatLng(22.332405,114.2681679);
+  var mapProp = {
+    center:myCenter,
+    zoom:10,
+    mapTypeId:google.maps.MapTypeId.ROADMAP  };
+  var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+  var marker=new google.maps.Marker({position:myCenter,  });
+  marker.setMap(map);
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+</head>
+<body>
+<hr>
+<h1>COMP2021 Lab 8 Sample: Google Map (HKUST)</h1>
+<p><img src="hkust.jpg" width="800"></p>
+<div id="issues" style="margin:20px; padding:20px; border:1px dotted grey">
+<p>The Hong Kong University of Science and Technology (HKUST) is a public research university in Clear Water Bay Peninsula, Hong Kong. 
+Established in 1991, it is the territory's youngest higher learning institution with no precursory existence.</p>
+
+<p>The university consists of four disciplinary schools, which offer degrees in business and management, engineering, science, and humanities
+ and social science, alongside the Interdisciplinary Programs Office, which provides cross-disciplinary programs, and Fok Ying Tung Graduate 
+ School/Fok Ying Tung Research Institute, which promotes technology transfer and commercialisation. HKUST has been continuously viewed as one 
+ of the top three higher education institutions in Hong Kong.</p>
+</div>
+
+<div id="googleMap" style="width:800px;height:600px;"></div>
+<form method=POST> Change to
+    <select name="scale">
+        <option value="7">Overview</option>
+        <option value="10">County</option>
+        <option value="13">Town</option>
+        <option value="16">Street</option>
+        <option value="19">Building</option>
+    </select>
+    <select name="maptype">
+        <option value="ROADMAP">
+            Normal map</option>
+        <option value="SATELLITE">
+            Satellite data</option>
+        <option value="HYBRID">
+            Hybrid</option>
+        <option value="TERRAIN">
+            Terrain</option>
+    </select>
+    <input type=submit value="Go!">
+</form>
+
+
+
+Code run on Tuesday 24th May 2016</body>
+</html>

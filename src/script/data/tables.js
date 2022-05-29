@@ -145,6 +145,10 @@ const CATEGORIZED_PRE_COURSES = [
                 code: 'COMP 1022Q',
                 semesters: ['Spring 2020'],
             },
+            {
+                code: 'COMP 2021',
+                semesters: ['Spring 2016'],
+            }
         ],
     },
     {

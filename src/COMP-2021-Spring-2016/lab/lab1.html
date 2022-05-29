@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!-- saved from url=(0042)file:///F:/changbaosheng/Desktop/lab1.html -->
+<html style="color:#333;background-color:#eee;font-family:&#39;Trebuchet MS&#39;"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-5">
+<meta http-equiv="Content-Language" content="en-us">
+
+<title>COMP2021 Lab1</title>
+</head>
+<body>
+<h1>COMP2021 Lab1: Linux &amp; UNIX Basics</h1>
+<hr>
+<div id="issues" style="margin:20px; padding:20px; border:1px dotted grey">
+  <h3>Activating your CS Account (non-CS/CPEG/EE students only) </h3>
+  <p>By clicking <a href="http://cssystem.cse.ust.hk/home.php?docbase=UGuides&req_url=UGuides/activation.html">this link</a> you can follow the steps to activate your CS account, which is 
+    different from your ITSC account. CS/CPEG/EE and other students who have taken a 
+    CS course recently will have already activated this account. Your CS login name 
+    is the same as your ITSC login name.</p>
+  <h3>Logging in</h3>
+  <p>At the login screen, simply enter your username and password following the 
+    instructions.</p>
+  <h3>Accessing the Web</h3>
+  <p>After logging in, use a browser to access the comp2021 web page at <a href="../index.html">http://course.cse.ust.hk/comp2021/</a>. You can open the browser by clicking 
+    the second shortcut Web Browser in the screen's lower-left corner. You can also 
+    open the browser in <b>KMenu (first shortcut) &gt;&gt; Internet &gt;&gt; Firefox Web Browser 
+    or Konqueror</b>. Besides seeing the course web page and lab web page, try to 
+    access the web page of your TA through the comp2021 web page. If you have 
+    problems opening firefox, please follow the instructions <a href="http://cssystem.cs.ust.hk/home.php?docbase=FAQ/hkust_only&req_url=FAQ/hkust_only/lab2_firefox.html"> here</a> to troubleshoot the problems.</p>
+  <h3>Printing in the Lab</h3>
+  <p>The current settings of the lab machines do not allow students to print with 
+    the printers in the lab. You are suggested to submit the print job to other CS 
+    labs.</p>
+  <h3>Viewing the Lecture Notes</h3>
+  <p>With the CS Lab2 machines, there is no Microsoft Office. However you can use 
+    OpenOffice (<b>KMenu &gt;&gt; Office</b>) to display the COMP2021 PowerPoint notes. You 
+    can simply open the notes by clicking the links in the course website, or open 
+    them locally using the OpenOffice presentation software via the fifth shortcut 
+    called "Presentation".</p><h3>Try some editors</h3>
+  
+  <p>The common usage of editor is create a new file, edit, search, replace, copy and paste. You can download a file <a href="lab1/example.txt">here</a>. You can find tutorial for <a href="http://cmgm.stanford.edu/classes/unix/emacs.html">emacs</a> and <a href="https://linuxconfig.org/vim-tutorial">vim</a>.</p>
+</div>
+<h3>Familiarizing yourself with the Linux environment</h3>
+<p>The objective of Lab 1 is for you to try different Linux commands and know more about the Linux environment. The system used in CS Lab 2 is CentOS 5.6 (a RedHat variant) with the KDE windows manager. Besides using the consoles inside CS Lab 2, you can also access the machines remotely by SSH to hosts <code>csl2wk01.cse.ust.hk</code> to <code>csl2wk40.cse.ust.hk</code>.</p>
+<p style="color:red; text-align:center">Remember: Since the CS Lab 2 machines can be remotely accessed, please NEVER shut down the consoles by force!</p>
+<p>Open a Linux command-line terminal by 
+  double-clicking on the <em>Terminal</em> shortcut on the desktop. You may also 
+  open it by <strong><em>KMenu</em> &gt;&gt; <em>System</em> &gt;&gt; <em>Terminal</em></strong>. 
+  Try to get familiar with the Linux commands with the following steps.</p>
+<ol>
+  <li>Use the <code> vi </code> editor to create a file called <code>lab1</code> in your home directory (just type <code> vi lab1 </code> in the terminal) with the following contents (you can use emacs if you prefer)
+    :
+    <blockquote>
+      <pre>SOME SIMPLE UNIX/LINUX COMMANDS...
+ls - list the files in the current directory
+cat - concatenate and displays file contents
+rm - remove a file
+cp - copy source file to target file
+mv - move a file 
+man - display the reference manual pages by keyword</pre>
+    </blockquote>
+  </li>
+  <li>Copy the file <code>lab1</code> to a file called <code>lab1a</code>.</li>
+  <li>Check: What files are now in your home directory?</li>
+  <li>Show the contents of <code>lab1</code> and <code>lab1a</code> on your screen using ONE single command.</li>
+  <li>Try <code>cal 2014</code> to show the calendar for the year 
+    2014.</li>
+  <li>Try <code>date</code> to show the current date and time.</li>
+  <li>Try <code>whoami</code> to show who you are.</li>
+  <li>Listing the contents of a file:<br>
+    Save some text of this web page to a file called <code>webpage</code> (using copy &amp; paste, perhaps). Use the following commands to display the 
+    file. Use the <code>man</code> command to understand the 
+    difference between the four commands. (press q to quit <code>man</code>)
+    <ul>
+      <li><code>cat webpage</code></li>
+      <li><code>more webpage</code></li>
+      <li><code>tail webpage</code></li>
+      <li><code>head webpage</code></li>
+    </ul>
+    <div id="tasks" style="border:2px double grey; margin: 30px; padding:30px">
+      <h4>Quiz</h4>
+      <ol class="subquestion">
+        <li>What command lists the contents of <code>webpage</code> with a line number at the beginning of each line?</li>
+        <li>What command lists the <em>first 6 lines</em> of <code>webpage</code>?</li>
+        <li>What command lists the <em>last 6 lines</em> of <code>webpage</code>?</li>
+        <li>What command lists the contents of <code>webpage</code> with the <em>first 20 lines</em> <strong>skipped</strong>?</li>
+      </ol>
+    </div>
+  </li>
+<!--
+  <li>Type <code>man finger</code> and read about the command <code>finger</code>.
+    <p>Try fingering yourself.</p>
+    <p>Finger some people:
+    </p><ul>
+      <li><em>COMP2021 Instructor</em> - <code>lixin</code></li>
+      <li><em>COMP2021 TAs</em> - <code>zchang</code></li>
+    </ul>
+    <p>Now edit your own <code>.plan</code> file to add some 
+      personal information to it such as your mobile phone number, favorite music, 
+      and favorite hobby (think about what you're letting others to see). After 
+      creating the <code>.plan</code> file, issue the command <code>chmod 644 .plan</code> to make sure others have 
+      permission to read the file. Then the content can be displayed when they 
+      finger you.</p>
+    <p>Then finger yourself again.
+  </p></li>
+-->  
+  <!-- 
+<li>Merge two files without including their common lines. In the merged file, 1) all the lower case letters should be transformed into corresponding upper case letters; 2) sort the lines alphabetically. <br>e.g.,
+    <p>
+	<strong>Input</strong><br><br>
+	File1:<br>
+ccc<br>
+ddd<br>
+aaa<br>
+bbb<br><br>
+File2:<br>
+aaa<br>
+ggg<br>
+ccc<br>
+ddd<br>
+fff<br>
+<br>
+	<strong>Output</strong><br><br>
+	File3:<br>
+    BBB <br>
+    FFF <br>
+    GGG <br>	
+	</p>
+   </li>
+-->
+  <li>Log out. (under Menu in the lower-left corner of the screen)</li>
+</ol>
+<h2><a name="ans"> Lab Answers </a></h2>
+<p style="color:red">Please find the answers for lab 1: <a href="lab1/anslab1.txt">anslab1.txt</a>.</p>
+<h2> Linux on Virtual Machine </h2>
+<p>You can find a video on how to install <a href="http://www.vmware.com/">VMWare</a> with <a href="http://www.ubuntu.com/download">Ubuntu</a> on your Windows PC <a href="http://openclassroom.stanford.edu/MainFolder/VideoPage.php?course=PracticalUnix&video=intro-environment&speed=100">here</a>.</p>
+
+<!--
+<h2>CASS - Course Assignment Submission System</h2>
+-->
+<!--
+<p>If you don't attend the labs or you cannot finish the assignment in the lab, you need to 
+  submit the source code using the <a href="https://course.cse.ust.hk/cass/submit.html">CASS</a>. The instruction 
+  can be found in <a href="http://cssystem.cse.ust.hk/home.php?docbase=UGuides/cass&amp;req_url=UGuides/cass/student.html#access">this link</a>. </p>
+-->
+<hr><!--
+<h2>Demonstration and Submission</h2>
+-->
+<!--
+<p>Please submit your "lab1a" file using <a href="https://course.cse.ust.hk/cass/submit.html">CASS</a> on or before 10pm, Wednesday
+  (11-Feb-2015). The content of 
+  file "lab1a" does not matter. The purpose of this submission is to make sure you 
+  know how to submit a lab assignment using <a href="https://course.cse.ust.hk/cass/submit.html">CASS</a>. </p>
+-->
+<p>Any inquiry please contact your TAs by email.</p>
+
+
+
+</body></html>
