@@ -1,0 +1,734 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Content-Language" content="en-us">
+
+<meta http-equiv="Content-Type" content="text/html; charset=big5"><title>COMP2012H Lab (Pointers and Dynamic Objects)</title>
+
+
+
+<style>
+
+<!--
+
+h2
+
+	{margin-top:0in;
+
+	margin-right:0in;
+
+	margin-bottom:0in;
+
+	margin-left:13.5pt;
+
+	margin-bottom:.0001pt;
+
+	text-indent:-13.5pt;
+
+	text-autospace:none;
+
+	font-size:16.0pt;
+
+	font-family:"Times New Roman";
+
+	font-weight:normal}
+
+-->
+
+</style></head><body style="color: rgb(0, 0, 0);" alink="#ee0000" link="#0000ee" vlink="#551a8b">
+
+
+
+<b><font face="Arial,Helvetica" size="+2">COMP 2012H<br>Honors OOP and Data 
+
+Structures</font></b> 
+<p><b><font color="#cc0000" face="Arial,Helvetica" size="+2"> 
+
+Lab 6: Pointers, Dynamic Objects, Linked List and File I/O</font></b><br>
+
+</p>
+
+<hr width="100%">
+<div style="text-align: left;">
+<center>　</center>
+</div>
+
+
+<p><small><font size="4"><small>In this lab, we first review the pointers, dynamic objects. Then we</small></font></small><font size="4"><small> introduce the linked list and briefly go through the file i/o. </small></font><b><font size="4"><br>
+</font></b></p>
+<p><b><font size="4">Review of Pointers</font></b></p>
+
+
+<p>In previous labs, variables are memory cells that can be accessed by an 
+
+identifier (variable name). In fact, variables are stored in computer memory 
+
+with a unique address. </p>
+
+<p>We can imagine computer memory as a street in a city. On the street, all 
+
+houses are consecutively numbered with an unique identifier such as 1st of 
+
+Nathan Road, we will be able to find that place directly. The operating system 
+
+organizes the memory with unique and consecutive numbers, so if we talk about 
+
+location 1104 in the memory, we can access it at once.</p>
+
+<h2>Address (dereference) operator (<tt>&amp;</tt>).</h2>
+
+<p>At the moment in which we declare a variable it must be stored in a concrete 
+
+location in this succession of cells (the memory). We generally do not decide 
+
+where the variable is to be placed - fortunately that is something automatically 
+
+done by the compiler and the operating system at runtime, but once the operating 
+
+system has assigned an address there are some cases in which we may be 
+
+interested in knowing where the variable is stored. </p>
+
+<p>This can be done by preceding the variable identifier by an <i>ampersand sign</i> 
+
+(<tt>&amp;</tt>), which literally means <i><b>"address of"</b></i>. For example: </p>
+
+<blockquote>
+
+	<p><tt>ted = &amp;andy;</tt></p>
+
+</blockquote>
+
+<p>would assign to variable <tt><b>ted</b></tt> the address of variable <tt><b>
+
+andy</b></tt>, since when preceding the name of the variable <tt><b>andy</b></tt> 
+
+with the <i>ampersand</i> (<tt>&amp;</tt>) character we are no longer talking about 
+
+the content of the variable, but about its address in memory. </p>
+
+<p>We are going to suppose that <tt><b>andy</b></tt> has been placed in the 
+
+memory address <tt><b>1776</b></tt> and that we write the following: </p>
+
+<blockquote>
+
+	<p><tt><font face="Courier New">andy = 25;<br>
+
+	fred = andy;<br>
+
+	ted = &amp;andy; </font></tt></p>
+
+</blockquote>
+
+<p>the result is shown in the following diagram: </p>
+
+<blockquote>
+
+	<p><img src="imgpoin1.gif" height="136" width="404"></p>
+
+</blockquote>
+
+<p>　</p>
+
+<h2>Reference operator (<tt>*</tt>)</h2>
+
+<p>Using a pointer we can directly access the value stored in the variable 
+
+pointed by it just by preceding the pointer identifier with the reference 
+
+operator <i>asterisk</i> (<tt>*</tt>), that can be literally translated to <i>
+
+<b>"value pointed by"</b></i>. Therefore, following with the values of the 
+
+previous example, if we write: </p>
+
+<blockquote>
+
+	<p><tt><font face="Courier New">beth = *ted; </font></tt></p>
+
+</blockquote>
+
+<p>(that we could read as: "beth equal to <u>value pointed by</u> ted") <tt><b>
+
+beth</b></tt> would take the value <tt><b>25</b></tt>, since <tt><b>ted</b></tt> 
+
+is <tt><b>1776</b></tt>, and <i>the value pointed by</i> <tt><b>1776</b></tt> is
+
+<tt><b>25</b></tt>. </p>
+
+<blockquote>
+
+	<p><img src="imgpoin2.gif" height="197" width="479"></p>
+
+</blockquote>
+
+<p>You must clearly differentiate that <tt><b>ted</b></tt> stores <tt><b>1776</b></tt>, 
+
+but <tt><b>*ted</b></tt> refers to the value stored in the address <tt><b>1776</b></tt>, 
+
+that is <tt><b>25</b></tt>. Notice the difference of including or not including 
+
+the reference asterisk.</p>
+
+<blockquote>
+
+	<tt>
+
+	<pre><font face="Courier New"><b>beth = ted;</b>   <font color="green"><i>// beth equal to ted ( 1776 )</i></font>
+
+<b>beth = *ted;</b>  <font color="green"><i>// beth equal to <b>value pointed by</b> ted ( 25 )</i></font>
+
+</font></pre>
+
+	</tt>
+
+</blockquote>
+
+<p>　</p>
+
+<p><b>Operator of address or dereference (<tt>&amp;</tt>)</b><br>
+
+It is used as a variable prefix and can be translated as <b>"address of"</b>, 
+
+thus: <tt>&amp;variable1</tt> can be read as <i>"address of <tt>variable1</tt>"</i>
+
+</p>
+
+<p>　</p>
+
+<p><b>Operator of reference (<tt>*</tt>)</b><br>
+
+It indicates that what has to be evaluated is the content pointed by the 
+
+expression considered as an address. It can be translated by <b>"value pointed 
+
+by"</b>.<br>
+
+<tt>* mypointer</tt> can be read as <i>"value pointed by <tt>mypointer</tt>"</i>.
+
+</p>
+
+<p>At this point, and following with the same examples initiated above where:<br>
+
+　</p>
+
+<blockquote>
+
+	<p><tt>andy = 25;<br>
+
+	ted = &amp;andy;<br>
+
+　</tt></p>
+
+</blockquote>
+
+<p>what is the value of the following expressions?</p>
+
+<blockquote>
+
+	<pre><tt><font color="blue" face="Courier New">andy == </font><font face="Courier New"><font color="#ff0000">25</font><font color="blue">
+
+&amp;andy == </font><font color="#ff0000">1776</font><font color="blue">
+
+ted == </font><font color="#ff0000">1776</font><font color="blue">
+
+*ted ==</font><font color="#ff0000"> </font></font><font color="#ff0000" face="Courier New">25</font></tt></pre>
+
+</blockquote>
+
+<p>What is the result of the following examples?</p>
+
+<p><u>Example 1</u></p>
+
+<p><tt><font face="Courier New">#include &lt;iostream.h&gt;<br>
+
+<br>
+
+int main ()<br>
+
+{<br>
+
+&nbsp; int value1 = 5, value2 = 15;<br>
+
+&nbsp; int * mypointer;<br>
+
+<br>
+
+&nbsp; mypointer = &amp;value1;<br>
+
+&nbsp; *mypointer = 10;<br>
+
+&nbsp; mypointer = &amp;value2;<br>
+
+&nbsp; *mypointer = 20;<br>
+
+&nbsp; cout &lt;&lt; "value1==" &lt;&lt; value1 &lt;&lt; "/ value2==" &lt;&lt; value2;<br>
+
+&nbsp; return 0;<br>
+
+}<br>
+
+　</font></tt></p>
+
+<p><u>Example 2</u></p>
+
+<p><tt><font face="Courier New">include &lt;iostream.h&gt;<br>
+
+<br>
+
+int main ()<br>
+
+{<br>
+
+&nbsp; int value1 = 5, value2 = 15;<br>
+
+&nbsp; int *p1, *p2;<br>
+
+<br>
+
+&nbsp; p1 = &amp;value1;&nbsp;&nbsp;&nbsp;&nbsp; <i>// p1 = address of value1</i><br>
+
+&nbsp; p2 = &amp;value2;&nbsp;&nbsp;&nbsp;&nbsp; <i>// p2 = address of value2</i><br>
+
+&nbsp; *p1 = 10;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>// value 
+
+pointed by p1 = 10</i><br>
+
+&nbsp; *p2 = *p1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>// value pointed 
+
+by p2 = value pointed by p1</i><br>
+
+&nbsp; p1 = p2;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>// p1 = 
+
+p2 (value of pointer copied)</i><br>
+
+&nbsp; *p1 = 20;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>// value 
+
+pointed by p1 = 20</i><br>
+
+&nbsp; <br>
+
+&nbsp; cout &lt;&lt; "value1==" &lt;&lt; value1 &lt;&lt; "/ value2==" &lt;&lt; value2;<br>
+
+&nbsp; return 0;<br>
+
+}<br>
+
+　</font></tt></p>
+
+<h2>Pointers to pointers</h2>
+
+<p>C++ allows the use of pointers that point to pointers, that these, in its 
+
+turn, point to data. In order to do that we only need to add an asterisk (<tt>*</tt>) 
+
+for each level of reference: </p>
+
+<blockquote>
+
+	<p><tt><font face="Courier New">char a;<br>
+
+	char * b;<br>
+
+	char ** c;<br>
+
+	a = 'z';<br>
+
+	b = &amp;a;<br>
+
+	c = &amp;b;<br>
+
+　</font></tt></p>
+
+</blockquote>
+
+<p>this, supposing the randomly chosen memory locations of <tt><b>7230</b></tt>,
+
+<tt><b>8092</b></tt> and <tt><b>10502</b></tt>, could be described thus: </p>
+
+<blockquote>
+
+	<p><img src="imgpoin6.gif" height="83" width="278"></p>
+
+</blockquote>
+
+<p>(inside the cells there is the content of the variable; under the cells its 
+
+location) </p>
+
+<p>The new thing in this example is variable <tt><b>c</b></tt>, which we can 
+
+talk about in three different ways, each one of them would correspond to a 
+
+different value: </p>
+
+<blockquote>
+
+	<p><tt><font color="blue"><b>c</b> is a variable of type (char **) with a 
+
+	value of 8092<br>
+
+	<b>*c</b> is a variable of type (char*) with a value of 7230<br>
+
+	<b>**c</b> is a variable of type (char) with a value of'z'</font></tt></p>
+
+	<hr>
+
+</blockquote>
+
+<p>　<br>
+<b><font size="4">Dynamic objects</font></b><br>
+
+　</p>
+
+
+<blockquote>
+
+	
+
+	<p>Until now, all the declarations of variables, arrays and other objects in 
+
+	our programs are having a fixed size before the execution of the program. 
+
+	What if we need a variable amount of memory that can only be determined 
+
+	during the program execution at runtime? For example, in case that we need 
+
+	an user input to determine the amount of space? In C++, the solution is 
+
+	dynamic memory.</p>
+
+	<p><b>Operators <i>new</i> and <i>new[ ]</i></b><br>
+
+	In order to request dynamic memory, the operator <b>new</b> exists. <i>new</i> 
+
+	is followed by a data <i>type</i> and optionally the number of elements 
+
+	required within brackets <tt>[]</tt>. It returns a pointer to the beginning 
+
+	of the new block of assigned memory. Its syntax is: </p>
+
+	<blockquote>
+
+		<p><tt><i>pointer</i><b> = new </b><i>type</i> //</tt>assign memory to 
+
+		contain one single element of <i>type type</i></p>
+
+	</blockquote>
+
+	<p>or </p>
+
+	<blockquote>
+
+		<p><tt><i>pointer</i><b> = new </b><i>type</i><b> [</b><i>elements</i><b>]</b> 
+
+		//</tt>assign a block (an array) of elements of <i>type type</i>.</p>
+
+	</blockquote>
+
+	<p>For example: </p>
+
+	<blockquote>
+
+		<p><tt>int * bobby;<br>
+
+		bobby = new int [5];<br>
+
+　</tt></p>
+
+	</blockquote>
+
+	<p>in this case, the operating system has assigned space for 5 elements of 
+
+	type <tt><b>int</b></tt> and it has returned a pointer to its beginning that 
+
+	has been assigned to <tt><b>bobby</b></tt>. Therefore, now, <tt><b>bobby</b></tt> 
+
+	points to a valid block of memory with space of 5 <tt><b>int</b></tt> 
+
+	elements.</p>
+
+	<p>You could ask what is the difference between declaring a normal array and 
+
+	assigning memory to a pointer as we have just done. The most important one 
+
+	is that the <u>size</u> of an array must be a <u>constant</u> value, which 
+
+	limits its size to what we decide at the moment of designing the program 
+
+	before its execution, whereas the dynamic memory allocation allows assigning 
+
+	memory during the execution of the program using any variable, constant or 
+
+	combination of both as size.</p>
+
+	<p><b>Operator <i>delete</i>.</b><br>
+
+	Since dynamic memory is usually limited within a program at run time, once 
+
+	it is no longer needed it should be freed for future requests of dynamic 
+
+	memory. The operator <tt><b>delete</b></tt> exists for this purpose, whose 
+
+	syntax is:<br>
+
+　</p>
+
+	<blockquote>
+
+		<p><tt><b>delete </b><i>pointer</i><b>;</b> //</tt>delete memory 
+
+		alloccated for a single element</p>
+
+	</blockquote>
+
+	<p>or </p>
+
+	<blockquote>
+
+		<p><tt><b>delete [] </b><i>pointer</i><b>;</b> //delete </tt>memory 
+
+		allocated for multiple elements (arrays)</p>
+
+	</blockquote>
+
+	<p>For example:</p>
+
+	<p><tt><font face="Courier New">#include &lt;iostream.h&gt;<br>
+
+	#include &lt;stdlib.h&gt;<br>
+
+	<br>
+
+	int main ()<br>
+
+	{<br>
+
+&nbsp; char input [100];<br>
+
+&nbsp; int i,n;<br>
+
+&nbsp; long * l;<br>
+
+&nbsp; cout &lt;&lt; "How many numbers do you want to type in? ";<br>
+
+&nbsp; cin.getline (input,100); i=atoi (input);<br>
+
+&nbsp; l= new long[i];<br>
+
+&nbsp; if (l == NULL) exit (1);<br>
+
+&nbsp; for (n=0; n&lt;i; n++)<br>
+
+&nbsp; {<br>
+
+&nbsp;&nbsp;&nbsp; cout &lt;&lt; "Enter number: ";<br>
+
+&nbsp;&nbsp;&nbsp; cin.getline (input,100); l[n]=atol (input);<br>
+
+&nbsp; }<br>
+
+&nbsp; cout &lt;&lt; "You have entered: ";<br>
+
+&nbsp; for (n=0; n&lt;i; n++)<br>
+
+&nbsp;&nbsp;&nbsp; cout &lt;&lt; l[n] &lt;&lt; ", ";<br>
+
+&nbsp; delete[] l;<br>
+
+&nbsp; return 0;<br>
+
+	}<br>
+
+　</font></tt></p>
+
+	
+
+	<p>The above simple example does not have a predetermined maximum number of 
+
+	integers to be introduced. The program dyanamically provides as 
+
+	much space as necessary to store all the numbers that the user wishes to 
+
+	introduce.<br>
+　</p>
+
+</blockquote><hr width="100%"><center>　</center>
+
+<p><big><b><font size="4"><big>Linked List</big></font></b></big></p>
+
+<h2 style="font-family: Times New Roman; font-weight: bold;"><big><font size="+1"><big>Review: Comparing Linked List with Array:</big></font></big></h2>
+<ul>
+  <li>Array is finite and fixed, and needs to be resized if it is full.&nbsp; <br>
+  </li>
+  <li>Linked List can be dynamically allocated.<br>
+  </li>
+  <li>Array insertion/deletion is expensive (room creating). <br>
+  </li>
+  <li>Insertion/deletion is easier for Linked List.<br>
+  </li>
+</ul>
+<h2 style="font-family: Times New Roman; font-weight: bold;"><big><font size="+1"><big>Fundamental Data Structures:</big></font></big></h2>
+<ul>
+  <li><span style="font-weight: bold;">Homgeneous</span> collection of values (all same type)</li>
+  <li>Store values <span style="font-weight: bold;">anywhere</span> in memory</li>
+  <li>Associate <span style="font-weight: bold;">link</span> with each value</li>
+  <li>Use link for immediate access to the <span style="font-weight: bold;">next</span> value</li>
+</ul>
+<font size="+1"><span style="font-family: Times New Roman;"><big><span style="font-weight: bold;">Overview of Linked Lists:</span></big><br>
+</span></font>
+<ul>
+  <li>Not directly built in C language</li>
+  <li>How to associate pieces of information: User-defined type using <span style="font-style: italic;"><span style="font-family: Courier New,Courier,monospace;">struct;</span> </span>include <span style="font-style: italic; font-family: Source Code Pro;"><span style="font-family: Courier New,Courier,monospace;">struct</span>&nbsp;</span> field for coeffcient and exponent</li>
+  <li>How to <span style="font-weight: bold;">specify</span> links: include <span style="font-style: italic;"><span style="font-family: Courier New,Courier,monospace;">struct</span>&nbsp; </span>field for POINTER to next linked list element<br>
+  </li>
+  <li>How to <span style="font-weight: bold;">reserve</span> memory to be used: Allocate memory DYNAMICALLY (as you need it); <span style="font-style: italic; font-family: Courier New,Courier,monospace;">malloc()</span><br>
+  </li>
+  <li>How to use links to <span style="font-weight: bold;">access</span> information: use<span style="font-style: italic;"> -&gt;</span> and <span style="font-style: italic;">. </span>operators</li>
+</ul>
+<big style="font-weight: bold;"><font size="+1"><big><span style="font-family: Times New Roman;">No Free Lunch:</span></big></font></big><br>
+Linked List has following drawbacks:<br>
+<ul>
+  <li>Random access is not allowed;</li>
+  <li>Extra memory for a pointer is required for each element of the list;</li>
+  <li>Arrays have better cache locality that can make a pretty big difference in performance.<br>
+  </li>
+</ul>
+<big style="font-family: Courier New,Courier,monospace;"></big><big style="font-weight: bold;"><br>
+</big><hr style="width: 100%; height: 2px;">
+<p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 30px; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; background-color: rgb(255, 255, 255);"><big><big style="font-weight: bold;"><big>File I/O</big></big></big><br>
+</p>
+<br>
+<p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 30px; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; background-color: rgb(255, 255, 255);"><big><span style="font-family: Helvetica,Arial,sans-serif;">The file I/O type: <span style="font-style: italic;">ifstream</span> (for input), <span style="font-style: italic;">ofstream</span> (for output), <span style="font-style: italic;">fstream</span> (for input output).<br>
+Before you begin</span></big><br>
+</p>
+<ul>
+  <li>&nbsp;If you want to use the files, you need to claim the file variable</li>
+  <li>&nbsp;File variable is a pointer.</li>
+</ul>
+
+<big><big style="font-family: Times New Roman,Times,serif;"><small>Some classical and useful examples:</small></big><big style="font-weight: bold; font-family: Times New Roman,Times,serif;"><br>
+<br style="font-family: Times New Roman,Times,serif;">
+fstream:</big></big><br>
+<ul>
+  <li style="background-color: white; font-family: Courier New,Courier,monospace;"><span style="color: rgb(0, 0, 0); font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; background-color: rgb(216, 216, 216);"></span>fstream&nbsp;&nbsp;file; <br>
+
+    </li>
+  <li style="color: black; font-family: Courier New,Courier,monospace; background-color: white;">file.open(“Reader.txt”,ios::in);&nbsp;&nbsp; <br>
+
+    </li>
+  <li style="color: black; background-color: white;"><span style="font-family: Courier New,Courier,monospace;">file.open(“Reader.txt”,ios::in | :ios::binary);&nbsp;&nbsp; </span><span style="font-family: 新細明體; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; background-color: rgb(216, 216, 216);"><br>
+    </span></li>
+</ul>
+The following example is useful:<br>
+<br style="color: black; font-family: Source Code Pro;">
+<div class="line number8 index7 alt1" style="border: 0px none  ! important; margin: 0px ! important; padding: 0px 1em ! important; background: white none repeat scroll 0% 50% ! important; overflow: visible ! important; outline-color: invert ! important; outline-style: none ! important; outline-width: 0px ! important; font-size: 16px; vertical-align: baseline ! important; bottom: auto ! important; float: none ! important; height: auto ! important; left: auto ! important; line-height: 17.6px; position: static ! important; right: auto ! important; text-align: left; top: auto ! important; width: auto ! important; font-style: normal; direction: ltr ! important; white-space: pre ! important; color: black; font-variant: normal; letter-spacing: normal; text-indent: 0px; text-transform: none; widows: 1; word-spacing: 0px; -moz-background-clip: -moz-initial ! important; -moz-background-origin: -moz-initial ! important; -moz-background-inline-policy: -moz-initial ! important; font-family: Courier New,Courier,monospace;">#include&lt;iostream&gt;</div>
+<div class="line number9 index8 alt2" style="border: 0px none  ! important; margin: 0px ! important; padding: 0px 1em ! important; background: white none repeat scroll 0% 50% ! important; overflow: visible ! important; outline-color: invert ! important; outline-style: none ! important; outline-width: 0px ! important; font-size: 16px; vertical-align: baseline ! important; bottom: auto ! important; float: none ! important; height: auto ! important; left: auto ! important; line-height: 17.6px; position: static ! important; right: auto ! important; text-align: left; top: auto ! important; width: auto ! important; font-style: normal; direction: ltr ! important; white-space: pre ! important; color: black; font-variant: normal; letter-spacing: normal; text-indent: 0px; text-transform: none; widows: 1; word-spacing: 0px; -moz-background-clip: -moz-initial ! important; -moz-background-origin: -moz-initial ! important; -moz-background-inline-policy: -moz-initial ! important; font-family: Courier New,Courier,monospace;">#include&lt;fstream&gt;</div>
+<div class="line number10 index9 alt1" style="border: 0px none  ! important; margin: 0px ! important; padding: 0px 1em ! important; background: white none repeat scroll 0% 50% ! important; overflow: visible ! important; outline-color: invert ! important; outline-style: none ! important; outline-width: 0px ! important; font-size: 16px; vertical-align: baseline ! important; bottom: auto ! important; float: none ! important; height: auto ! important; left: auto ! important; line-height: 17.6px; position: static ! important; right: auto ! important; text-align: left; top: auto ! important; width: auto ! important; font-style: normal; direction: ltr ! important; white-space: pre ! important; color: black; font-variant: normal; letter-spacing: normal; text-indent: 0px; text-transform: none; widows: 1; word-spacing: 0px; -moz-background-clip: -moz-initial ! important; -moz-background-origin: -moz-initial ! important; -moz-background-inline-policy: -moz-initial ! important; font-family: Courier New,Courier,monospace;">using namespace std;</div>
+<div class="line number11 index10 alt2" style="border: 0px none  ! important; margin: 0px ! important; padding: 0px 1em ! important; background: white none repeat scroll 0% 50% ! important; overflow: visible ! important; outline-color: invert ! important; outline-style: none ! important; outline-width: 0px ! important; font-size: 16px; vertical-align: baseline ! important; bottom: auto ! important; float: none ! important; height: auto ! important; left: auto ! important; line-height: 17.6px; position: static ! important; right: auto ! important; text-align: left; top: auto ! important; width: auto ! important; font-style: normal; direction: ltr ! important; white-space: pre ! important; color: black; font-variant: normal; letter-spacing: normal; text-indent: 0px; text-transform: none; widows: 1; word-spacing: 0px; -moz-background-clip: -moz-initial ! important; -moz-background-origin: -moz-initial ! important; -moz-background-inline-policy: -moz-initial ! important; font-family: Courier New,Courier,monospace;">&nbsp;</div>
+<div class="line number12 index11 alt1" style="border: 0px none  ! important; margin: 0px ! important; padding: 0px 1em ! important; background: white none repeat scroll 0% 50% ! important; overflow: visible ! important; outline-color: invert ! important; outline-style: none ! important; outline-width: 0px ! important; font-size: 16px; vertical-align: baseline ! important; bottom: auto ! important; float: none ! important; height: auto ! important; left: auto ! important; line-height: 17.6px; position: static ! important; right: auto ! important; text-align: left; top: auto ! important; width: auto ! important; font-style: normal; direction: ltr ! important; white-space: pre ! important; color: black; font-variant: normal; letter-spacing: normal; text-indent: 0px; text-transform: none; widows: 1; word-spacing: 0px; -moz-background-clip: -moz-initial ! important; -moz-background-origin: -moz-initial ! important; -moz-background-inline-policy: -moz-initial ! important; font-family: Courier New,Courier,monospace;">int main(){</div>
+<div class="line number13 index12 alt2" style="border: 0px none  ! important; margin: 0px ! important; padding: 0px 1em ! important; background: white none repeat scroll 0% 50% ! important; overflow: visible ! important; outline-color: invert ! important; outline-style: none ! important; outline-width: 0px ! important; font-size: 16px; vertical-align: baseline ! important; bottom: auto ! important; float: none ! important; height: auto ! important; left: auto ! important; line-height: 17.6px; position: static ! important; right: auto ! important; text-align: left; top: auto ! important; width: auto ! important; font-style: normal; direction: ltr ! important; white-space: pre ! important; color: black; font-variant: normal; letter-spacing: normal; text-indent: 0px; text-transform: none; widows: 1; word-spacing: 0px; -moz-background-clip: -moz-initial ! important; -moz-background-origin: -moz-initial ! important; -moz-background-inline-policy: -moz-initial ! important; font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp;&nbsp;char filename[]="Reader.txt";</div>
+<div class="line number14 index13 alt1" style="border: 0px none  ! important; margin: 0px ! important; padding: 0px 1em ! important; background: white none repeat scroll 0% 50% ! important; overflow: visible ! important; outline-color: invert ! important; outline-style: none ! important; outline-width: 0px ! important; font-size: 16px; vertical-align: baseline ! important; bottom: auto ! important; float: none ! important; height: auto ! important; left: auto ! important; line-height: 17.6px; position: static ! important; right: auto ! important; text-align: left; top: auto ! important; width: auto ! important; font-style: normal; direction: ltr ! important; white-space: pre ! important; color: black; font-variant: normal; letter-spacing: normal; text-indent: 0px; text-transform: none; widows: 1; word-spacing: 0px; -moz-background-clip: -moz-initial ! important; -moz-background-origin: -moz-initial ! important; -moz-background-inline-policy: -moz-initial ! important; font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp;&nbsp;fstream fp;</div>
+<div class="line number15 index14 alt2" style="border: 0px none  ! important; margin: 0px ! important; padding: 0px 1em ! important; background: white none repeat scroll 0% 50% ! important; overflow: visible ! important; outline-color: invert ! important; outline-style: none ! important; outline-width: 0px ! important; font-size: 16px; vertical-align: baseline ! important; bottom: auto ! important; float: none ! important; height: auto ! important; left: auto ! important; line-height: 17.6px; position: static ! important; right: auto ! important; text-align: left; top: auto ! important; width: auto ! important; font-style: normal; direction: ltr ! important; white-space: pre ! important; color: black; font-variant: normal; letter-spacing: normal; text-indent: 0px; text-transform: none; widows: 1; word-spacing: 0px; -moz-background-clip: -moz-initial ! important; -moz-background-origin: -moz-initial ! important; -moz-background-inline-policy: -moz-initial ! important; font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp;&nbsp;fp.open(filename, ios::out);//Open the files</div>
+<div class="line number16 index15 alt1" style="border: 0px none  ! important; margin: 0px ! important; padding: 0px 1em ! important; background: white none repeat scroll 0% 50% ! important; overflow: visible ! important; outline-color: invert ! important; outline-style: none ! important; outline-width: 0px ! important; font-size: 16px; vertical-align: baseline ! important; bottom: auto ! important; float: none ! important; height: auto ! important; left: auto ! important; line-height: 17.6px; position: static ! important; right: auto ! important; text-align: left; top: auto ! important; width: auto ! important; font-style: normal; direction: ltr ! important; white-space: pre ! important; color: black; font-variant: normal; letter-spacing: normal; text-indent: 0px; text-transform: none; widows: 1; word-spacing: 0px; -moz-background-clip: -moz-initial ! important; -moz-background-origin: -moz-initial ! important; -moz-background-inline-policy: -moz-initial ! important; font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp;&nbsp;if(!fp){//If the openning fails, fp is 0; otherwise fp is 1;</div>
+<div class="line number17 index16 alt2" style="border: 0px none  ! important; margin: 0px ! important; padding: 0px 1em ! important; background: white none repeat scroll 0% 50% ! important; overflow: visible ! important; outline-color: invert ! important; outline-style: none ! important; outline-width: 0px ! important; font-size: 16px; vertical-align: baseline ! important; bottom: auto ! important; float: none ! important; height: auto ! important; left: auto ! important; line-height: 17.6px; position: static ! important; right: auto ! important; text-align: left; top: auto ! important; width: auto ! important; font-style: normal; direction: ltr ! important; white-space: pre ! important; color: black; font-variant: normal; letter-spacing: normal; text-indent: 0px; text-transform: none; widows: 1; word-spacing: 0px; -moz-background-clip: -moz-initial ! important; -moz-background-origin: -moz-initial ! important; -moz-background-inline-policy: -moz-initial ! important; font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;"Fail to open file: "&lt;&lt;filename&lt;&lt;endl;</div>
+<div class="line number18 index17 alt1" style="border: 0px none  ! important; margin: 0px ! important; padding: 0px 1em ! important; background: white none repeat scroll 0% 50% ! important; overflow: visible ! important; outline-color: invert ! important; outline-style: none ! important; outline-width: 0px ! important; font-size: 16px; vertical-align: baseline ! important; bottom: auto ! important; float: none ! important; height: auto ! important; left: auto ! important; line-height: 17.6px; position: static ! important; right: auto ! important; text-align: left; top: auto ! important; width: auto ! important; font-style: normal; direction: ltr ! important; white-space: pre ! important; color: black; font-variant: normal; letter-spacing: normal; text-indent: 0px; text-transform: none; widows: 1; word-spacing: 0px; -moz-background-clip: -moz-initial ! important; -moz-background-origin: -moz-initial ! important; -moz-background-inline-policy: -moz-initial ! important; font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+<div class="line number19 index18 alt2" style="border: 0px none  ! important; margin: 0px ! important; padding: 0px 1em ! important; background: white none repeat scroll 0% 50% ! important; overflow: visible ! important; outline-color: invert ! important; outline-style: none ! important; outline-width: 0px ! important; font-size: 16px; vertical-align: baseline ! important; bottom: auto ! important; float: none ! important; height: auto ! important; left: auto ! important; line-height: 17.6px; position: static ! important; right: auto ! important; text-align: left; top: auto ! important; width: auto ! important; font-style: normal; direction: ltr ! important; white-space: pre ! important; color: black; font-variant: normal; letter-spacing: normal; text-indent: 0px; text-transform: none; widows: 1; word-spacing: 0px; -moz-background-clip: -moz-initial ! important; -moz-background-origin: -moz-initial ! important; -moz-background-inline-policy: -moz-initial ! important; font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;"File Descriptor: "&lt;&lt;fp&lt;&lt;endl;</div>
+<div class="line number20 index19 alt1" style="border: 0px none  ! important; margin: 0px ! important; padding: 0px 1em ! important; background: white none repeat scroll 0% 50% ! important; overflow: visible ! important; outline-color: invert ! important; outline-style: none ! important; outline-width: 0px ! important; font-size: 16px; vertical-align: baseline ! important; bottom: auto ! important; float: none ! important; height: auto ! important; left: auto ! important; line-height: 17.6px; position: static ! important; right: auto ! important; text-align: left; top: auto ! important; width: auto ! important; font-style: normal; direction: ltr ! important; white-space: pre ! important; color: black; font-variant: normal; letter-spacing: normal; text-indent: 0px; text-transform: none; widows: 1; word-spacing: 0px; -moz-background-clip: -moz-initial ! important; -moz-background-origin: -moz-initial ! important; -moz-background-inline-policy: -moz-initial ! important; font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp;&nbsp;fp&lt;&lt;"Hello HappyMan!!"&lt;&lt;endl;//write strings</div>
+<div class="line number21 index20 alt2" style="border: 0px none  ! important; margin: 0px ! important; padding: 0px 1em ! important; background: white none repeat scroll 0% 50% ! important; overflow: visible ! important; outline-color: invert ! important; outline-style: none ! important; outline-width: 0px ! important; font-size: 16px; vertical-align: baseline ! important; bottom: auto ! important; float: none ! important; height: auto ! important; left: auto ! important; line-height: 17.6px; position: static ! important; right: auto ! important; text-align: left; top: auto ! important; width: auto ! important; font-style: normal; direction: ltr ! important; white-space: pre ! important; color: black; font-variant: normal; letter-spacing: normal; text-indent: 0px; text-transform: none; widows: 1; word-spacing: 0px; -moz-background-clip: -moz-initial ! important; -moz-background-origin: -moz-initial ! important; -moz-background-inline-policy: -moz-initial ! important; font-family: Courier New,Courier,monospace;">&nbsp;</div>
+<div class="line number22 index21 alt1" style="border: 0px none  ! important; margin: 0px ! important; padding: 0px 1em ! important; background: white none repeat scroll 0% 50% ! important; overflow: visible ! important; outline-color: invert ! important; outline-style: none ! important; outline-width: 0px ! important; font-size: 16px; vertical-align: baseline ! important; bottom: auto ! important; float: none ! important; height: auto ! important; left: auto ! important; line-height: 17.6px; position: static ! important; right: auto ! important; text-align: left; top: auto ! important; width: auto ! important; font-style: normal; direction: ltr ! important; white-space: pre ! important; color: black; font-variant: normal; letter-spacing: normal; text-indent: 0px; text-transform: none; widows: 1; word-spacing: 0px; -moz-background-clip: -moz-initial ! important; -moz-background-origin: -moz-initial ! important; -moz-background-inline-policy: -moz-initial ! important; font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp;&nbsp;fp.close();//close the file</div>
+<div class="line number25 index24 alt2" style="border: 0px none  ! important; margin: 0px ! important; padding: 0px 1em ! important; background: white none repeat scroll 0% 50% ! important; overflow: visible ! important; outline-color: invert ! important; outline-style: none ! important; outline-width: 0px ! important; font-size: 16px; vertical-align: baseline ! important; bottom: auto ! important; float: none ! important; height: auto ! important; left: auto ! important; line-height: 17.6px; position: static ! important; right: auto ! important; text-align: left; top: auto ! important; width: auto ! important; font-style: normal; direction: ltr ! important; white-space: pre ! important; color: black; font-variant: normal; letter-spacing: normal; text-indent: 0px; text-transform: none; widows: 1; word-spacing: 0px; -moz-background-clip: -moz-initial ! important; -moz-background-origin: -moz-initial ! important; -moz-background-inline-policy: -moz-initial ! important; font-family: Courier New,Courier,monospace;">}</div>
+<br>
+<p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Times New Roman,Times,serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 30px; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; background-color: rgb(255, 255, 255);"><big><big><big><span style="font-weight: bold;">ostream:</span></big></big></big></p>
+<span style="font-family: Courier New,Courier,monospace;">#include &lt;fstream.h&gt;</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">int main(){</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp;&nbsp; ofstream file;</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp; file.open("file.txt");</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp; file&lt;&lt;"Hello file"&lt;&lt;75;</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;&nbsp;&nbsp; file.close();</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">}<br>
+<br><big style="font-family: Times New Roman,Times,serif;"><big><span style="font-weight: bold;">Facilitate readings:</span></big></big><br>
+</span><br>
+use getline(buffer, max) to read the whole line. Note that \n will not be read in getline!!<br>
+<span style="font-family: Courier New,Courier,monospace;"><br>
+const&nbsp;MAX=80;</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">char buffer[MAX];</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">ifstream infile("strdata.txt");</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">while(infile)</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">{</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp; infile.getline(buffer,MAX);</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">&nbsp;cout&lt;&lt;buffer&lt;&lt;endl;</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">}&nbsp;&nbsp; </span><font style="" size="3"><br>
+</font><br>
+<br>
+<span style="font-family: Courier New,Courier,monospace;"><br>
+<big><big style="font-family: Times New Roman,Times,serif;"><span style="color: black; font-weight: bold;">To prevent error:</span></big></big></span><span style="font-family: Helvetica,Arial,sans-serif;"><span style="font-weight: bold;"></span><br>
+</span>
+<ul>
+  <li>fail(): return&nbsp; a boolean true if the file has not been opened;<br>
+</li>
+  <li>good(): true if the file is available for program use;<br>
+  </li>
+
+  <li>bad(): true if a read has been attempted past the end;<br>
+</li>
+  <li>eof(): return true if a read has been attempted past the end of file; </li>
+</ul>Example: <br>
+
+<span style="font-family: Helvetica,Arial,sans-serif;"></span><span style="font-family: Courier New,Courier,monospace;"></span><span style="font-family: Courier New,Courier,monospace;">char ch;<br>
+ifstream file("kool.cpp",ios::in|ios:out);<br>
+if(file.good()) cout&lt;&lt;"The file has been opened without problems";<br>
+else cout&lt;&lt;"An Error has happened on opening";<br>
+while(!file.eof()){<br>
+&nbsp;&nbsp;&nbsp; file&gt;&gt;ch;<br>
+&nbsp;&nbsp;&nbsp; cout&lt;&lt;ch;<br>
+}<br>
+</span>
+<hr style="width: 100%; height: 2px;">
+
+<br>
+<font style="font-weight: bold;" size="+2">Lab </font><big style="font-weight: bold;"><big><font style="font-weight: bold;" size="+2">Task:&nbsp; Linked List &amp; File I/O</font><br>
+<br></big><span style="font-family: Times New Roman,Times,serif;">Reverse a singly linked list. You should implement it both </span><span style="font-style: italic; font-family: Times New Roman,Times,serif;">iteratively</span><span style="font-family: Times New Roman,Times,serif;"> AND </span><span style="font-style: italic; font-family: Times New Roman,Times,serif;">recursively</span><span style="font-family: Times New Roman,Times,serif;">.</span><br>
+<br>
+</big>1) Given an "input.txt" with the test cases, read in the information;<br>
+
+2) Reverse the input linked list at each line;<br>
+
+3) Output a file "output.txt" with the results.<big style="font-weight: bold;"><br>
+<br style="font-family: Times New Roman,Times,serif;">
+<big style="font-family: Times New Roman,Times,serif;"><big>
+
+<big><big><big><span style="color: rgb(51, 51, 51); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 30px; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; display: inline ! important; float: none; background-color: rgb(255, 255, 255);"></span></big></big></big></big></big><span style="font-family: Times New Roman,Times,serif;">Test case:</span><br>
+<br style="font-family: Times New Roman,Times,serif;"><big style="font-family: Times New Roman,Times,serif;"><font size="+1"><big><big style="font-family: Helvetica,Arial,sans-serif;">
+Input:</big><br style="font-family: Helvetica,Arial,sans-serif;">
+<br>
+</big></font></big>
+</big><big><span style="font-family: Courier New,Courier,monospace;">null;</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">1-&gt;null;</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;null;</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">a-&gt;b-&gt;c-&gt;d-&gt;e-&gt;f-&gt;null;</span></big><big style="font-weight: bold;"><br>
+<br style="font-family: Times New Roman,Times,serif;"><big style="font-family: Times New Roman,Times,serif;"><font size="+1"><big><span style="font-family: Helvetica,Arial,sans-serif;">
+Output:</span><br>
+<br>
+</big></font></big>
+</big><big style="font-family: Courier New,Courier,monospace;">null<br>
+1-&gt;null<br>5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;null<br>f-&gt;e-&gt;d-&gt;c-&gt;b-&gt;a-&gt;null<br>
+<br>
+</big>
+<hr style="width: 100%; height: 2px;"><big style="font-family: Courier New,Courier,monospace;"><br>
+</big>
+<br>
+
+
+
+</body></html>

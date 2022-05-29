@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>COMP2012H Lab (Operator Overloading)</title>
+        <link rel="stylesheet" type="text/css" href="../../files/style.css" />
+</head>
+    <body>
+
+        <div id="header">
+            <h1>COMP2012H</h1>
+          <h2>Honors OOP and Data Structures</h2>
+    </div>
+
+        <div id="content">
+            <h2>Lab 10: Operator Overloading</h2>
+            <h3>Topics</h3>
+            <ul>
+              <li>Container Classes</li>
+                  <li>Generic Programming</li>
+                  <li>Operator Overloading</li>
+              </ul>
+          <h3>Container Classes</h3>
+          <p>Container Classes are classes that maintain collections of objects.</p>
+          <p>Example:</p>
+          <pre>class PersonContainer
+{
+   public:
+      ...
+
+   private:
+      Person* array;
+      ...
+}           </pre>
+          <p>The operations on container classes can be:</p>
+          <ul>
+            <li> member functions of the container class</li>
+            <li> global functions that take a container argument</li>
+          </ul>
+          <p>Three concepts of container class implementation:</p>
+          <ul>
+            <li> the kind of container (e.g., list-based, array-based)</li>
+            <li> the kind of objects stored in the container (e.g., Person, int)</li>
+            <li> the kind of operations on the elements stored in the container (i.e., &quot;do something for each element&quot;) </li>
+          </ul>
+          <p>Usually, there is a strong coupling between the three concepts.</p>
+          <h3>Generic Programming</h3>
+            <p>Generic programming is a method through which we can remove (or
+			greatly reduce) the strong coupling between containers, container elements and operations on the elements of the container.</p>
+            <p>Generic Programming is to  program with <strong>types</strong> as parameters.</p>
+            <p>We will learn more on this in the next lab.</p>
+
+
+            <h3>Operator Overloading</h3>
+            <p>A few points to be noted:</p>
+            <ul>
+            <li>After operator overloading, we can use operators with objects</li>
+            <li>Almost all operators in C++ can be overloaded. Four exceptions:<br/>
+            . :: ?: sizeof</li>
+            <li>We can only redefine existing operators, but CANNOT define new operators</li>
+            <li>We CANNOT change the properties of an operator. (Number of arguments an operator takes, associativity and precedence).</li>
+			</ul>
+            <a href="ovrld.pptx">A tutorial on operator overloading</a>
+          <hr />
+
+
+
+          <h2>Lab Task</h2>
+          <p>Here is a class Array with boundary checking in <a href="Array.h">Array.h</a>,
+			<a href="Array.cpp">Array.cpp</a> and <a href="main.cpp">main.cpp</a>. It is a type-generic array, where type <strong>T</strong> is currently defined as <strong>int</strong>. The class is already almost implemented for you, but most codes are poorly organized such that the implementation part is mixed with the declaration part. Your tasks in this lab are</p>
+          <ol>
+			<li>Implement the operator overloading for the operators&nbsp; =,==
+			and [] declared in Array.h and put them in Array.cpp, where the meanings of the operators have been
+			given in the files.</li>
+            <li>In order to merge two string arrays together in <a href="merge.cpp">merge.cpp</a>, please implement one more member function <strong>Array&amp; operator+=(const Array&amp; arr)</strong>; which appends an Array object to the end of another Array object.</li>
+          </ol>
+          <p>Note:</p>
+          <ul>
+            <li>You need to define the type <strong>T</strong> as <strong>string</strong> (instead of <strong>int</strong>) and put <strong>#include&lt;string&gt;</strong> in <strong>Array.h</strong>.</li>
+            <li>After completeing both tasks, compile <a href="merge.cpp">merge.cpp</a> together with your <strong>Array.cpp</strong> and <strong>Array.h</strong>. The TA will check your program and codes.</li>
+          </ul>
+    </div>
+
+<div id="footer">
+          <div id="credits">
+                &nbsp;© <a href="http://www.cse.ust.hk/">CSE</a>, <a href="http://www.ust.hk">HKUST</a> | <a href="http://www.opendesigns.org/">OpenDesign</a> </div>
+
+    </div>
+
+    </body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40"><HEAD><TITLE>Assignment 2 : Permutation</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<META content="Nicole Chan" name=Author>
+<META content="Microsoft FrontPage 12.0" name=GENERATOR>
+<style type="text/css">
+.auto-style1 {
+	font-size: medium;
+	color: #FF0000;
+}
+</style>
+</HEAD>
+<BODY text=#000000 vLink=#551A8B aLink=#FF0000 link=#CC66CC 
+bgColor=#CCFFFF><FONT size=+2 face="Arial,Helvetica"><B>COMP 2012H : </B> 
+Honors OOP and Data Structures</FONT> 
+<P><B><FONT size=+2 color="#cc0000" face="Arial,Helvetica">Assignment 2 :&nbsp; 
+</FONT></B><font size="6" color="#FF0000" face="Arial">The Generation of Permutation 
+Sequences</font><BR>
+<p><font size="4" color="#FF0000"><b>Submission deadline: 11:59pm, Saturday, 10 
+October 2015</b></font></p>
+<HR width="100%">
+
+<CENTER>&nbsp;</CENTER>
+<b><font face="Arial,Helvetica"><font size="4">[NEW] Frequently Asked Questions (FAQ)</font></font></b><P>
+Q1: Can I use STL?</br>
+A1: You do not need STL in this assignment.  However, if you use STL, no marks will be deducted.</br>
+</br>
+Q2: Can I generate all the sequences first, store them in a vector or set, and print out the unique ones?</br>
+A2: This is too slow or naive to earn full credit.  We expect you to detect duplication more efficiently than that.  For example, if the input is 10 'a', we expect your output is lightning faster than 10 distinct characters.</br>
+</br>
+Q3: Can I use iteration instead of recursion in this assignment?</br>
+A3: Certainly.  Please explain your approach with possibly educational website links in your README.</br>
+</br>
+Q4: The order of my permutation result is different from the sample test case. Is it acceptable?
+A4: Yes. You do not need to output results in the same order. We will only check the size and content of your result. 
+</br>
+<HR width="100%">
+</br>
+<span class="def-txt"><font face="Arial">In class, we have discussed on the 
+implementation of permutation of distinct characters.&nbsp;
+In this assignment, you will implement a program to output the permutation of an 
+array of characters which may <em>not</em> be distinct.&nbsp; You are not 
+allowed to use any library functions which permute the characters for you. </FONT></span><P>
+<b><font face="Arial,Helvetica"><font size="4">Permutation (review)</font>&nbsp; </font></b><P>
+<span class="def-txt"><font face="Arial">Often we wish to examine all 
+the permutations of <i>n </i>distinct elements to determine the best one. For example, 
+given a set of elements: <font color="#0000FF">a, b</font> and
+<font color="#0000FF">c</font>. The permutations of this set of elements are:
+<font color="#0000FF">abc, acb, bac, bca, cba</font> and <font color="#0000FF">
+cab</font> (All possible combinations of the given elements).&nbsp; As you know, 
+there are
+<font color="#FF0000">n!</font> permutations for <font color="#FF0000">n</font> 
+distinct elements.&nbsp; </font></span>
+<P>
+<span class="def-txt"><font face="Arial">It is painful to implement a 
+non-recursive program to output all the permutations. With a recursive approach, 
+you can iteratively swap the elements and print out the permutations.&nbsp; The 
+idea is simple: if the set of data contains <i>n</i> elements, the first step is 
+to choose one element of the list and put it in front of the sequence.&nbsp; 
+Then permute the remaining <i>(n-1)</i> elements (Thisis the recursive part with 
+one less element). When the permutation of these <i>(n-1) </i>elements is 
+completed, choose another element to put in the front of the sequence, and 
+repeat the permutation of the new set of <i>(n-1) </i>elements.&nbsp; Obviously, 
+the terminal case is that only one element remains in the list.&nbsp; </font></span>
+<P>
+&nbsp;<P>
+<b><font face="Arial,Helvetica" size="4">Recursive function</font></b><P>
+<span class="def-txt"><font face="Arial">Just to remind you the structure of a 
+recursive function.</font></span><P>
+<span class="def-txt"><font face="Arial">&nbsp;</font></span><P style="margin-top: 0; margin-bottom: 0">
+<span class="def-txt"><font face="Courier New">&lt;return type&gt;&nbsp;&nbsp;
+<font color="#0000FF">recursive_function</font>(&nbsp; &lt;list of parameters&gt; ){</font></span><P style="margin-top: 0; margin-bottom: 0">
+&nbsp;<P style="margin-top: 0; margin-bottom: 0">
+<span class="def-txt"><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color="#FF0000">// Terminal case</font></font></span><P style="margin-top: 0; margin-bottom: 0">
+<span class="def-txt"><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+---------&nbsp; code&nbsp; -------------</font></span><P style="margin-top: 0; margin-bottom: 0">
+<span class="def-txt"><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+return &lt;return type&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span>
+<P style="margin-top: 0; margin-bottom: 0">
+&nbsp;<P style="margin-top: 0; margin-bottom: 0">
+<span class="def-txt"><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color="#FF0000">// else, call this function again or do calculation</font></font></span><P style="margin-top: 0; margin-bottom: 0">
+<span class="def-txt"><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+---------&nbsp; code&nbsp; -------------</font></span><P style="margin-top: 0; margin-bottom: 0">
+<span class="def-txt"><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color="#0000FF">recursive_function</font> ( &lt;parameters&gt; );</font></span><P style="margin-top: 0; margin-bottom: 0">
+<span class="def-txt"><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+---------- code --------------</font></span><P style="margin-top: 0; margin-bottom: 0">
+<span class="def-txt"><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+return &lt;return type&gt;</font></span><P style="margin-top: 0; margin-bottom: 0">
+<span class="def-txt"><font face="Courier New">}</font></span><P style="margin-top: 0; margin-bottom: 0">
+&nbsp;<P>
+<b><font face="Arial,Helvetica" size="4">Assignment program</font></b><P>
+<font face="Arial"><span class="def-txt">In this assignment, you have to 
+implement the permutation algorithm with the <b>recursive function</b> approach.&nbsp; </span></font>
+<font face="Arial,Helvetica">The maximum number of element size is MAX_ELEMENTS, 
+which defaults to 10. The 
+program first asks for the input size before generating/printing out&nbsp; the 
+permutation sequences. The 
+input element is </font>
+<font color="#0000FF" face="Courier">char</font><font face="Arial,Helvetica"> data type. It means you can 
+define a </font>
+<font face="Courier">char</font><font face="Arial,Helvetica"> array of size 
+MAX_ELEMENTS 
+at the beginning.&nbsp; Then, the user input a list of elements, and all the 
+permutations will be printed out. </font>
+<P>
+<font face="Arial,Helvetica">If the input list contains <font color="#FF0000">
+duplicate</font> elements, you must skip that duplicate permutations. For 
+example, input list :&nbsp; </font> <font color="#0000FF" face="Courier">a, b, a</font><P>
+<font face="Arial,Helvetica">The output permutations should be:</font><P style="margin-top: 0; margin-bottom: 0">
+<font color="#0000FF"><font face="Courier">aba</font><P style="margin-top: 0; margin-bottom: 0">
+<font face="Courier">aab</font><P style="margin-top: 0; margin-bottom: 0">
+<font face="Courier">baa</font><P style="margin-top: 0; margin-bottom: 0">
+&nbsp;</font><P style="margin-top: 0; margin-bottom: 0">
+<font face="Arial,Helvetica">If the input list<font color="#0000FF"> :  </font>
+<font face="Courier">b, a, c, 
+a</font><font face="Arial,Helvetica"><br>
+<br>
+</font>
+</font>
+<font face="Arial,Helvetica">The output permutations should be:<font color="#0000FF"><br>
+</font></font><font color="#0000FF">
+<font face="Courier">baca<br>
+baac<br>
+bcaa<br>
+abca<br>
+abac<br>
+acba<br>
+acab<br>
+aacb<br>
+aabc<br>
+caba<br>
+caab<br>
+cbaa<br>
+&nbsp;</font></font><P><b><font face="Arial,Helvetica" size="4">Sample Output:</font></b><P>
+<b><font face="Arial,Helvetica"><font color="#FF0000">Red color</font> is user input</font></b><p style="margin-top: 0; margin-bottom: 0">
+&nbsp;</p>
+<P style="margin-top: 0; margin-bottom: 0">
+<br>
+<font face="Courier">Please input array size (1-10): <font color="#FF0000">4</font><br>
+<br>
+Please input array elements: <font color="#FF0000">a b c a</font><br>
+<br>
+The permutation are:<br>
+abca<br>
+abac<br>
+acba<br>
+acab<br>
+aacb<br>
+aabc<br>
+baca<br>
+baac<br>
+bcaa<br>
+cbaa<br>
+caba<br>
+caab<br>
+</font>
+<br>
+<font face="Courier">Continue to use this program? (C / c to continue):</font><P style="margin-top: 0; margin-bottom: 0">
+&nbsp;<P style="margin-top: 0; margin-bottom: 0">
+&nbsp;<hr>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<b><font face="Arial,Helvetica" size="4">Grading</font></b><P>
+<p style="margin-top: 0; margin-bottom: 0"><font size="4">In order to help you to gain maximum 
+partial credit, you may want to first implement a permutation function for <i>n</i>
+<u>distinct </u>elements first.&nbsp; This part would worth 
+<font color="#FF0000">30%</font> of your grades.&nbsp; Then implement the part 
+with duplicate elements, which worths the remaining </font>
+<span class="auto-style1">30%</span><font size="4">.&nbsp; If you believe that 
+you have successfully implemented the full program, simply turn in the full one 
+instead of the partial one.</font></p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+
+	</BODY></HTML>

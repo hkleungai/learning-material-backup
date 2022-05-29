@@ -1,0 +1,437 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link rel="File-List" href="index_files/filelist.xml">
+<title>COMP2012H Lab (Separate Compilation)</title>
+<style>
+<!--
+p
+	{margin-right:0in;
+	margin-left:0in;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	}
+h1
+	{margin-right:0in;
+	margin-left:0in;
+	font-size:24.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold}
+h2
+	{margin-right:0in;
+	margin-left:0in;
+	font-size:18.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold}
+h3
+	{margin-right:0in;
+	margin-left:0in;
+	font-size:13.5pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold}
+ li.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	margin-left:0in; margin-right:0in; margin-top:0in}
+p.msolistparagraph0
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	}
+ p.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	margin-left:0in; margin-right:0in; margin-top:0in}
+ div.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	margin-left:0in; margin-right:0in; margin-top:0in}
+-->
+</style>
+
+<!--[if !mso]>
+<style>
+v\:*         { behavior: url(#default#VML) }
+o\:*         { behavior: url(#default#VML) }
+.shape       { behavior: url(#default#VML) }
+</style>
+<![endif]-->
+</head>
+<!--[if gte mso 9]>
+<xml><o:shapedefaults v:ext="edit" spidmax="1027"/>
+</xml><![endif]-->
+
+
+
+
+
+
+
+
+<body>
+
+<h1>COMP 2012H</h1>
+<h2><strong>Honors OOP and Data Structures</strong></h2>
+<h2>Lab 7: Separate Compilation</h2>
+<h3>Objective</h3>
+<p>The objective is to learn the separate compilation and the usage of Makefile 
+in both Eclipse IDE and Linux command-prompt environment&nbsp;</p>
+<p>Please refer to the following link if you are not familiar with the common 
+Linux commands:
+<a target="_blank" style="color: blue; text-decoration: underline; text-underline: single" href="http://files.fosswire.com/2007/08/fwunixref.pdf">
+http://files.fosswire.com/2007/08/fwunixref.pdf</a></p>
+<p><b>&nbsp;</b></p>
+<h3>Walking through a Simple Example</h3>
+<p>Suppose we have the following files and we want to make a color printing 
+program out of them:
+<a style="color: blue; text-decoration: underline; text-underline: single" href="blue.h">blue.h</a>,
+<a style="color: blue; text-decoration: underline; text-underline: single" href="blue.cpp">blue.cpp</a>,
+<a style="color: blue; text-decoration: underline; text-underline: single" href="green.h">green.h</a>,
+<a style="color: blue; text-decoration: underline; text-underline: single" href="green.cpp">green.cpp</a> and
+<a style="color: blue; text-decoration: underline; text-underline: single" href="main.cpp">main.cpp</a>.</p>
+<p><strong>Solution 1: put everything in one line </strong></p>
+<p><strong><span style="font-weight: normal">In the console, type:</span></strong></p>
+<p style="text-indent: .5in">
+<span style="font-size: 10.0pt; font-family: Courier">g++ blue.cpp green.cpp 
+main.cpp -o printcolor</span></p>
+<p>It works.</p>
+<p><!--[if gte vml 1]><v:shapetype id="_x0000_t75"
+ coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe"
+ filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="Picture_x0020_1" o:spid="_x0000_s1034" type="#_x0000_t75"
+ style='width:505.5pt;height:380.25pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="index_files/image001.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=674 height=507
+src="index_files/image002.jpg" v:shapes="Picture_x0020_1"><![endif]></p>
+<ul type="disc" style="margin-bottom: 0in">
+	<li class="MsoNormal">Problem 1: what if we change the content of green.cpp? 
+	Do we have to build everything again (including the files that remain 
+	intact, like blue.cpp)?</li>
+	<li class="MsoNormal">Problem 2: what if we have another 100 colors to add 
+	to our program? Every time we add a new color, we need to build the program 
+	again until finally we have to type 100 filenames on the command line? It is 
+	messy and error-prone.</li>
+</ul>
+<p><strong>Solution 2: Separate compilation and makefile</strong></p>
+<p>One thing at a time: </p>
+<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: .5in; margin-right: 0in; margin-top: 0in; margin-bottom: .0001pt"><span style="font-family: Courier">g++ -c&nbsp; blue.cpp</span></pre>
+<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: .5in; margin-right: 0in; margin-top: 0in; margin-bottom: .0001pt"><span style="font-family: Courier">g++ -c&nbsp; green.cpp</span></pre>
+<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: .5in; margin-right: 0in; margin-top: 0in; margin-bottom: .0001pt"><span style="font-family: Courier">g++ blue.o green.o main.cpp -o printcolor</span></pre>
+<p>If we change green.cpp, we just need to rebuild green.o and printcolor, 
+leaving the blue color files untouched. </p>
+<p>Use a <strong>makefile</strong> to put everything together, thus every time 
+we just need to type &quot;gmake&quot; to do compiling, assembling and linking. </p>
+<h3>About Makefile</h3>
+<h3><span style="font-size: 12.0pt; font-weight: normal">Reference material for 
+the Makefile:&nbsp;
+<a target="_blank" style="color: blue; text-decoration: underline; text-underline: single" href="makefile.pdf">makefile.pdf</a>&nbsp; (TA in your lab section will briefly go through the slides of 
+the Makefile)</span></h3>
+<ul type="disc" style="margin-bottom: 0in">
+	<li class="MsoNormal">It makes compilation much easier. You just need to 
+	type one simple short command instead of a long complicated ones. The 
+	purpose of the make utility is to determine automatically which pieces of a 
+	large program need to be recompiled and then issue the corresponding 
+	commands to recompile them.</li>
+	<li class="MsoNormal">Most of the time software in Unix-like operating 
+	systems is installed using gmake/make, not by utilities like InstallShield 
+	on the Windows platform. If you encounter any problem during software 
+	installation, you will need to examine the makefile. Hence understanding how 
+	to use makefile can help you tremendously. </li>
+	<li class="MsoNormal">To use make, you must first write a file called 
+	makefile that describes the relationships among the files in your program 
+	and includes the commands for processing the files accordingly.</li>
+	<li class="MsoNormal">In a program, typically the executable file is updated 
+	from the object files, which are in turn created by compiling the source 
+	files.</li>
+</ul>
+<p><strong>Create and Use a g++ Makefile</strong></p>
+<p>You can use <strong>gmake </strong>(which calls g++) to compile and link your 
+program or object files. When using <strong>gmake</strong>, it looks for a file 
+called <strong>makefile</strong> or <strong>Makefile</strong>. (The name <strong>
+Makefile</strong> is preferred as it can easily be distinguished from other 
+files which typically have filenames in lowercase.) You can write all the rules 
+in your makefile to simplify and speed up your compilation and linking process.</p>
+<p>Sample
+<a style="color: blue; text-decoration: underline; text-underline: single" href="MakefileG++">Makefile</a>.</p>
+<p>To make and use a g++ <b>makefile</b>, do the following in the console:</p>
+<p style="text-indent: -.25in; margin-left: .5in">1.<span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 7.0pt; font-family: Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Create a text file called <b>Makefile</b></p>
+<p style="text-indent: -.25in; margin-left: .75in">
+<span style="font-size: 10.0pt; font-family: Symbol">·<span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 7.0pt; font-family: Times New Roman">&nbsp;&nbsp;&nbsp;
+</span></span><span style="font-size: 10.0pt; font-family: Courier New">The 
+simplest way is to type:</span></p>
+<p style="margin-left: .75in">
+<span style="font-size: 10.0pt; font-family: Courier">pico Makefile</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-size: 10.0pt; font-family: Courier New">Or 
+you can use any text editor like Vi or Emacs</span></p>
+<p class="msolistparagraph0" style="text-indent: -.25in">2.<span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 7.0pt; font-family: Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Edit the makefile, add:</p>
+<p style="text-indent: -.25in; margin-left: .75in">
+<span style="font-size: 10.0pt; font-family: Symbol">·<span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 7.0pt; font-family: Times New Roman">&nbsp;&nbsp;&nbsp;
+</span></span><span style="font-size: 10.0pt; font-family: Courier New">Variable 
+definitions (optional), in the form:</span></p>
+<p style="margin-left: .75in">
+<span style="font-size: 10.0pt; font-family: Courier">VARIABLE_NAME = 
+variable_definition</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-size: 10.0pt; font-family: Courier New">Such 
+as:</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <span style="font-size: 10.0pt; font-family: Courier">
+TARGET = printcolor</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-size: 10.0pt; font-family: Courier New">Use 
+the variable by $(VARIABLE_NAME)</span></p>
+<p style="text-indent: -.25in; margin-left: .75in">
+<span style="font-size: 10.0pt; font-family: Symbol">·<span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 7.0pt; font-family: Times New Roman">&nbsp;&nbsp;&nbsp;
+</span></span><span style="font-size: 10.0pt; font-family: Courier New">
+Dependencies followed by compilation rules in the second line, such as:</span></p>
+<p class="msolistparagraph0" style="text-autospace: none; margin-left: .75in">
+<span style="font-size: 10.0pt; font-family: Courier">blue.o: blue.h blue.cpp</span></p>
+<p style="margin-left: .75in">
+<span style="font-size: 10.0pt; font-family: Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $(CXX) $(CXXFLAGS) 
+-c blue.cpp</span></p>
+<p><span style="font-size: 10.0pt; font-family: Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+<span style="font-size: 10.0pt; font-family: Courier New">Which translates to,
+<b>blue.o</b> depends on <b>blue.h</b> and <b>blue.cpp</b>, compile blue.o using 
+the rule: g++ (flags) –c blue.cpp.</span></p>
+<p><span style="font-size: 10.0pt; font-family: Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The tag <b>
+all </b>and<b> clean </b>specifies the final target to make, and the rules to 
+clean up.</span></p>
+<p class="msolistparagraph0" style="text-indent: -.25in">3.<span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 7.0pt; font-family: Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Save and quit editing. Use the makefile by typing:</p>
+<p><span style="font-size: 10.0pt; font-family: Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; make</span><span style="font-size: 10.0pt; font-family: Courier New"> 
+or </span><span style="font-size: 10.0pt; font-family: Courier">make all</span></p>
+<p><span style="font-size: 10.0pt; font-family: Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>and you 
+should see the program being compiled and the target being created.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Clean up all results by typing:</p>
+<p><span style="font-size: 10.0pt; font-family: Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; make clean</span></p>
+<p><strong>Work on Makefile with Eclipse</strong></p>
+<ul type="disc" style="margin-bottom: 0in">
+	<li class="MsoNormal">Create a Makefile project &quot;<strong>printcolor</strong>&quot; 
+	under Eclipse.</li>
+</ul>
+<p class="MsoNormal"><!--[if gte vml 1]><v:shape
+ id="Picture_x0020_2" o:spid="_x0000_s1033" type="#_x0000_t75" style='width:413.25pt;
+ height:450pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="index_files/image003.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=551 height=600
+src="index_files/image004.jpg" v:shapes="Picture_x0020_2"><![endif]></p>
+<ul type="disc" style="margin-bottom: 0in">
+	<li class="MsoNormal">Copy files to the project directory ( cspeter should 
+	be replaced by your login ID )</li>
+</ul>
+<p class="MsoNormal"><!--[if gte vml 1]><v:shape
+ id="Picture_x0020_3" o:spid="_x0000_s1032" type="#_x0000_t75" style='width:531pt;
+ height:381.75pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="index_files/image005.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=708 height=509
+src="index_files/image006.jpg" v:shapes="Picture_x0020_3"><![endif]></p>
+<ul type="disc" style="margin-bottom: 0in">
+	<li class="MsoNormal">Choose New &gt; File to add a new <b>Makefile</b> to the 
+	current project</li>
+</ul>
+<p class="MsoNormal"><!--[if gte vml 1]><v:shape
+ id="Picture_x0020_4" o:spid="_x0000_s1031" type="#_x0000_t75" style='width:393.75pt;
+ height:465pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="index_files/image007.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=525 height=620
+src="index_files/image008.jpg" v:shapes="Picture_x0020_4"><![endif]></p>
+<ul type="disc" style="margin-bottom: 0in">
+	<li class="MsoNormal">Type in the content of the <b>Makefile</b>. Here is a 
+	sample <b>Makefile</b> based on the above description:</li>
+</ul>
+<p class="MsoNormal"><!--[if gte vml 1]><v:shape
+ id="Picture_x0020_5" o:spid="_x0000_s1030" type="#_x0000_t75" style='width:748.5pt;
+ height:435.75pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="index_files/image009.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=998 height=581
+src="index_files/image010.jpg" v:shapes="Picture_x0020_5"><![endif]></p>
+<ul type="disc" style="margin-bottom: 0in">
+	<li class="MsoNormal">Create a make target. Based on the rules defined on 
+	the <b>Makefile</b>, the target name should be equal to <b>all</b></li>
+</ul>
+<p class="MsoNormal"><!--[if gte vml 1]><v:shape
+ id="Picture_x0020_6" o:spid="_x0000_s1029" type="#_x0000_t75" style='width:263.25pt;
+ height:345.75pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="index_files/image011.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=351 height=461
+src="index_files/image012.jpg" v:shapes="Picture_x0020_6"><![endif]><!--[if gte vml 1]><v:shape
+ id="Picture_x0020_7" o:spid="_x0000_s1028" type="#_x0000_t75" style='width:250.5pt;
+ height:343.5pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="index_files/image013.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=334 height=458
+src="index_files/image014.jpg" v:shapes="Picture_x0020_7"><![endif]></p>
+<ul type="disc" style="margin-bottom: 0in">
+	<li class="MsoNormal">Build the project by clicking the hammer button
+ 	<ul type="circle" style="margin-bottom: 0in">
+		<li class="MsoNormal">You may receive some unknown warning messages. It 
+		should be fine if the executable named <b>printcolor </b>is generated 
+		(can be viewed from the Project Explorer on the left panel)</li>
+		<li class="MsoNormal">You should notice that <b>Makefile</b> enables the 
+		separate compilation</li>
+		<li class="MsoNormal">Parameters
+  		<ul type="disc" style="margin-bottom: 0in">
+			<li class="MsoNormal">-Wall means show all warning messages when 
+			compiling a cpp file</li>
+			<li class="MsoNormal">OBJS stores all the intermediate object files 
+			generated during the compilation process</li>
+			<li class="MsoNormal">LIBS stores external libraries. We don’t 
+			require external libraries, so we omit this variable</li>
+			<li class="MsoNormal">TARGET is the name of the final executable</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+<p class="MsoNormal"><!--[if gte vml 1]><v:shape
+ id="Picture_x0020_8" o:spid="_x0000_s1027" type="#_x0000_t75" style='width:783pt;
+ height:536.25pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="index_files/image015.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=1044 height=715
+src="index_files/image016.jpg" v:shapes="Picture_x0020_8"><![endif]></p>
+<ul type="disc" style="margin-bottom: 0in">
+	<li class="MsoNormal">Run the executable <b>printcolor</b></li>
+</ul>
+<p class="MsoNormal"><!--[if gte vml 1]><v:shape
+ id="Picture_x0020_9" o:spid="_x0000_s1026" type="#_x0000_t75" style='width:783pt;
+ height:536.25pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="index_files/image017.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=1044 height=715
+src="index_files/image018.jpg" v:shapes="Picture_x0020_9"><![endif]></p>
+<div class="MsoNormal" align="center" style="text-align: center; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt">
+	<hr size="2" width="100%" align="center"></div>
+<h2>Lab Task</h2>
+<h3>Download</h3>
+<ul type="disc" style="margin-bottom: 0in">
+	<li class="MsoNormal">
+	<a style="color: blue; text-decoration: underline; text-underline: single" href="date_all.cpp">date_all.cpp</a> contains the definition and implementation of the class
+	<strong>Date</strong> as well as the main function</li>
+</ul>
+<h3>Lab Work</h3>
+<p><strong>Declaration, Definition and Implementation</strong></p>
+<p>In practice, programmers always separate a segment of program source code 
+into three parts: <strong>declaration, definition and implementation</strong>.<strong>
+</strong>The purpose is to separate the interface from the actual implementation 
+to make the program easier to understand and reuse.&nbsp; The objectives are to 
+achieve:</p>
+<ul type="disc" style="margin-bottom: 0in">
+	<li class="MsoNormal">Clean and concise header files (*.h)</li>
+	<li class="MsoNormal">Separate the compilation process to avoid unnecessary 
+	recompilation (or to achieve minimum recompilation) when some of the program 
+	files are changed</li>
+</ul>
+<p>For example, consider the class</p>
+<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0in; margin-right: 0in; margin-top: 0in; margin-bottom: .0001pt">class Date;</pre>
+<p><strong>Class declaration</strong>: Introduce a class called <strong>Date</strong> 
+to the compiler, but with only function prototypes without any detailed 
+information provided yet</p>
+<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0in; margin-right: 0in; margin-top: 0in; margin-bottom: .0001pt">class Date {</pre>
+<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0in; margin-right: 0in; margin-top: 0in; margin-bottom: .0001pt">&nbsp;&nbsp; Date();</pre>
+<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0in; margin-right: 0in; margin-top: 0in; margin-bottom: .0001pt">&nbsp;&nbsp; // ... function prototypes and member variables</pre>
+<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0in; margin-right: 0in; margin-top: 0in; margin-bottom: .0001pt">};</pre>
+<p><strong>Class definition or implementation</strong>: Define the class <strong>
+Date</strong>'s member variables and member functions so that codes can be 
+generated.&nbsp; The are in the form of the following</p>
+<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0in; margin-right: 0in; margin-top: 0in; margin-bottom: .0001pt">Date::Date() {</pre>
+<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0in; margin-right: 0in; margin-top: 0in; margin-bottom: .0001pt">&nbsp;&nbsp; // ... detailed implementation</pre>
+<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0in; margin-right: 0in; margin-top: 0in; margin-bottom: .0001pt">};</pre>
+<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0in; margin-right: 0in; margin-top: 0in; margin-bottom: .0001pt">　</pre>
+<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0in; margin-right: 0in; margin-top: 0in; margin-bottom: .0001pt">　</pre>
+<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0in; margin-right: 0in; margin-top: 0in; margin-bottom: .0001pt">// ...</pre>
+<h2><span style="font-size: 14.0pt">Part I:</span></h2>
+<ol start="1" type="1" style="margin-bottom: 0in">
+	<li class="MsoNormal">Re-factor the program in
+	<a style="color: blue; text-decoration: underline; text-underline: single" href="date_all.cpp">date_all.cpp</a> to make use of the idea of separate compilation, which is 
+	to separate the class Date's definition and implementation in the given 
+	date_all.cpp:
+ 	<ul type="circle" style="margin-bottom: 0in">
+		<li class="MsoNormal">Put the class Date's definition into <strong>
+		date.h</strong></li>
+		<li class="MsoNormal">Put the class Date's implementation into <strong>
+		date.cpp</strong></li>
+		<li class="MsoNormal">Put the main function into <strong>main.cpp</strong></li>
+	</ul>
+	</li>
+	<li class="MsoNormal">Complete the code according to comment TODO</li>
+	<li class="MsoNormal"><strong><span style="font-weight: normal">Create a g++
+	</span>Makefile<span style="font-weight: normal"> so that it can:</span></strong>
+ 	<ul type="circle" style="margin-bottom: 0in">
+		<li class="MsoNormal">Compile date.cpp to generate an object file date.o</li>
+		<li class="MsoNormal">Compile main.cpp to generate an object file main.o</li>
+		<li class="MsoNormal">Remove all .o and executable files in <b>clean</b> target</li>
+		<li class="MsoNormal">Link the object files and generate the executable 
+		code with filename <b>lab7</b></li>
+	</ul>
+	</li>
+</ol>
+<p>　</p>
+<p class="MsoNormal"><strong><span style="font-size: 14.0pt">Part II: (Optional)</span></strong></p>
+<ol start="1" type="1" style="margin-bottom: 0in">
+	<li class="MsoNormal">In Eclipse, create a Makefile project called &quot;<strong>date</strong>&quot;.</li>
+	<li class="MsoNormal">Copy the re-factored source and header files (<strong>date.h<span style="font-weight: normal">,</span> 
+	date.cpp<span style="font-weight: normal">,</span> main.cpp<span style="font-weight: normal">)</span></strong> 
+	to the project.</li>
+	<li class="MsoNormal">Complete the <strong>Makefile</strong> created by 
+	Eclipse, so that it can do the same thing as the g++ Makefile created in <b>
+	Part I</b>.</li>
+</ol>
+<p><!--[if gte vml 1]><v:shape
+ id="Picture_x0020_11" o:spid="_x0000_s1025" type="#_x0000_t75" style='width:434.25pt;
+ height:256.5pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="index_files/image019.gif" o:title="files"/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=579 height=342
+src="index_files/image019.gif" v:shapes="Picture_x0020_11"><![endif]></p>
+<h3>References</h3>
+<ul type="disc" style="margin-bottom: 0in">
+	<li class="MsoNormal">
+	<a href="https://www.gnu.org/software/make/manual/html_node/Introduction.html">
+	An introduction to Makefile</a></li>
+	<li class="MsoNormal">Another easy
+	<a style="color: blue; text-decoration: underline; text-underline: single" href="http://www.cs.cmu.edu/~tom7/211/make.html">
+	page</a></li>
+	<li class="MsoNormal">
+	<a href="http://mrbook.org/blog/tutorials/make/" style="color: blue; text-decoration: underline; text-underline: single">
+	Makefile tutorial</a></li>
+	<li class="MsoNormal">For more information of g++, please see the reference
+<a style="color: blue; text-decoration: underline; text-underline: single" href="http://www.mrs.umn.edu/~mcphee/Courses/C_C++_notes/Glossary/g++_command_line_args.html">
+g++ command line arguments</a>.</li>
+</ul>
+<p style="text-indent: -.25in; margin-left: .5in">
+&nbsp;</p>
+<p class="MsoNormal">&nbsp;&copy;
+<a style="color: blue; text-decoration: underline; text-underline: single" href="http://www.cse.ust.hk/">
+CSE</a>,
+<a style="color: blue; text-decoration: underline; text-underline: single" href="http://www.ust.hk">
+HKUST</a> |
+<a style="color: blue; text-decoration: underline; text-underline: single" href="http://www.opendesigns.org/">
+OpenDesign</a> </p>
+
+</body>
+
+</html>

@@ -1,0 +1,563 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>COMP2012H Lab (Pointers)</title>
+<style>
+<!--
+p
+	{margin-right:0cm;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	}
+div.Section1
+	{page:Section1;}
+h1
+	{margin-right:0cm;
+	margin-left:0cm;
+	font-size:24.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold}
+h2
+	{margin-right:0cm;
+	margin-left:0cm;
+	font-size:18.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold}
+h3
+	{margin-right:0cm;
+	margin-left:0cm;
+	font-size:13.5pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold}
+ li.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	margin-left:0cm; margin-right:0cm; margin-top:0cm}
+table.TableNormal
+	{mso-style-parent:"";
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif"}
+ p.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	margin-left:0cm; margin-right:0cm; margin-top:0cm}
+ div.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	margin-left:0cm; margin-right:0cm; margin-top:0cm}
+-->
+</style>
+</head>
+
+<body>
+
+<div class="Section1">
+	<div id="header">
+		<h1><span lang="EN-US">COMP2012H</span></h1>
+		<h2><strong>Honors OOP and Data Structures</strong></h2>
+	</div>
+	<div id="content">
+		<h2><span lang="EN-US">Lab 9: Pointers and Linked Lists</span></h2>
+		<h3><span lang="EN-US">Topics</span></h3>
+		<ul type="disc" style="margin-bottom: 0cm">
+			<li class="MsoNormal"><span lang="EN-US">Pointers and arrays</span></li>
+			<li class="MsoNormal"><span lang="EN-US">Reference variables</span></li>
+		</ul>
+		<h3><span lang="EN-US">Review</span></h3>
+		<p><strong><span lang="EN-US">Pointers and Memory Addresses</span></strong></p>
+		<p><span lang="EN-US">We can view the main memory as a large array. In 
+		order to manipulate such a large array, C++ programmers often use 
+		pointers as the indices of the array.</span></p>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">int a = 3;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">int* p = &amp;a;&nbsp; // let p be the address of a</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">*p = 4;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // assign the value 4 to the memory location pointed to by p</span></pre>
+		<p><span lang="EN-US">Compare with:</span></p>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">int memory[5] = {20, 1, 3, 40, 1776};</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">int p = 2;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // let p be the index 2 of the array &quot;memory&quot;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">memory[p] = 4;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // assign the value 4 to &quot;memory&quot; indicated by index p</span></pre>
+		<p><strong><span lang="EN-US">Address-of Operator (&amp;)</span></strong></p>
+		<p><span lang="EN-US">At the moment when we define a variable, it must 
+		be stored in a concrete location in a succession of cells (the memory). 
+		We generally cannot decide where the variable is to be placed - 
+		fortunately it is automatically done by the linker, but once the 
+		variable has been assigned an address, we may be interested in knowing 
+		where the variable is stored. This can be done by preceding the variable 
+		identifier by an ampersand sign (<strong>&amp;</strong>), which literally 
+		means &quot;address of&quot;. For example: </span></p>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">int a = 3;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">int* p= &amp;a;</span></pre>
+		<table class="TableNormal" border="0" cellpadding="0" width="600" style="width: 450.0pt">
+			<tr>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><strong><span lang="EN-US">Variable</span></strong></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><strong><span lang="EN-US">Memory Address</span></strong></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><strong><span lang="EN-US">Memory Content</span></strong></td>
+			</tr>
+			<tr>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">a</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">1776</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">3</span></td>
+			</tr>
+			<tr>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">p</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">1780</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">1776</span></td>
+			</tr>
+		</table>
+		<p><span lang="EN-US">would assign to variable <strong>p</strong> the 
+		address of variable <strong>a</strong>, since when preceding the name of 
+		the variable <strong>a</strong> with the ampersand (&amp;) character, we are 
+		no longer talking about the content of the variable, but about its 
+		address in memory. We are going to assume that <strong>a</strong> has 
+		been placed in the memory address <strong>1776</strong> and that we 
+		write the following:</span></p>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">a = 25;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // a is assigned the value 25</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">int b = a;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // b copies the value of 25 from a</span></pre>
+		<table class="TableNormal" border="0" cellpadding="0" width="600" style="width: 450.0pt">
+			<tr>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><strong><span lang="EN-US">Variable</span></strong></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><strong><span lang="EN-US">Memory Address</span></strong></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><strong><span lang="EN-US">Memory Content</span></strong></td>
+			</tr>
+			<tr>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">a</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">1776</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">25</span></td>
+			</tr>
+			<tr>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">p</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">1780</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">1776</span></td>
+			</tr>
+			<tr>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">b</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">1784</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">25</span></td>
+			</tr>
+		</table>
+		<p><span lang="EN-US">The variable that stores the address of another 
+		variable (like <strong>p</strong> in the previous example) is what we 
+		call a pointer.</span></p>
+		<blockquote style="margin-top: 5.0pt; margin-bottom: 5.0pt">
+			<p class="MsoNormal"><strong><span lang="EN-US">Question</span></strong><span lang="EN-US">: 
+			What is the output value of <strong>*p</strong>?</span></p>
+		</blockquote>
+		<p><strong><span lang="EN-US">Dereferencing Operator (</span></strong><em><b><span lang="EN-US">*</span></b></em><strong><span lang="EN-US">)</span></strong></p>
+		<p><span lang="EN-US">Using a pointer, we can access directly the value 
+		stored in the variable just by preceding the pointer identifier with the 
+		dereferencing operator as an asterisk (*), which can be literally 
+		translated to &quot;<strong>value pointed by</strong>&quot;. Thus, following the 
+		previous example, if we write: </span></p>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">a = 7;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">b = *p;</span></pre>
+		<p><span lang="EN-US">(that we could read as: &quot;<strong>b</strong> gets 
+		the value pointed to by <strong>p</strong>&quot;)</span></p>
+		<p><strong><span lang="EN-US">b</span></strong><span lang="EN-US"> would 
+		take value <strong>7</strong>, since <strong>p</strong> has value
+		<strong>1776</strong>, and the value at location <strong>1776</strong> 
+		is <strong>7</strong>. </span></p>
+		<table class="TableNormal" border="0" cellpadding="0" width="600" style="width: 450.0pt">
+			<tr>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><strong><span lang="EN-US">Variable</span></strong></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><strong><span lang="EN-US">Memory Address</span></strong></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><strong><span lang="EN-US">Memory Content</span></strong></td>
+			</tr>
+			<tr>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">a</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">1776</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">7</span></td>
+			</tr>
+			<tr>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">p</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">1780</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">1776</span></td>
+			</tr>
+			<tr>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">b</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">1784</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">7</span></td>
+			</tr>
+		</table>
+		<p><strong><span lang="EN-US">Reference Variables</span></strong></p>
+		<p><span lang="EN-US">A reference is an alterative name (<strong>alias</strong>) 
+		for an object. Notice that a reference <span class="red">must</span> 
+		always be bound to an object. Therefore, it <span class="red">must</span> 
+		be initialized when it is created. </span></p>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">int&amp; r = a;&nbsp;&nbsp; // r is an alias of a</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">a = 8;</span></pre>
+		<table class="TableNormal" border="0" cellpadding="0" width="600" style="width: 450.0pt">
+			<tr>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><strong><span lang="EN-US">Variable</span></strong></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><strong><span lang="EN-US">Memory Address</span></strong></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><strong><span lang="EN-US">Memory Content</span></strong></td>
+			</tr>
+			<tr>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">a</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">1776</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">8</span></td>
+			</tr>
+			<tr>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">p</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">1780</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">1776</span></td>
+			</tr>
+			<tr>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">b</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">1784</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">7</span></td>
+			</tr>
+			<tr>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">r</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">1776</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">8</span></td>
+			</tr>
+		</table>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">r = b;</span></pre>
+		<table class="TableNormal" border="0" cellpadding="0" width="600" style="width: 450.0pt">
+			<tr>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><strong><span lang="EN-US">Variable</span></strong></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><strong><span lang="EN-US">Memory Address</span></strong></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><strong><span lang="EN-US">Memory Content</span></strong></td>
+			</tr>
+			<tr>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">a</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">1776</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">7</span></td>
+			</tr>
+			<tr>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">p</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">1780</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">1776</span></td>
+			</tr>
+			<tr>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">b</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">1784</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">7</span></td>
+			</tr>
+			<tr>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">r</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">1776</span></td>
+				<td style="padding: .75pt">
+				<p class="MsoNormal"><span lang="EN-US">7</span></td>
+			</tr>
+		</table>
+		<p><span lang="EN-US">Assignment changes the value of both <strong>r</strong> 
+		and <strong>a</strong> here!</span></p>
+		<p><span lang="EN-US">Here is a simple
+		<a style="color: blue; text-decoration: underline; text-underline: single" href="pointer.cpp">program</a> that demonstrates the differences between a pointer and a 
+		reference variable.</span></p>
+		<p><strong><span lang="EN-US">Pointers and Arrays</span></strong></p>
+		<p><span lang="EN-US">In fact, the identifier of an array is a <strong>
+		constant</strong> pointer that refers to the first element of the array.
+		</span></p>
+		<p><span lang="EN-US">For example, after defining two variables:</span></p>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">int numbers[20];</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">int* p;</span></pre>
+		<p><span lang="EN-US">we have the following assignment statement:</span></p>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">p = numbers; </span></pre>
+		<p><span lang="EN-US">This is valid because <strong>p</strong> and
+		<strong>numbers</strong> are both pointers of the same base type (int). 
+		Now we can use <strong>p</strong> to refer to the array elements as can
+		<strong>numbers</strong>. (Some examples will be given below)</span></p>
+		<p><span lang="EN-US">However, the following assignment statement is
+		<span class="red">invalid</span>:</span></p>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">numbers = p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="red"><span style="font-family: Courier New">// WRONG</span></span></span></pre>
+		<p><span lang="EN-US">because <strong>numbers</strong> is a constant 
+		pointer (no values can be assigned to a constant variable).</span></p>
+		<p><span lang="EN-US">We use brackets <strong>[]</strong> to specify the 
+		index of the element of the array, and such index is an offset relative 
+		to the first element of the array. So the bracket operator <strong>[]</strong> 
+		is also known as an offset operator. The function of an offset operator 
+		can be mimicked by adding the index in the brackets to the pointer which 
+		is initialized by the array identifier.</span></p>
+		<p><span lang="EN-US">For example, the following two expressions </span>
+		</p>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">numbers[5] = 0;&nbsp;&nbsp;&nbsp; // numbers[offset of 5] = 0</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">*(p+5) = 0;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // value pointed by (p+5) = 0</span></pre>
+		<p><span lang="EN-US">are equivalent if the offset is within the scope 
+		of the array.</span></p>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">// more pointers</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">#include &lt;iostream&gt;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">using namespace std;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">int main ()</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">{</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp; int numbers[5];</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp; int* p;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp; p = numbers;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp; *p = 10;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // number[0] = 10</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp; p++;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp; *p = 20;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // number[1] = 20</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp; p = &amp;numbers[2];</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp; *p = 30;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // number[2] = 30</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp; p = numbers + 3;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp; *p = 40;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // number[3] = 40</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp; p = numbers;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp; *(p+4) = 50;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // number[4] = 50</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp; for (int n=0; n&lt;5; n++)</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cout &lt;&lt; numbers[n] &lt;&lt; &quot;, &quot;;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp; return 0;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">}</span></pre>
+		<blockquote style="margin-top: 5.0pt; margin-bottom: 5.0pt">
+			<p class="MsoNormal"><strong><span lang="EN-US">Question</span></strong><span lang="EN-US">: 
+			What is the output?</span></p>
+		</blockquote>
+		<p><strong><span lang="EN-US">Operators new and new [ ]</span></strong></p>
+		<p><span lang="EN-US">In order to realize dynamic memory management, the 
+		operator <strong>new</strong> is used. Itis followed by a data type and 
+		optionally the number of elements in brackets <strong>[]</strong>. It 
+		returns a pointer to the beginning of the new block of assigned memory. 
+		The syntax is: </span></p>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">type* pointer = new type;</span></pre>
+		<p><span lang="EN-US">or </span></p>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">type* pointer = new type [number of elements];</span></pre>
+		<p><span lang="EN-US">The first expression is used to assign memory to 
+		contain one single element of that type. The second one is used to 
+		assign a block (an array) of elements of that type.<span xml:lang="zh-cn">
+		</span>For example:</span></p>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">int* barr;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">barr = new int [5];</span></pre>
+		<p><span lang="EN-US">In this case, we have assigned a space for 5 
+		elements of type int and it has returned a pointer to the beginning of 
+		the block that has been assigned to <strong>barr</strong>. Therefore,
+		<strong>barr</strong> points to a block of memory with space for 5 int 
+		elements. </span></p>
+		<p><span lang="EN-US">You may wonder what is the difference between 
+		defining an ordinary array and allocating memory via a pointer as we 
+		have just done. The most important one is that <strong>the size of an 
+		ordinary array must be a constant value</strong>, which limits its size 
+		to what we decide at the moment of designing the program before its 
+		execution, whereas <strong>dynamic memory allocation</strong> allows us 
+		to <strong>allocate memory during the execution of the program</strong> 
+		using any variable, constant or combination of both as size. The dynamic 
+		memory is generally managed by the operating system, and in a 
+		multitasking interface can be shared between several applications, so 
+		there is a possibility of running out of memory. If this happens and the 
+		operating system cannot allocate the memory that we request with the 
+		operator <strong>new</strong>, a null pointer will be returned. For that 
+		reason, it is recommended that a check for whether the returned pointer 
+		is null after calling the <strong>new</strong> operator: </span></p>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">int* barr;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">barr = new int [5];</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">if (barr == NULL) {</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp; // Memory allocation failure</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">};</span></pre>
+		<p><strong><span lang="EN-US">Operator delete</span></strong></p>
+		<p><span lang="EN-US">If a block of memory created by the operator
+		<strong>new</strong> is no longer needed, it should be reclaimed for 
+		future request of dynamic memory. Otherwise we will be at a risk of 
+		memory leak. The operator <strong>delete</strong> can be used for this 
+		purpose. Its syntax is:</span></p>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">delete pointer;</span></pre>
+		<p><span lang="EN-US">or</span></p>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">delete [] pointer;</span></pre>
+		<p><span lang="EN-US">The first expression should be used to reclaim 
+		memory allocated for a single element, and the second one for a block of 
+		elements (an array).</span></p>
+		<div class="MsoNormal" align="center" style="text-align: center">
+			<span lang="EN-US"><hr size="2" width="100%" align="center"></span>
+		</div>
+		<h2><span lang="EN-US">Lab Task</span></h2>
+		<p><strong><span lang="EN-US">Linked Lists</span></strong></p>
+		<p><span lang="EN-US">From above, we can see that a dynamic array is a 
+		consecutively allocated memory buffer. Once the buffer is allocated, the 
+		size of this buffer is fixed. This can be a problem if some new blocks 
+		have to be appended to the buffer. Instead of using continuous dynamic 
+		memory allocation, a different data structure can be used to solve this 
+		problem. A linked list is a list of nodes in which each node has a link 
+		to the next node. To traverse the list, we need to keep a pointer to the 
+		head node in order to trace the whole list.</span></p>
+		<p><span lang="EN-US">Here is an example of a linked list:</span></p>
+		<p><img border="0" src="list.gif" width="640" height="147"></p>
+		<p><span lang="EN-US">It is like a train which travels from the starting 
+		city to other cities one by one.</span></p>
+		<p><span lang="EN-US">The class is defined as:</span></p>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">class List {</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp; private:</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct Node {</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; string str;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Node* ptrNext;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; };</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Node* m_Head;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp; public:</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; List();</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ~List(); </span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;void Print();</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool Insert(string str);</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ...</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">};</span></pre>
+		<p><span lang="EN-US">The structure of a linked list resembles a list of 
+		MTR stations (Note: MTR stations are stored in a file named <b>
+		station.txt</b>). Each station is linked by its previous station. Once 
+		the first station is lost, then the following stations will be lost. 
+		Therefore, every time we traverse the list of MTR stations, we have to 
+		keep the information of the current station and the link to the next 
+		station.</span></p>
+		<p><b><span lang="EN-US">Part 1: Implement an Access() method defined in 
+		List.cpp</span></b></p>
+		<p><span lang="EN-US">The task is to implement a function <strong>
+		Access()</strong> in <strong>List.cpp</strong> to count the number of 
+		stations from the head to a destination. The project is zipped
+		<a style="color: blue; text-decoration: underline; text-underline: single" href="list.zip">here</a> and the data file is
+		<a style="color: blue; text-decoration: underline; text-underline: single" href="station.txt">here</a>. </span></p>
+		<p><span lang="EN-US">Note that you only need to modify the code in
+		<strong>List::Access</strong>.</span></p>
+		<p><b><span lang="EN-US">Part 2: Create a Makefile to:</span></b></p>
+		<p style="text-indent: -18.0pt; margin-left: 36.0pt">
+		<span lang="EN-US" style="font-family: Symbol">·<span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 7.0pt; font-family: Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		</span></span><span lang="EN-US">Support a clean operation to remove 
+		intermediate files</span></p>
+		<p style="text-indent: -18.0pt; margin-left: 36.0pt">
+		<span lang="EN-US" style="font-family: Symbol">·<span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 7.0pt; font-family: Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		</span></span><span lang="EN-US">Compile List.cpp to generate an object 
+		file List.o </span></p>
+		<p style="text-indent: -18.0pt; margin-left: 36.0pt">
+		<span lang="EN-US" style="font-family: Symbol">·<span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 7.0pt; font-family: Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		</span></span><span lang="EN-US">Compile main.cpp to generate an object 
+		file main.o </span></p>
+		<p style="text-indent: -18.0pt; margin-left: 36.0pt">
+		<span lang="EN-US" style="font-family: Symbol">·<span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 7.0pt; font-family: Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		</span></span><span lang="EN-US">Link the object files and generate the 
+		executable code with filename lab04</span></p>
+		<p><b><span lang="EN-US">Part 3:&nbsp; Add the AccessIgnoreCase(string str) 
+		method:</span></b></p>
+		<p><span lang="EN-US">The task is to add a new function named 
+		AccessIgnoreCase() in List.cpp and List.h. It achieves the same 
+		functionalities as Access(), but it is case insensitive. (i.e. HangHau 
+		is equal to HANGHAU).</span></p>
+		<p><span lang="EN-US">Replace <b>Access()</b> with <b>AccessIgnoreCase()</b> 
+		in the main function</span></p>
+		<p><b><span lang="EN-US">Part 4:&nbsp; From a singular linked list to a 
+		doubly linked list</span></b></p>
+		<p><span lang="EN-US">Doubly linked list is useful when backward 
+		transversal is needed quite frequently. Suppose we have the following 
+		linked list:</span></p>
+		<p><span lang="EN-US">(Head)* PoLam -&gt; HangHau -&gt; TseungKwanO -&gt; 
+		TiuKengLeng -&gt; YauTong -&gt; QuarryBay -&gt; NorthPoint</span></p>
+		<p><span lang="EN-US">It is efficient to transverse from PoLam to 
+		NorthPoint, but it is inefficient to transverse from NorthPoint to PoLam.</span></p>
+		<p><span lang="EN-US">We first modify the internal data structure of 
+		List as follow:</span></p>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">class DoublyLinkedList {</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp; private:</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct Node {</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; string str;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Node* ptrNext;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;Node* ptrPrev;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; };&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Node* m_Head; // pointer to the head of the linked list</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Node* m_Tail; // pointer to the tail of the linked list</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp; public:</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; List();</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ~List(); </span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;void Print();</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;void PrintReverse();</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool Insert(string str);</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int Access(string str);</span></pre>
+		<pre style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size: 10.0pt; font-family: Courier New; margin-left: 0cm; margin-right: 0cm; margin-top: 0cm; margin-bottom: .0001pt"><span lang="EN-US">};</span></pre>
+		<ul style="margin-bottom: 0cm">
+			<li><span lang="EN-US">Update the implementation of the constructor, 
+			the destructor and all the member functions. </span></li>
+			<li><span lang="en-us">Display the doubly linked list in reverse 
+			order (i.e., from the tail to the head) by implementing PrintReverse();</span></li>
+		</ul>
+		<h3><span lang="EN-US">References</span></h3>
+		<ul type="disc" style="margin-bottom: 0cm">
+			<li class="MsoNormal"><span lang="EN-US">
+			<a style="color: blue; text-decoration: underline; text-underline: single" href="http://www.cplusplus.com/doc/tutorial/pointers.html">
+			Pointers</a> and
+			<a style="color: blue; text-decoration: underline; text-underline: single" href="http://cplus.about.com/od/learning1/ss/references.htm">
+			Reference</a></span></li>
+		</ul>
+	</div>
+	<div id="footer">
+		<div id="credits">
+			<p class="MsoNormal"><span lang="EN-US">&nbsp; &copy;
+			<a style="color: blue; text-decoration: underline; text-underline: single" href="http://www.cse.ust.hk/">
+			CSE</a>,
+			<a style="color: blue; text-decoration: underline; text-underline: single" href="http://www.ust.hk">
+			HKUST</a> |
+			<a style="color: blue; text-decoration: underline; text-underline: single" href="http://www.opendesigns.org/">
+			OpenDesign</a> </span></div>
+	</div>
+</div>
+
+</body>
+
+</html>

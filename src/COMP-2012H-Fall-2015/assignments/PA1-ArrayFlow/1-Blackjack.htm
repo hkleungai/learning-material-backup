@@ -1,0 +1,586 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Assignment 1 : Blackjack</title>
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<meta content="Nicole Chan" name="Author">
+
+<meta content="MSHTML 6.00.2800.1400" name="GENERATOR"></head><body alink="#ff0000" bgcolor="#ccffff" link="#cc66cc" text="#000000" vlink="#551a8b"><font face="Arial,Helvetica" size="+2"><b>COMP 2012H : </b> 
+
+Honors OOP and Data Structures</font> 
+
+<p><b><font color="#cc0000" face="Arial,Helvetica" size="+2">Assignment 1:&nbsp; 
+
+Blackjack</font></b> <br>
+
+</p>
+<p><b><font size="4">Submission deadline: 11:59pm, Saturday, 26 September, 2015</font></b></p>
+<hr width="100%">
+
+
+
+<center>
+<div style="text-align: left;"><span style="color: red; font-weight: bold;">Frequently Asked Questions (FAQ):</span><br>
+</div>
+<div style="text-align: left; background-color: rgb(204, 255, 255);">Q1.
+Can a player pay more than he/she
+has?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+A1. No. <br>Q2. Can a player split more than
+once?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+A2. Up to three times.<br>Q3.
+Can the dealer
+split?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+A3. No.<br>
+Q4. In calculating "Ace", if I will be busted if counting it as 11 pts,
+would it change to 1 pt automatically?&nbsp; <br>
+A4. Yes. In calculating
+the Aces, your program should automatically count&nbsp; them
+towards&nbsp; the case that you would NOT be busted or the case that
+you would win (be basically smart). <br>
+Q5. Can we use produre instead of OOP for PA1?<br>
+A5. Sure.<br>
+Q6. What is the test case?<br>
+A6. Please refer details to below. Your program should support a <span style="color: red;">test case</span> and a <span style="color: red;">random case</span>. You should give a test case with card sequence as "<span style="color: red;">2D 2H 3C 7D 5C 9D 10H 2C 4D 3S 4H 11D ...</span> ". The grader will input to test the program. <br>Q7. If the player gets "2D 5C"in the&nbsp; first two drawings and then he gets 2S, should he split? &nbsp;<br>A7. &nbsp;No. 2D and 2S are not obtained together in the first two drawings.<br>
+Q8. Can I use STL vector for this game?<br>
+A8. Though we may not have taught it, you are allowed to implement it.<br>
+Q9. Are the splits treated sperately?<br>
+A9. The splits are treated hands by hands.&nbsp; 
+
+<br>
+&nbsp;&nbsp; Please note that each of your hands, after splitting and getting the 2nd
+cards for each hand, is treated separately. The test case actually shows the
+following process.
+
+<br>
+&nbsp; &nbsp;(1)&nbsp;When you've decided to split a hand, the dealer
+immediately deals a second card to each hand.&nbsp;
+
+<br>
+&nbsp; &nbsp;(2) You will take cards to your first hand until you have decided to stand (stop drawing)
+or busted. Then you carry on with the next hand (split 1, 2, ...). <br>
+&nbsp;&nbsp;&nbsp; This video shows what happens during splitting.&nbsp; <a href="https://www.youtube.com/watch?v=opMIb5ybWrE" target="_blank" style="color: black; font-family: arial,sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; background-color: rgb(255, 255, 255);">https://www.<wbr>youtube.com/watch?v=<wbr>opMIb5ybWrE </a><span style="color: black; font-family: arial,sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; background-color: rgb(255, 255, 255);">(no need to consider the different point of cards in the video from our website)</span><a href="https://www.youtube.com/watch?v=opMIb5ybWrE" target="_blank" style="color: black; font-family: arial,sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; background-color: rgb(255, 255, 255);">  </a><span style="font-family: &quot;Arial&quot;,sans-serif; color: rgb(34, 34, 34);" lang="EN-US"><o:p></o:p></span>
+
+
+</div>
+<br>
+<hr style="width: 100%; height: 2px;">&nbsp;</center>
+
+<p><font face="Arial,Helvetica">In this assignment , you will implement a 
+
+program to play Blackjack with computer (which is the dealer).</font></p><p>&nbsp;</p><p>
+
+<b>
+
+<font face="Arial,Helvetica" size="4">Rules of Blackjack</font></b></p><p>
+
+<font face="Arial,Helvetica">Blackjack is played with an ordinary deck of 52 
+
+cards. Each card has a rank (Ace through King, or equivalently 1 to 13) and a 
+
+suit (<b>H</b>earts, <b>D</b>iamonds, <b>C</b>lubs, <b>S</b>pades).&nbsp; In 
+
+this game, human player is against a computer dealer.&nbsp; A round of Blackjack 
+
+is played according to
+
+these rules:</font></p><p>
+
+<font face="Arial,Helvetica"><br>
+
+1)&nbsp;&nbsp;&nbsp; Player pays for this round.</font></p><p>
+
+<font face="Arial,Helvetica">2)&nbsp;&nbsp;&nbsp; The dealer gives the player two cards: All face up.</font></p><p>
+
+<font face="Arial,Helvetica">3)&nbsp;&nbsp;&nbsp; The dealer has two cards: one 
+
+face down and one face up (player and computer can only see the face up cards 
+
+and its cards at hand)</font></p><p>
+
+<font face="Arial,Helvetica">4)&nbsp;&nbsp;&nbsp; The player's goal is to get more 
+
+points than the dealer, but not to exceed 21 points. A player's points are 
+
+determined by summing the contributions of their cards:<br>
+
+&#8226; Face cards e.g. "J", "Q", "K"&nbsp; (rank = 11, 12, and 13) are worth 10 
+
+points.<br>
+
+&#8226; An ace (rank = 1) is worth either 1 point or 11 points.<br>
+
+&#8226; All other cards are worth their face value.</font></p><p>
+
+<font face="Arial,Helvetica">5)&nbsp;&nbsp;&nbsp; After dealing out the starting 
+
+cards, the player gets a turn to accumulate a hand as close as they can to 21 
+
+without going over. A player can draw additional cards one by one from the deck 
+
+until they no longer want any more or the number of cards reach the limit of 5 
+
+(no more than 5 cards for both dealer and player).&nbsp; If at any point the player's hand exceeds 
+
+21, he/she is "busted" and loses.&nbsp; Note that, besides the initial 
+
+face-up cards, the cards dealt hence-after are only visible to the relevant 
+
+party and not visible to the opposite side.</font></p><p style="background-color: rgb(204, 255, 255);">
+
+<font face="Arial,Helvetica">6)&nbsp;&nbsp;<span style="font-family: Helvetica,Arial,sans-serif;">&nbsp; If the player gets two cards with 
+
+the same points at the first deal (two consecutive card drawings) of each hand, he can request for a "split" (</span></font><span style="font-family: Helvetica,Arial,sans-serif;">i.e., if the two cards have the same value, separate them to make two hands)</span><font style="font-family: Helvetica,Arial,sans-serif;" face="Arial,Helvetica"><span style="color: rgb(153, 255, 255);">,</span> and he has to 
+
+pay double for this.&nbsp; The final reward is the sum of the individual reward 
+
+of each hand.</font></p><p><font face="Arial,Helvetica">7)&nbsp;&nbsp;&nbsp; 
+
+After the player finishes his turn, the dealer draws his cards.</font></p><p>
+
+<font face="Arial,Helvetica">8)&nbsp;&nbsp;&nbsp; After all cards are drawn, the 
+
+face-down cards are revealed and the dealer announces the winners.&nbsp; </font><font face="Arial,Helvetica">If both the player and dealer have equal points without "busting", "tie" happens. The player gets his bet back. </font></p>
+<p><font face="Arial,Helvetica">Player receives a double of what he paid if he wins.</font></p>
+<p><font face="Arial,Helvetica">9) If the two cards of the player equals to 21 pts, the player gets paid 1.5 times of his/her wager.</font></p>
+<p>
+
+&nbsp;</p><p>
+
+<b><font face="Arial,Helvetica" size="4">Input / Output specification:</font></b></p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+&nbsp;</p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+<font face="Arial,Helvetica">The user input in this program is very simple : y(yes) 
+
+, n(no) and the amount of money to pay.</font></p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+&nbsp;</p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+<font face="Arial,Helvetica">At the beginning of each game, the program should 
+
+report the total amount the player has: </font>
+
+</p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+<font face="Arial,Helvetica">e.g. <font color="#0000ff">Player: $100</font></font></p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+<font face="Arial,Helvetica">And then ask the player to pay for the game:</font></p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+<font face="Arial,Helvetica">e.g. </font>
+
+<font color="#0000ff" face="Arial,Helvetica">Pay for this round :</font></p>
+<p style="margin-top: 0pt; margin-bottom: 0pt; color: black;"><font face="Arial,Helvetica">And then ask the player to decide whether it is a test case:</font></p>
+<p style="margin-top: 0pt; margin-bottom: 0pt;"><font color="#0000ff" face="Arial,Helvetica"><span style="color: black;">e.g.</span> Test case? (Y/N):<br>
+</font></p>
+<p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+&nbsp;</p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+<font face="Arial,Helvetica">At this point, the program is waiting for user 
+
+input (the amount of money). The game starts with four cards, two to the player 
+
+and two to the dealer (one card face down).</font></p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+<font face="Arial,Helvetica">e.g. </font>
+
+</p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+<font color="#0000ff" face="Arial,Helvetica">&gt; Dealer : * 7D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+</font><font color="#ff0000" face="Arial,Helvetica">&nbsp;---&nbsp; (&nbsp; *&nbsp; 
+
+is the face down card)</font><font color="#0000ff" face="Arial,Helvetica"><br>
+
+&gt; Player : 2D 3H</font></p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+<font face="Arial,Helvetica">And then ask for the player to draw a card:</font></p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+<font face="Arial,Helvetica">e.g. <font color="#0000ff">&gt; Draw? (Y/N): </font>
+
+</font>
+
+</p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+&nbsp;</p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+<font face="Arial,Helvetica">If the user's input is 'Y' / 'y'(yes), the program 
+
+will report the updated status of game and ask for the draw again, and the 
+
+process repeats until the user's input is not equal to&nbsp; 'Y' / 'y'&nbsp;&nbsp; 
+
+or the cards exceed 21 points, or five cards have been drawn already.</font></p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+&nbsp;</p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+<font face="Arial,Helvetica">When the player's turn ends, the dealer will decide 
+
+whether to draw cards and finish the game.</font></p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+&nbsp;</p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+<font face="Arial,Helvetica">The program should report the winner at the end:</font></p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+<font face="Arial,Helvetica">e.g.</font></p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+<font color="#0000ff">&gt; Dealer : 3C 7D 4H 11D<br>
+
+&gt; Player : 2D 5C 10H 2C</font></p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+<font color="#0000ff" face="Arial,Helvetica">&gt; Dealer 24 points, Player 19 
+
+points<br>
+
+Player Win !!</font></p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+&nbsp;</p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+<font face="Arial,Helvetica">and ask for another game:</font></p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+<font face="Arial,Helvetica">e.g&nbsp; <font color="#0000ff">&gt; Again? (Y/N):</font></font></p><p style="margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p><br>
+<p style="margin-top: 0pt; margin-bottom: 0pt;"><br>
+</p>
+<p><b><font face="Arial,Helvetica">Sample Output of Test Case:</font></b></p>
+<p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+
+
+Player: $100<br>
+
+
+Pay for this round : 2
+</p>
+<p style="margin-top: 0pt; margin-bottom: 0pt;">Test case? (Y/N):&nbsp; Y<br>
+</p>
+
+<p style="margin-top: 0pt; margin-bottom: 0pt;"> <br>
+
+&gt; Dealer : * 7D<br>
+
+&gt; Player : 2D 2H<br>
+
+Split ? (Y/N): y<br>
+
+<br>
+
+&gt; Dealer : * 7D<br>
+
+&gt; Player : 2D 5C<br>
+
+&gt; split : 2H 9D<br>
+
+&gt; Draw? (Y/N): y<br>
+
+<br>
+
+&gt; Dealer : * 7D<br>
+
+&gt; Player : 2D 5C 10H<br>
+
+&gt; split : 2H 9D<br>
+
+&gt; Draw? (Y/N): y<br>
+
+<br>
+
+&gt; Dealer : * 7D<br>
+
+&gt; Player : 2D 5C 10H 2C<br>
+
+&gt; split : 2H 9D<br>
+
+&gt; Draw? (Y/N): n<br>
+
+<br>
+
+&gt; Dealer : * 7D<br>
+
+&gt; Player : 2D 5C 10H 2C<br>
+
+&gt; split : 2H 9D<br>
+
+&gt; Draw for split? (Y/N): y<br>
+
+<br>
+
+&gt; Dealer : * 7D<br>
+
+&gt; Player : 2D 5C 10H 2C<br>
+
+&gt; split : 2H 9D 4D<br>
+
+&gt; Draw for split? (Y/N): y<br>
+
+<br>
+
+&gt; Dealer : * 7D<br>
+
+&gt; Player : 2D 5C 10H 2C<br>
+
+&gt; split : 2H 9D 4D 3S<br>
+
+&gt; Draw for split? (Y/N): n<br>
+
+<br>
+
+&gt; Dealer : * 7D<br>
+
+&gt; Player : 2D 5C 10H 2C<br>
+
+&gt; split : 2H 9D 4D 3S<br>
+
+<br>
+
+&gt; Dealer : 3C 7D 4H 11D<br>
+
+&gt; Player : 2D 5C 10H 2C<br>
+
+&gt; Split : 2H 9D 4D 3S<br>
+
+&gt; Dealer 24 points, Player 19 points: and 18 points<br>
+
+Player Win !!<br>
+
+&gt; Again? (Y/N):</p>
+
+<p style="margin-top: 0pt; margin-bottom: 0pt;"><br><br>
+</p>
+<p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+&nbsp;</p><p><b><font face="Arial,Helvetica">Sample Output of Random Case:</font></b></p><p style="margin-top: 0pt; margin-bottom: 0pt;">
+
+<br>
+
+Player: $100<br>
+
+Pay for this round : 2</p>
+<p style="margin-top: 0pt; margin-bottom: 0pt;">Test case? (Y/N):&nbsp; N</p>
+<p style="margin-top: 0pt; margin-bottom: 0pt;"> <br>
+
+&gt; Dealer : * 7D<br>
+
+&gt; Player : 2D 2H<br>
+
+Split ? (Y/N): y<br>
+
+<br>
+
+&gt; Dealer : * 7D<br>
+
+&gt; Player : 2D 5C<br>
+
+&gt; split : 2H 9D<br>
+
+&gt; Draw? (Y/N): y<br>
+
+<br>
+
+&gt; Dealer : * 7D<br>
+
+&gt; Player : 2D 5C 10H<br>
+
+&gt; split : 2H 9D<br>
+
+&gt; Draw? (Y/N): y<br>
+
+<br>
+
+&gt; Dealer : * 7D<br>
+
+&gt; Player : 2D 5C 10H 2C<br>
+
+&gt; split : 2H 9D<br>
+
+&gt; Draw? (Y/N): n<br>
+
+<br>
+
+&gt; Dealer : * 7D<br>
+
+&gt; Player : 2D 5C 10H 2C<br>
+
+&gt; split : 2H 9D<br>
+
+&gt; Draw for split? (Y/N): y<br>
+
+<br>
+
+&gt; Dealer : * 7D<br>
+
+&gt; Player : 2D 5C 10H 2C<br>
+
+&gt; split : 2H 9D 4D<br>
+
+&gt; Draw for split? (Y/N): y<br>
+
+<br>
+
+&gt; Dealer : * 7D<br>
+
+&gt; Player : 2D 5C 10H 2C<br>
+
+&gt; split : 2H 9D 4D 3S<br>
+
+&gt; Draw for split? (Y/N): n<br>
+
+<br>
+
+&gt; Dealer : * 7D<br>
+
+&gt; Player : 2D 5C 10H 2C<br>
+
+&gt; split : 2H 9D 4D 3S<br>
+
+<br>
+
+&gt; Dealer : 3C 7D 4H 11D<br>
+
+&gt; Player : 2D 5C 10H 2C<br>
+
+&gt; Split : 2H 9D 4D 3S<br>
+
+&gt; Dealer 24 points, Player 19 points: and 18 points<br>
+
+Player Win !!<br>
+
+&gt; Again? (Y/N):</p>
+
+
+<p style="margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+
+<hr>
+
+<p style="margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+
+<p style="margin-top: 0pt; margin-bottom: 0pt;"><font color="#ff0000" size="4"><b>
+
+Grading:</b></font></p>
+
+<p style="margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+
+<p style="margin-top: 0pt; margin-bottom: 0pt;">This is a pretty "large" 
+
+assignment.&nbsp; In order to maximize your score, you may want to do the 
+
+following:</p>
+
+<ol>
+
+	<li>
+
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><i>A basic working program (40%):</i> 
+
+	You develop all the basic features of the programming without worrying about 
+
+	some nitty-gritty details.&nbsp; Basically, you implement the dealer which 
+
+	also always draws if the cards at hand are more than 5 points from busting.&nbsp; 
+
+	There is no split operation, and no payment accounting.&nbsp; You need to 
+
+	implement the game with only one round.</p></li>
+
+	<li>
+
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><i>Split operation (10%)</i>: In this 
+
+	part, you implement the split operation.</p></li>
+
+	<li>
+
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><i>Looping and payment accounting 
+
+	(10%)</i>: You wrap your codes with loops so that the game can be continued with 
+
+	player bidding in each round.</p></li>
+
+	<li>
+
+	<p style="margin-top: 0pt; margin-bottom: 0pt;"><i>Smart dealer (<font color="#ff00ff">Extra 
+
+	credit 10%</font>):&nbsp; </i>In this part, you implement a "smart" dealer 
+
+	which calculates some probability of winning before drawing a card.&nbsp; In 
+
+	your README, tell us how yours is smarter than (1) above.</p></li>
+
+</ol>
+
+<p style="margin-top: 0pt; margin-bottom: 0pt;">In your README, tell us which parts 
+
+have been implemented.</p>
+
+<p style="margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+
+<p style="margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+
+<hr>
+
+<p style="margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+
+<p style="margin-top: 0pt; margin-bottom: 0pt;"><b><font color="#ff0000" size="4">
+
+Tips:</font></b></p>
+
+<p><font face="Arial">You may need an array and u</font><font face="Arial,Helvetica">se the 
+
+library function <tt>rand()</tt> to select the cards at random (you'll need to
+
+<tt>#include &lt;stdlib.h&gt;</tt> and <tt>&lt;time.h&gt;</tt>):</font> </p>
+
+<p><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #include &lt;iostream&gt;</tt> <br>
+
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #include &lt;stdlib&gt;</tt> <br>
+
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #include &lt;time&gt;</tt> <br>
+
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; using namespace std;</tt> </p>
+
+<p><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int main(){</tt> <br>
+
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+
+int cardNumber;</tt></p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<tt>...</tt> <br>
+
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+srand(time(0));&nbsp; // initialize random number generator</tt>
+
+<br>
+
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ...</tt> <br>
+
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cardNumber 
+
+= (double) rand()/RAND_MAX * 13;&nbsp; // picks a random card number 
+
+between 1 and 13</tt> <br>
+
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ...</tt> <br>
+
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</tt> </p>
+
+<hr>
+
+<p style="margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+
+
+
+	</body></html>

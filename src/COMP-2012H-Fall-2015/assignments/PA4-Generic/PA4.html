@@ -1,0 +1,219 @@
+<html>
+<head>
+<title>Assignment 4: Using Vector STL to Implement Big Integer ADT</title>
+<style type="text/css">
+html {
+	background: repeat #f5f5f4;
+	height: 100%;
+}
+body {
+	padding: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	margin: 20px auto 20px auto;
+	color: #484848;
+	height: 100%;
+	max-width: 950px;
+}
+div {
+	margin: 20px auto 20px auto;
+}
+a {
+	color: #0091ed;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+li {
+	line-height: 20px;
+}
+p {
+	text-align: justify;
+	padding: 5px 0 5px 0;
+	margin: 0px;
+	line-height: 20px;
+}
+.clear {
+	clear: both;
+}
+h1 {
+	padding: 15px 0px 0 0;
+	margin: 0px;
+	color: #484848;
+	font-weight: bold;
+	font-size: 28px;
+}
+h2 {
+	padding: 20px 0px 10px 0;
+	margin: 0px;
+	color: #484848;
+	font-weight: bold;
+	font-size: 20px;
+}
+h3 {
+	padding: 20px 0px 0 0;
+	margin: 0px;
+	color: #484848;
+	font-weight: bold;
+	font-size: 20px;
+}
+h4 {
+	padding: 0px 0px 0 0;
+	margin: 0px;
+	color: #484848;
+	font-weight: bold;
+	font-size: 18px;
+}
+</style>
+</head>
+<body>
+<div style="margin: 20px auto 20px auto;max-width: 950px;">
+  <div>
+    <h1><strong>Assignment 4: Using Vector STL to Implement Big Integer ADT</strong></h1>
+  </div>
+  <div>
+    <h2> Contents </h2>
+    <ul>
+      <li><a href="#news">News</a></li>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#structure">BigInt Data Structure</a></li>
+      <li><a href="#requirement">Assignment Requirements</a></li>
+      <li><a href="#grading">Grading Scheme</a></li>
+      <li><a href="#bonus">Bonus</a></li>
+    </ul>
+  </div>
+  <div id="news">
+    <h2> News </h2>
+    <p>1. <strong>Submission deadline: 11:59pm, Saturday, Nov. 7, 2015</strong></p>
+    <p>2. <font color="red">[NEW]</font>There are some revision on <a href="code/bigint.h">bigint.h</a> and <a href="code/main.cpp">main.cpp</a>. Please use the latest version for your assignment. (Thanks to Brian So.)</p>
+  </div>
+  <div id="introduction">
+    <h2> Big Integer ADT (Abstract Data Type) </h2>
+    <p>Normally, computers use storage of a certain size to store primitive data types. For example, on x86 PCs, &quot;int&quot; (integer) is of 4 bytes, meaning that it can only represent any integer ranging from -2^31 to 2^31-1 only. If we want to handle bigger integers out of this range without loss of precision, we have to introduce a new abstract data type (ADT), Big Integer. With this ADT, we can manipulate integers of <em>any</em> size. In this assignment, you will implement the ADT named BigInt which supports all the essential operations of integers for arbitrary large positive or negative integers without overflowing.</p>
+  </div>
+  <div id="structure">
+    <h2> BigInt Data Structure </h2>
+    <p>To implement BigInt, we need two fields, a vector of &ldquo;unsigned short&rdquo; (1 byte) for the absolute value and a &ldquo;char&rdquo; for the sign:
+    <blockquote> <strong><code>class</code></strong><code> BigInt { <br>
+      // public functions here
+      </p>
+      </code>
+      <p><code><strong>private</strong>: <br>
+        &nbsp;&nbsp;vector&lt;<strong>unsigned</strong> <strong>short</strong>&gt; abs_value; <br>
+        &nbsp;&nbsp;<strong>char</strong> sign; </code></p>
+      <p><code>}; </code>
+    </blockquote>
+    <p>The vector <code>abs_value</code> is able to expand depending on the size of the integer. The way is to use a polynomial expression in terms of a0+a1*x+a2*x^2+..., where 0&lt;=ai&lt;x are the coefficients kept in the vector. In this problem, we choose the base of <strong>100</strong>, because it can be stored in the unsigned short and is simple to manipulate (with some sacrifice in storage as compared with the base of 128). As an example, the big integer &ldquo;12345678&rdquo; may be expressed as 12*<strong>100</strong>^3+34*<strong>100</strong>^2+56*<strong>100</strong>+78, and hence it is stored as a vector of &lt;12, 34, 56, 78&gt; as shown below:</p>
+    <div align="center">
+      <table border="1" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="60" align="center" valign="middle">12</td>
+          <td width="60" align="center" valign="middle">34</td>
+          <td width="60" align="center" valign="middle">56</td>
+          <td width="60" align="center" valign="middle">78</td>
+        </tr>
+      </table>
+    </div>
+    <p>As for the <code>sign</code>, we use &lsquo;+&rsquo; to represent a positive number, and &lsquo;-&rsquo; to represent a negative number.</p>
+  </div>
+  <div id="requirement">
+    <h2> Assignment Requirements </h2>
+    <p>1. You must use the template of class BigInt that we provide. Note that you can add your own helper private methods if needed. Public member functions are reserved for the users to call. The header file <a href="code/bigint.h">bigint.h</a> is provided.</p>
+    <p>2. There are 4 ways to construct BigInt:
+    <blockquote> <strong>a. Default</strong></br>
+      <p>No parameter can be passed. The default value of the BigInt should be 0.<br>
+        Usage example: <code>BigInt bi;</code></p>
+      <p><strong>b. From a string</strong>
+      <p>A null-terminated string can be passed.<br>
+        Usage example: <code>BigInt bi(&ldquo;-1234567&rdquo;);</code></p>
+      <p> <strong>c. From an integer</strong>
+      <p>An integer can be passed.<br>
+        Usage example: <code>BigInt bi(-23);</code></p>
+      <p> <strong>d. From a BigInt</strong>
+      <p>A BigInt can be passed.<br>
+        Usage example: <code>BigInt bi(bi2);</code></p>
+    </blockquote>
+    <p>3. There are two public functions in BigInt, namely from_stringand to_string, which convert a BigInt to a null-terminated string, and vice versa, explained below:</p>
+    <blockquote>
+      <p>a. <code>bool from_string(const char*)</code> converts a string into the BigInt object. If the string is <em>valid</em>, it will be parsed and stored in the object, and then return true. Otherwise, false will be returned. Note that a <em>valid</em> string means that it contains only digits (0-9) with leading &lsquo;-&rsquo; (for negative integer), or leading &lsquo;+&rsquo; or nothing (for positive integer).</p>
+      <p>b. <code>void to_string(char*)</code> outputs a readable string according to current data in the object. If the BigInt is possitive, no leading '+' should be output. Note that all strings must be null-terminated.</p>
+    </blockquote>
+    <p>4. To achieve all the operations of BigInt, you need to overload the following operators. If in doubt, please refer to integer primitive type operations:</p>
+    <div align="center">
+      <table border="1" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="50" height="20"align="center" valign="middle"><strong>No.</strong></td>
+          <td width="112" align="center" valign="middle"><strong>Operator(s)</strong></td>
+          <td width="467" align="center" valign="middle"><strong>Remark</strong></td>
+        </tr>
+        <tr>
+          <td width="50" align="center" valign="middle">1</td>
+          <td width="112" align="center" valign="middle"><code>+</code></td>
+          <td width="467"><p>You need to implement three types of addition operations, BigInt+BigInt, BigInt+int and int+BigInt. The returned type should be BigInt.</p></td>
+        </tr>
+        <tr>
+          <td width="50" align="center" valign="middle">2</td>
+          <td width="112" align="center" valign="middle"><code>-</code></td>
+          <td width="467"><p>The requirements are similar to entry &lt;1&gt;.</p></td>
+        </tr>
+        <tr>
+          <td width="50" align="center" valign="middle">3</td>
+          <td width="112" align="center" valign="middle"><code>*</code></td>
+          <td width="467"><p>The requirements are similar to entry &lt;1&gt;.</p></td>
+        </tr>
+        <tr>
+          <td width="50" align="center" valign="middle">4</td>
+          <td width="112" align="center" valign="middle"><code>/</code></td>
+          <td width="467"><p>The requirements are similar to entry &lt;1&gt;.</p></td>
+        </tr>
+        <tr>
+          <td width="50" align="center" valign="middle">5</td>
+          <td width="112" align="center" valign="middle"><code>%</code></td>
+          <td width="467"><p><em>% is the one similar to integer mod operation for its primitive counterpart.</em> The requirements are similar to entry &lt;1&gt;.</p></td>
+        </tr>
+        <tr>
+          <td width="50" align="center" valign="middle">6</td>
+          <td width="112" align="center" valign="middle"><code>=</code></td>
+          <td width="467"><p>You need to implement both BigInt=BigInt and BigInt=int. The returned type should be &amp;BigInt to support concatenation.</p></td>
+        </tr>
+        <tr>
+          <td width="50" align="center" valign="middle">7</td>
+          <td width="112" align="center" valign="middle"><code>++, --</code></td>
+          <td width="467"><p>You need to implement both BigInt++ (or BigInt--) and ++BigInt (or --BigInt). The returned type should be &amp;BigInt.</p></td>
+        </tr>
+        <tr>
+          <td width="50" align="center" valign="middle">8</td>
+          <td width="112" align="center" valign="middle"><code>&gt;, &gt;=<br>
+            &lt;, &lt;=<br>
+            ==, !==</code></td>
+          <td width="467"><p>You need to implement the comparison between two BigInts, or a BigInt and an integer type.  It returns either true or false.</p></td>
+        </tr>
+        <tr>
+          <td align="center" valign="middle">9</td>
+          <td align="center" valign="middle"><code>&gt;&gt;, &lt;&lt;</code></td>
+          <td><p><em>These two are the bit shifting operators. </em>Note that as the shifting value may be large, it should be represented as BigInt. The returned type should be BigInt.</p></td>
+        </tr>
+        <tr>
+          <td width="50" align="center" valign="middle">10</td>
+          <td width="112" align="center" valign="middle"><code>&gt;&gt;, &lt;&lt;</code></td>
+          <td width="467"><p><em>These two are the input and output operators. </em>The returned type should be istream&amp; (or ostream&amp;) to support concatenation.</p></td>
+        </tr>
+      </table>
+    </div>
+    <p>5. We have provided you a <a href="code/main.cpp">main.cpp</a> for your basic testing only. You may need to come up with your own testing program. Note that we will use our own testing program to grade your program. </p>
+    <p>6. Please submit your bigint.cpp and bigint.h to us (you should write it in two files). If you have a good tester program for us to consider, please also submit it. This will help us understand how your program works and some of the unique features you have implemented.</p>
+  </div>
+  <div id="grading">
+    <h2> Grading Scheme </h2>
+    <p>1. The correct implementation of the two helper protected methods, i.e. <code>from_string(const char*)</code> and <code>to_string(char*)</code> will worth 10 points. </p>
+    <p>2. Each of the correct overloaded operators would worth 5 points.</p>
+  </div>
+  <div id="bonus">
+    <h2> Bonus </h2>
+    <p>In the basic part above, you only need to implement all the operators without efficiency consideration. For example, there are several ways to implement integer multiplication and division. Let&rsquo;s take multiplication as an example. The simplest but inefficient one is to obtain the result based on multiple additions. For example, if we want to calculate 4*5, we can add 4 (or 5) for 5 times (or 4 times). Though you get the result with full basic credits, this kind of method is not efficient enough. Division can be similarly but inefficiently done with subtraction.</p>
+    <p>If you can implement the operations (not limited to multiplication and division) in a much more efficient way, you can get a maximum of 20 bonus points for them. Please explain your approaches in README.</p>
+  </div>
+</div>
+</body>
+</html>
