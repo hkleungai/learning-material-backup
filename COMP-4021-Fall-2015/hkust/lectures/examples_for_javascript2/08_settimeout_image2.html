@@ -1,0 +1,48 @@
+<!--
+COMP303 JavaScript Example
+
+timer example
+-->
+
+<html>
+
+<head>
+<script language="JavaScript">
+<!--
+
+// Let's use three variables
+var the_timer;
+var x_position;
+var the_layer;
+
+function set_timer() {
+
+// First generate a random position between 0 and 400
+x_position=Math.floor( Math.random() * 400 ); 
+
+// Now find the layer in the web page
+the_layer=document.getElementById("image_layer");
+
+// Now set the x position of the layer
+the_layer.style.left=x_position; 
+
+// Now start the timer again so this function will run again.
+// It will run between 0 and 1 second later. (1000 milliseconds = 1 second).
+the_timer=setTimeout( "set_timer()", Math.floor( Math.random() * 1000));
+}
+
+-->
+</script>
+</head>
+
+<body onload="set_timer()">
+
+<!-- Here we have a layer and inside the layer is an image
+     so when we move the layer, we see the image moving -->
+
+<div id="image_layer" style="position:absolute">
+	<img src="dave.png">
+</div>
+
+</body> 
+</html>

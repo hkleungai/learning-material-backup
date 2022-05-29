@@ -1,0 +1,65 @@
+<html>
+<script language="JavaScript">
+
+/*
+ This is an example of two approaches which can be 
+ used to identify the HTML object that had an event.
+
+ The first way uses 'this' to reference the object which
+ is being clicked on.
+
+ The second way uses 'srcElement' to reference the object.
+
+*/
+
+function example_method1(obj) {
+
+  // To use this method 'this' is passed to the function,
+  // then the object which had the event can be accessed.	
+  // Works in both IE and FF.
+  // This is the same method used in the last example.
+
+  obj.style.left =parseInt(obj.style.left)+10; 
+			// Move it to the right
+
+}
+
+function example_method2(e) {
+  /*
+  With the second method there is no need to use 'this'.
+  The object reference comes from the event object.
+
+  If the browser is IE, use 'window.event.srcElement' to reference the object.
+  If the browser is Firefox, use 'event.target' instead.
+  */
+  
+  if (e == null) e = window.event; // for IE
+  if (e.target == null) e.target = e.srcElement; // for Firefox
+  e.target.style.left 
+     = parseInt(e.target.style.left)+10; 
+			// Move it to the right
+}
+
+</script>
+
+
+<body>
+
+<h3>Move over the squares to trigger an onmouseover event</h3>
+
+<div id="text_layer1"
+    style="position:absolute; top:120; left:40; width:100; height:100; background:lightgrey;"
+    onmouseover="example_method1(this)">
+</div>
+
+<div id="text_layer2"
+    style="position:absolute; top:250; left:130; width:100; height:100; background:yellow;"
+    onmouseover="example_method2(event)">
+</div>
+
+<p>The first layer uses 'this' to know which object the event occurred to.</p>
+
+<p>The second layer uses 'event' to know which object the event occurred to.</p>
+
+</body>
+</html>

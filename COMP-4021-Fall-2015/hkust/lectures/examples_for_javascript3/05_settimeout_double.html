@@ -1,0 +1,63 @@
+<!--
+COMP303 JavaScript Example
+
+Double timer example
+-->
+
+<html>
+
+<head>
+<script language="JavaScript">
+<!--
+
+// Let's use three variables
+var timer1;
+var timer2;
+var message1;
+var message2;
+var message1_x_position=0;
+var message2_x_position=0;
+
+function start_timers() {
+	move_go_message(); // Start the loop for the first timer
+	move_stop_message(); // Start the loop for the second timer
+}
+
+function move_go_message() {
+	message1_x_position=message1_x_position+1; // Make the x position bigger
+
+	message1=document.getElementById("go_message"); // Find the go message
+	message1.style.left=message1_x_position; // Apply the x position
+
+// Now start the timer again so this function will run again.
+// It will run every 0.2 second. (200 milliseconds = 0.2 second).
+	timer1=setTimeout( "move_go_message()", 200 ); // Do it again later
+}
+
+function move_stop_message() {
+	message2_x_position=message2_x_position+1; // Make the x position bigger
+
+	message2=document.getElementById("stop_message"); // Find the stop message
+	message2.style.left=message2_x_position;  // Apply the x position
+
+// Now start the timer again so this function will run again.
+// It will run every 0.1 second. (100 milliseconds = 0.1 second).
+	timer2=setTimeout( "move_stop_message()", 100 ); // Do it again later
+}
+
+-->
+</script>
+</head>
+
+<body onload="start_timers()">
+
+<div id="go_message" style="position:absolute; background:yellow; font-size:48pt; left:100; top:100">
+GO! GO! GO!
+</div>
+
+<div id="stop_message" style="position:absolute; background:red; font-size:48pt">
+STOP! STOP! STOP!
+</div>
+
+</body>
+</html>

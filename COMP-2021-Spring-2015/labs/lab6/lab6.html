@@ -1,0 +1,349 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html style="color:#333;background-color:#eee;font-family:'Trebuchet MS'">
+
+<!-- Mirrored from course.cse.ust.hk/comp2021/labs/lab6/lab6.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 Jun 2015 09:22:57 GMT -->
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-5">
+<title>COMP2021 Lab6</title>
+<style>
+ol li {
+	margin: 1.5em;
+}
+pre {
+	border: 1px grey dotted;
+	padding: 1em;
+}
+code {
+	font-weight: bold;
+}
+</style>
+</head>
+<body>
+<h1>COMP2021 Lab6: Introduction to IDEs, Modules and Subroutines of Perl </h1>
+<hr width="100%">
+<h2>Lab Marks</h2>
+<p>The mark for each lab is posted in this <a href="../../grades/score_lab.pdf">page</a>. If you have any
+problems about the marks of the labs, please contact us as soon as possible. </p>
+
+<p style="text-align:center;color:red">Remember: You have to change the file permissions to run shell scripts!</p>
+
+<h2>Perl IDEs</h2>
+<p>Perl scripts or Perl programs are just simple text files. You can use any kind of text editor to create them, but you should not use 
+any word processor. For Perl development you can either use a plain text editor or an Integrated Development Environment, also called IDE</p>
+<ol>
+<li>
+<p> <strong> Perl Editors: </strong><br>
+&nbsp &nbsp  <strong> Unix / Linux</strong><br>
+&nbsp &nbsp &nbsp &nbsp &#8226; Vim<br>
+&nbsp &nbsp &nbsp &nbsp &#8226; Emacs<br>
+
+
+ &nbsp &nbsp <strong>Windows <br> </strong>
+&nbsp &nbsp &nbsp &nbsp &#8226; Ultra Edit<br>
+&nbsp &nbsp &nbsp &nbsp &#8226; TextPad<br>
+&nbsp &nbsp &nbsp &nbsp &#8226; Notepad++<br>
+
+
+&nbsp &nbsp  <strong>Mac OSX <br> </strong>
+&nbsp &nbsp &nbsp &nbsp &#8226; TextMate<br>
+</p>
+</li>
+
+<li>
+<p> <strong> Perl IDEs </strong><br>
+<strong>&nbsp &nbsp a. What is the difference between an IDE and an Editor?</strong><br>
+&nbsp &nbsp &nbsp &nbsp &#8226; Built-in debugger<br>
+&nbsp &nbsp &nbsp &nbsp &#8226; Language specific help<br>
+</p>
+
+<p><strong>&nbsp &nbsp b. Popular IDEs for Perl</strong><br>
+&nbsp &nbsp &nbsp &nbsp &#8226;<a href="http://padre.perlide.org/">Padre </a><br>
+&nbsp &nbsp &nbsp &nbsp &#8226;<a href="http://www.epic-ide.org/">EPIC </a><br>
+The basic features are similar and you can choose either of them, or the editors mentioned above;<br>
+</p>
+
+<p><strong>&nbsp &nbsp c. Features</strong><br>
+&nbsp &nbsp &nbsp &nbsp &#8226; Multi-platform: Runs on Windows, Linux, Mac OS X </a><br>
+&nbsp &nbsp &nbsp &nbsp &#8226;<a href="http://padre.perlide.org/trac/wiki/Features/Perl5Debugger">Powerful debugger </a><br>
+&nbsp &nbsp &nbsp &nbsp &#8226;<a href="http://padre.perlide.org/trac/wiki/Features/RefactoringPerl5">Refactoring tools </a><br>
+&nbsp &nbsp &nbsp &nbsp &#8226;<a href="http://padre.perlide.org/download.html">Context sensitive help and code completion </a><br>
+&nbsp &nbsp &nbsp &nbsp &#8226;<a href="http://padre.perlide.org/trac/wiki/Features">Other features </a><br>
+
+
+<p><strong>&nbsp &nbsp d. Useful Links for Padre </strong><br>
+&nbsp &nbsp &nbsp &nbsp &#8226; <a href="http://padre.perlide.org/download.html">Padre download: </a> Download and update Padre under different platform following the instructions;<br>
+
+
+&nbsp &nbsp &nbsp &nbsp &#8226; <a href="http://padre.perlide.org/howto.html"> Get started with Padre: </a> A simple helper which goes through step-by-step various tasks that can be done with Padre;<br>
+
+&nbsp &nbsp &nbsp &nbsp &#8226; <a href= "http://padre.perlide.org/trac/wiki"> Padre wiki: </a> Basically everything about Padre can be found here;<br>
+
+<p><strong>&nbsp &nbsp e. <a href="http://padre.perlide.org/howto.html">Simple Examples</a></strong><br>
+</li>
+</ol>
+
+<h2>Perl Modules</h2>
+<ol>
+<li>
+<strong>Module Installation<br></strong>
+<p>There are many public-domain Perl modules available in CPAN, the Comprehensive Perl Archive Network,
+which is available at several sites on the Web. Moreover, the process of downloading and installing them
+has been automated!
+For example, suppose you wish to write (or even just run) Perl programs with Tk-based GUIs. If the Perl
+Tk module is not already on your machine, just type
+<pre>
+perl -MCPAN -e "install Tk"
+</pre>
+to install Tk from the network. You will be asked some questions, but just taking the defaults will probably
+be enough.</p>
+
+<p>Try to install the Tk and CGI modules (which will probably used in your project) following the above example. Note that there are more than one way to install CPAN modules, and you can explore it by yourselves.</p>
+
+
+<p>To check if a module(e.g., Tk.pm) has been successfully installed, try</p>
+<pre>
+perl -e "use Tk"
+</pre>
+</li>
+
+<li>
+<strong>Use Perl Modules <br></strong>
+To use a Module (say, X.pm) in Perl, you would have a line
+<pre>
+use X;
+</pre>
+near the beginning.
+
+<p>Modules which are grouped together as a library are placed in the same directory, or the same directory tree.
+For example, if you do network programming, you will probably need to include a line:</p>
+<pre>
+use IO::Socket;
+</pre>
+<p>Note that the :: symbol is used to denote membership. And in this example, the interpreter will consider two possibilities:<p>
+<pre>
+&#8226; there is a file IO/Socket.pm where the package code resides, or<br>
+&#8226; there is a directory IO/Socket, within which there are various .pm files which contain the package code.<br>
+</pre>
+In our case here, it will be the latter situation.
+</li>
+
+<li>
+<strong>Some Commonly Used Perl Modules <br></strong>
+&#8226; <strong>ExtUtils::MakeMaker</strong> performs bootstrapping tasks, which is used for building and installing other extension modules;<br>
+&#8226; The <strong>DBI</strong> family of modules used for interfacing with SQL databases, are nearly irreplaceable in their area of function;<br>
+&#8226; <strong>CGI</strong> handles Common Gateway Interface requests and responses;<br>
+&#8226; <strong>Tk</strong> is a graphical user interface toolkit for Perl;<br>
+&#8226; A full <a href="http://www.cpan.org/modules/01modules.index.html">list</a> of CPAN modules.<br>
+</li>
+</ol>
+
+<h2>Subroutines</h2>
+
+<ol>
+    <li>Recursion: implement a recursive program to compute the <a href="http://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci sequence</a>, using Perl subroutines. Print elements whose index in the sequence is given. <a href="fibonacci.pl">Ans:fibonacci.pl</a><br>
+
+ <b>Example:</b></br>
+<pre>
+$ ./fibonacci.pl 
+fibonacci( 0 ) = 0
+fibonacci( 1 ) = 1
+fibonacci( 2 ) = 1
+fibonacci( 3 ) = 2
+fibonacci( 4 ) = 3
+fibonacci( 5 ) = 5
+fibonacci( 6 ) = 8
+fibonacci( 10 ) = 55
+fibonacci( 20 ) = 6765
+fibonacci( 30 ) = 832040
+</pre>
+    </li>
+    
+    <li>File Copy: implement a script that takes two file names, and then copy the content of first file to the second one. To make the program robust enough, remember to check, first, is the number of arguments correct? second, does the destination file already exists? If so, ask if it is permitted to overwrite.  <a href="filecopy.pl">Ans:filecopy.pl</a><br> 
+
+<p>
+HINT: <br>
+1. What does $#ARGV stand for in perl scripts? <br>
+2. To check if a file exists in the directory: -e $file_name <br>
+3. Remember to close the file after operation is finished. </p>
+
+ <b>Example:</b></br>
+<pre>
+    $ ./filecopy.pl demo.txt 
+    You must specify exactly two arguments.
+</pre>
+        
+<pre>
+    $ ./filecopy.pl demo.txt demo2.txt
+    Operation successful!
+</pre>
+
+<pre>
+    $ ./filecopy.pl demo.txt demo2.txt
+    Do you want to overwrite demo2.txt? no
+    Overwrite permission denied.
+</pre>
+      
+<pre>
+    $ ./filecopy.pl demo.txt demo2.txt
+    Do you want to overwrite demo2.txt? yes
+    Operation successful!
+</pre>  
+    </li>
+
+    
+<li>Sudoku: implement a script that takes a file which stores the initial information for a sudoku problem. A skeleton has been provided for reference.(However it is not necessary to use it if you want to finish it totally on your own or you find the think-flow in the skeleton difficult to follow) <a href="sudoku.pl">Skeleton:sudoku.pl</a><br> 
+
+<p>
+Requirements:<br>
+1. The program accept a text file in a fixed format as the first argument.<br>
+2. The program repeatedly ask the player to input the row letter (A-I), column number (1-9) and the answer (1-9) of the cell the player wants to fill in. You must make sure one input is within the valid range, BEFORE the program turn to ask for next input.<br>
+3. In case the attempted cell is already filled, the program will display an error  message and continue asking for inputs.<br>
+4. The program should NOT interrupt the user even if the user inputs an obviously wrong solution.<br>
+5. After the player fills in all empty cells, the program will judge if the answer is correct or not, and display a message to notify the user.<br>
+<p>
+
+<p>
+Input File Format: <br>
+The input file should consist of 9 lines.<br>
+In each line, there should be 9 numbers (1-9).<br>
+Each number should indicate a given number in the base question.<br>
+Zero (0) is used to indicated unfilled cells.<br>
+Here is a <a href="sudoku2.txt">sample</a> input file representing this question.</p>
+
+<p>
+HINT: <br>
+1. Perl 2D array can be accessed just like C++ 2D array. Even initialization is not required. <br>
+2. Consult TA if you are not clear about the skeleton. <br>
+3. Read the requirements CAREFULLY to capture all the points you need to implement. The following demo/example does not exhaust all possible cases.<br>
+ </p>
+
+ <b>Example:</b></br>
+  <pre>$ <code>./sudoku.pl sudoku2.txt</code>
+The Sudoku you have entered:
+ c 1 2 3   4 5 6   7 8 9
+r =======================
+A| 6     | 7 8 2 |       | 
+B|   3 1 | 9   5 | 4     | 
+C| 8 9 7 | 1 4 3 | 2 6 5 | 
+ -------------------------
+D| 1 8   |   2   |   5 4 | 
+E| 9 2 4 |       | 3 7 6 | 
+F| 7 5   |   9   |   2 1 | 
+ -------------------------
+G| 4 7 2 | 8 5 1 | 6 3 9 | 
+H|     9 | 2   4 | 7 1   | 
+I|       | 6 7 9 |     2 | 
+  =======================
+Please enter which row you want to fill (A-I): <code>B</code>
+Please enter which column you want to fill (1-9): <code>1</code>
+Please enter the number you want to fill (1-9): <code>2</code>
+ c 1 2 3   4 5 6   7 8 9
+r =======================
+A| 6     | 7 8 2 |       | 
+B| 2 3 1 | 9   5 | 4     | 
+C| 8 9 7 | 1 4 3 | 2 6 5 | 
+ -------------------------
+D| 1 8   |   2   |   5 4 | 
+E| 9 2 4 |       | 3 7 6 | 
+F| 7 5   |   9   |   2 1 | 
+ -------------------------
+G| 4 7 2 | 8 5 1 | 6 3 9 | 
+H|     9 | 2   4 | 7 1   | 
+I|       | 6 7 9 |     2 | 
+  =======================
+Please enter which row you want to fill (A-I): <code>A</code>
+Please enter which column you want to fill (1-9): <code>1</code>
+The cell is already filled!
+Please enter which row you want to fill (A-I):  
+.
+.
+.
+The Sudoku you have entered:
+ c 1 2 3   4 5 6   7 8 9
+r =======================
+A| 6 4 5 | 7 8 2 | 1 9 3 | 
+B| 2 3 1 | 9 6 5 | 4 8 7 | 
+C| 8 9 7 | 1 4 3 | 2 6 5 | 
+ -------------------------
+D| 1 8 6 | 3 2 7 | 9 5 4 | 
+E| 9 2 4 | 5 1 8 | 3 7 6 | 
+F| 7 5 3 | 4 9 6 | 8 2 1 | 
+ -------------------------
+G| 4 7 2 | 8 5   | 6 3 9 | 
+H| 5 6 9 | 2 3 4 | 7 1 8 | 
+I| 3 1 8 | 6 7 9 | 5 4 2 | 
+  =======================
+Please enter which row you want to fill (A-I): <code>G</code>
+Please enter which column you want to fill (1-9): <code>6</code>
+Please enter the number you want to fill (1-9): <code>1</code>
+ c 1 2 3   4 5 6   7 8 9
+r =======================
+A| 6 4 5 | 7 8 2 | 1 9 3 | 
+B| 2 3 1 | 9 6 5 | 4 8 7 | 
+C| 8 9 7 | 1 4 3 | 2 6 5 | 
+ -------------------------
+D| 1 8 6 | 3 2 7 | 9 5 4 | 
+E| 9 2 4 | 5 1 8 | 3 7 6 | 
+F| 7 5 3 | 4 9 6 | 8 2 1 | 
+ -------------------------
+G| 4 7 2 | 8 5 1 | 6 3 9 | 
+H| 5 6 9 | 2 3 4 | 7 1 8 | 
+I| 3 1 8 | 6 7 9 | 5 4 2 | 
+  =======================
+You successfully finished this Sudoku!
+$ </pre>
+
+  <pre>
+.
+.
+.
+The Sudoku you have entered:
+ c 1 2 3   4 5 6   7 8 9
+r =======================
+A| 6 4 1 | 7 8 2 | 1 9 3 | 
+B| 2 3 1 | 9 6 5 | 4 8 7 | 
+C| 8 9 7 | 1 4 3 | 2 6 5 | 
+ -------------------------
+D| 1 8 6 | 3 2 7 | 9 5 4 | 
+E| 9 2 4 | 5 1 8 | 3 7 6 | 
+F| 7 5 3 | 4 9 6 | 8 2 1 | 
+ -------------------------
+G| 4 7 2 | 8 5   | 6 3 9 | 
+H| 5 6 9 | 2 3 4 | 7 1 8 | 
+I| 3 1 8 | 6 7 9 | 5 4 2 | 
+  =======================
+Please enter which row you want to fill (A-I): <code>E</code>
+Please enter which column you want to fill (1-9): <code>5</code>
+The cell is already filled!
+Please enter which row you want to fill (A-I): <code>G</code>
+Please enter which column you want to fill (1-9): <code>6</code>
+Please enter the number you want to fill (1-9): <code>1</code>
+ c 1 2 3   4 5 6   7 8 9
+r =======================
+A| 6 4 1 | 7 8 2 | 1 9 3 | 
+B| 2 3 1 | 9 6 5 | 4 8 7 | 
+C| 8 9 7 | 1 4 3 | 2 6 5 | 
+ -------------------------
+D| 1 8 6 | 3 2 7 | 9 5 4 | 
+E| 9 2 4 | 5 1 8 | 3 7 6 | 
+F| 7 5 3 | 4 9 6 | 8 2 1 | 
+ -------------------------
+G| 4 7 2 | 8 5 1 | 6 3 9 | 
+H| 5 6 9 | 2 3 4 | 7 1 8 | 
+I| 3 1 8 | 6 7 9 | 5 4 2 | 
+  =======================
+Sorry, the answer is not correct!</pre>
+
+</li>
+</ol>
+
+<h2>Submission</h2>
+<p>Please submit your lab6.pl file using <a href="../../../cass/submit.html">CASS</a> on or before 10:00 pm, Saturday
+(28-Mar-2015).</p>
+<p>Any inquiry please contact your TAs by email (hzhangan@cse.ust.hk)</p>
+</body>
+
+<!-- Mirrored from course.cse.ust.hk/comp2021/labs/lab6/lab6.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 Jun 2015 09:22:57 GMT -->
+</html>

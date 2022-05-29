@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html style="color:#333;background-color:#eee;font-family:'Trebuchet MS'">
+
+<!-- Mirrored from course.cse.ust.hk/comp2021/labs/lab4/lab4.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 Jun 2015 09:22:56 GMT -->
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-5">
+<title>COMP2021 Lab4</title>
+<style>
+ol li {
+	margin: 1.5em;
+}
+pre {
+	border: 1px grey dotted;
+	padding: 1em;
+}
+</style>
+</head>
+<body>
+<h1>COMP2021 Lab4: Perl Programming I</h1>
+<hr width="100%">
+<h2>Lab Marks</h2>
+<p>The mark for each lab is posted in this <a href="../../grades/score_lab.pdf">page</a>. If you have any
+  problems about the marks of the labs, please contact us as soon as possible. </p>
+
+<h2>Tasks </h2>
+<p style="text-align:center;color:red">Remember: You have to change the file permissions to run Perl scripts!</p>
+<ol>
+
+<li> Greatest Common divider Again for warming up: find the greatest common divider for two given integers. <br>
+<p> The script will be given the two integers by the moment it start running. It means takes two inputs as "arguments".<a href="gcd.pl">Ans:gcd.pl</a> </p>
+<p> Some hints<br>
+Use $ARGV[0] for Perl in place of $1 for shell programming. (What does that mean?)</br> </p>
+    <b>Example:</b></br>
+<pre>
+$ ./gcd.pl 54 24
+The gcd of 54 and 24 is 6
+</pre>
+</li>
+
+    <li>
+    <p>Implement a script for padding zeros: given total number of digits for each line, pads zeros to a list of numbers stored in a text file. The program will pad zeros to each number to fill up the total number of digits, and output it to the screen. There may be blank lines or a line of a number 0. In such cases, print a line with asterisks (*) to fill up the expected number of digits. <a href="pad_zeros.pl">Ans:pad_zeros.pl</a> </p>
+    <p> Some hints </br>
+    1. Try out what this code mean? while (<STDIN>) { print $_; }</br>
+    2. Use the Perl function length() to find the length of a string. </br>
+    3. In this case we "pipe" the input from a text file which contains a number in each line. </br> </p>
+    <b>Example:      (You can get an <a href="a.txt">a.txt</a> here) </b></br>
+<pre>
+$ cat a.txt
+235
+0
+12
+12345
+980765
+7853222
+9874652
+$ cat a.txt | ./pad_zeros.pl 8
+00000235
+********
+00000012
+00012345
+00980765
+07853222
+09874652
+</pre>
+    </li>
+
+
+<li>
+<p> Walker: when the script starts running, you will at first be asked to input the size of a map, which is essentially a square. Now suppose you typed in 5 as size. It is followed by a random drop of a walker onto the map. His location is denoted by a two-dimensional coordinate, x,y. Either of them could be any number from 1 to 5. Note the coordinate setting: the upper left corner is given coordinate 1,1, while the lower right corner is given 5,5.</p>
+<p> Finally, you will be prompted to enter the direction for the walker to move. You could input L,R,U,D for four directions, or Q to quit the program. For all other inputs, just say invalid input and continue with the loop. <a href="walker.pl">Ans:walker.pl</a> </p>
+<p> Some hints </br>
+1. Use the Perl function rand() to generate random numbers in a given range. </br>
+2. Remember boundary check. </br> </p>
+<b>Example:</b></br>
+<pre>
+$ ./walker.pl 
+Input an integer size range from 2 on...
+5
+Current coordinate: 2, 3 
+Which direction to go? Enter L for left, R for right, U for up, D for down!
+Enter Q if you want to quit!
+L
+Current coordinate: 1, 3 
+Which direction to go? Enter L for left, R for right, U for up, D for down!
+Enter Q if you want to quit!
+L
+Cannot move this way!
+Current coordinate: 1, 3 
+Which direction to go? Enter L for left, R for right, U for up, D for down!
+Enter Q if you want to quit!
+Q
+</pre>
+</li>
+<li>Given an input file "anifile.txt", write a Perl script named "cat.pl" to find all lines that have more "cat"s than "dog"s (the number of word "cat" is larger than  
+the number of word "dog".). Please submit "cat.pl" to the <a href="../../../cass/submit.html">CASS</a>.
+<p> Some hints </br>
+1. Search the usage of <code>split</code> function in Perl. </br>
+2. Search the usage of <code>scalar</code> function in Perl. </br> </p>
+<b>Example: (You can get an <a href="anifile.txt">anifile.txt</a> here)</b><br>
+<pre>
+$ cat -n anifile.txt
+1  cat bird dog dog dog cat cat
+2  lion chiken cat cat fish crocodile kangaroo
+3  cat cat dog dog tiger wolf
+4  pig cow cat cat cat dog wolf goat
+$ cat anifile.txt | ./cat.pl
+cats win at line 2
+cats win at line 4
+</pre>
+</li>
+</ol>
+
+<h2><a name="ans"> Lab Answers </a></h2>
+<p style="color:red">Please find the answers for lab 4: <a href="cat.pl">cat.pl</a>.</p>
+
+<h2>Submission</h2>
+<p>Please submit "cat.pl" file using <a href="../../../cass/submit.html">CASS</a> on or before 10:00pm, Saturday
+  (14-Mar-2015).</p>
+<p>Any inquiry please contact your TAs by email (shuaa@cse.ust.hk)</p>
+</body>
+
+<!-- Mirrored from course.cse.ust.hk/comp2021/labs/lab4/lab4.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 Jun 2015 09:22:57 GMT -->
+</html>

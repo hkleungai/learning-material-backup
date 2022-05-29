@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>COMP4021 Assignment 2 - Flipping the Player/Monster</title>
+  <link rel="stylesheet" type="text/css" href="../../../labs/lab.css" />
+</head>
+
+<body>
+
+  <h1>
+    <span class="lab">COMP4021 Assignment 2</span>
+    <span class="title">Flipping the Player/Monster</span>
+  </h1>
+
+  <h2>Overview</h2>
+
+  <ul>
+    <li>In your assignment 2, each student need to choose a theme and design a player</li>
+    <li>The player image must be a side view, some random examples:</li>
+
+    <img src="images/butterfly_sideways.png"/>
+    <img src="images/scooby_doo_sideways.png"/>
+    <img src="images/blob_sideways.png"/>
+    <img src="images/girl_sideways.png"/>
+
+    <li>(Your player must be created in SVG, it cannot be a bitmap)</li>
+    <li>When the player moves left, the player needs to 'point' leftwards</li>
+    <li>When the player moves right, the player needs to 'point' rightwards</li>
+    <li>This can be done by designing the original player image so that it faces one direction, and then 'flipping' the image to the other direction when required
+      <table>
+        <tr>
+          <td><img src="images/spaceship_flipped.jpg" alt="The Spaceship" /></td>
+          <td><big>&#x21E8;</big></td>
+          <td><img src="images/spaceship.jpg" alt="The Spaceship Flipped" /></td>
+        </tr>
+      </table>
+    </li>
+
+    <li>You need to do the same thing for the monsters (you must change the monsters to something appropriate for your theme)</li>
+    <li>This web page teaches you how to do the flipping</li>
+  </ul>
+
+  <h2>Steps</h2>
+
+  <ol>
+    <li>Find the SVG group object of the player:
+      <pre>playerObject = svgdoc.getElementById("Shuttle");</pre>
+      <ul>
+        <li>This example assumes that <i>Shuttle</i> is the id of the player group</li>
+        <li>The id you use in your game may be different</li>
+      </ul>
+    </li>
+    <li>Transform the player:
+      <pre>playerObject.setAttribute("transform",
+                          "translate(" + player.size.w + ", 0) scale(-1, 1)");</pre>
+      <ul>
+        <li>The transform statement above means:
+          <ol>
+            <li>Scaling the player by <i>(-1, 1)</i></li>
+            <li>Then translating <i>(player.size.w, 0)</i></li>
+          </ol>
+        </li>
+        <li><i>player.size.w</i> is the width of the player</li>
+        <li>The figures below show the process of the transformation
+          <p><img src="images/flip_the_player.png" alt="Flip the Player" /></p>
+        </li>
+        <li>The width of the player in this example is 50</li>
+        <li>In the figure above, increasing y axis values are shown in the downwards direction</li>
+        <li>This is also true for SVG</li>
+        </li>
+      </ul>
+    </li>
+  </ol>
+
+</body>
+</html>

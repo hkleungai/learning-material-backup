@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>COMP4021 Assignment 2 - Sliding Platforms and Disappearing Platforms</title>
+  <link rel="stylesheet" type="text/css" href="../../../labs/lab.css" />
+</head>
+
+<body>
+
+  <h1>
+    <span class="lab">COMP4021 Assignment 2</span>
+    <span class="title">Disappearing Platforms</span>
+  </h1>
+
+  <h2>Overview</h2>
+
+  <ul>
+    <li>This web page explains how you can add disappearing platforms to your SVG platform game</li>
+    <li>This is part of the requirements for your assignment</li>
+  </ul>
+
+
+
+  <h2>2. Create Disappearing Platforms in Your Game</h2>
+
+  <ul>
+    <li>Here is an example of a disappearing platform:
+      <p><img src="images/disappearing_platform.png" alt="Disappearing Platform Example" /></p>
+    </li>
+    <li>The basic idea is to gradually change the opacity value of the platform when the player is standing on a disappearing platform</li>
+    <li>When the opacity value becomes zero the disappearing platform will be deleted from the DOM structure</li>
+    <li>The code to create a disappearing platform may have to be run each time the game is restarted</li>
+    <li>This is because the platform may have disappeared and have been deleted from the DOM structure when the game was previously run</li>
+    <li>In the function <i>gameStart()</i>, you can create a disappearing platform using <i>createElementNS()</i>:
+      <pre>var platforms = svgdoc.getElementById("platforms");
+
+// Create a new line element
+var newPlatform = svgdoc.createElementNS("http://www.w3.org/2000/svg", "line");
+
+// Set the various attributes of the line
+newPlatform.setAttribute("x1", 0);
+newPlatform.setAttribute("y1", 50);
+newPlatform.setAttribute("x2", 100);
+newPlatform.setAttribute("y2", 50);
+newPlatform.setAttribute("type", "disappearing");
+newPlatform.style.setProperty("opacity", 1, null);
+newPlatform.style.setProperty("stroke", "black", null);
+newPlatform.style.setProperty("stroke-width", 10, null);
+
+// Add the new platform to the end of the group
+platforms.appendChild(newPlatform);</pre>
+    </li>
+    <li>After running the above JavaScript code a line element will be created in the DOM structure as follows:
+      <pre>&lt;line x1="0" y1="50" x2="100" y2="50" type="disappearing"
+      style="opacity:1;stroke:black;stroke-width:10"/&gt;</pre>
+    </li>
+    <li>That means the DOM structure will become this:
+      <p><img src="images/dom_structure.png" alt="DOM Structure" /></p>
+    </li>
+    <li>Then in the function <i>gamePlay()</i> you need to do these:
+      <ol>
+        <li>Search for disappearing platforms:
+          <pre>var platforms = svgdoc.getElementById("platforms");
+
+for (var i = 0; i &lt; platforms.childNodes.length; i++) {
+    var platform = platforms.childNodes.item(i);
+    if (platform.getAttribute("type") == "disappearing") {
+        ...
+    }
+}</pre>
+        </li>
+        <li>Get the opacity value from the platform:
+          <pre>var platformOpacity = parseFloat(platform.style.getPropertyValue("opacity"));</pre>
+        </li>
+        <li>If the distance between the player and the platform is 0, update the opacity value:
+          <pre>platformOpacity -= 0.1;
+platform.style.setProperty("opacity", platformOpacity, null);</pre>
+        </li>
+        <li>If the opacity value becomes zero, delete the SVG element from the DOM structure:
+          <pre>platforms.removeChild(platform);</pre>
+        </li>
+      </ol>
+    </li>
+  </ul>
+
+</body>
+</html>

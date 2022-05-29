@@ -1,0 +1,270 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<!-- saved from url=(0022)http://internet.e-mail -->
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>COMP4021 Lab 4 - SVG Platform Game</title>
+  <link rel="stylesheet" type="text/css" href="../lab.css" />
+</head>
+
+<body>
+
+  <h1>
+    <span class="lab">COMP4021 Lab 4</span>
+    <span class="title">SVG Platform Game</span>
+  </h1>
+
+  <h2>Overview</h2>
+
+  <ul>
+    <li>In this lab, you will start building your second project - SVG platform game</li>
+    <li>Three files (game.html, game.svg, game.js) are given to you as a starting point <a href="game.zip">here</a></li>
+    <li>This lab project works in Mozilla Firefox (no plugin required) and Internet Explorer (Adobe SVG plugin required)</li>
+    <li>You need to do these tasks:
+      <ol>
+        <li><a href="index.html#platform">Adding platforms to the game</a></li>
+        <li><a href="index.html#jump">Jump movement</a></li>
+        <li><a href="index.html#zoom">Zoom in the game area</a></li>
+      </ol>
+    </li>
+  </ul>
+
+  <h2>Structure of the Game Files</h2>
+
+  <ul>
+    <li>This diagram shows the relationship between the three given files:
+      <p><img src="images/structure.png" alt="File Structure" /></p>
+    </li>
+
+    <li>game.html
+      <ul>
+        <li>A simple HTML page that contains an embed SVG document and a reference to a JavaScript file</li>
+      </ul>
+    </li>
+
+    <li>game.svg
+      <ul>
+        <li>An SVG file that contains all the graphic components of the game</li>
+        <li>The SVG file executes appropriate JavaScript code in the load event, i.e.:
+          <pre>&lt;svg ... onload="top.load(evt)" ...&gt;</pre>
+        </li>
+        <li>The <tt>top</tt> variable points to the parent document of the SVG file, i.e. the HTML page</li>
+        <li>The JavaScript code is written in the game.js file</li>
+      </ul>
+    </li>
+
+    <li>game.js
+      <ul>
+        <li>A JavaScript file contains the code which defines the following:
+          <ul>
+            <li>Object properties</li>
+            <li>Event handlers, i.e. <tt>load(evt)</tt>, <tt>keydown(evt)</tt> and <tt>keyup(evt)</tt></li>
+            <li>Functions used to control the behavior of the objects</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>The DOM Structure of the SVG File</h2>
+
+  <ul>
+    <li>The following figure shows the DOM structure of the SVG:
+      <p><img src="images/dom_structure.png" alt="DOM Structure" /></p>
+    </li>
+
+    <li><tt>&lt;defs&gt;</tt>
+      <ul>
+        <li>It contains all definitions such as gradients and patterns</li>
+      </ul>
+    </li>
+
+    <li><tt>&lt;g style="clip-path:url(#gameareaclip)"&gt;</tt>
+      <ul>
+        <li>It is the group element which contains the 'gamearea' group</li>
+        <li>It is clipped by the clip path defined in the <tt>&lt;defs&gt;</tt> node</li>
+        <li>It is clipped because we do not want to show the objects that lie outside the background</li>
+      </ul>
+    </li>
+
+    <li><tt>&lt;g id="gamearea" .../&gt;</tt>
+      <ul>
+        <li>It is the group element which contains all the moving elements related to the game such as the player, the monsters, etc.</li>
+      </ul>
+    </li>
+
+    <li><tt>&lt;g id="player"&gt;</tt>
+      <ul>
+        <li>The group is the element that represents the player in this game</li>
+      </ul>
+    </li>
+
+    <li><tt>&lt;g id="platforms" .../&gt;</tt>
+      <ul>
+        <li>The platform group contains all the platforms in this game</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>Task</h2>
+
+  <ul>
+    <li>After extracting the given <a href="game.zip">zip file</a>, you can start the game by double-clicking <tt>game.html</tt>
+    <p>
+    <a href="images/gui.png"><img src="images/gui_small.png" alt="The Game" /></a>
+    <br />
+    <span class="footnote">(Click to see the image in the original size)</span>
+    </p>
+    </li>
+    <li>You can move the player (the smiley) around by pressing the "N" key for moving to the left and the "M" key for moving to the right</li>
+    <li>You need to add three features to this system:
+      <ol>
+        <li>Platforms for the player to stand on</li>
+        <li>The ability to press a key to make the player jump from one platform to another platform</li>
+        <li>The ability to select a different zoom level for the game area</li>
+      </ol>
+    </li>
+  </ul>
+
+  <h2><a name="platform"></a>1. Adding Platforms to the Game</h2>
+
+  <ul>
+      <li>Your first task is to add the platforms so that the player can stand on the platforms of the game</li>
+      <li>To do this you can add rectangles to the <tt>gamearea</tt> using the <tt>rect</tt> SVG command</li>
+      <li>For example, you can use the following SVG code to add a red platform with the size of 100x20 at the position (20, 20):
+      <pre>&lt;rect x="20" y="20" width="100" height="20" style="fill:red"/&gt;</pre>
+      </li>
+      <li>Because of the structure of the given JavaScript code your platforms' position and size must be a multiple of 20</li>
+      <li>This ensures that the code for calculating the player movement can be simple</li>
+      <li>You are free to add any platforms to your game as long as you follow the requirement above (position and size must be multiples of 20)</li>
+      <li>Here is an example of platforms added to the game:
+      <p>
+      <a href="images/platforms.png"><img src="images/platforms_small.png" alt="Example platforms" /></a>
+      <br />
+      <span class="footnote">(Click to see the image in the original size)</span>
+      </p>
+      </li>
+  </ul>
+
+  <h2><a name="jump"></a>2. Jump Movement</h2>
+
+  <ul>
+      <li>After you add the platforms you will find that the player can only fall off a platform but cannot jump back on it</li>
+      <li>We will add a jump action to the player so that the player can jump from one platform to another</li>
+      <li>First, you need to select a key (any key) for controlling the jump movement of the player</li>
+      <li>You can add another <tt>case</tt> statement in the <tt>keydown()</tt> function in <tt>game.js</tt></li>
+      <li>For example, you can use the "Z" key to represent the jump action, as follows:
+      <pre>function keydown(evt) {
+    . . .
+    switch (keyCode) {
+        . . .
+        case "Z".charCodeAt(0):
+            . . .
+    }
+    . . .
+}</pre>
+    </li>
+    <li>The code <tt>"Z".charCodeAt(0)</tt> returns the ASCII code of the character "Z"</li>
+    <li>To make the player jump you need to add a vertical speed to the player object</li>
+    <li>This can be done by assigning a <tt>JUMP_SPEED</tt> constant to the <tt>player.verticalSpeed</tt> variable</li>
+    <li>This <tt>player.verticalSpeed</tt> variable is the current speed of the player in the vertical direction</li>
+    <li>It is used to calculate the player movement in the <tt>gamePlay()</tt> function</li>
+    <li>However you cannot always let the player jump in the game</li>
+    <li>The player can only jump when he/she is standing on one of the platforms</li>
+    <li>We can check whether the player is standing on a platform using the <tt>isOnPlatform()</tt> function of the player object, i.e.
+    <pre>if (player.isOnPlatform()) {
+    <span class="todo">Set the player vertical speed</span>
+}
+</pre>
+    </li>
+  </ul>
+
+  <h2><a name="zoom"></a>3. Zoom Level Selection</h2>
+
+  <ul>
+    <li>We can let the player select a different zoom level</li>
+    <li>For example, the score can be higher when a larger zoom level is applied in the game, because it is harder to play</li>
+    <li>In <tt>game.svg</tt>, the game area is contained inside a group named "gamearea"</li>
+    <li>You need to preset all objects in the "gamearea" group by using <tt>getElementById</tt></li>
+    <li>You can achieve different zoom levels by changing the scale of all elements under that "gamearea" group</li>
+    <li>To do so, you can make use of the <tt>transform</tt> attribute of the group</li>
+    <li>The <tt>transform</tt> attribute can be used to apply various transformations of an SVG node including translation, rotation and scaling</li>
+    <li>First, you need to add some kind of control, such as a button, to select the zoom level in the game</li>
+    <li>For example, a simple SVG button can be created using the code below:
+      <pre>&lt;g onclick="<span class="todo">the code to run when clicked</span>" transform="<span class="todo">translate to a proper position</span>"&gt;
+    &lt;rect x="0" y="0" width="140" height="40"
+          style="fill:white;stroke:red;stroke-width:2" /&gt;
+    &lt;text x="70" y="28"
+          style="fill:red;font-size:25px;text-anchor:middle"&gt;Zoom&lt;/text&gt;
+  &lt;/g&gt;</pre>
+    </li>
+    <li>This is the SVG created by the above code
+      <p><img src="images/zoom_button.png" alt="Zoom Button" /></p>
+    </li>
+    <li>Now the game area looks like this:
+    <p>
+    <a href="images/zoom_gui.png"><img src="images/zoom_gui_small.png" alt="The zoom GUI" /></a>
+    <br />
+    <span class="footnote">(Click to see the image in the original size)</span>
+    </p>
+    </li>
+    <li>You need to create a function in <tt>game.js</tt> so that when the button is clicked this function will be called</li>
+    <li>This new function is used to modify the <tt>zoom</tt> variable, which is used to indicate the zoom level of the game</li>
+    <li>For example, if the zoom level is 200% you can assign <tt>2.0</tt> to the <tt>zoom</tt> variable</li>
+    <li>Once the <tt>zoom</tt> variable is modified you need to adjust the <tt>transform</tt> attribute of the game area in the function <tt>updateScreen</tt></li>
+    <li>There are two parts in the <tt>transform</tt> attribute:
+      <ol>
+
+        <li><tt>scale(sx,sy)</tt>
+          <ul>
+            <li>This is used to change the scaling factor of the game area
+              <table class="noborder">
+                <tr>
+                  <td><img src="images/nozoom.png" alt="Game without Zoom" /></td>
+                  <td><big>&#x21E8;</big></td>
+                  <td><img src="images/zoom.png" alt="Game with Zoom" /></td>
+                </tr>
+              </table>
+            </li>
+            <li>For example, if you want to set the zoom level to 200%, you will use the following attribute:
+              <pre>transform="scale(2.0)"</pre>
+            </li>
+            <li>For the SVG <tt>scale</tt> attribute, if there is only one parameter, both <tt>sx</tt> and <tt>sy</tt> are equal to the value provided</li>
+          </ul>
+        </li>
+
+        <li><tt>translate(tx,ty)</tt>
+          <ul>
+            <li>After scaling, you need to move the game area so that the player is at the center of the screen, i.e.:
+              <table class="noborder">
+                <tr>
+                  <td><img src="images/nozoom_center.png" alt="Center Game without Zoom" /></td>
+                  <td><big>&#x21E8;</big></td>
+                  <td><img src="images/zoom_center.png" alt="Center Game with Zoom" /></td>
+                </tr>
+              </table>
+            </li>
+            <li>The parameter <tt>tx</tt> and <tt>ty</tt> are the coordinates of the top-left hand corner of the zoomed area with respect to the local coordinate system of the game area</li>
+            <li>That means you need to calculate <tt>tx</tt> and <tt>ty</tt> with respect to the center of the player, i.e. (<tt>player.position.x + PLAYER_SIZE.w / 2</tt>, <tt>player.position.y + PLAYER_SIZE.h / 2</tt>)</li>
+          </ul>
+        </li>
+
+      </ol>
+    </li>
+    <li>After calculating the appropriate <tt>(sx, sy)</tt> and <tt>(tx, ty)</tt> pairs, you then need to assign the <tt>transform</tt> attribute of the platform as follows:
+      <pre>setAttribute("transform", "translate(" + tx + ", " + ty + ") scale(" + sx + "," + sy + ")");</pre>
+    </li>
+  </ul>
+
+  <h2>Submission</h2>
+
+  <ul>
+    <li>No submission is required for this lab</li>
+    <li>This lab work is the starting point of your assignment two, so please save a copy of your work somewhere safe</li>
+  </ul>
+
+</body>
+</html>

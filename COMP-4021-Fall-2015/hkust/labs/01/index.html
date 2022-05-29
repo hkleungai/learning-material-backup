@@ -1,0 +1,334 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>COMP4021 Lab 1 Hammer Game</title>
+<link rel="stylesheet" type="text/css" href="../lab.css" />
+</head>
+
+<body>
+
+<h1><span class="lab">COMP4021 Lab 1</span> <span class="title">Hammer Game</span>
+</h1>
+<h2>Overview</h2>
+<ul>
+	<li>In this lab, you need to create a simple &quot;hammer&quot; game by writing your
+	own JavaScript code
+        <p><img src="images/game_capture.png" alt="Hammer Game"></li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+	<li>The game runs as follows:
+	<ol>
+		<li>When the game is loaded, a clock counts down from 10 seconds to zero</li>
+		<li>A monster appears randomly</li>
+		<li>It moves to a new position after a certain period of time</li>
+		<li>Players have to press the corresponding key to hit the monster
+		before it moves</li>
+		<li>If the player hits the monster, the score increases and the monster
+		moves immediately</li>
+		<li>When time is up, the game is over and everything freezes</li>
+	</ol>
+	</li>
+	<li>When playing the game, the corresponding keys for the nine boxes are
+	shown below:
+        <table class="simple" style="font-size: 20pt; text-align: center">
+			<tr>
+				<td width="33%">Q</td>
+				<td width="33%">W</td>
+				<td width="33%">E</td>
+			</tr>
+			<tr>
+				<td>A</td>
+				<td>S</td>
+				<td>D</td>
+			</tr>
+			<tr>
+				<td>Z</td>
+				<td>X</td>
+				<td>C</td>
+			</tr>
+	</table>
+	</li>
+	<li>We will demonstrate the game during the lab session</li>
+</ul>
+<h2>Getting Started</h2>
+<ul>
+	<li>An HTML file <tt>hammer.html</tt> is given to you as the starting code
+	of the program <a href="hammer.html">here</a><br>
+	(right click on the link, select 'Save Target As', and save it to your
+	computer)</li>
+	<li>Two sample pictures are given to you here: the empty background,
+	<a href="empty.png">empty.png</a>, and monster, <a href="monster.png">
+	monster.png</a></li>
+	<li>You can use any text editor such as Notepad to build your program
+        <ul>
+			<li>Alternatively you can use TextPad, which is available in the CS
+			labs, to edit your program</li>
+	</ul>
+	</li>
+</ul>
+<h2>Programming Overview</h2>
+<h3>Complete five predefined JavaScript functions</h3>
+<ul>
+	<li><tt>game_start()</tt>
+        <ul>
+			<li>This is called by the <tt>onload</tt> attribute in the <tt>
+			&lt;body&gt;</tt> tag</li>
+			<li>It starts the game by calling the count down function and
+			monster relocating function</li>
+	</ul>
+	</li>
+	<li><tt>count_down()</tt>
+        <ul>
+			<li>If the time limit of the game is 10 seconds, then this function
+			will be called 10 times to update the clock</li>
+			<li>When the count down is finished, it calls the game over function</li>
+	</ul>
+	</li>
+	<li><tt>relocate()</tt>
+        <ul>
+			<li>This moves the monster to a new position. Do it again after a
+			certain period of time</li>
+	</ul>
+	</li>
+	<li><tt>keyboard_event()</tt>
+        <ul>
+			<li>Collect player input</li>
+			<li>If the player hits the monster, update his/her score and
+			relocate the monster</li>
+	</ul>
+	</li>
+	<li><tt>game_over()</tt>
+        <ul>
+			<li>Stop everything and show a message</li>
+	</ul>
+	</li>
+</ul>
+<h3>Create two JavaScript timers</h3>
+<ul>
+	<li><tt>count_down_timer</tt>
+        <ul>
+			<li>Count down from 10 to 0 in the game</li>
+	</ul>
+	</li>
+	<li><tt>moving_timer</tt>
+        <ul>
+			<li>Handle the monster relocation after a certain period of time</li>
+	</ul>
+	</li>
+</ul>
+<h3>Create four variables at the beginning</h3>
+<ul>
+	<li><tt>var score = 0;</tt>
+        <ul>
+			<li>The score of the player</li>
+	</ul>
+	</li>
+	<li><tt>var time_remaining = 10;</tt>
+        <ul>
+			<li>Store the time remaining</li>
+	</ul>
+	</li>
+	<li><tt>var monster_position = 0;</tt>
+        <ul>
+			<li>Store the current position of the monster (a number from 0 to 8)</li>
+	</ul>
+	</li>
+	<li><tt>var finished = false;</tt>
+        <ul>
+			<li>Indicate whether the game is finished or not</li>
+	</ul>
+	</li>
+</ul>
+<h3>Example JavaScript programs</h3>
+<ul>
+	<li><a href="example/count_down.html">Count down</a> - it shows a timer
+	counting down from 10 sec to 0 sec</li>
+	<li><a href="example/key_event.html">Key press</a> - it asks you to press a
+	key, and then it shows what key you have pressed</li>
+	<li><a href="example/image_index.html">Image index</a> - it shows a monster
+	appearing in a specific position when you press a number from 0 to 8<br>
+	<span class="footnote">Remember you can always look at the source code by
+	selecting View Source (Internet Explorer) or Ctrl-U (Firefox)</span></li>
+</ul>
+<h2>Programming Procedure</h2>
+<ol>
+	<li><a href="index.html#section1">Start the game</a></li>
+	<li><a href="index.html#section2">Create a 10 seconds count down timer</a></li>
+	<li><a href="index.html#section3">Finish the game</a></li>
+	<li><a href="index.html#section4">Move the monster to a new position</a></li>
+	<li><a href="index.html#section5">Hit the monster box</a></li>
+	<li><a href="index.html#section6">Add sound</a></li>
+</ol>
+<h2><a name="section1"></a>1. Start the game</h2>
+<ul>
+	<li>In the starting code, we have set <tt>game_start()</tt> to be the first
+	function to run when the page is loaded
+        <pre>&lt;body onload=&quot;game_start()&quot;&gt;</pre>
+	</li>
+	<li><tt>game_start()</tt> should call <tt>count_down()</tt> after 1 second</li>
+	<li>Also, it will call <tt>relocate()</tt> without delay, so that the
+	monster starts to move immediately</li>
+</ul>
+<h2><a name="section2"></a>2. Create a 10 seconds count down timer</h2>
+<ul>
+	<li><tt>count_down()</tt> works as follows:
+        <p><img src="images/flowchart2.gif" alt="count_down()"></li>
+	<li>In <tt>count_down()</tt>, we need to do three things:
+        <ol>
+			<li>Decrease the time remaining by 1
+            <pre>time_remaining = time_remaining - 1;</pre>
+			</li>
+			<li>Update the timer display
+            <pre>var timer_element = document.getElementById(&quot;timer_text&quot;);
+timer_element.innerHTML = &quot;Time remaining: &quot; + time_remaining + &quot; sec&quot;;</pre>
+			</li>
+			<li>If <tt>time_remaining</tt> equals 0, the game is over;
+			otherwise, call this function again after a second
+            <pre>if (time_remaining == 0)
+    game_over();
+else
+    count_down_timer = setTimeout(&quot;count_down()&quot;, 1000);</pre>
+			</li>
+	</ol>
+	</li>
+</ul>
+<h2><a name="section3"></a>3. Finish the game</h2>
+<ul>
+	<li>In <tt>game_over()</tt>, we need to stop the timer and print an
+	appropriate message
+        <pre>clearTimeout(moving_timer);
+alert(&quot;Times up!!!&quot;);</pre>
+	</li>
+	<li>Also, set the <tt>finished</tt> variable to true</li>
+</ul>
+<h2><a name="section4"></a>4. Move the monster to a new position</h2>
+<ul>
+	<li><tt>relocate()</tt> will be called in these situations
+        <ol>
+			<li>When the game just begins, it is called by <tt>game_start()</tt></li>
+			<li>After the monster has appeared in one location for a certain
+			period of time, it relocates</li>
+			<li>After the player hits the monster, the monster relocates</li>
+	</ol>
+	</li>
+	<li><tt>relocate()</tt> works as follows:
+	<p><img src="images/flowchart1.gif" alt="relocate()"></li>
+	<li>Before the monster moves to a new location, we have to clear the image
+	first</li>
+	<li>We do this using a trick, we change the image by changing the <tt>.src</tt>
+	value</li>
+	<li>You have already learnt how to generate a random number</li>
+	<li>Using the same technique we generate a random from 0 to 8 and store the
+	new position in the variable <tt>monster_position</tt></li>
+	<li>For the name of each box, you can refer to the table below:
+	<table class="simple">
+		<tr>
+			<td>document.images[0]</td>
+			<td>document.images[1]</td>
+			<td>document.images[2]</td>
+		</tr>
+		<tr>
+			<td>document.images[3]</td>
+			<td>document.images[4]</td>
+			<td>document.images[5]</td>
+		</tr>
+		<tr>
+			<td>document.images[6]</td>
+			<td>document.images[7]</td>
+			<td>document.images[8]</td>
+		</tr>
+	</table>
+	</li>
+	<li>Then at the new position we set the picture to &quot;monster.png&quot;
+	<pre>document.images[monster_position].src = 'monster.png';</pre>
+	</li>
+</ul>
+<ul>
+	<li>So now the monster has moved</li>
+	<li>However, in order to make the game more interesting, the monster should
+	automatically jump to another location after a certain period of time, say,
+	0.6 sec</li>
+	<li>So, at the end of the function, we use <tt>setTimeout</tt> to call <tt>
+	relocate()</tt> again after a delay
+        <pre>moving_timer = setTimeout(&quot;relocate()&quot;, 600);</pre>
+	</li>
+</ul>
+<h2><a name="section5"></a>5. Hit the monster box</h2>
+<ul>
+	<li>We have to work on <tt>keyboard_event()</tt> so that the game responds
+	to the player</li>
+	<li>It works as follows:
+        <p><img src="images/flowchart3.gif" alt="keyboard_event()"></li>
+	<li>The body should respond to the keyboard event only when the game is not
+	finished
+        <pre>&lt;body onKeyDown=&quot;if (!finished) keyboard_event(event)&quot;&gt;</pre>
+	</li>
+	<li><tt>keyboard_event()</tt> should carry out two major tasks:
+        <ol>
+			<li>Transform the player's input into the corresponding image index
+            <ul>
+				<li>Extract the pressed key from <tt>event.keyCode</tt>
+                <pre>var pressed_key = String.fromCharCode(event.keyCode);</pre>
+				</li>
+				<li>Transform the pressed key into image index and then store
+				the result in a new variable <tt>hit_box</tt>
+                <pre>var hit_box;
+switch(pressed_key)
+{
+    case 'Q': hit_box=0; break;
+    case 'W': hit_box=1; break;
+    <span class="todo">. . .</span> <span class="comment">// And so on</span>
+}</pre>
+				</li>
+			</ul>
+			</li>
+			<li>If the player presses the correct key, update the score and move
+			the monster to a new position
+            <pre>if (monster_position == hit_box) {
+    <span class="comment">// Update score and relocate monster</span>
+    <span class="todo">. . .</span>
+}</pre>
+			<ul>
+				<li>Increase the value of the variable <tt>score</tt> by 1</li>
+				<li>Update the score display, we can use <tt>.innerHTML</tt> to
+				do this</li>
+				<li>Move the monster immediately by calling <tt>relocate()</tt>;
+				but, before doing this, we have to clear the <tt>moving_timer</tt>
+				first so there is no confusion
+                <pre>clearTimeout(moving_timer);</pre>
+				</li>
+			</ul>
+			</li>
+	</ol>
+	</li>
+</ul>
+<h2><a name="section6"></a>6. Add sound</h2>
+<ul>
+	<li>To make the game funnier, we can add a sound when we hit the monster
+	using the <tt>&lt;audio&gt;</tt> tag</li>
+	<li>You can get sample sound files <a href="ouch.mp3">ouch.mp3</a> for hit
+	and <a href="boo.mp3">boo.mp3</a> for miss<br><font color='red'>Mostly we will use wav file, here mp3 file is for IE browser. Chrome and Firefox can support both files.</font></li>
+	<li>To achieve that, we have to add the following syntax inside the <tt>
+	&lt;body&gt;...&lt;/body&gt;</tt> area of the HTML:
+	<pre>
+        <tt>&lt;audio src="./hammer_files/boo.mp3" type="audio/mpeg" width="0" height="0" id="boo" &gt; &lt;/audio&gt;</tt>
+	<tt>&lt;audio src="./hammer_files/ouch.mp3" type="audio/mpeg" width="0" height="0" id="ouch"&gt; &lt;/audio&gt;</tt>
+	</pre>
+
+	</li>
+	<li>Remember to add the JavaScript code <tt>pause()</tt> and <tt>play()</tt>
+	at the right place</li>
+	<li>So when the monster is hit, the sound will be played immediately</li>
+	<li>If the monster is hit again, the playing sound will be stopped and
+	played again</li>
+</ul>
+<h2>Submission</h2>
+<ul>
+	<li>You do not need to submit the lab work</li>
+</ul>
+
+</body>
+
+</html>

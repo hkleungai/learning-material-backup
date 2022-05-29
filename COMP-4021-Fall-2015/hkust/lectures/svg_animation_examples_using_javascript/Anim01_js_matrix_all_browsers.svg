@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     version="1.1"
+     baseProfile="full"
+     width="400" height="300" 
+     onload="OnLoadEvent(evt)">
+
+    <!--
+     This example users a timer to repeatedly 
+     alter the matrix parameters of a ball
+     (which is actually a group of objects).
+     By appropriately manipulating the parameters
+     in the matrix the ball can be made to appear to move 
+     from left to right, with appropriate rotation.
+
+     Note that with this demo code the (x,y) position of the 
+     ball (as stored in the DOM) does not actually change.
+
+     This example is originally from 
+     http://www.mecxpert.de/svg/transform.html
+    -->
+
+    <rect style="fill:none;stroke:black;" x="0" y="0" width="400" height="300" />
+
+    <!-- the ball  -->
+    <g id="ball">
+        <circle style="fill:magenta;stroke:black;" cx="30" cy="140" r="20" />
+        <path style="fill:none;stroke:black;" d="M25,135 35,145 M35,135 25,145"/>
+    </g>
+
+    <!-- the ground -->
+    <path style="fill:none;stroke:gray;stroke-width:6" d="M5,163 395,163" />
+
+    <script>
+    <![CDATA[
+    var ball = null, x1 = 30, y1 = 140, r = 20, psi = 0, xend = 370;
+
+    // == the animation function ==
+    function animate() {
+        var sp = Math.sin(psi), cp = Math.cos(psi),
+            x2 = x1 + r*psi, y2 = y1,
+            matrix = "matrix(" + cp + "," + sp + "," + (-sp) + "," + cp + "," +
+                        (-x1 * cp + y1 * sp + x2) + "," +
+                        (-x1 * sp - y1 * cp + y2) + ")";
+
+        ball.setAttribute("transform", matrix);
+        psi += Math.PI/45;
+
+        if (x2 < xend) setTimeout("animate()", 10);
+    }
+
+    // == the function to get things started ==
+    function OnLoadEvent(event) {
+        svgdoc = event.target.ownerDocument;
+        ball = svgdoc.getElementById("ball");
+        animate();
+    }
+    ]]>
+    </script> 
+
+</svg>

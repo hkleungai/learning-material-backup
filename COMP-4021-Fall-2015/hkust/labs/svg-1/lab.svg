@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<svg width="400px" height="450px"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xhtml="http://www.w3.org/1999/xhtml"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:a="http://www.adobe.com/svg10-extensions" a:timeline="independent"
+     onload="load()">
+
+    <script type="text/javascript">
+    <![CDATA[
+    var OBJECT_NAME = "smiley";
+    var OBJECT_WIDTH = 50;
+    var OBJECT_HEIGHT = 50;
+    var MAX_ANGLE_CHANGE = 30;
+
+    var interval = null;
+    var angle_change;
+    var width, height;
+    var displacement;
+    var isASV = false;
+    var isFF = false;
+
+    function load() {
+        angle_change = 2;
+        width = height = 400;
+
+        displacement = new Object();
+        displacement.x = displacement.y = 5;
+
+        isASV = (window.navigator.appName == "Adobe SVG Viewer");
+        isFF = (window.navigator.appName == "Netscape");
+    }
+
+    function playsnd(id) {
+        if (isASV) {
+            var snd = document.getElementById(id + "_asv");
+            snd.endElement();
+            snd.beginElement();
+        }
+        if (isFF) {
+            var snd = document.getElementById(id);
+            snd.currentTime = 0;
+            snd.play();
+        }
+    }
+
+    function move() {
+        var x, y, angle;
+        var translate, rotate;
+        var object = document.getElementById(OBJECT_NAME);
+
+        if (object == null) return;
+
+        x = parseFloat(object.getAttribute("x"));
+        if (isNaN(x)) x = 0;
+
+        y = parseFloat(object.getAttribute("y"));
+        if (isNaN(y)) y = 0;
+
+        angle = parseFloat(object.getAttribute("angle"));
+        if (isNaN(angle)) angle = 0;
+
+        x += displacement.x;
+        if (x < 0) {
+            x = 0;
+            displacement.x = -displacement.x;
+            angle_change = Math.random() * MAX_ANGLE_CHANGE;
+        }
+                
+        if (x > width - OBJECT_WIDTH) {
+            x = width - OBJECT_WIDTH;
+            displacement.x = -displacement.x;
+            angle_change = Math.random() * MAX_ANGLE_CHANGE;
+        }
+
+        y += displacement.y;
+        if (y < 0) {
+            y = 0;
+            displacement.y = -displacement.y;
+            angle_change = Math.random() * MAX_ANGLE_CHANGE;
+        }
+                        
+        if (y > height - OBJECT_HEIGHT) {
+            y = height - OBJECT_HEIGHT;
+            displacement.y = -displacement.y;
+            angle_change = Math.random() * MAX_ANGLE_CHANGE;
+        }
+
+        angle = (angle + angle_change) % 360;
+
+        object.setAttribute("x", x);
+        object.setAttribute("y", y);
+        object.setAttribute("angle", angle);
+
+        // Add the code to translate and rotate here!
+
+    }
+
+    function startball() {
+        // Setup a new interval
+        if (interval != null) clearInterval(interval);
+        interval = setInterval("move()", 50);
+    }
+
+    function stopball() {
+        // Clear the interval
+        if (interval != null) {
+            clearInterval(interval);
+            interval = null;
+        }
+    }
+
+    function randomize() {
+        // Change the displacement by Math.random()
+        displacement.x = Math.random() * 100 - 50;
+        displacement.y = Math.random() * 100 - 50;
+    }
+    ]]>
+    </script>
+
+    <style type="text/css">
+    <![CDATA[
+    .background { fill: lightblue; stroke: darkblue; stroke-width: 2; }
+    .button { cursor: pointer; }
+    .button rect { fill: lightgray; }
+    .button:hover rect { fill: #f0f0f0; stroke: lightgray; stroke-width: 1; }
+    .button text { font-size:15px; font-weight:bold; text-anchor:middle; }
+    ]]>
+    </style>
+
+
+    <!-- Add your audio tag here -->
+
+
+    <rect x="1" y="1" width="398px" height="398px" class="background"/>
+
+
+    <!-- Add your webdraw object here -->
+
+
+    <g transform="translate(30,405)" class="button" onclick="startball()">
+        <rect rx="10" ry="10" width="100" height="40"/>
+        <text x="50" y="25">Start</text>
+    </g>
+
+    <g transform="translate(150,405)" class="button" onclick="stopball()">
+        <rect rx="10" ry="10" width="100" height="40"/>
+        <text x="50" y="25">Stop</text>
+    </g>
+
+    <g transform="translate(270,405)" class="button" onclick="randomize()">
+        <rect rx="10" ry="10" width="100" height="40"/>
+        <text x="50" y="25">Randomize</text>
+    </g>
+
+</svg>

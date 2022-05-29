@@ -34,6 +34,10 @@ const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
         semesters: ['Spring 2007'],
       },
       {
+        code: 'COMP 2711',
+        semesters: ['Spring 2016'],
+      },
+      {
         code: 'COMP 2711H',
         semesters: ['Fall 2015', 'Fall 2021'],
       },
@@ -121,7 +125,7 @@ const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
       },
       {
         code: 'COMP 4021',
-        semesters: ['Spring 2022'],
+        semesters: ['Fall 2015', 'Spring 2022'],
       }
     ],
   },
@@ -144,6 +148,10 @@ const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
         code: 'COMP 1022Q',
         semesters: ['Spring 2020'],
       },
+      {
+        code: 'COMP 2021',
+        semesters: ['Spring 2015', 'Spring 2016'],
+      }
     ],
   },
   {
@@ -194,6 +202,10 @@ const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
       {
         code: 'COMP 272',
         semesters: ['Spring 1997'],
+      },
+      {
+        code: 'COMP 3031',
+        semesters: ['Fall 2014'],
       },
       {
         code: 'COMP 4901U',

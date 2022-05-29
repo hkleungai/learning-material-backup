@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>COMP4021 Lab 6 - Creating High Score Table Using Cookies</title>
+  <link rel="stylesheet" type="text/css" href="../lab.css" />
+</head>
+
+<body>
+
+  <h1>
+    <span class="lab">COMP4021 Lab 6</span>
+    <span class="title">Creating High Score Table Using Cookies</span>
+  </h1>
+
+  <h2>Overview</h2>
+
+  <ul>
+    <li>In this lab, you will continue to build your assignment 2 - SVG Platform Game</li>
+    <li>You will learn how to create a high score table using cookies</li>
+    <li>Then all the highest scores will be remembered, even if the browser is closed and opened again</li>
+    <li>You can start from the file <a href="svg4_start.zip">svg4_start.zip</a>, which is given to you for this part</li>
+    <li>You need to add the following features to the game:
+      <ol>
+        <li><a href="index.html#section1">Update a Score in the Game</a></li>
+        <li><a href="index.html#section2">Store High Scores in Cookies</a></li>
+        <li><a href="index.html#section3">Show the High Score Table</a></li>
+      </ol>
+    </li>
+  </ul>
+
+  <h2 id="section1">1. Update a Score in the Game</h2>
+
+  <ul>
+    <li>In the previous lab you have checked the collision between a bullet and any monster in the game</li>
+    <li>When a bullet hits a monster the monster is killed</li>
+    <li>In this lab you will add a global variable called <tt>score</tt>, i.e.:
+      <pre>var score = 0; // The score of the game</pre>
+    </li>
+    <li>This variable will be increased whenever a monster is killed</li>
+    <li>To display the <tt>score</tt> variable you can add an SVG <tt>text</tt> element to the game</li>
+    <li>For example, we can add the following SVG in the game:
+      <pre>&lt;g transform="translate(640, 120)"&gt;
+  &lt;text x="70" y="0"
+   style="fill:orange;font-size:25px;font-weight:bold;text-anchor:middle"&gt;
+    Score:
+  &lt;/text&gt;
+  &lt;rect x="0" y="10" width="140" height="35" style="fill:white" /&gt;
+  &lt;text id="score" x="70" y="36"
+   style="fill:orange;font-size:25px;text-anchor:middle"&gt;0&lt;/text&gt;
+&lt;/g&gt;</pre>
+    </li>
+    <li>It will look like this:
+      <p><img src="images/score.png" alt="Score Display" /></p>
+    </li>
+    <li>The following code is needed to update the score on the screen:
+      <pre>svgdoc.getElementById("score").firstChild.data = <span class="todo">...the updated score...</span>;</pre>
+    </li>
+    <li>The first child node is updated in the above code because any text inside an XML element (in this case the score value in the SVG <tt>text</tt> node) is stored as a child node of the element</li>
+    <li>For example, the DOM structure of the SVG shown above looks like this:
+      <p><img src="images/textnode.png" alt="DOM Structure with Text Nodes" /></p>
+    </li>
+  </ul>
+
+  <h2 id="section2">2. Store High Scores in Cookies</h2>
+
+  <ul>
+    <li>Remember in the collision code in the previous lab we check whether a player collides with a monster</li>
+    <li>The game is over when a player collides with one of the monsters in the game or if he/she runs out of time</li>
+    <li>We can use cookies to store the name and score of the player so that they can be displayed later</li>
+    <li>However we can only store a limited number of scores because the cookie storage is limited in size</li>
+    <li>In this lab (and the assignment) we store the 10 highest scores of the game</li>
+    <li>A JavaScript file highscore.js, is given to you for this part</li>
+    <li>The file contains a score record class and a few functions for handling cookies</li>
+    <li>You need to download the file, put it in the same directory as your SVG game and then include the file at the head section of your <tt>game.html</tt>, i.e.:
+      <pre>&lt;head&gt;
+    . . .
+    &lt;script language="JavaScript" src="highscore.js"&gt;&lt;/script&gt;
+&lt;/head&gt;</pre>
+    </li>
+  </ul>
+
+  <h3><a name="section2.1"></a>2.1. Organization of the Cookies</h3>
+
+  <ul>
+    <li>We are going to use 10 cookies to store the 10 highest scores of the game</li>
+    <li>Each score record contains the player name and the player score</li>
+    <li>We name these 10 cookies <tt>player0</tt>, <tt>player1</tt>, <tt>player2</tt>, ... and <tt>player9</tt></li>
+    <li>In order to store two pieces of information in a cookie we store the score record in the following form:
+      <pre><span class="todo">name of the player</span>~<span class="todo">score of the player</span></pre>
+    </li>
+    <li>The '~' character is the separator between the name and the score of the player</li>
+    <li>For example, if the name of the player is "David" and the score of the player is 79 then the cookie string would be "David~79"</li>
+    <li>The following image shows an example high score table of the game in SVG after 6 games have been played:
+      <p><img src="images/highscoretable.png" alt="High Score Table" /></p>
+    </li>
+    <li>The corresponding content of the cookies is shown in the following table:
+      <table class="simple">
+        <tr><th>Cookie</th><th>Value</th></tr>
+        <tr><td>player0</td><td>"David~79"</td></tr>
+        <tr><td>player1</td><td>"Hello Kitty~78"</td></tr>
+        <tr><td>player2</td><td>"Pokemon~65"</td></tr>
+        <tr><td>player3</td><td>"McMug~43"</td></tr>
+        <tr><td>player4</td><td>"McDonald~28"</td></tr>
+        <tr><td>player5</td><td>"Keroro~10"</td></tr>
+        <tr><td>player6</td><td><i>Empty or does not exist</i></td></tr>
+        <tr><td>player7</td><td><i>Empty or does not exist</i></td></tr>
+        <tr><td>player8</td><td><i>Empty or does not exist</i></td></tr>
+        <tr><td>player9</td><td><i>Empty or does not exist</i></td></tr>
+      </table>
+    </li>
+  </ul>
+
+  <h3><a name="section2.2"></a>2.2. Read the High Score Table When the Game is Over</h3>
+
+  <ul>
+    <li>When the game is over you need to read the current highest score of the game from the cookies</li>
+    <li>This can be done using a for-loop to read the cookie values into an array of score record</li>
+    <li>A JavaScript class called <tt>ScoreRecord</tt> has been created to store each score record, i.e. the name and the score of the player:
+      <pre>function ScoreRecord(name, score) {
+    this.name = name;
+    this.score = score;
+}
+</pre>
+    </li>
+    <li>The outline of the code to read the highest scores of the game is then:
+      <pre>// Initialize an empty array to store the high score table
+var table = new Array();
+
+for (var i = 0; i &lt; 10; i++) {
+    // Construct the cookie name
+    . . .
+
+    // Get the cookie value using the cookie name
+    . . .
+
+    // If the cookie does not exist exit from the for loop
+    . . .
+
+    // Extract the name and score of the player from the cookie value
+    . . .
+
+    // Add a new score record at the end of the array
+    table.push(new ScoreRecord(<span class="todo">...name of the player...</span>, <span class="todo">...score of the player...</span>));
+}</pre>
+    </li>
+    <li>After retrieving the cookie value you can use the <tt>split()</tt> function to extract the name and score from the cookie</li>
+    <li>The name and score are then stored at the end of the array as a score record object</li>
+    <li>You need to finish the code given in the <tt>getHighScoreTable()</tt> function in <tt>highscore.js</tt></li>
+    <li>You need to call this function when the game is over</li>
+  </ul>
+
+  <h3><a name="section2.3"></a>2.3. Update the High Score Table</h3>
+
+  <ul>
+    <li>After reading the high score table you need to update it using the name and score of the current player</li>
+    <li>That means you need to ask for the name of the player when the game is over
+      <ul>
+        <li>Note that in the assignment you need to ask for the name of the player <b>at the start of the game</b></li>
+      </ul>
+    </li>
+    <li>You can use the <tt>prompt()</tt> function to do that</li>
+    <li>With the name and score of the current player you can create a new record by using this code:
+      <pre>var record = ScoreRecord(<span class="todo">...name of the current player...</span>, <span class="todo">...score of the current player...</span>);</pre>
+    </li>
+    <li>You need to insert this new record in the appropriate position in the high score table</li>
+    <li>That means you need to insert the new record before the first record in the table which has a smaller score</li>
+    <li>To insert an item in the middle of an array you can use the JavaScript <tt>splice()</tt> function</li>
+    <li>For example,
+      <ul>
+          <li>let us assume the new record is stored in the variable <tt>record</tt> and the high score table in the variable <tt>table</tt></li>
+          <li>if the new record is <tt>(Gibson, 75)</tt> and the high score table is <tt>[(David, 79), (Hello Kitty, 78), (Pokemon, 65), (McMug, 43), (McDonald, 28), (Keroro, 10)]</tt> you can insert the record in the appropriate position by:
+          <pre>table.splice(2, 0, record);</pre>
+          <ul>
+            <li>The first argument is the position to insert a new item in the array</li>
+            <li>The second argument is the number of items to be deleted in the array (always 0 in our case)</li>
+            <li>The third argument is the new item, i.e. the new score record, to be inserted in the array</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3><a name="section2.4"></a>2.4. Store the Updated High Score Table</h3>
+
+  <ul>
+    <li>After the high score table is updated you need to store the updated table back into the cookies</li>
+    <li>The code for that is similar to what you have done when you read the table</li>
+    <li>That means you need a for-loop to store the score records using the correct cookie names:
+      <pre>for (var i = 0; i &lt; 10; i++) {
+    // If i is more than the length of the table exit from the for loop
+    . . .
+
+    // Construct the cookie name
+    . . .
+
+    // Store the ith record as a cookie using the cookie name
+    . . .
+}</pre>
+    </li>
+    <li>To store the score records as cookies you can use the <tt>setCookie()</tt> function given in <tt>highscore.js</tt></li>
+    <li>Remember you need to change the score record into a single string using the '~' as the separator between the name and the score of the record</li>
+    <li>You can write the above code in the <tt>setHighScoreTable()</tt> function in <tt>highscore.js</tt></li>
+    <li>Then run the function after you have inserted the new record in the high score table</li>
+  </ul>
+
+  <h2 id="section3">3. Show the High Score Table</h2>
+
+  <ul>
+    <li>After updating the high score table we can show it on the screen</li>
+    <li>You need to create a new SVG group to show the table</li>
+    <li>For example, you can use the following SVG:
+      <pre>&lt;g id="highscoretable" transform="translate(40,40)"&gt;
+  &lt;rect width="520" height="480"
+   style="fill:white;stroke:red;stroke-width:2"/&gt;
+  &lt;text x="260" y="40"
+   style="fill:red;font-size:30px;font-weight:bold;text-anchor:middle"&gt;
+    High Score Table
+  &lt;/text&gt;
+  &lt;text id="highscoretext" y="45"
+   style="font-size: 20px;font-weight:bold"/&gt;
+&lt;/g&gt;</pre>
+    </li>
+    <li>The above SVG looks like this:
+      <p><img src="images/highscoretablesvg.png" alt="The High Score Table SVG" /></p>
+    </li>
+    <li>Your task is to put the high score records in the table</li>
+    <li>The <tt>showHighScoreTable()</tt> function is given in <tt>highscore.js</tt></li>
+    <li>The function creates the high score table by displaying each record, i.e. name and score of a player, on its own row inside the SVG area</li>
+    <li>A row of a score record is added using the following SVG:
+      <pre>&lt;tspan x="100" dy="40"&gt;<span class="todo">...name of the player...</span>&lt;/tspan&gt;
+&lt;tspan x="400"&gt;<span class="todo">...score of the player...</span>&lt;/tspan&gt;</pre>
+    </li>
+    <li>The <tt>dy</tt> attribute means displaying a text span at a y position <tt>dy</tt> pixels down from the previous text y position</li>
+    <li>Therefore, by using the <tt>dy</tt> attribute of a text span you do not need to calculate the exact y position of each new row of score record</li>
+    <li>In the above example, SVG 'automatically' moves each row, i.e. each score record, 40 pixels downwards</li>
+    <li>You need to finish the <tt>addHighScore()</tt> function which is used to display one player's name and score</li>
+    <li>This function uses DOM functions (i.e. <tt>createElementNS()</tt>, <tt>setAttribute()</tt> and so on) to dynamically create a name text span and a score text span, and then append them at the end of the high score table</li>
+  </ul>
+
+  <h2>Submission</h2>
+
+  <ul>
+    <li>No submission is required for this lab</li>
+    <li>You now have all the essential skills to complete the assignment</li>
+  </ul>
+
+</body>
+</html>

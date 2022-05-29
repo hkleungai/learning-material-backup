@@ -1,0 +1,32 @@
+<html>
+<head></head>
+<body>
+
+<h2>
+This is a list of all nodes and their attributes inside document.all for 
+this page
+</h2>
+
+<script language="JavaScript">
+var list="";
+
+for(i = 0; i < document.all.length; i++){
+    list = list + "<p>" + document.all(i).tagName + "</p>";
+
+    list=list + "<table style='font-size:8pt'>Here are this node's attributes:";
+
+    for (j=0; j< document.all(i).attributes.length; j++) {
+        list = list + "<tr> <td>Name:" + 
+	  document.all(i).attributes[j].nodeName + 
+	  "</td> <td>nodeValue:" +
+	  document.all(i).attributes[j].nodeValue +
+	  "</td> </tr>";
+    }
+    list=list + "</table>";
+}
+
+document.write( list );
+
+</script>
+</body>
+</html>

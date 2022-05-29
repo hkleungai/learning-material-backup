@@ -1,0 +1,110 @@
+Problem 1
+a) val it = 72.0 : real
+b) val it = 4 : int
+c) val it = ["d","a"] : string list
+
+
+
+Problem 2 
+a) val check = fn : (''a * ''b) * (''a * ''b) -> bool
+b) val sync = fn : real list -> 'a list -> 'a list
+c) val bin = fn : ('a -> bool) -> 'a list -> 'a list -> 'a list -> 'a list list
+
+
+
+Problem 3
+a) 
+fun smap [] = [] | smap [head] = [] | smap (head::tail) = ([head,hd(tail)]::(smap (head::tl(tail))));
+fun combi [] = [] | combi [head] = [] | combi L = (smap L)@(combi (tl(L)));
+
+b)
+fun count (a ,[]) =0|
+    count (a,h::T) = if a=h then count (a,T)+1 else count(a, T);
+
+(* (number,count)*)
+fun count_list ([],[]) = []|
+ count_list (L1,[])=[]|
+ count_list ([],L2)=[]|
+    count_list (h1::T1,L2) = (h1,count(h1,L2))::(count_list(T1, L2));
+
+(*h1 original, h2 count*)
+fun select (h1::[]) = h1:(int*int)|
+select ((n1,c1)::t)= if #2(select(t))>c1 then select(t) else (n1,c1);
+
+fun top L= select (count_list(L,L));
+
+
+
+Problem 4
+
+(a)0,00,11,000,110,011,0000,1100,0110,1111,0011,1001
+
+(b)                                   S
+                                     / \
+				    S   0
+				   / \
+				  M   1
+				 / \
+				N   0
+			       / \
+			      N   1
+			     / \
+			    M   0
+			    |
+			    1
+			
+			
+
+
+
+Problem 5
+ai)
+Yes, it is ambiguous.
+
+aii)
+there are a lot of alternative answers for unambiguous grammar, two most common ones
+are:
+
+<S> ::= <S><S1> | <S1>
+<S1>::= ab|ba
+
+or
+
+<S>  ::= <S1><S> | <S1>
+<S1> ::= ab|ba
+
+
+bi) Yes	
+
+bii) (ab|ba)+ or any acceptable alternatives
+
+if not totally correct((ab|ba)*, abba)	
+
+
+
+Problem 6
+a) 
+
+<RA> ::= <RA> "JOIN" <RA1>|
+         <RA> "DIV" <RA1> |
+         <RA1>
+<RA1>::= "SELECT"<RA1>|
+         "PROJECT"<RA1>|
+         <RA2>
+<RA2>::="("<RA>")"|R|S|T|U|V
+
+b)
+
+                           JOIN
+                          /     \
+                    PROJECT     ( )
+                       |         |
+                    SELECT       DIV
+                       |         /  \
+                      ( )    SELECT  PROJECT
+                       |        |     |
+                      DIV       U     V
+                      / \
+                   JOIN  T
+                    / \
+                   R   S

@@ -1,0 +1,141 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>COMP4021 Lab 3 - SVG Object Animation</title>
+    <link rel="stylesheet" type="text/css" href="../lab.css" />
+</head>
+
+<body>
+
+    <h1>
+        <span class="lab">COMP4021 Lab 3</span>
+        <span class="title">SVG Object Animation</span>
+    </h1>
+
+    <h2>Overview</h2>
+
+    <ul>
+        <li>In this lab, you will learn how to
+        <ul>
+            <li>Create an SVG object with the software <tt>WebDraw</tt></li>
+            <li>Use SVG and JavaScript to animate your SVG creation</li>
+        </ul>
+        </li>
+        <li>Two files (<a href="lab.svg">lab.svg</a> and <a href="ding.wav">ding.wav</a>) are given to you as the starting point
+        <ul>
+            <li>An SVG program is created in lab.svg</li>
+            <li>JavaScript in lab.svg is used to control the animation</li>
+            <li>The animation will contain a sound effect ding.wav</li>
+        </ul>
+        </li>
+        <li>The code is working in both Internet Explorer and Mozilla Firefox</li>
+        <li>However due to the differences in audio support special code is required when playing a sound file</li>
+    </ul>
+
+    <h2>Getting Started</h2>
+
+    <ul>
+        <li>First, you need to download the files (<a href="lab.svg">lab.svg</a> and <a href="ding.wav">ding.wav</a>) to your local hard disk</li>
+        <li>You need to use Internet Explorer or Mozilla Firefox to view the SVG content
+        <ul>
+            <li>To use Firefox in CS lab 1 please go to the following folder and then start <tt>FirefoxPortable.exe</tt>
+            <pre>L:/apps/comp4021/Firefox</pre>
+            </li>
+        </ul>
+        </li>
+        <li>You will use the software WebDraw to create an SVG object, which is available in:
+        <pre>L:/apps/comp4021/WebDraw 1</pre>
+        </li>
+        <li>If you need an SVG editor at home, you can download Inkscape <a href="Inkscape-0.48.0-1.exe">here</a> instead or from the official site <a href="http://www.inkscape.org">here</a></li>
+        <li>If required, you can read the SVG specification <a href="http://www.w3c.org/TR/SVG11/">here</a></li>
+    </ul>
+
+    <h2>Lab Content</h2>
+
+    <ol>
+        <li><a href="index.html#section1">Create an SVG object with WebDraw</a></li>
+        <li><a href="index.html#section2">Animate your WebDraw object</a></li>
+        <li><a href="index.html#section3">Create sound effect</a></li>
+    </ol>
+
+    <h2><a name="section1"></a>1. Create an SVG Object with WebDraw</h2>
+
+    <ul>
+        <li>WebDraw is an easy-to-use interface for creating SVG documents</li>
+        <li>Inkscape is an application similar to WebDraw: less user-friendly than WebDraw, but it's free and downloadable right from the Internet</li>
+        <li>In this lab we will try to stick with WebDraw first</li>
+        <li>You can draw any SVG object by a simple click-and-drag</li>
+        <li>You can also change any of the attributes of the object</li>
+        <li>For example, the following '<tt>Smiley'</tt> is created using WebDraw:
+        <p><a href="images/webdraw.png"><img src="images/webdraw_small.png" border="0" alt="WebDraw" /></a><br />
+        <span class="footnote">Click to see image in original size</span></p>
+        </li>
+        <li>After you have created your object, the next step is to put the object into the given lab.svg</li>
+        <li>You should copy the appropriate SVG statements from the WebDraw source window
+        <p><a href="images/source.png"><img src="images/source_small.png" border="0" alt="WebDraw Source" /></a><br />
+        <span class="footnote">Click to see image in original size</span></p>
+        </li>
+        <li>These statements would then be pasted within the <tt>svg</tt> element inside lab.svg</li>
+        <li>You need to be careful to copy only the required part</li>
+        <li>You have to ensure that a group, with an id of <tt>smiley</tt>, should be used to enclose your SVG object, i.e.
+        <pre>&lt;g id="smiley"&gt;
+    <span class="todo">... your object's SVG statements here ...</span>
+&lt;/g&gt;</pre>
+        </li>
+        <li>For this particular lab, you need to tell the JavaScript the size of your SVG object</li>
+        <li>The size can be specified using two global variables, <tt>OBJECT_WIDTH</tt> and <tt>OBJECT_HEIGHT</tt></li>
+    </ul>
+
+    <h2><a name="section2"></a>2. Animate the WebDraw Object</h2>
+
+    <ul>
+        <li>Below is an example display of lab.svg after inserting the smiley in the right place:
+            <p><a href="images/svg.png"><img src="images/svg_small.png" border="0" alt="The Display" /></a><br />
+            <span class="footnote">Click to see image in original size</span></p>
+        </li>
+        <li>In lab.svg, we use <tt>setInterval</tt> to periodically update our WebDraw object</li>
+        <li>After the user clicks on the start button the <tt>move()</tt> function is called for every 0.05 second, i.e. 20 times per second</li>
+        <li>Some code is missing at the end of the <tt>move()</tt> function</li>
+        <li>The existing code updates the variables <tt>x</tt>, <tt>y</tt> and <tt>angle</tt> and your task is to apply the changes to the WebDraw object</li>
+        <li>To do this we have to use the <tt>setAttribute</tt> method of the object</li>
+        <li>First we produce the strings necessary to translate (change in x, y) and rotate (change in angle) with the variables <tt>translate</tt> and <tt>rotate</tt> respectively</li>
+        <li>As a reminder, <tt>translate(tx, [ty])</tt> will move the element to tx and ty units along the x-axis and the y-axis respectively</li>
+        <li>On the other hand, <tt>rotate(angle, centre x, centre y)</tt> will rotate the element <tt>angle</tt> degrees around the point (centre x, centre y)</li>
+        <li>Then we update the <tt>transform</tt> attribute of our Webdraw object with the following:
+        <pre>object.setAttribute("transform", translate + rotate);</pre>
+        so that it will be drawn in a new position as well as a new orientation</li>
+        <li>Now you have created your first SVG animation!</li>
+    </ul>
+
+    <h2><a name="section3"></a>3. Create Sound Effect</h2>
+
+    <ul>
+        <li>You need to insert an audio tag under the svg tag of lab.svg</li>
+        <li>However, due to the differences in audio support between Internet Explorer and Firefox you need to create an audio tag for each type of the viewers:
+        <ul>
+            <li>For Internet Explorer (i.e. Adobe SVG viewer), you need:
+            <pre>&lt;a:audio id="ding_asv" xlink:href="ding.wav" begin="indefinite"/&gt;</pre></li>
+            <li>For Firefox, you need:
+            <pre>&lt;xhtml:audio id="ding" src="ding.wav" begin="indefinite"/&gt;</pre></li>
+        </ul>
+        </li>
+        <li>In the code a special function <tt>playsnd()</tt> is given so that appropriate sound file is played in the corresponding browser</li>
+        <li>Then you can use the function to play the sound if the object hits the boundary</li>
+        <li>That means the sound is added in the if-blocks that check the x and y values</li>
+        <li>You can play the sound using the following code:
+        <pre>playsnd("ding")</pre>
+        </li>
+    </ul>
+
+    <h2>Submission</h2>
+
+    <ul>
+        <li>You do not need to submit this lab</li>
+    </ul>
+
+</body>
+</html>

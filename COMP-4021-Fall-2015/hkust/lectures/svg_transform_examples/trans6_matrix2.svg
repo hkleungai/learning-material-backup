@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     version="1.1"
+     baseProfile="full"
+     width="400" height="400"> 
+
+<!--
+     This image uses the matrix attribute to do three 
+     operations at once. A matrix can 
+     be used to do many operations in one matrix.
+     This is faster than doing a number of separate 
+     operations.
+
+     For this demo the required operations are
+
+     	- move shape from (x1,y1) to origin [For this demo x1=150, y1=100]
+     	- rotate shape 30 degrees
+     	- move shape to new position (x2,y2) [For this demo x2=200, y2=100]
+
+     Written in matrix form the three operations are as follows:
+
+        [ 1 0 x2]   [cos(a) -sin(a) 0]   [ 1 0 -x1]  
+        [ 0 1 y2] * [sin(a)  cos(a) 0] * [ 0 1 -y1] 
+        [ 0 0 1 ]   [  0       0    1]   [ 0 0  1 ] 
+
+     This is equivalent to:
+
+   	[cos(a) -sin(a) -x1cos(a) + y1sin(a) + x2]
+	[sin(a)  cos(a) -x1sin(a) - y1cos(a) + y2]
+	[  0       0               1             ]
+
+     So the SVG matrix can be written as 
+
+	transform = "matrix(cos(a), sin(a), -sin(a), cos(a), -x1cos(a)+y1sin(a)+x2, -x1sin(a)-y1cos(a)+y2)"
+
+    The last two parameters:
+    -x1cos(a)+y1sin(a)+x2 = -150*cos(30 degrees)+100*sin(30 degrees)+200
+    = 120.096189432
+    -x1sin(a)-y1cos(a)+y2 = -150*sin(30 degrees)- 100*cos(30 degrees)+100
+    = -61.6025403784
+
+     Which evaluates to
+
+	transform = "matrix(0.866, 0.5, -0.5, 0.866, -129.9 +50 +200, -75 -86.6 + 100 )"
+
+     Which is
+
+	transform="matrix(0.866 0.5 -0.5 0.866 120.1 -61.6 )"
+-->
+
+
+ <image xlink:href="ust.jpg" transform="matrix(0.866 0.5 -0.5 0.866 120.1 -61.6 )"
+	x="" y="0" width="300" height="200"/>
+
+</svg>

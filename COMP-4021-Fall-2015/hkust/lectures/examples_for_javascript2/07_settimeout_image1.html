@@ -1,0 +1,48 @@
+<!--
+COMP303 JavaScript Example
+
+timer example
+-->
+
+<html>
+
+<head>
+<script language="JavaScript">
+<!--
+
+// Let's use three variables
+var the_timer;
+var x_position=0;
+var the_layer;
+
+function set_timer() {
+
+// Find the layer in the web page
+the_layer=document.getElementById("image_layer");
+
+// Set the x position a little bit more to the right
+x_position=x_position+1;
+
+// Now put the div at that x position
+the_layer.style.left=x_position; 
+
+// Now start the timer again so this function will run again.
+// It will run every 0.1 second. (100 milliseconds = 0.1 second).
+the_timer=setTimeout( "set_timer()", 100 );
+}
+
+-->
+</script>
+</head>
+
+<body onload="set_timer()">
+
+<!-- Here we have a layer and inside the layer is an image
+     so when we move the layer, we see the image moving -->
+
+<div id="image_layer" style="position:absolute; left:0;">
+	<img src="dave.png">
+</div>
+
+</body> 
+</html>

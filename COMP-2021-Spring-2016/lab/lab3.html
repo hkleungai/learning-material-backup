@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html style="color:#333;background-color:#eee;font-family:'Trebuchet MS'">
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-5">
+<title>COMP2021 Lab3</title>
+<style>
+ol li {
+	margin: 1.5em;
+}
+pre {
+	border: 1px grey dotted;
+	padding: 1em;
+}
+code {
+	font-weight: bold;
+}
+</style>
+</head>
+<body>
+<h1>COMP2021 Lab3: Regular Expressions and its Unix Utilities</h1>
+<hr width="100%">
+
+<h2>Regular Expression</h2>
+<p>Give the regular expression that matches the requirments.</p>
+<p>We can see some examples <a href="http://regexone.com/">here</a>.</p>
+
+<p>Task1</p>
+<pre>
+Match the pattern "xxx.xxx.xxx.xxx", "xxx" can be any number between 0 and 999.
+</pre>
+
+<p>Task2</p>
+<pre>
+Match all the IPv4 address in the form of "xxx.xxx.xxx.xxx", "xxx" can be any number between 0 and 255.
+</pre>
+
+<p>Task3</p>
+<pre>
+Matches a date in yyyy-mm-dd format between 1900-01-01 and 2099-12-31, with the separator "-".
+</pre>
+
+<p>Task4</p>
+<pre>
+Matching a decimal numbers, you have to deal with positive and negative numbers, significant digits, exponents, and different representations (like the comma used to separate thousands and millions).
+</pre>
+
+<p>You can try your solution <a href="http://regexr.com/">here</a> with our <a href="lab3/example.txt" >example</a>.</p>
+<p>And you can find the answer <a href="lab3/lab3ans.txt" >here</a>.</p>
+
+
+<hr width="100%">
+<h2>Unix Command: grep</h2>
+<p>First we download the files <a href="lab3/demo1.txt">demo1.txt</a> and <a href="lab3/demo2.txt">demo2.txt</a> and put them in the working directory.</p>
+
+<p>The basic usage of grep command is to search for a specific string in the specified file as shown below.</p>
+<pre>
+grep "this" demo1.txt
+</pre>
+
+<p>You can check for the given string in multiple files.</p>
+<pre>
+grep "this" demo*
+</pre>
+
+<p>Case insensitive search using grep -i</p>
+<pre>
+grep -i "the" demo1.txt
+</pre>
+
+<p>Match regular expression in files</p>
+<pre>
+grep "lines.*empty" demo1.txt
+</pre>
+
+<p>Checking for full words, not for sub-strings using grep -w</p>
+<pre>
+grep -i "is" demo1.txt
+grep -iw "is" demo1.txt
+</pre>
+
+<p>Displaying lines before/after/around the match using grep -A, -B and -C</p>
+<pre>
+grep -A 3 -i "example" demo2.txt
+grep -B 2 "single WORD" demo2.txt
+grep -C 2 "Example" demo2.txt
+</pre>
+
+<p>Highlighting the search using GREP_OPTIONS</p>
+<pre>
+export GREP_OPTIONS='--color=auto' GREP_COLOR='100;8'
+grep "this" demo1.txt
+</pre>
+
+<p>You may also try other options such as "v" "c" "l" "o" "b" and "n".</p>
+<p>More examples can be found <a href="http://www.thegeekstuff.com/2009/03/15-practical-unix-grep-command-examples/">here</a> and <a href="http://www.linuxtechi.com/linux-grep-command-with-14-different-examples/">here</a>.</p>
+
+<hr width="100%">
+<p>Any inquiry please contact your TA by email</p>
+
+</body>
+</html>
+
+

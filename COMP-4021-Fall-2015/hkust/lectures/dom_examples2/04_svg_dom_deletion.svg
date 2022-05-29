@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     version="1.1"
+     baseProfile="full" 
+     width="1000" height="800"
+     onclick="delete_text(evt)">
+
+<script type="text/javascript">
+<![CDATA[
+
+var SVGDocument = null;
+var SVGRoot = null;
+var node= null;
+
+function delete_text(event)
+{
+SVGDocument = event.target.ownerDocument;
+SVGRoot = SVGDocument.documentElement;
+
+node=SVGDocument.getElementById("nice_text");
+if (node) node.parentNode.removeChild(node);
+}
+
+]]>
+
+</script>
+
+<text id="nice_text" x="200" y="100" 
+style="font-size:30px;font-family:Lucida Handwriting">Click here to delete this text</text>
+
+</svg>
+

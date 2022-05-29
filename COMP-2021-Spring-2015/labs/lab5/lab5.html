@@ -1,0 +1,267 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html style="color:#333;background-color:#eee;font-family:'Trebuchet MS'">
+
+<!-- Mirrored from course.cse.ust.hk/comp2021/labs/lab5/lab5.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 Jun 2015 09:22:57 GMT -->
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-5">
+<title>COMP2021 Lab5</title>
+<style>
+ol li {
+	margin: 1.5em;
+}
+pre {
+	border: 1px grey dotted;
+	padding: 1em;
+}
+code {
+	font-weight: bold;
+}
+</style>
+</head>
+<body>
+<h1>COMP2021 Lab5: Perl Programming II</h1>
+<hr width="100%">
+<h2>Lab Marks</h2>
+<p>The mark for each lab is posted in this <a href="../../grades/score_lab.pdf">page</a>. If you have any
+problems about the marks of the labs, please contact us as soon as possible. </p>
+
+<h2>Tasks </h2>
+<p style="text-align:center;color:red">Remember: You have to change the file permissions to run scripts!</p>
+<ol>
+    <li>Prime number counting: Find the prime numbers between 2 to the input number based on array. We need to create an array for storing all the prime numbers. At first we only have @primes = (2), then once we find another prime number, we push it into @primes and continue. Finally we print out all the prime numbers found as well as the total number of them. Input is sent through command argument.
+        <a href="prime.pl">Ans:prime.pl</a><br>
+        <b>Example:</b></br>
+<pre>
+$ prime.pl 10
+
+2,3,5,7
+We found 4 prime numbers in total.
+</pre>
+    </li>
+    
+    <li>Hangman Game: This is a word guess game. There are many words stored in array @words. Randomly choose one and store it in $choice. Then this Perl script will let you 
+	guess the letters that belong to this $choice, one letter a time. You will fail the game if you make mistakes more than the length of $hangman (which is shown as a little man). 
+	Try to execute <a href="hangman.pl">hangman.pl</a> to get some clues about how it works.
+
+        <br><b>Example:</b></br>
+<pre>
+    $ hangman.pl
+    --------
+    
+    Your Guess:i
+    i-------
+    
+    Your Guess:a
+    i-------
+    0
+    Your Guess:d
+    i-------
+    0-
+    Your Guess:f
+    i-------
+    0-|
+    Your Guess:t
+    i-t----t
+    0-|
+    Your Guess:e
+    i-te--et
+    0-|
+    Your Guess:s
+    i-te--et
+    0-|-
+    Your Guess:g
+    i-te--et
+    0-|--
+    Your Guess:a
+    i-te--et
+    0-|--<
+    Your Guess:a
+    0-|--<<
+    Sorry,the word was internet.
+</pre>
+        
+<pre>
+    $ hangman.pl
+    -------
+    
+    Your Guess:i
+    -------
+    0
+    Your Guess:p
+    -------
+    0-
+    Your Guess:s
+    s------
+    0-
+    Your Guess:t
+    st----t
+    0-
+    Your Guess:u
+    stu---t
+    0-
+    Your Guess:d
+    stud--t
+    0-
+    Your Guess:e
+    stude-t
+    0-
+    Your Guess:n
+    You got it right!
+</pre>
+        
+    </li>
+
+    
+<li> Big & Small: In this task you will write a Perl program called <b><code>bigsmall.pl</code></b> to implement the game &quot;Big &amp; Small&quot; with the user playing against the computer. </p>
+<h4>Game Rules</h4>
+<ul>
+  <li>The <strong>Computer</strong> will throw 3 dices, each will have result from 1-6</li>
+  <li>The <strong>User</strong> have to guess the results of the sum of the 3 dices, BIG or SMALL</li>
+  <li>BIG means the sum of 3 dices are EQUAL or larger than 10. SMALL means the sum of 3 dices are EQUAL or smaller than 9.</li>
+  <li>In the beginning of the game, the user will be asked how many money he has</li>
+  <li>In each round, the user will be asked how much money he wants to bet on that round</li>
+  <li>If the user wins the round, his current money = current money + bet money</li>
+  <li>If the user loses the round, the current money = current money - bet money</li>
+</ul>
+<h4>Requirement</h4>
+<ul>
+  <li>Users could choose to quit the game at each round</li>
+  <li>If a user loses all his money, he will be forced to quit the game</li>
+  <li>The program should also detect invalid inputs and prompt the user again for input</li>
+  <li>For numeric inputs, you can assume the user won't input non-numeric characters</li>
+  <li>The program must not allow the user to bet more money than he has</li>
+  <li>When the user is leaving the game, display a list of gains and losses throughout the game, and the final amount the user gained or lost (look at the example below)</li>
+</ul>
+<p>You will need to use a random number generator to make the computer's selection. The following lines will assign a pseudo-random value 1-6 into the variable <code>$rand</code>. You can then map these values to the dice throwing results.</p>
+<blockquote>
+  <pre>$rand = int(rand(6)) + 1</pre>
+</blockquote>
+<p>For the function <code>rand()</code> to work, <em>you MUST execute another function at the <strong>beginning</strong> of the Perl program,</em></p>
+<blockquote>
+  <pre>srand;</pre>
+</blockquote>
+<p>Allow the user to keep playing until they type <code>q</code> or he has no money. Example output should look like this:</p>
+<blockquote>
+  <pre>$ <code>./bigsmall.pl</code> 
+Big &amp; Small!
+How much money do you have ?
+<code>100</code>
+
+What would you guess ? (b)ig/(s)mall or (q)uit 
+<code>b</code>
+How much would you bet ? 
+<code>10</code>
+You bet $10 on Big
+
+The Result is Big
+You Win!
+You now have $110
+
+What would you guess ? (b)ig/(s)mall or (q)uit 
+<code>s</code>
+How much would you bet ? 
+<code>20</code>
+You bet $20 on Small
+
+The Result is Big
+You Lose!
+You now have $90
+
+What would you guess ? (b)ig/(s)mall or (q)uit 
+<code>q</code>
+
+Here is the list of gains and losses throughout your game:
++$100
++$10
+-$20
+-----
+$90
+
+You have finally lost $10! Goodbye!
+
+$
+</pre>
+  <pre>
+$ <code>./bigsmall.pl</code>
+Big &amp; Small!
+How much money do you have ?
+<code>100</code>
+
+What would you guess ? (b)ig/(s)mall or (q)uit 
+<code>b</code>
+How much would you bet ? 
+<code>100</code>
+You bet $100 on Big
+
+The Result is Small
+You Lose!
+You now have $0
+
+You don't have any money, you must quit!
+
+Here is the list of gains and losses throughout your game:
++$100
+-$100
+-----
+$0
+
+You have finally lost $100! Goodbye!
+
+$
+</pre>
+  <pre>
+$ <code>./bigsmall.pl</code>
+
+Big &amp; Small!
+How much money do you have ?
+<code>50</code>
+
+What would you guess ? (b)ig/(s)mall or (q)uit 
+<code>b</code>
+How much would you bet ? 
+<code>60</code>
+You bet more than you have!
+How much would you bet ? 
+<code>10</code>
+You bet $10 on Big
+
+The Result is Big
+You Win!
+You now have $60
+
+What would you guess ? (b)ig/(s)mall or (q)uit
+
+............
+</pre>
+  <pre>
+$ <code>./bigsmall.pl</code>
+
+Big &amp; Small!
+How much money do you have ?
+<code>100</code>
+
+What would you guess ? (b)ig/(s)mall or (q)uit 
+<code>g</code>
+Invalid Input
+
+What would you guess ? (b)ig/(s)mall or (q)uit
+
+.............</pre>
+</blockquote>
+<hr />
+</li>
+</ol>
+
+<h2><a name="ans"> Lab Answers </a></h2>
+<p style="color:red">Please find the answers for lab 5: <a href="lab5ans.txt">lab5ans.txt</a>.</p>
+
+<h2>Submission</h2>
+<p>Please submit your <b><code>bigsmall.pl</code></b> file using <a href="../../../cass/submit.html">CASS</a> on or before 10:00pm, Sunday
+(22-Mar-2015).</p>
+<p>Any inquiry please contact your TA by email (shuaa@cse.ust.hk)</p>
+</body>
+
+<!-- Mirrored from course.cse.ust.hk/comp2021/labs/lab5/lab5.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 Jun 2015 09:22:57 GMT -->
+</html>

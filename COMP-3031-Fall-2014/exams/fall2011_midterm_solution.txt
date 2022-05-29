@@ -1,0 +1,136 @@
+Sample Solution, COMP3031 L1 Midterm Exam
+
+Problem 1
+
+(a) 243.0
+
+(b) [[1,4],[2,5],[3,6]]
+
+(c) "213-4"
+
+
+Problem 2
+
+(a) val foo1 = fn : ('a -> 'a) -> 'a -> 'a
+
+(b) val foo2 = fn : 'a -> ('a -> 'b) list -> ('a * 'b) list
+
+(c)  val foo3 = fn: 
+mycolor list -> (mycolor -> 'a) -> (mycolor -> 'a) -> (mycolor -> 'a) -> 'a list
+
+
+Problem 3
+
+(*a*)
+fun list_merge (L1, nil) = L1
+   | list_merge (nil, L2) = L2
+   | list_merge (x::L1, y::L2) = if x<=y then x::list_merge(L1, y::L2) else y::list_merge(x::L1,L2);
+
+(*b*)
+fun remove (v, []) = [] 
+| remove (v, h::t) = if h=v then remove(v,t) else h :: remove(v,t);
+
+
+fun list_distinct [] = []
+    | list_distinct (x::L) = x :: remove(x,list_distinct L);
+
+(*c*)
+
+fun count(v, []) = 0
+   | count(v, h::t) = if h=v then 1+count(v,t) else count(v,t);
+
+fun list_count [] = []
+   | list_count (x::L) = (x, 1+count(x,L)) :: list_count(remove(x,L));
+
+(*d*)
+
+exception EmptyList;
+
+fun square x = x*x; 
+
+fun add (x, y) = x+y;
+
+fun reduce f [] v = v | reduce f (head::tail) v = f (head, reduce f tail v);
+
+fun list_squaresum [] = raise EmptyList 
+   | list_squaresum L = reduce add (map square L) 0;
+
+
+Problem 4
+
+(a)
+
+<N> strings of length less than 5: {a, b, a-0, b-0, a-1a, a-1b, b-1a, b-1b}.
+
+<V> strings of length less than 5: {0, 1a, 1b, 1a-0, 1b-0}. 
+
+<N><V> strings of length less than 6:
+
+{ 
+a0, a1a, a1b, a1a-0, a1b-0, 
+b0, b1a, b1b, b1a-0, b1b-0,
+a-00, a-01a, a-01b,
+b-00, b-01a, b-01b,
+a-1a0,
+a-1b0,
+b-1a0,
+b-1b0
+}
+
+(b)
+
+parse tree for b-01a-0:
+
+S
+|
+NV
+|\\
+N-V\
+| | \
+b 0 /\
+    | N
+      |\
+      N-V
+      | |
+      a 0 
+
+
+
+Problem 5
+
+<S>  ::= <S> and <S1> | <S> or <S1> | <S> xor <S1> | <S1>
+<S1> ::= <S1> >> <N> | <S1> << <N> | <S2>
+<S2> ::= not <S2> | <B>
+<N>  ::= 1|2|3|4|5|6|7|8
+<B>  ::= <B>0|<B>1|0|1
+
+
+Problem 6
+
+(a)
+
+{
+ab, ba, 
+aab, baa, 
+aaab, abab, abba,baaa,baab, baba,
+aaaab, aabab, aabba, abaab, abbaa,baaaa,baaab, baaba,babaa, 
+}
+
+(b)
+
+<S>  ::= a<S1> | b<S2>
+<S1> ::= a<S1> | b<S3>
+<S2> ::= a<S4>
+<S3> ::= a<S1> | b<S2> | <empty>
+<S4> ::= a<S5> | b<S2> | <empty>
+<S5> ::= a<S5> | b<S6> | <empty>
+<S6> ::= a<S5> | b<S2> | <empty>
+
+Simplified solution by merging <S4> and <S6>:
+
+<S>  ::= a<S1> | b<S2>
+<S1> ::= a<S1> | b<S3>
+<S2> ::= a<S4>
+<S3> ::= a<S1> | b<S2> | <empty>
+<S4> ::= a<S5> | b<S2> | <empty>
+<S5> ::= a<S5> | b<S4> | <empty>

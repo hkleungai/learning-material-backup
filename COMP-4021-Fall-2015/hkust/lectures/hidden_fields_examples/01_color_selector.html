@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>Color Selector</title>
+        <style>
+            div {
+                position: absolute;
+                width: 50px;
+                height: 50px;
+            }
+        </style>
+        <script>
+        function select(color) {
+            document.getElementById("color").value=color;
+            document.getElementById("color").form.submit();
+        }
+        </script>
+    </head>
+    <body>
+        <!--
+        This program uses several divs and a hidden field to create a colour selector.
+        When a user clicks on one of the divs, the corresponding colour value will be
+        copied to the value of the hidden field. Then, the form is immediately submitted
+        by JavaScript.
+
+        This example shows the use of the colour boxes and the hidden
+        field. Although the destination of the form is the next example,
+        02_color_selector.php, it is not an essential part of this example.
+        -->
+        <h2>Please select a color:</h2>
+        <div style="position:relative">
+            <div style="background-color:red;left:0px" onclick="select('red')"></div>
+            <div style="background-color:yellow;left:50px" onclick="select('yellow')"></div>
+            <div style="background-color:green;left:100px" onclick="select('green')"></div>
+            <div style="background-color:cyan;left:150px" onclick="select('cyan')"></div>
+            <div style="background-color:blue;left:200px" onclick="select('blue')"></div>
+            <div style="background-color:magenta;left:250px" onclick="select('magenta')"></div>
+        </div>
+        <form action="02_color_selector.php" method="GET">
+            <input type="hidden" name="color" id="color" value="" />
+        </form>
+    </body>
+</html>

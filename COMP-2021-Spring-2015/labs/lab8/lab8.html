@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html style="color:#333;background-color:#eee;font-family:'Trebuchet MS'">
+
+<!-- Mirrored from course.cse.ust.hk/comp2021/labs/lab8/lab8.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 Jun 2015 09:23:14 GMT -->
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-5">
+<title>COMP2021 Lab8</title>
+<style>
+ol li {
+	margin: 1.5em;
+}
+pre {
+	border: 1px grey dotted;
+	padding: 1em;
+}
+code {
+	font-weight: bold;
+}
+</style>
+</head>
+<body>
+<h1>COMP2021 Lab8: Perl Programming: String Matching and Regular Expression  </h1>
+<hr width="100%">
+<h2>Lab Marks</h2>
+<p>The mark for each lab is posted in this <a href="../../grades/score_lab.html">page</a>. If you have any
+  problems about the marks of the labs, please contact us as soon as possible. </p>
+
+
+<h2>String Matching</h2>
+<p><strong> Problem. Find the longest common substring</strong></p>
+<p>Given two strings, S of length m and T of length n, find the longest string which is the substring of both S and T.</p> 
+<pre>
+string1 = file123454321:///home/gms8994/Music/t.A.T.u./
+string2 = :///home/gms8994/Music222/nina%20sky/
+</pre>
+<p>The longest common substring is ":///home/gms8994/Music".</p>
+
+
+<p> <strong> Solution</strong></p>
+<p>One good way of solving it is dynamic programming. More specifically, first we define LCSuff(S<sub>1..p</sub> ,T<sub>1..q</sub> ) as the longest common <strong>suffix</strong> for the pair of string prefixes of S<sub>1..p</sub> and T<sub>1..q</sub>. And the following equation holds:</p>
+<p>
+<img src="fig1.png"></p>
+</p>
+<p>As a result, we can iteratively get the LCSuff values for any pair of p&#8712[1,m] and q&#8712[1,n].</p>
+
+<p>For the example strings "ABAB" and "BABA":</p>
+<table class="wikitable" style="text-align:center">
+<tr>
+<th width="15"></th>
+<th width="15"></th>
+<th width="15">A</th>
+<th width="15">B</th>
+<th width="15">A</th>
+<th width="15">B</th>
+</tr>
+<tr>
+<td></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>B</th>
+<td>0</td>
+<td>0</td>
+<td style="color:red">1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<th>A</th>
+<td>0</td>
+<td style="color:red">1</td>
+<td>0</td>
+<td style="color:red">2</td>
+<td>0</td>
+</tr>
+<tr>
+<th>B</th>
+<td>0</td>
+<td>0</td>
+<td style="color:red">2</td>
+<td>0</td>
+<td style="color:red">3</td>
+</tr>
+<tr>
+<th>A</th>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td style="color:red">3</td>
+<td>0</td>
+</tr>
+</table>
+<p>Finally, note that the maximal of these longest common suffixes of possible prefixes must be the longest common substrings of <i>S</i> and <i>T</i>. These are shown on diagonals, in red, in the table. For this example, the longest common substrings are "BAB" and "ABA".</p>
+
+<p>
+<img src="fig2.png"></p>
+</p>
+
+<p>Based on idea above, you may try to finish the following subroutine following the guidance.</p>
+</div>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="perl source-perl">
+<pre class="de1">
+<span class="kw2">sub</span> lc_substr <span class="br0">{</span>
+  <span class="kw1">my</span> <span class="br0">(</span><span class="re0">$str1</span><span class="sy0">,</span> <span class="re0">$str2</span><span class="br0">)</span> <span class="sy0">=</span> <span class="co5">@_</span><span class="sy0">;</span> 
+  <span class="kw1">my</span> <span class="re0">$l_length</span> <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> <span class="co1"># length of longest common substring</span>
+  <span class="kw1">my</span> <span class="re0">$len1</span> <span class="sy0">=</span> <span class="kw3">length</span> <span class="re0">$str1</span><span class="sy0">;</span> 
+  <span class="kw1">my</span> <span class="re0">$len2</span> <span class="sy0">=</span> <span class="kw3">length</span> <span class="re0">$str2</span><span class="sy0">;</span> 
+  <span class="kw1">my</span> <span class="re0">@char1</span> <span class="sy0">=</span> <span class="br0">(</span><span class="kw3">undef</span><span class="sy0">,</span> <span class="kw3">split</span><span class="br0">(</span><span class="sy0">//,</span> <span class="re0">$str1</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1"># $str1 as array of chars, indexed from 1</span>
+  <span class="kw1">my</span> <span class="re0">@char2</span> <span class="sy0">=</span> <span class="br0">(</span><span class="kw3">undef</span><span class="sy0">,</span> <span class="kw3">split</span><span class="br0">(</span><span class="sy0">//,</span> <span class="re0">$str2</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1"># $str2 as array of chars, indexed from 1</span>
+  <span class="kw1">my</span> <span class="re0">@lc_suffix</span><span class="sy0">;</span> <span class="co1"># "longest common suffix" table</span>
+  <span class="kw1">my</span> <span class="re0">@substrings</span><span class="sy0">;</span> <span class="co1"># list of common substrings of length $l_length</span>
+ 
+  <span class="kw1">for</span> <span class="kw1">my</span> <span class="re0">$n1</span> <span class="br0">(</span> <span class="nu0">1</span> <span class="sy0">..</span> <span class="re0">$len1</span> <span class="br0">)</span> <span class="br0">{</span> 
+    <span class="kw1">for</span> <span class="kw1">my</span> <span class="re0">$n2</span> <span class="br0">(</span> <span class="nu0">1</span> <span class="sy0">..</span> <span class="re0">$len2</span> <span class="br0">)</span> <span class="br0">{</span> 
+      <span class="kw1">if</span> <span class="br0">(</span><span class="re0">$char1</span><span class="br0">[</span><span class="re0">$n1</span><span class="br0">]</span> <span class="kw1">eq</span> <span class="re0">$char2</span><span class="br0">[</span><span class="re0">$n2</span><span class="br0">]</span><span class="br0">)</span> <span class="br0">{</span>
+        <span class="co1"># We have found a matching character. Is this the first matching character, or a</span>
+	<span class="co1"># continuation of previous matching characters? If the former, then the length of</span>
+	<span class="co1"># the previous matching portion is undefined; set to zero.</span>
+	
+	<span class="co1"># In either case, declare the match to be one character longer than the match of</span>
+	<span class="co1"># ...characters preceding this character.</span>
+	
+	<span class="co1"># If the resulting substring is longer than our previously recorded max length ...</span>
+	  <span class="co1"># ... we record its length as our new max length ...</span>
+	  <span class="co1"># ... and clear our result list of shorter substrings.</span>
+	  
+	<span class="co1"># If this substring is equal to our longest ...</span>
+	  <span class="co1"># ... add it to our list of solutions.</span>
+        <span class="br0">}</span>
+      <span class="br0">}</span>
+    <span class="br0">}</span>
+  <span class="br0">}</span>   
+ 
+  <span class="kw3">return</span> <span class="re0">@substrings</span><span class="sy0">;</span>
+<span class="br0">}</span>
+</pre>
+<p>And you can find the answer <a href="example.txt" >here</a>.</p>
+
+<h2>Homework: Regular Expression</h2>
+<p> Give the regular expression that matches the requirments.</p>
+</pre>
+<p>Example</p>
+<pre>
+Match the pattern "xxx.xxx.xxx.xxx", "xxx" can be any number between 0 and 999.
+
+Answer: ^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}
+</pre>
+
+<p>Task1</p>
+<pre>
+Match all the IPv4 address in the form of "xxx.xxx.xxx.xxx", "xxx" can be any number between 0 and 255.
+
+</pre>
+
+<p>Task2</p>
+<pre>
+Exclude all the strings containing a part in the form of "abba". It means we will exclude all the words like: trillion, unfitting, grammar, inning.
+</pre>
+
+<p>Task3</p>
+<pre>
+Matches a date in yyyy-mm-dd format between 1900-01-01 and 2099-12-31, with the separator "-".
+</pre>
+
+<p>Task4</p>
+<pre>
+Match words in the form of "ab...ba", we don't care about what appears in (...). For example: telnet civic deedeed degged kakkak level murdrum noon reviver sooloos terret.
+</pre>
+
+
+<h2>Submission</h2>
+<p>Please submit you lab8.txt using <a href="../../../cass/submit.html">CASS</a> on or before 10:00 Saturday
+  (18-Apr-2014). You should check that your program can be executed properly on the CS Lab 2 (4214) machines.</p>
+<p>Any inquiry please contact your TAs by email (hzhangan@cse.ust.hk).</p>
+</body>
+
+<!-- Mirrored from course.cse.ust.hk/comp2021/labs/lab8/lab8.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 Jun 2015 09:23:14 GMT -->
+</html>

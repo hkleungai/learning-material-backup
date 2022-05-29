@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     version="1.1"
+     baseProfile="full"
+     width="400" height="300"
+     onload="on_load(evt)">
+
+<script language="JavaScript1.2"><![CDATA[
+	/*
+	* These global variables are used to keep track of the current x,y coordinates
+	* for the control points of the curve.
+	*/
+	var x0 = 150;  // x-coordinate of first control point.
+	var y0 = 150;  // y-coordinate of first control point.
+	var x1 = 250;  // x-coordinate of second control point.
+	var y1 = 150;  // y-coordinate of second control point.
+
+	/*
+	* These global variables are used to keep 
+	* track of the x,y coordinates for the
+	* target coordinates of the curve's control points.
+	*/
+	var tx0 = -1;  // target x-coordinate of first control point.
+	var ty0 = -1;  // target y-coordinate of first control point.
+	var tx1 = -1;  // target x-coordinate of second control point.
+	var ty1 = -1;  // target y-coordinate of second control point.
+
+	/*
+	* This function is called when the document is first loaded.
+	* It sets up a time-interval to repeatedly call the 
+	* main animation function at constant intervals.
+	*
+	*/
+
+    	// == the function to get things started ==
+    	function on_load(event) {
+        	svgdoc = event.target.ownerDocument;
+		setInterval ('next_frame()', 100);
+    	}
+
+	/*
+	* This function changes a coordinate value 
+	* by increasing or decreasing by 10
+	* until it reaches the target value.
+	*/
+	function change_coord (current_value, target_value)
+	{
+		if (current_value < target_value)
+		{
+			current_value += 10;
+			if (current_value > target_value)
+				current_value = target_value;
+		}
+		if (current_value > target_value)
+		{
+			current_value -= 10;
+			if (current_value < target_value)
+				current_value = target_value;
+		}
+		return current_value;
+	}
+
+	/*
+	* This is the main animation function. At each invocation, it changes the
+	* control points in the path's "d" attribute, making it look like it is moving.
+	*
+	* The path being animated is a cubic bezier curve stretching across the width
+	* of the SVG document. The cubic bezier requires two control points. The
+	* animation is performed by constantly changing these two control points while
+	* keeping the endpoints constant.
+	*
+	* However, the endpoints and the control points are all specified in the same
+	* attribute of the path: the "d" attribute. So at each animation step, we
+	* change the value of the "d" attribute with the same endpoints and one or two
+	* new control points.
+	*
+	* The control points are changed as follows:
+	* 1. We randomly generate values for the target x,y coordinates of the two
+	*    control points.
+	* 2. At each step, we change the current x,y coordinates of the control points
+	*    by 10 pixels, increasing or decreasing them towards the target values.
+	* 3. Once all 4 values have been changed to match the target values, we
+	*    randomly regenerate new target values and continue.
+	*/
+	function next_frame ()
+	{
+		// Retrieve handle to the path being animated.
+		var linenode = svgdoc.getElementById ('line');
+		if (!linenode)
+			return;
+
+		// if necessary, generate new target values for the control points' x,y
+		// coordinates. This is done either at the first invocation (target values
+		// are -1) or when all current coordinates are the same as the target
+		// coordinates.
+		if (tx0 < 0 || (tx0 == x0  &&  ty0 == y0  &&  tx1 == x1  &&  ty1 == y1))
+		{
+			tx0 = Math.floor (400*Math.random());
+			ty0 = Math.floor (300*Math.random());
+			tx1 = Math.floor (400*Math.random());
+			ty1 = Math.floor (300*Math.random());
+		}
+
+		// Change current coordinates by up to +/-10 pixels towards the target values.
+		x0 = change_coord (x0, tx0);
+		y0 = change_coord (y0, ty0);
+		x1 = change_coord (x1, tx1);
+		y1 = change_coord (y1, ty1);
+
+		// Change the path element's "d" attribute to use the new coordinates.
+		linenode.setAttribute ('d', 'M0,300L0,150C'+x0+','+y0+','+x1+','+y1+',400,150L400,300z');
+	}
+
+
+]]></script>
+
+<rect style="fill:none;stroke:black" x="0" y="0" width="399" height="299"/>
+
+<path id="line" style="fill:#905CA8;fill-opacity:0.5;stroke:#905CA8" d="M0,150h400"/>
+
+</svg>

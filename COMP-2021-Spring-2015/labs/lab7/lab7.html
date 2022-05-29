@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html style="color:#333;background-color:#eee;font-family:'Trebuchet MS'">
+
+<!-- Mirrored from course.cse.ust.hk/comp2021/labs/lab7/lab7.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 Jun 2015 09:23:13 GMT -->
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-5">
+<title>COMP2021 Lab6</title>
+<style>
+ol li {
+	margin: 1.5em;
+}
+pre {
+	border: 1px grey dotted;
+	padding: 1em;
+}
+code {
+	font-weight: bold;
+}
+</style>
+</head>
+<body>
+<h1>COMP2021 Lab7: Perl Application in Biology </h1>
+<hr width="100%">
+<h2>Lab Marks</h2>
+<p>The mark for each lab is posted in this <a href="../../grades/score_lab.html">page</a>. If you have any
+problems about the marks of the labs, please contact us as soon as possible. </p>
+
+<h2>A brief Introduction</h2>
+<p>Advances in high-throughput biology have transformed modern biology into an incredibly data-rich science. Biologists who never thought they needed computer programming skills are now finding that using an Excel spreadsheet is simply not enough.
+Programming is needed for tasks such as comparing the similarity or finding some regulatory patterns in DNA sequence. </p>
+<ol>
+<li>
+<b>Why using Perl?</b><br> 
+<p>Here is an comprehensive <a href="http://stackoverflow.com/questions/2527170/why-is-perl-used-so-extensively-in-biology-research">answer</a>.</p>
+</li>
+
+<li>
+<b><a href="http://bioperl.org/">BioPerl</a></b><br> 
+<p>An international association of developers of open source Perl tools for bioinformatics, genomics and life science research.</p>
+</li>
+
+<li>
+<b><a href="http://korflab.ucdavis.edu/unix_and_Perl/">Unix & Perl Primer for Biologists</a></b><br> 
+<p>A basic introductory course for biologists to learn the essential aspects of the Perl programming language.</p>
+</li>
+
+ <li> 
+<b>Beginning Perl for Bioinformatics<a = href="http://it-ebooks.info/book/284/">(e-book)</a></b></br>
+<p>An introduction to perl for biological use.</p>
+</li>
+</ol>
+
+<h2>Examples and Tasks</h2>
+<p style="text-align:center;color:red">Remember: You have to change the file permissions to run shell scripts!</p>
+<ol>
+    <li><strong>Perl Program to translate DNA sequence into protein sequence</strong><br>
+	<p> A nucleic acid sequence (or DNA sequence) is a succession of letters that indicate the order of nucleotides within a DNA. 
+	The possible letters are A, C, G, and T, representing the four nucleotide bases of a DNA strand - adenine, cytosine, guanine, thymine. In the typical case, the sequences are printed abutting one another without gaps, as in the sequence AAAGTCTGAC.
+	</p>
+	
+	<p>
+	In molecular biology and genetics, translation is the process in which DNA sequence create proteins. More specifically,
+	the DNA sequence is grouped into tri-nucleotide units called codons, each coding for a single amino acid according to the <a href="http://en.wikipedia.org/wiki/DNA_codon_table">DNA codon table</a>.
+	</p>
+	
+	<p>The objective of the program is to read the DNA from a file or through a manual entry and convert the DNA string into a protein string. 
+	For example, the DNA sequence TCATCA should be translated to protein sequence SS. The detailed requirement please refer to the following flow chart:</p>
+	
+	<p>
+<img src="perl-f01.jpg"></p>
+</p>
+	
+	
+ <b>Example:</b></br>
+<pre>
+$ ./dna2prot.pl 
+Please choose one of the following for entering the DNA sequence
+Press 1 for manual entry or 2 for file
+1
+
+enter the sequence:-
+TCATCA
+
+The protein is:-
+SS
+
+The length of the protein is:-
+2
+</pre>
+<pre>
+$ ./dna2prot.pl 
+Please choose one of the following for entring the DNA sequence
+
+Press 1 for manual entry or 2 for file
+2
+
+enter the filename(if it is in another folder please specify the path)
+<a href="pfile.txt">pfile.txt </a>
+
+The protein is:-
+SSSTQVTH_NQSVRSFGSRAQSSSVPTRSPPADTMVQWTAEEKQLTTGLWGKVNVAECGGEALARLLTVYPWTQRFFASFGNLSSPTAVLGNPKVQAHGKKVLTSFGEAVKNLDSTKNTFSQLSELHCDKLHVDPENFRLLGDTLVVVLAAHFGKDFTPDCQAAWQKLVRVVAHALARKYH_GAAGAPGSARTRCRPSPPLLTANKAHPVKPKKKKKNTLG
+
+The length of the protein is:-
+221
+</pre>
+
+<p>
+<strong>Method: </strong> <br>
+Use a subroutine which translates the three letter codon of DNA to the respective protein value. The subroutine contains a hash variable which stores the protein values with their respective DNA codon. 
+	So when the subroutine gets a codon, the codon is checked if the particular codon exists in this hash variable. If it exists it returns the protein value else it prints the error occurred. So at the end the subroutine returns either 
+	the protein value or the error  <a href="dna2prot.pl">Ans:dna2prot.pl</a>.<br> 
+
+</p>
+
+
+    </li>
+    
+    <li>Write a script that reads two files with a list of protein names and lengths:
+<pre>
+AP_000081  181
+AP_000174  104
+AP_000138  145
+</pre>
+    1. Check if each line follows the standard form: "XXX...XXX  ddd...ddd", where "XXX...XXX" stands for any character/digit string and "ddd...ddd" stands for any digit string, (note there is at least one blank space between them). If not, die with a warning.<br>
+    2. Print the names that appeared in both files.  Print a warning if the name is the same but the length is different.<br>
+	3. You may try your code with input <a href="prtn1.txt">prtn1.txt</a> and  <a href="prtn2.txt">prtn2.txt</a>.<br>
+</p>
+
+ <b>Hint:</b></br>
+    1. Use regular expression to check whether each line follows the standard form;</br>
+    2. Stores the names of the first file as hash keys, with the length of the sequence as the value.<br>
+    3. Use exists() to check if a protein name in file 2 exists in file 1's hash keys.</br>
+ 
+ 
+  <b>Example:</b></br>
+<pre>
+prtn1.txt:
+AP_000081  181
+AP_000174  104
+AP_000138  145
+</pre>
+<pre>
+prtn2.txt:
+AP_000081  181
+AP_000174  105
+AP_000131  145
+</pre>
+<pre>
+$ ./lab7.pl prtn1.txt prtn2.txt
+AP_00081
+AP_00174 appears with different length!
+</pre>
+        
+<pre>
+prtn1.txt:
+ AP_000081  181
+AP_000174  104
+AP_000138  145
+</pre>
+<pre>
+prtn2.txt:
+AP_000081  181
+AP_000174  105
+AP_000131  145
+</pre>
+<pre>
+$ ./lab7.pl prtn1.txt prtn2.txt
+bad line format in prtn1.txt line 1!
+</pre>
+    </li>
+
+</ol>
+
+<h2>Submission</h2>
+<p>Please submit your lab7.pl file using <a href="../../../cass/submit.html">CASS</a> on or before 10:00 pm, Saturday
+(04-April-2015).</p>
+<p>Any inquiry please contact your TAs by email (hzhangan@cse.ust.hk)</p>
+</body>
+
+<!-- Mirrored from course.cse.ust.hk/comp2021/labs/lab7/lab7.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 Jun 2015 09:23:14 GMT -->
+</html>

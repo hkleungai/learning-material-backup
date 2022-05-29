@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html style="color:#333;background-color:#eee;font-family:'Trebuchet MS'">
+
+<!-- Mirrored from course.cse.ust.hk/comp2021/labs/lab10/lab10.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 Jun 2015 09:23:30 GMT -->
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-5">
+<title>COMP2021 Lab10</title>
+<style>
+ol li {
+	margin: 1.5em;
+}
+pre {
+	border: 1px grey dotted;
+	padding: 1em;
+}ode {
+	font-weight: bold;
+}
+</style>
+</head>
+<body>
+<h1>COMP2021 Lab10: Perl CGI Programming II</h1>
+<hr width="100%">
+<h2>Set up the environment</h2>
+<ul>
+  <li>Before you start implementing your program, you need to make sure that
+    your ihome account is ready to run your cgi program. To activate your ihome
+    account, you need to check the <a href="http://www.ust.hk/itsc/webguide/home/cgi/setup.html">instructions</a> of the ITSC. </li>
+  <li>You may use GUI utilities such as &quot;gFTP&quot; to work on the FTP server in CS Lab 2.</li>
+  <li>Your CGI program should be put inside a <strong><em>cgi-bin</em></strong> folder inside the root
+    directory. Test everything is set up correctly using this.</li>
+  <li>Try to access the test program using your web browser. The URL should be
+    in the form of&nbsp; <br>
+    <code>http://ihome.ust.hk/~<em>username</em>/cgi-bin/test.cgi</code></li>
+  <li>For your CGI program to run, the file and the containing folder (e.g. cgi-bin) need to have &quot;read&quot; and &quot;execute&quot;
+    permission granted to &quot;others&quot;. Check the permissions carefully!</li>
+</ul>
+
+<h2 align="left">Testing your CGI program in command line</h2>
+<p align="left">Always check your CGI program in command line before uploading
+  it to the web server. You may use the following command to check for syntax
+  errors:</p>
+<p align="center"><code>perl -wc DataRecord.cgi</code></p>
+<p align="left">For the actual execution of the CGI program, you may use the
+  following command:</p>
+<p align="center"><code>perl -w DataRecord.cgi &gt; output.html</code></p>
+<p align="left">The execution will return a html file (<code>output.html</code>). To supply
+  parameters to the CGI program, first you need to add a debug option to the CGI
+  library,</p>
+<p align="center"><code>use CGI qw(:standard -debug);</code></p>
+<p align="left">While execution, Perl would request you to input parameters and
+  terminate with control-D,</p>
+<p align="left"><code>$ perl -w DataRecord.cgi &gt;
+  output.html<br>
+  Use of uninitialized value in split at DataRecord.cgi line 7.<br>
+  (offline mode: enter name=value pairs on standard input; press ^D or ^Z when
+  done)<br>
+  order=Name</code><br>
+  &nbsp;</p>
+<p:colorscheme colors="#660066,#FFFFFF,#000000,#00CCCC,#8B9BC3,#FFFF66,#FF9933,#FFCCFF">
+
+
+<h2>Homework: Data Record</h2>
+<p>Your task for this lab is to develop a CGI program called <b>DataRecord.cgi</b> which can record all the input data of students' information (name and ID).</p>
+<p><em>Initial:</em></p>
+<p><img border="0" src="1.png" /></p>
+<p>&nbsp;</p>
+<p><em>Record information of one student:</em></p>
+<p><img border="0" src="2.png" /></p>
+<p>&nbsp;</p>
+<p><em>Record information of two students:</em></p>
+<p><img border="0" src="3.png" /></p>
+<p>&nbsp;</p>
+<p>A sample CGI program can be viewed in <a href="http://ihome.ust.hk/~shuaa/cgi-bin/DataRecord.cgi">here</a>.</p>
+
+  <hr>
+  <h2>Submission</h2>
+  <p>Please submit you DataRecord.cgi using <a href="../../../cass/submit.html">CASS</a> on or before 10:00pm, 02-May-2015. You should check make sure your program will run on the iHome server 
+  environment. Add a comment line near the top of DataRecord.cgi to show your script address on <code>ihome.ust.hk</code>.</p>
+  <p>Any inquiry please contact your TAs by email (shuaa@cse.ust.hk).</p>
+</p:colorscheme>
+</body>
+
+<!-- Mirrored from course.cse.ust.hk/comp2021/labs/lab10/lab10.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 Jun 2015 09:23:31 GMT -->
+</html>

@@ -1,0 +1,101 @@
+<html>
+<script language="JavaScript">
+
+/*
+ This is an example of click & drag code for multiple objects (HTML).
+ This version of the code uses 'this' to reference the object which
+ is being clicked on.
+
+ This code works well for medium speed drag of the object, but if
+ the user tries to drag the object very quickly the focus on the object
+ is lost and the drag mode stops.
+
+ One good addition would be to change the z-index so the currently 
+ selected object comes to the front, this has not been implemented
+ in this code.
+*/
+
+var offset_y=0, offset_x=0; // Store the position of the mouse cursor
+ // relative to the top left hand corner of the object being dragged
+
+var dragmode=false; 		// Simple boolean variable
+
+
+function start_drag_mode(e) {
+  /*
+  Store the offset position where the mouse was clicked
+
+  If the browser is IE, use 'window.event.srcElement' to reference the object.
+  If the browser is Firefox, use 'event.target' instead.
+  */
+  if (e == null) e = window.event;
+  if (e.target == null) e.target = e.srcElement;
+
+  offset_x = e.clientX - parseInt(e.target.style.left);
+  offset_y = e.clientY - parseInt(e.target.style.top);
+
+  dragmode=true; // Turn on click and drag mode
+}
+
+
+function stop_drag_mode() {
+  dragmode=false; // Turn off click and drag mode
+}
+
+
+function update(e) {
+
+  if (dragmode==true) {
+    /*
+     If we are in drag mode, update the position of the object,
+     taking into account the offset position when
+     the mouse button was clicked down on the object which is 
+     being dragged.
+
+    If the browser is IE, use 'window.event.srcElement' to reference the object.
+    If the browser is Firefox, use 'event.target' instead.
+    */
+    if (e == null) e = window.event;
+    if (e.target == null) e.target = e.srcElement;
+    e.target.style.left = e.clientX - offset_x ;
+    e.target.style.top  = e.clientY - offset_y ;
+  }
+
+}
+</script>
+
+
+<body>
+
+<div id="text_layer1"
+    style="position:absolute; top:200; left:130; width:100; height:100; background:yellow;"
+    onmousedown="start_drag_mode(event)"
+    onmouseup="stop_drag_mode()"
+    onmousemove="update(event)">
+
+	Click and drag me!
+
+</div>
+
+<div id="text_layer2"
+    style="position:absolute; top:60; left:40; width:100; height:100; background:lightgrey;"
+    onmousedown="start_drag_mode(event)"
+    onmouseup="stop_drag_mode()"
+    onmousemove="update(event)">
+
+	Drag me!
+
+</div>
+
+<div id="text_layer3"
+    style="position:absolute; top:60; left:340; width:100; height:100; background:lightblue;"
+    onmousedown="start_drag_mode(event)"
+    onmouseup="stop_drag_mode()"
+    onmousemove="update(event)">
+
+	<i><b>No no, DRAG ME!</b></i>
+
+</div>
+
+</body>
+</html>

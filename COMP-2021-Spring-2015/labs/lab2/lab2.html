@@ -1,0 +1,231 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html style="color:#333;background-color:#eee;font-family:'Trebuchet MS'">
+
+<!-- Mirrored from course.cse.ust.hk/comp2021/labs/lab2/lab2.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 Jun 2015 09:22:40 GMT -->
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-5">
+<title>COMP2021 Lab2</title>
+<style>
+ol li {
+	margin: 1.5em;
+}
+pre {
+	border: 1px grey dotted;
+	padding: 1em;
+}
+</style>
+</head>
+<body>
+<h1>COMP2021 Lab2: More Linux Utilities</h1>
+<hr>
+<h2>Read the man pages</h2>
+<p>Read the lecture notes and man pages of the following commands:</p>
+<ul>
+  <li><a href="http://linux.die.net/man/1/chmod">chmod</a></li>
+  <li><a href="http://linux.die.net/man/1/ps">ps</a></li>
+  <li><a href="http://linux.die.net/man/1/kill">kill</a></li>
+  <li><a href="http://linux.die.net/man/1/jobs">jobs</a></li>
+  <li><a href="http://linux.die.net/man/1/bg">bg</a></li>
+  <li><a href="http://linux.die.net/man/1/fg">fg</a></li>
+  <li><a href="http://linux.die.net/man/1/sleep">sleep</a></li>
+  <li><a href="http://linux.die.net/man/1/vi">vi</a></li>
+  <li><a href="http://linux.die.net/man/1/emacs">emacs</a></li>
+</ul>
+<h2>Problems displaying man pages</h2>
+<p>If you encounter problem while displaying man pages. Please add the 
+  following line at the end of file <b>.cshrc_user</b> in your home directory,</p>
+<p>setenv MANPATH &quot;/usr/share/man:${MANPATH}&quot;</p>
+<p>The man page should function normally on next login. If you still encounter 
+  problems while displaying man pages, please report your problem to CS system 
+  using email <b><a href="mailto:cssystem@cse.ust.hk">cssystem@cse.ust.hk</a></b>.</p>
+<h2>Lab Marks</h2>
+<p>The mark for each lab is posted <a href="../../grades/score_lab.pdf">here</a>. If you have any 
+  problems about the marks of the labs, please contact us as soon as possible. </p>
+<h2>Tasks</h2>
+<p>Lab2 will help you get to know more about basic settings and utilities in linux system in order to strengthen your programming muscles under linux environment for future use. In each of the following task, 
+learn by either web searching, manual pages or other methods you prefer to get yourself familiar with the material and find solutions to given problems. Put the answers to task 2 and task 5 in a file lab2.txt 
+and submit it to <a href="../../../cass/submit.html">CASS</a>. </p>
+<ol>
+
+  <li> <A HREF="http://en.wikipedia.org/wiki/Editor_war">Editor War</A>  VI/EMACS  
+<p>
+Download the file <a href="comp2021.txt">comp2021.txt</a> into your home directory. Now Edit your copy of the document using vi.<br>
+1. Remove the extra "culture" in the 1st paragraph.<br>
+2. Add the words "LOL!" to the end of the second paragraph.<br>
+3. Replace all occurrences of "unix" with "Unix".<br>
+4. Find the line containing "vi", replace all "emacs" with "emacs-bad-editor".<br>
+5. Save the file and quit.<br>
+</p>
+        
+  <p>Repeat the same exercise with emacs (Maybe this time you can replace "vi" with "vi-bad-editor".).</p>
+  <p> Get to know more about Vi and Emacs by reading manual pages or online searing. They are both powerful tools after you get familiar with them. </p>
+  </li>
+
+
+  <li>
+ <p> Multiple ways of changing your file permissions</p>
+ <table class="wikitable">
+ <p> Solution 1: chmod by numerical values 
+<tr>
+<th>#</th>
+<th>Permission</th>
+<th>rwx</th>
+</tr>
+<tr>
+<td>7</td>
+<td>full</td>
+<td>111</td>
+</tr>
+<tr>
+<td>6</td>
+<td>read and write</td>
+<td>110</td>
+</tr>
+<tr>
+<td>5</td>
+<td>read and execute</td>
+<td>101</td>
+</tr>
+<tr>
+<td>4</td>
+<td>read only</td>
+<td>100</td>
+</tr>
+<tr>
+<td>3</td>
+<td>write and execute</td>
+<td>011</td>
+</tr>
+<tr>
+<td>2</td>
+<td>write only</td>
+<td>010</td>
+</tr>
+<tr>
+<td>1</td>
+<td>execute only</td>
+<td>001</td>
+</tr>
+<tr>
+<td>0</td>
+<td>none</td>
+<td>000</td>
+</tr>
+</table></p>
+ <p> Solution 2: chmod by target modification/assignment <br> 
+ </p>
+ <table class="wikitable">
+<tr>
+<th>Reference</th>
+<th>Class</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>u</td>
+<td>user</td>
+<td>the owner of the file</td>
+</tr>
+<tr>
+<td>g</td>
+<td>group</td>
+<td>users who are members of the file's group</td>
+</tr>
+<tr>
+<td>o</td>
+<td>others</td>
+<td>users who are neither the owner of the file nor members of the file's group</td>
+</tr>
+<tr>
+<td>a</td>
+<td>all</td>
+<td>all three of the above, same as ugo</td>
+</tr>
+</table>
+<pre>Create some file called test. Put single-line-commands modifying the test in lab2.txt that 
+1. Add read permission for all.
+2. Give read and write permission to the owner, while all permissions are cleared for the group and others.
+3. Use numerical value assignments to set read and write and no execution access for the owner and group, 
+and read, no write, no execute for all others.
+</pre>
+  </li>
+ 
+ 
+  <li><p> Explore file access permission</p>
+  <p>Check your user group by command id. Find out what groups you are in. </p>
+ <p> Team up with one or two classmates. Can you access others' home directory? In what way can you make your home directory private/public for reading? Use chmod properly which you just learnt about. </p>
+ <pre>Together with your group mate, explore the following situations.
+1. First run chmod 755 ~ so that your partner could access and see your files in your home directory. Create 
+   a file called test under it. Give (your partner) permission to write to the file test. Now can your partner 
+   modify the file? 
+2. Now retract the permission to write to this file. However give permission to write to your home directory. 
+   Can your partner modify the file?
+3. Deny the permission to write to your home directory. Create a directory under your home directory called 
+   test_directory. Give permission to both access it and write to it. Now under this test_directory create 
+   another file named test2. Make sure the permission to write to this file is denied. 
+   Now in this case can your partner modify the file test2?
+4. In this last case, shut down the write permission to write to test_directory, however, give permission to write 
+   to home directory. In this case an your partner modify the file test2?
+ </pre>
+  </li>
+  
+  <li> 
+  <p> Many shells are equipped with powerful job control mechanism to handle many running jobs (i.e. processes) in parallel. First follow the demo by TA to get a brief understanding of job control:</p>
+  <p>You can pause a job using Ctrl+Z and turn to do something else without quitting. </p>  
+  <p>Jobs can be in foreground or background. There will be only one job in foreground -- the job interacts with your shell - it receives input from keyboard and sends output to the screen. One is capable of managing jobs in foreground and background using command fg, bg.</p>
+  <p> Conceptual difference between processes and jobs: <code>ps</code> and <code>jobs</code> commands.</p>
+  <p> One could kill a job/process by job ID, process ID, or even name. </p>  
+<pre>Read manual pages and get to know about command sleep. 
+1. Run sleep 200 in foreground, suspend it and then put it into background. Show both the job number and PID of this job. At last bring the job back to foreground.
+2. Run sleep 300 directly in background, and then use kill to terminate the process by its job number. 
+3. Repeat, however this time kill by its PID instead.
+4. Open up some webpages using Firefox. Now kill all of them using kill command. 
+	  </pre>
+  </li>
+  
+     <li>
+	 <p>Assuming that you have intercepted an encrypted file called "enfile" from enemy army. To decrypt this file, you need to finish the following steps with single-line command. </p> 
+	 <pre>
+1. We are only interested in the lines containing "SECRET", find them out.
+2. For all the lines you found in step 1, delete all the lower case letters as they are noise information. 
+3. After deleting the noise information, extract the numbers directly follow an "M" letter in all interested lines, and put them into another file named "keyfile" (one number one line). 
+     </pre>
+	<p>By using the numbers in "keyfile" as index, you can get the enemy's information by looking up a given dictionary manually <a href="lab2dict.txt">lab2dict.txt</a>.</p> 
+<p>Hints: 1) check the manual of "grep" and "sed"; 2) learn something about regular expression in unix by web searching.</p> 
+	<br>e.g.,
+    <p>
+	<strong>Input</strong><br><br>
+	enfile:<br>
+12dfdfdfg3f<br>
+S1dfegegeSECRET232M1a2aaM14bb<br>
+aa223dgdfABCa<br>
+dfERdfsegeSECRETM2aS2aabMdf7b<br>
+132dfdfddfSECRET1a2aM1abb<br>
+1ER2SDFGdfSECET1a2aM1D1abb<br>
+1DF2dDEfSECR1a2aM11abb<br>
+bbddfdaa223dgdfABSdECRETfd545feCa<br><br>
+
+
+<strong>Output</strong><br><br>
+	keyfile:<br>
+    12 <br>
+    14 <br>
+    2 <br>	
+	7 <br>
+	1 <br>
+	</p>
+   </li>
+ </ol>
+
+<h2><a name="ans"> Lab Answers </a></h2>
+<p style="color:red">Please find the answers for lab 2: <a href="anslab2.txt">anslab2.txt</a>.</p>
+
+<h2>Demonstration and Submission</h2>
+<p>Please store your command in a text file named lab2.txt and submit using <a href="../../../cass/submit.html">CASS</a> on or before 10pm, Thursday 
+  (19-Feb-2015).</p>
+<p>Any inquiry please contact your TA by email (shuaa@cse.ust.hk)</p>
+</body>
+
+<!-- Mirrored from course.cse.ust.hk/comp2021/labs/lab2/lab2.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 Jun 2015 09:22:40 GMT -->
+</html>
