@@ -34,6 +34,10 @@ const CATEGORIZED_PRE_COURSES = [
                 code: 'COMP 2711H',
                 semesters: ['Fall 2015', 'Fall 2021'],
             },
+            {
+                code: 'COMP 3711',
+                semesters: ['Fall 2015'],
+            }
         ],
     },
     {
