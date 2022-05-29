@@ -1,0 +1,194 @@
+#!/usr/local/bin/perl5 -w
+
+$lineno = 0;
+
+while (<>)
+{
+	chomp;
+	for ($j = 8 ; $j >= 0 ; $j--)
+	{
+		$dlist[$lineno][$j] = $_ % 10;
+		$_ = ($_ / 10);
+	}
+	$lineno++;
+}
+print "The Sudoku you have entered:\n";
+while (!display_board(@dlist))
+{
+	do {
+		do {
+			print "Please enter which row you want to fill (A-I): ";
+			chomp($row = <STDIN>);
+			$rownum = alpha2num($row);
+			print "Invalid input.\n" if ($rownum<0 || $rownum>8);
+		} while ($rownum<0 || $rownum>8);
+		do {
+			print "Please enter which column you want to fill (1-9): ";
+			chomp($column = <STDIN> - 1);
+			print "Invalid input.\n" if ($column<0 || $column>8); 
+		} while ($column<0 || $column>8);
+		if ($dlist[$rownum][$column] != 0) {
+			print "The cell is already filled!\n";
+		}	
+	} while ($dlist[$rownum][$column] != 0);
+	do {
+		print "Please enter the number you want to fill (1-9): ";
+		chomp($num = <STDIN>);
+		print "Invalid input.\n" if ($num<1 || $num>9); 
+	} while ($num<1 || $num>9);
+	$dlist[$rownum][$column] = $num;
+}
+
+if (check_blocks(@dlist) && check_rows(@dlist) && check_columns(@dlist) )
+{
+	print "You successfully finished this Sudoku!\n";
+}
+else 
+{
+	print "Sorry, the answer is not correct!\n";
+}
+
+sub alpha2num
+{
+	my $alpha = $_[0];
+	my $i = 0;
+	foreach ('A'..'I') {
+		return $i if ($alpha eq $_); 
+		$i++;
+	}
+}
+
+sub check_blocks
+{
+	my @dlist;
+	@dlist = @_;
+	if (check_one_block(@dlist,1,1) && check_one_block(@dlist,4,1) && 
+	check_one_block(@dlist,7,1) && check_one_block(@dlist,1,4) && 
+	check_one_block(@dlist,4,4) && check_one_block(@dlist,7,4) && 
+	check_one_block(@dlist,1,7) && check_one_block(@dlist,4,7) && 
+	check_one_block(@dlist,7,7) )
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+sub check_one_block
+{
+	my @dlist;
+	my $column = pop(@_);
+	my $row = pop(@_);
+	@dlist = @_;
+	my @tempmark = (0,0,0,0,0,0,0,0,0);
+	$tempmark[$dlist[$row-1][$column-1] - 1] = 1;
+	$tempmark[$dlist[$row-1][$column] - 1] = 1;
+	$tempmark[$dlist[$row-1][$column+1] - 1] = 1;
+	$tempmark[$dlist[$row][$column-1] - 1] = 1;
+	$tempmark[$dlist[$row][$column] - 1] = 1;
+	$tempmark[$dlist[$row][$column+1] - 1] = 1;
+	$tempmark[$dlist[$row+1][$column-1] - 1] = 1;
+	$tempmark[$dlist[$row+1][$column] - 1] = 1;
+	$tempmark[$dlist[$row+1][$column+1] - 1] = 1;
+
+	@tempmark = sort(@tempmark);
+	if ($tempmark[0] == 0)
+	{
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+}
+
+sub check_rows
+{
+	my @dlist;
+	@dlist = @_;
+	for (my $i = 0 ; $i < 9 ; $i++)
+	{
+		my @tempmark = (0,0,0,0,0,0,0,0,0);
+		for (my $j = 0 ; $j < 9 ; $j ++)
+		{
+			$tempmark[$dlist[$i][$j] - 1] = 1;
+		}
+		@tempmark = sort(@tempmark);
+		if ($tempmark[0] == 0)
+		{
+			return 0;
+		}
+	}
+	return 1
+}
+
+sub check_columns
+{
+	my @dlist;
+	@dlist = @_;
+	for (my $i = 0 ; $i < 9 ; $i++)
+	{
+		my @tempmark = (0,0,0,0,0,0,0,0,0);
+		for (my $j = 0 ; $j < 9 ; $j ++)
+		{
+			$tempmark[$dlist[$j][$i] - 1] = 1;
+		}
+		@tempmark = sort(@tempmark);
+		if ($tempmark[0] == 0)
+		{
+			return 0;
+		}
+	}
+	return 1
+}
+
+sub display_board
+{
+	my @dlist;
+	@dlist = @_;
+	$finish = 1;
+
+	print " c 1 2 3   4 5 6   7 8 9\n";
+	print "r =======================\n";
+	my $i = 0;
+	foreach ('A' .. 'I')
+	{
+		print $_;
+		print "| ";
+		for (my $j = 0 ; $j < 9 ; $j++)
+		{
+			if ($dlist[$i][$j] != 0)
+			{
+				print "$dlist[$i][$j]" ;
+			}
+			else 
+			{
+				print " ";
+				$finish = 0;
+			}
+			if ($j % 3 == 2)
+			{
+				print " | ";
+			}
+			else 
+			{
+				print " ";
+			}
+		}
+		if ($i % 3 == 2 && $i < 8)
+		{
+			print "\n -------------------------\n";
+		}
+		else
+		{
+			print "\n";
+		}
+		$i++;
+	}
+	print "  =======================\n";
+	return $finish;
+}
+
+

@@ -1,0 +1,114 @@
+#!/usr/local/bin/perl5 -w
+
+print "Big & Small!\n";
+srand;
+print "How much money do you have ?\n";
+chomp($deposit = <STDIN> );
+$bet = 0;
+$decision = "";
+@money = $deposit;
+
+while ($deposit != 0 && $decision ne "q")
+{
+        $result = 0;
+        for ($i = 0 ; $i < 3 ; $i++)
+        {
+                $result = $result + int(rand(6)) + 1;
+
+        }
+
+        if ($result <= 9)
+        {
+                $comp = "b";
+                $cdisplay = "Big";
+        }
+        else
+        {
+                $comp = "s";
+                $cdisplay = "Small";
+        }
+
+        print "\n";
+        print "What would you guess ? (b)ig/(s)mall or (q)uit \n";
+        chomp($decision = <STDIN>);
+        while ($decision ne "b" && $decision ne "s" && $decision ne "q")
+        {
+                print "Invalid Input\n\n";
+                print "What would you guess ? (b)ig/(s)mall or (q)uit \n";
+                chomp($decision = <STDIN>);
+        }
+
+        if ($decision eq "b")
+        {
+                $hdisplay = "Big";
+        }
+        else
+        {
+                $hdisplay = "Small";
+        }
+
+        if ($decision ne "q")
+        {
+                print "How much would you bet ? \n";
+                chomp($bet = <STDIN>);
+
+                while ($bet > $deposit)
+                {
+                        print "You bet more than you have!\n";
+                        print "How much would you bet ? \n";
+                        chomp($bet = <STDIN>);
+                }
+
+                print "You bet \$$bet on $hdisplay\n";
+		print "\n";
+                print "The Result is $cdisplay\n";
+
+                if ($decision eq $comp)
+                {
+                        print "You Win!\n";
+                        $deposit = $deposit + $bet ;
+                        @money = (@money, $bet);
+                }
+                else 
+                {
+                        print "You Lose!\n";
+                        $deposit = $deposit - $bet ;
+                        @money = (@money, -$bet);
+                }
+
+                print "You now have \$$deposit\n";
+
+                if ($deposit <= 0)
+                {
+                        print "You don't have any money, you must quit!\n";
+                }
+        }
+
+}
+print "\n";
+$sum = 0;
+print "Here is the list of gains and losses throughout your game:\n";
+foreach $item (@money)
+{
+        if ($item >= 0)
+        {
+                print "+\$$item\n";
+        }
+        else
+        {
+                print "-\$".-$item."\n";
+        }
+        $sum += $item;
+}
+print "-----\n";
+print "\$$sum\n";
+$net = $sum - $money[0];
+if ($net > 0)
+{
+        print "\nYou have finally gained \$$net! Goodbye!\n\n";
+}
+else
+{
+        print "\nYou have finally lost \$".-$net."! Goodbye!\n\n";
+}
+

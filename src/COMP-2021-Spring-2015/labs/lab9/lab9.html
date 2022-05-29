@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html style="color:#333;background-color:#eee;font-family:'Trebuchet MS'">
+
+<!-- Mirrored from course.cse.ust.hk/comp2021/labs/lab9/lab9.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 Jun 2015 09:23:14 GMT -->
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-5">
+<title>COMP2021 Lab9</title>
+<style>
+ol li {
+	margin: 1.5em;
+}
+pre {
+	border: 1px grey dotted;
+	padding: 1em;
+}ode {
+	font-weight: bold;
+}
+</style>
+</head>
+<body>
+<h1>COMP2021 Lab9: Perl CGI Programming</h1>
+<hr width="100%">
+<h2>Set up the environment</h2>
+<ul>
+  <li>Before you start implementing your program, you need to make sure that
+    your ihome account is ready to run your cgi program. To activate your ihome
+    account, you need to check the <a href="http://www.ust.hk/itsc/webguide/home/cgi/setup.html">instructions</a> of the ITSC. </li>
+  <li>You may use GUI utilities such as &quot;gFTP&quot; to work on the FTP server in CS Lab 2.</li>
+  <li>Your CGI program should be put inside a <strong><em>cgi-bin</em></strong> folder inside the root
+    directory. Test everything is set up correctly using this.</li>
+  <li>Try to access the test program using your web browser. The URL should be
+    in the form of&nbsp; <br>
+    <code>http://ihome.ust.hk/~<em>username</em>/cgi-bin/test.cgi</code></li>
+  <li>For your CGI program to run, the file and the containing folder (e.g. cgi-bin) need to have &quot;read&quot; and &quot;execute&quot;
+    permission granted to &quot;others&quot;. Check the permissions carefully!</li>
+</ul>
+
+<h2 align="left">Testing your CGI program in command line</h2>
+<p align="left">Always check your CGI program in command line before uploading
+  it to the web server. You may use the following command to check for syntax
+  errors:</p>
+<p align="center"><code>perl -wc sortTableGet.cgi</code></p>
+<p align="left">For the actual execution of the CGI program, you may use the
+  following command:</p>
+<p align="center"><code>perl -w SorTableGet.cgi &gt; output.html</code></p>
+<p align="left">The execution will return a html file (<code>output.html</code>). To supply
+  parameters to the CGI program, first you need to add a debug option to the CGI
+  library,</p>
+<p align="center"><code>use CGI qw(:standard -debug);</code></p>
+<p align="left">While execution, Perl would request you to input parameters and
+  terminate with control-D,</p>
+<p align="left"><code>$ perl -w sortTableGet.cgi &gt;
+  output.html<br>
+  Use of uninitialized value in split at sortTableGet.cgi line 7.<br>
+  (offline mode: enter name=value pairs on standard input; press ^D or ^Z when
+  done)<br>
+  order=Name</code><br>
+  &nbsp;</p>
+<p:colorscheme colors="#660066,#FFFFFF,#000000,#00CCCC,#8B9BC3,#FFFF66,#FF9933,#FFCCFF">
+
+<h2>Practice: Good Advice & Upload your own CGI to ihome</h2>
+<p> We will practice developing a CGI program "Good advice", which acts based on button presses. And then we will learn how to upload it to build your own ihome website.
+    Now we have four pieces of good advice(sentences) and each of them corresponds to a button. When the "Message 1" button is pressed, the first sentence will be shown.
+    And it's same for the remaining 3 buttons. </p>
+<p><em>The results should be like this:</em></p>
+<p><em>Message 1:</em></p>
+<p>&nbsp;</p>
+<p><img border="0" src="M1.png" /></p>
+<p>&nbsp;</p>
+<p><em>Message 2:</em></p>
+<p><img border="0" src="M2.png" /></p>
+<p>&nbsp;</p>
+
+<p>This CGI program can be viewed in <a href="button.cgi">here</a>.</p>
+
+
+<h2>Practice: Interactive Clock </h2>
+    <p> We will practice developing an interactive clock. It displays current time as required. The user can choose in which form the time is displayed : 12 hour or 24 hour. Also, it allows users to decide which part to display as illustrated in the picture below. </p>
+    <p><em>The results should be like this:</em></p>
+    <p><em>Example 1:</em></p>
+    <p>&nbsp;</p>
+    <p><img border="0" src="time1.png" height="200" width="360" /></p>
+    <p>&nbsp;</p>
+    <p><em>Example 2:</em></p>
+    <p><img border="0" src="time2.png" height="200" width="360" /></p>
+    <p>&nbsp;</p>
+
+<p>This CGI program can be viewed in <a href="time.cgi">here</a>.</p>
+
+
+<h2>Homework: Displaying Data with different order</h2>
+<p>Your  task for this lab is to develop a CGI program called <b>sortTable.cgi</b> which display students' information (name and ID) stored in this <a href="data.txt">text file</a> and allow user to view the information in
+  different sorting order (sort by name or ID, chosen by a popup menu and a submit button). You may put the text file in the
+  same directory (cgi-bin) with your CGI program. You may also assume all
+  students' names and ID are unique. Finally display the information using an HTML table.The below are some screenshots of the
+  finished CGI page.</p>
+<p><em>Students displayed in the original order same as the text file:</em></p>
+<p><img border="0" src="natural.png" /></p>
+<p>&nbsp;</p>
+<p><em>Sorted by Name:</em></p>
+<p><img border="0" src="byname.png" /></p>
+<p>&nbsp;</p>
+<p><em>Sorted by ID:</em></p>
+<p><img border="0" src="byid.png" /></p>
+<p>&nbsp;</p>
+<p>A sample CGI program can be viewed in <a href="http://ihome.ust.hk/~cscjchau/cgi-bin/sortTable.cgi">here</a>.</p>
+<!--
+<h2>2) Implement using GET method</h2>
+<p>The above implementation is not very common. For common web design, the
+column titles (i.e. Name, ID) will be hyperlinks. Once the links are clicked,
+the table will be sorted with that column. You may play around with this
+<a href="http://ihome.ust.hk/~cschung/cgi-bin/sortTableGet.cgi">sample page</a>. </p>
+<h3>Query String in URL</h3>
+<p>The major difference between POST and GET method is that when using GET
+method, the query parameters are transferred in the URL. For example in the
+<a href="http://ihome.ust.hk/~cschung/cgi-bin/sortTableGet.cgi">sample page</a>,
+the URL of the &quot;Name&quot; column title is &quot;sortTableGet.cgi?order=Name&quot;. To retrieve
+the query string in the URL (&quot;order=Name&quot;), you may retrieve the query string
+with the following ,</p>
+<p align="center"><font face="Courier New">$sort_order = param(&quot;order&quot;);</font></p>
+<p align="left">with</p>
+<p align="center"><font face="Courier New">$query = CGI-&gt;new;<br>
+$sort_order = $query-&gt;param(&quot;order&quot;);</font></p>
+<p align="left">By modifying the sortTablePost.cgi you have just finished,
+implement the CGI page in the last section with GET method.</p>
+-->
+
+  <hr>
+  <h2>Submission</h2>
+  <p>Please submit you sortTable.pl using <a href="../../../cass/submit.html">CASS</a> on or before 10:00pm, 25-April-2015. You should check make sure your program will run on the iHome server environment. Add a comment line near the top of sortTable.pl to show your script address on <code>ihome.ust.hk</code>.</p>
+  <p>Any inquiry please contact your TAs by email (shuaa@ust.hk
+  ).</p>
+</p:colorscheme>
+</body>
+
+<!-- Mirrored from course.cse.ust.hk/comp2021/labs/lab9/lab9.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 Jun 2015 09:23:14 GMT -->
+</html>

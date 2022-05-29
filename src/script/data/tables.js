@@ -147,7 +147,7 @@ const CATEGORIZED_PRE_COURSES = [
             },
             {
                 code: 'COMP 2021',
-                semesters: ['Spring 2016'],
+                semesters: ['Spring 2015', 'Spring 2016'],
             }
         ],
     },
