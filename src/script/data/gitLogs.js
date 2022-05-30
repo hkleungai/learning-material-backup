@@ -1,4 +1,5 @@
 const GIT_LOGS = {
+    '2022-05-31 00:47:28': 'feat: add COMP 3211 (15s)',
     '2022-05-31 00:41:35': 'feat: add COMP 3111 (15s)',
     '2022-05-31 00:19:33': 'fix: make paste-link redirection works properly',
     '2022-05-30 12:29:28': 'feat: add COMP 2711H (14f)',
