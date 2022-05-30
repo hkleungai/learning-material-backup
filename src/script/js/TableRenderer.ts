@@ -14,6 +14,7 @@ export class TableRenderer extends BaseRenderer<TableProps> {
   constructor() {
     super('Table');
   }
+  #homeLink = window.location.href.replace(window.location.hash, '').replace(/\/+$/, '');
   #buildSemesterCell(code: string, semester: string) {
     const link = `./${code} ${semester}/index.html`.replace(/\s/g, '-');
     return (
@@ -77,10 +78,11 @@ export class TableRenderer extends BaseRenderer<TableProps> {
   // Directly copy SVG code from Github markdown link.
   // Do not want to waste time on drawing.
   #buildCategory(category: string): string {
+    const categoryUrl = encodeURIComponent(category);
     return (
       /* html */`
-      <h3 class="common-title" id="${encodeURIComponent(category)}">
-        ${category}
+      <h3 class="common-title" id="${categoryUrl}">
+        <a style="color: inherit; text-decoration: none;" href="${this.#homeLink}/#${categoryUrl}">${category}</a>
         <svg class="common-title-link" viewBox="0 0 16 16" version="1.1" width="16" height="16">
           <path
             fill-rule="evenodd"
@@ -145,8 +147,7 @@ export class TableRenderer extends BaseRenderer<TableProps> {
     }
     svgLink.onclick = async () => {
       try {
-        const homeLink = window.location.href.replace(window.location.hash, '').replace(/\/+$/, '');
-        const linkToBeCopied =`${homeLink}/#${title.id}`;
+        const linkToBeCopied =`${this.#homeLink}/#${title.id}`;
         await navigator.clipboard.writeText(linkToBeCopied);
         alert('[SUCCESS]: Successfully copy the link');
       }

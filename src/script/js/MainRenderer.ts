@@ -21,8 +21,6 @@ class MainRenderer extends BaseRenderer<MainProps> {
 
   protected build(): this { return this; }
 
-  protected attachEvent(): this { return this; }
-
   protected makeFragment(): this {
     const props = {
       tag: 'div',
@@ -80,6 +78,15 @@ class MainRenderer extends BaseRenderer<MainProps> {
       children: [ header, noticeBoard, table, closingTag ]
     }
     return tagRenderer.render(PageContentProps).fragment;
+  }
+
+  protected attachEvent(): this {
+    setTimeout(() => {
+      if (window.location.hash) {
+        window.location.href = window.location.href;
+      }
+    });
+    return this;
   }
 }
 
