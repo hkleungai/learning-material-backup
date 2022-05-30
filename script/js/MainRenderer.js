@@ -14,7 +14,6 @@ class MainRenderer extends BaseRenderer {
         _MainRenderer_instances.add(this);
     }
     build() { return this; }
-    attachEvent() { return this; }
     makeFragment() {
         const props = {
             tag: 'div',
@@ -25,6 +24,14 @@ class MainRenderer extends BaseRenderer {
             ],
         };
         this.fragment = tagRenderer.render(props).fragment;
+        return this;
+    }
+    attachEvent() {
+        setTimeout(() => {
+            if (window.location.hash) {
+                window.location.href = window.location.href;
+            }
+        });
         return this;
     }
 }

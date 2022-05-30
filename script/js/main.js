@@ -15,7 +15,7 @@ function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             appendCssScripts();
-            yield sleep(50);
+            yield sleep(100);
             appendElements();
         }
         catch (error) {

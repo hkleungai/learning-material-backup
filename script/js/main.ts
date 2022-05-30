@@ -23,7 +23,7 @@ async function main() {
   try {
     appendCssScripts();
     // Prevent element renders before css is properly setup
-    await sleep(50);
+    await sleep(100);
     appendElements();
   }
   catch (error: unknown) {

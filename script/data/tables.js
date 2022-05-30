@@ -36,11 +36,11 @@ const CATEGORIZED_PRE_COURSES = [
             },
             {
                 code: 'COMP 2711H',
-                semesters: ['Fall 2015', 'Fall 2021'],
+                semesters: ['Fall 2014', 'Fall 2015', 'Fall 2021'],
             },
             {
                 code: 'COMP 3711',
-                semesters: ['Fall 2015'],
+                semesters: ['Fall 2015', 'Spring 2015'],
             },
             {
                 code: 'COMP 3711H',
@@ -54,6 +54,10 @@ const CATEGORIZED_PRE_COURSES = [
             {
                 code: 'COMP 221',
                 semesters: ['Spring 1998', 'Fall 2007', 'Fall 2009'],
+            },
+            {
+                code: 'COMP 3211',
+                semesters: ['Spring 2015'],
             },
             {
                 code: 'COMP 4211',
@@ -74,11 +78,11 @@ const CATEGORIZED_PRE_COURSES = [
             },
             {
                 code: 'COMP 2611',
-                semesters: ['Fall 2015', 'Spring 2022'],
+                semesters: ['Fall 2015', 'Spring 2015', 'Spring 2022'],
             },
             {
                 code: 'COMP 3511',
-                semesters: ['Fall 2015', 'Spring 2022'],
+                semesters: ['Fall 2015', 'Spring 2015', 'Spring 2022'],
             },
         ],
     },
@@ -97,6 +101,10 @@ const CATEGORIZED_PRE_COURSES = [
             {
                 code: 'COMP 337',
                 semesters: ['Fall 2010'],
+            },
+            {
+                code: 'COMP 3311',
+                semesters: ['Spring 2015'],
             },
             {
                 code: 'COMP 4331',
@@ -205,6 +213,10 @@ const CATEGORIZED_PRE_COURSES = [
                 semesters: ['Fall 2014'],
             },
             {
+                code: 'COMP 3721',
+                semesters: ['Spring 2015'],
+            },
+            {
                 code: 'COMP 4901U',
                 semesters: ['Fall 2021'],
             }
@@ -219,7 +231,7 @@ const CATEGORIZED_PRE_COURSES = [
             },
             {
                 code: 'COMP 3111',
-                semesters: ['Spring 2016'],
+                semesters: ['Spring 2015', 'Spring 2016'],
             }
         ]
     }

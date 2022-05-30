@@ -1,0 +1,10 @@
+drop table course cascade constraints;
+drop table prof cascade constraints;
+drop table TA cascade constraints;
+drop table offering cascade constraints;
+drop table prof_phone cascade constraints;
+drop table prerequisite cascade constraints;
+drop table prof_teach cascade constraints;
+drop table pref_TA cascade constraints;
+drop table supervise cascade constraints;
+drop table pref_offering cascade constraints;

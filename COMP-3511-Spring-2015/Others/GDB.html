@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0062)http://www.cs.clemson.edu/~ihcho/courses/cs360/common/gdb.html -->
+<HTML>
+<!-- Mirrored from course.cse.ust.hk/comp3511/Others/GDB.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 Jun 2015 09:30:16 GMT -->
+<HEAD><TITLE>GNU Debugger (GDB) Cheat Sheet</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<META content="MSHTML 6.00.6000.16525" name=GENERATOR></HEAD>
+<BODY>
+<H1>GNU Debugger (GDB) </H1>The GNU Debugger (gdb) is a freely available 
+debugger for C, C++, and Fortran program compiler produced by the Free Software 
+Foundation and is available for a wide range of computers. To use the GNU 
+debugger (gdb) with C/C++ programs all the source code must be compiled with the 
+"<CODE>-g</CODE>" debugger option that includes additional information in the 
+excutable, allowing the debugger map the locations of memory address back into 
+meaningful things like variable names and program line numbers. 
+<DL>
+  <DT><B><CODE>g++ -g -o file file.cpp</CODE></B> 
+  <DD>Compiles the C++ program (file.cpp) with debugger option on 
+  <DT><B><CODE>gdb file</CODE></B> 
+  <DD>Starts GNU debugger (gdb) and loads the executable <CODE>file</CODE> into 
+  memory. </DD></DL>Basic GNU debugger commands: 
+<DL>
+  <DT><B><CODE>quit</CODE></B> 
+  <DD>Quits gdb and returns back to the user prompt. GDB may ask you if you want 
+  to exit if the program being debugged was not completed executing. 
+  <DT><B><CODE>run</CODE></B> 
+  <DD>Starts the execution of the program being debugged. 
+  <DT><B><I>control-c</I></B> 
+  <DD>Interrupts the execution of the program being debugged. This is useful if 
+  the program appears to be stuck in a loop. 
+  <DT><B><CODE>where</CODE></B> 
+  <DD>Shows where the program was stopped. A trace showing each active 
+  function's argument list, the file that the function came from, and the next 
+  line in the code that will be executed in the function is displayed. 
+  <DT><B><CODE>up</CODE></B> 
+  <DD>Moves up the trace to function that called the current function. 
+  <DT><B><CODE>down</CODE></B> 
+  <DD>Moves down the trace to function that is called by the current function. 
+  <DT><B><CODE>print c</CODE></B> 
+  <DD>Prints out value of the variable <CODE>c</CODE>. 
+  <DT><B><CODE>print c+x</CODE></B> 
+  <DD>Prints out value of the sum of the variables <CODE>c</CODE> and 
+  <CODE>x</CODE>. Note that any regular C expression can be evaluated by 
+  <CODE>print</CODE>. 
+  <DT><B><CODE>list</CODE></B> 
+  <DD>Show source code around place that program is currently stopped. 
+  <DT><B><CODE>break #line-number</CODE></B> 
+  <DD>Sets a breakpoint at the specified line number of the file. 
+  <DT><B><CODE>break [file:]function</CODE></B> 
+  <DD>Sets a breakpoint at the specified function of the file. 
+  <DT><B><CODE>info breakpoints</CODE></B> 
+  <DD>Show the status of user-settable breakpoints 
+  <DT><B><CODE>clear </CODE></B>
+  <DD>Removes the breakpoint 
+  <DT><B><CODE>cont</CODE></B> 
+  <DD>Continues the execution of a program after a control-c or a break point. 
+  <DT><B><CODE>step</CODE></B> 
+  <DD>Executes a single statement of program and returns to the debugger. 
+  <DT><B><CODE>next</CODE></B> 
+  <DD>Executes a subroutine and treats it as one instruction. debugger. 
+</DD></DL></BODY>
+<!-- Mirrored from course.cse.ust.hk/comp3511/Others/GDB.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 Jun 2015 09:30:16 GMT -->
+</HTML>

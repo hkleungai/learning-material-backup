@@ -12,12 +12,13 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var _TableRenderer_instances, _TableRenderer_buildSemesterCell, _TableRenderer_buildCourseRow, _TableRenderer_buildTable, _TableRenderer_buildCategory, _TableRenderer_buildTableWithCategory, _TableRenderer_attachSingleDescriptionEvent, _TableRenderer_attachDescriptionEvent, _TableRenderer_attachSingleCopyLinkEvent, _TableRenderer_attachCopyLinkEvent;
+var _TableRenderer_instances, _TableRenderer_homeLink, _TableRenderer_buildSemesterCell, _TableRenderer_buildCourseRow, _TableRenderer_buildTable, _TableRenderer_buildCategory, _TableRenderer_buildTableWithCategory, _TableRenderer_attachSingleDescriptionEvent, _TableRenderer_attachDescriptionEvent, _TableRenderer_attachSingleCopyLinkEvent, _TableRenderer_attachCopyLinkEvent;
 import BaseRenderer from 'https:/hkleungai.github.io/mini-web-component/BaseRenderer.js';
 export class TableRenderer extends BaseRenderer {
     constructor() {
         super('Table');
         _TableRenderer_instances.add(this);
+        _TableRenderer_homeLink.set(this, window.location.href.replace(window.location.hash, '').replace(/\/+$/, ''));
     }
     ;
     ;
@@ -36,7 +37,7 @@ export class TableRenderer extends BaseRenderer {
         return this;
     }
 }
-_TableRenderer_instances = new WeakSet(), _TableRenderer_buildSemesterCell = function _TableRenderer_buildSemesterCell(code, semester) {
+_TableRenderer_homeLink = new WeakMap(), _TableRenderer_instances = new WeakSet(), _TableRenderer_buildSemesterCell = function _TableRenderer_buildSemesterCell(code, semester) {
     const link = `./${code} ${semester}/index.html`.replace(/\s/g, '-');
     return (`
       <td class="course-semester">
@@ -88,9 +89,10 @@ _TableRenderer_instances = new WeakSet(), _TableRenderer_buildSemesterCell = fun
       </table>
       `);
 }, _TableRenderer_buildCategory = function _TableRenderer_buildCategory(category) {
+    const categoryUrl = encodeURIComponent(category);
     return (`
-      <h3 class="common-title" id="${encodeURIComponent(category)}">
-        ${category}
+      <h3 class="common-title" id="${categoryUrl}">
+        <a style="color: inherit; text-decoration: none;" href="${__classPrivateFieldGet(this, _TableRenderer_homeLink, "f")}/#${categoryUrl}">${category}</a>
         <svg class="common-title-link" viewBox="0 0 16 16" version="1.1" width="16" height="16">
           <path
             fill-rule="evenodd"
@@ -136,8 +138,7 @@ _TableRenderer_instances = new WeakSet(), _TableRenderer_buildSemesterCell = fun
     }
     svgLink.onclick = () => __awaiter(this, void 0, void 0, function* () {
         try {
-            const homeLink = window.location.href.replace(window.location.hash, '').replace(/\/+$/, '');
-            const linkToBeCopied = `${homeLink}/#${title.id}`;
+            const linkToBeCopied = `${__classPrivateFieldGet(this, _TableRenderer_homeLink, "f")}/#${title.id}`;
             yield navigator.clipboard.writeText(linkToBeCopied);
             alert('[SUCCESS]: Successfully copy the link');
         }
