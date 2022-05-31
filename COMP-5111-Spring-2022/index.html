@@ -1,0 +1,480 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0034)http://course.cse.ust.hk/comp5111/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>COMP5111: Fundamentals of Software Testing and Analysis</title>
+<style type="text/css"></style><style type="text/css">iframe.dealply-toast { right: -99999px !important; }iframe.dealply-toast.fastestext-revealed { right: 0px !important; margin-bottom: 0px !important; }
+                                   .style1
+                                   {
+                                       font-weight: normal;
+                                   }
+                                   .style2
+                                   {
+                                       text-decoration: underline;
+                                   }
+                                   .style3
+                                   {
+                                       color: #FF3300;
+                                   }
+                                   .auto-style1 {
+                                       width: 100%;
+                                   }
+                                   .auto-style2 {
+                                       font-style: normal;
+                                   }
+                                   </style><script type="text/javascript" src="COMP5111%20%20Fundamentals%20of%20Software%20Analysis_files/javascript.js"></script></head>
+
+<body text="#000000" bgcolor="#ffffff" link="#005bb7" vlink="#005bb7">
+
+<p>
+<font face="helvetica">
+<table border="0" hspace="4" cellspacing="2" width="100%" cellpadding="3">
+<tbody><tr><td align="center" valign="bottom"> <h1>COMP5111: Fundamentals of Software
+    Testing and Analysis<br>
+    Spring 2022</h1></td></tr>
+<!--td><img height="50" width="50" src="CSlogo.gif"></td></tr><-->
+</tbody></table>
+    <table border="0" hspace="4" cellspacing="2" width="100%" cellpadding="3">
+<tbody><tr bgcolor="#e0e0e8">
+<td width="100%" style="font-weight: 700"><nobr><big>Important Dates</big></nobr></td>
+</tr>
+</tbody></table>
+<ul>
+    <li>Mar 04: Reading assignment - paper selection at <a href="https://hkustconnect-my.sharepoint.com/:x:/g/personal/sccheung_connect_ust_hk/EeJ6U3SWLj9Jhxwl1OUSJgQBbUkZJzBXhUEy18VONAR5hQ?e=JT2Gdk">online spreadsheet</a> and discussion topic creation at Canvas</li>
+    <li>Mar 14: Programming assignment 1 submission</li>
+    <li>Apr 14: Reading assignment - reading report submission</li>
+    <li>Apr 14 - 28: Reading assignment - reading report discussion</li>
+    <li>Apr 21: Programming assignment 2 submission</li>
+    <li>Apr 28, May 3, May 5, May 7, May 10: Reading assignment - presentation (compulsory participation in all presentations)</li>
+    <li>May 11: Reading assignment - discussion report submission (optional)</li>
+    <li><span class="style3">May 24: Final Examination (8:30-10:30) online over Canvas and Zoom. Please observe the examination instructions <a href="logistics-0426.pdf">here</a>.</span></li>
+    <!-- <li>May 18 (Tuesday, 16:30 - 19:30): Online final examinaton (open hard copy notes).
+        Please observe the examination instructions <a href="logistics-0426.pdf">here</a>.</li> -->
+</ul>
+<hr />
+<table border="0" hspace="4" cellspacing="2" width="100%" cellpadding="3">
+<tbody><tr bgcolor="#e0e0e8">
+<td width="100%"><nobr><big><b><font face="helvetica">Announcements</font></b></big></nobr></td>
+</tr>
+</tbody></table>
+
+<ul>
+<!-- <li>Apr 27: Please refer to the instructions for online examination
+    <a href="logistics-0426.pdf">here</a>. A mock examination will be held on May 12 (Wed) 9AM at the class zoom link 995 1518 7537. Classmates are encouraged to attend it with two computing devices set up according to the instructions.</li>
+<li>Feb 1: There will be an online final examination in the course. Please make sure that you will be able to participate in the examination on CANVAS during the examination week before registering this course.</li>
+<li>Feb 1: Lectures will be delivered online on Zoom starting from Feb 1 until
+    further notice from University. Students in mainland may consider to set up an internet proxy to
+    speed up their web access from mainland China:
+    <a href="https://itsc.ust.hk/services/it-infrastructure/proxy">
+    https://itsc.ust.hk/services/it-infrastructure/proxy</a>.&nbsp;Please attend the lectures at Zoom meeting ID 995 1518 7537 passcode &quot;5111&quot;. Remember to join online lectures only with an account registered at Zoom using
+    ITSC email address through Canvas or hkust.zoom.com.cn as follows. <p />
+    <img src="zoomsignon.PNG" height="235" width="648"> <p />
+        Remeber to enable video when attending the online lectures. Online lectures will be recorded and made available under Zoom meeting at Canvas.
+    </li>
+-->
+<li>May 24: TA's implementation of assignment 2 has been released. Please refer to the assignment section below for details.</li>
+<li>Apr 15: TA's implementation of assignment 1 has been released. Please refer to the assignment section below for details.</li>
+<li><span class="style3">Mar 25: Final examination will take place online over Canvas and Zoom on May 24 (Tue), 8:30-10:30. Please observe the examination instructions <a href="logistics-0426.pdf">here</a>. The examination will be open hardcopy notes.</span></li>
+<li>Mar 15: Assignment 2 has been released. Please refer to the assignment section below for details.</li>
+<li>Feb 9: Assignment 1 has been released. Please refer to the assignment section below for details.</li>
+<li>Feb 1: We will use Canvas for assignment submissions. If there are any problems in accessing Canvas, please contact with ITSC, or refer to <a href="https://itsc.ust.hk/services/it-infrastructure/proxy">Here</a></li>
+<li>Feb 1: We did experimentation during the Winter break on the open-source programming tools and environments used in this course. We recommend using Java 11 (SE), Eclipse 2021-6, Randoop 4.2.7, Evosuite 1.2.0, GZoltar 1.7.2 for the programming assignments. Students may use IntelliJ for the assignments if they prefer doing so. During our experiments, we found EclEmma in Eclipse provided more detailed coverage information than Jacoco in IntelliJ. Detailed coverage information is useful to automated fault localization.</li>
+<!--
+    <li>Apr 14: Final examination will take place on May 21 (Tue) 4:30pm - 7:00pm in Room 2465 (updated May 17).</li>
+    <li>Jan 30: Two programming assignments and one reading assignment have been released.</li>
+    <li>Jan 30: Please reserve the last <span class="style4">five</span> lectures (Apr 17, 24, 26; May 3, 8) for reading
+        assignment presentations. Attendance of all presentations is compulsory.
+        (Updated on Mar 10)</li>
+    <li>Jan 30: Please use either your ITSC or CSE email account for all communications
+        within this course so that we can recognize the email is sent from our students.</li>
+    <li>Jan 30: We will have a workshop in the class on Feb 27. The workshop materials are available
+        <a href="http://sccpu2.cse.ust.hk/comp5111assignments/soot_tutorial.zip">here</a> (updated on Feb 27).</li>
+    <li>Jan 30: The workshop and programming assignments will be based on
+    <a href="https://www.eclipse.org/downloads/">Eclipse Standard</a> and Java SE 8 SDK.</li>
+-->
+    Although some tools that we introduce in the course may happen to work with the latest Java version, their official releases target Java 11. You may refer to the website of these tools for further information. We choose open-source tools so that you can freely customize them to suit your need in future.
+    Like most open-source tools developed by the research community, the
+    documentation of some tools may not be well maintained.&nbsp;
+</ul>
+</font>
+
+
+<hr />
+<a name="course">
+<table border="0" hspace="4" cellspacing="2" width="100%" cellpadding="3">
+<tbody><tr bgcolor="#e0e0e8">
+<td width="100%"><nobr><big><b><font face="arial,helvetica">Course Information</font></b></big></nobr></td>
+</tr></tbody></table>
+</a>
+</p><blockquote>
+<font face="helvetica">
+<h3>Instructor and Teaching Assistant</h3>
+        <table class="auto-style1">
+            <tr>
+                <td align="center"><img src="scc.png" height="170" width="170"></td>
+                <td align="center"><img src="ziniu.png" height="170" width="170"></td>
+            </tr>
+            <tr>
+                <td align="center"><font face="helvetica">
+<a href="http://www.cse.ust.hk/~scc">Shing-Chi Cheung</a>&nbsp;<b><br />
+                    Room</b>: 2534<b> Phone</b>: 23587016<b>
+                    <br />
+                    Email</b><span>: <a class="smarterwiki-linkify" href="mailto:scc@cse.ust.hk;">scc@cse.ust.hk</a> </span></font></td>
+                <td align="center">
+<font face="helvetica">
+                    <span><a href="http://home.cse.ust.hk/~mlick">Meiziniu Li</a><strong>&nbsp;<br />
+                    Room</strong>: 3663
+    (via Room 3661)</span><b>&nbsp;<br />
+                    Email: </b>
+                    <a href="mailto::mlick@connect.ust.hk">mlick@connect.ust.hk</a><span><a class="smarterwiki-linkify" href="mailto::mlick@connect.ust.hk"></a>
+
+</span></font>
+                </td>
+            </tr>
+        </table>
+<hr>
+<h3>Course Description</h3>
+<blockquote>
+This is a postgraduate core course counted towards the area of software technology. The goal of this course is to introduce the principles of various automated analysis
+    and testing techniques as well as the ways that they can be used to manage
+    software code quality. Students will acquire fundamental knowledge of program abstraction, verification, testing, coverage, analysis, reliability, and fault detection. The course will also discuss how to carry out the empirical experimentation for program analysis and testing. Wherever applicable, concepts will be complemented by tools developed in academia and industry. This enables students to understand the maturity and limitations of various techniques discussed in the course and put them in practice.
+    The course requires prior programming knowledge in Java.
+</blockquote>
+<hr>
+<h3>Schedule &amp; Venue</h3>
+<blockquote>
+    Tuesday &amp; Thursday 13:30 - 14:50, Room 2503<br />
+    Office Hours: Tuesday &amp;&nbsp; Thursday 14:50 - 15:20<br />
+    Classroom: 2503 (reachable by Lift 25/26, Second floor)<br />
+    Zoom (for online mode):&nbsp; Meeting ID: 937 5815 8908 / Passcode: 5111<br />
+    <em>Note: Please enable your video camera if you join the class online over Zoom.
+        </em>
+        </blockquote>
+<hr>
+<h3>Course Learning Outcomes</h3>
+<blockquote>
+    The intent of this course is to
+    provide students with the fundamentals
+    of software analysis and testing techniques. They will learn these techniques
+    from two perspectives: concepts
+    and tool support. T<font face="helvetica">opics will be explored at different levels of depths.
+    </font>Following the first perspective, students will study the quality issues arising
+    from software maintenance and the theories to address them.
+    Following the second perspective, students will study how these techniques are supported by tools and their underlying engineering issues. Many of these tools are adopted by the software community to assure code quality.
+    <br />
+    <br />
+    Upon completion of this course, students will be able to apply the fundamental knowledge of fault analysis, test coverage, program instrumentation, test generation, fault localization, mutation analysis, program repair, pointer analysis, program abstraction, program repair, mining software repositories and vulnerability analysis.
+    Students will also be able to point out the maturity and limitations of various
+    analysis and testing techniques. <strong> This course assumes prior knowledge of Java Programming.</strong>
+    <br />
+</blockquote>
+<h3>Topics</h3>
+
+<!--<blockquote> -->
+    <blockquote><i>Notes are subject to minor updates, and will be finalized two days before class. Lecture videos are available under Zoom on Canvas. <!-- <a href="videos.html">here</a>.--></i></blockquote>
+<ul>
+        <li>Introduction (<a href="slides/10-IntroductionToSoftwareAnalysis.pdf">slides</a>)
+    <!-- <a href="codehunt/2016/2016F-CodeHunt2.JPG">winner board 2nd</a>,
+    <a href="codehunt/2016/2016F-CodeHunt5.jpg">winner board 5th</a>)-->
+    [week 1]</li>
+        <li>
+<font face="helvetica">
+            Dynamic analysis with unit testing - JUnit (<a href="slides/15-JUnit.pdf">slides</a>) [weeks 1, 2]<br />
+    - <a href="slides/JUnit5Demo.zip">class examples</a>,
+    <a href="slides/JUnit5WorkshopWithSoln.zip">in-class exercise</a></font></li>
+        <li><font face="helvetica">Automated test generation: random-based with feedback directed - Randoop (<a href="slides/16-Random%20Testing.pdf">slides</a>) [week 2]<br />- <a href="https://randoop.github.io/randoop/">user manual</a>,
+        <a href="slides/Random.zip">class examples</a> (Java 11)</font></li>
+        <li>
+<font face="helvetica">
+            Soot Tutorial (<a href="assignment/asg01/soot_tutorial_2020.zip">resources</a>) [week 2] (Java 11)</font><li><font face="helvetica">
+            Basic concepts of testing &amp; coverage (<a
+        href="slides/12-Overview%20of%20Testing.pdf">slides1</a>,
+    <a href="slides/13-StructuralCoverage.pdf">slides2</a>) [week 3]<br />- Cruise (<a
+        href="slides/CruiseWithBugs.zip">Buggy</a>,
+    <a href="slides/CruiseWithFix.zip">Fix</a>)</font><li>Code coverage and instrumentation (<a href="slides/14-CodeCoverage.pdf">slides</a>) [week
+            4]</li>
+<font face="helvetica">
+    </font>
+        <li>Automated test generation: constraint-based with dynamic symbolic analysis (<a
+            href="slides/17-SymbolicExecution.pdf">slides</a>) [week 5]<br />- <a href="slides/Search.zip">class examples</a> (Java 11),
+        <a href="readings/symbolic%20execution%20for%20software%20testing.cacm.pdf">further readings</a></li>
+        <li><font face="helvetica">Automated fault localization (<a href="slides/18-Fault%20Localization.pdf">slides</a>) [week 5]<br />- <a href="slides/FaultLocalization.zip">class example</a> (Java 11) /
+        <a href="http://www.gzoltar.com/#quick_reference_manual">GZoltar</a> /
+        <a href="https://github.com/GZoltar/gzoltar/releases/tag/v1.7.2">GZoltar download</a></font></li>
+        <li>Fault-based approach with mutation techniques (<a href="slides/19-Mutation.pdf">slides</a>) [week 6]<br />- <a href="slides/Mutation.zip">class example</a> (Java 11,
+        <a href="http://pitest.org/">Pitclipse</a> / further readings:
+        <a href="readings/Mutation%20Testing%20Survey.pdf">survey</a>,
+        <a href="Course/Notes/Guided%20Mutation%20Testing%20for%20JavaScript%20Web%20Applications.pdf">Javascript Web Applications</a></li>
+        <li>Automated test generation: search-based - EvoSuite (<a href="slides/20-EvoSuite.pdf">slides</a>)
+        [week 6]</li>
+        <li>Automated program repair (<a href="slides/21-Automated%20Program%20Repair.pdf">slides</a>) [week
+            7]</li>
+        <li>Object-oriented &amp; Regression-based approach (<a
+            href="slides/22-RegressionTesting.pdf">slides</a>) [week 7]</li>
+<font face="helvetica">
+        <li>Automated pattern-based static analysis - SpotBugs (<a href="slides/11-PatternBasedAnalysis.pdf">slides</a>)
+    [week 8]</li>
+    </font>
+        <li><font face="helvetica">Pointer analysis (<a href="slides/23-Pointer%20Analysis.pdf">slides</a>) [week
+            8]</font></li>
+        <li>Program slicing &amp; taint analysis (<a href="slides/24-Slicing.pdf">slides</a><!-- / video:
+            <a href="http://www.cse.ust.hk/~scc/csd_only/Slicing-1.mp4" target="_blank">part-1</a> &
+            <a href="http://www.cse.ust.hk/~scc/csd_only/Slicing-2.mp4" target="_blank">part-2</a> -->) [week 9]</li>
+        <li><font face="helvetica">
+            Mining software repositories </font>(<a
+            href="slides/26-Mining%20of%20Public%20Software%20Repository.pdf">slides</a><!-- / video: <a href="http://www.cse.ust.hk/~scc/csd_only/msr-1.mp4" target="_blank">part-1</a> &
+            <a href="http://www.cse.ust.hk/~scc/csd_only/msr-2.mp4" target="_blank">part-2</a>)  -->)
+        [week 10]</li>
+        <li><font face="helvetica">Vulnerability analysis (<a href="slides/25-Vulnerabilities.pdf">slides</a><!-- / video:
+            <a href="http://www.cse.ust.hk/~scc/csd_only/vulnerability-1.mp4" target="_blank">part-1</a>,
+            <a href="http://www.cse.ust.hk/~scc/csd_only/vulnerability-2.mp4" target="_blank">part-2</a> &
+            <a href="http://www.cse.ust.hk/~scc/csd_only/vulnerability-3.mp4" target="_blank">part-3</a>  -->)
+            [week 10]</font></li>
+        <li style="font-style: italic"><span class="auto-style2">Experimentation and research methodology (<a href="slides/27-Experimentation.pdf">slides</a><!-- / video:
+            <a href="http://www.cse.ust.hk/~scc/csd_only/Empirical-1.mp4" target="_blank">part-1</a> &
+            <a href="http://www.cse.ust.hk/~scc/csd_only/Empirical-2.mp4" target="_blank">part-2</a>)  -->)
+            [week 11] </span><em class="auto-style2">//
+            Optional, will be covered if time allows</em><span class="auto-style2"></li>
+        <!-- <li>Concurrency-based approach (<a href="slides/28-Concurrency.pdf">slides</a>)
+        <em>// Optional, will be covered only if time allows</em></li> -->
+            </span>
+        <li>
+<font face="helvetica">
+            Review (<a href="slides/30-review.pdf">slides</a>)&nbsp; [week 11]</font></li>
+        <li>Presentations [weeks 12, 13]</li>
+        </ul>
+    </font>
+    </blockquote>
+<hr>
+<font face="helvetica">
+<table border="0" hspace="4" cellspacing="2" width="100%" cellpadding="3">
+<tbody><tr bgcolor="#e0e0e8">
+<td width="100%"><nobr><big><b><font face="helvetica">Coursework</font></b></big></nobr></td>
+</tr>
+</tbody></table></font>
+<blockquote>
+<font face="helvetica">
+<h3>Programming Assignments</h3>
+<h4>Workshop: Assignment 1 Introduction and Soot Tutorial (Feb 15)</h4>
+
+<p>
+<a href="./assignments_2022S/workshop_2022.pptx">slides</a>
+<a href="./assignments_2022S/soot-example.zip">soot example project</a>
+</p>
+
+<h4>Assignment 1: Test generation and program instrumentation (Materials have been released <a href="https://github.com/CastleLab/COMP5111-Spring2022-Student-Assignments">here</a>, TA's implementation has been released <a href="https://github.com/CastleLab/COMP5111-Spring2022-Student-Assignments/tree/assignment1-TA_implementation">here</a>; Past semester page is <a href="assignment/asg01/assignment1.html">here</a>.)</h4>
+<!--
+ Submit through
+    <a href="https://canvas.ust.hk/courses/36243/assignments/142330">Canvas</a> before <span class="style3">11:55pm
+    Mar. 7th</span>.
+</p>
+<p>&emsp;Assignment 1 is <a href="http://github.com/CastleLab/COMP5111-assignment-Student-Version/tree/assignment1">here</a>.
+    <a href="https://soot-oss.github.io/soot/">Soot Document</a>;
+    <a href="https://github.com/CastleLab/COMP5111-assignment-Student-Version/blob/assignment1/Assignment1_FAQ.md">Assignment1 FAQ</a>;
+<p/>
+-->
+<h4>Assignment 2: Search-based testing and fault localization (Materials have been released <a href="https://github.com/CastleLab/COMP5111-Spring2022-Student-Assignments/tree/assignment2">here</a>), TA's implementation has been released <a href="https://github.com/CastleLab/COMP5111-Spring2022-Student-Assignments/tree/assignment2-TA_implementation">here</a>; Past semester page is <a href="assignment/asg02/assignment2.html">here</a>.)</h4>
+<!--
+Submit through <a href="https://canvas.ust.hk/courses/36243/assignments/142331">Canvas</a> before
+    <span class="style3">11:55pm
+        April 6th</span>.</p>
+<p> &emsp;Assignment 2 is <a href="https://github.com/CastleLab/COMP5111-assignment-Student-Version/tree/assignment2">here</a>.
+        <a href="https://github.com/CastleLab/COMP5111-assignment-Student-Version/blob/assignment2/Assignment2_FAQ.md">Assignment2 FAQ</a>;
+<p/>
+-->
+<h4>Assignment 3: Improving fault localization with data dependence (Past semester page is <a href="assignment/asg03/assignment3.html">here</a>.)</h4>
+<!--
+Assignment 3: Improving fault localization with data dependence. Submit through <a href="https://canvas.ust.hk/cass">Canvas</a> before
+    <span class="style3">11:55pm
+        May 31st</span>.</p>
+<p> &emsp;Assignment 3 is <a href="./assignment/asg03/assignment3.html">here</a>.
+<p />
+-->
+    <em>Bonus:
+    <ul>
+    <li><strong>Objective</strong>: Encourage students to further explore beyond the required tasks.</li>
+    <li><strong>Means</strong>: When students have completed a bonus task in the assignment, they will get the bonus points accordingly.</li>
+    <li><strong>Bonus scheme</strong>: Be used as a "safety blanket" on the assignments capped by the maximum score of 100. It motivates hard-working students without sacrificing the less hard-working students.</li>
+<li><strong>Examples</strong>:
+If a student got 95 out of 100 for the basic tasks, but the student got 6 bonus points, the final score will be: MIN(95+6, 100) = 100.
+If a student got 100 out of 100 and got 0 bonus points, the final score will be: MIN(100+0, 100) = 100.</li>
+    </ul>
+    </em>
+    <em>Note: <strong>All assignments MUST be submitted by their deadlines
+    to the Canvas; otherwise no marks are given unless prior approval has been sought
+    from the instructor.</strong>
+<!--	Guides to CASS are available
+    <a href="http://cssystem.cs.ust.hk/home.php?docbase=UGuides/cass&amp;req_url=UGuides/cass/student.html">
+    here</a>. -->All programs and documents that a student submits for grading must represent the results of the student&#39;s own
+        <strong>independent efforts</strong>. Students who are involved (including the copier and the helper) in an incident of plagiarism will receive a failing grade for the course and the incident will be reported for appropriate disciplinary actions. We will use a software tool to check your codes with others' programs, and even with previous assignments of this course. The tool is hard to beat. The suspected cases will be further examined by the instructors and the teaching assistant. Please also refer to the
+        <a href="https://acadreg.ust.hk/generalreg.html#b">HKUST's regulations for student conduct and academic integrity</a>.</em>
+
+    <p/><em>&quot;ALL OF THE FOLLOWING ARE CONSIDERED PLAGIARISM: turning in someone else&#39;s work
+            as your own; adapting words or ideas from someone else without giving credit;
+            failing to put a quotation in quotation marks; giving incorrect information
+            about the source of a quotation; changing programs but copying the structure of
+            a source without giving credit; and copying so many words or ideas from a source
+            that it makes up the majority of your work, whether you give credit or not.&quot; ...
+            extracted and adapted from</em> <a
+                href="http://www.plagiarism.org/plagiarism-101/what-is-plagiarism/"><em>http://www.plagiarism.org/plagiarism-101/what-is-plagiarism/</em></a><em>.
+
+        </em>
+
+    <hr>
+<h3>Reading Assignment: Report, Presentation and Participation</h3>
+In this course, each student will need to read a paper from the reading list, give a presentation and submit a report of the paper following the report
+        template available <a href="./Reading_Report_Template.docx"> here</a> (<a href="readings/Research%20Pattern.pdf">common research patterns</a>).
+    <br><br>
+    <strong>Note 1</strong>: We use Canvas for reading assignment. Contact with TA if you have trouble with Canvas.<br>
+    <strong>Note 2</strong>: The date for presentation might be changed subject to the number of students enrolled, etc.<br>
+    <strong>Note 3</strong>: The reading report and presenttation must be exclusive to this course. You CANNOT re-use the report/presentation from another course. You CANNOT re-use your assignment in previous years.
+    <br><br>
+    The following is a set of deliverables required:
+<ol>
+<li>Select a technical research paper from the reading list below by <span class="style3"> March 4</span>.
+    <ol type="a"><li>Please login to Canvas, choose 'discussion' from left navigation bar, then click '+ Discussion' to create a new discussion topic.</li>
+    <li>Please name the new discussion topic according to "Student Name (Last name_First name)-Paper Name-Conference". For example, "LI_Meiziniu-An Empirical Study of Refactorings and Technical Debt in Machine Learning Systems-ICSE'21".</li>
+    <li>In the discussion content of the created topic, the student should put down (a) his/her name, (b) paper title and authors, (c) full citation reference, and (d) the paper abstract. Later the student needs to complete and post the reading report under the discussion topic. </li>
+    <li>Make sure the created topic is public and viewable till the course end. There is no need to change other options.</li>
+</ol>
+</li>
+<li>Update this <a href="https://hkustconnect-my.sharepoint.com/:x:/g/personal/sccheung_connect_ust_hk/EeJ6U3SWLj9Jhxwl1OUSJgQBbUkZJzBXhUEy18VONAR5hQ?e=JT2Gdk"> MS Excel Spreadsheet</a> by <span class="style3">
+    March 4</span> (Contact TA if the spreadsheet cannot be accessed).
+    Failure to mark a timeslot and select a valid paper by <font face="helvetica"> <span class="style3">
+    March 4</span></font>
+    is subject to a penalty of 3 points out of the 20 points of reading assignment.<br />
+    <em>Note: If a student&#39;s selected paper collides with that has already been selected by another classmate, the student
+    will be asked to select another one</em>.</li>
+<li>Submit Reading Report by <span class="style3">April 14</span>.
+    <ol type="a">
+    <li>Submit the reading report to Canvas.</li>
+    <li>Post the same reading report to the discussion topic created previously at Canvas. </li>
+    </ol></li>
+<li>Read other's discussion topic and leave comments by <span class="style3">April 28</span>, the first day of presentation.
+    <ol type="a">
+        <li>This is part of grading scheme.</li>
+        <li>Use the reply function in Canvas</li>
+        <li>A student can ask questions/clarification, propose your suggestions, etc., on other classmates&#39; discussion topic.</li>
+        <li>When a student leaves comments, please ensure the referred sentences, like 'Section XX, para XX' are clearly quoted. </li>
+        <li>Students are also encouraged to reply others' comments.</li>
+        <li>Students can optionally submit a report to discuss specific issues encountered
+            when discussing with classmastes on Canvas for our consideration by
+            <span class="style3">May 11
+    </ol>
+<li>Here are some Reading report samples (<a href="readings/sample1/AnandFSE12.html">sample 1</a>, <a href="readings/sample2/PradelICSE2013.html">sample 2</a>, <a href="readings/sample3/ServantFSE2012.html">sample 3</a>), including classmates&#39; comments. Note in previous year we use Google Doc so the comments are inline.</li>
+<li>Presentation on <span class="style3">
+        April 28 (Thu), May 3 (Tue), May 5 (Thu), May 7 (Sat), May 10 (Tue)</span>.
+        <br><em>Note</em>: Students are encourage to ask questions during the Q&amp;A (See grading scheme).
+    If the presentations&nbsp; take place face-to-face at classroom, students are required to send an email to TA and tell him how many questions have been asked and what they are
+    after each lecture. If the presentations take place at Zoom, students are
+    required to type their questions at the Chat over Zoom, and then ask the
+    questions.</li>
+<li>Each presentation lasts 10 minutes plus 5 minutes Q&amp;A. Please mark your slot at the
+        <a href="https://hkustconnect-my.sharepoint.com/:x:/g/personal/sccheung_connect_ust_hk/EeJ6U3SWLj9Jhxwl1OUSJgQBbUkZJzBXhUEy18VONAR5hQ?e=JT2Gdk">
+        MS Excel Spreadsheet</a> (First Come First Mark).
+        <a href="http://www.slideshare.net/thecroaker/death-by-powerpoint">Here</a> are
+        useful pieces of advice to prepare a presentation.</li>
+<li><a href="reading.html">Grading scheme</a></li>
+<li>Advice in technical <a href="https://homes.cs.washington.edu/~mernst/advice/write-technical-paper.html">writing</a> and <a href="https://homes.cs.washington.edu/~mernst/advice/giving-talk.html">presentation</a>.</li>
+</ol>
+<hr>
+<h3>Reading list <span class="style1">(Choose a</span> <span class="style2">10~14
+    or more pages</span> <span class="style1">technical research paper</span> <span class="style1">from the following list. The selected paper cannot be an experience, new ideas,
+    doctoral symposium, tool demonstration or workshop paper. Your chosen paper should differ from those chosen by your classmates or earlier
+    classmates. Please look up a paper at our digital library if its pre-print is not available at the linked website. Please feel free to email us when you have doubt if a selected paper falls into the criteria.)</span></h3>
+<ul>
+    <li>ESEC/FSE 2021 <a href="https://dblp.org/db/conf/sigsoft/fse2021">
+        <strong>Technical Research Track</strong> Papers</a> (only select 10~14 page papers from Main Research Track)</li>
+    <li>ISSTA 2021
+        <a href="https://www.sigsoft.org/resources/opentoc/ISSTA-21toc.html">
+        <strong>Technical Research Track</strong> Papers</a> (<font face="helvetica">only
+        select papers with 10~14 pages</font>)</li>
+    <li>ICSE 2021
+        <a href="https://dblp.org/db/conf/icse/icse2021">
+        <strong>Technical Research Track</strong> Papers</a> (only select papers with 10~14 pages)</li>
+    <li>ASE 2021 <a href="https://dblp.org/db/conf/kbse/ase2021"><strong>Technical Research Track</strong> Papers</a>
+            (only select 10~14 page papers in Main Track)<font face="helvetica">
+        // If dblp has not yet indexed the proceedings, check the conference web site
+        for preprint copies</font></li>
+    <li>PLDI 2021
+        <a href="https://dblp.org/db/conf/pldi/pldi2021">
+        <strong>Technical Research Track</strong> Papers</a> (only select papers with 14 or more pages)</li>
+    <li>ESEC/FSE 2020 <a href="https://dblp.org/db/conf/sigsoft/fse2020">
+        <strong>Technical Research Track</strong> Papers</a> (only select 10~14 page papers from Main Research Track)</li>
+    <li>ISSTA 2020 <a href="https://www.sigsoft.org/resources/opentoc/ISSTA2020-TOC.html">
+        <strong>Technical Research Track</strong> Papers</a> (only select papers with 10~14 pages)</li>
+    <li>ICSE 2020
+        <a href="https://dblp.org/db/conf/icse/icse2020">
+        <strong>Technical Research Track</strong> Papers</a> (only select papers with 10~14 pages) </li>
+    <li>ASE 2020 <a href="https://dblp.org/db/conf/kbse/ase2020"><strong>Technical Research Track</strong> Papers</a>
+        (only select papers in Main Track) </li>
+    <li>PLDI 2020
+        <a href="https://dblp.org/db/conf/pldi/pldi2020">
+        <strong>Technical Research Track</strong> Papers</a> (only select papers with 14 or more pages)</li>
+</ul>
+    </blockquote>
+
+<hr>
+<font face="helvetica">
+<table border="0" hspace="4" cellspacing="2" width="100%" cellpadding="3">
+<tbody><tr bgcolor="#e0e0e8">
+<td width="100%"><nobr><big><b><font face="helvetica">Marking Scheme</font></b></big></nobr></td>
+</tr>
+</tbody></table></font>
+<blockquote>
+The course will be evaluated based on a combination of
+    participation, assignments, and examination. The mark breakdown is as follows. <p />
+<!--    <font face="Arial">Note: To receive 0.4 point in lecture participation, students need to: (1) attend over
+    35 minutes in a lecture, AND (2) actively participate in class discussion.&nbsp; </font>&nbsp;<p>
+-->
+<table border="1" cellspacing="1" cellpadding="5">
+<tbody><tr><td> &nbsp; </td><td>Assessment items</td><td>Contribution</td></tr>
+<!--<tr><td>1.</td><td>Participation in online lectures (excluding reading report presentations)</td><td>
+    0%</td></tr> -->
+<tr><td>1.</td><td>Programming Assignments</td> <td>40%</td></tr>
+<tr><td>2.</td><td>Reading Assignment: report, presentation &amp; participation</td><td>
+    20%</td></tr>
+<!-- <tr><td>5.</td><td>Final examination (or an additional assignment depending on later
+    updates from University)</td><td>25%</td></tr> -->
+<tr><td>4</td><td>Examination</td><td>
+    40%</td></tr>
+</tbody></table>
+</p></blockquote>
+<hr/>
+<font face="helvetica">
+<table border="0" hspace="4" cellspacing="2" width="100%" cellpadding="3">
+<tbody><tr bgcolor="#e0e0e8">
+<td width="100%"><nobr><big><b><font face="helvetica">Useful Links</font></b></big></nobr></td>
+</tr>
+</tbody></table></font>
+<ul>
+    <li><a href="self-assessment-center.html">Self Assessment Center</a></li>
+    <li><a href="http://junit.sourceforge.net/javadoc/">JUnit API Documentation</a></li>
+    <li><a href="https://www.youtube.com/watch?v=wEhu57pih5w&feature=relmfu">Google Tech Talk on Unit Testing</a></li>
+    <li><a href="http://www.eclemma.org/userdoc/index.html">EclEmma User Guide</a></li>
+    <li>If you fail to install Pitclipse plugin through Eclipse Market, use this update site in Eclipse to install Pitclipse software: <a href="https://pitest.github.io/pitclipse-releases/">https://pitest.github.io/pitclipse-releases/</a></li>
+    <!-- <li><a href="http://www.stpmag.com/">Free Online Magazine on Software Testing written by Practitioners</a></li> -->
+    <li><a href="http://www.se-radio.net/">Software Engineering Radio</a></li>
+</ul>
+<hr/>
+<font face="helvetica">
+<table border="0" hspace="4" cellspacing="2" width="100%" cellpadding="3">
+<tbody><tr bgcolor="#e0e0e8">
+<td width="100%"><nobr><big><b><font face="helvetica">References</font></b></big></nobr></td>
+</tr>
+</tbody></table></font>
+<ul><li>Lecture notes.</li>
+    <li>Conferences: Proceedings of ICSE, FSE, PLDI, OOPSLA, POPL, ISSTA and ASE.</li>
+    <li>Journals: ACM TOSEM &amp; IEEE TSE.</li>
+<li>Software Engineering, Ivan Marsic, Rutgers University, 2012. (<a
+        href="Course/Notes/book-SE_marsic.pdf">Download here</a>)</li>
+    <li>Introduction to Software Testing, Paul Ammann and Jeff Offutt, Cambridge University Press, 2008.</li>
+    <li>Software Testing and Analysis: Process, Principles and Techniques, Mauro Pezze and Michal Young, John Wiley and Sons, 2007.</li>
+    <li><a href="https://github.com/lancetw/ebook-1/blob/master/09_other/How-Google-Tests-Software.pdf">How Google Tests Software</a>, James A. Whittaker, Jason Arbon, Jeff Carollo, Addison-Wesley, 2012.</li>
+    <li>Head First Java, Kathy Sierra and Bert Bates, O&#39;Reilly Media, Inc.</li>
+</ul>
+<hr/>
+<p>
+
+</p><center><img src="USTlogo-small.gif" height="74" width="95" align="bottom"> </center>
+    </b>
+</font></font></body></html>

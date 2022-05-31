@@ -196,6 +196,10 @@ const CATEGORIZED_PRE_COURSES = [
                 semesters: ['Fall 2003'],
             },
             {
+                code: 'COMP 4641',
+                semesters: ['Spring 2015'],
+            },
+            {
                 code: 'COMP 5622',
                 semesters: ['Spring 2020'],
             },
@@ -232,7 +236,19 @@ const CATEGORIZED_PRE_COURSES = [
             {
                 code: 'COMP 3111',
                 semesters: ['Spring 2015', 'Spring 2016'],
-            }
+            },
+            {
+                code: 'COMP 4901D',
+                semesters: ['Spring 2015'],
+            },
+            {
+                code: 'COMP 4901Q',
+                semesters: ['Spring 2022'],
+            },
+            {
+                code: 'COMP 5111',
+                semesters: ['Spring 2022'],
+            },
         ]
     }
 ];
