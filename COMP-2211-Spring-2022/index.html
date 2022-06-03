@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>COMP 2211 Exploring Artificial Intelligence</title>
+      <!-- Bootstrap Core CSS -->
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <!-- Custom CSS -->
+      <link href="css/scrolling-nav.css" rel="stylesheet">
+      <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+      <link rel="icon" href="img/cse_icon.png">
+	  <link href="https://fonts.googleapis.com/css?family=Open+Sans:200,300,400,400i,500,600,700%7CMerriweather:300,300i%7CMaterial+Icons" rel="stylesheet">
+   </head>
+   <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" style="padding-top:100px; font-family: 'Open Sans', sans-serif;">
+      <img src="img/ai-banner3.jpg" style="width:100%; display:block; margin-top:-50px; float:none" alt="Title Image"/>
+      <nav class="navbar navbar-default navbar-fixed-top">
+         <div class="container">
+            <div class="navbar-header page-scroll">
+               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               </button>
+               <a class="navbar-brand page-scroll" href="#page-top">Home</a>
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+               <ul class="nav navbar-nav"  data-toggle="collapse" data-target=".in">
+                  <li class="hidden">
+                     <a class="page-scroll" href="#page-top"></a>
+                  </li>
+                  <li>
+                     <a class="page-scroll" href="#announcements">Announcements</a>
+                  </li>
+                  <li class="dropdown">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Course Info<b class="caret"></b></a>
+                     <ul class="dropdown-menu">
+                        <li><a href="#coursedetails" class="page-scroll">Course Details</a></li>
+                        <li><a href="#schedule" class="page-scroll">Schedule</a></li>
+                        <li><a href="#gradingscheme" class="page-scroll">Grading Scheme</a></li>
+                        <li><a href="#assessmentrubrics" class="page-scroll">Assessment Rubrics</a></li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a class="page-scroll" href="#people">People</a>
+                  </li>
+                  <li>
+                     <a class="page-scroll" href="#lectures">Lectures</a>
+                  </li>
+                  <li>
+                     <a class="page-scroll" href="#honorcode">Honor Code</a>
+                  </li>
+                  <li>
+                     <a class="page-scroll" href="#labs">Labs</a>
+                  </li>
+                  <li>
+                     <a class="page-scroll" href="#assignments">Programming Assignments</a>
+                  </li>
+                  <li>
+                     <a class="page-scroll" href="#exams">Exams</a>
+                  </li>
+                  <!--<li>
+                     <a class="page-scroll" href="#selflearning">Self-learning Center</a>
+                  </li>-->
+                  <li>
+                     <a class="page-scroll" href="#faqs">FAQs</a>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </nav>
+      <section id="intro" class="intro-section">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-12" style="padding-top:30px; padding-bottom:30px">
+                  <div class="banner">
+                     <h3>COMP 2211 Exploring Artificial Intelligence</h3>
+                     <p style="padding-left:10px; padding-right:10px; padding-top:10px"><span style="font-weight:bold">Description:</span><br/><br/>This course aims to give a gentle introduction to the basic elements of artificial intelligence (AI) through understanding examples from various applications and hands-on experimentation using AI software tools. In addition to covering the technical aspect of AI through such topics as search and problem solving, knowledge representation, probabilistic reasoning, machine learning, computer vision and image processing, speech and language processing, and robotics, this course will also study the historical perspective, social and ethical implications, as well as potential and limitations of AI.</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!--<div style="width:100%">
+	    <img src="img/ai-banner3.jpg" style="width:100%; display:block; float:none" alt="Title Image"/>
+         </div>-->
+      </section>
+
+      <!-- Announcements Section -->
+      <section id="announcements" class="announcements-section">
+         <div class="container">
+            <div class="row">
+               <h3 class="titleheader">Announcements</h3>
+               <div class="col-lg-12">
+                  <ul>
+                        <li><span style="color:blue">2022-5-14</span><br/>The Zoom meeting links for the final
+examination are available <a href="final-zoom-meeting.html">here</a>. Please enter
+your student ID to check the link of your assigned meeting room.</li>
+			<br/>
+                        <li><span style="color:blue">2022-4-11</span><br/>Programming assignment 2 has been released. It's due
+on May 11, 2022, 23:59.</li>
+			<br/>
+                        <li><span style="color:blue">2022-3-29</span><br/>The Zoom meeting links for the midterm
+examination are available <a href="midterm-zoom-meeting.html">here</a>. Please enter
+your student ID to check the link of your assigned meeting room.</li>
+			<br/>
+                        <li><span style="color:blue">2022-3-5</span><br/>Programming assignment 1 has been released. It's due on March 26, 2022, 23:59.</li>
+			<br/>
+                        <li><span style="color:blue">2022-2-4</span><br/>The midterm examination will be conducted on 2
+April 2022 (Saturday) from 2-4pm. More details about the exam will be announced.</li>
+			<br/>
+                        <li><span style="color:blue">2022-2-4</span><br/>Welcome to COMP 2211! For this course, we use our
+own course webpage (<a href="index.html">https://course.cse.ust.hk/comp2211/</a>) and grades can be
+found on <a href="https://canvas.ust.hk/courses/42302">Canvas</a>. Also, there will be no labs in the first two weeks
+(February 7, 8, 9 &amp; February 14, 15, 16?). The first
+lab starts in
+Week 3 (February 21, 22, 23).</li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- Course Details Section -->
+      <section id="coursedetails" class="coursedetails-section">
+         <div class="container">
+            <div class="row">
+               <h3 class="titleheader">Course Details</h3>
+               <div class="col-lg-6">
+                  <br/>
+                  <ul>
+                     <li>
+                     The course consists of, per week,
+                        <ul>
+                  	   <li>3 hours of lectures</li>
+                  	   <li>2 hours of lab exercises</li>
+                  	</ul>
+                  	an it gives you 3 credits for successful completion of the course.
+                     </li>
+                  </ul>
+                  <br/>
+                  <h4>Reference Books</h4>
+                  <br/>
+                  <!--<ul>-->
+                     <!--<li>
+                        Recommended textbooks
+                        <table class="table-hover">
+                           <tr>
+                              <td style="padding:5px"><img src="img/howtoprogram.jpg" style="width:150px;" alt="C++ How to Program"/></td>
+                              <td style="width:5px"></td>
+                              <td>
+                                 <ul>
+                                    <li><<a href="https://julac.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=TN_cdi_safari_books_9780134448930&context=PC&vid=HKUST&lang=en_US&search_scope=HKUST_catalog_primo&adaptor=primo_central_multiple_fe&tab=default_tab&query=any,contains,C%20%20%20how%20to%20program">Paul Deitel, Deitel & Associates (2017). C++ How to Program.</a><br/>
+									There are only few copies available in the campus bookstore. On the other hand, you may purchase an e-version of book from the campus bookstore for HK$316. We were told that it may take around 3 days to get the code for an ebook.
+									</li>
+                                 </ul>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td style="padding:5px"><img src="img/algo.jpg" style="width:150px;" alt="Algorithm Textbook"/></td>
+                              <td style="width:5px"></td>
+                              <td>
+                                 <ul>
+                                    <li><a href="https://lbdiscover.ust.hk/bib/991001362359703412">M.A. Weiss (2014). Data Structures and Algorithm Analysis in C++.</a><br/>
+									The book is out of print. You may be able to find some free PDF copy on the Web.
+									</li>
+                                 </ul>
+                              </td>
+                           </tr>
+						   <tr>
+                              <td style="padding:5px"><img src="img/shaffer-algo.jpg" style="width:150px;" alt="Algorithm Textbook"/></td>
+                              <td style="width:5px"></td>
+                              <td>
+                                 <ul>
+                                    <li><a href="http://people.cs.vt.edu/~shaffer/Book/C++3elatest.pdf">Data Structures and Algorithm Analysis Ed. 3.2 (C++ Version).</a><br/>
+									The above links to a free online version of the book from the author, Clifford A. Shaffer of Virginia Tech, USA.
+									</li>
+                                 </ul>
+                              </td>
+                           </tr>
+                        </table>
+                        <br/>
+                     </li>-->
+                     <!--<li>-->
+                        <table class="table-hover">
+                           <tr>
+                              <td style="padding:5px"><img src="img/ai-crash-course.jpg" style="width:150px;" alt="AI Crash Course"/></td>
+                              <td style="width:5px"></td>
+                              <td>
+                                 <ul>
+                                    <li><a href="https://lbdiscover.ust.hk/bib/991012881204303412">Hadelin de
+Ponteves. Al Crash Course: A fun and hands-on introduction to machine learning,
+reinforcement learning, deep learning, and artificial intelligence with Python</a>
+				    <br/>
+				    HKUST library provides
+online access to this textbook.
+				    </li>
+                                 </ul>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td style="padding:5px"><img src="img/python-beginner-guide.jpg" style="width:150px;" alt="Thinking in C++"/></td>
+                              <td style="width:5px"></td>
+                              <td>
+                                 <ul>
+                                    <li>Denis Rothman, Matthew
+Lamons, Rahul Kumar, Abhishek Nagaraja, Amir Ziai, and Ankit
+Dixit. Python: Beginner's Guide to Artificial Intelligence: Build applications to intelligently
+interact with the world around you using Python
+                                    </li>
+                                 </ul>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td style="padding:5px"><img src="img/artificial-intelligence-with-python.jpg" style="width:150px;" alt="AI with Python"/></td>
+                              <td style="width:5px"></td>
+                              <td>
+                                 <ul>
+                                    <li><a href="https://lbdiscover.ust.hk/bib/991012884447803412">Prateek Joshi, Artificial
+intelligence with Python : build real-world artificial intelligence applications with Python to intelligently interact with the world around you</a>
+				    <br/>
+				    HKUST library provides
+online access to this textbook.
+</li>
+                                 </ul>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td style="padding:5px"><img src="img/ip-cookbook.png" style="width:150px;" alt="s2"/></td>
+                              <td style="width:5px"></td>
+                              <td>
+                                 <ul>
+                                    <li><a href="https://lbdiscover.ust.hk/bib/991012888737803412">Sandipan Dey. (2020). Python Image Processing Cookbook</a>
+					<br/>HKUST library provides online access to this textbook.
+				    </li>
+                                 </ul>
+                              </td>
+                           </tr>
+                           <!--<tr>
+                              <td style="padding:5px"><img src="img/s3.jpg" style="width:150px;" alt="s3"/></td>
+                              <td style="width:5px"></td>
+                              <td>
+                                 <ul>
+                                    <li><a href="https://lbdiscover.ust.hk/bib/991002209259703412">Stanley Lippman (2013). C++ Primer.</a></li>
+                                 </ul>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td style="padding:5px"><img src="img/s4.jpg" style="width:150px;" alt="s4"/></td>
+                              <td style="width:5px"></td>
+                              <td>
+                                 <ul>
+                                    <li><a href="https://lbdiscover.ust.hk/bib/991012704264303412">Scott Meyers (2005).
+Effective C++: 55 Specific Ways to Improve Your Programs and Designs.</a></li>
+                                 </ul>
+                              </td>
+                           </tr>-->
+                        </table>
+                     <!--</li>-->
+                  <!--</ul>-->
+		  <br/><br/>
+               </div>
+               <div class="col-lg-6">
+                  <h4>Topics Covered</h4>
+                  <ol>
+                     <li>Brief history of AI</li>
+                     <li>Search and problem solving</li>
+					 <li>Knowledge representation</li>
+					 <li>Probabilistic reasoning</li>
+					 <li>Machine learning</li>
+					 <li>Computer vision and image processing</li>
+					 <li>Speech and language processing</li>
+					 <li>Robotics</li>
+					 <li>Social and ethical implications of AI</li>
+					 <li>Potential and limitations</li>
+                  </ol>
+		  <br/>
+		  <h4>Keyword Syllabus</h4>
+		  <ol>
+			<li>A Brief History of Artificial Intelligence</li>
+			<li>Naive Bayes</li>
+			<li>K-Nearest Neighbour</li>
+			<li>K-Means Clustering</li>
+			<li>Perceptron and Multi-Layer Perceptron</li>
+			<li>Fundamentals of Image Processing</li>
+			<li>Convolutional Neural Networks</li>
+			<li>Minimax and Alpha-beta Pruning</li>
+			<!--<li>Reinforcement Learning (Value Iteration)</li>-->
+			<li>Artificial Intelligence Ethics</li>
+		  </ol>
+		  <br/>
+                  <h4>Intended Learning Outcomes</h4>
+                  On successful completion of this course, students are expected to be able to:<br/><br/>
+                  <ol>
+                     <li>Demonstrate understanding of the historical perspective and development of artificial intelligence (AI)</li>
+		     <li>Demonstrate understanding of the basic elements of AI thinking</li>
+		     <li>Demonstrate proficiency in applying basic principles and techniques of AI and using AI software tools to solve problems in a range of applications</li>
+		     <li>Demonstrate awareness of the social and ethical implications as well as potential and limitations of AI</li>
+                  </ol>
+		  <br/>
+                  <h4>Prerequisite &amp; Exclusions</h4>
+                  <div class="table-responsive regulartable" style="border:none">
+                     Pre-requisite: COMP 1021 OR COMP 1029P.
+		     <br/><br/>
+		     Exclusion: COMP 3211, COMP 4211, COMP
+4221, COMP 4331, COMP 4332, COMP 4421, COMP 4471, COMP
+4901K, COMP 4901L, ELEC 4130, ELEC 4230, IDPO 4110, ISOM
+3360, MATH 4336, MATH 4432, RMBI 4310, COMP 5211, COMP
+5212, COMP 5213, COMP 5221, COMP 5222, COMP 5223, COMP
+5331, COMP 5421
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- Schedule Section -->
+      <section id="schedule" class="schedule-section">
+         <div class="container">
+            <div class="row">
+               <h3 class="titleheader">Schedule</h3>
+               <div class="col-lg-12">
+                  <h4>Lecture Schedule</h4>
+                  <div class="table-responsive regulartable" style="border:none">
+                     <table class="table-hover">
+                        <tr>
+                           <th style="text-align:center">Section</th>
+                           <th>Date and Time</th>
+                           <th>Room / Zoom Link</th>
+                           <th>Instructor</th>
+                        </tr>
+                        <tr>
+                           <td style="text-align:center">L1</td>
+                           <td>Wed &amp Fri; 01:30pm - 02:50pm</td>
+                           <td>Mixed-mode Lite: Rm
+2465, Lift 25-26 <a
+href="http://pathadvisor.ust.hk/interface.php?roomno=2465"><span
+class="glyphicon glyphicon-search"
+aria-hidden="true"></span></a> / <a href="https://hkust.zoom.us/j/96562086881?pwd=OENDcmlMbVR5SVYzd1NGUHJwNjFyQT09">Zoom
+Meeting Link</a><br/><span style="color:red">Online interactive mode only until
+furher notice</span></td>
+                           <td>TSOI, Desmond Yau Chat</td>
+                        </tr>
+						<tr>
+                           <td style="text-align:center">L2</td>
+                           <td>Mon 01:30pm - 02:50pm<br/>Fri 09:00am - 10:20am</td>
+                           <td>Mon - Mixed-mode Lite: LT-K, Lift 31-32 <a
+href="http://pathadvisor.ust.hk/interface.php?roomno=ltk"><span
+class="glyphicon glyphicon-search"
+aria-hidden="true"></span></a> / <a href="https://hkust.zoom.us/j/91235842922?pwd=RWR2VnJrY3dCN1pLY2t5TzN3Z1ZnUT09">Zoom
+Meeting Link</a><br/>
+Fri - Mixed-mode Lite: LT-K, Lift 31-32 <a
+href="http://pathadvisor.ust.hk/interface.php?roomno=ltk"><span
+class="glyphicon glyphicon-search"
+aria-hidden="true"></span></a> / <a href="https://hkust.zoom.us/j/98011527279?pwd=d3JSMGFFUnp1NVRXdnhSYkRtL0FRdz09">Zoom
+Meeting Link</a><br/><span style="color:red">Online interactive mode only until
+furher notice</span>
+			   </td>
+                           <td>TSOI, Desmond Yau Chat</td>
+                        </tr>
+						<tr>
+                           <td style="text-align:center">L3</td>
+                           <td>Wed &amp Fri; 04:30pm - 05:50pm</td>
+			   <td>Mixed-mode Lite: CYT-G010, Lift 35-36 <a
+href="http://pathadvisor.ust.hk/interface.php?roomno=g010"><span class="glyphicon glyphicon-search"
+aria-hidden="true"></span></a> / <a href="https://hkust.zoom.us/j/93395605894?pwd=S21qSVhkWFdudGVMR2grei8vcTdPZz09">Zoom
+Meeting Link</a><br/><span style="color:red">Online interactive mode only until
+furher notice</span></td>
+                           <td>TSOI, Desmond Yau Chat</td>
+                        </tr>
+			<!--<tr>
+                           <td style="text-align:center">L4</td>
+                           <td>? &amp; ??? ?:??pm - ?:??pm</td>
+                           <td style="text-align:center">Rm ????, <a href="">Here</a>
+                           <td>TSOI, Desmond Yau Chat</td>
+                        </tr>-->
+                     </table>
+                  </div>
+                  <h4>Lab Schedule</h4>
+                  <div class="table-responsive regulartable" style="border:none">
+                     <table class="table-hover">
+                        <tr>
+                           <th style="text-align:center">Section</th>
+                           <th>Date and Time</th>
+                           <th>Room / Zoom Link</th>
+                           <th style="text-align:center">Teaching Assistant</th>
+			   <th style="text-align:center">Student Helper</th>
+                        </tr>
+                        <tr>
+                           <td style="text-align:center">LA1</td>
+                           <td>Wed; 11:00am - 12:50pm</td>
+                           <td style="text-align:center"><a
+href="https://hkust.zoom.us/j/98076383894?pwd=N2NZSUJIdi9pVUlQb3E0LzZqNkNPdz09">Zoom Meeting Link</a>
+							<!--<a href="https://cssystem.cse.ust.hk/Facilities/hkust_only/labsetup/lab4.html">Rm 4210 (Lift 20)</a><a href="http://pathadvisor.ust.hk/interface.php?roomno=4210"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>-->
+						   </td>
+                           <td style="text-align:center" rowspan="3" colspan="2">
+				Each lab will be conducted by<br/>different TAs and student helpers.<br/>Please check out the
+detailed arrangement <a href="lab-tas.html">here</a>.
+			   </td>
+                        </tr>
+						<tr>
+                           <td style="text-align:center">LA2</td>
+                           <td>Tue; 03:00pm - 04:50pm</td>
+                           <td style="text-align:center"><a
+href="https://hkust.zoom.us/j/97305140488?pwd=SGZXdGNFL1BOaXR1UTlTdHRhYWJidz09">Zoom Meeting Link</a>
+							<!--<a href="https://cssystem.cse.ust.hk/Facilities/hkust_only/labsetup/lab4.html">Rm 4210 (Lift 20)</a><a href="http://pathadvisor.ust.hk/interface.php?roomno=4210"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>-->
+			   </td>
+                        </tr>
+						<tr>
+                           <td style="text-align:center">LA3</td>
+                           <td>Mon 03:30pm - 05:20pm</td>
+                           <td style="text-align:center"><a
+href="https://hkust.zoom.us/j/99148863647?pwd=dlVOYXI5clE2Nmw4OGJmQW9vdWdHUT09">Zoom Meeting Link</a>
+							<!--<a href="https://cssystem.cse.ust.hk/Facilities/hkust_only/labsetup/lab4.html">Rm 4210 (Lift 20)</a><a href="http://pathadvisor.ust.hk/interface.php?roomno=4210"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>-->
+			   </td>
+                        </tr>
+			<tr>
+                           <td style="text-align:center">LA4</td>
+                           <td>This session will have no scheduled meetings. You are expected to access the video-on-demand
+<br/>recordings of the weekly lab material which you will follow at your own pace</td>
+                           <td style="text-align:center" colspan="3"><a href="LA4-videos.html">Videos Here</a></td>
+                        </tr>
+                        <!--<tr>
+                           <td style="text-align:center">LA1 (Group B)</td>
+                           <td>Monday 11:30am - 1:20pm</td>
+                           <td style="text-align:center">
+<!--<a href="https://cssysteM.cse.ust.hk/Facilities/hkust_only/labsetup/lab4.html">Rm 4210
+(Lift 20)</a><a href="http://pathadvisor.ust.hk/interface.php?roomno=4210"> <span
+class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
+				<a
+href="https://hkust.zoom.us/j/96552017024?pwd=cXNoMnUzYXZadFNzT2tCMlIxOW9yZz09">Here</a>
+			   </td>
+                           <td>ZHANG, Jingyang</td>
+			   <td>REN, Zhengtong</td>
+                        </tr>-->
+                        <!--<tr>
+                           <td style="text-align:center">LA2</td>
+                           <td>Thursday 7:00pm - 8:50pm</td>
+                           <td>Rm 4210 (Lift 20)</td>
+                           <td>HU, Guangneng &amp; ZHANG, Jingyang</td>
+                           <td>XIA, Junzhe</td>
+                        </tr>-->
+                     </table>
+                  </div>
+		  <!--<div style="color:red">Please check the <a href="">lab group list</a> and attend the group which you have
+been assigned to.
+		  </div>-->
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- Grading Scheme Section -->
+      <section id="gradingscheme" class="gradingscheme-section">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-12">
+                  <h4>Grading Scheme</h4>
+                  <div class="table-responsive regulartable" style="border:none">
+                     <table class="table-hover">
+                        <tr>
+                           <th>Item</th>
+                           <th style="text-align:center">Percentage</th>
+                        </tr>
+                        <tr>
+                           <td>Laboratory exercises</td>
+                           <td style="text-align:center">10%</td>
+                        </tr>
+                        <tr>
+                           <td>Programming assignment 1</td>
+                           <td style="text-align:center">15%</td>
+                        </tr>
+                        <tr>
+                           <td>Programming assignment 2</td>
+                           <td style="text-align:center">15%</td>
+                        </tr>
+                        <tr>
+                           <td>Midterm examination</td>
+                           <td style="text-align:center">20%</td>
+                        </tr>
+                        <tr>
+                           <td>Final examination</td>
+                           <td style="text-align:center">40%</td>
+                        </tr>
+                     </table>
+		     <br/>
+		     There are two different ways to assess your performance.<br/><br/>
+                     <ol>
+                       <li>Laboratory exercises (10%) + Programming assignments (30%) + Midterm exam (20%) + Final exam (40%)</li>
+                       <li>Laboratory exercises (10%) + Programming assignments (30%) + Final exam (60%)</li>
+                     </ol>
+                     We will automatically choose the higher score of the two for you.
+                  </div>
+		  <br/>
+                  <p>Please check your own marks from the <a href="https://canvas.ust.hk/courses/42302">CANVAS system</a>.</p>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- Assessment Rubrics Section -->
+      <section id="assessmentrubrics" class="assessment-rubrics-section">
+         <div class="container">
+            <div class="row">
+               <h3 class="titleheader">Assessment Rubrics</h3>
+               <div class="col-lg-12">
+                  <div class="table-responsive regulartable" style="border:none">
+                     <table class=".hover-table" style="border:1">
+                        <thead>
+                           <tr>
+                              <th style="vertical-align:top">
+                                 <p style="">Course Learning Outcome</p>
+                              </th>
+                              <th>
+                                 <p>Exemplary</p>
+                              </th>
+                              <th>
+                                 <p>Competent</p>
+                              </th>
+                              <th>
+                                 <p>Needs Work</p>
+                              </th>
+                              <th>
+                                 <p>Unsatisfactory</p>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td style="vertical-align:top">
+                                 <p>1. Demonstrate understanding of the historical perspective and development of artificial intelligence (AI)</p>
+                              </td>
+                              <td style="vertical-align:top">
+                                 <p>Demonstrate thorough understanding of the historical perspective and development of artificial intelligence (AI).</p>
+                              </td>
+                              <td style="vertical-align:top">
+                                 <p>Demonstrate sufficient understanding of the historical perspective and development of artificial intelligence (AI).</p>
+                              </td>
+                              <td style="vertical-align:top">
+                                 <p>Demonstrate insufficient understanding of the historical perspective and development of artificial intelligence (AI).</p>
+                              </td>
+                              <td style="vertical-align:top">
+                                 <p>Is unable to understand the historical perspective and development of artificial intelligence (AI).</p>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td style="vertical-align:top">
+                                 <p>2. Demonstrate understanding of the basic elements of AI thinking.</p>
+                              </td>
+                              <td style="vertical-align:top">
+                                 <p>Demonstrate thorough understanding of the basic elements of AI thinking.</p>
+                              </td>
+                              <td style="vertical-align:top">
+                                 <p>Demonstrate sufficient understanding of the basic elements of AI thinking.</p>
+                              </td>
+                              <td style="vertical-align:top">
+                                 <p>Demonstrate insufficient understanding of the basic elements of AI thinking.</p>
+                              </td>
+                              <td style="vertical-align:top">
+                                 <p>Is unable to understand the basic elements of AI thinking.</p>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td style="vertical-align:top">
+                                 <p>3. Demonstrate proficiency in applying basic principles and techniques of AI and using AI software tools to solve problems in a range of applications.</p>
+                              </td>
+                              <td style="vertical-align:top">
+                                 <p>Demonstrate thorough understanding of the basic principles and techniques of AI. Is able to
+use AI software to solve problems in a wide range of applications.</p>
+                              </td>
+                              <td style="vertical-align:top">
+                                 <p>Demonstrate sufficient understanding of the basic principles and techniques of AI. Is able use AI software to solve problems in standard applications.</p>
+                              </td>
+                              <td style="vertical-align:top">
+                                 <p>Demonstrate marginal understanding of the basic principles and techniques of AI. Is able to use AI software to solve simple applications.</p>
+                              </td>
+                              <td style="vertical-align:top">
+                                 <p>Demonstrate little understanding of the basic principles and techniques of AI. Have great difficulty in using AI software even in simple applications.</p>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td style="vertical-align:top">
+                                 <p>4. Demonstrate awareness of the social and ethical implications as well as potential and limitations of AI.
+                                 </p>
+                              </td>
+                              <td style="vertical-align:top">
+                                 <p>Demonstrates a comprehensive awareness of the social and ethical implications as well as potential and limitations of AI.
+                                 </p>
+                              </td>
+                              <td style="vertical-align:top">
+                                 <p>Demonstrates a thorough awareness of the social and ethical implications as well as potential and limitations of AI.
+                                 </p>
+                              </td>
+                              <td style="vertical-align:top">
+                                 <p>Demonstrates a basic awareness of the social and ethical implications as well as potential and limitations of AI.
+                                 </p>
+                              </td>
+                              <td style="vertical-align:top">
+                                 <p>Demonstrates a lack of awareness of the social and ethical implications as well as potential and limitations of AI.
+                                 </p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     Download the pdf version <a
+                        href="misc/comp2211-rubrics.pdf">here</a>.
+                     <br/><br/>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- People Section -->
+      <section id="people" class="people-section invisibletable">
+         <div class="container">
+            <div class="row">
+               <h3 class="titleheader">People</h3>
+               <div class="col-lg-12">
+                  <h4>Instructor</h4>
+                  <div class="">
+                     <table style="width:100%" class="table-hover">
+                        <tr>
+                           <td style="width:33%"><img src="img/desmond.jpg" class="peopleimg" alt="Desmond"/></td>
+                           <td style="width:1%"></td>
+                           <td style="width:66%;">
+                              <span style="font-weight: bold">TSOI, Desmond Yau Chat</span><br/>
+                              <span><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Rm 3553</span><br/>
+                              <span><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> <a href="mailto:desmond@ust.hk">desmond@ust.hk</a></span><br/>
+                              <span><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> <a href="http://www.cse.ust.hk/~desmond">http://www.cse.ust.hk/~desmond</a></span><br/>
+                              <span><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>Office Hour:
+Every Tuesday from 17:30 - 18:30 (Link: <a
+href="https://hkust.zoom.us/j/95657315140?pwd=RllQdDZtcE0yMWFuNVRjeUhMQWY4dz09">Here</a>)</span><br/>
+                              <span><span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                              Find me by PathAdvisor: <a href="http://pathadvisor.ust.hk/interface.php?roomno=3553">Click Here</a>
+                           </td>
+                        </tr>
+                     </table>
+                  </div>
+                  <h4>Teaching Assistants</h4>
+                  <div class="">
+                     <table class="table-hover">
+                        <tr>
+                           <td style="width:33%"><img src="img/bing-yen.png" class="peopleimg" alt="Bing Yen"/></td>
+                           <td style="width:1%"></td>
+                           <td style="width:66%"><span style="font-weight: bold">CHANG, Bing Yen</span><br/>
+                              <span><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Rm 2532 </span><br />
+                              <span><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> <a href="mailto:bychang@connect.ust.hk">bychang@connect.ust.hk</a></span><br />
+                              <span><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>Office Hour: Every
+Tuesday from 17:00 - 18:00 (Link: <a
+href="https://hkust.zoom.us/j/2359612256?pwd=cUQwNzV2OWk3RGRWQjVnc2U5c2tYdz09">Here</a>)</span><br/>
+			      <span><span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                              Find me by PathAdvisor <a href="http://pathadvisor.ust.hk/interface.php?roomno=2532">Click Here</a><br/>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td style="width:33%"><img src="img/tsz-ho.png" class="peopleimg" alt="Tsz Ho"/></td>
+                           <td style="width:1%"></td>
+                           <td style="width:66%"><span style="font-weight: bold">CHAN, Tsz Ho</span><br/>
+                              <span><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> CYT-3007</span><br />
+                              <span><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> <a href="mailto:tszho.chan@connect.ust.hk">tszho.chan@connect.ust.hk</a></span><br />
+                              <span><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>Office Hour: Every
+Monday from 17:30 - 18:30 (Link: <a
+href="https://hkust.zoom.us/j/99961406305?pwd=S2dIOHd1Y1YrY24wVVJxQW4xWk8xdz09">Here</a>)<br/></span>
+                              <span><span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                              Find me by PathAdvisor <a href="http://pathadvisor.ust.hk/interface.php?roomno=3007">Click Here</a><br/>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td style="width:33%"><img src="img/cindy.png" class="peopleimg" alt="Tsz Ting"/></td>
+                           <td style="width:1%"></td>
+                           <td style="width:66%"><span style="font-weight: bold">CHUNG, Tsz Ting</span><br/>
+                              <span><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> CYT-3007</span><br/>
+                              <span><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> <a href="mailto:ttchungac@connect.ust.hk">ttchungac@connect.ust.hk</a></span><br />
+                              <span><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>Office Hour: Every
+Friday from 12:30 - 13:30 (Link: <a
+href="https://hkust.zoom.us/j/93137180791?pwd=ZGFoR2diWnBpN0g2SzM5aGN2dkFLQT09">Here</a>)<br/></span>
+                              <span><span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                              Find me by PathAdvisor <a href="http://pathadvisor.ust.hk/interface.php?roomno=3007">Click Here</a><br/>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td style="width:33%"><img src="img/nai-chit.png" class="peopleimg" alt="Nai Chit"/></td>
+                           <td style="width:1%"></td>
+                           <td style="width:66%"><span style="font-weight: bold">FUNG, Nai Chit</span><br/>
+                              <span><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> /</span><br />
+                              <span><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> <a href="mailto:ncfung@connect.ust.hk">ncfung@connect.ust.hk</a></span><br />
+                              <span><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>Office Hour: Every
+Friday from 18:00 - 19:00 (Link: <a
+href="https://hkust.zoom.us/j/92193022083?pwd=dG1RTnluY3ltYlpHUmoyTm9nemtCZz09">Here</a>)<br/><span>
+			      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                              Find me by PathAdvisor <a href="http://pathadvisor.ust.hk/interface.php?roomno=">Click Here</a><br/>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td style="width:33%"><img src="img/zeyu.png" class="peopleimg" alt="zeyu"/></td>
+                           <td style="width:1%"></td>
+                           <td style="width:66%"><span style="font-weight: bold">HUANG, Zeyu</span><br/>
+                              <span><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Rm 4203 </span><br />
+                              <span><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> <a href="mailto:zhuangbi@connect.ust.hk">zhuangbi@connect.ust.hk</a></span><br />
+                              <span><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>Office Hour: Every
+Wednesday from 15:00 - 16:00 (Link: <a
+href="https://hkust.zoom.us/j/4477447744?pwd=anppaG5jVTFiZGNjMmtoRVY4a0I3QT09">Here</a>)<br/></span>
+                              <span><span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                              Find me by PathAdvisor <a href="http://pathadvisor.ust.hk/interface.php?roomno=4203">Click Here</a><br/>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td style="width:33%"><img src="img/haibo.png" class="peopleimg" alt="haibo"/></td>
+                           <td style="width:1%"></td>
+                           <td style="width:66%"><span style="font-weight: bold">JIN, Haibo</span><br/>
+                              <span><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Rm 4204 </span><br />
+                              <span><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> <a href="mailto:hjinag@connect.ust.hk">hjinag@connect.ust.hk</a></span><br />
+                              <span><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>Office Hour: Every
+Friday from 15:00 - 16:00 (Link: <a
+href="https://hkust.zoom.us/j/99222905745?pwd=eUVoeWMwMGlTdjN3cHMvZytQYVF6UT09">Here</a>)<br/></span>
+                              <span><span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                              Find me by PathAdvisor <a href="http://pathadvisor.ust.hk/interface.php?roomno=4204">Click Here</a><br/>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td style="width:33%"><img src="img/chan-ho.png" class="peopleimg" alt="Chan Ho"/></td>
+                           <td style="width:1%"></td>
+                           <td style="width:66%"><span style="font-weight: bold">PAK, Chan Ho</span><br/>
+                              <span><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Rm 4208<br />
+                              <span><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> <a href="mailto:chparkaa@connect.ust.hk">chparkaa@connect.ust.hk</a></span><br />
+                              <span><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>Office Hour: Every
+Thursday from 17:00 - 18:00 (Link: <a
+href="https://hkust.zoom.us/j/7368407448?pwd=ZXZtODErdlhXbG5kampQNVpIelVNUT09">Here</a>)</span><br/>
+                              <span><span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                              Find me by PathAdvisor <a href="http://pathadvisor.ust.hk/interface.php?roomno=4208">Click Here</a><br/>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td style="width:33%"><img src="img/zhefan.png" class="peopleimg" alt="zhefan"/></td>
+                           <td style="width:1%"></td>
+                           <td style="width:66%"><span style="font-weight: bold">RAO, Zhefan</span><br/>
+                              <span><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Rm 4208 </span><br />
+                              <span><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> <a href="mailto:zhefan.rao@connect.ust.hk">zhefan.rao@connect.ust.hk</a></span><br />
+                              <span><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>Office Hour: Every
+Friday from 11:00 - 12:00 (Link: <a
+href="https://hkust.zoom.us/j/9987829315?pwd=c0t4bDV5Yi8zTjJQTEIrRERqNVE1UT09">Here</a>)</span><br/>
+                              <span><span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                              Find me by PathAdvisor <a href="http://pathadvisor.ust.hk/interface.php?roomno=4208">Click Here</a><br/>
+                           </td>
+                        </tr>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- Lectures Section -->
+      <section id="lectures" class="lectures-section">
+         <div class="container">
+            <div class="row">
+               <h3 class="titleheader">Lectures</h3>
+               <div class="col-lg-12">
+                  <div id="Lec1" class="">
+                     <br/>
+                     <p>The schedule listed below is tentative. Instructor may have some adjustments subject to the progress.</p>
+                     <br/>
+                     <!--<span style="font-size:120%; font-weight:bold;">Part I: Structured Programming &amp; Basic Data Structures</span>
+                     <br/>-->
+                     <div class="table-responsive regulartable" style="border:none">
+                        <table class="table-hover">
+                           <tr>
+                              <th style="text-align: center; width:8%">Week#</th>
+                              <th style="text-align: center; width:30%">Topics</th>
+                              <th style="text-align: center; width:15%">Download</th>
+                              <th style="text-align: center; width:25%">Reading</th>
+                              <th style="text-align: center">Code / Additional Materials</th>
+                           </tr>
+                           <tr>
+                              <td style="text-align: center">1</td>
+                              <td>Course Logistics</td>
+                              <td style="text-align: center"><a href="notes/0-logistics-full.pdf">Full</a> / <a href="notes/0-logistics-4page.pdf">4-page</a></td>
+                              <td></td>
+                              <td>
+			      </td>
+                           </tr>
+                           <tr>
+                              <td style="text-align: center">1</td>
+                              <td>Introduction to Artificial Intelligence</td>
+                              <td style="text-align: center"><a href="notes/1-introduction-full.pdf">Full</a> / <a href="notes/1-introduction-4page.pdf">4-page</a></td>
+			      <td>A Complete History of AI: <a href="https://www.g2.com/articles/history-of-artificial-intelligence">Here</a></td>
+                              <td></td>
+                           </tr>
+                           <tr>
+                              <td style="text-align: center">1</td>
+                              <td>Python Fundamentals for Artificial Intelligence</td>
+                              <td style="text-align: center"><a href="notes/2-python-fundamentals-full.pdf">Full</a> / <a href="notes/2-python-fundamentals-4page.pdf">4-page</a></td>
+                              <td>Learning Python, O'Reilly: <a href="https://lbdiscover.ust.hk/bib/991012882953303412">Here</a> <br/>- Chapter 4-5, 7-18, 20, 22-23, 26-27</td>
+                              <td><div style="text-align:center"><a href="notes/python-fundamentals-program.zip">Program</a></div></td>
+                           </tr>
+                           <tr>
+                              <td style="text-align: center">2</td>
+                              <td>Naive Bayes Classifier</td>
+                              <td style="text-align: center"><a href="notes/3-naive-bayes-full.pdf">Full</a> / <a href="notes/3-naive-bayes-4page.pdf">4-page</a></td>
+                              <td>Python: Beginner's Guide to AI: <br/>- Chapter 12 P.266-P.275<br/>
+				  Artificial Intelligence with Python: <a href="https://lbdiscover.ust.hk/bib/991012884447803412">Here</a><br/>- Chapter 2 P.42-P.46
+			      </td>
+                              <td><div style="text-align:center"><a href="notes/naive-bayes-program.zip">Program</a></div>
+				  <div style="text-align:center">Supp. notes 1: <a href="notes/supp-bayes-theorem-proof-full.pdf">Full</a> / <a href="notes/supp-bayes-theorem-proof-4page.pdf">4-Page</a></div>
+				  <div style="text-align:center">Supp. notes 2: <a href="notes/supp-naive-bayes-explanation-full.pdf">Full</a> / <a href="notes/supp-naive-bayes-explanation-4page.pdf">4-Page</a>
+			      </td>
+                           </tr>
+                           <tr>
+                              <td style="text-align: center">3</td>
+                              <td>K-Nearest Neighbors</td>
+                              <td style="text-align: center"><a href="notes/4-k-nearest-neighbors-full.pdf">Full</a> / <a href="notes/4-k-nearest-neighbors-4page.pdf">4-page</a></td>
+                              <td>Python: Beginner's Guide to AI:<br/>- Chapter 8 P.161-P.176<br/>Artificial Intelligence with Python: <a href="https://julac.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=HKUST_IZ51246330040003412&vid=HKUST">Here</a> <br/>- Chapter 5 P.132-P.143</td>
+                              <td><div style="text-align:center"><a href="notes/k-nearest-neighbors-program.zip">Program</a></div>
+				  <div style="text-align:center">Supp. notes 1: <a href="notes/supp-k-nearest-neighbor-population-sample-sd-full.pdf">Full</a> / <a href="notes/supp-k-nearest-neighbor-population-sample-sd-4page.pdf">4-Page</a></div>
+				  <div style="text-align:center">Supp. notes 2: <a href="notes/supp-k-nearest-neighbor-square-root-of-n-full.pdf">Full</a> / <a href="notes/supp-k-nearest-neighbor-square-root-of-n-4page.pdf">4-Page</a></div>
+			      </td>
+                           </tr>
+                           <tr>
+                              <td style="text-align: center">4</td>
+                              <td>K-Means Clustering</td>
+                              <td style="text-align: center"><a href="notes/5-k-means-clustering-full.pdf">Full</a> / <a href="notes/5-k-means-clustering-4page.pdf">4-page</a></td>
+                              <td>Python: Beginner's Guide to AI:<br/>- Chapter 6 P.111-P.122<br/>
+				  Artificial Intelligence with Python: <a href="https://julac.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=HKUST_IZ51246330040003412&vid=HKUST">Here</a><br/> - Chapter 4 P.97-P.124</td>
+                              <td><div style="text-align:center"><a href="notes/k-means-clustering-program.zip">Program</a>
+				  <br/>
+				  Supp. notes - PCA: <a href="notes/supp-PCA-full.pdf">Full</a> | <a href="notes/supp-PCA-4page.pdf">4-Page</a>
+				  </div></td>
+                           </tr>
+                           <tr>
+                              <td style="text-align: center">5</td>
+                              <td>Artificial Neural Network - Perceptron</td>
+                              <td style="text-align: center"><a href="notes/6-ann-perceptron-full.pdf">Full</a> / <a href="notes/6-ann-perceptron-4page.pdf">4-page</a></td>
+                              <td>Artificial Intelligence with Python: <a href="https://julac.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=HKUST_IZ51246330040003412&vid=HKUST">Here</a><br/>- Chapter 14 P.356 - P.366</td>
+                              <td><div style="text-align:center"><a href="notes/ann-perceptron-program.zip">Program</a></div></td>
+                           </tr>
+                           <tr>
+                              <td style="text-align: center">6</td>
+                              <td>Artificial Neural Network - Multilayer Perceptron</td>
+                              <td style="text-align: center"><a href="notes/7-ann-multilayer-perceptron-full.pdf">Full</a> / <a href="notes/7-ann-multilayer-perceptron-4page.pdf">4-page</a></td>
+                              <td>Artificial Intelligence with Python: <a href="https://julac.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=HKUST_IZ51246330040003412&vid=HKUST">Here</a><br/>- Chapter 14 Page 366 - 371</td>
+                              <td><div style="text-align:center"><a href="notes/ann-multilayer-perceptron-program.zip">Program</a>
+				<br/>
+				Supp. notes - Derivation of Backpropagation: <a href="notes/supp-k-multilayer-perceptron-backpropagation-full.pdf">Full</a> | <a href="notes/supp-k-multilayer-perceptron-backpropagation-4page.pdf">4-Page</a>
+				</div>
+			      </td>
+                           </tr>
+                           <tr>
+                              <td style="text-align: center">7</td>
+                              <td>Digital Image Processing Fundamentals</td>
+                              <td style="text-align: center"><a href="notes/8-image-processing-fundamentals-full.pdf">Full</a> / <a href="notes/8-image-processing-fundamentals-4page.pdf">4-page</a></td>
+                              <td>Python Image Processing Cookbook: <a href="https://lbdiscover.ust.hk/bib/991012888737803412">Here</a><br/>- Chapter 1.1-1.3, 2.1, 2.5, 4.1-4.2</td>
+                              <td><div style="text-align:center"><a href="notes/image-processing-fundamentals-program.zip">Program</a></div></td>
+                           </tr>
+                           <tr>
+                              <td style="text-align: center">9</td>
+                              <td>Convolutional Neural Network</td>
+                              <td style="text-align: center"><a href="notes/9-cnn-full.pdf">Full</a> / <a href="notes/9-cnn-4page.pdf">4-page</a></td>
+                              <td>Python: Beginner's Guide to AI: <br/>- Chapter 19 P.427-P.465<br/>Artificial Intelligence with Python: <a href="https://julac.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=HKUST_IZ51246330040003412&vid=HKUST">Here</a><br/>- Chapter 16 Page 399 - 416</td>
+                              <td><div style="text-align:center"><a href="notes/cnn-program.zip">Program</a></div></td>
+                           </tr>
+                           <tr>
+                              <td style="text-align: center">11</td>
+                              <td>Minimax and Alpha-Beta Pruning</td>
+                              <td style="text-align: center"><a href="notes/10-minimax-full.pdf">Full</a> / <a href="notes/10-minimax-4page.pdf">4-page</a></td>
+                              <td>Artificial Intelligence with Python: <a href="https://lbdiscover.ust.hk/bib/991012884447803412">Here</a><br/>- Chapter 9 P.236 - P.247</td>
+                              <td><div style="text-align:center"><a href="notes/minimax-program.zip">Program</a></div></td>
+                           </tr>
+                           <tr>
+                              <td style="text-align: center">12</td>
+                              <td>Ethics of Artificial Intelligence</td>
+                              <td style="text-align: center"><a href="notes/11-ai-ethics-full.pdf">Full</a> / <a href="notes/11-ai-ethics-4page.pdf">4-page</a></td>
+			      <td></td>
+			      <td></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <br/>
+                  </div>
+               </div>
+            </div>
+		<br/>
+		<h4>Lecture Attendance via Zoom</h4>
+        <p>Lectures this semester will only be held via
+Zoom meetings (until we switch to mixed-mode lite of
+teaching later in the
+semester, if possible). The links for the meetings are
+<a href="#schedule">here</a>.
+Before you join a meeting for the first time, visit <a
+href="https://hkust.zoom.us/", target = _blank>this page</a> and sign in to Zoom using your HKUST e-mail, as our lecture meetings will require HKUST user authentication. When attending a lecture meeting, make sure to set up your screen username to:
+
+        <br/><br/>
+        <span style="color:red">LASTNAME Firstname studentusername</span> E.g., CHAN Wing Ho cwingho<br/><br/>
+
+        During a Zoom meeting, please remain muted in order to avoid background noise. If you have questions, you can push the Raise Hand button which will signal this to the instructor who will unmute you. You can also use the Chat function to post questions or comments, if it is enabled by the instructor. We strongly recommend that you join with your camera turned on as this helps create a more interactive online classroom experience. In the first lecture of the semester we will go over the Zoom meeting controls with you but if your have not used Zoom previously we suggest that you play around with it a bit in order to become familiar. You can find a good general set of guidelines <a href="http://cei.ust.hk/zoom-teaching-good-practices-and-faqs", target =_blank>here</a>.</p>
+		<br/>
+		<h4>Lecture Videos</h4>
+		<p>Zoom lecture videos will be published on the supplementary website (<a
+href="https://www.cse.ust.hk/~desmond/comp2211/Password_Only/">https://www.cse.ust.hk/~desmond/comp2211/Password_Only/</a>)
+after each lecture class depending on when they become available.
+		</p>
+         </div>
+         </div>
+      </section>
+      <!-- Honor Code Section -->
+      <section id="honorcode" class="honorcode-section">
+         <div class="container">
+            <div class="row">
+               <h3 class="titleheader">Honor Code</h3>
+               <div class="col-lg-12">
+                  <!--<ul>
+                     <li>Anyone &mdash; both the copier and the copiee &mdash; caught cheating on their assignments will get zero marks for the assignment. In
+                        addition, they BOTH will get an additional 10% deduction from the <strong>final grade</strong> for the first time of cheating.
+                        Anyone get caught for cheating in an assignment for the second time will get an immediate FAIL grade.<br />
+                     </li>
+                     <li>On the other hand, anyone caught cheating in the final exam will get a FAIL grade <strong>immediately</strong>.</li>
+                     <li>There can be additional disciplinary actions as well from the department and university.</li>
+                  </ul>-->
+		  <p>Honesty and integrity are central to academic work.
+You must observe and uphold the highest standards of academic integrity and
+honesty in all the work (lab exercises, programming assignments, exams, etc.) you do in this course. We deal with cheating
+cases seriously
+and the maximum penalty is a FAIL in the course plus additional
+disciplinary actions from the CSE Department as well as from the
+University. Both the copier(s) and the copiee will be punished, and the
+penalty will be more than just a zero mark in your assignments/exams.</p>
+                  <p>Here are links to the <a href="http://ugadmin.ust.hk/integrity/student-1.html" class="contentlink">University's Honor code</a>, and the <a href="http://ugadmin.ust.hk/integrity/student-5.html" class="contentlink">University's Penalties for Cheating</a>.</p>
+                  If you are not sure what is considered plagiarism,
+                  <ul>
+                     <li> <span style="color:red">Do NOT copy program codes from another student/person.</span></li>
+                     <li> <span style="color:red">Do NOT look at the actual program codes of another student.</span></li>
+                     <li> <span style="color:red">Do NOT share actual program codes with other students/people (by paper, emails, blogs, FB, Google Doc, etc.).</span></li>
+                     <li> <span style="color:red">Do NOT give your program codes to other students who ask for it, and do not ask for a copy of their code either.</span></li>
+                     <li> <span style="color:red">Do NOT post your program codes anywhere online.</span></li>
+                     <li> <span style="color:red">Do NOT leave your finished/unfinished program codes unattended.</span></li>
+                     <li> <span style="color:red">While we encourage discussion among students, you have to write codes on your own.</span> </li>
+                     <li> <span style="color:red">During discussion, you should NOT go to the details such that everyone will end up in the same code.</span></li>
+                  </ul>
+		  The list is by no means exhaustive, and you will need to
+use your own discretion.
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- Labs Section -->
+      <section id="labs" class="labs-section">
+         <div class="container">
+            <div class="row">
+               <h3 class="titleheader">Labs</h3>
+               <div class="col-lg-12">
+                  <p>We will use Google Colaboratory (aka Google Colab) as the development platform for AI programming. Please
+read the following tutorial which will help you get started:</p>
+                  <ul>
+                     <li><a href="labs/colab-tutorial/index.html">Google Colaboratory and Usage</a></li>
+                  </ul>
+		  <br/>
+		  <p>Labs this semester will be conducted online via Zoom meetings
+		    <ul>
+			<li>When attending the meeting, make sure to set up your screen username to:<br/>
+			   <span style="color:red">LASTNAME Firstname  studentusername E.g., CHAN Wing Ho cwingho</span>.
+			</li>
+			<li>During the lab meeting, "raise hand" if you want to talk to your TA. TA will follow chronological order when handling raise hand request. If you need to share your code, you will be put in a breakout room when it is your turn.</li>
+	        </ul>
+To get point for the lab, you are requied to finish the requirement / program, and
+submit it to the <a href="https://zinc.cse.ust.hk">ZINC (automatic grading system)</a> on or
+before the deadline as stated on the lab page. Each graded lab is worth 2 points.
+		  </p><br/>
+		  <p><span style="font-weight:bold">Note to all students:</span><br/><br/>
+                  The lab exercises are designed to help you learn a AI programming with on-the-spot advices of a
+teaching assistant. All the TAs assigned to the course are very experienced in AI programming. It is more a service to you than
+an exercise for the marks. The 10% mark is only set to encourage you to make good use of the lab time.
+		  Although we don't expect you to finish the lab exercise before you attend the lab, we expect you to have
+read the lab's materials and understand what you are required to do.
+		  </p>
+				  <br/>
+		  <p>
+		  <span style="font-weight:bold">[Public holiday exception]</span>
+		  <br/>
+		  If a day is a public holiday, students are not required
+to attend the labs held on that day, other students are not affected.
+However, although a student may not need to attend a non-graded lab on a day that happens to be a public
+holiday, we strongly encourage the student to still go over the materials
+of that lab and try to finish it. Labs help students review what they are
+taught in lectures and get ready for the next lab.
+<br/><br/>
+This policy will also apply to situations when classes/labs are cancelled
+due to, e.g., adverse weather conditions, etc.
+		  </p>
+                  <br />
+                  <!--<p><strong>Lab Safety</strong></p>
+                  Please read the lab safety
+                  <a href="http://www.ab.ust.hk/hseo/sm06/ch7.htm"> here</a>.<br/><br/>
+                  <br/>-->
+                  <!--<span style="color:red">No labs for the first two academic weeks. (See announcements)</span>-->
+                  <div class="table-responsive regulartable" style="border:none">
+                     <table class="table-hover">
+                        <tr>
+                           <th>Date</th>
+                           <th>Topic</th>
+                           <th>Solution</th>
+                           <!--<th>Common errors</th>-->
+                        </tr>
+                        <tr>
+                           <td>February 7, 8, 9 &amp; February 14, 15, 16</td>
+                           <td colspan="2" style="color:red">No lab in the first two weeks. Lab time will be used to conduct review classes. For details, please refer to the announcement section.</td>
+                        </tr>
+                        <tr>
+                           <td>February 21, 22, 23</td>
+                           <td><a href="labs/lab1">Lab 1 - NumPy</a></td>
+                           <td style="text-align:center">
+                             <a href="labs/lab1/Lab1_Tasks_sol.ipynb">Solution</a>
+                           </td>
+                           <!--<td style="text-align:center"><a href="labs/lab1/common-errors.html">Here</a></td>-->
+                        </tr>
+                        <tr>
+                           <td>February 28, March 1, 2</td>
+                           <td><a href="labs/lab2/">Lab 2 - Naive Bayes Classifier</a></td>
+                           <td>
+						     <ul>
+							   <li><a href="labs/lab2_sol/lab2_sol.ipynb">No-Array Wall-of-Variables</a></li>
+							   <li><a href="labs/lab2_sol/Lab2_Tasks_numpy_op.ipynb">Using Numpy</a></li>
+							   <li><a href="labs/lab2_sol/Naive-Bayes-From-Scratch.ipynb">Library Implementation</a></li>
+							 </ul>
+                           </td>
+                           <!--<td style="text-align:center"><a href="labs/lab2/common-errors.html">Here</a></td>-->
+                        </tr>
+                        <tr>
+                           <td>March 7, 8, 9</td>
+                           <td><a href="labs/lab3/">Lab 3 - K-Nearest Neighbors</a></td>
+                           <td style="text-align:center">
+                               <a href="labs/lab3/lab3_soln.ipynb">Solution</a>
+                           </td>
+                           <!--<td style="text-align:center"><a href="labs/lab3/common-errors.html">Here</a></td>-->
+                        </tr>
+                        <tr>
+                           <td>March 14, 15, 16</td>
+                           <td><a href="labs/lab4/">Lab 4 - K-Means Clustering</a></td>
+                           <td style="text-align:center">
+			      <a href="labs/lab4/lab4_tasks.py">Solution</a>
+			   </td>
+                           <!--<td style="text-align:center"><a href="labs/lab4/common-errors.html">Here</a></td>-->
+                        </tr>
+                        <tr>
+                           <td>March 21, 22, 23</td>
+                           <td><a href="labs/lab5/">Lab 5 - Simple Perceptron</a></td>
+                           <td style="text-align:center">
+                              <a href="labs/lab5/lab5_task_solu.ipynb">Solution</a>
+                          </td>
+                           <!--<td style="text-align:center"><a href="labs/lab5/common-errors.html">Here</a></td>-->
+                        </tr>
+                        <tr>
+                           <td>April 4, 5, 6</td>
+                           <td><a href="labs/lab6/">Lab 6 - Multilayer Perceptron</a></td>
+                           <td style="text-align:center">
+                              <a href="labs/lab6/lab6_tasks_soln.py">Solution</a>
+                          </td>
+                          <!--<td style="text-align:center"><a href="labs/lab6/common-errors.html">Here</a></td>-->
+                        </tr>
+                        <tr>
+                           <td>April 11, 12, 20</td>
+                           <td><a href="labs/lab7/">Lab 7 - Digital Image Processing Fundamentals</a></td>
+                           <td style="text-align:center">
+                              <a href="labs/lab7/Lab7_tasks_soln.ipynb">Solution</a>
+                          </td>
+                          <!--<td style="text-align:center"></td>-->
+                        </tr>
+
+                        <tr>
+                           <td>April 25, 26, 27</td>
+                           <td><a href="labs/lab8/">Lab 8 - Convolutional Neural Network</a></td>
+                           <td style="text-align:center">
+                              <a href="labs/lab8/lab8_sol.ipynb">Solution</a>
+                           </td>
+                           <!--<td style="text-align:center"></td>-->
+                        </tr>
+                        <tr>
+                           <td>May 3, 4, 9</td>
+                           <td><a href="labs/lab9/">Lab 9 - Minimax and Alpha-Beta Pruning</a></td>
+                           <td style="text-align:center">
+                              <a href="labs/lab9/lab9_tasks_sol.ipynb">Solution</a>
+                           </td>
+                        </tr>
+                        <!--<tr>
+                           <td>November 23</td>
+                           <td><a href="labs/lab8/">Lab 8 - Binary Search Tree and Tree Traversals</a></td>
+                           <td>
+                              <a href="labs/lab8_complete.zip">lab8_complete.zip</a>
+                           </td>
+                           <td style="text-align:center"><a href="labs/lab8/common-errors.html">Here</a></td>
+                        </tr>
+                        <tr>
+                           <td>November 21, 22</td>
+                           <td colspan="3" style="text-align:center">Programming Assignment 4 Demonstration</td>
+                        </tr>
+                        <tr>
+                           <td>November 28, 29</td>
+                           <td><a href="labs/lab8/">Lab 8 - Binary Trees and Tree Traversals</a></td>
+                           <td>
+                             <ul style="margin-left:-20px">
+                              <li>Solution: <a href="labs/lab8/sol/lab8_solution.zip">lab8_solution.zip</a></li>
+                             </ul>
+                           </td>
+                           <td><a href="labs/lab7/common-errors.html">Common Errors</a></td>
+                        </tr>-->
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- Assignments Section -->
+      <section id="assignments" class="projects-section">
+         <div class="container">
+            <div class="row">
+               <h3 class="titleheader">Programming Assignments</h3>
+               <div class="table-responsive regulartable" style="border:none">
+                  <table class="table-hover">
+                     <tr>
+                        <th>Topic</th>
+                        <th style="text-align:center">TA-in-charge</th>
+                        <th>Solution and Appeal</th>
+                     </tr>
+                     <tr>
+                        <td><a href="assignments/pa1/">Programming Assignment 1: K-Nearest Neighbors and Cross-Validation</a></td>
+                        <td style="text-align:center">CHANG, Bing Yen and PARK, Chan Ho <br/>(<a href="mailto:bychang@connect.ust.hk">bychang@connect.ust.hk</a>, <a href="mailto:chparkaa@connect.ust.hk">chparkaa@connect.ust.hk</a>)</td>
+                        <td><a href="assignments/pa1_appeal/">Solution &amp; Appeal Procedure</a></td>
+                     </tr>
+                     <tr>
+                        <td><a href="assignments/pa2/">Programming Assignment 2: Image Classification using CNN</a></td>
+                        <td style="text-align:center">HUANG, Zeyu<br/>(<a href="mailto:zhuangbi@connect.ust.hk">zhuangbi@connect.ust.hk</a>)</td>
+                        <td><a href="assignments/pa2_appeal/">Solution &amp; Appeal Procedure</a></td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- Exam Section -->
+      <section id="exams" class="exam-section">
+         <div class="container">
+            <div class="row">
+               <h3 class="titleheader">Exam</h3>
+               <div class="col-lg-8">
+                  <h4>Midterm Exam</h4>
+                  <ul>
+                  <li>Date: 2 April 2022 (Saturday)</li>
+                  <li>Time: 2pm - 4pm</li>
+                  <li>Venue: Zoom + Canvas<!--LT-A &amp; LT-B-->
+		  <li>Detailed instructions: <a href="midterm/">Here</a></li>
+		  <li>Zoom Meeting Link: <a href="midterm-zoom-meeting.html">Here</a>
+<!--CYT G010 <a
+href="http://pathadvisor.ust.hk/interface.php?roomno=cytg010"><span class="glyphicon glyphicon-search"
+aria-hidden="true"></span></a>(<a
+href="https://course.cse.ust.hk/comp2012h/misc/midterm-seating-plan.html">Seating Plan</a>)--></li>
+                  <li>
+                     Scope:
+                     <ul>
+                       <li>Introduction to Artificial Intelligence</li>
+		       <li>Python Fundamentals for Artificial Intelligence</li>
+		       <li>Naive Bayes Classifier</li>
+		       <li>K-Nearest Neighbors</li>
+		       <li>K-Means Clustering</li>
+		       <li>Artificial Neural Network - Perceptron</li>
+		       <li>Artificial Neural Network - Multilayer Perceptron (P.1 - P.22)</li>
+                     </ul>
+                 </li>
+                 <li>
+                     <p>Statistics of the Midterm Exam
+                       <ul>
+                         <li>Mean = 67.91</li>
+                         <li>Standard deviation = 13.04</li>
+                         <li>Median = 67.65</li>
+                         <li>Max = 97.25</li>
+                         <!--<li>Mean score of each question:
+                           <ul>
+                             <li>Q1: 5.7 / 10.0; Q2: 13.0 / 22.0; Q3: 6.5 / 10.0</li>
+                             <li>Q4: 5.1 / 10.0; Q5: 11.0 / 17.0; Q6: 6.6 / 13.0; Q7: 10.0 / 18.0</li>
+                           </ul>
+                         </li><br/>-->
+                         <li>Score Distribution:<br/><br/>
+                           <img style="width:100%" src="midterm/comp2211-midterm-distribution-spring-2022.png"/>
+                         </li>
+                       </ul>
+                     </p>
+                  </li>
+                  <li>Exam Papers, Solutions and Marking Scheme:
+                    <ul>
+                      <li><a href="midterm/comp2211-midterm-2022S-paper.pdf">Question Paper</a></li>
+                      <li><a href="midterm/comp2211-midterm-2022S-scheme.pdf">Solutions and Marking Scheme</a></li>
+                    </ul>
+                  </li>
+                </ul>
+               </div>
+               <div class="col-lg-8">
+                  <h4>Final Exam</h4>
+                  <ul>
+                  <li>Date: 27 May 2022 (Friday)</li>
+                  <li>Time: 12:40pm - 3:30pm</li>
+                  <li>Venue: Zoom + Canvas</li>
+		  <li>Detailed instructions: <a href="final/">Here</a></li>
+		  <li>Zoom Meeting Link: <a href="final-zoom-meeting.html">Here</a>
+                  <li>
+                     Scope:
+                     <ul>
+                        <li>Introduction to Artificial Intelligence</li>
+			<li>Python Fundamentals for Artificial Intelligence</li>
+			<li>Naive Bayes Classifier</li>
+			<li>K-Nearest Neighbors</li>
+			<li>K-Means Clustering</li>
+			<li>Artificial Neural Network - Perceptron</li>
+			<li>Artificial Neural Network - Multilayer Perceptron</li>
+			<li>Digital Image Processing Fundamentals</li>
+			<li>Convolutional Neural Network</li>
+			<li>Minimax and Alpha-Beta Pruning</li>
+			<li>Ethics of Artificial Intelligence</li>
+                      </ul>
+                  </li>
+		  <li>All materials including lecture notes, lab exercises and programming assignments  may be tested.</li>
+		  <li>The final exam will mainly focus on the parts after the midterm. But you may still be tested the materials that we covered before the midterm.</li>
+		  <li>
+                     <p>Statistics of the final exam:
+                     <ul>
+                         <li>Mean: 66.48</li>
+                         <li>Stdev: 13.82</li>
+                         <li>Median: 67.00</li>
+                         <li>Max: 94.50</li>
+                         <li>Score distribution:<br/><br/>
+                             <img style="width:100%" src="final/comp2211-final-distribution-spring-2022.png"/>
+                         </li>
+                     </ul>
+		     </p>
+                   </li>
+                   <li>Exam Papers, Solutions and Marking Scheme:
+                     <ul>
+                       <li><a href="final/comp2211-final-2022S-part-a-scheme.pdf">Part A: Questions, Solutions and Marking Scheme</a></li>
+                       <li><a href="final/comp2211-final-2022S-part-b-scheme.pdf">Part B: Questions, Solutions and Marking Scheme</a></li>
+                     </ul>
+                   </li>
+		  </ul>
+               </div>
+               <br/>
+               <!--<div class="col-lg-12">
+                  <h4>Exam Papers of the Past Years</h4>
+                  <div class="table-responsive regulartable" style="border:none">
+                     <table class="table-hover">
+                        <thead>
+                           <tr>
+                              <th colspan="3" style="text-align:center">COMP 2011</th>
+                              <th colspan="3" style="text-align:center">COMP 2012</th>
+                           </tr>
+                        </thead>
+                        <thead>
+                           <tr>
+                              <th></th>
+                              <th style="text-align:center">Mid-Term Exams</th>
+                              <th style="text-align:center">Final Exams</th>
+                              <th></th>
+                              <th style="text-align:center">Mid-Term Exams</th>
+                              <th style="text-align:center">Final Exams</th>
+                           </tr>
+                        </thead>
+                        <tr>
+                           <td>2018F</td>
+                           <td>Not Available</td>
+                           <td>Not Available</td>
+                           <td>2018F</td>
+                           <td>
+                              <a href="past-paper/comp2012/mid-term/comp2012-midterm2018F1.pdf">Question I</a> |
+                              <a href="past-paper/comp2012/mid-term/comp2012-midterm2018F2.pdf">Question II</a> |
+                              <a href="past-paper/comp2012/mid-term/comp2012-midterm2018F-soln.pdf">Solution</a>
+                           </td>
+                           <td>
+                              <a href="past-paper/comp2012/final/comp2012-final2018F1.pdf">Question I</a> |
+                              <a href="past-paper/comp2012/final/comp2012-final2018F2.pdf">Question II</a> |
+                              <a href="past-paper/comp2012/final/comp2012-final2018F-soln.pdf">Solution</a>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>2018S</td>
+                           <td>No Midterm</td>
+                           <td><a href="past-paper/comp2011/final/comp2011-final2018S.pdf">Question</a> | <a
+                              href="past-paper/comp2011/final/comp2011-final2018S-soln.pdf">Solution</a></td>
+                           <td>2018S</td>
+                           <td>
+                              <a href="past-paper/comp2012/mid-term/comp2012-midterm2018S.pdf">Question</a> |
+                              <a href="past-paper/comp2012/mid-term/comp2012-midterm2018S-soln.pdf">
+                                 Solution</>
+                           </td>
+                           <td><a
+                              href="past-paper/comp2012/final/comp2012-final2018S.pdf">Question</a> | <a
+                              href="past-paper/comp2012/final/comp2012-final2018S-soln.pdf">Solution</a></td>
+                        </tr>
+                        <tr>
+                           <td>2017F</td>
+                           <td>
+                              <a href="past-paper/comp2011/mid-term/comp2011-midterm2017F.pdf">Question</a> |
+                              <a
+                                 href="past-paper/comp2011/mid-term/comp2011-midterm2017F-soln.pdf">
+                                 Solution</>
+                           </td>
+                           <td><a href="past-paper/comp2011/final/comp2011-final2017F.pdf">Question</a> | <a
+                              href="past-paper/comp2011/final/comp2011-final2017F-soln.pdf">Solution</a></td>
+                           <td>2017F</td>
+                           <td>
+                              <a
+                                 href="past-paper/comp2012/mid-term/comp2012-midterm2017F.pdf">Question</a> |
+                              <a
+                                 href="past-paper/comp2012/mid-term/comp2012-midterm2017F-soln.pdf">
+                                 Solution</>
+                           </td>
+                           <td><a
+                              href="past-paper/comp2012/final/comp2012-final2017F.pdf">Question</a> | <a
+                              href="past-paper/comp2012/final/comp2012-final2017F-soln.pdf">Solution</a></td>
+                        </tr>
+                        <tr>
+                           <td>2017S</td>
+                           <td>
+                              <a href="past-paper/comp2011/mid-term/comp2011-midterm2017S.pdf">Question</a> |
+                              <a
+                                 href="past-paper/comp2011/mid-term/comp2011-midterm2017S-soln.pdf">
+                                 Solution</>
+                           </td>
+                           <td><a href="past-paper/comp2011/final/comp2011-final2017S.pdf">Question</a> | <a
+                              href="past-paper/comp2011/final/comp2011-final2017S-soln.pdf">Solution</a></td>
+                           <td>2017S</td>
+                           <td>
+                              <a
+                                 href="past-paper/comp2012/mid-term/comp2012-midterm2017S.pdf">Question</a> |
+                              <a
+                                 href="past-paper/comp2012/mid-term/comp2012-midterm2017S-soln.pdf">
+                                 Solution</>
+                           </td>
+                           <td><a
+                              href="past-paper/comp2012/final/comp2012-final2017S.pdf">Question</a> | <a
+                              href="past-paper/comp2012/final/comp2012-final2017S-soln.pdf">Solution</a></td>
+                        </tr>
+                     </table>
+                  </div>
+               </div>-->
+
+
+               <!--<div class="col-lg-12">
+                  <div class="table-responsive regulartable" style="border:none">
+                     <table class="table-hover">
+                        <thead>
+                           <tr>
+                              <th colspan="3" style="text-align:center">COMP 2012H</th>
+                           </tr>
+                        </thead>
+                        <thead>
+                           <tr>
+                              <th></th>
+                              <th style="text-align:center">Mid-Term Exams</th>
+                              <th style="text-align:center">Final Exams</th>
+                           </tr>
+                        </thead>
+			<tr>
+                           <td>2020F</td>
+                           <td>No Midterm Exam</td>
+                           <td><a href="past-paper/comp2012h/final/comp2012h-final-2020F-paper.pdf">Question</a> |
+			       <a href="past-paper/comp2012h/final/comp2012h-final-2020F-scheme.pdf">Solution</a></td>
+                        </tr>
+			<tr>
+                           <td>2019F</td>
+                           <td><a href="past-paper/comp2012h/midterm/comp2012h-midterm-2019F-paper.pdf">Question</a> |
+                               <a href="past-paper/comp2012h/midterm/comp2012h-midterm-2019F-marking-scheme.pdf">Solution</a></td>
+                           <td>No Final Exam</td>
+                        </tr>
+                        <tr>
+                           <td>2018F</td>
+                           <td><a href="past-paper/comp2012h/midterm/comp2012h-midterm-2018F-paper.pdf">Question I</a> |
+                               <a href="past-paper/comp2012h/midterm/comp2012h-midterm-2018F-Q5-Q7.pdf">Question II</a> |
+                               <a href="past-paper/comp2012h/midterm/comp2012h-midterm-2018F-marking-scheme.pdf">Solution</a></td>
+                           <td><a href="past-paper/comp2012h/final/comp2012h-final-2018F-paper.pdf">Question I</a> |
+                               <a href="past-paper/comp2012h/final/comp2012h-final-2018F-Q5-Q7.pdf">Question II</a> |
+                               <a href="past-paper/comp2012h/final/comp2012h-final-2018F-scheme.pdf">Solution</a></td>
+                        </tr>
+                     </table>
+                  </div>-->
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- Self-learning Section -->
+      <!--<section id="selflearning" class="self-learning-section">
+         <div class="container">
+            <div class="row">
+               <h3 class="titleheader">Self-learning Center</h3>
+               <div class="col-lg-4">
+                  <h4>Self-Tests</h4>
+                  <ul>
+                     <li id="menu1"><a href="self-test/self-test1.html" target="target_a"> Self-test 1: C++ Basic</a></li>
+                     <li id="menu2"><a href="self-test/self-test2.html" target="target_a"> Self-test 2: Control Flow (If-then-else)</a></li>
+                     <li id="menu3"><a href="self-test/self-test3.html" target="target_a"> Self-test 3: Control Flow (Loops)</a></li>
+                     <li id="menu4"><a href="self-test/self-test4.html" target="target_a"> Self-test 4: Function Basics</a></li>
+                     <li id="menu5"><a href="self-test/self-test5.html" target="target_a"> Self-test 5: Basics II and Control II</a></li>
+                     <li id="menu6"><a href="self-test/self-test6.html" target="target_a"> Self-test 6: Array</a></li>
+                     <li id="menu7"><a href="self-test/self-test7.html" target="target_a"> Self-test 7: Recursive Functions</a></li>
+                     <li id="menu8"><a href="self-test/self-test8.html" target="target_a"> Self-test 8: Function Overloading, Default Arguments, etc.</a></li>
+                     <li id="menu9"><a href="self-test/self-test9.html" target="target_a"> Self-test 9: Scope and Separate Compilation</a></li>
+                     <li id="menu10"><a href="self-test/self-test10.html" target="target_a"> Self-test 10: Struct and Pointer</a></li>
+                     <li id="menu11"><a href="self-test/self-test11.html" target="target_a"> Self-test 11: C++ Classes</a></li>
+                     <li id="menu12"><a href="self-test/1_Basic.html" target="target_a"> Self-test 12: C++ Classes II</a></li>
+                     <li id="menu13"><a href="self-test/2_Const-ness.html"  target="target_a">Self-test 13: C++ Const-ness</a></li>
+                     <li id="menu14"><a href="self-test/3_Constructor-Destructor.html" target="target_a"> Self-test 14: Constructors and Destructors</a></li>
+                     <li id="menu15"><a href="self-test/4_Inheritance.html" target="target_a"> Self-test 15: Inheritance and Virtual Function</a></li>
+                     <li id="menu16"><a href="self-test/5_Template.html" target="target_a"> Self-test 16: Templates</a></li>
+                     <li id="menu17"><a href="self-test/6_STL_Library.html" target="target_a"> Self-test 17: STL Library</a></li>
+                     <li id="menu18"><a href="self-test/self-test12.html" target="target_a"> Self-test 18: Stack and Queue</a></li>
+                     <li id="menu19"><a href="self-test/8_Binary_Tree.html" target="target_a"> Self-test 19: Binary Tree</a></li>
+                     <li id="menu20"><a href="self-test/7_Hashing.html" target="target_a"> Self-test 20: Hashing</a></li>
+                     <li id="menu21"><a href="self-test/9_C++11.html" target="target_a"> Self-test 21: C++11 Features (rvalue Reference and Move Semantics)</a></li>
+                  </ul>
+               </div>
+               <div class="col-lg-4">
+                  <h4>Supplementary Materials</h4>
+                  <ul>
+		     <li>
+			<a href="practice2020/index.html" target="_black">Lab Exercises and Programming Assignments for FALL 2020/21</a>
+		     </li>
+		     <li>
+			<a href="practice2019/index.html" target="_black">Lab Exercises and Programming Assignments for FALL 2019/20</a>
+		     </li>
+		     <li>
+			<a href="practice2018/index.html" target="_black">Lab Exercises and Programming Assignments for FALL 2018/19</a><br/><br/>
+		     </li>
+                     <li>
+                        <a href="labs/vscode/index.html" target="_blank">VS Code Installation and Usage</a>
+                        <p>We use VS Code to write C++ codes in this course. VS Code provides an Integrated Development Environment (IDE) that allows developers to write, build, and debug C++ programs.</p>
+                     </li>
+                     <li><a href="https://developers.google.com/edu/c++/">Google's C++ Class</a><br />
+                     </li>
+                     <li>Online C++ References:<br />
+                        <a href="http://www.cplusplus.com/reference/">http://www.cplusplus.com/reference/</a><br />
+                        <a href="http://www.cplusplus.com/doc/tutorial/">http://www.cplusplus.com/doc/tutorial/</a><br />
+			<a href="http://www.gnu.org/software/make/manual/make.html">GNU 'make' Manual</a><br/>
+                        <br />
+                     </li>
+                     <li><a href="misc/C++Standard-ANSI-ISO-IEC-14882-2003.pdf">ANSI C++ Standard 2003</a><br /></li>
+                     <li><a href="misc/C++11-Standard-ANSI-ISO-IEC-n3337-20120116.pdf">ANSI C++ Standard 2012</a><br/></li>
+                     <li><a href="http://en.wikipedia.org/wiki/C%2B%2B14">Information about the new ANSI C++ Standard 2014</a><br/></li>
+                     <li><a href="https://en.wikipedia.org/wiki/C%2B%2B17">Information about the new ANSI C++ Standard 2017</a><br/></li>
+                     <li><a href="http://en.wikipedia.org/wiki/C%2B%2B20">Information about the new ANSI C++ Standard 2020</a><br/></li>
+                  </ul>
+               </div>
+
+               <div class="col-lg-4">
+                  <h4>Memory Leak Check</h4>
+                  <ul>
+		     <li><a href="misc/drmemory_tutorial.html">Dr. Memory</a></li>
+		     <li><a href="misc/valgrind_tutorial.html">Valgrind</a></li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </section>-->
+      <!-- FAQs Section -->
+      <section id="faqs" class="faqs-section">
+         <div class="container">
+            <div class="row">
+               <h3 class="titleheader">FAQs</h3>
+               <div class="col-lg-12">
+                  <h4 style="padding-top:5px">How hard should I work?</h4>
+                  <br />
+                  Some people say that a 3-unit course takes 8 hours/week. It all depends. You should cultivate an independent learning habit.<br />
+                  <br />
+                  Here is a guideline:<br />
+                  <ul>
+                     <li>pre-study (1 hour): what topic/materials will the coming lecture be covering? </li>
+                     <li>
+                        attend class (3 hours): The A+ students tell you that they pay FULL attention in class and try to understand everything in the class so that it is easy to review the class materials.
+                        <ul>
+                           <li>our notes provide a guideline; also take your own notes </li>
+                           <li>ask questions whenever you don't understand<br />
+                           </li>
+                        </ul>
+                     </li>
+		     <li>attend labs (2 hours)</li>
+                     <li>post-study (2 hours): re-reading the notes, book reading<br />
+                     </li>
+                  </ul>
+                  <br />
+                  <!--<h4 style="padding-top:5px">How do I learn a new programming language?</h4>
+                  <br />
+                  Learning a programming language is similar to learning a human language (like Chinese, English, French, etc.) but only easier. However, the basic technique is similar to the 3Rs:<br />
+                  <ul>
+                     <li>read more: we are not going to follow the recommended textbook vigorously, and we can't give all the details in our lectures. Read the book! <br />
+                     </li>
+                     <li>write more: there are only 3 programming assignments in this class. That is NOT enough! Think of problems around you and try to solve them by writing a computer   program.<br />
+                     </li>
+                  </ul>-->
+                  <!--<p>&nbsp;</p>-->
+                  <h4 style="padding-top:5px">How can I write a program effectively?</h4>
+                  <br />
+                  You should spend a lot of time in THINKING (stay away from the computer) before you start WRITING. No matter how beautiful your codes are, if the method you use is wrong, they are still wrong codes.<br />
+                  <br />
+                  Here is a guideline:<br />
+                  <ul>
+                     <li>planning (30 - 40%) : algorithm design, code design, documentation </li>
+                     <li>coding (60 - 70%) :  writing code, debugging, testing </li>
+                  </ul>
+                  <br />
+                  <h4 style="padding-top:5px">What operating system do I use to program for this class?</h4>
+                  <br />
+                  We will use Colab programming environment, which is a platform-independent solution. So, you can simply
+open up a browser and run Colab on your PC, Mac, and Linux.
+                  <p>&nbsp;</p>
+                  <h4 style="padding-top:5px">Where may I get help on programming problems?</h4>
+                  <br/>
+                  God help those who help themselves! But if you can't find your God, try the following, in that order:<br/>
+                  <ul>
+                     <li>Email your question to your TAs. (We do most business using emails here in the university.) Please do not expect an answer right away. </li>
+                     <li>Email your question to the instructor. </li>
+                     <li>Don't expect the instructors and your TAs to be your debugger! Except for obvious bugs, we won't debug for you. </li>
+                     <li>Find it on the Web.<br />
+                     </li>
+                  </ul>
+                  <br />
+                  <p>
+                  <h4 style="padding-top:5px">
+                     Where may I get more information about the computing facilities in CSE department?
+                  </h4>
+                  <br />
+                  You can't afford to miss the following URL from our cssystem:<br />
+                  <a href="http://cssystem.cse.ust.hk/home.php?docbase=UGuides&amp;req_url=UGuides/index.html#ug">http://cssystem.cse.ust.hk/home.php?docbase=UGuides&amp;req_url=UGuides/index.html#ug</a>
+               </div>
+            </div>
+         </div>
+      </section>
+      <footer class="page-footer">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-12">
+                  Last modified on <script type="text/javascript">document.write(document.lastModified);</script>
+                  <br/>
+                  Maintained by COMP 2211 Teaching Team &copy; 2022 HKUST Computer Science and Engineering
+               </div>
+            </div>
+         </div>
+      </footer>
+      <!-- jQuery -->
+      <script src="js/jquery.js"></script>
+      <!-- Bootstrap Core JavaScript -->
+      <script src="js/bootstrap.min.js"></script>
+      <!-- Scrolling Nav JavaScript -->
+      <script src="js/jquery.easing.min.js"></script>
+      <script src="js/scrolling-nav.js"></script>
+   </body>
+</html>

@@ -437,6 +437,10 @@ const FETCHED_COURSES: FetchedCourses = {
     title: 'Unix and Script Programming',
     description: 'Unix utilities and file structure; links and symbolic links; data processing and process control in the Unix shell; Shell programming; regular expressions; script programming in the Unix environment.  Laboratory exercises are designed to give hands-on practice with software tools and to increase programmer productivity.'
   },
+  'COMP 2211': {
+    title: 'Exploring Artificial Intelligence',
+    description: 'This course aims to give a gentle introduction to the basic elements of artificial intelligence (AI) through understanding examples from various applications and hands-on experimentation using AI software tools. In addition to covering the technical aspect of AI through such topics as search and problem solving, knowledge representation, probabilistic reasoning, machine learning, computer vision and image processing, speech and language processing, and robotics, this course will also study the historical perspective, social and ethical implications, as well as potential and limitations of AI.',
+  },
   'COMP 2521': {
     title: 'Mobile Application Development Projects',
     description: 'This course is intended to bring together students from different disciplines to focus on coming up with innovative mobile solutions to address domain-specific problems. This will be a student-led project-based course. Teams of students will focus on developing applications to address the needs of specific application domains. Learning additional technical knowledge will be demand-driven in self-learning mode. Students will be supported by technical advisors, which include a faculty member who is the main instructor, as well as instructional assistant(s) and student\nhelpers with technical knowledge.'
