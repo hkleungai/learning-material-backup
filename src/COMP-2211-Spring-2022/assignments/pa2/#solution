@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- ### Change lab number ### -->
+  <title>COMP 2211 Programming Assignment 2</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/blog-home.css" rel="stylesheet">
+
+  <!-- For code highlighting -->
+  <link href="vendor/prism/prism.css" rel="stylesheet" />
+
+</head>
+
+<body>
+  <script src="vendor/prism/prism.js"></script>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Entries Column -->
+      <div class="col-md-9">
+
+        <h2 class="my-4"><span style="color:darkblue">COMP 2211</span>
+          <small>Exploring Artificial Intelligence</small>
+        </h2>
+
+        <!-- ### Change lab number and title ### -->
+        <h3 class="my-4">Programming Assignment 2: Image Classification using CNN
+        </h3>
+
+        <!-- Introduction section -->
+        <!-- ### Complete introduction section for the lab ### -->
+        <div class="card mb-4">
+
+          <!-- ### Add an image representing the lab content here ### -->
+          <a href="https://quickdraw.withgoogle.com/" target="_blank" rel="noreferrer noopener">
+            <img class="card-img-top" src="images/quick-draw.png" alt="Quick, Draw! Banner">
+          </a>
+
+          <div class="card-body" id="introduction">
+            <h3 class="card-title">Introduction</h3>
+            <div class="card-text">
+              <p>
+                <blockquote>
+                  <a href="https://github.com/googlecreativelab/quickdraw-dataset" target="_blank" rel="noreferrer noopener">Quick Draw dataset</a>
+                  is a doodling dataset of 50 million drawings across 345 categories,
+                  contributed by players of the game
+                  <a href="https://quickdraw.withgoogle.com/" target="_blank" rel="noreferrer noopener">Quick, Draw!</a>.
+                </blockquote>
+              </p>
+              <p>
+                In this assignment, you are given a <small>small</small> subset
+                of the dataset comprising 8 categories and 5000 images per category,
+                on which you will build a CNN model to classify those doodles.
+                You will mainly use Keras library, with <small>a little</small>
+                touch on NumPy and TensorFlow.
+                (I mean the non-Keras part of TensorFlow).
+              </p>
+              <p style="color:red">
+                Please refer to piazza posts or <a href="#changelog">the Assignment Tasks section below</a>
+                for the changelog of skeleton files since PA release.
+              </p>
+            </div>
+          </div>
+          <div class="card-footer text-muted">
+            <cite>
+              <small>
+                <strong>Doodles</strong> are simple drawings that can have concrete representational meaning
+                or may just be composed of random and abstract lines, generally without ever lifting
+                the drawing device from the paper, in which case it is usually called a "scribble".
+                ——<a href="files/pa2_solution.zip" target="_blank" rel="noreferrer noopener" style="color:inherit;text-decoration:underline;font-weight:bold;">Wikipedia</a>
+              </small>
+            </cite>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body" id="tasks">
+            <h3 class="card-title">Assignment Tasks</h3>
+            <p class="card-text">The following bullet points
+              give you a general idea of what to do
+              in this assignment.
+            </p>
+            <ul>
+              <li>
+                Loading and Peeking at the dataset
+                <ul>
+                  <li>
+                    Task 1: Reshape X to correct format
+                  </li>
+                  <li>
+                    Task 2: One-hot encode Y
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Data augmentation
+                <ul>
+                  <li>
+                    Task 3: Build the data augmentation pipeline
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Build the model
+                <ul>
+                  <li>
+                    Task 4: Build the main CNN model
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Compile and train the model
+                <ul>
+                  <li>
+                    Task 5: Compile the model
+                  </li>
+                  <li>
+                    Task 6: Train the model
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Evaluate the model
+                <ul>
+                  <li>
+                    Task 7: Evaluate the model on the test dataset
+                  </li>
+                  <li>
+                    Task 8: Use the model to predict specific images
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <p>
+              Please download
+              the <a href="files/pa2.ipynb">notebook</a> here.
+              The first code block in the notebook will download
+              the following additional files, but you can
+              also download them manually and comment out the first cell.
+            </p>
+            <ul>
+              <li>The <a href="files/pa2.py">additional python script</a>
+              (where your code goes to)</li>
+              <li>The <a href="files/draw.npz">dataset</a></li>
+              <li>The <a href="files/draw_example.zip">sample dataset images</a></li>
+            </ul>
+            <p>
+              The final file structure is like
+            </p>
+<pre><code>pa2.ipynb
+pa2.py
+draw.npz
+draw_example/
+    drums/
+        0.png
+        ...
+        3.png
+    eiffel_tower/
+        ....
+    ...</code></pre>
+            <p>
+              And you should see the following if you open the notebook successfully.
+              <img style="width:100%" src="images/notebook.jpg" alt="Colab notebook preview">
+            </p>
+            <p id="changelog" style="color:red">
+              Changes made to the following files:
+            </p>
+            <ul>
+              <li>
+                Not related to codes
+                <ul>
+                  <li>
+                    May 6: In notebook task 8, removed the line
+                    "<s>optionally, set the batch size to 32</s>".
+                    That is already the default behavior according to the documentation.
+                  </li>
+                  <li>
+                  Apr 25: In notebook, each image in the dataset is an 1D array
+                  of length <s>728</s> 784 (28*28)
+                  </li>
+                  <li>
+                  Apr 25: In notebook Task 7, <code>model.evaluate</code>
+                  doesn't have parameters for validation set.
+                  I removed the sentence mentioning <code>x_val</code> and <code>y_val</code>.
+                  It was copied from Task 6 and I forgot to remove it.
+                  </li>
+                  <li>
+                  Apr 25: In notebook Optional Tasks Parameter Tuning:
+                  "if the <s>accuracy</s> loss doesn't go down/goes down too slowly..."
+                  </li>
+                  <li>
+                    Apr 19: In notebook Task 8, <code>model.predict</code> returns
+                    an array of shape <s>(num_images,)</s> (num_images, N_labels).
+                  </li>
+                  <li>
+                    Apr 16: In notebook, the dataset we use is a subset of Quick Draw
+                    containing 8 categories and <s>1000</s> 5000 images per category.
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="card-footer text-muted">
+            End of Assignment Tasks
+          </div>
+        </div>
+
+        <!-- Submission and deadline section -->
+        <!-- ### Complete submission and deadline section for the assignment ### -->
+        <div class="card mb-4">
+          <div class="card-body" id="submission">
+            <h3 class="card-title">Submission and Deadline</h3>
+            <p>
+              Deadline: <span style="color:red">23:59:00 on May 12, 2022 (Thursday)</span>. <br />
+              <!-- <span style="color:red">(ZINC system for PA2 submission and detailed grading scheme will be available in the future)</span> -->
+            </p>
+            <br>
+            <h4>ZINC Submission</h4>
+            <p>
+              Create a single zip file
+              that contains <code>pa2.py</code> <strong>and</strong> <code>draw_model.h5</code>
+              (your model saved by the code we provided in the notebook).
+              Please <strong>do not</strong> create a folder inside the zip.
+            </p>
+            <p>
+              Submit the zip file to <a href="https://zinc.cse.ust.hk">ZINC</a>.
+              ZINC usage instructions can be found <a href="https://zinc.cse.ust.hk/guide">here</a>.
+            </p>
+            <p style="color: red;">
+              There are 2 ZINC submission entries.
+              The one with <b>validation</b> in its name is to validate your code runs,
+              and it reports scores immediately.
+              The one <b>without validation</b> in the name is the final destination you submit your code,
+              and it won't report scores before DDL!
+            </p>
+            Notes:
+            <ul>
+              <li>You may submit your file multiple times, but only the latest version will be graded.</li>
+              <li>Submit early to avoid any last-minute problems. Only ZINC submissions will be accepted.</li>
+              <li>The ZINC server will be very busy on the last day, especially in the last few hours, so you should
+                expect you would get the grading result report not very quickly. However, as long as your submission is
+                successful, we will grade your latest submission with all test cases after the deadline.</li>
+              <li>If you have encountered any server-side problems or webpage glitches with ZINC, you may post on the <a
+                  href="https://support.zinc.ust.dev/">ZINC support forum</a> to get attention and help from the ZINC
+                team quickly and directly. If you post on Piazza, you may not get the fastest response as we need to
+                forward your report to them, and then forward their reply to you, etc.
+              </li>
+            </ul>
+            <br>
+            <h4>Running Requirement</h4>
+            <p>
+              We grade each function separately.
+              For each function, we have already provided some dummy codes
+              so that they run without raising exceptions.
+              If your implementation of one function raises errors,
+              you will not get the score for this function, as is expected.
+              But a wrong implementation that raises no error will neither
+              guarantee your scores (or you can score even using the skeleton code XD).
+            </p>
+            <br>
+            <h4>Reminders</h4>
+            <p>
+              <span style="font-weight:bold">Make sure you upload the correct version of your source files - we
+                only grade what you upload</span>.
+              Some students in the past submitted an empty file or a wrong file
+              which is worth zero mark. So <span style="font-weight:bold">you must double-check the file you have
+                submitted</span>.
+            </p>
+            <br>
+            <h4>Late Submission Policy</h4>
+            <p>
+              There will be a penalty of -1 point (out of 100 points) for every minute you are late.
+            </p>
+            <p>
+              For instance, if you submit your solution at
+              1:00:00 a.m. on May 12,
+              there will be a penalty of -61 points for your assignment.
+              (Since the deadline of assignment 2 is 23:59:00 on May 12).
+            </p>
+            <p>
+              However, the lowest grade you may get from an
+              assignment is zero: any negative score after the deduction due to a late penalty (and any other penalties)
+              will be reset to zero.
+            </p>
+          </div>
+          <div class="card-footer text-muted">
+            End of Submission and Deadline
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body" id="grading">
+            <h3 class="card-title">Grading Scheme</h3>
+            <ul>
+              <li>Task 1: <code>train_x</code>, <code>val_x</code>,
+                <code>test_x</code> have correct shapes and values (1pt for each)
+              </li>
+              <li>Task 2: <code>train_y</code>, <code>val_y</code>,
+                <code>test_y</code> have correct shapes and values (1pt for each)
+              </li>
+              <li>Task 3: <code>AugmentationLayer</code>
+                <ul>
+                  <li>The <code>Sequential</code> has correct layer types (i.e. classes)
+                    in the correct order. (2pt. No intermediate scores if some layers are
+                    wrong)</li>
+                  <li>The <code>Sequential</code>’s layers are constructed with correct
+                    parameters (1pt. No intermediate scores if some layers are wrong. No
+                    score if the test case above fails.)</li>
+                </ul>
+              </li>
+              <li>Task 4: Building the main model
+                <ul>
+                  <li>The <code>Sequential</code> has correct layer types (i.e. classes)
+                    in the correct order. (3pt. No intermediate scores if some layers are
+                    wrong)</li>
+                  <li>The <code>Sequential</code>’s layers are constructed with correct
+                    parameters (1pt. No intermediate scores if some layers are wrong. No
+                    score if the test case above fails.)</li>
+                </ul>
+              </li>
+              <li>Task 5: Compiling the model
+                <ul>
+                  <li>The loss, the optimizer type, the metrics are correctly specified
+                    (1pt for each)</li>
+                  <li>The learning rate can be set from the function parameter (1pt)</li>
+                </ul>
+              </li>
+              <li>Task 6: Training the model
+                <ul>
+                  <li>The epoch number can be set from the function parameter (1pt)</li>
+                  <li>The batch size are set correctly (1pt)</li>
+                  <li>The validation data and validation batch size are set correctly
+                    (2pt. No intermediate scores)</li>
+                </ul>
+              </li>
+              <li>Task 7: Evaluate the model
+                <ul>
+                  <li>The test data and batch size are set correctly (2pt. No intermediate
+                    scores)</li>
+                </ul>
+              </li>
+              <li>Task 8: Predict images
+                <ul>
+                  <li>The function output correct values (1pt)</li>
+                </ul>
+              </li>
+              <li>Your <code>draw_model</code>
+                <ul>
+                  <li>The accuracy on test dataset is above 60% (1pt)</li>
+                  <li>The main model has correct weights (2pt. <em>Correctness</em> has
+                    considered the intrinsic randomness in GPU computation. No intermediate
+                    scores if some layers’ weights are wrong.)</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="card-footer text-muted">
+            End of Grading Scheme
+          </div>
+        </div>
+
+        <!-- FAQ section -->
+        <!-- ### Complete FAQ section for the assignment ### -->
+        <div class="card mb-4">
+          <div class="card-body" id="faq">
+            <h3 class="card-title">Frequently Asked Questions</h3>
+            <p>
+              <b>Q</b>: ZINC only reports one line of error "test_pa2_pre" instead of multiple lines of test cases.
+              <img src="images/zinc-one-error.png" alt="Only one error">
+              <br>
+              <b>A</b>: That's because ZINC fails to even start the entire test unit.
+              The most possible cause is that you imported some 3rd-party libraries other than tensorflow, keras, and numpy.
+              The test environment doesn't have those libraries.
+              Common pitfalls are <code>matplotlib</code> and <code>sklearn</code>.
+              <br>
+              One special case is <code>tkinter</code>, which will pass in validation submission but fail in final submission.
+              <br>
+              Also check if your IDE auto-imported some libraries upon a wrong tab-completion, and you forgot to remove it afterwards.
+            </p>
+            <p>
+              <b>Q</b>: Some plots have "unknown" labels in the captions.
+              Or some plots write an entire array to the captions.
+              <br>
+              <b>A</b>: The plotting codes themselves are correct.
+              As long as you return correct values in correct shapes in your tasks,
+              the plots should have sane captions.
+            </p>
+            <p>
+              <b>Q</b>: In task4, I have the following error:
+              <code>Input 0 of layer conv2d_xx is incompatible with the layer: ...</code>
+              <br>
+              <b>A</b>: First, don't use the <code>augmentation_layer</code> in the notebook.
+              Second, better not to write your tasks in the notebook.
+              Or at least don't reuse or edit any local variables already there in the notebook.
+              Also see the following question.
+              <br>
+              The cause of this specific error is explained in <a href="https://piazza.com/class/l0dnfumksfu529?cid=294">piazza @294</a>.
+            </p>
+            <p>
+              <b>Q</b>: Can I write my codes in the notebook first, and copy to .py later?<br>
+              <b>A</b>: You can. But <b>do not rely on any local variables in the notebook</b>
+              (as eventually you will get rid of them after pasting)
+              and remember to rerun and validate your code after pasting.
+              For example, using the <code>augmentation_layer</code> variable from the provided code cell
+              in your <code>build_model</code> will cause error.
+            </p>
+            <p>
+              <b>Q</b>: Is my model acceptable if I achieve xx/16 in the last task?<br>
+              <b>A</b>: The last task only demonstrate your implementation of the
+              single-image prediction function.
+              The accuracy of the 16 images involves a lot of luck,
+              and does not indicate the quality of your model.
+              Please refer to your Task 7 output for the model accuracy.
+              Make sure that number is above 60%.
+            </p>
+            <p>
+              <b>Q</b>: My accuracies are all zero during training!<br>
+              <b>A</b>: If you use <code>metrics=[keras.metrics.Accuracy()]</code>
+              or <code>metrics=[tf.keras.metrics.Accuracy()]</code>,
+              try to replace it with <code>metrics=["accuracy"]</code>.
+              Some students reported strange behaviors of the former two. I don't know why...
+            </p>
+            <p>
+              <b>Q</b>: Can we use literal 28 instead of sqrt when we reshape?<br>
+              <b>A</b>: Yes.
+            </p>
+            <p>
+              <b>Q</b>: Validation accuracy is greater than training accuracy in this dataset!<br>
+              <b>A</b>: Good for you to question that! See <a href="https://piazza.com/class/l0dnfumksfu529?cid=327">piazza @327</a>.
+            </p>
+            <p>
+              <b>Q</b>: My code doesn't work. There is an
+              error/bug. Here is the code. Can you help me fix it?<br>
+              <b>A</b>: As the assignment is a major course
+              assessment, to be fair, you are supposed to work on it on
+              your own and we should not finish the tasks for you. We are
+              happy to help with explanations and advice, but we shall
+              not directly debug the code for you.
+            </p>
+            <p>
+              <b>Q</b>: Are we allowed to use external
+              libraries (e.g., <code>scikit-learn</code>) to implement
+              this assignment? <br>
+              <b>A</b>: In this assignment, we will only be using NumPy
+              and TensorFlow (Keras is part of TensorFlow).
+              You are <strong>NOT</strong> allowed to
+              import extra external libraries (i.e., no
+              <code>scikit-learn</code>).
+              The goal of this assignment is to get familiar with Keras specifically,
+              by building a CNN image classification model.
+            </p>
+            <p>
+              <b>Q</b>: Are we allowed to use Python standard libraries (e.g.,
+              <code>from collections import defaultdict</code>)? <br>
+              <b>A</b>: Yes, Python standard libraries are allowed. Please visit <a
+                href="https://docs.python.org/3.7/library/">here</a> for an official comprehensive list of modules
+              included in Python 3.7 (Colab deploys Python 3.7 for now, please also test on Colab if you use local machines).
+            </p>
+            <p>
+              <b>Q</b>: If ZINC says I have achieved
+              "Total Score ?/?", does that mean I have passed the
+              assignment and obtained full marks? <br>
+              <b>A</b>: No, it may not be. We
+              will re-grade your submitted assignment file
+              using another set of test cases. So, you may get
+              different marks if you do not pass some of the test
+              cases during the re-grading performed after the
+              submission deadline. Please check your code more
+              thoroughly.
+            </p>
+            <p>
+              ...
+            </p>
+          </div>
+          <div class="card-footer text-muted">
+            End of Frequently Asked Questions
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body" id="solution">
+            <h3 class="card-title">Solution</h3>
+            <p>Solution: <a href="files/solution/pa2_sol.py">pa2_sol.py</a> and <a href="files/solution/correct_model.h5">correct_model.h5</a></p>
+            <p>
+              There are three grading attempts and the latest is the final score (because I fixed some bugs in the grading scripts).
+              We are sorry that ZINC frontend doesn't provide PyTest details.
+              A hacky way to see the error details on ZINC is elaborated below.
+              You can also download the <a href="files/solution/pytest_configurations.zip">test files</a>
+              and the <a href="files/solution/run_test_pa2.ipynb">notebook</a>
+              to run the test yourself on Colab.
+              Details on how to run the tests are self-explained in the notebook.
+            </p>
+            <h4>
+            I have questions regarding the grades!
+            </h4>
+            <p>
+            The appealing process is underway. You can check your error causes first.
+            For those with empty scores due to timeout,
+            those having syntax issues thus receiving 0 scores,
+            those having other questions regarding the grading program,
+            please wait momentarily until I work out the appealing scheme.
+            </p>
+            <h4>
+            The following describes how to see the error messages on ZINC
+            </h4>
+            </p>
+              You can go to your submission page,
+              open the developer panel (e.g., F12 on Chrome-like browsers; Safari requires Preferences - Advanced - Show development menu in menu bar, then opt+cmd+i)
+	      and click on the "Network" tab.
+              Then click on the "View details" button of the specific grading result.
+              You can see a "graphql" item pop up in the network tab.
+              (It only shows up upon the first click of this button.
+              If you clicked the button before opening devtool,
+              there will be no new item popping up.
+              You can refresh the page, open devtool first, then click on the button.)
+            </p>
+            <p>
+              Click on the graphql item and go to the Preview tab on the right.
+              Expand the JSON data along
+              <span style="text-decoration:underline">"data - report - sanitizedReports - pyTest - 0 - report - testsuites - 0 - testcases - &lt;some number&gt; - failures - 0".</span>
+              The error traceback is in "context" and any extra message is in "message".
+              <img src="images/zinc-hack.jpg" alt="ZINC devtool demo" style="width: 100%;">
+              The result is in one huge string with escaped new-line character. You can copy and put it in a python <code>print("..")</code> command or terminal <code>echo ".."</code> command to see it clearly.
+            </p>
+          </div>
+          <div class="card-footer text-muted">
+            End of Supplimentary Notes
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body" id="supplimentary">
+            <h3 class="card-title">Supplimentary Notes</h3>
+            <blockquote>
+              This part is not related to the assignment itself.
+              It contains some extra information in case anyone is interested.
+              Not reading this won't affect your grades.
+            </blockquote>
+            <p>
+                <b>Q</b>: Why are there so many <code>set_random_seeds</code> in the notebook?
+                <br>
+            </p>
+            <p>
+                <b>In short, don't copy me.
+                The correct practice for a normal program is to set a seed only once at the top of the program.</b>
+                Imagine all the randomness of the computer comes from lookups of a seemingly random but fixed long string, and the seed controls where to start.
+                You set it once and let the computer start from there.
+                If you set the seed the second time with the same value, you "reset" the random state of the program back to
+                when you set it the first time.
+                And the code you intend to be random becomes deterministic.
+                In the PA however, I set it again before training the model.
+                Therefore, no matter how you have played with the model before and how far the random state have moved on,
+                the trained model should be the same.
+                Otherwise, since there is randomness in each layer's initializer and the dropout layer,
+                different random states may result in different final models.
+            </p>
+            <br>
+            <p>
+                <b>Q</b>: I work on my local machine with an all-round IDE. It reports annoying linting issues in the codes.
+                <br>
+            </p>
+            <p>
+              Short answer: either download this <a href="files/.flake8">.flake8</a> file,
+              put it next to your PA scripts and restart IDE,
+              or disable linters in your IDE if that doesn't work.
+              Or you can leave them there as long as your code runs correctly.
+            </p>
+            <p>
+              If you don't know what a linter is,
+              they are like Grammarly for programming languages
+              that help you write beautiful and robust codes.
+              But our skeleton codes contain some deliberate formatting
+              that is not considered conventionally beautiful.
+            </p>
+            <p>
+              If your linter is <code>flake8</code> like me, the above config file will
+              bypass those specific conventions.
+              If you use another linter, see if it can recognize a <code>flake8</code> config,
+              otherwise, you may want to turn off your linter.
+              If you don't have a linter or don't even know what I am talking about,
+              just ignore it!
+            </p>
+          </div>
+          <div class="card-footer text-muted">
+            End of Supplimentary Notes
+          </div>
+        </div>
+        
+      </div>
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-3">
+        <div class="sticky-top">
+          <!-- Menu Widget -->
+          <div class="card my-12">
+            <h5 class="card-header">Menu</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="mb-0" type="circle" style="padding-left:20px">
+                    <li>
+                      <a href="#introduction">Introduction</a>
+                    </li>
+                    <li>
+                      <a href="#tasks">Assignment Tasks</a>
+                    </li>
+                    <li>
+                      <a href="#submission">Submission &amp; Deadline</a>
+                    </li>
+                    <li>
+                      <a href="#grading">Grading Scheme</a>
+                    </li>
+                    <li>
+                      <a href="#faq">Frequently Asked Questions</a>
+                    </li>
+                    <li>
+                      <a href="#solution">Solution</a>
+                    </li>
+                    <li>
+                      <a href="#supplimentary">Supplimentary Notes</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Maintainance widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Page maintained by</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      Mr. HUANG Zeyu
+                    </li>
+                    <li class="my-li">
+                      <span class="my-span">Email:</span>
+                      <div class="my-email-wrapper">
+                        <a href="mailto:zhuangbi@connect.ust.hk" class="my-email-a">zhuangbi@connect.ust.hk</a>
+                      </div>
+                    </li>
+                    <li>Last Modified:
+                      <script type="text/javascript">document.write(document.lastModified);</script>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Homepage widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Homepage</h5>
+            <div class="card-body">
+              <a href="http://course.cse.ust.hk/comp2211">Course Homepage</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Uncomment after May 6 -->
+        <!-- <div class="card mb-4">
+          <div class="card-body" id="solution">
+            <h3 class="card-title">Solution</h3>
+            <p>
+              We have collected all the PA2 submissions and
+              finished grading.
+              Please check your grades on ZINC and
+              refer to the solution
+              <a href="<a href="files/pa2_solution.zip" target="_blank" rel="noreferrer noopener">files/pa2_solution.zip</a>" target="_blank">here</a>.
+            </p>
+          </div>
+          <div class="card-footer text-muted">
+            End of Solution
+          </div>
+        </div> -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Maintained by COMP 2211 Teaching Team &copy; 2022 HKUST Computer Science and
+        Engineering</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Uncomment after May 6 -->
+        <!-- <div class="card mb-4">
+          <div class="card-body" id="solution">
+            <h3 class="card-title">Solution</h3>
+            <p>
+              We have collected all the PA2 submissions and
+              finished grading.
+              Please check your grades on ZINC and
+              refer to the solution
+              <a href="<a href="files/pa2_solution.zip" target="_blank" rel="noreferrer noopener">files/pa2_solution.zip</a>" target="_blank">here</a>.
+            </p>
+          </div>
+          <div class="card-footer text-muted">
+            End of Solution
+          </div>
+        </div> -->
+
+  <div id="troll-alert" class="alert alert-warning alert-dismissible fade show invisible" role="alert">
+    <h6 class="alert-heading">Ooops!</h6>
+    <!-- <p>No solutions here!</p> -->
+    <hr>
+    <code>var us=['https://youtu.be/klfT41uZniI','https://www.bilibili.com/video/BV1GJ411x7h7/'];
+      var idx=(navigator.language.toLowerCase()=='zh-cn')+0;
+      var con=new AbortController();
+      setTimeout(con.abort.bind(con),2000);
+      var p=us.map((u,i)=&gt;fetch(u,{method:'HEAD',mode:'no-cors',signal:con.signal}).then(function(){return i}));
+      Promise.race(p).catch(function(){return idx}).then(function(r){idx=r;console.log(idx)});
+      $(function(){$('a[href=&quot;files/pa2_solution.zip&quot;]').click(function(){window.open(us[idx],'_blank').focus();return false;})});</code>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="index.js"></script>
+</body>
+
+</html>
