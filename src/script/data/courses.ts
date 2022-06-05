@@ -697,6 +697,10 @@ const FETCHED_COURSES: FetchedCourses = {
     title: 'Introduction to Bayesian Networks',
     description: 'Bayesian networks and probabilistic modeling of complex domains; conditional independence and graph separation; variable elimination, clique tree propagation, and other inference algorithms; parameter learning; structure learning; latent structure models; recent developments.'
   },
+  'COMP 5214': {
+    title: 'Advanced Deep Learning Architectures',
+    description: 'This course focuses on advanced deep learning architectures and their applications in various areas. Specifically, the topics include various deep neural network architectures with applications in computer vision, signal processing, graph analysis, and natural language processing. Different state-of-the-art neural network models will be introduced, including graph neural networks, normalizing flows, point cloud models, sparse convolutions, and neural architecture search. The students have the opportunities to implement deep learning models for some AI-related tasks such as visual perception, image processing and generation, graph processing, speech enhancement, sentiment classification, and novel view synthesis.'
+  },
   'COMP 5221': {
     title: 'Natural Language Processing',
     description: 'Techniques for parsing, interpretation, context modeling, plan recognition, generation.  Emphasis on statistical approaches, neuropsychological and linguistic constraints, large text corpora.  Applications include machine translation, dialogue systems, cognitive modeling, and knowledge acquisition.'
