@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+	
+<!-- Mirrored from course.cse.ust.hk/comp4451/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 Jun 2015 09:22:03 GMT -->
+<head>
+		<title>COMP4451 - Game Programming</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				font-family: Monospace;
+				background-color: #000;
+				color: #000;
+				margin: 0px;
+				overflow: hidden;
+			}
+
+			#info {
+				text-align: left;
+				z-index: 10;
+				width: 100%;
+				position: absolute; bottom:10px; left: 10px; 
+			}
+
+			#course {
+				text-align: center;
+				z-index: 10;
+				width: 100%;
+				position: absolute; 
+			}
+
+			a {
+				text-decoration: underline;
+				cursor: pointer;
+			}
+
+			a:link {color: #00f}
+			a:visited {color: #00f}
+
+			#stats { position: absolute; bottom:0; right: 0 }
+			#stats #fps { background: transparent !important }
+			#stats #fps #fpsText { color: #000 !important }
+			#stats #fps #fpsGraph { display: none }
+
+
+			.cancel { display:block; position:absolute; top:3px; right:2px; background:rgb(255,255,255); color:black; height:30px; width:35px; font-size:30px; text-decoration:none; text-align:center; font-weight:bold; }
+
+			.popup { height:auto; width:400px; margin:0 auto; position:relative; z-index:10; display:none; background:rgba(255,255,255,0.9); no-repeat; border:5px solid #cccccc; border-radius:10px; text-align:left;} 
+
+			.popup:target, .popup:target{ display:block; opacity:2; }
+		</style>
+	</head>
+
+	<body>
+		<div id="info">
+			<a onclick="FXAA = !FXAA;onWindowResize();" id="FXAA">FXAA: On</a> |
+			<a onclick="setAF();" id="AF"></a> |
+			<a onclick="rotate = !rotate;">Camera</a> |
+			<a onclick="wind = !wind;">Wind</a> |
+			<a onclick="togglePins();">Pin</a><br/>
+			Based on Three.js cloth example<br/>
+		</div>
+
+		<div id="course">
+			<h2>COMP4451 - Game Programming<br/>Spring 2015, HKUST</h2><p/>
+
+			<a href="#infor"><b>Information</b></a> -
+			<a href="#announce"><b>Announcements</b></a> - 
+			<a href="#slides"><b>Slides</b></a><br/>
+
+			<a href="#resource"><b>Resources</b></a> -
+			<a href="https://groups.google.com/forum/#!forum/comp4451"><b>Forum</b></a>
+
+			<div id="infor" class="popup"> <a href="#" class="cancel">&times;</a>
+				Meeting and contact information:
+				<ul>
+					<li>Meeting times: TuTh 12:00PM - 1:20PM<br/>Venue: Room 4503<p/></li>
+					<li>Instructor: Prof. Pedro V. Sander<br/>
+					Email: psander 'at' cse.ust.hk<br/>
+					Office hours: After class or by appointment<br/>
+					Office: Room 3525<p/></li>
+					<li>Teaching Assistant: Mr. Ligeng Li<br/>
+					Email: liligeng111 'at' gmail.com<br/>
+					Office hours: Wednesdays 3PM-4PM in room 4214</li>
+				</ul>
+				Course details on overview slides.
+			</div> 
+
+			<div id="announce" class="popup"> <a href="#" class="cancel">&times;</a>
+			Announcements:
+				<ul>
+					<li>Jan29 - Classes begin on Feb3.</li>
+					<li>Feb09 - Brainstorming will take place is part of the classes on Feb10 and Feb12.</li>
+                                        <li>Feb09 - Proposal document due on Feb27 at 11:59PM.</li>
+					<li>Feb09 - Proposal presentation postponed to Mar03 to allow for more preparation.</li>
+					<li>Feb25 - No class on Feb26.</li>
+					<li>Mar19 - Progress presentation postponed to Apr09. Details to follow in class.</li>
+				</ul>
+			</div> 
+
+			<div id="slides" class="popup"> <a href="#" class="cancel">&times;</a>
+				Slides and notes:
+				<ul>
+					<li><a href="data/COMP4451-01-Overview.pptx">01 - Course Overview</a></li>
+					<li><a href="data/COMP4451-02-Introduction.pptx">02 - Introduction</a></li>
+					<li><a href="data/COMP4451-03-Design.pptx">03 - Game Design</a></li>
+					<li><a href="data/proposal.pdf">Proposal Guidelines</a></a></li>
+					<li><a href="data/COMP4451-04-GraphicsIntro.pptx">04 - Graphics Introduction</a></li>
+					<li><a href="data/COMP4451-05-RenderingBasics.pptx">05 - Rendering Basics</a></li>
+					<li><a href="data/COMP4451-06-ProposalPres.pptx">06 - Proposal Presentations</a></li>
+					<li><a href="data/COMP4451-07-WebGLBasics.pptx">07 - WebGL Basics</a> (<a href="data/WebGLBasics.zip">code</a>)</li>
+					<li><a href="data/COMP4451-08-Physics.pptx">08 - Physics</a>
+					<li><a href="data/COMP4451-09-Physics2.pptx">09 - Physics 2</a>
+					<li><a href="data/COMP4451-10-Physics3.pptx">10 - Physics 3</a>
+					<li><a href="data/COMP4451-11-Networking.pptx">11 - Networking</a>
+					<li><a href="data/COMP4451-12-AI.pptx">12 - AI</a>
+					<li><a href="data/COMP4451-13-AI2.pptx">13 - AI 2</a>
+					<li><a href="data/COMP4451-14-GeoLOD.pptx">14 - Additional topics: Geometry LOD</a>
+					<li><a href="data/COMP4451-15-Shadows.pptx">15 - Additional topics: Shadows</a>
+				</ul>
+			</div> 
+
+			<div id="resource" class="popup"> <a href="#" class="cancel">&times;</a>
+				Online resources:
+				<ul>
+					<li><a href="http://threejs.org/">Three.js library for WebGL</a><br/>Documentation, examples, and download<p/></li>
+					<li><a href="https://www.khronos.org/webgl/wiki/Main_Page">WebGL</a><br/>Wiki of WebGL<p/></li>
+					<li><a href="https://github.com/chandlerprall/Physijs">Physi.js</a><br/>Wiki of Physi.js physics library<p/></li>
+					<li><a href="http://soulwire.github.io/sketch.js/">Sketch.js</a><br/>Good for mouse/touch interaction<p/></li>
+					<li><a href="https://code.google.com/p/dat-gui/">dat.GUI</a><br/>Excellent for GUI implementation<p/></li>
+				</ul>
+				Further resources to be added as the term progresses.
+			</div> 
+		</div>
+
+		<script src="js/three.min.js"></script>
+
+		<script src="js/Detector.js"></script>
+		<script src="js/stats.min.js"></script>
+		<script src="js/Shaders/FXAAShader.js"></script>
+		<script src="js/Shaders/CopyShader.js"></script>
+		<script src="js/Postprocessing/EffectComposer.js"></script>
+		<script src="js/Postprocessing/ShaderPass.js"></script>
+		<script src="js/Postprocessing/RenderPass.js"></script>
+		<script src="js/Postprocessing/MaskPass.js"></script>
+
+		<script src="js/Cloth.js"></script>
+
+		<script type="x-shader/x-fragment" id="fragmentShaderDepth">
+
+			uniform sampler2D texture;
+			varying vec2 vUV;
+
+			vec4 pack_depth( const in float depth ) {
+
+				const vec4 bit_shift = vec4( 256.0 * 256.0 * 256.0, 256.0 * 256.0, 256.0, 1.0 );
+				const vec4 bit_mask  = vec4( 0.0, 1.0 / 256.0, 1.0 / 256.0, 1.0 / 256.0 );
+				vec4 res = fract( depth * bit_shift );
+				res -= res.xxyz * bit_mask;
+				return res;
+
+			}
+
+			void main() {
+
+				vec4 pixel = texture2D( texture, vUV );
+
+				if ( pixel.a < 0.5 ) discard;
+
+				gl_FragData[ 0 ] = pack_depth( gl_FragCoord.z );
+
+			}
+		</script>
+
+		<script type="x-shader/x-vertex" id="vertexShaderDepth">
+
+			varying vec2 vUV;
+
+			void main() {
+
+				vUV = 0.75 * uv;
+
+				vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+
+				gl_Position = projectionMatrix * mvPosition;
+
+			}
+
+		</script>
+
+		<script>
+			AF = 4
+			FXAA = true
+
+			/* testing cloth simulation */
+
+			var pinsFormation = [];
+
+			var pins = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
+			pinsFormation.push( pins );
+
+			pins = []; // cut the rope ;)
+			pinsFormation.push( pins );
+
+			pinid = 0;
+			pins = pinsFormation[ pinid ];
+
+			function togglePins() {
+
+				pinid = 1 - pinid;
+				pins = pinsFormation[ pinid ];
+				
+			}
+
+			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+
+			var container, stats;
+			var camera, scene, renderer;
+
+			var clothGeometry;
+			var sphere;
+			var object, arrow;
+
+			var rotate = true;
+
+			init();
+			animate();
+
+			function init() {
+
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				// scene
+
+				scene = new THREE.Scene();
+
+				var ua = navigator.userAgent.toLowerCase();
+				var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+
+
+				if (!isAndroid) //known bug
+					scene.fog = new THREE.Fog( 0xcce0ff, 500, 10000 );
+
+				// camera
+
+				camera = new THREE.PerspectiveCamera( 30, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera.position.y = 50;
+				camera.position.z = 1500;
+				scene.add( camera );
+
+				// lights
+
+				var light, materials;
+
+					
+				scene.add( new THREE.AmbientLight( 0x666666 ) );
+
+				light = new THREE.DirectionalLight( 0xdfebff, 1.75 );
+				light.position.set( 50, 200, 100 );
+				light.position.multiplyScalar( 1.3 );
+
+				light.castShadow = true;
+				//light.shadowCameraVisible = true;
+
+				light.shadowMapWidth = 1024;
+				light.shadowMapHeight = 1024;
+
+				var d = 300;
+
+				light.shadowCameraLeft = -d;
+				light.shadowCameraRight = d;
+				light.shadowCameraTop = d;
+				light.shadowCameraBottom = -d;
+
+				light.shadowCameraFar = 1000;
+				light.shadowDarkness = 0.5;
+
+				// if (!isAndroid)
+				scene.add( light );
+
+				// cloth material
+
+				clothTexture = THREE.ImageUtils.loadTexture( 'js/hkust.gif' );
+				clothTexture.wrapS = clothTexture.wrapT = THREE.RepeatWrapping;
+				clothTexture.anisotropy = AF;
+
+				var clothMaterial = new THREE.MeshPhongMaterial( { alphaTest: 0.5, ambient: 0xffffff, color: 0xffffff, specular: 0x030303, emissive: 0x111111, shiness: 10, map: clothTexture, side: THREE.DoubleSide } );
+
+				// cloth geometry
+				clothGeometry = new THREE.ParametricGeometry( clothFunction, cloth.w, cloth.h );
+				clothGeometry.dynamic = true;
+				clothGeometry.computeFaceNormals();
+
+				var uniforms = { texture:  { type: "t", value: clothTexture } };
+				var vertexShader = document.getElementById( 'vertexShaderDepth' ).textContent;
+				var fragmentShader = document.getElementById( 'fragmentShaderDepth' ).textContent;
+
+				// cloth mesh
+
+				object = new THREE.Mesh( clothGeometry, clothMaterial );
+				object.position.set( 0, 0, 0 );
+				object.castShadow = true;
+				object.receiveShadow = true;
+				scene.add( object );
+
+				object.customDepthMaterial = new THREE.ShaderMaterial( { uniforms: uniforms, vertexShader: vertexShader, fragmentShader: fragmentShader } );
+
+				// sphere
+
+				var ballGeo = new THREE.SphereGeometry( ballSize, 20, 20 );
+				var ballMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff } );
+
+				sphere = new THREE.Mesh( ballGeo, ballMaterial );
+				sphere.castShadow = true;
+				sphere.receiveShadow = true;
+				scene.add( sphere );
+
+				// arrow
+
+				arrow = new THREE.ArrowHelper( new THREE.Vector3( 0, 1, 0 ), new THREE.Vector3( 0, 0, 0 ), 50, 0xff0000 );
+				arrow.position.set( -200, 0, -200 );
+				// scene.add( arrow );
+
+				// ground
+
+				groundTexture = THREE.ImageUtils.loadTexture( "js/grasslight-big.jpg" );
+				groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
+				groundTexture.repeat.set( 25, 25 );
+				groundTexture.anisotropy = AF;
+				
+				var groundMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0x111111, map: groundTexture } );
+
+				var mesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 20000, 20000 ), groundMaterial );
+				mesh.position.y = -250;
+				mesh.rotation.x = - Math.PI / 2;
+				mesh.receiveShadow = true;
+				scene.add( mesh );
+
+				// poles
+
+				var poleGeo = new THREE.BoxGeometry( 5, 375, 5 );
+				var poleMat = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0x111111, shiness: 100 } );
+
+				var mesh = new THREE.Mesh( poleGeo, poleMat );
+				mesh.position.x = -125;
+				mesh.position.y = -62;
+				mesh.receiveShadow = true;
+				mesh.castShadow = true;
+				scene.add( mesh );
+
+				var mesh = new THREE.Mesh( poleGeo, poleMat );
+				mesh.position.x = 125;
+				mesh.position.y = -62;
+				mesh.receiveShadow = true;
+				mesh.castShadow = true;
+				scene.add( mesh );
+
+				var mesh = new THREE.Mesh( new THREE.BoxGeometry( 255, 5, 5 ), poleMat );
+				mesh.position.y = -250 + 750/2;
+				mesh.position.x = 0;
+				mesh.receiveShadow = true;
+				mesh.castShadow = true;
+				scene.add( mesh );
+
+				var gg = new THREE.BoxGeometry( 10, 10, 10 );
+				var mesh = new THREE.Mesh( gg, poleMat );
+				mesh.position.y = -250;
+				mesh.position.x = 125;
+				mesh.receiveShadow = true;
+				mesh.castShadow = true;
+				scene.add( mesh );
+
+				var mesh = new THREE.Mesh( gg, poleMat );
+				mesh.position.y = -250;
+				mesh.position.x = -125;
+				mesh.receiveShadow = true;
+				mesh.castShadow = true;
+				scene.add( mesh );
+
+				//
+
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.setClearColor(0xcce0ff);
+
+				container.appendChild( renderer.domElement );
+
+				renderer.gammaInput = true;
+				renderer.gammaOutput = true;
+
+				renderer.shadowMapEnabled = true;
+
+				var parameters = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter,
+                      format: THREE.RGBFormat, stencilBuffer: false };             // CHANGED
+				var renderTarget = new THREE.WebGLRenderTarget(  window.innerWidth, window.innerHeight, parameters );   // CHANGED
+
+				composer = new THREE.EffectComposer( renderer, renderTarget );                 // CHANGED
+			    
+				composer.addPass( new THREE.RenderPass( scene, camera ) );
+
+				var fxaa = new THREE.ShaderPass( THREE.FXAAShader );
+				fxaa.uniforms[ 'resolution' ].value = new THREE.Vector2( 1/window.innerWidth, 1/window.innerHeight );
+				if (FXAA) composer.addPass( fxaa );
+			    
+			    var effect = new THREE.ShaderPass( THREE.CopyShader );
+			    effect.renderToScreen = true;
+			    composer.addPass( effect );
+
+
+				stats = new Stats();
+				container.appendChild( stats.domElement );
+
+				//
+
+				window.addEventListener( 'resize', onWindowResize, false );
+				document.getElementById("AF").innerHTML = "AF: " + AF;
+
+				sphere.visible = !true
+
+			}
+
+			function setAF()
+			{	
+				if (AF == 1) AF = 32
+				AF /= 2;
+				document.getElementById("AF").innerHTML = "AF: " + AF;
+				clothTexture.anisotropy = AF;
+				clothTexture.needsUpdate = true;
+				groundTexture.anisotropy = AF;
+				groundTexture.needsUpdate = true;
+			}
+
+			//
+
+			function onWindowResize() {
+
+				document.getElementById("FXAA").innerHTML = "FXAA: " + (FXAA ? "On":"Off");
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				var parameters = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter,
+                      format: THREE.RGBFormat, stencilBuffer: false };             // CHANGED
+				var renderTarget = new THREE.WebGLRenderTarget(  window.innerWidth, window.innerHeight, parameters );   // CHANGED
+
+				composer = new THREE.EffectComposer( renderer, renderTarget );                 // CHANGED
+			    
+				composer.addPass( new THREE.RenderPass( scene, camera ) );
+
+				var fxaa = new THREE.ShaderPass( THREE.FXAAShader );
+				fxaa.uniforms[ 'resolution' ].value = new THREE.Vector2( 1/window.innerWidth, 1/window.innerHeight );
+				if (FXAA) composer.addPass( fxaa );
+			    
+			    var effect = new THREE.ShaderPass( THREE.CopyShader );
+			    effect.renderToScreen = true;
+			    composer.addPass( effect );
+
+			}
+
+			//
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				var time = Date.now();
+
+				windStrength = Math.cos( time / 7000 ) * 20 + 40;
+				windForce.set( Math.sin( time / 2000 ), Math.cos( time / 3000 ), Math.sin( time / 1000 ) ).normalize().multiplyScalar( windStrength );
+				arrow.setLength( windStrength );
+				arrow.setDirection( windForce );
+
+				simulate(time);
+				render();
+				stats.update();
+
+			}
+
+			function render() {
+
+				var timer = Date.now() * 0.0002;
+
+				var p = cloth.particles;
+
+				for ( var i = 0, il = p.length; i < il; i ++ ) {
+
+					clothGeometry.vertices[ i ].copy( p[ i ].position );
+
+				}
+
+				clothGeometry.computeFaceNormals();
+				clothGeometry.computeVertexNormals();
+
+				clothGeometry.normalsNeedUpdate = true;
+				clothGeometry.verticesNeedUpdate = true;
+
+				sphere.position.copy( ballPosition );
+
+				if ( rotate ) {
+
+					camera.position.x = Math.cos( timer ) * 1500;
+					camera.position.z = Math.sin( timer ) * 1500;
+
+				}
+
+				camera.lookAt( scene.position );
+
+				composer.render();
+				//renderer.render( scene, camera );
+
+			}
+
+		</script>
+	</body>
+
+<!-- Mirrored from course.cse.ust.hk/comp4451/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 Jun 2015 09:22:03 GMT -->
+</html>
