@@ -8,14 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import mainRenderer from './MainRenderer.js';
-import cssScriptRenderer from './CssScriptRender.js';
-import { CATEGORIZED_PRE_COURSES, CSS_LINKS, FETCHED_COURSES, GIT_LOGS } from '../data/index.js';
+import { CATEGORIZED_PRE_COURSES, FETCHED_COURSES, GIT_LOGS } from '../data/index.js';
 main();
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            appendCssScripts();
-            yield sleep(100);
             appendElements();
         }
         catch (error) {
@@ -25,20 +22,6 @@ function main() {
     });
 }
 ;
-function sleep(time) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return new Promise((resolve) => setTimeout(resolve, time));
-    });
-}
-function appendCssScripts() {
-    const head = document.querySelector('head');
-    if (!head || !(head instanceof HTMLHeadElement)) {
-        throw new Error('[ERROR]: No html head can be found!!');
-    }
-    const cssScriptProps = { CSS_LINKS };
-    const cssScriptFragment = cssScriptRenderer.render(cssScriptProps).fragment;
-    head.append(cssScriptFragment);
-}
 function appendElements() {
     const body = document.querySelector('body');
     if (!body || !(body instanceof HTMLBodyElement)) {
