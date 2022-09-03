@@ -99,7 +99,7 @@ const CATEGORIZED_PRE_COURSES = [
         courses: [
             {
                 code: 'COMP 4451',
-                semesters: ['Spring 2022'],
+                semesters: ['Spring 2015', 'Spring 2022'],
             },
         ],
     },
