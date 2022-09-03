@@ -1,15 +1,14 @@
 #!/bin/sh
+
 __temp_commit=".temp-commit"
 __custom_auto_generated_message="/* THIS IS AN AUTO GENERATED FILE BY COMMIT HOOK. DO NOT TOUCH IT! */\n"
-__custom_data_path="src/script/data"
 
 if [ -e $__temp_commit ]
 then
   rm $__temp_commit
 
   # Write Git Log
-  __custom_git_log_ts_path="${__custom_data_path}/gitLogs.ts"
-  __custom_git_log_js_path="${__custom_data_path}/gitLogs.js"
+  __custom_git_log_ts_path="src/script/data/gitLogs.ts"
   touch                     $__custom_git_log_ts_path
   echo "${__custom_auto_generated_message}"                                             \
     >                       $__custom_git_log_ts_path
@@ -23,26 +22,22 @@ then
     >>                      $__custom_git_log_ts_path
 
   # Write CSS links
-  __custom_css_links_ts_path="${__custom_data_path}/cssLinks.ts"
-  __custom_css_links_js_path="${__custom_data_path}/cssLinks.js"
-  touch                     $__custom_css_links_ts_path
+  __custom_css_links_css_path="src/script/css/index.css"
+  touch                     $__custom_css_links_css_path
   echo "${__custom_auto_generated_message}"                                             \
-    >                       $__custom_css_links_ts_path
-  echo "const CSS_LINKS = ["                                                            \
-    >>                      $__custom_css_links_ts_path
+    >                       $__custom_css_links_css_path
   for file in $(ls src/script/css)
   do
-    echo "  '${file}',"                                                                 \
-    >>                      $__custom_css_links_ts_path
+    if [[ "$file" != "index.css" ]]
+    then
+      echo "@import \"${file}\";"                                                       \
+      >>                      $__custom_css_links_css_path
+    fi
   done
-  echo "];"                                                                             \
-    >>                      $__custom_css_links_ts_path
-  echo "\nexport default CSS_LINKS;"                                                    \
-    >>                      $__custom_css_links_ts_path
 
-  yarn build
-  git add                   $__custom_git_log_ts_path   $__custom_git_log_js_path       \
-                            $__custom_css_links_ts_path $__custom_css_links_js_path
+  # yarn build
+  git add                   $__custom_git_log_ts_path                                   \
+                            $__custom_css_links_css_path
 
   git commit --amend -C HEAD --no-verify
 fi

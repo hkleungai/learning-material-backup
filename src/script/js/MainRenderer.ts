@@ -48,7 +48,7 @@ class MainRenderer extends BaseRenderer<MainProps> {
     const header = (
       /* html */`
       <h2 class="header">
-        HKUST is not that bad, right? 💩
+        University is not that bad, right? 💩
       </h2>
       `
     );
