@@ -44,7 +44,7 @@ _MainRenderer_instances = new WeakSet(), _MainRenderer_makeLoadingFragment = fun
 }, _MainRenderer_makePageContentFragment = function _MainRenderer_makePageContentFragment() {
     const header = (`
       <h2 class="header">
-        University is not that bad, right? 💩
+        HKUST is not that bad, right? 💩
       </h2>
       `);
     const noticeBoardProps = {
