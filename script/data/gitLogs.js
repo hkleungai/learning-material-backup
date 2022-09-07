@@ -1,4 +1,6 @@
 const GIT_LOGS = {
+    '2022-09-08 01:32:04': 'feat: add COMP 5631 (22s)',
+    '2022-09-08 01:10:27': 'feat: add COMP 4631 (22f)',
     '2022-09-03 17:14:08': 'refactor: clean up built files',
     '2022-09-03 11:48:56': 'feat: add COMP 4451 (15s)',
     '2022-06-09 00:53:56': 'fix: minor fix for COMP 4901U links',

@@ -124,9 +124,17 @@ const CATEGORIZED_PRE_COURSES = [
         category: 'Hacking / Security',
         courses: [
             {
+                code: 'COMP 4631',
+                semesters: ['Fall 2022'],
+            },
+            {
                 code: 'COMP 4632',
                 semesters: ['Fall 2015'],
-            }
+            },
+            {
+                code: 'COMP 5631',
+                semesters: ['Spring 2022'],
+            },
         ]
     },
     {
