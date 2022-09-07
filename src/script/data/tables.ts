@@ -127,6 +127,10 @@ const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
     category: 'Hacking / Security',
     courses: [
       {
+        code: 'COMP 4631',
+        semesters: ['Fall 2022'],
+      },
+      {
         code: 'COMP 4632',
         semesters: ['Fall 2015'],
       }
