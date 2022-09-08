@@ -824,6 +824,10 @@ const FETCHED_COURSES: FetchedCourses = {
   'ITEPC 04': {
     title: 'Decrypting Historical Ciphers',
     description: 'Codes or ciphers are methods for transforming messages (called plaintext) into unreadable text (called ciphertext) using a secret one-to-one function. The original message can be recovered from the ciphertext using the inverse of the one-to-one function. The process of transforming a piece of message into a piece of ciphertext is called encryption, and the inverse process is referred to as decryption. The Roman Emperor JULIUS CAESAR’s code will transform the message "LOVE" into the ciphertext "ORZH". Traditionally, ciphers are crucial for diplomatic and military communications. Nowadays, they are widely used. Police organizations, government officials, banks, business companies, gangsters, mafia, and ordinary people are using ciphers because ciphers are incorporated in our mobile phones, fax machines and computers. Without ciphers on-line banking and shopping would not be possible. Hence ciphers have changed our daily life.',
+  },
+  'ITEPC 05': {
+    title: 'Workshop on Fractal Creation',
+    description: 'The objectives of this project are to introduce simple methods of constructing fractals, to learn some related math, to appreciate the beauty of fractals, and finally to have fun with programming. By working on this project, students will learn the basics of creating interesting objects using fractals. In very simple terms, fractals are geometrical shapes, where a certain pattern repeats itself depending on the zoom factor. When you zoom in on a part of the object, it looks the same or very similar to the original object. There are many naturally occurring objects that exhibit this self-similarity in scale. Trees, coastlines, mountain ranges, and clouds are some examples. In computer programs, fractals are created using recursion. Same (or very similar) drawing operation is repeated until the depth of recursion exceeds a specified number.',
   }
 };
 
