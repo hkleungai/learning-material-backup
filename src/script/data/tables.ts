@@ -6,10 +6,6 @@ const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
     category: 'Algorithmic Study',
     courses: [
       {
-        code: 'COMP 170',
-        semesters: ['Fall 2005', 'Spring 2010'],
-      },
-      {
         code: 'COMP 171',
         semesters: ['Fall 2002', 'Fall 2005', 'Spring 2006'],
       },
@@ -32,14 +28,6 @@ const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
       {
         code: 'COMP 670P',
         semesters: ['Spring 2007'],
-      },
-      {
-        code: 'COMP 2711',
-        semesters: ['Spring 2016'],
-      },
-      {
-        code: 'COMP 2711H',
-        semesters: ['Fall 2014', 'Fall 2015', 'Fall 2021'],
       },
       {
         code: 'COMP 3711',
@@ -122,6 +110,23 @@ const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
         semesters: ['Fall 2021'],
       },
     ],
+  },
+  {
+    category: 'Discrete Mathematics',
+    courses: [
+      {
+        code: 'COMP 170',
+        semesters: ['Fall 2005', 'Spring 2010'],
+      },
+      {
+        code: 'COMP 2711',
+        semesters: ['Spring 2016'],
+      },
+      {
+        code: 'COMP 2711H',
+        semesters: ['Fall 2014', 'Fall 2015', 'Fall 2021'],
+      },
+    ]
   },
   {
     category: 'Hacking / Security',
