@@ -1,0 +1,163 @@
+<html>
+<head>
+<title>Inheritance and Interface</title>
+<meta http-equiv="Content-Type" content="text/html; charset=big5">
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+<h2 align="center"><font color="#660000">Tutorial 6: Inheritance and Interface</font></h2>
+<hr>
+<h3>Overview on this Tutorial:</h3>
+<p>1. <a href="#1">Inheritance (InheritanceTest.java)</a></p>
+<p>2. <a href="#2">Interface (InterfaceTest.java)</a></p>
+<p>3. <a href="#3">Some special syntaxes (Special.java)</a></p>
+<hr>
+<h3><a name="1"></a>Inheritance (<a href="InheritanceTest.java">InheritanceTest.java</a>):</h3>
+<p>1. Inheritance is a technique for deriving a new class from an existing class.</p>
+<p>2. The existing class called superclass, while the new class is called subclass.</p>
+<p>3. If class B is the subclass of class A, you should add &quot;extends A&quot; 
+  when declaring class B:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> class B extends A{<br>
+        &nbsp;&nbsp;&nbsp; // ...<br>
+        } <br>
+      </p>
+      </td>
+  </tr>
+</table>
+<p>4. In our example, class compStudent is a subclass of Student. So we have:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> class CompStudent extends Student<br>
+        {<br>
+        &nbsp;&nbsp;&nbsp; // ...<br>
+        }<br>
+      </p>
+      </td>
+  </tr>
+</table>
+<p>5. &quot;subclass&quot; basically contains all the varibles and functions from 
+  the &quot;superclass&quot;. This is the main reason for the use of Inheritance.</p>
+<p>6. Within the &quot;subclass&quot;, you can use the keyword &quot;super&quot; 
+  to refer to the &quot;superclass&quot;.</p>
+<p>7. You can redefine functions in &quot;subclass&quot;, such as &quot;average()&quot; 
+  in our example.</p>
+<p>8. If the function in the &quot;superclass&quot; is &quot;abstract&quot;, the 
+  function must be defined in the &quot;subclass&quot;.</p>
+<p>9. You can add new variables and functions in &quot;subclass&quot;, such as 
+  &quot;getCompMark()&quot; and &quot;compMark&quot; in our example.</p>
+<p>10. &quot;CompStudent&quot; is a kind of &quot;Student&quot;, so you can write:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> CompStudent calvin = new CompStudent(&quot;Calvin&quot;,71,65,80,90);<br>
+        Student calvinChu = calvin;</p>
+      </td>
+  </tr>
+</table>
+<p>11. But &quot;Student&quot; may not be a &quot;CompStudent&quot;, so you have 
+  to specify the change of type:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> Student calvin = new CompStudent(&quot;Calvin&quot;,71,65,80,90);<br>
+        CompStudent calvinChu = (CompStudent)calvin;</p></td>
+  </tr>
+</table>
+<p>12. If the &quot;Student&quot; is actually not a &quot;CompStudent&quot;, error 
+  will occur:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> Student calvin = new Student(&quot;Calvin&quot;,71,65,80);<br>
+        CompStudent calvinChu = (CompStudent)calvin;</p></td>
+  </tr>
+</table>
+<p><font color="#336600"><b><i><em><strong>Question:</strong></em></i></b></font></p>
+<p><font color="#336600"><b><i><em><strong>1. What is the &quot;superclass&quot; 
+  in the class InheritanceTest?</strong></em></i></b></font></p>
+<p><font color="#336600"><b><i><em><strong>2. Check the class definition of &quot;MIDlet&quot;, 
+  why we must add the implementations of the functions &quot;pauseApp()&quot; 
+  and &quot;destroyApp()&quot;?</strong></em></i></b></font></p>
+<hr>
+<h3><a name="2"></a>Interface (<a href="InterfaceTest.java">InterfaceTest.java</a>)</h3>
+<p>1. In Java, a class can extend at most one superclass, so we have to use interface.</p>
+<p>2. If a class B &quot;implements&quot; an interface C, you should add &quot;implements 
+  C&quot; when declaring class B.</p>
+<p>3. You can have a class B as shown:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> class B extends A implements C {<br>
+        &nbsp;&nbsp;&nbsp; // ...<br>
+        };</p>
+      </td>
+  </tr>
+</table>
+<p>4. In our example, the class &quot;Student&quot; implements the interface &quot;MyComparable&quot;.</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> class Student implements MyComparable {<br>
+        &nbsp;&nbsp;&nbsp; // ...<br>
+        };</p></td>
+  </tr>
+</table>
+<p>5. An interface is very similar to a class, but all the functions in an interface 
+  are &quot;abstract&quot; by default and all the variables in an interface are 
+  &quot;static&quot; by default.</p>
+<p>6. A class can implement multiple interfaces.</p>
+<hr>
+<h3><a name="3" id="3"></a>Some special syntaxes (<a href="Special.java">Special.java</a>)</h3>
+<p>1. You can see two special syntaxes in the program.</p>
+<p>2. The first one is the use of &quot;switch&quot;:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> switch(remainder) {<br>
+        &nbsp;&nbsp;&nbsp; case 0: System.out.println(&quot;The remainder is 0.&quot;); 
+        break;<br>
+        &nbsp;&nbsp;&nbsp; case 1: System.out.println(&quot;The remainder is 1.&quot;); 
+        break;<br>
+        &nbsp;&nbsp;&nbsp; case 2: System.out.println(&quot;The remainder is 2.&quot;); 
+        break;<br>
+        &nbsp;&nbsp;&nbsp; default: System.out.println(&quot;The remainder is 
+        3.&quot;);<br>
+        }</p></td>
+  </tr>
+</table>
+<p>which gives the same result as:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> if(remainder==0) {<br>
+        &nbsp;&nbsp;&nbsp; System.out.println(&quot;The remainder is 0.&quot;);<br>
+        }<br>
+        else if(remainder==1) {<br>
+        &nbsp;&nbsp;&nbsp; System.out.println(&quot;The remainder is 1.&quot;);<br>
+        }<br>
+        else if(remainder==2) {<br>
+        &nbsp;&nbsp;&nbsp; System.out.println(&quot;The remainder is 2.&quot;);<br>
+        }<br>
+        else {<br>
+        &nbsp;&nbsp;&nbsp; System.out.println(&quot;The remainder is 3.&quot;);<br>
+        }</p></td>
+  </tr>
+</table>
+<p>3. The second one is the use of &quot;(&lt;condition&gt;)&lt;v1&gt;:&lt;v2&gt;&quot;:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> String s=(remainder==0)?&quot;Divisible!&quot;:&quot;Not divisible!&quot; 
+        ;</p></td>
+  </tr>
+</table>
+<p>which gives the same result as:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> String s;<br>
+        if(remainder==0) {<br>
+        &nbsp;&nbsp;&nbsp; s=&quot;Divisible!&quot;;<br>
+        }<br>
+        else {<br>
+        &nbsp;&nbsp;&nbsp; s=&quot;Not Divisible!&quot;;<br>
+        }<br>
+      </p></td>
+  </tr>
+</table>
+<p>&nbsp;</p><p>&nbsp; </p>
+</body>
+</html>

@@ -816,6 +816,10 @@ const FETCHED_COURSES: FetchedCourses = {
   'COMP 7990': {
     title: 'Doctoral Thesis Research',
     description: 'Original and independent doctoral thesis research supervised by a faculty member.  A successful defense of the thesis leads to Pass.  No course credit is assigned.'
+  },
+  'ITEPC 01': {
+    title: 'Mobile phone application using Java 2 Micro Edition',
+    description: 'As a modern, objected-oriented, platform independent Language, Java is very popular nowadays. It is also widely used, because the Java technology is applied in many places, such as web pages, PCs, printers, PDAs, mobile phones, games, TVs, and cars. Mobile phone is the most popular mobile computing device nowadays. Since the computation power to mobile is increasing rapidly, there is increasing needed for application for mobile phones. The focus of this project is on mobile phone application development using Java 2 Micro Edition (J2ME). The Mobile Information Device Profile (MIDP), and Connected Limited Device Configuration (CLDC) for J2ME is used in this project. Although the name of the type of J2ME used is quite long, J2ME is not difficult to learn.',
   }
 };
 

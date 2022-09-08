@@ -1,0 +1,142 @@
+<html>
+<head>
+<title>Midlet and GameConvas 2</title>
+<meta http-equiv="Content-Type" content="text/html; charset=big5">
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+<h2 align="center"><font color="#660000">Tutorial 8: Midlet and GameConvas 2</font></h2>
+<hr>
+<h3>Overview on this Tutorial:</h3>
+<p>1. <a href="#1">Displaying image in the screen (ImageMIDlet.java)</a></p>
+<p>2. <a href="#2"> Printing a board of squares (SquareMIDlet.java)</a></p>
+<p>3. <a href="#3"> Handling key Events (KeyEvent.java)</a></p>
+<hr>
+<h3><a name="1"></a>Displaying image in the screen (<a href="ImageMIDlet.java">ImageMIDlet.java</a>):</h3>
+<p>1. In the example, to define an image object, we have: </p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> private Image ustLogo;</p></td>
+  </tr>
+</table>
+<p>2. In the example, to create the image object, we have:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> ustLogo = Image.createImage(&quot;/logo.png&quot;);</p></td>
+  </tr>
+</table>
+<p>3. In the example, to display the image which is simlar to draw a string, we 
+  have:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> g.drawImage(ustLogo, getWidth()/2, getHeight()/2, g.VCENTER | g.HCENTER 
+        );</p></td>
+  </tr>
+</table>
+<p>where &quot;g&quot; is an object of &quot;Graphics&quot;.</p>
+<p>4. To run the program, you have to download the image <a href="logo.PNG">logo.png</a> 
+  and store in the same directory with the .class files (such as C:\WTK22\apps\ImageMIDlet\classes).</p>
+<hr>
+<h3><a name="2"></a>Printing a board of squares (<a href="SquareMIDlet.java">SquareMIDlet.java</a>):</h3>
+<p>1. Recall the function &quot;fillRect&quot; of class &quot;Graphics&quot;:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> fillRect(&lt;x-coordinate&gt;, &lt;y-coordinate&gt;, &lt;width&gt;, 
+        &lt;height&gt;);</p></td>
+  </tr>
+</table>
+<p>2. We now want to print a board of squares with length 12 pixels. The squares 
+  are seperated by space is size 2 pixels.</p>
+<p>3. Recall the coorinate system used in Java is as follows:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> --------&gt;x<br>
+        | <br>
+        | <br>
+        | <br>
+        | <br>
+        v<br>
+        y</p></td>
+  </tr>
+</table>
+<p>4. The following codes can give you the number of horizontal blocks in a row 
+  and the number of vertical blocks a column:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> int hTemp=bWidth-SPACE-MIN_MARGIN;<br>
+        int vTemp=bHeight-SPACE-MIN_MARGIN; </p>
+      <p>numOfHBlock = hTemp / (BLK_SIZE+SPACE);<br>
+        numOfVBlock= vTemp / (BLK_SIZE+SPACE);</p></td>
+  </tr>
+</table>
+<p>5. So the total number of squares to be displace is: &quot;numOfHBlock&quot; 
+  times &quot;numOfVBlock&quot;.</p>
+<p>6. We have to use a nested for-loop to draw the squares:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> posY = SPACE + vMargin;<br>
+        for(int i=0; i&lt;numOfVBlock; i++) {<br>
+        &nbsp;&nbsp;&nbsp; posX = SPACE + hMargin;<br>
+        &nbsp;&nbsp;&nbsp; for(int j=0; j&lt;numOfHBlock; j++) {<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; g.fillRect(posX,posY,BLK_SIZE,BLK_SIZE);<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; posX += BLK_SIZE+SPACE;<br>
+        &nbsp;&nbsp;&nbsp; }<br>
+        &nbsp;&nbsp;&nbsp; posY += BLK_SIZE+SPACE;<br>
+        }</p></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<hr>
+<h3><a name="3" id="3"></a>Handling key Events (<a href="KeyEvent.java">KeyEvent.java</a>):</h3>
+<p>1. The GameConvas class is already designed to listen &quot;key Events&quot;, 
+  to handle the event, we have to implement the funtion &quot;keyPressed(keyCode)&quot;.</p>
+<p>2. A key event is drawn when the user presses a key, the function &quot;keyPressed&quot; 
+  will be called.</p>
+<p>3. The information of which key the user pressed is passed by the parameter 
+  &quot;keyCode&quot;.</p>
+<p>4. The example have shown how to distinguish the key pressed:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> message=&quot;&quot;;</p>
+      <p> switch(keyCode) {<br>
+        &nbsp;&nbsp;&nbsp; case KEY_NUM1: message+=&quot;Key 1 is pressed. &quot;; 
+        break;<br>
+        &nbsp;&nbsp;&nbsp; case KEY_NUM2: message+=&quot;Key 2 is pressed. &quot;; 
+        break;<br>
+        &nbsp;&nbsp;&nbsp; case KEY_NUM3: message+=&quot;Key 3 is pressed. &quot;; 
+        break;<br>
+        &nbsp;&nbsp;&nbsp; case KEY_NUM4: message+=&quot;Key 4 is pressed. &quot;; 
+        break;<br>
+        &nbsp;&nbsp;&nbsp; case KEY_NUM5: message+=&quot;Key 5 is pressed. &quot;; 
+        break;<br>
+        &nbsp;&nbsp;&nbsp; case KEY_NUM6: message+=&quot;Key 6 is pressed. &quot;; 
+        break;<br>
+        &nbsp;&nbsp;&nbsp; case KEY_NUM7: message+=&quot;Key 7 is pressed. &quot;; 
+        break;<br>
+        &nbsp;&nbsp;&nbsp; case KEY_NUM8: message+=&quot;Key 8 is pressed. &quot;; 
+        break;<br>
+        &nbsp;&nbsp;&nbsp; case KEY_NUM9: message+=&quot;Key 9 is pressed. &quot;; 
+        break;<br>
+        }</p>
+      <p> switch(getGameAction(keyCode)) {<br>
+        &nbsp;&nbsp;&nbsp; case Canvas.FIRE: message+=&quot;Key \&quot;FIRE\&quot; 
+        is pressed. &quot;; break;<br>
+        &nbsp;&nbsp;&nbsp; case Canvas.UP: message+=&quot;Key \&quot;UP\&quot; 
+        is pressed. &quot;; break;<br>
+        &nbsp;&nbsp;&nbsp; case Canvas.DOWN: message+=&quot;Key \&quot;Down\&quot; 
+        is pressed. &quot;; break;<br>
+        &nbsp;&nbsp;&nbsp; case Canvas.RIGHT: message+=&quot;Key \&quot;Right\&quot; 
+        is pressed. &quot;; break;<br>
+        &nbsp;&nbsp;&nbsp; case Canvas.LEFT: message+=&quot;Key \&quot;LEFT\&quot; 
+        is pressed. &quot;; break;<br>
+        }<br>
+        repaint();</p></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p>5. In order to force the system to call the paint function, we have to call 
+  &quot;repaint()&quot;.</p>
+<p>&nbsp;</p>
+<p>&nbsp; </p>
+</body>
+</html>
