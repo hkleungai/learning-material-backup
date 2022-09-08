@@ -820,6 +820,10 @@ const FETCHED_COURSES: FetchedCourses = {
   'ITEPC 01': {
     title: 'Mobile phone application using Java 2 Micro Edition',
     description: 'As a modern, objected-oriented, platform independent Language, Java is very popular nowadays. It is also widely used, because the Java technology is applied in many places, such as web pages, PCs, printers, PDAs, mobile phones, games, TVs, and cars. Mobile phone is the most popular mobile computing device nowadays. Since the computation power to mobile is increasing rapidly, there is increasing needed for application for mobile phones. The focus of this project is on mobile phone application development using Java 2 Micro Edition (J2ME). The Mobile Information Device Profile (MIDP), and Connected Limited Device Configuration (CLDC) for J2ME is used in this project. Although the name of the type of J2ME used is quite long, J2ME is not difficult to learn.',
+  },
+  'ITEPC 04': {
+    title: 'Decrypting Historical Ciphers',
+    description: 'Codes or ciphers are methods for transforming messages (called plaintext) into unreadable text (called ciphertext) using a secret one-to-one function. The original message can be recovered from the ciphertext using the inverse of the one-to-one function. The process of transforming a piece of message into a piece of ciphertext is called encryption, and the inverse process is referred to as decryption. The Roman Emperor JULIUS CAESAR’s code will transform the message "LOVE" into the ciphertext "ORZH". Traditionally, ciphers are crucial for diplomatic and military communications. Nowadays, they are widely used. Police organizations, government officials, banks, business companies, gangsters, mafia, and ordinary people are using ciphers because ciphers are incorporated in our mobile phones, fax machines and computers. Without ciphers on-line banking and shopping would not be possible. Hence ciphers have changed our daily life.',
   }
 };
 
