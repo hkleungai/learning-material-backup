@@ -1,0 +1,180 @@
+<html>
+<head>
+<title>Midlet and GameConvas 1</title>
+<meta http-equiv="Content-Type" content="text/html; charset=big5">
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+<h2 align="center"><font color="#660000">Tutorial 7: Midlet and GameConvas 1</font></h2>
+<hr>
+<h3>Overview on this Tutorial:</h3>
+<p>1. <a href="#1">The first GUI program using Midlet (FirstTextBox.java)</a></p>
+<p>2. <a href="#2"> Mutilple displays (TextBoxMidlet.java)</a></p>
+<p>3. <a href="#3"> The &quot;HelloWorld&quot; program using GameConvas (HelloMidlet1.java)</a></p>
+<hr>
+<h3><a name="1"></a>The first GUI program using Midlet (<a href="FirstTextBox.java">FirstTextBox.java</a>):</h3>
+<p>1. To demostrate some basic programming technique, we have written Midlet program 
+  as if writing &quot;Console&quot; program before. Now we focus on the Midlet 
+  program using graphical user interface (GUI).</p>
+<p>2. We desmostrate a very simple GUI program by a &quot;TextBox&quot; and an 
+  exit &quot;Command&quot;.</p>
+<p>3. A &quot;TextBox&quot; is constructed as follows:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> TextBox(String title, String text, int maxSize, int constraints)</p></td>
+  </tr>
+</table>
+<p>4. In our example:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> TextBox textBox = new TextBox(&quot;First Text Box Midlet&quot;, &quot;This 
+        is my first text box!&quot;, 256, TextField.ANY);</p></td>
+  </tr>
+</table>
+<p>5. A textbox is one of the class which can be displayed, so it is one of the 
+  subclass of the class Displayable.</p>
+<p>6. To display an object of &quot;Displayable&quot; class, we should have to 
+  get the current &quot;Display&quot; object, and set the current display.</p>
+<p>7. In our example:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p>midletDisplay = Display.getDisplay(this);</p></td>
+  </tr>
+  <tr>
+    <td>midletDisplay.setCurrent(textBox);</td>
+  </tr>
+</table>
+<p>8. Note that &quot;mideletDisplay&quot; is an object of &quot;Display&quot; 
+  and &quot;textBox&quot; is an object of &quot;TextBox&quot; which is a subclass 
+  of &quot;Displayable&quot;.</p>
+<p>9. We may add some command buttons into an &quot;displayable&quot; object.</p>
+<p>10. We use &quot;Command&quot; class for constructing command buttons. A &quot;Command&quot; 
+  is constructed as follows:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> Command(String label, int commandType, int priority) </p></td>
+  </tr>
+</table>
+<p>11. In our example:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> cmdExit = new Command(&quot;Exit&quot;, Command.EXIT, 1);</p></td>
+  </tr>
+</table>
+<p>12. To add the command button into the displayable object, we have to use the 
+  &quot;addCommand&quot; function.</p>
+<p>13. In our example:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> textBox.addCommand(cmdExit);</p></td>
+  </tr>
+</table>
+<p>14. But this is not enought, when using press the command, the program have 
+  to &quot;listen&quot; this &quot;event&quot; and handle it.</p>
+<p>15. To do so, we should have a class that implements &quot;CommandListener&quot; 
+  interface.</p>
+<p>16. To set the listener for the command, we have to use the function &quot;setCommandListener&quot;.</p>
+<p>17. In our example:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> textBox.setCommandListener(this);</p></td>
+  </tr>
+</table>
+<p>18. Then we have to implement the function commandAction() for handling the 
+  event. </p>
+<hr>
+<h3><a name="2"></a>Mutilple displays (<a href="TextBoxMIDlet.java">TextBoxMidlet.java</a>):</h3>
+<p>1. In this example, we have 3 different TextBoxes: &quot;t1&quot;, &quot;t2&quot; 
+  and &quot;t3&quot;.</p>
+<p>2. In this example, we have 4 command buttions: &quot;prn&quot;, &quot;one&quot;, 
+  &quot;two&quot; and &quot;three&quot;.</p>
+<p>3. When user presses the command buttons &quot;one&quot;, &quot;two&quot; and 
+  &quot;three&quot;, we display the TextBoxes &quot;t1&quot;, &quot;t2&quot; and 
+  &quot;t3&quot; respectively.</p>
+<p>4. When user presses the command button &quot;prn&quot;, we print out the text 
+  in the current displaying TextBox to the Console.</p>
+<p>5. To get the current displaying object, we can use the function &quot;getCurrent()&quot;.</p>
+<p>6. The &quot;commandType&quot; of the command button specifies the type of 
+  command button which affect the position of the button. For example, for the 
+  &quot;phone&quot; in the Emulator, the &quot;Exit&quot; button is placed in 
+  the left button.</p>
+<p>7. When there are too many command buttons, they will form a list and ordered 
+  by the piority.</p>
+<p>8. You can see a &quot;try and catch boxes&quot; in the programme which is 
+  related to execption handling.</p>
+<p>9. As we don't have time to discuss execption handling, you may always place 
+  the code which may have execption in the &quot;try box&quot; and you may leave 
+  in blank in the &quot;catch box&quot;.</p>
+<hr>
+<h3><a name="3" id="3"></a>The &quot;HelloWorld&quot; program using GameConvas 
+  (<a href="HelloMIDlet1.java">HelloMidlet1.java</a>):</h3>
+<p>1. There are actually two direct subclasses of Displayable class: &quot;Screen&quot; 
+  and &quot;Canvas&quot;.</p>
+<p>2. There are four subclasses of &quot;Screen&quot;: &quot;Alert&quot;, &quot;Form&quot;, 
+  &quot;List&quot;, &quot;TextBox&quot;. </p>
+<p>3. We have just discussed &quot;TextBox&quot;, and you may try the other threes 
+  if you want.</p>
+<p>4. However, the most flexible &quot;displayable&quot; class is &quot;Canvas&quot;/&quot;GameCanvas&quot;.</p>
+<p>5. &quot;GameConvas&quot; is a subclass of &quot;Canvas&quot;, but they are 
+  just difference in a few ways.</p>
+<p>6. We usually have to use a flexible &quot;displayable&quot; class to make 
+  games.</p>
+<p>7. By its name, you may already know that &quot;GameConvas&quot; is the suitable 
+  class to make games.</p>
+<p>8. In the paint() function of &quot;GameConvas&quot;, you can get an object 
+  of the class &quot;Graphics&quot;.</p>
+<p>9. We can use the object of the &quot;Graphics&quot; to fill in colours and 
+  to draw some text, geometric objects (including rectangules, traingles, lines, 
+  etc.) and images, etc.</p>
+<p>10. In the example, we draw the text &quot;Hello,World!&quot; by the function 
+  &quot;drawString()&quot;.</p>
+<p>11. Functions &quot;getWidth()&quot; and &quot;getHeight()&quot; gives us the 
+  width and the height of the screen in pixel.</p>
+<p>12. The position of &quot;drawString()&quot; is specify by the x-coordinate, 
+  the y-coordinate of the anchor point. Therefore, the function takes 4 parameters:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> drawString(String str, int x, int y, int anchor)</p></td>
+  </tr>
+</table>
+<p>13. Note the x and y coorinate system used in Java is as follows:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> --------&gt;x<br>
+        | <br>
+        | <br>
+        | <br>
+        | <br>
+        v<br>
+        y</p></td>
+  </tr>
+</table>
+<p>14. Note that the range of x is from 0 to the width of the screen, where the 
+  range of y is from 0 to the height of the screen.</p>
+<p>15. As the string have certain size(dimension), we should define the position 
+  of the anchor point.</p>
+<p>16. You have to use the bitwise OR to set the anchor point, such as:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> g.TOP | g.HCENTER</p></td>
+  </tr>
+</table>
+<p>17. You also see the function &quot;fillRect()&quot; in the program. The function 
+  takes 4 parameters:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> fillRect(int x, int y, int width, int height)</p></td>
+  </tr>
+</table>
+<p>18. The x-coordinate and y-coordinate of the &quot;fillRect()&quot; function 
+  specify the position of the top-left corner of the rectangle.</p>
+<p>&nbsp;</p>
+<p><font color="#336600"><b><i><em><strong>Question:</strong></em></i></b></font></p>
+<p><font color="#336600"><b><i><em><strong>Could you add an &quot;Exit&quot; Command 
+  to the &quot;HelloWorld&quot; program?</strong></em></i></b></font></p>
+<p><b><i><em><strong><font color="#336600">Solution: <a href="HelloMIDlet2.java">HelloMidlet2.java</a>.</font></strong></em></i></b></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp; </p>
+</body>
+</html>

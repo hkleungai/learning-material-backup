@@ -3,10 +3,6 @@ const CATEGORIZED_PRE_COURSES = [
         category: 'Algorithmic Study',
         courses: [
             {
-                code: 'COMP 170',
-                semesters: ['Fall 2005', 'Spring 2010'],
-            },
-            {
                 code: 'COMP 171',
                 semesters: ['Fall 2002', 'Fall 2005', 'Spring 2006'],
             },
@@ -29,14 +25,6 @@ const CATEGORIZED_PRE_COURSES = [
             {
                 code: 'COMP 670P',
                 semesters: ['Spring 2007'],
-            },
-            {
-                code: 'COMP 2711',
-                semesters: ['Spring 2016'],
-            },
-            {
-                code: 'COMP 2711H',
-                semesters: ['Fall 2014', 'Fall 2015', 'Fall 2021'],
             },
             {
                 code: 'COMP 3711',
@@ -101,6 +89,14 @@ const CATEGORIZED_PRE_COURSES = [
                 code: 'COMP 4451',
                 semesters: ['Spring 2015', 'Spring 2022'],
             },
+            {
+                code: '__FRACTUAL__ITEPC 05',
+                semesters: ['Summer 2006'],
+            },
+            {
+                code: '__CURVE_SERVICE__ITEPC 05',
+                semesters: ['Summer 2008'],
+            },
         ],
     },
     {
@@ -121,6 +117,23 @@ const CATEGORIZED_PRE_COURSES = [
         ],
     },
     {
+        category: 'Discrete Mathematics',
+        courses: [
+            {
+                code: 'COMP 170',
+                semesters: ['Fall 2005', 'Spring 2010'],
+            },
+            {
+                code: 'COMP 2711',
+                semesters: ['Spring 2016'],
+            },
+            {
+                code: 'COMP 2711H',
+                semesters: ['Fall 2014', 'Fall 2015', 'Fall 2021'],
+            },
+        ]
+    },
+    {
         category: 'Hacking / Security',
         courses: [
             {
@@ -134,6 +147,13 @@ const CATEGORIZED_PRE_COURSES = [
             {
                 code: 'COMP 5631',
                 semesters: ['Spring 2022'],
+            },
+            {
+                code: 'ITEPC 02',
+                semesters: ['Summer 2007', 'Summer 2008'],
+            }, {
+                code: 'ITEPC 04',
+                semesters: ['Summer 2006'],
             },
         ]
     },
@@ -172,7 +192,11 @@ const CATEGORIZED_PRE_COURSES = [
             {
                 code: 'COMP 2021',
                 semesters: ['Spring 2015', 'Spring 2016'],
-            }
+            },
+            {
+                code: 'ITEPC 01',
+                semesters: ['Summer 2006'],
+            },
         ],
     },
     {

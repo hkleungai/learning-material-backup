@@ -1,0 +1,136 @@
+<html>
+<head>
+<title>Functions and reference</title>
+<meta http-equiv="Content-Type" content="text/html; charset=big5">
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+<h2 align="center"><font color="#660000">Tutorial 4: Functions</font></h2>
+<hr>
+<h3>Overview on this Tutorial:</h3>
+<p>1. <a href="#1">Simple Function (FunctionTest1.java)</a></p>
+<p>2. <a href="#2">Pass Array to a Function (FunctionTest2.java)</a></p>
+<hr>
+<h3><a name="1"></a>Simple Function (<a href="FunctionTest1.java">FunctionTest1.java</a>):</h3>
+<p>1. Similar to other Programming, you can define function in Java. The syntax 
+  of a (simple) function in Java is:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> &lt;Returned Type&gt; &lt;Function Name&gt; (&lt;Parameter List&gt;) 
+        {<br>
+        &nbsp;&nbsp;&nbsp; &lt;Function Body&gt;<br>
+        } <br>
+      </p>
+      </td>
+  </tr>
+</table>
+<p>And a corresponding example is:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> int sum(int x, int y) {<br>
+        &nbsp;&nbsp;&nbsp; int z = x+y;<br>
+        &nbsp;&nbsp;&nbsp; return z;<br>
+        }<br>
+      </p></td>
+  </tr>
+</table>
+<p>2. &quot;Returned Type&quot; specifies the type of returned value. There usually 
+  exist a &quot;return&quot; statement in the function Body, specifying what values 
+  to be returned (for example, &quot;return z;&quot;).</p>
+<p>3. When &quot;Returned Type&quot; is &quot;void&quot; (nothing to be returned), 
+  there could be no return statement. (&quot;void&quot; function is similar to 
+  &quot;procedure&quot; in Pascal.)</p>
+<p>4. Followed by &quot;Returned Type&quot;, we have to give a function name. 
+  The function name is usually unique (in the same scope); otherwise, the parameter 
+  list should be different.</p>
+<p>5. You can have zero or more parameter in the parameter list, each of them 
+  can have different type.</p>
+<p>6. Now consider a call of the function &quot;sum&quot;:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> int a = 3;<br>
+        int b = 4;<br>
+        int c = sum(a, b);<br>
+      </p></td>
+  </tr>
+</table>
+<p>7. The value of &quot;a&quot; will be passed to &quot;x&quot;, and the value 
+  of &quot;b&quot; will be passed to &quot;y&quot;. The value of &quot;z&quot; 
+  is returned, that is &quot;sum(a,b)&quot;.</p>
+<p>8. A simpler way to call: &quot;sum(3, 4);&quot;</p>
+<p>9. Note that in the example, &quot;x&quot; and &quot;y&quot; are copies of 
+  &quot;a&quot; and &quot;b&quot; respectively.</p>
+<p><font color="#336600"><b><i><em><strong>Practice: Try to explain why the function 
+  swapFail() fails to swap two integers.</strong></em></i></b></font></p>
+<p>&nbsp;</p>
+<hr>
+<h3><a name="2"></a>Pass Array to a Function (<a href="FunctionTest2.java">FunctionTest2.java</a>):</h3>
+<p> 1. You can also pass array to a function.</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> void swapInt(int[] x) {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;int temp = x[0];<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;x[0] = x[1];<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;x[1] = temp;<br>
+        }</p>
+      <p><br>
+        public void startApp() {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;int [ ] z = {3, 4};<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;// ...<br>
+        }<br>
+      </p>
+      </td>
+  </tr>
+</table>
+<p>2. In the example, z is an integer array. Actually, z is said to be an &quot;object&quot; 
+  of Array &quot;class&quot;. For objects, the variables only store the &quot;reference&quot;. 
+  (&quot;class&quot; and &quot;object&quot; will be introduced later, and you 
+  may think that &quot;reference&quot; is just an address of the storage).</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><table width="100%" border="0">
+        <tr>
+          <td width="40">
+<p>z =&gt; </p>
+            <p>&nbsp;</p></td>
+          <td width="94%"><table width="75" border="2">
+              <tr> 
+                <td>3</td>
+              </tr>
+              <tr> 
+                <td>4</td>
+              </tr>
+            </table></td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<p>3. When z is pass as a parameter, the reference (address) is copied.</p>
+<p>4. That is, z and x also store the same reference (address).</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><table width="100%" border="0">
+        <tr> 
+          <td width="80"> 
+            <p>x,z =&gt; </p>
+            <p>&nbsp;</p></td>
+          <td width="90%">
+<table width="75" border="2">
+              <tr> 
+                <td>3</td>
+              </tr>
+              <tr> 
+                <td>4</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<p>5. So now the function &quot;swapInt()&quot; can work correctly. </p>
+<p>&nbsp;</p>
+</body>
+</html>

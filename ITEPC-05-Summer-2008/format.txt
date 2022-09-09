@@ -1,0 +1,44 @@
+1. Input points 
+
+format:
+it contains 3N lines(N points)
+line 3i+1: coordinates of the point
+line 3i+2: estimated normal of the point
+line 3i+3: 10 nearest neighbors index(indices start from 0)
+eg:
+0.1 0.2 0.15
+-1.0 0.0 0.0
+5 2 18 20 3 23 45 4 59 9
+
+
+
+2. Voronoi vertices 
+
+format:
+it contains 2M lines(M Voronoi points)
+line 2i+1: coordinates of the Voronoi point
+line 2i+2: 10 nearest neighbors of the normal points
+
+
+
+3. Delaunay triangles and dual Voronoi edges
+
+format:
+it contains 2K lines(K Delaunay triangles)
+line 2i+1: the indices of three vertices of a triangle
+line 2i+2: the endpoints of the corresponding Voronoi edges
+eg:
+0 14 21(normal point index)
+4 3(voronoi point index)
+
+
+Although some Voronoi edge is infinite, we artifically
+create an endpoint far away from the model. 
+
+
+
+4. Output file
+
+It contains P lines(P restricted Delaunay triangles)
+every lines is just three indices of the triangle vertices.
+

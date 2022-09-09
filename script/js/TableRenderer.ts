@@ -26,7 +26,8 @@ export class TableRenderer extends BaseRenderer<TableProps> {
     );
   };
   #buildCourseRow({ code, description, semesters, title }: Course): string {
-    const cells = semesters.map(semester => this.#buildSemesterCell(code, semester));
+    const displayCode = code.replace(/^__(.+)__/g, '');
+    const cells = semesters.map(semester => this.#buildSemesterCell(displayCode, semester));
     const [firstCell, ...extraCells] = cells;
     const firstRow = (
       /* html */`
@@ -35,11 +36,11 @@ export class TableRenderer extends BaseRenderer<TableProps> {
           class="course-code"
           rowSpan="${semesters.length}"
         >
-          ${code}
+          ${displayCode}
         </td>
         <td
           class="course-content"
-          id="${encodeURIComponent(code + '' + title)}"
+          id="${encodeURIComponent(displayCode + title)}"
           rowSpan="${semesters.length}"
         >
           <div class="course-content">

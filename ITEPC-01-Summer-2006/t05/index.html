@@ -1,0 +1,195 @@
+<html>
+<head>
+<title>Classes and Objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=big5">
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+<h2 align="center"><font color="#660000">Tutorial 5: Classes and Objects</font></h2>
+<hr>
+<h3>Overview on this Tutorial:</h3>
+<p>1. <a href="#1">A Simple Class (ClassTest1.java)</a></p>
+<p>2. <a href="#2">Static Variables and Functions (ClassTest2.java)</a></p>
+<p>3. <a href="#3">Public and Private (ClassTest3.java)</a></p>
+<p>4. <a href="#4">Constructor (ClassTest4.java)</a></p>
+<hr>
+<h3><a name="1"></a>A Simple Class (<a href="ClassTest1.java">ClassTest1.java</a>):</h3>
+<p>1. Actually, Java programmer doesn't think in function. They thinks in &quot;Classes&quot; 
+  and &quot;Objects&quot;, so Java is said to be an &quot;Object Oriented Programming&quot; 
+  (OOP) language.</p>
+<p>2. The syntax of a (simple) class in Java is:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> class &lt;Class Name&gt; {<br>
+        &nbsp;&nbsp;&nbsp; &lt;Member Functions&gt;<br>
+        &nbsp;&nbsp;&nbsp; &lt;Member Variables&gt;<br>
+        } <br>
+      </p>
+      </td>
+  </tr>
+</table>
+<p>3. It is actually quite similar to &quot;Record&quot; in Pascal, because both 
+  of them contains member variables. However, Class can have member functions.</p>
+<p>4. Here is an example:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> class Student // Define a class called Student<br>
+        {<br>
+        &nbsp;&nbsp;&nbsp; // Member functions<br>
+        &nbsp;&nbsp;&nbsp; void setName(String _name) {<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; name = _name;<br>
+        &nbsp;&nbsp;&nbsp; }</p>
+      <p> &nbsp;&nbsp;&nbsp; void setChiMark(int _chiMark) {<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; chiMark = _chiMark;<br>
+        &nbsp;&nbsp;&nbsp; }</p>
+      <p> &nbsp;&nbsp;&nbsp; void setEngMark(int _engMark) {<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; engMark = _engMark;<br>
+        &nbsp;&nbsp;&nbsp; }</p>
+      <p> &nbsp;&nbsp;&nbsp; void setMathMark(int _mathMark) {<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; mathMark = _mathMark;<br>
+        &nbsp;&nbsp;&nbsp; }</p>
+      <p> &nbsp;&nbsp;&nbsp; void printAve() {<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; System.out.println(name + &quot;: 
+        &quot; + average() );<br>
+        &nbsp;&nbsp;&nbsp; }</p>
+      <p> &nbsp;&nbsp;&nbsp; int average() {<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int ave = (chiMark + engMark + mathMark) 
+        / 3;<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return ave;<br>
+        &nbsp;&nbsp;&nbsp; }</p>
+      <p> &nbsp;&nbsp;&nbsp; // Member variables;<br>
+        &nbsp;&nbsp;&nbsp; String name;<br>
+        &nbsp;&nbsp;&nbsp; int chiMark;<br>
+        &nbsp;&nbsp;&nbsp; int engMark;<br>
+        &nbsp;&nbsp;&nbsp; int mathMark;<br>
+        }</p>
+      </td>
+  </tr>
+</table>
+<p>5. The class &quot;Student&quot; have 6 member functions: setName(), setChiMark(), 
+  setEngMark(), setMathMark(), printAve() and average().</p>
+<p>6. Member functions in a class can access its member variables.</p>
+<p>7. The class &quot;Student&quot; have 4 member variables: chimark, engMark, 
+  mathMark.</p>
+<p>8. To define a variable of type &quot;Student&quot;, we have to use a new operator.</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> Student calvin = new Student();<br>
+        Student simon = new Student();</p>
+      </td>
+  </tr>
+</table>
+<p>9. We called the variables (&quot;calvin&quot; and &quot;simon&quot;) as objects 
+  of class &quot;Student&quot;.</p>
+<p>10. Each objects have different set of member variables.</p>
+<p>11. Note that &quot;ClassTest1&quot; is another class (similar to &quot;Student&quot;).</p>
+<p>12. There is only one &quot;public&quot; class in a Java Program, which having 
+  the same name as the Java source code file.</p>
+<p>13. In fact, unlike Pascal and C++, every function in Java must belong to a 
+  class. </p>
+<p><font color="#336600"><b><i><em><strong>Practice: Try to add a member function 
+  &quot;higherAverage&quot; in the class &quot;ClassTest1&quot; as shown below:</strong></em></i></b></font></p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> public class ClassTest1 extends MIDlet // A class called ClassTest1<br>
+        {<br>
+        &nbsp;&nbsp;&nbsp; public ClassTest1() { }</p>
+      <p> &nbsp;&nbsp;&nbsp; public boolean higherAverage(Student s1, Student 
+        s2) { </p>
+      <p> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <strong>// 
+        Your code here..</strong><br>
+        &nbsp;&nbsp;&nbsp; }&nbsp;</p>
+      <p><br>
+        &nbsp;&nbsp;&nbsp; public void startApp() {<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Student calvin = new Student();<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; calvin.setName(&quot;Calvin&quot;);<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; calvin.setChiMark(71);<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; calvin.setEngMark(65);<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; calvin.setMathMark(80);</p>
+      <p> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Student simon = new Student();<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; simon.setName(&quot;Simon&quot;);<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; simon.setChiMark(72);<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; simon.setEngMark(66);<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; simon.setMathMark(81);</p>
+      <p> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; calvin.printAve();<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; simon.printAve();<br>
+        &nbsp;&nbsp;&nbsp; }</p>
+      <p> &nbsp;&nbsp;&nbsp; public void pauseApp() { }<br>
+        &nbsp;&nbsp;&nbsp; public void destroyApp(boolean unconditional) { }<br>
+        }</p></td>
+  </tr>
+</table>
+<p><b><i><em><strong><font color="#336600">Implement the function body such that 
+  it will return true if and only if student &quot;s1&quot; have higher average 
+  marks than student &quot;s2&quot;.</font></strong></em></i></b></p>
+<hr>
+<h3><a name="2"></a>Static Variables and Functions (<a href="ClassTest2.java">ClassTest2.java</a>)</h3>
+<p>1. As shown in the previous example, for normal class variables and functions, 
+  we have to use an object to reference them.</p>
+<p>2. For &quot;static&quot; class variables and functions, we should use the 
+  class name to reference them.</p>
+<p>3. There is a &quot;static&quot; variable called &quot;numOfStudent&quot; in 
+  the class &quot;Student&quot;, we should reference it by writing &quot;Student.numOfStudent&quot;.</p>
+<p>4. The idea is that a &quot;static&quot; variable or function belongs to a 
+  class, but not an object.</p>
+<p>5. A &quot;static&quot; function can use &quot;static&quot; variables. For 
+  example, the function getNumOfStudent() can use the variable numOfStudent.</p>
+<p>6. You can specify a constant variables using &quot;static final&quot;.</p>
+<hr>
+<h3><a name="3" id="3"></a>Public and Private (<a href="ClassTest3.java">ClassTest3.java</a>)</h3>
+<p>1. We will usually add &quot;private&quot; to all the variables to indicate 
+  that it can only be used by function in the same class.</p>
+<p>2. We will usually add &quot;public&quot; to all the functions to indicate 
+  that it can only be used by function in the same class.</p>
+<p>3. Since the variable chiMark is private and the functions setChiMark() and 
+  getChiMark() is public, we have:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p>calvin.setChiMark(71);<br>
+        int chiMark = calvin.getChiMark();</p>
+      </td>
+  </tr>
+</table>
+<p>But not:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p>calvin.chiMark = 71;<br>
+        int chiMark = calvin.chiMark;</p></td>
+  </tr>
+</table>
+<p>4. In fact, if you don't added &quot;public&quot; or &quot;private&quot;, Java 
+  will still treated all the functions as &quot;public&quot;, all the variables 
+  as &quot;default modifier&quot; (similar to &quot;private&quot;).</p>
+<p><b><i><em><strong><font color="#336600">Question: Simplifier the program by 
+  changing all the variables as &quot;public&quot;. (You can delete all the &quot;get&quot; 
+  and &quot;set&quot; functions).</font></strong></em></i></b></p>
+<hr>
+<h3><a name="4" id="4"></a>Constructor (<a href="ClassTest4.java">ClassTest4.java</a>)</h3>
+<p>1. There is usually a public function in a class with the function name being 
+  the same with the class name. This function is called by the &quot;new&quot; 
+  operator, that is the function is called whenever an object is constructed.</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p>Student calvin = new Student(&quot;Calvin&quot;,71,65,80);</p></td>
+  </tr>
+</table>
+<p>2. The constructor is usually used to initialize the variables.</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> public Student(String _name, int _chiMark, int _engMark, int _mathMark) 
+        {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;name = _name;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;chiMark = _chiMark;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;engMark = _engMark;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;mathMark = _mathMark;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;numOfStudent++;<br>
+        }</p></td>
+  </tr>
+</table>
+<p>3. Note that the variable &quot;numOfStudent&quot; is incremented by one when 
+  a Student object is constructed. So the variable &quot;numOfStudent&quot; can 
+  keep track of the total number of students.</p>
+<p>&nbsp;</p>
+<p>&nbsp; </p>
+</body>
+</html>

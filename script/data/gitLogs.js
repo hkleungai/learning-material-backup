@@ -1,4 +1,11 @@
 const GIT_LOGS = {
+    '2022-09-09 16:06:10': 'feat: add ITEMC 08 (08su)',
+    '2022-09-09 15:30:43': 'feat: add ITEMC 02 (07su)',
+    '2022-09-08 23:37:59': 'feat: add ITEMC 02 (08su)',
+    '2022-09-08 13:01:56': 'feat: add ITEPC 05 (06su)',
+    '2022-09-08 12:47:44': 'feat: add ITEPC 04 (06su)',
+    '2022-09-08 12:37:02': 'feat: add ITEPC 01 (06su)',
+    '2022-09-08 11:55:05': 'refactor: Separate Discrete Maths from Algo courses',
     '2022-09-08 01:32:04': 'feat: add COMP 5631 (22s)',
     '2022-09-08 01:10:27': 'feat: add COMP 4631 (22f)',
     '2022-09-03 17:14:08': 'refactor: clean up built files',

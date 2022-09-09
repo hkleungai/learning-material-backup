@@ -45,7 +45,8 @@ _TableRenderer_homeLink = new WeakMap(), _TableRenderer_instances = new WeakSet(
       </td>
       `);
 }, _TableRenderer_buildCourseRow = function _TableRenderer_buildCourseRow({ code, description, semesters, title }) {
-    const cells = semesters.map(semester => __classPrivateFieldGet(this, _TableRenderer_instances, "m", _TableRenderer_buildSemesterCell).call(this, code, semester));
+    const displayCode = code.replace(/^__(.+)__/g, '');
+    const cells = semesters.map(semester => __classPrivateFieldGet(this, _TableRenderer_instances, "m", _TableRenderer_buildSemesterCell).call(this, displayCode, semester));
     const [firstCell, ...extraCells] = cells;
     const firstRow = (`
       <tr>
@@ -53,11 +54,11 @@ _TableRenderer_homeLink = new WeakMap(), _TableRenderer_instances = new WeakSet(
           class="course-code"
           rowSpan="${semesters.length}"
         >
-          ${code}
+          ${displayCode}
         </td>
         <td
           class="course-content"
-          id="${encodeURIComponent(code + '' + title)}"
+          id="${encodeURIComponent(displayCode + title)}"
           rowSpan="${semesters.length}"
         >
           <div class="course-content">

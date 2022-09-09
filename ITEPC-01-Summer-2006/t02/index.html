@@ -1,0 +1,390 @@
+<html>
+<head>
+<title>Basics</title>
+<meta http-equiv="Content-Type" content="text/html; charset=big5">
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+<h2 align="center"><font color="#660000">Tutorial 2: Basics: int, bool, condition, 
+  loop, etc.</font></h2>
+<hr>
+<h3>Overview on this Tutorial:</h3>
+<p>1. <a href="#1">Output Text to Console (Basics1.java)</a></p>
+<p>2. <a href="#2">Integer and Integer Operation (Basics2.java)</a></p>
+<p>3. <a href="#3">Comparison Operators, Boolean Type and Condition Statement 
+  (Basics3.java)</a></p>
+<p>4. <a href="#4">Loop (Basic4.java)</a></p>
+<hr>
+<h3><a name="1"></a>Output Text to Console (<a href="Basics1.java">Basics1.java</a>):</h3>
+<p>In this and next tutorial, we firstly concentrate on the code inside the function 
+  &quot;startApp()&quot;, that is:</p>
+<table width="75%" border="1" align="center">
+  <tr>
+    <td><p>public void startApp()<br>
+        {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;// Consider the codes between two curvy bracket 
+        only.<br>
+        } </p>
+    </td>
+  </tr>
+</table>
+<p>We will talk about the detail of function in Java later. In this program, you 
+  can notice that:</p>
+<p>1. Text below &quot;//&quot; at a line is command.</p>
+<p>2. Text between &quot;/*&quot; and &quot;*/&quot; are command.</p>
+<p>3. Every function has a pair of curvy bracket (&quot;{&quot; and &quot;}&quot;), 
+  and the codes of a function lies between the pair of curvy bracket.</p>
+<p>4. The codes in &quot;startApp( )&quot; will execute first (similar to &quot;main&quot; 
+  function/Program in C/C++/Pascal). </p>
+<p>5. There is one line of code inside &quot;startApp( )&quot;:</p>
+<table width="75%" border="1" align="center">
+  <tr>
+    <td>System.out.println(&quot;Hello World!&quot;);</td>
+  </tr>
+</table>
+<p>6. &quot;System.out.println( )&quot; is a function to output text to console. 
+  The function takes one parameter, which is a String of text. The details of 
+  String will be discuss later.</p>
+<p>7. You can also use &quot;System.out.print( )&quot; which does not include 
+  &quot;end of line&quot; after outputting the text.</p>
+<p><em><font color="#336600"><strong>Practice: You can try to add more &quot;System.out.println(...)&quot; 
+  and &quot;System.out.print(...)&quot; in the program.</strong></font></em></p>
+<p>&nbsp;</p>
+<hr>
+<h3><a name="2"></a>Integer and Integer Operation (<a href="Basics2.java">Basics2.java</a>):</h3>
+<p>We consider the codes in &quot;startApp()&quot;. Notice that:</p>
+<p>1. We can declare an integer variable using &quot;int&quot;.</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><div align="left">
+        int x;<br>
+        int y, z;
+      </div></td>
+  </tr>
+</table>
+<div align="center"></div>
+<div align="center"></div>
+<div align="center"></div>
+<p>2. We can assign a value to an variable using the operator &quot;=&quot;.</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><div align="left">x=1;</div></td>
+  </tr>
+</table>
+<p>3. We can declare variable and assign value in the same line.</p>
+<table width="75%" border="1" align="center">
+  <tr>
+    <td>int a=7;</td>
+  </tr>
+</table>
+<p>4. You might notice that every line of code in Java is ended by &quot;;&quot;.</p>
+<p>5. Here is the table showing the arithmetic operators for &quot;int&quot;:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><strong>Operators</strong></td>
+    <td><strong>Example</strong></td>
+    <td><strong>Meaning</strong></td>
+  </tr>
+  <tr> 
+    <td>+</td>
+    <td>y + z</td>
+    <td>y plus z</td>
+  </tr>
+  <tr> 
+    <td>-</td>
+    <td>z - y</td>
+    <td>z minus y</td>
+  </tr>
+  <tr> 
+    <td>*</td>
+    <td>b * c</td>
+    <td>b times c</td>
+  </tr>
+  <tr> 
+    <td>/</td>
+    <td>a / y</td>
+    <td>Quotient when a divide y</td>
+  </tr>
+  <tr> 
+    <td>%</td>
+    <td>a % y</td>
+    <td>Reminder when a divide y</td>
+  </tr>
+  <tr> 
+    <td>++</td>
+    <td><p>x++ or ++x</p></td>
+    <td>Increment x by 1 (x = x+1)</td>
+  </tr>
+  <tr> 
+    <td>--</td>
+    <td>x-- or --x</td>
+    <td>Decrement x by 1 (x = x-1)</td>
+  </tr>
+  <tr>
+    <td>+</td>
+    <td>+1</td>
+    <td>Positive one (Same as 1)</td>
+  </tr>
+  <tr>
+    <td>-</td>
+    <td>-2</td>
+    <td>Negative two</td>
+  </tr>
+</table>
+<p>Note that all the operations return &quot;int&quot;.</p>
+<p><em><font color="#336600"><b><i><strong>Practice: You can try to use the &quot;++&quot; 
+  and &quot;--&quot; operation in the program.</strong></i></b></font></em></p>
+<hr>
+<h3><a name="3"></a>Comparison Operators, Boolean Type and Condition Statement 
+  (<a href="Basics3.java">Basics3.java</a>):</h3>
+<p>1. Here is the table showing the comparison operators:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><strong>Operators</strong></td>
+    <td><strong>Example</strong></td>
+    <td><strong>Return &quot;true&quot; when:</strong></td>
+  </tr>
+  <tr> 
+    <td>&gt;</td>
+    <td>x &gt; y</td>
+    <td>x is greater than y</td>
+  </tr>
+  <tr> 
+    <td>&gt;=</td>
+    <td>x &gt;= y</td>
+    <td>x is greater than or equal to y</td>
+  </tr>
+  <tr> 
+    <td>&lt;</td>
+    <td>x &lt; y</td>
+    <td>x is less than y</td>
+  </tr>
+  <tr> 
+    <td>&lt;=</td>
+    <td>x &lt;= y</td>
+    <td>x is less than or equal to y</td>
+  </tr>
+  <tr> 
+    <td><font face="Arial, Helvetica, sans-serif">==</font></td>
+    <td>x <font face="Arial, Helvetica, sans-serif">==</font> y</td>
+    <td>x is equal to y</td>
+  </tr>
+  <tr> 
+    <td>!=</td>
+    <td><p>x != y</p></td>
+    <td>x is not equal to y</td>
+  </tr>
+</table>
+<p>2. In order to execute some codes based on a condition. You can use &quot;if&quot; 
+  or &quot;if-else&quot; statement.</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p>if (&lt;A boolean variable or an expression&gt;) {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;/* Codes here will execute if the condition is 
+        true. */ <br>
+        } </p>
+      <p>if (&lt;A boolean variable or an expression&gt;) {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;/* Codes here will execute if the condition is 
+        true. */ <br>
+        } <br>
+        else { <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;/* Codes here will execute if the condition is 
+        false. */ <br>
+        } </p></td>
+  </tr>
+</table>
+<p><em><font color="#336600"><b><i><strong>Practice: You can try to use all the 
+  comparison operations in the program using &quot;if&quot; or &quot;if-else&quot; 
+  statements.</strong></i></b></font></em></p>
+<p>4. Apart from &quot;int&quot;, another data type in Java is &quot;boolean&quot;. 
+  You can declare a boolean variable and assign value to it.</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><div align="left"> boolean t = true;<br>
+        boolean f = false;<br>
+      </div></td>
+  </tr>
+</table>
+<p>Note that the only possible values for boolean are &quot;true&quot; and &quot;false&quot;.</p>
+<p>3. Here is the table showing the logical operations for boolean:</p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><strong>Operators</strong></td>
+    <td><strong>Example</strong></td>
+    <td><strong>Meaning</strong></td>
+  </tr>
+  <tr> 
+    <td>&amp;&amp;</td>
+    <td>x &amp;&amp; y</td>
+    <td>x and y</td>
+  </tr>
+  <tr> 
+    <td>||</td>
+    <td>x || y</td>
+    <td>x or y</td>
+  </tr>
+  <tr> 
+    <td>!</td>
+    <td>!x</td>
+    <td>not x</td>
+  </tr>
+</table>
+<p><em><font color="#336600"><b><i><strong>Practice: Assume num1, num2 &amp; num3 
+  are three integer variables, you can try write a few line of codes to print 
+  out the largest value among the three integers. </strong></i></b></font></em></p>
+<hr>
+<h3><a name="4"></a>Loop (<a href="Basics4.java">Basic4.java</a>):</h3>
+
+<p>There are times that you want to repeatedly run some lines of code until some condition is satisfied. In such cases you can use a loop to do that. There are 3 main kinds of loops:</p>
+      <ol>
+        <li><b><font color="#0000FF">while</font> loop</b><br>
+          This is a loop that starts from checking the condition. If the condition is <font color="#FF0000"><em>true</em></font>,
+          the code block in the loop will be executed once. Then the condition
+          is checked again to decide whether the code block will be executed again.
+          The loop terminates when the condition is <font color="#FF0000"><em>false</em></font>.
+          <br>
+          <div align="center"><img src="whileLoop.jpg" width="284" height="449"></div>
+		  <br>
+		  <p>Format:
+			<table width="75%" border="1" align="center">
+			  <tr> 
+				<td>
+<pre>
+// While loop
+while (&lt;A boolean variable or an expression&gt;) {
+    /* Codes here will execute whenever the condition is true. */
+}
+</pre>
+				</td>
+			  </tr>
+			</table>
+			</p>
+			
+			<p>Example:
+			<table width="75%" border="1" align="center">
+			  <tr>
+				<td>
+<pre>
+// While loop
+int i = 2;
+while (i < 100) {
+   System.out.print(i + " ");
+   i = i * 2;
+}
+System.out.println();
+</pre>
+				</td>
+			  </tr>
+			</table>
+		    </p>
+		</li>
+		
+        <li><b><font color="#0000FF">do-while</font> loop</b><br>
+          The do-while loop is almost the same as a while loop, with the only
+          excpetion that it executes the content of the loop once before the check.<br>
+          <div align="center"><img src="doWhileLoop.jpg"></div> <br>
+		  
+		  <p>Format:
+		  <table width="75%" border="1" align="center">
+			  <tr> 
+				<td>
+<pre>
+// Do-while loop
+do {
+   /* Codes here will execute whenever the condition is true. */
+} while (&lt;A boolean variable or an expression&gt;);
+</pre>
+				</td>
+			  </tr>
+			</table>
+			</p>
+			
+			<p>Example:
+			<table width="75%" border="1" align="center">
+			  <tr>
+				<td>
+<pre>
+// Do-while loop
+i = 1;
+do {
+   i = i * 2;
+   System.out.print(i + " ");
+   } while (i < 100);
+System.out.println();
+</pre>
+				</td>
+			  </tr>
+			</table>
+			</p>
+			<p>Note: the codes in do-while loop will execute as least once which is different from while statement.</p>
+			<p><em><font color="#336600"><b><i><strong>Practice: Trace the output before executing the program.</strong></i></b></font></em></p>
+		</li>
+		
+        <li><b><font color="#0000FF">for</font> loop</b><br>
+          The for loop allows you to initialize and update some counters togther with the looping process.<br>
+          <div align="center"><img src="forLoop.jpg" width="315" height="629"></div><br>
+		  
+		  <p>Format:
+			<table width="75%" border="1" align="center">
+			  <tr>
+				<td>
+<pre>
+for(&lt;Initial statment&gt;; &lt;Condition&gt;; &lt;Increment statement&gt;) {
+   /* Codes here will execute whenever the Condition is true. */
+}
+</pre>
+				</td>
+			  </tr>
+			</table>
+			</p>
+			
+			<p>Example:
+			<table width="75%" border="1" align="center">
+			  <tr> 
+				<td>
+<pre>
+for (i=0; i&lt;10; i++) {
+   System.out.print(i + " ");
+}
+System.out.println();
+</pre>
+				</td>
+			  </tr>
+			</table>
+			</p>
+			
+			<p>Which is same as the following code using &quot;while&quot; loop:</p>
+			<table width="75%" border="1" align="center">
+			  <tr> 
+				<td>
+<pre>
+i=0;
+while (i&lt;10) {
+   System.out.print(i + " ");
+   i++;
+}
+System.out.println();
+</pre>
+				</td>
+			  </tr>
+			</table>
+        </li>
+      </ol>
+
+<p><font color="#336600"><b><i><em><strong>Practice: Assume there is an integer 
+  called &quot;length&quot;, output an right angle triangle using &quot;*&quot; 
+  with the length equals to variable &quot;length&quot;. Here is the sample output 
+  when &quot;length&quot; is 5.</strong></em></i></b></font></p>
+<table width="75%" border="1" align="center">
+  <tr> 
+    <td><p> *<br>
+        **<br>
+        ***<br>
+        ****<br>
+        *****<br>
+      </p></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</body>
+</html>
