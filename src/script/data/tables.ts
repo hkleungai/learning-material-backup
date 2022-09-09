@@ -93,9 +93,13 @@ const CATEGORIZED_PRE_COURSES: Categorized<PreCourse>[] = [
         semesters: ['Spring 2015', 'Spring 2022'],
       },
       {
-        code: 'ITEPC 05',
+        code: '__FRACTUAL__ITEPC 05',
         semesters: ['Summer 2006'],
-      }
+      },
+      {
+        code: '__CURVE_SERVICE__ITEPC 05',
+        semesters: ['Summer 2008'],
+      },
     ],
   },
   {

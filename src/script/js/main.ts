@@ -1,13 +1,13 @@
-/** TODO: Change "code" from string into { dept, code }                                     */
-/** TODO: Change "semesters" from string[] into { year, season }                            */
-/** TODO: Show surprise "sucks" message upon clicking headers                               */
-/** TODO: Study ts-doc                                                                      */
-/** TODO: Make TagRender take nested json                                                   */
-/** TODO: Make some ts index.ts                                                             */
-/** TODO: Move data to proper json                                                          */
-/** TODO: Study browser / html test tools                                                   */
-/** TODO: Share __temp_commit var among git hooks                                           */
-/** TODO: Resolve for possible course code conflict on different semesters                  */
+/** TODO: Change "code" from string into { dept, code }                 */
+/** TODO: Change "semesters" from string[] into { year, season }        */
+/** TODO: Show surprise "sucks" message upon clicking headers           */
+/** TODO: Study ts-doc                                                  */
+/** TODO: Make TagRender take nested json                               */
+/** TODO: Make some ts index.ts                                         */
+/** TODO: Move data to proper json                                      */
+/** TODO: Study browser / html test tools                               */
+/** TODO: Share __temp_commit var among git hooks                       */
+/** TODO: Make codes more OOP                                           */
 
 import mainRenderer from './MainRenderer';
 import {

@@ -1,0 +1,136 @@
+#include <stdio.h>
+#include <math.h>
+
+#define MaxNumberOfPoints 1000
+
+// number of points
+int nPoints;
+
+// x,y coordinates of points
+double xCoord[MaxNumberOfPoints];
+double yCoord[MaxNumberOfPoints];
+
+// nearest neighbors
+int NN[MaxNumberOfPoints];
+
+// nearest neighbors on the opposite side
+int OppNN[MaxNumberOfPoints];
+
+
+
+// beginning of subroutines and the main program
+
+void FindNearestNeighbors()
+{
+	
+}
+
+
+void FindOppositeNearestNeighbor(int p)
+{
+	
+}
+
+
+
+void Input(const char* inputFileName)
+{
+	int i;
+
+
+	FILE* pFile = fopen(inputFileName, "r");
+
+	if(!pFile)
+	{
+		printf("Error: can't open %s.\n", inputFileName);
+		exit(0);
+	}
+
+	fscanf(pFile, "%d", &nPoints);
+
+	if(nPoints > MaxNumberOfPoints)
+	{
+		printf("Error: too many points.\n");
+		exit(0);
+	}
+
+	for(i = 0; i < nPoints; ++i)
+	{
+		fscanf(pFile, "%lf", &xCoord[i]);
+		fscanf(pFile, "%lf", &yCoord[i]);
+	}
+
+	fclose(pFile);
+}
+
+
+
+
+void Output(const char* outputFileName)
+{
+	int i;
+
+
+	FILE* pFile = fopen(outputFileName, "w");
+
+	if(!pFile)
+	{
+		printf("Error: can't open %s.\n", outputFileName);
+		exit(0);
+	}
+
+	for(i = 0; i < nPoints; ++i)
+	{
+		// print every edge exactly once
+		if(i < NN[i])
+			fprintf(pFile, "%d\t%d\n", i, NN[i]);
+		if(i < OppNN[i])
+			fprintf(pFile, "%d\t%d\n", i, OppNN[i]);
+	}
+
+	fclose(pFile);
+}
+
+
+
+
+int main(int argc, char** argv)
+{
+	int i;
+	if(argc != 3)
+	{
+		printf("Please specify input and output files\n");
+		exit(0);
+	}
+
+        // Read the points in the input file into the arrays xCoord and yCoord
+	Input(argv[1]);
+
+        
+        // Compute the nearest neighbors for each point.  Store the results in the array NN.
+	FindNearestNeighbors();
+
+       
+        // Decide if a point i are incident to two edges or not.  If not, OppNN[i] == -1.
+	for(i = 0; i < nPoints; ++i)	OppNN[i] = -1;
+	for(i = 0; i < nPoints; ++i)
+	{
+		if(NN[NN[i]] != i)	// NN[i] is connected with 2 neighbors
+			OppNN[NN[i]] = i;
+	}
+
+
+        // For each point i such that OppNN[i] == -1, find the "opposite nearest neighbor".
+	for(i = 0; i < nPoints; ++i)
+	{
+		if(OppNN[i] == -1)	// i is connected to NN[i] only
+			FindOppositeNearestNeighbor(i);
+	}
+
+ 
+        // Output the edges to the user specified output file.
+	Output(argv[2]);
+
+
+	return 0;
+}
