@@ -121,7 +121,7 @@ const CATEGORIZED_PRE_COURSES = [
         courses: [
             {
                 code: 'COMP 170',
-                semesters: ['Fall 2005', 'Spring 2010'],
+                semesters: ['Fall 2005', 'Fall 2006', 'Fall 2007', 'Fall 2008', 'Spring 2010'],
             },
             {
                 code: 'COMP 2711',
