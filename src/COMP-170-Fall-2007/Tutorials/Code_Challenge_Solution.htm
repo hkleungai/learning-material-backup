@@ -1,0 +1,137 @@
+<html><head>
+
+
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><title>
+A Challenge problem</title></head><body>
+
+<h2><u>A Challenge Problem</u></h2>
+<p>&nbsp;</p>
+<p><font size="4">A <i>digit </i>is a symbol from <i>{0,1,2,3,4,5,6,7,8,9}</i></font></p>
+<p><font size="4">The security lock on our office door requires typing in a 
+four-digit code </font></p>
+<p><font size="4">The lock remembers the last four digits typed in and opens if 
+they are the security code. For example, if the security code is
+<font color="#800000">2456</font>, and you type in <font color="#800000">132456</font> 
+the lock will open because the last four digits are the proper code.</font></p>
+<p><font size="4">You might think that you need to type in 4X10,000= 40,000 
+digits in order to be sure that you've typed in the code.&nbsp; That's not true, 
+since typing in a sequence of digits checks all sequences of length 4, e.g.,
+<font color="#800000">132456</font>&nbsp; will open the door if the security 
+code is any of&nbsp; <font color="#800000">1324, 3245, 2456.</font></font></p>
+<p><font size="4">What is the minimum number of digits that you need to type in 
+before being sure that the door will open?</font></p>
+<p><font size="4">To answer this problem correctly,&nbsp; you not only need to 
+give the number but prove that your answer is correct, i.e., describe the 
+sequence of digits that you will type in.</font></p><hr>
+<p><font size="4">If you can solve this problem,&nbsp; please email your 
+solution to the TA, Mr LIN Kin Wah, <a href="mailto:edwardtm@cse.ust.hk">
+edwardtm@cse.ust.hk</a> , before 9AM, Monday September 10, 2007</font></p>
+<hr>
+<p>&nbsp;</p>
+<h2><u>Solution</u></h2>
+<p><font size="4">Imagine writing down a long word of length <i>n</i> and 
+sliding a window of length <i>4 </i>along the word.&nbsp; The window has exactly
+<i>n-3</i> starting places.&nbsp; So,&nbsp; a word of length <i>n</i> can 
+contain at most <i>n-3</i> patterns and,&nbsp; to see 10,000 patterns, we will 
+need at least 10,003 digits.</font></p>
+<p><font size="4">In fact,&nbsp; it is possible to write down (many different) 
+words of 10,003 digits that work.
+<a href="http://www.hakank.org/comb/debruijn_k_10_n_4.html">This page</a> gives 
+one possible solution.&nbsp; Note that the solution there is for what is called 
+the necklace problem (it assumes the solution is circular) and only has 10,000 
+digits.&nbsp; To transform it to a solution to our problem,&nbsp; you need to 
+add <i><font color="#FF0000">000</font></i> to the end of their solution.</font></p>
+<p><font size="4">This is&nbsp; a special case of what are known as&nbsp;&nbsp;
+<a href="http://en.wikipedia.org/wiki/De_Bruijn_sequence">De Bruijn sequences.</a>&nbsp; 
+The paper</font></p>
+<p align="center">
+<a href="http://siamdl.aip.org/getpdf/servlet/GetPDFServlet?filetype=pdf&id=SIREAD000024000002000195000001&idtype=cvips">
+<font size="4">A Survey of Full Length Nonlinear Shift Register Cycle Algorithms</font></a><font size="4"><br>
+Harold Fredricksen<br>
+<i>SIAM Review</i><br>
+Vol. 24, No. 2, April 1982 pp. 195-221</font></p>
+<p><font size="4">gives a history of these problems (the first two paragraphs 
+are exactly our challenge problem).&nbsp; Note that the last link might only 
+work from within the UST domain. The paper also gives some algorithms for 
+solving the problem.</font></p>
+<p><font size="4">We will not actually give the algorithm.&nbsp; Instead,&nbsp; 
+we will describe a technique that shows that it is always possible,&nbsp; for 
+this problem and similar ones,&nbsp; to find a solution of the required length.</font></p>
+<p>F<font size="4">or simplicity, of description,&nbsp; we consider that for the 
+four digit key-code&nbsp; the digits are in {1,2,3} instead of in 
+{0,1,2,3,4,5,6,7,8,9}. This problem has 3^4 =81&nbsp; possible codes and 
+therefore needs at least 81+(4-1) =84 digits to write down all of the codes.&nbsp; 
+We will see a way of doing this with 84 digits.</font></p>
+<p><font size="4">Our method is to construct an appropriate (directed) graph
+<font color="#FF0000">G=(V,E) </font>&nbsp;for the problem, where <i>V</i>&nbsp; 
+is the set of vertices in the graph and <i>E</i> is the set of edges.&nbsp; (We 
+will learn more about graphs at the end of this course.)&nbsp; For a short 
+description, you can also see this
+<a href="http://en.wikipedia.org/wiki/Graph_theory">Wikipedia article</a>.<font color="#FF0000">
+</font><font color="#800000">&nbsp;</font>The next step will be to find an
+<a href="http://en.wikipedia.org/wiki/Eulerian_path">Eulerian cycle</a> in the 
+graph.&nbsp; An Eulerian cycle is a path that starts at one vertex,&nbsp; 
+travels along an edge to another vertex, picks a new edge from that vertex to 
+travel along and continues doing this,&nbsp; never repeating an edge, until all 
+edges have been travelled&nbsp; and it returns to its original starting point 
+(it's not always possible to find such a path).</font></p>
+<p><font size="4">We construct the graph as follows.&nbsp; The vertices are the 
+set of all 3-digit numbers.&nbsp; Each vertex will have 3 edges leaving it;&nbsp; 
+one each labelled {1,2,3} .&nbsp; The edge labelled <font color="#FF0000">d
+</font>(from {1,2,3}) <font color="#FF0000">&nbsp;</font>leaving vertex
+<font color="#FF0000">abc</font> goes to vertex <font color="#FF0000">bcd</font>. 
+Associate with such an edge the name <font color="#FF0000">abcd</font>.&nbsp; 
+Note that every four letter name&nbsp; <font color="#FF0000">abcd</font> appears 
+exactly once; on the edge connecting the two vertices <font color="#FF0000">abc</font> 
+and <font color="#FF0000">bcd</font>.&nbsp; The diagram below shows part of this 
+graph.&nbsp; In this case,&nbsp; the edge&nbsp; (123)-&gt;(232) would have name 
+1232.</font></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p align="center">
+<img border="0" src="Challenge_Graph.jpg" width="605" height="396"></p>
+<p>&nbsp;</p>
+<p><font size="4">Consider the graph.&nbsp; Suppose that an Eulerian&nbsp; cycle 
+existed.&nbsp; Then we could </font></p>
+<ul>
+	<li><font size="4">start at any vertex, e.g., 123, <br>
+	<font color="#008000">write down the 3 digits of that vertex</font></font></li>
+	<li><font size="4">follow the Eulerian tour, visiting each edge exactly once<br>
+	<font color="#008000">when travelling along an edge,&nbsp; write down its 
+	label from {1,2,3}</font></font></li>
+</ul>
+<p><font size="4">Each time we write down a label along an edge,&nbsp; the last 
+four digits written will be the name associated with that edge.&nbsp; Since we 
+travel along every edge exactly once,&nbsp; we will have seen all possible 4 
+digit names.&nbsp; We started by writing down 3&nbsp; digits and then wrote one 
+down for each of the 81 edges.&nbsp; So, we have seen all 81 4-letter codes by 
+writing 84 digits.</font></p>
+<p>&nbsp;</p>
+<p><font size="4">The only thing that remains is to show that the graph we built 
+does have an Eulerian cycle.&nbsp; It turns out that
+<a href="http://en.wikipedia.org/wiki/Eulerian_path#Properties">a necessary and 
+sufficient condition for a connected graph to have an Eulerian cycle</a> is 
+that, for every vertex, the number of edges entering the vertex is the same as 
+the number leaving the vertex.&nbsp; In our case,&nbsp; every vertex has exactly 
+three edges entering it and three leaving it,&nbsp; so it has an Eulerian cycle 
+and we are done.</font></p>
+<p>&nbsp;</p>
+<p><font size="4">Returning now to our original problem where the digits are 
+chosen from {0,1,2,3,4,5,6,7,8,9}.&nbsp; Again build a graph whose vertices are 
+all 1000&nbsp; 3 digit codes.&nbsp; Every vertex will have 10 edges leaving it,&nbsp; 
+one each labelled {0,1,2,3,4,5,6,7,8,9}. Edge <font color="#FF0000">d</font> 
+leaving <font color="#FF0000">abc</font> will go to <font color="#FF0000">bcd</font>.&nbsp; 
+This graph has an Eulerian cycle because every vertex has the same number (10) 
+edges leaving it as entering it.&nbsp; So, the same technique of&nbsp; -- 
+starting at any vertex, writing down its name and then walking along the 
+Eulerian cycle writing down labels -- will give the sequence of length 10003 
+that we want.</font></p>
+<p>&nbsp;</p>
+<hr>
+<p><i><font size="2">Last updated on
+<!--webbot bot="Timestamp" S-Type="EDITED" S-Format="%m/%d/%Y %I:%M %p" startspan -->09/12/2007 08:55 AM<!--webbot bot="Timestamp" endspan i-checksum="26458" --> 
+by M. J. Golin,&nbsp; with assistance from Qin Zhang</font></i></p>
+
+
+</body></html>
